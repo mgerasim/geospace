@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeospaceMediana", "Geospace
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeospacePhysics", "GeospacePhysics\GeospacePhysics.csproj", "{B8FBFE36-2CE1-4C31-A959-9890289C9B49}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeospaceTest", "GeospaceTest\GeospaceTest.csproj", "{315FD893-E410-4E74-9C97-0AE9DDF9414E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{B8FBFE36-2CE1-4C31-A959-9890289C9B49}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8FBFE36-2CE1-4C31-A959-9890289C9B49}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8FBFE36-2CE1-4C31-A959-9890289C9B49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{315FD893-E410-4E74-9C97-0AE9DDF9414E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{315FD893-E410-4E74-9C97-0AE9DDF9414E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{315FD893-E410-4E74-9C97-0AE9DDF9414E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{315FD893-E410-4E74-9C97-0AE9DDF9414E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
