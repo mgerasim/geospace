@@ -1,0 +1,53 @@
+﻿<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="@Url.Content("~/")">
+        <img style="max-width:100px; margin-top: -15px;" src="@Url.Content("~/Content/roshydromet.jpg")">        
+      </a>
+      <a class="navbar-brand" href="@Url.Content("~/")">
+        Метеорологический бюллетень погоды
+      </a>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      
+      <ul class="nav navbar-nav navbar-right">      
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Справочники<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">            
+            <li>@Html.ActionLink("Абоненты", "Index", "Abonent")</li>
+            <li>@Html.ActionLink("Группы абонентов", "Index", "Group")</li>            
+            <li class="divider"></li>
+            <li>@Html.ActionLink("Территория", "Index", "Territory")</li>
+            <li>@Html.ActionLink("Административные районы и населённые пункты", "Index", "Region")</li>
+            <li class="divider"></li>
+            <li>@Html.ActionLink("Облачность", "Index", "CloudinessTemplate")</li>
+            <li>@Html.ActionLink("Осадки", "Index", "PrecipitationTemplate")</li>
+            <li>@Html.ActionLink("Ветер", "Index", "WindTemplate")</li>
+            <li>@Html.ActionLink("Явления", "Index", "ConditionTemplate")</li>
+            <li class="divider"></li>
+            <li>@Html.ActionLink("Уточнения", "Index", "ClarificationTemplate")</li>            
+          </ul>
+        </li>
+        <li>@Html.ActionLink("Настройки", "Index", "Settings")</li>
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Администрирование<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li>@Html.ActionLink("Обновить схему", "Update", "Schema")</li>            
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
