@@ -34,7 +34,7 @@ namespace GeospaceEntity.Models
         {
             try
             {
-                strIonka = Helper.HelperIonka.TryNormalize(strIonka);
+                strIonka = Helper.HelperIonka.Check(strIonka);
                 Code = Helper.HelperIonka.Ionka_Group02_Station(strIonka);
                 DateTime Created_At = Helper.HelperIonka.Ionka_Group03_DateCreate(strIonka);
                 int sessionCount = Helper.HelperIonka.Ionka_Group04_Count(strIonka);

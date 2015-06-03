@@ -8,7 +8,24 @@ namespace GeospaceEntity.Helper
 {
     public static class HelperIonka
     {
-        public static string TryNormalize(string strIonka) 
+        public static string Normalize(string strIonka)
+        {
+            string[] delimiters = new string[] { "ionka", "IONKA" };
+            string[] strCodes = strIonka.Split(delimiters,
+                                 StringSplitOptions.None);
+            if (strCodes.Count() == 1) 
+            {
+                return "";
+            }
+            string strIonkaNormalize = "";
+            foreach (var item in strCodes)
+            {
+                strIonkaNormalize += item.Replace("\r\n", " ") + "\r\n";
+
+            }
+            return strIonkaNormalize;
+        }
+        public static string Check(string strIonka) 
         {
             strIonka = strIonka.Replace("\"", "");
 

@@ -17,7 +17,7 @@ namespace GeospaceDecodeService
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[] 
             { 
-                new Service1() 
+                new GeospaceDecodeService() 
             };
             ServiceBase.Run(ServicesToRun);
         }

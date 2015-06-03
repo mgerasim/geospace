@@ -15,7 +15,7 @@ namespace GeospaceTest
             Support02(); 
             Console.ReadKey();
         }
-        static async void Support02()
+        static void Support02()
         {
             string strFile = Environment.CurrentDirectory;
             strFile = Path.GetDirectoryName(strFile);
@@ -38,11 +38,20 @@ namespace GeospaceTest
             {
                 using (StreamReader sr = new StreamReader(strFile))
                 {
-                    String line = await sr.ReadToEndAsync();
+                    String line = sr.ReadToEnd();
                     string[] delimiters = new string[] { "[ETX]" };
-                    Console.WriteLine(line.Split(new char[] { '\u0002', '\u0003' },
-                                 StringSplitOptions.RemoveEmptyEntries)[1]);
+                    foreach (var item in line.Split(new char[] { '\u0002', '\u0003' },
+                                 StringSplitOptions.RemoveEmptyEntries)) {
 
+                        string theCode = GeospaceEntity.Helper.HelperIonka.Normalize(item);
+
+                        if (theCode != "")
+                        {
+                             Console.WriteLine(theCode);
+                            Console.ReadKey();
+                        }
+                    }
+                    
                 }
             }
             catch (Exception e)
