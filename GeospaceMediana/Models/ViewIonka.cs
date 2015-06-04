@@ -43,5 +43,17 @@ namespace GeospaceMediana.Models
             }
             return theList;
         }
+        public List<String> GetHeaderValue()
+        {
+            List<string> theList = new List<string>();
+            theList.Add("f0 F2");
+            theList.Add("M3k F2");
+            theList.Add("f0 F1");
+            theList.Add("M3k F1");
+            theList.Add("f0 Es");
+            theList.Add("D");
+            theList.Add("f min");
+            return theList;
+        }
     }
 }

@@ -10,17 +10,31 @@ namespace GeospaceEntity.Helper
     {
         public static string Normalize(string strIonka)
         {
-            string[] delimiters = new string[] { "ionka", "IONKA" };
+            string[] delimiters = new string[] { " ","\r\n" };
             string[] strCodes = strIonka.Split(delimiters,
                                  StringSplitOptions.None);
-            if (strCodes.Count() == 1) 
+            if (strCodes.Count() == 1)
             {
                 return "";
             }
             string strIonkaNormalize = "";
             foreach (var item in strCodes)
             {
-                strIonkaNormalize += item.Replace("\r\n", " ") + "\r\n";
+                string ss = item;
+                if (ss.Length == 6)
+                {
+                    ss = ss.Replace("=", "");
+                }
+                if (ss.Length == 5)
+                {
+                    if (Char.IsLetter(ss[0]))
+                    {
+                        ss = "\r\n" + ss;
+                    }
+                    strIonkaNormalize += ss;
+                    strIonkaNormalize += " ";
+                }
+                
 
             }
             return strIonkaNormalize;
