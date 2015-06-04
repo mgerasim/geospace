@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = @ViewBag.Title;
+}
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>
+                Час
+            </th>
+            @foreach (var item in Model.GetHeader())
+            {
+
+                <th>
+                    @item
+                </th>
+
+            }
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach(var item in Model.GetHour())
+        {
+            <tr>
+                <td>
+                    @item
+                </td>
+            </tr>
+        
+        }
+    </tbody>
+</table>
