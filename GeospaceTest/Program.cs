@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GeospaceEntity.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -42,13 +43,40 @@ namespace GeospaceTest
                     string[] delimiters = new string[] { "[ETX]" };
                     foreach (var item in line.Split(new char[] { '\u0002', '\u0003' },
                                  StringSplitOptions.RemoveEmptyEntries)) {
-
+                                    
+                        Console.WriteLine("item");
+                        Console.WriteLine(item);
                         string theCode = GeospaceEntity.Helper.HelperIonka.Normalize(item);
 
-                        if (theCode != "")
+                        Console.WriteLine(theCode);
+
+                        foreach (var code in theCode.Split(new string[] {"\r\n"}, StringSplitOptions.RemoveEmptyEntries))
                         {
-                             Console.WriteLine(theCode);
-                            Console.ReadKey();
+                            if (code.Length > 6)
+                            {
+                                if (code.Substring(0, 5).ToUpper() == "IONKA")
+                                {
+                                    Console.WriteLine("theCode");
+                                    Console.WriteLine(code);
+                                    Station theStation = new Station();
+                                    try 
+                                    {
+                                        theStation.TryParser(code);
+                                        
+                                    }
+                                    catch (Exception ex)
+                                    {   
+                                        Console.WriteLine("E R R O R");
+                                        Console.WriteLine(code);
+                                        Console.WriteLine(ex.Message);
+                                        Console.WriteLine(ex.Source);
+                                        Console.WriteLine(ex.StackTrace);
+                                    }
+                                    
+                                }
+                           
+                            }
+
                         }
                     }
                     

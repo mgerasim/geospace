@@ -36,6 +36,11 @@ namespace GeospaceEntity.Models
             {
                 strIonka = Helper.HelperIonka.Check(strIonka);
                 Code = Helper.HelperIonka.Ionka_Group02_Station(strIonka);
+                if (Code == 43501)
+                {
+                    // Для Хабарвска код ИОНКА упращенный
+                    return;
+                }
                 DateTime Created_At = Helper.HelperIonka.Ionka_Group03_DateCreate(strIonka);
                 int sessionCount = Helper.HelperIonka.Ionka_Group04_Count(strIonka);
 
@@ -52,6 +57,7 @@ namespace GeospaceEntity.Models
             }
             catch (Exception ex)
             {
+                Helper.HelperIonka.Check(strIonka);
                 throw new Exception(ex.Message);
             }
         }

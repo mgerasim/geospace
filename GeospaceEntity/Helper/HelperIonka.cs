@@ -10,7 +10,9 @@ namespace GeospaceEntity.Helper
     {
         public static string Normalize(string strIonka)
         {
-            string[] delimiters = new string[] { " ","\r\n" };
+            string[] delimiters = new string[] { " ","\r\n"};
+
+           // strIonka = strIonka.Replace("///", "/ //");
             string[] strCodes = strIonka.Split(delimiters,
                                  StringSplitOptions.None);
             if (strCodes.Count() == 1)
@@ -21,9 +23,37 @@ namespace GeospaceEntity.Helper
             foreach (var item in strCodes)
             {
                 string ss = item;
+
+                if ((ss.Length == 10 || ss.Length == 11) && ss.IndexOf("///") > -1)
+                {
+                    ss = ss.Replace("///", "/ //");
+                    strIonkaNormalize += ss;
+                    strIonkaNormalize += " ";
+                }
+                if (ss.IndexOf("//7///=") > -1)
+                {
+
+                    ss = ss.Replace("//7///=", "//7//");
+                    ss = ss.Replace("//7///", "//7//");
+                }
                 if (ss.Length == 6)
                 {
                     ss = ss.Replace("=", "");
+                    ss = ss.Replace("-", "");
+                    if (ss.Substring(0, 2) == "00")
+                    {
+                        ss = ss.Replace("00", "0");
+                    }
+                }
+                if (ss.Length == 4)
+                {
+                    ss = ss.Replace("/73/", "//73/");
+                    ss = ss.Replace("//77", "//7/7");
+                    ss = ss.Replace("//11", "//1/1");
+                    if (ss.Length == 4)
+                    {
+                        ss = "0" + ss;
+                    }
                 }
                 if (ss.Length == 5)
                 {
@@ -39,16 +69,38 @@ namespace GeospaceEntity.Helper
             }
             return strIonkaNormalize;
         }
+        public static int ParseToken(string strToken)
+        {
+            int res = 0;
+            if (strToken.IndexOf("/") > -1)
+            {
+                strToken = strToken.Replace("/", "");
+                if (strToken == "")
+                {
+                    strToken = "0";
+                }
+                res += 1000;
+            }
+            res = Convert.ToInt32(strToken);
+            return res;
+        }
         public static string Check(string strIonka) 
         {
             strIonka = strIonka.Replace("\"", "");
+            strIonka = strIonka.Replace("///", "/ //");
 
             string[] arrayString = strIonka.Split(' ');
             if (arrayString[0] != "ionka" && arrayString[0] != "IONKA")
             {
                 throw new Exception("Не явлейтсе строкой с кодом Ionka");
             }
-
+            string tokenGroup02 = arrayString[1];
+            int numberStation = Convert.ToInt32(tokenGroup02);
+            if (numberStation == 43501)
+            {
+                // Для станции с кодом 43501 Хабаровск код IONKA упращенный
+                return strIonka ;
+            }
             string tokenGroup04 = arrayString[3];
             int numberControl = Convert.ToInt32(tokenGroup04.Substring(0, 1));
             if (numberControl != 7)
@@ -80,7 +132,7 @@ namespace GeospaceEntity.Helper
         {
             string[] arrayString = strIonka.Split(' ');
             string strStation = arrayString[1];
-            int numberStation = Convert.ToInt32(strStation);
+            int numberStation = ParseToken(strStation);
             return numberStation;
         }
 
@@ -112,7 +164,8 @@ namespace GeospaceEntity.Helper
         {
             string[] arrayTokens = strSession.Split(' ');
             string token = arrayTokens[0];
-            int MM = Convert.ToInt32(token.Substring(1, 2));
+            token = token.Substring(1, 2);
+            int MM = ParseToken(token);
             return MM;
         }
 
@@ -120,7 +173,8 @@ namespace GeospaceEntity.Helper
         {
             string[] arrayTokens = strSession.Split(' ');
             string token = arrayTokens[0];
-            int DD = Convert.ToInt32(token.Substring(3, 2));
+            token = token.Substring(3, 2);
+            int DD = ParseToken(token);
             return DD;
         }
 
@@ -128,7 +182,9 @@ namespace GeospaceEntity.Helper
         {
             string[] arrayTokens = strSession.Split(' ');
             string token = arrayTokens[1];
-            int f0F2 = Convert.ToInt32(token.Substring(0, 3));
+            token = token.Substring(0, 3);
+            int f0F2 = ParseToken(token);
+            
             return f0F2;
         }
 
@@ -136,7 +192,9 @@ namespace GeospaceEntity.Helper
         {
             string[] arrayTokens = strSession.Split(' ');
             string token = arrayTokens[1];
-            int hF2 = Convert.ToInt32(token.Substring(3, 2));
+            token = token.Substring(3, 2);
+            int hF2 = ParseToken(token);
+            
             return hF2;
         }
 
@@ -144,7 +202,8 @@ namespace GeospaceEntity.Helper
         {
             string[] arrayTokens = strSession.Split(' ');
             string token = arrayTokens[2];
-            int M3000F2 = Convert.ToInt32(token.Substring(0, 2));
+            token = token.Substring(0, 2);
+            int M3000F2 = ParseToken(token);
             return M3000F2;
         }
 
@@ -152,7 +211,9 @@ namespace GeospaceEntity.Helper
         {
             string[] arrayTokens = strSession.Split(' ');
             string token = arrayTokens[2];
-            int fmin = Convert.ToInt32(token.Substring(3, 2));
+            token = token.Substring(3, 2);
+            int fmin = ParseToken(token);
+            
             return fmin;
         }
 
@@ -160,7 +221,9 @@ namespace GeospaceEntity.Helper
         {
             string[] arrayTokens = strSession.Split(' ');
             string token = arrayTokens[3];
-            int f0Es = Convert.ToInt32(token.Substring(0, 3));
+            token = token.Substring(0, 3);
+            int f0Es = ParseToken(token);
+
             return f0Es;
         }
 
@@ -168,7 +231,9 @@ namespace GeospaceEntity.Helper
         {
             string[] arrayTokens = strSession.Split(' ');
             string token = arrayTokens[3];
-            int hEs = Convert.ToInt32(token.Substring(3, 2));
+            token = token.Substring(3, 2);
+            int hEs = ParseToken(token);
+            
             return hEs;
         }
 
@@ -177,11 +242,7 @@ namespace GeospaceEntity.Helper
             string[] arrayTokens = strSession.Split(' ');
             string token = arrayTokens[4];
             token = token.Substring(0, 3);
-            if (token == "//7")
-            {
-                return 999;
-            }
-            int f0F1 = Convert.ToInt32(token);
+            int f0F1 = ParseToken(token);
             return f0F1;
         }
 
@@ -189,7 +250,8 @@ namespace GeospaceEntity.Helper
         {
             string[] arrayTokens = strSession.Split(' ');
             string token = arrayTokens[4];
-            int hF1 = Convert.ToInt32(token.Substring(3, 2));
+            token = token.Substring(3, 2);
+            int hF1 = ParseToken(token);
             return hF1;
         }
 
@@ -198,11 +260,8 @@ namespace GeospaceEntity.Helper
             string[] arrayTokens = strSession.Split(' ');
             string token = arrayTokens[5];
             token = token.Substring(0, 2);
-            if (token == "/7")
-            {
-                return 999;
-            }
-            int M3000F1 = Convert.ToInt32(token);
+            
+            int M3000F1 = ParseToken(token);
             return M3000F1;
         }
 
@@ -210,7 +269,9 @@ namespace GeospaceEntity.Helper
         {
             string[] arrayTokens = strSession.Split(' ');
             string token = arrayTokens[5];
-            int hMF2 = Convert.ToInt32(token.Substring(3, 2));
+            token = token.Substring(0, 2);
+            int hMF2 = ParseToken(token);
+
             return hMF2;
         }
 
@@ -219,11 +280,7 @@ namespace GeospaceEntity.Helper
             string[] arrayTokens = strSession.Split(' ');
             string token = arrayTokens[6];
             token = token.Substring(0, 3);
-            if (token == "//1")
-            {
-                return 999;
-            }
-            int f0E = Convert.ToInt32(token);
+            int f0E = ParseToken(token);
             return f0E;
         }
 
@@ -231,7 +288,8 @@ namespace GeospaceEntity.Helper
         {
             string[] arrayTokens = strSession.Split(' ');
             string token = arrayTokens[6];
-            int hE = Convert.ToInt32(token.Substring(3, 2));
+            token = token.Substring(3, 2);
+            int hE = ParseToken(token);
             return hE;
         }
 
@@ -240,11 +298,7 @@ namespace GeospaceEntity.Helper
             string[] arrayTokens = strSession.Split(' ');
             string token = arrayTokens[7];
             token = token.Substring(0, 3);
-            if (token == "//1")
-            {
-                return 999;
-            }
-            int fbEs = Convert.ToInt32(token);
+            int fbEs = ParseToken(token) ;
             return fbEs;
         }
 
@@ -255,7 +309,8 @@ namespace GeospaceEntity.Helper
             string[] arrayTokens = strSession.Split(' ');
             string token = arrayTokens[7];
             token = token.Substring(3, 1);
-            int Es = Convert.ToInt32(token);
+            int Es = ParseToken(token);
+            
             return Es;
         }
         public static int Ionka_Group13_fx1(string strSession)
@@ -263,11 +318,7 @@ namespace GeospaceEntity.Helper
             string[] arrayTokens = strSession.Split(' ');
             string token = arrayTokens[8];
             token = token.Substring(0, 3);
-            if (token == "//7")
-            {
-                return 999;
-            }
-            int fx1 = Convert.ToInt32(token);
+            int fx1=ParseToken(token);
             return fx1;
         }
     }
