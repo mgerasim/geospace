@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,20 +14,25 @@ namespace GeospaceDecodeService
 {
     public partial class GeospaceDecodeService : ServiceBase
     {
+        Logger logger;
         public GeospaceDecodeService()
         {
             InitializeComponent();
-
+            logger = LogManager.GetCurrentClassLogger();
+            logger.Debug("InitializeComponent");
         }
 
         protected override void OnStart(string[] args)
         {
             eventLog1.WriteEntry("GeospaceDecodeService: Start");
+            logger.Debug("GeospaceDecodeService: Start");
+
         }
 
         protected override void OnStop()
         {
             eventLog1.WriteEntry("GeospaceDecodeService: Stop");
+            logger.Debug("GeospaceDecodeService: Stop");
         }
 
         private void eventLog1_EntryWritten(object sender, EntryWrittenEventArgs e)
@@ -38,9 +44,16 @@ namespace GeospaceDecodeService
         private void timer1_Tick_1(object sender, EventArgs e)
         {
             eventLog1.WriteEntry("GeospaceDecodeService: Timer");
-          //  System.Configuration.AppSettingsReader configurationAppSettings = new System.Configuration.AppSettingsReader();
+            logger.Debug("timer1_Tick_1: Enter");
 
             string strFile = "D:\\Мои документы\\visual studio 2013\\Projects\\GeoSpace\\documents\\armgf1dan.txt";
+            AMS.Profile.Ini Ini = new AMS.Profile.Ini("D:\\GeospaceDecodeService.ini");
+            if (!Ini.HasSection("COMMON"))
+            {
+                logger.Debug("Not HasSection COMMON");
+                Ini.SetValue("COMMON", "FileName", "\\\\192.168.72.123\\obmen\\armgf1dan.txt");
+            }
+
             if (File.Exists(strFile))
             {
                 eventLog1.WriteEntry("Файл существует:");
