@@ -34,8 +34,8 @@ namespace GeospaceEntity.Models.Codes
             fbEs = GeospaceEntity.Helper.HelperIonka.Ionka_Group12_fbEs(strIonka);
             Es = GeospaceEntity.Helper.HelperIonka.Ionka_Group12_Es(strIonka);
             fx1 = GeospaceEntity.Helper.HelperIonka.Ionka_Group13_fx1(strIonka);
-            code = "";
-            error_flag = 0;
+            Raw = "";
+            ErrorMessage = "";
         }
 
         public virtual Station Station { get; set; }
@@ -62,18 +62,22 @@ namespace GeospaceEntity.Models.Codes
         public virtual int fbEs { get; set; }
         public virtual int Es { get; set; }
         public virtual int fx1 { get; set; }
-        public virtual string code { get; set; }
-        public virtual int error_flag { get; set; }
+        public virtual string Raw { get; set; }
+        public virtual string ErrorMessage { get; set; }
 
         public virtual void Save()
         {
             this.created_at = DateTime.Now;
             this.updated_at = DateTime.Now;
+            GeospaceEntity.Common.IRepository<CodeIonka> repo = new Repositories.CodeIonkaRepository();
+            repo.Save(this);
         }
 
         public virtual void Update()
         {
             this.updated_at = DateTime.Now;
+            GeospaceEntity.Common.IRepository<CodeIonka> repo = new Repositories.CodeIonkaRepository();
+            repo.Update(this);
         }
         public virtual Codes.CodeIonka GetByDateUTC(Station station, int YYYY, int MM, int DD, int HH, int MI)
         {

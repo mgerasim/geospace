@@ -28,8 +28,8 @@
     <property name="fbEs" />
     <property name="Es" />
     <property name="fx1" />
-    <property name="code" />
-    <property name="error_flag" />
+    <property name="Raw" />
+    <property name="ErrorMessage" />
     
   </class>
 </hibernate-mapping>

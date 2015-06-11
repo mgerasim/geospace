@@ -69,6 +69,7 @@ namespace GeospaceDecodeService
             }
             try
             {
+                GeospaceEntity.Common.NHibernateHelper.UpdateSchema();
                 using (StreamReader sr = new StreamReader(strFile))
                 {
                     String line = sr.ReadToEnd();

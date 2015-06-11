@@ -19,7 +19,7 @@ namespace GeospaceEntity.Common
                 {
                     var configuration = new Configuration();
                     configuration.Configure();
-                    configuration.AddAssembly(typeof(GeospaceEntity.Models.Station).Assembly);                    
+                    configuration.AddAssembly(typeof(GeospaceEntity.Models.Error).Assembly);                    
                     
                     _sessionFactory = configuration.BuildSessionFactory();
                 }

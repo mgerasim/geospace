@@ -12,8 +12,8 @@ namespace GeospaceTest
     {
         static void Main(string[] args)
         {
-            Support01();
-            Support02();
+           // Support01();
+            //Support02();
             Support03();
             Support04();
             Console.WriteLine("Ok");
@@ -107,9 +107,10 @@ namespace GeospaceTest
                                                 }
                                                 catch(Exception db)
                                                 {
+                                                    
                                                     theCodeIonka = new GeospaceEntity.Models.Codes.CodeIonka();
-                                                    theCodeIonka.error_flag = 1;
-                                                    theCodeIonka.code = code_source;
+                                                    theCodeIonka.ErrorMessage = db.InnerException.Message;
+                                                    theCodeIonka.Raw = code_source;
                                                     theCodeIonka.Save();
                                                 }
                                                 
@@ -158,9 +159,6 @@ namespace GeospaceTest
         static void Support03()
         {
             GeospaceEntity.Common.NHibernateHelper.UpdateSchema();
-            GeospaceEntity.Models.Error theObj = new GeospaceEntity.Models.Error();
-            theObj.Raw = "test";
-            theObj.Save();
 
         }
         static void Support02()
