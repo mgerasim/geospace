@@ -13,16 +13,160 @@ namespace GeospaceTest
         static void Main(string[] args)
         {
             Support01();
-            Support02(); 
+            Support02();
+            Support03();
+            Support04();
+            Console.WriteLine("Ok");
             Console.ReadKey();
+        }
+        static void Support04()
+        {
+            string strFile = Environment.CurrentDirectory;
+            strFile = "D:\\мои документы\\visual studio 2013\\Projects\\GeoSpace\\documents\\armgf1dan.txt";
+
+            if (File.Exists(strFile))
+            {
+                Console.WriteLine("Файл существует:");
+                Console.WriteLine(strFile);
+            }
+            else
+            {
+                Console.WriteLine("Файл не существует:");
+                Console.WriteLine(strFile);
+            }
+
+            try
+            {
+                using (StreamReader sr = new StreamReader(strFile))
+                {
+                    String line = sr.ReadToEnd();
+                    string[] delimiters = new string[] { "[ETX]" };
+                    foreach (var item in line.Split(new char[] { '\u0002', '\u0003' },
+                                 StringSplitOptions.RemoveEmptyEntries))
+                    {
+
+                        Console.WriteLine("item");
+                        Console.WriteLine(item);
+                        string theCode = GeospaceEntity.Helper.HelperIonka.Normalize(item);
+
+                        Console.WriteLine(theCode);
+
+                        foreach (var code in theCode.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries))
+                        {
+                            if (code.Length > 6)
+                            {
+                                if (code.Substring(0, 5).ToUpper() == "IONKA")
+                                {
+                                    Console.WriteLine("theCode");
+                                    Console.WriteLine(code);
+                                    try
+                                    {
+                                        string code_source = code;
+                                        code_source = GeospaceEntity.Helper.HelperIonka.Check(code);
+
+                                        int StationCode = GeospaceEntity.Helper.HelperIonka.Ionka_Group02_Station(code_source);
+                                        Station theStation = (new Station()).GetByCode(StationCode);
+                                        if (theStation == null)
+                                        {
+                                            theStation = new Station();
+                                            theStation.Code = StationCode;
+                                            theStation.Save();
+                                        }
+
+                                        if (StationCode == 43501)
+                                        {
+                                            // Для Хабарвска код ИОНКА упращенный
+                                            return;
+                                        }
+
+                                        DateTime Created_At = GeospaceEntity.Helper.HelperIonka.Ionka_Group03_DateCreate(code_source);
+                                        int DD = Created_At.Day;
+                                        int MM = Created_At.Month;
+                                        int YYYY = Created_At.Year;
+                                        int sessionCount = GeospaceEntity.Helper.HelperIonka.Ionka_Group04_Count(code_source);
+
+                                        for (int i = 0; i < sessionCount; i++)
+                                        {
+                                            string strSession = GeospaceEntity.Helper.HelperIonka.Ionka_GroupData_Get(i, code_source);
+                                            int HH = GeospaceEntity.Helper.HelperIonka.Ionka_Group05_HH(strSession);
+                                            int MI = GeospaceEntity.Helper.HelperIonka.Ionka_Group05_MI(strSession);
+
+                                            GeospaceEntity.Models.Codes.CodeIonka theCodeIonka = (new GeospaceEntity.Models.Codes.CodeIonka()).GetByDateUTC(theStation, YYYY, MM, DD, HH, MI);
+                                            if (theCodeIonka == null)
+                                            {
+                                                try
+                                                {
+                                                    theCodeIonka = new GeospaceEntity.Models.Codes.CodeIonka(strSession);
+                                                    theCodeIonka.DD = Created_At.Day;
+                                                    theCodeIonka.MM = Created_At.Month;
+                                                    theCodeIonka.YYYY = Created_At.Year;
+
+                                                    theCodeIonka.Station = theStation;
+
+                                                    theCodeIonka.Save();
+                                                }
+                                                catch(Exception db)
+                                                {
+                                                    theCodeIonka = new GeospaceEntity.Models.Codes.CodeIonka();
+                                                    theCodeIonka.error_flag = 1;
+                                                    theCodeIonka.code = code_source;
+                                                    theCodeIonka.Save();
+                                                }
+                                                
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine("Ddddddddddddddddddddddddddd");
+                                            }
+                                            /*
+                                            GeospaceEntity.Models.Codes.CodeIonka theIonka = new GeospaceEntity.Models.Codes.CodeIonka(strSession);
+                                            theIonka.DD = Created_At.Day;
+                                            theIonka.MM = Created_At.Month;
+                                            theIonka.YYYY = Created_At.Year;
+
+                                            theIonka.Station = this;
+
+                                            this._IonkaValues.Add(theIonka);*/
+                                        }
+
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        Console.WriteLine("E R R O R");
+                                        Console.WriteLine(code);
+                                        Console.WriteLine(ex.Message);
+                                        Console.WriteLine(ex.Source);
+                                        Console.WriteLine(ex.StackTrace);
+
+                                    }
+
+                                }
+
+                            }
+
+                        }
+                    }
+
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("The file could not be read:");
+                Console.WriteLine(e.Message);
+            }
+        }
+        static void Support03()
+        {
+            GeospaceEntity.Common.NHibernateHelper.UpdateSchema();
+            GeospaceEntity.Models.Error theObj = new GeospaceEntity.Models.Error();
+            theObj.Raw = "test";
+            theObj.Save();
+
         }
         static void Support02()
         {
             string strFile = Environment.CurrentDirectory;
-            strFile = Path.GetDirectoryName(strFile);
-            strFile = Path.GetDirectoryName(strFile);
-            strFile = Path.GetDirectoryName(strFile);
-            strFile += "\\documents\\armgf1dan.txt";
+            strFile = "D:\\мои документы\\visual studio 2013\\Projects\\GeoSpace\\documents\\armgf1dan.txt";
 
             if (File.Exists(strFile))
             {
@@ -71,6 +215,7 @@ namespace GeospaceTest
                                         Console.WriteLine(ex.Message);
                                         Console.WriteLine(ex.Source);
                                         Console.WriteLine(ex.StackTrace);
+                                        
                                     }
                                     
                                 }

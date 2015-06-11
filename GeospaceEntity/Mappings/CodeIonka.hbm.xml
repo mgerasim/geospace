@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="GeospaceEntity.Models.Codes" assembly="GeospaceEntity">
+  <class name="CodeIonka" table="Geospace_CodeIonka">
+    <id name="ID" unsaved-value="0">
+      <column name="ID" not-null="true" />
+      <generator class="identity"/>
+    </id>
+    <property name="created_at" />
+    <property name="updated_at" />
+    <property name="HH" />
+    <property name="MM" />
+    <property name="DD" />
+    <property name="YYYY" />
+    <property name="MI" />
+    <many-to-one name="Station" column="Station_ID" cascade="all"/>
+    <property name="f0F2" />
+    <property name="hF2" />
+    <property name="M3000F2" />
+    <property name="fmin" />
+    <property name="f0Es" />
+    <property name="hEs" />
+    <property name="f0F1" />
+    <property name="hF1" />
+    <property name="M3000F1" />
+    <property name="hMF2" />
+    <property name="f0E" />
+    <property name="hE" />
+    <property name="fbEs" />
+    <property name="Es" />
+    <property name="fx1" />
+    <property name="code" />
+    <property name="error_flag" />
+    
+  </class>
+</hibernate-mapping>

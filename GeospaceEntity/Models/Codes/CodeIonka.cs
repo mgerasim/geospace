@@ -17,8 +17,8 @@ namespace GeospaceEntity.Models.Codes
         {
             this.created_at = DateTime.Now;
             this.updated_at = DateTime.Now;
-            MM = GeospaceEntity.Helper.HelperIonka.Ionka_Group05_MM(strIonka);
-            DD = GeospaceEntity.Helper.HelperIonka.Ionka_Group05_MM(strIonka);
+            HH = GeospaceEntity.Helper.HelperIonka.Ionka_Group05_HH(strIonka);
+            MI = GeospaceEntity.Helper.HelperIonka.Ionka_Group05_MI(strIonka);
             f0F2 = GeospaceEntity.Helper.HelperIonka.Ionka_Group06_f0F2(strIonka);
             hF2 = GeospaceEntity.Helper.HelperIonka.Ionka_Group06_hF2(strIonka);
             M3000F2 = GeospaceEntity.Helper.HelperIonka.Ionka_Group07_M3000F2(strIonka);
@@ -34,16 +34,19 @@ namespace GeospaceEntity.Models.Codes
             fbEs = GeospaceEntity.Helper.HelperIonka.Ionka_Group12_fbEs(strIonka);
             Es = GeospaceEntity.Helper.HelperIonka.Ionka_Group12_Es(strIonka);
             fx1 = GeospaceEntity.Helper.HelperIonka.Ionka_Group13_fx1(strIonka);
+            code = "";
+            error_flag = 0;
         }
 
         public virtual Station Station { get; set; }
         public virtual int ID { get; set; }
         public virtual DateTime created_at { get; set; }
         public virtual DateTime updated_at { get; set; }
-        public virtual int DD { get; set; }
+        public virtual int HH { get; set; }
         public virtual int MM { get; set; }
+        public virtual int DD { get; set; }
         public virtual int YYYY { get; set; }
-        public virtual int GG { get; set; }
+        public virtual int MI { get; set; }
         public virtual int f0F2 { get; set; }
         public virtual int hF2 { get; set; }
         public virtual int M3000F2 { get; set; }
@@ -59,6 +62,8 @@ namespace GeospaceEntity.Models.Codes
         public virtual int fbEs { get; set; }
         public virtual int Es { get; set; }
         public virtual int fx1 { get; set; }
+        public virtual string code { get; set; }
+        public virtual int error_flag { get; set; }
 
         public virtual void Save()
         {
@@ -69,6 +74,11 @@ namespace GeospaceEntity.Models.Codes
         public virtual void Update()
         {
             this.updated_at = DateTime.Now;
+        }
+        public virtual Codes.CodeIonka GetByDateUTC(Station station, int YYYY, int MM, int DD, int HH, int MI)
+        {
+            Repositories.CodeIonkaRepository repo = new Repositories.CodeIonkaRepository();
+            return repo.GetByDateUTC(station, YYYY, MM, DD, HH, MI);
         }
         public virtual void PrintToConsole()
         {

@@ -160,7 +160,7 @@ namespace GeospaceEntity.Helper
             string stringGroupData = strIonka.Substring(24 + 54 * sessionNumber, 53);
             return stringGroupData;
         }
-        public static int Ionka_Group05_MM(string strSession)
+        public static int Ionka_Group05_HH(string strSession)
         {
             string[] arrayTokens = strSession.Split(' ');
             string token = arrayTokens[0];
@@ -169,7 +169,7 @@ namespace GeospaceEntity.Helper
             return MM;
         }
 
-        public static int Ionka_Group05_DD(string strSession)
+        public static int Ionka_Group05_MI(string strSession)
         {
             string[] arrayTokens = strSession.Split(' ');
             string token = arrayTokens[0];

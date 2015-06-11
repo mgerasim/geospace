@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="GeospaceEntity.Models" assembly="GeospaceEntity">
+  <class name="Station" table="Geospace_Station">
+    <id name="ID" unsaved-value="0">
+      <column name="ID" not-null="true" />
+      <generator class="identity"/>
+    </id>
+    <property name="created_at" />
+    <property name="updated_at" />
+    <property name="Name" />
+    <property name="Code" />
+    <set name="IonkaValues" cascade="all" >
+      <key column="Station_ID"/>
+      <one-to-many class="GeospaceEntity.Models.Codes.CodeIonka"/>
+    </set>
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="GeospaceEntity.Models" assembly="GeospaceEntity">
+  <class name="Error" table="Geospace_Error">
+    <id name="ID" unsaved-value="0">
+      <column name="ID" not-null="true" />
+      <generator class="identity"/>
+    </id>
+    <property name="created_at" />
+    <property name="updated_at" />
+    <property name="Raw" type="string" length="10000"/>
+    <property name="Description" type="string" length="10000"/>
+    
+  </class>
+</hibernate-mapping>
