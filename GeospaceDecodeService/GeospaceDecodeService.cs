@@ -107,7 +107,10 @@ namespace GeospaceDecodeService
                                         if (StationCode == 43501)
                                         {
                                             // Для Хабарвска код ИОНКА упращенный
-                                            return;
+                                            string[] arrayString = code_source.Split(' ');
+                                            string token = arrayString[2];
+
+                                            code_source = code_source.Replace(token, token + " 0/0/0");
                                         }
 
                                         DateTime Created_At = GeospaceEntity.Helper.HelperIonka.Ionka_Group03_DateCreate(code_source);

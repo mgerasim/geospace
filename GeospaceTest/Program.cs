@@ -45,11 +45,14 @@ namespace GeospaceTest
                                  StringSplitOptions.RemoveEmptyEntries))
                     {
 
-                        Console.WriteLine("item");
-                        Console.WriteLine(item);
+                        if (item.IndexOf("ionka 37701 50606 7/1/8/") > -1)
+                        {
+                            string sss = "";
+                            sss = "D";
+                        }
+
                         string theCode = GeospaceEntity.Helper.HelperIonka.Normalize(item);
 
-                        Console.WriteLine(theCode);
 
                         foreach (var code in theCode.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries))
                         {
@@ -57,8 +60,6 @@ namespace GeospaceTest
                             {
                                 if (code.Substring(0, 5).ToUpper() == "IONKA")
                                 {
-                                    Console.WriteLine("theCode");
-                                    Console.WriteLine(code);
                                     try
                                     {
                                         string code_source = code;
@@ -75,15 +76,38 @@ namespace GeospaceTest
 
                                         if (StationCode == 43501)
                                         {
-                                            // Для Хабарвска код ИОНКА упращенный
-                                            return;
+                                            // Для Хабаровска код ИОНКА упращенный
+                                            string[] arrayString = code_source.Split(' ');
+                                            string token = arrayString[2];
+
+                                            code_source = code_source.Replace(token, token + " 0/0/0");
+
                                         }
+                                        Console.WriteLine(code_source);
 
                                         DateTime Created_At = GeospaceEntity.Helper.HelperIonka.Ionka_Group03_DateCreate(code_source);
                                         int DD = Created_At.Day;
                                         int MM = Created_At.Month;
                                         int YYYY = Created_At.Year;
                                         int sessionCount = GeospaceEntity.Helper.HelperIonka.Ionka_Group04_Count(code_source);
+                                        int hour = Convert.ToInt32(code_source.Split(' ')[4].Substring(1, 2));
+
+                                        int minute = Convert.ToInt32(code_source.Split(' ')[4].Substring(3, 2));
+
+                                        GeospaceEntity.Models.Codes.CodeIonka theTemp = (new GeospaceEntity.Models.Codes.CodeIonka()).GetByDateUTC(theStation, YYYY, MM, DD, hour, minute);
+                                        if (theTemp == null)
+                                        {
+                                            theTemp = new GeospaceEntity.Models.Codes.CodeIonka();
+                                            theTemp.DD = Created_At.Day;
+                                            theTemp.MM = Created_At.Month;
+                                            theTemp.YYYY = Created_At.Year;
+                                            theTemp.HH = hour;
+                                            theTemp.MI = minute;
+
+                                            theTemp.Station = theStation;
+
+                                            theTemp.Save();
+                                        }
 
                                         for (int i = 0; i < sessionCount; i++)
                                         {

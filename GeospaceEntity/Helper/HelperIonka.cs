@@ -30,6 +30,15 @@ namespace GeospaceEntity.Helper
                     strIonkaNormalize += ss;
                     strIonkaNormalize += " ";
                 }
+
+                //  03300//70/ 
+                if (ss.Length == 10 && ss.IndexOf("00//") > -1)
+                {
+                    ss = ss.Replace("00//", "00 //");
+
+                    strIonkaNormalize += ss;
+                    strIonkaNormalize += " ";
+                }
                 if (ss.IndexOf("//7///=") > -1)
                 {
 
@@ -44,6 +53,18 @@ namespace GeospaceEntity.Helper
                     {
                         ss = ss.Replace("00", "0");
                     }
+                }
+
+                if (ss.Length == 6)
+                {
+                    bool flag = true;
+                    for (int i = 0; i < ss.Length; i++)
+                    {
+                        if (!Char.IsDigit(ss[i])) {
+                            flag = false;
+                        }
+                    }
+                    ss = ss.Replace(ss[ss.Length-1].ToString(), "");
                 }
                 if (ss.Length == 4)
                 {
