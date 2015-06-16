@@ -14,10 +14,22 @@ namespace GeospaceTest
         {
            // Support01();
             //Support02();
-            Support03();
-            Support04();
+           // Support03();
+            //Support04();
+            Support05(); 
             Console.WriteLine("Ok");
             Console.ReadKey();
+        }
+        static void Support05()
+        {
+            int StationCode = 43501;
+            DateTime Start = DateTime.Now.AddDays(-5);
+            int limit = 5;
+            List<GeospaceEntity.Models.Codes.CodeIonka> theIonkaValues = (List<GeospaceEntity.Models.Codes.CodeIonka>)(new GeospaceEntity.Models.Codes.CodeIonka()).GetByPeriod((new GeospaceEntity.Models.Station()).GetByCode(StationCode),
+                Start.Year, Start.Month, Start.Day,
+                Start.AddDays(limit).Year, Start.AddDays(limit).Month, Start.AddDays(limit).Day);
+
+            int Count = theIonkaValues.Count;
         }
         static void Support04()
         {

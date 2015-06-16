@@ -71,6 +71,41 @@ namespace GeospaceEntity.Repositories
                 }
             }
 
+            public IList<GeospaceEntity.Models.Codes.CodeIonka> GetByPeriod(Station station, int startYYYY, int startMM, int startDD, int endYYYY, int endMM, int endDD)
+            {
+                using (ISession session = NHibernateHelper.OpenSession())
+                {
+                    ICriteria criteria = session.CreateCriteria(typeof(GeospaceEntity.Models.Codes.CodeIonka));
+                    criteria.AddOrder(Order.Desc("ID"));
+                    criteria.Add(Restrictions.Eq("Station", station));
+                    if (endYYYY > startYYYY)
+                    {
+                        criteria.Add(Restrictions.Between("YYYY", startYYYY, endYYYY));
+                    }
+                    else
+                    {
+                        criteria.Add(Restrictions.Eq("YYYY", endYYYY));
+                    }
+                    if (endMM > startMM)
+                    {
+                        criteria.Add(Restrictions.Between("MM", startMM, endMM));
+                    }
+                    else
+                    {
+                        criteria.Add(Restrictions.Eq("MM", endMM));
+                    }
+                    if (endDD > startDD)
+                    {
+                        criteria.Add(Restrictions.Between("DD", startDD, endDD));
+                    }
+                    else
+                    {
+                        criteria.Add(Restrictions.Eq("DD", endDD));
+                    }
+                    return criteria.List<GeospaceEntity.Models.Codes.CodeIonka>();
+                }
+            }
+
             public GeospaceEntity.Models.Codes.CodeIonka GetByDateUTC(Station station, int YYYY, int MM, int DD, int HH, int MI)
             {
                 using (ISession session = NHibernateHelper.OpenSession())

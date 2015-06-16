@@ -60,6 +60,8 @@ namespace GeospaceDecodeService
 
             string strFile = Ini.GetValue("COMMON", "FileName", "D:\\Мои документы\\visual studio 2013\\Projects\\GeoSpace\\documents\\armgf1dan.txt");
 
+            strFile = @"\\10.8.5.123\obmen\armgf1dan.txt";
+
             if (!File.Exists(strFile))
             {
                 eventLog1.WriteEntry("Файл не существует:");
@@ -67,6 +69,7 @@ namespace GeospaceDecodeService
                 error.Error("Указанный файл: " + strFile + " не существует");
                 return;
             }
+            logger.Debug("timer1_Tick_1: FileName:" + strFile);
             try
             {
                 GeospaceEntity.Common.NHibernateHelper.UpdateSchema();

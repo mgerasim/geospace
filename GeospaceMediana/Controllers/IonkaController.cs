@@ -17,7 +17,7 @@ namespace GeospaceMediana.Controllers
             @ViewBag.Title = "Геофизические данные";
             if (start == "")
             {
-                start = String.Format("{0:yyyymmdd}", DateTime.Now.AddDays(-1));
+                start = String.Format("{0:yyyyMMdd}", DateTime.Now.AddDays(-1));
             }
             ViewIonka Model = new ViewIonka(station, start, limit, step);
 

@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Станции";
+}
+
+<h2>Станции</h2>
+
+<table class="table table-bordered table-hover">
+    <tr>
+        <th>Индекс</th>
+        <th>Наименование</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.Encode(item.Code)
+            </td>
+            <td>
+                @Html.Encode(item.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Редактировать", "Edit", new { id = item.ID})
+            </td>
+        </tr>
+        
+    }
+</table>

@@ -79,6 +79,12 @@ namespace GeospaceEntity.Models
             return repo.GetByCode(code);
         }
 
+        public virtual GeospaceEntity.Models.Station GetById(int id)
+        {
+            IRepository<Station> repo = new Repositories.StationRepository();
+            return repo.GetById(id);
+        }
+
         public virtual void PrintToConsole()
         {
             Console.WriteLine("Станция: {0}", this.Code);
@@ -101,6 +107,12 @@ namespace GeospaceEntity.Models
             IRepository<Station> repo = new StationRepository();
             this.updated_at = DateTime.Now;
             repo.Update(this);
+        }
+
+        public virtual List<Station> GetAll()
+        {
+            IRepository<Station> repo = new StationRepository();
+            return (List<Station>)(repo.GetAll());
         }
     }
 }
