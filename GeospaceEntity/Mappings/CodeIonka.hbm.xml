@@ -12,7 +12,7 @@
     <property name="DD" />
     <property name="YYYY" />
     <property name="MI" />
-    <many-to-one name="Station" column="Station_ID" cascade="all"/>
+    <many-to-one name="Station" column="Station_ID" lazy="false"/>
     <property name="f0F2" />
     <property name="hF2" />
     <property name="M3000F2" />

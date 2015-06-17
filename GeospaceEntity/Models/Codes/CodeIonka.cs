@@ -10,6 +10,7 @@ namespace GeospaceEntity.Models.Codes
     {
         public CodeIonka()
         {
+            ID = -1;
             created_at = DateTime.Now;
             updated_at = DateTime.Now;
         }
@@ -53,7 +54,7 @@ namespace GeospaceEntity.Models.Codes
         public virtual int fmin { get; set; }
         public virtual int f0Es { get; set; }
         public virtual int hEs { get; set; }
-        public virtual int f0F1 { get; set; }
+        public virtual int f0F1 { get; set; }       
         public virtual int hF1 { get; set; }
         public virtual int M3000F1 { get; set; }
         public virtual int hMF2 { get; set; }
@@ -65,6 +66,22 @@ namespace GeospaceEntity.Models.Codes
         public virtual string Raw { get; set; }
         public virtual string ErrorMessage { get; set; }
 
+        // Display For Web Form
+        public virtual string _f0F1 { get { if (this.ID < 0) return ""; else return this.f0F1.ToString(); } }
+        public virtual string _f0F2 { get { if (this.ID < 0) return ""; else return this.f0F2.ToString(); } }
+        public virtual string _M3000F2 { get { if (this.ID < 0) return ""; else return this.M3000F2.ToString(); } }
+        public virtual string _M3000F1 { get { if (this.ID < 0) return ""; else return this.M3000F1.ToString(); } }
+        public virtual string _hMF2 { get { if (this.ID < 0) return ""; else return this.hMF2.ToString(); } }
+        public virtual string _hF2 { get { if (this.ID < 0) return ""; else return this.hF2.ToString(); } }
+        public virtual string _hF1 { get { if (this.ID < 0) return ""; else return this.hF1.ToString(); } }
+        public virtual string _hEs { get { if (this.ID < 0) return ""; else return this.hEs.ToString(); } }
+        public virtual string _hE { get { if (this.ID < 0) return ""; else return this.hE.ToString(); } }
+        public virtual string _fx1 { get { if (this.ID < 0) return ""; else return this.fx1.ToString(); } }
+        public virtual string _fmin { get { if (this.ID < 0) return ""; else return this.fmin.ToString(); } }
+        public virtual string _fbEs { get { if (this.ID < 0) return ""; else return this.fbEs.ToString(); } }
+        public virtual string _f0Es { get { if (this.ID < 0) return ""; else return this.f0Es.ToString(); } }
+        public virtual string _f0E { get { if (this.ID < 0) return ""; else return this.f0E.ToString(); } }
+        public virtual string _Es { get { if (this.ID < 0) return ""; else return this.Es.ToString(); } }
         public virtual void Save()
         {
             this.created_at = DateTime.Now;
@@ -88,6 +105,11 @@ namespace GeospaceEntity.Models.Codes
         {
             Repositories.CodeIonkaRepository repo = new Repositories.CodeIonkaRepository();
             return repo.GetByPeriod(station, startYYYY, startMM, startDD, endYYYY, endMM, endDD);
+        }
+        public virtual IList<Codes.CodeIonka> GetAll()
+        {
+            GeospaceEntity.Common.IRepository<CodeIonka> repo = new Repositories.CodeIonkaRepository();
+            return repo.GetAll();
         }
         public virtual void PrintToConsole()
         {

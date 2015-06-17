@@ -29,5 +29,17 @@ namespace GeospaceEntity.Models
             this.updated_at = DateTime.Now;
             repo.Update(this);
         }
+
+        public virtual GeospaceEntity.Models.Error GetByRaw(string Raw)
+        {
+            ErrorRepository repo = new ErrorRepository();
+            return repo.GetByRaw(Raw);
+        }
+
+        public virtual GeospaceEntity.Models.Error GetByDescription(string Description)
+        {
+            ErrorRepository repo = new ErrorRepository();
+            return repo.GetByDescription(Description);
+        }
     }
 }

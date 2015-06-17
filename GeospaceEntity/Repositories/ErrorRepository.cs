@@ -54,7 +54,17 @@ namespace GeospaceEntity.Repositories
                 return session.CreateCriteria<GeospaceEntity.Models.Error>().Add(Restrictions.Eq("ID", id)).UniqueResult<GeospaceEntity.Models.Error>();
         }
 
-        
+        public GeospaceEntity.Models.Error GetByRaw(string Raw)
+        {
+            using (ISession session = NHibernateHelper.OpenSession())
+                return session.CreateCriteria<GeospaceEntity.Models.Error>().Add(Restrictions.Eq("Raw", Raw)).UniqueResult<GeospaceEntity.Models.Error>();
+        }
+
+        public GeospaceEntity.Models.Error GetByDescription(string Description)
+        {
+            using (ISession session = NHibernateHelper.OpenSession())
+                return session.CreateCriteria<GeospaceEntity.Models.Error>().Add(Restrictions.Eq("Description", Description)).UniqueResult<GeospaceEntity.Models.Error>();
+        }
 
         IList<GeospaceEntity.Models.Error> IRepository<GeospaceEntity.Models.Error>.GetAll()
         {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using NHibernate;
 using NHibernate.Cfg;
+using NHibernate.Context;
 
 namespace GeospaceEntity.Common
 {

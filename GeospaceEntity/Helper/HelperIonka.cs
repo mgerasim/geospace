@@ -102,7 +102,7 @@ namespace GeospaceEntity.Helper
                 }
                 res += 1000;
             }
-            res = Convert.ToInt32(strToken);
+            res += Convert.ToInt32(strToken);
             return res;
         }
         public static string Check(string strIonka) 
