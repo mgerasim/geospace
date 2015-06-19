@@ -1,0 +1,16 @@
+﻿@{
+    Layout = "";
+}
+
+@if (ViewBag.Error != null)
+{
+    <p>@ViewBag.Error</p>
+
+}
+else
+{
+    <div class="forecast" style="font-size:25px; font-family:'Courier New'">
+        @Html.ActionLink("Скачать сводную таблицу по солнцу, магнитному полю, ионосферы", "DownloadTableSun", "Products")
+        @Html.Raw("<pre>" + Html.Encode(Model.table_sun) + "</pre>")
+    </div>
+}

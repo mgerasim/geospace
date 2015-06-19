@@ -60,7 +60,7 @@ namespace GeospaceDecodeService
 
             string strFile = Ini.GetValue("COMMON", "FileName", "D:\\Мои документы\\visual studio 2013\\Projects\\GeoSpace\\documents\\armgf1dan.txt");
 
-            strFile = @"\\10.8.5.123\obmen\armgf1dan.txt";
+            //strFile = @"\\10.8.5.123\obmen\armgf1dan.txt";
 
             if (!File.Exists(strFile))
             {
@@ -141,7 +141,8 @@ namespace GeospaceDecodeService
                                                     theCodeIonka.YYYY = Created_At.Year;
 
                                                     theCodeIonka.Station = theStation;
-                                                    theCodeIonka.Raw = theCode;
+                                                    theCodeIonka.Raw = code_source;
+
 
                                                     theCodeIonka.Save();
                                                 }
@@ -151,6 +152,16 @@ namespace GeospaceDecodeService
                                                 error.Error("Error:");
                                                 error.Error(err.Message);
                                                 error.Error(err.StackTrace);
+                                                if (err.InnerException != null)
+                                                {
+                                                    error.Error(err.InnerException.Message);
+                                                    error.Error("Raw: " + code_source);
+
+                                                }
+                                                else
+                                                {
+                                                    error.Error("InnerException is null");
+                                                }
 
                                                 Error theErr;
                                                 string Description = err.Message + err.StackTrace;
@@ -160,8 +171,16 @@ namespace GeospaceDecodeService
                                                     theErr = new Error();
                                                     theErr.Description = Description;
                                                     theErr.Raw = String.Format("RawMessage\n {0}\n\nRawMessageNormalize\n {1}\n\nIonka\n {2}",
-                                                        item, theCode, code);
-                                                    theErr.Save();
+                                                        item.ToString(), code_source, code);
+                                                    try
+                                                    {
+                                                        theErr.Save();
+
+                                                    }
+                                                    catch
+                                                    {
+                                                        error.Error("Not save to Error obj");
+                                                    }
                                                 }
 
                                             }
@@ -182,7 +201,7 @@ namespace GeospaceDecodeService
                                         Error theErr;
                                         string Description = ex.Message + ex.StackTrace;
                                         theErr = (new Error()).GetByDescription(Description);
-                                        if (theErr == null)
+                                        if (theErr != null)
                                         {
                                             theErr.Description = Description;
                                             theErr.Raw = String.Format("RawMessage\n\n {0}RawMessageNormalize\n\n {1}Ionka\n\n {3}", 
@@ -205,6 +224,8 @@ namespace GeospaceDecodeService
             {
 
                 error.Error("Global Error:");
+                error.Error(ex.Message);
+                error.Error(ex.StackTrace);
             }
         }
     }

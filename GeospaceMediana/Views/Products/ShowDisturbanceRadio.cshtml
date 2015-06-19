@@ -1,0 +1,16 @@
+﻿@{
+    Layout = "";
+}
+
+@if (ViewBag.Error != null)
+{
+    <p>@ViewBag.Error</p>
+
+}
+else
+{
+    <div class="forecast" style="font-size:25px; font-family:'Courier New'">
+        @Html.ActionLink("Скачать таблицу нарушения радиосвязи", "DownloadDisturbanceRadio", "Products")
+        @Html.Raw("<pre>" + Html.Encode(Model.disturbance_radio) + "</pre>")
+    </div>
+}

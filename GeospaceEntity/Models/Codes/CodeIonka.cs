@@ -67,21 +67,30 @@ namespace GeospaceEntity.Models.Codes
         public virtual string ErrorMessage { get; set; }
 
         // Display For Web Form
-        public virtual string _f0F1 { get { if (this.ID < 0) return ""; else return this.f0F1.ToString(); } }
-        public virtual string _f0F2 { get { if (this.ID < 0) return ""; else return this.f0F2.ToString(); } }
-        public virtual string _M3000F2 { get { if (this.ID < 0) return ""; else return this.M3000F2.ToString(); } }
-        public virtual string _M3000F1 { get { if (this.ID < 0) return ""; else return this.M3000F1.ToString(); } }
-        public virtual string _hMF2 { get { if (this.ID < 0) return ""; else return this.hMF2.ToString(); } }
-        public virtual string _hF2 { get { if (this.ID < 0) return ""; else return this.hF2.ToString(); } }
-        public virtual string _hF1 { get { if (this.ID < 0) return ""; else return this.hF1.ToString(); } }
-        public virtual string _hEs { get { if (this.ID < 0) return ""; else return this.hEs.ToString(); } }
-        public virtual string _hE { get { if (this.ID < 0) return ""; else return this.hE.ToString(); } }
-        public virtual string _fx1 { get { if (this.ID < 0) return ""; else return this.fx1.ToString(); } }
-        public virtual string _fmin { get { if (this.ID < 0) return ""; else return this.fmin.ToString(); } }
-        public virtual string _fbEs { get { if (this.ID < 0) return ""; else return this.fbEs.ToString(); } }
-        public virtual string _f0Es { get { if (this.ID < 0) return ""; else return this.f0Es.ToString(); } }
-        public virtual string _f0E { get { if (this.ID < 0) return ""; else return this.f0E.ToString(); } }
-        public virtual string _Es { get { if (this.ID < 0) return ""; else return this.Es.ToString(); } }
+        public virtual string _f0F1 
+        { 
+            get 
+            { 
+                if (this.ID < 0) 
+                    return ""; 
+                else 
+                    return DisplayValue(this.f0F1); 
+            } 
+        }
+        public virtual string _f0F2 { get { if (this.ID < 0) return ""; else return DisplayValue(this.f0F2); } }
+        public virtual string _M3000F2 { get { if (this.ID < 0) return ""; else return DisplayValue(this.M3000F2); } }
+        public virtual string _M3000F1 { get { if (this.ID < 0) return ""; else return DisplayValue(this.M3000F1); } }
+        public virtual string _hMF2 { get { if (this.ID < 0) return ""; else return DisplayValue(this.hMF2); } }
+        public virtual string _hF2 { get { if (this.ID < 0) return ""; else return DisplayValue(this.hF2); } }
+        public virtual string _hF1 { get { if (this.ID < 0) return ""; else return DisplayValue(this.hF1); } }
+        public virtual string _hEs { get { if (this.ID < 0) return ""; else return DisplayValue(this.hEs); } }
+        public virtual string _hE { get { if (this.ID < 0) return ""; else return DisplayValue(this.hE); } }
+        public virtual string _fx1 { get { if (this.ID < 0) return ""; else return DisplayValue(this.fx1); } }
+        public virtual string _fmin { get { if (this.ID < 0) return ""; else return DisplayValue(this.fmin); } }
+        public virtual string _fbEs { get { if (this.ID < 0) return ""; else return DisplayValue(this.fbEs); } }
+        public virtual string _f0Es { get { if (this.ID < 0) return ""; else return DisplayValue(this.f0Es); } }
+        public virtual string _f0E { get { if (this.ID < 0) return ""; else return DisplayValue(this.f0E); } }
+        public virtual string _Es { get { if (this.ID < 0) return ""; else return DisplayValue(this.Es); } }
         public virtual void Save()
         {
             this.created_at = DateTime.Now;
@@ -123,6 +132,24 @@ namespace GeospaceEntity.Models.Codes
                     f0E, hE,
                     fbEs, Es,
                     fx1);
+        }
+        public virtual string DisplayValue(int Value)
+        {
+            switch (Value)
+            {
+                case 1000: return "0";
+                case 1001: return "A";
+                case 1002: return "B";
+                case 1003: return "C";
+                case 1004: return "D";
+                case 1005: return "E";
+                case 1006: return "F";
+                case 1007: return "G";
+                case 1008: return "N";
+                case 1009: return "R";
+                //default: Value.ToString();
+            }
+            return Value.ToString();
         }
     }
 }

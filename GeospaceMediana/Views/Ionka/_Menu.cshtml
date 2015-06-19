@@ -11,6 +11,8 @@
 
         </ul>
     </li>
+    @if (@ViewContext.RouteData.Values["controller"] == "Ionka")
+    { 
     <li class="dropdown">
         <a id="login_head" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">@Model.StationName <span class="caret"></span></a>
         <ul class="dropdown-menu" role="menu">
@@ -59,4 +61,5 @@
                                   }
     )
     </li>
+    }
 </ul>

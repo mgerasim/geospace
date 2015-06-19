@@ -54,12 +54,17 @@
     <Compile Include="Common\IRepository.cs" />
     <Compile Include="Common\NHibernateHelper.cs" />
     <Compile Include="Helper\HelperIonka.cs" />
+    <EmbeddedResource Include="Mappings\Product.hbm.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Compile Include="Models\Codes\CodeIonka.cs" />
     <Compile Include="Models\Error.cs" />
+    <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Station.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ErrorRepository.cs" />
     <Compile Include="Repositories\CodeIonkaRepository.cs" />
+    <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Repositories\StationRepository.cs" />
   </ItemGroup>
   <ItemGroup>

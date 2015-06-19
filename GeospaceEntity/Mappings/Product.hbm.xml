@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="GeospaceEntity.Models" assembly="GeospaceEntity">
+  <class name="Product" table="Geospace_Product">
+    <id name="ID" unsaved-value="0">
+      <column name="ID" not-null="true" />
+      <generator class="identity"/>
+    </id>
+    <property name="created_at" />
+    <property name="updated_at" />
+    <property name="forecast_month_ionosphera" />
+    <property name="forecast_days_fives" />
+    <property name="review_geoenv" />
+    <property name="review_geoenv_month" />
+    <property name="disturbance_radio" />
+    <property name="table_sun" />
+    
+  </class>
+</hibernate-mapping>

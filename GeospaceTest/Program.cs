@@ -13,10 +13,10 @@ namespace GeospaceTest
         static void Main(string[] args)
         {
            // Support01();
-            //Support02();
-           // Support03();
-            //Support04();
-            Support05(); 
+           // Support02();
+            Support03();
+           // Support04();
+           // Support05(); 
             Console.WriteLine("Ok");
             Console.ReadKey();
         }
