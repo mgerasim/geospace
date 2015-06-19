@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="GeospaceEntity.Models.Codes" assembly="GeospaceEntity">
+  <class name="CodeUmagf" table="Geospace_CodeUmagf">
+    <id name="ID" unsaved-value="0">
+      <column name="ID" not-null="true" />
+      <generator class="identity"/>
+    </id>
+    <property name="created_at" />
+    <property name="updated_at" />
+    <property name="HH" />
+    <property name="MM" />
+    <property name="DD" />
+    <property name="YYYY" />
+    <property name="MI" />
+    <many-to-one name="Station" column="Station_ID" lazy="false"/>
+    
+    <property name="k1" />
+    <property name="k2" />
+    <property name="k3" />
+    <property name="k4" />
+    <property name="k5" />
+    <property name="k6" />
+    <property name="k7" />
+    <property name="k8" />   
+    
+    <property name="Raw" />
+    <property name="ErrorMessage" />
+
+  </class>
+</hibernate-mapping>

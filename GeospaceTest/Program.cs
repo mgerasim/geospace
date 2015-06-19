@@ -14,9 +14,9 @@ namespace GeospaceTest
         {
            // Support01();
             //Support02();
-           // Support03();
+            Support03();
             //Support04();
-            Support05(); 
+            //Support05(); 
             Console.WriteLine("Ok");
             Console.ReadKey();
         }
@@ -34,7 +34,7 @@ namespace GeospaceTest
         static void Support04()
         {
             string strFile = Environment.CurrentDirectory;
-            strFile = "D:\\мои документы\\visual studio 2013\\Projects\\GeoSpace\\documents\\armgf1dan.txt";
+            strFile = "c:\\users\\distomin\\Projects\\GeoSpace\\documents\\armgf1dan.txt";
 
             if (File.Exists(strFile))
             {
@@ -52,10 +52,13 @@ namespace GeospaceTest
                 using (StreamReader sr = new StreamReader(strFile))
                 {
                     String line = sr.ReadToEnd();
+
                     string[] delimiters = new string[] { "[ETX]" };
                     foreach (var item in line.Split(new char[] { '\u0002', '\u0003' },
                                  StringSplitOptions.RemoveEmptyEntries))
                     {
+                        Console.WriteLine(item);
+                        return;
 
                         if (item.IndexOf("ionka 37701 50606 7/1/8/") > -1)
                         {
