@@ -103,7 +103,7 @@ namespace GeospaceDecodeService
                                         {
                                             theStation = new Station();
                                             theStation.Code = StationCode;
-                                            theStation.Save();
+                                            //theStation.Save();
                                         }
 
                                         if (StationCode == 43501)
@@ -143,7 +143,7 @@ namespace GeospaceDecodeService
                                                     theCodeIonka.Station = theStation;
                                                     theCodeIonka.Raw = theCode;
 
-                                                    theCodeIonka.Save();
+                                                   // theCodeIonka.Save();
                                                 }
                                             }
                                             catch(Exception err)
@@ -161,7 +161,7 @@ namespace GeospaceDecodeService
                                                     theErr.Description = Description;
                                                     theErr.Raw = String.Format("RawMessage\n {0}\n\nRawMessageNormalize\n {1}\n\nIonka\n {2}",
                                                         item, theCode, code);
-                                                    theErr.Save();
+                                                   // theErr.Save();
                                                 }
 
                                             }
