@@ -14,8 +14,8 @@ namespace GeospaceTest
         {
            // Support01();
             //Support02();
-            Support03();
-            //Support04();
+            //Support03();
+            Support04();
             //Support05(); 
             Console.WriteLine("Ok");
             Console.ReadKey();
@@ -57,9 +57,6 @@ namespace GeospaceTest
                     foreach (var item in line.Split(new char[] { '\u0002', '\u0003' },
                                  StringSplitOptions.RemoveEmptyEntries))
                     {
-                        Console.WriteLine(item);
-                        return;
-
                         if (item.IndexOf("ionka 37701 50606 7/1/8/") > -1)
                         {
                             string sss = "";
@@ -68,13 +65,22 @@ namespace GeospaceTest
 
                         string theCode = GeospaceEntity.Helper.HelperIonka.Normalize(item);
 
+                        bool flagIonka = false;                 //если найдена IONKA искать UMAGF
 
                         foreach (var code in theCode.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries))
                         {
+                            
                             if (code.Length > 6)
                             {
+                                if (code.Substring(0).ToUpper().IndexOf("UMAGF") >= 0 && flagIonka)
+                                {
+
+                                }
+
                                 if (code.Substring(0, 5).ToUpper() == "IONKA")
                                 {
+                                    flagIonka = true;
+                                    
                                     try
                                     {
                                         string code_source = code;
@@ -98,7 +104,6 @@ namespace GeospaceTest
                                             code_source = code_source.Replace(token, token + " 0/0/0");
 
                                         }
-                                        Console.WriteLine(code_source);
 
                                         DateTime Created_At = GeospaceEntity.Helper.HelperIonka.Ionka_Group03_DateCreate(code_source);
                                         int DD = Created_At.Day;
@@ -110,6 +115,7 @@ namespace GeospaceTest
                                         int minute = Convert.ToInt32(code_source.Split(' ')[4].Substring(3, 2));
 
                                         GeospaceEntity.Models.Codes.CodeIonka theTemp = (new GeospaceEntity.Models.Codes.CodeIonka()).GetByDateUTC(theStation, YYYY, MM, DD, hour, minute);
+                                        ////
                                         if (theTemp == null)
                                         {
                                             theTemp = new GeospaceEntity.Models.Codes.CodeIonka();
@@ -121,7 +127,7 @@ namespace GeospaceTest
 
                                             theTemp.Station = theStation;
 
-                                            theTemp.Save();
+                                            //theTemp.Save();
                                         }
 
                                         for (int i = 0; i < sessionCount; i++)
@@ -144,15 +150,15 @@ namespace GeospaceTest
 
                                                     theCodeIonka.Save();
                                                 }
-                                                catch(Exception db)
+                                                catch (Exception db)
                                                 {
-                                                    
+
                                                     theCodeIonka = new GeospaceEntity.Models.Codes.CodeIonka();
                                                     theCodeIonka.ErrorMessage = db.InnerException.Message;
                                                     theCodeIonka.Raw = code_source;
                                                     theCodeIonka.Save();
                                                 }
-                                                
+
                                             }
                                             else
                                             {
@@ -181,6 +187,8 @@ namespace GeospaceTest
                                     }
 
                                 }
+                                else
+                                    flagIonka = false;
 
                             }
 
@@ -200,7 +208,7 @@ namespace GeospaceTest
             GeospaceEntity.Common.NHibernateHelper.UpdateSchema();
 
         }
-        static void Support02()
+       /* static void Support02()
         {
             string strFile = Environment.CurrentDirectory;
             strFile = "D:\\мои документы\\visual studio 2013\\Projects\\GeoSpace\\documents\\armgf1dan.txt";
@@ -270,7 +278,7 @@ namespace GeospaceTest
                 Console.WriteLine(e.Message);
             }
             
-        }
+        }*/
         static void Support01()
         {
             string strIonka = "\"IONKA 46501 50331 7/3/7 /0000 01025 32/19 04225 04520 38284 //100 0343/ //7// /0100 01024 32319 04217 //722 /7285 //102 0383/ //7// /0200 09824 32319 04010 //720 /7290 //100 0373/ //7// \"";

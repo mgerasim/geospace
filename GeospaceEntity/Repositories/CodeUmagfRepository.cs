@@ -54,13 +54,13 @@ namespace GeospaceEntity.Repositories
             using (ISession session = NHibernateHelper.OpenSession())
                 return session.CreateCriteria<GeospaceEntity.Models.Codes.CodeUmagf>().Add(Restrictions.Eq("ID", id)).UniqueResult<GeospaceEntity.Models.Codes.CodeUmagf>();
         }
-        /*
+        
         public GeospaceEntity.Models.Codes.CodeUmagf GetByCode(int code)
         {
             using (ISession session = NHibernateHelper.OpenSession())
                 return session.CreateCriteria<GeospaceEntity.Models.Codes.CodeUmagf>().Add(Restrictions.Eq("Code", code)).UniqueResult<GeospaceEntity.Models.Codes.CodeUmagf>();
         }
-        */
+        
         IList<GeospaceEntity.Models.Codes.CodeUmagf> IRepository<GeospaceEntity.Models.Codes.CodeUmagf>.GetAll()
         {
             using (ISession session = NHibernateHelper.OpenSession())
