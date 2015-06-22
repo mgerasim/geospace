@@ -79,8 +79,8 @@ namespace GeospaceDecodeService
 
             string strFile = Ini.GetValue("COMMON", "FileName", "D:\\Мои документы\\visual studio 2013\\Projects\\GeoSpace\\documents\\armgf1dan.txt");
 
-            //strFile = @"\\10.8.5.123\obmen\armgf1dan.txt";
-            strFile = "D:\\Мои документы\\visual studio 2013\\Projects\\GeoSpace\\documents\\armgf1dan.txt";
+            strFile = @"\\10.8.5.123\obmen\armgf1dan.txt";
+            //strFile = "D:\\Мои документы\\visual studio 2013\\Projects\\GeoSpace\\documents\\armgf1dan.txt";
             if (!File.Exists(strFile))
             {
                 eventLog1.WriteEntry("Файл не существует:");
@@ -185,18 +185,12 @@ namespace GeospaceDecodeService
                                             string[] arrayString = code_source.Split(' ');
                                             string token = arrayString[2];
 
-                                            code_source = code_source.Replace(token, token + " 0/0/0");
+                                            int group_count = (arrayString.Count() - 3) / 6;
+
+                                            code_source = code_source.Replace(token, token + " 0/" + group_count.ToString()+"/0");
                                             logger.Debug("timer1_Tick_1: StationCode: 43501: " + code_source);
 
-                                            int i = 0;
-                                            foreach (var codeKhabarovsk in code_source.Split(' '))
-                                            {
-                                                if ( i > 3)
-                                                {
-
-                                                }
-                                                i++;
-                                            }
+                                            
                                         }
 
                                         DateTime Created_At = GeospaceEntity.Helper.HelperIonka.Ionka_Group03_DateCreate(code_source);
@@ -204,20 +198,36 @@ namespace GeospaceDecodeService
                                         int MM = Created_At.Month;
                                         int YYYY = Created_At.Year;
                                         int sessionCount = GeospaceEntity.Helper.HelperIonka.Ionka_Group04_Count(code_source);
-
+                                        
                                         for (int i = 0; i < sessionCount; i++)
                                         {
                                             try
                                             {
 
-                                                string strSession = GeospaceEntity.Helper.HelperIonka.Ionka_GroupData_Get(i, code_source);
+                                                string strSession;
+                                                if (StationCode != 43501)
+                                                {
+                                                    strSession = GeospaceEntity.Helper.HelperIonka.Ionka_GroupData_Get(i, code_source);
+                                                }
+                                                else
+                                                {
+                                                    strSession = GeospaceEntity.Helper.HelperIonka.Ionka_GroupData_Get_Khabarovsk(i, code_source);
+                                                }
                                                 int HH = GeospaceEntity.Helper.HelperIonka.Ionka_Group05_HH(strSession);
                                                 int MI = GeospaceEntity.Helper.HelperIonka.Ionka_Group05_MI(strSession);
 
                                                 GeospaceEntity.Models.Codes.CodeIonka theCodeIonka = (new GeospaceEntity.Models.Codes.CodeIonka()).GetByDateUTC(theStation, YYYY, MM, DD, HH, MI);
                                                 if (theCodeIonka == null)
                                                 {
-                                                    theCodeIonka = new GeospaceEntity.Models.Codes.CodeIonka(strSession);
+                                                    if (StationCode != 43501)
+                                                    {
+                                                        theCodeIonka = new GeospaceEntity.Models.Codes.CodeIonka(strSession);
+                                                    }
+                                                    else
+                                                    {
+                                                        theCodeIonka = new GeospaceEntity.Models.Codes.CodeIonka();
+                                                        theCodeIonka.Parse_Khabarovsk(strSession);
+                                                    }
                                                     theCodeIonka.DD = Created_At.Day;
                                                     theCodeIonka.MM = Created_At.Month;
                                                     theCodeIonka.YYYY = Created_At.Year;

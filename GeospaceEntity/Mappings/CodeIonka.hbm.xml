@@ -28,8 +28,8 @@
     <property name="fbEs" />
     <property name="Es" />
     <property name="fx1" />
-    <property name="Raw" />
-    <property name="ErrorMessage" />
+    <property name="Raw" type="string" length="10000"/>
+    <property name="ErrorMessage" type="string" length="10000"/>
     
   </class>
 </hibernate-mapping>

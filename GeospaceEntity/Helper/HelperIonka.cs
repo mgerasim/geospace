@@ -204,6 +204,13 @@ namespace GeospaceEntity.Helper
             string stringGroupData = strIonka.Substring(24 + 54 * sessionNumber, 53);
             return stringGroupData;
         }
+
+        public static string Ionka_GroupData_Get_Khabarovsk(int sessionNumber, string strIonka)
+        {
+            string stringGroupData = strIonka.Substring(24 + 36 * sessionNumber, 35);
+            return stringGroupData;
+        }
+        
         public static int Ionka_Group05_HH(string strSession)
         {
             string[] arrayTokens = strSession.Split(' ');

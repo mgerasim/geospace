@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.eventLog1 = new System.Diagnostics.EventLog();
             this.timer1 = new System.Timers.Timer();
-            this.timer1.Interval = 1000*60*5;            // 1 мин
+            this.timer1.Interval = 1000*60*5;            // 5 мин
             this.timer1.Start();
             ((System.ComponentModel.ISupportInitialize)(this.eventLog1)).BeginInit();
             // 
