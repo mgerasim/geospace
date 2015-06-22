@@ -8,6 +8,31 @@ namespace GeospaceEntity.Models.Codes
 {
     public class CodeUmagf
     {
+        public virtual Station Station { get; set; }
+        public virtual int ID { get; set; }
+        public virtual DateTime created_at { get; set; }
+        public virtual DateTime updated_at { get; set; }
+        public virtual int HH { get; set; }
+        public virtual int MM { get; set; }
+        public virtual int DD { get; set; }
+        public virtual int YYYY { get; set; }
+        public virtual int MI { get; set; }
+
+        //K-индексы
+        public virtual int k1 { get; set; }
+        public virtual int k2 { get; set; }
+        public virtual int k3 { get; set; }
+        public virtual int k4 { get; set; }
+        public virtual int k5 { get; set; }
+        public virtual int k6 { get; set; }
+        public virtual int k7 { get; set; }
+        public virtual int k8 { get; set; }
+
+        //AK
+        public virtual int ak { get; set; }
+
+        public virtual string Raw { get; set; }
+        public virtual string ErrorMessage { get; set; }
         public CodeUmagf()
         {
             ID = -1;
@@ -29,30 +54,10 @@ namespace GeospaceEntity.Models.Codes
             k7 = 0;
             k8 = 0;
 
+            ak = 0;
+
             Raw = "";
             ErrorMessage = "";
         }
-        public virtual Station Station { get; set; }
-        public virtual int ID { get; set; }
-        public virtual DateTime created_at { get; set; }
-        public virtual DateTime updated_at { get; set; }
-        public virtual int HH { get; set; }
-        public virtual int MM { get; set; }
-        public virtual int DD { get; set; }
-        public virtual int YYYY { get; set; }
-        public virtual int MI { get; set; }
-
-        public virtual int k1 { get; set; }
-        public virtual int k2 { get; set; }
-        public virtual int k3 { get; set; }
-        public virtual int k4 { get; set; }
-        public virtual int k5 { get; set; }
-        public virtual int k6 { get; set; }
-        public virtual int k7 { get; set; }
-        public virtual int k8 { get; set; }
-
-        public virtual string Raw { get; set; }
-        public virtual string ErrorMessage { get; set; }
-
     }
 }

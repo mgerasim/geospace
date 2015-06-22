@@ -54,6 +54,7 @@
     <Compile Include="Common\IRepository.cs" />
     <Compile Include="Common\NHibernateHelper.cs" />
     <Compile Include="Helper\HelperIonka.cs" />
+    <Compile Include="Helper\HelperUmagf.cs" />
     <Compile Include="Models\Codes\CodeIonka.cs" />
     <Compile Include="Models\Codes\CodeUmagf.cs" />
     <Compile Include="Models\Error.cs" />

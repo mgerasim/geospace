@@ -66,33 +66,35 @@ namespace GeospaceTest
                         string theCode = GeospaceEntity.Helper.HelperIonka.Normalize(item);
 
                         bool flagIonka = false;                 //если найдена IONKA искать UMAGF
+                        GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf = new GeospaceEntity.Models.Codes.CodeUmagf();
 
                         foreach (var code in theCode.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries))
                         {
-                            
+                            string code_source = code;
                             if (code.Length > 6)
                             {
                                 if (code.Substring(0).ToUpper().IndexOf("UMAGF") >= 0 && flagIonka)
                                 {
-
+                                    string [] arrayGroups = code_source.Split(' ');
+                                    GeospaceEntity.Helper.HelperUmagf.Umagf_Group1_DateCreate(arrayGroups[1], theCodeUmagf);
+                                    GeospaceEntity.Helper.HelperUmagf.Umagf_Group2_AK(arrayGroups[2], theCodeUmagf);
+                                    GeospaceEntity.Helper.HelperUmagf.Umagf_Group3_K_index( arrayGroups, theCodeUmagf);
                                 }
 
                                 if (code.Substring(0, 5).ToUpper() == "IONKA")
                                 {
-                                    flagIonka = true;
-                                    
+                                    flagIonka = true;                                    
                                     try
-                                    {
-                                        string code_source = code;
+                                    {                                        
                                         code_source = GeospaceEntity.Helper.HelperIonka.Check(code);
 
-                                        int StationCode = GeospaceEntity.Helper.HelperIonka.Ionka_Group02_Station(code_source);
+                                        int  StationCode = GeospaceEntity.Helper.HelperIonka.Ionka_Group02_Station(code_source);
                                         Station theStation = (new Station()).GetByCode(StationCode);
                                         if (theStation == null)
                                         {
                                             theStation = new Station();
                                             theStation.Code = StationCode;
-                                            theStation.Save();
+                                            //theStation.Save();
                                         }
 
                                         if (StationCode == 43501)
@@ -130,6 +132,10 @@ namespace GeospaceTest
                                             //theTemp.Save();
                                         }
 
+                                        theCodeUmagf.YYYY = theTemp.YYYY;
+                                        theCodeUmagf.MM = theTemp.MM;
+                                        theCodeUmagf.Station = theTemp.Station;
+
                                         for (int i = 0; i < sessionCount; i++)
                                         {
                                             string strSession = GeospaceEntity.Helper.HelperIonka.Ionka_GroupData_Get(i, code_source);
@@ -148,7 +154,7 @@ namespace GeospaceTest
 
                                                     theCodeIonka.Station = theStation;
 
-                                                    theCodeIonka.Save();
+                                                    //theCodeIonka.Save();
                                                 }
                                                 catch (Exception db)
                                                 {
@@ -156,7 +162,7 @@ namespace GeospaceTest
                                                     theCodeIonka = new GeospaceEntity.Models.Codes.CodeIonka();
                                                     theCodeIonka.ErrorMessage = db.InnerException.Message;
                                                     theCodeIonka.Raw = code_source;
-                                                    theCodeIonka.Save();
+                                                    //theCodeIonka.Save();
                                                 }
 
                                             }
