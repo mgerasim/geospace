@@ -50,7 +50,6 @@ namespace GeospaceEntity.Helper
             //получить из Umagf AK
         public static void Umagf_Group2_AK(string[] arrayGroups, int num, GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf)
         {
-            StreamWriter sw = new StreamWriter("c:\\users\\distomin\\Projects\\GeoSpace\\documents\\umdan.txt", true); 
             int len = arrayGroups[num].Length;           
             
             if (arrayGroups[num][0] == '1' )
@@ -59,7 +58,6 @@ namespace GeospaceEntity.Helper
                 {
                     theCodeUmagf.ak = Convert.ToInt32(arrayGroups[num].Substring(len - 2, 2));
                 }
-            sw.Close();
         }
 
         //получить из Umagf K-индексы

@@ -1,4 +1,5 @@
 ﻿using GeospaceEntity.Models;
+using GeospaceEntity.Models.Codes;
 using NLog;
 using System;
 using System.Collections.Generic;
@@ -79,7 +80,7 @@ namespace GeospaceDecodeService
             string strFile = Ini.GetValue("COMMON", "FileName", "D:\\Мои документы\\visual studio 2013\\Projects\\GeoSpace\\documents\\armgf1dan.txt");
 
             //strFile = @"\\10.8.5.123\obmen\armgf1dan.txt";
-            strFile = "c:\\users\\distomin\\Projects\\GeoSpace\\documents\\armgf1dan.txt";
+            strFile = "D:\\Мои документы\\visual studio 2013\\Projects\\GeoSpace\\documents\\armgf1dan.txt";
             if (!File.Exists(strFile))
             {
                 eventLog1.WriteEntry("Файл не существует:");
@@ -154,7 +155,9 @@ namespace GeospaceDecodeService
                                     
                                     try
                                     {
-                                        code_source = GeospaceEntity.Helper.HelperIonka.Check(code);
+                                        
+
+                                        code_source = GeospaceEntity.Helper.HelperIonka.Check(code_source);
 
                                         int StationCode = GeospaceEntity.Helper.HelperIonka.Ionka_Group02_Station(code_source);
 
@@ -163,9 +166,18 @@ namespace GeospaceDecodeService
                                         {
                                             theStation = new Station();
                                             theStation.Code = StationCode;
-                                            //theStation.Save();
+                                            theStation.Save();
                                         }
-
+                                        /*
+                                        if (StationCode == 37701)
+                                        {
+                                            if (code_source.Split(' ')[2] == "50406" ) {
+                                                CodeIonka theCodeIonka = new CodeIonka();
+                                                theCodeIonka.Station = theStation;
+                                                theCodeIonka.DD = 
+                                            }
+                                        }
+                                        */
                                         if (StationCode == 43501)
                                         {
                                             logger.Debug("timer1_Tick_1: StationCode: 43501: " + code_source);
@@ -175,6 +187,16 @@ namespace GeospaceDecodeService
 
                                             code_source = code_source.Replace(token, token + " 0/0/0");
                                             logger.Debug("timer1_Tick_1: StationCode: 43501: " + code_source);
+
+                                            int i = 0;
+                                            foreach (var codeKhabarovsk in code_source.Split(' '))
+                                            {
+                                                if ( i > 3)
+                                                {
+
+                                                }
+                                                i++;
+                                            }
                                         }
 
                                         DateTime Created_At = GeospaceEntity.Helper.HelperIonka.Ionka_Group03_DateCreate(code_source);
@@ -204,7 +226,7 @@ namespace GeospaceDecodeService
                                                     theCodeIonka.Raw = code_source;
 
 
-                                                   // theCodeIonka.Save();
+                                                    theCodeIonka.Save();
                                                 }
 
                                                 theCodeUmagf.YYYY = theCodeIonka.YYYY;
@@ -236,7 +258,7 @@ namespace GeospaceDecodeService
                                                     theErr.Description = Description;
                                                     theErr.Raw = String.Format("RawMessage\n {0}\n\nRawMessageNormalize\n {1}\n\nIonka\n {2}",
                                                         item.ToString(), code_source, code);
-                                                    {
+                                                    try{
                                                     theErr.Save();
 
                                                     }

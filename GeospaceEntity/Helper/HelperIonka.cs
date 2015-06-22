@@ -10,6 +10,28 @@ namespace GeospaceEntity.Helper
     {
         public static string Normalize(string strIonka)
         {
+
+            if (strIonka.IndexOf("37701 50406 01706") > -1)
+            {
+                strIonka = strIonka.Replace("37701 50406 01706", "37701 50617");
+            }
+            if (strIonka.IndexOf("37701 50406 1706 8") > -1)
+            {
+                strIonka = strIonka.Replace("37701 50406 1706 8", "37701 50617");
+            }
+            if (strIonka.IndexOf("37701 50406 01706 /") > -1)
+            {
+                strIonka = strIonka.Replace("37701 50406 01706 /", "37701 50617 7/1/1 /");
+            }
+            if (strIonka.IndexOf("7/1/ 2") > -1)
+            {
+                strIonka = strIonka.Replace("7/1/ 2", "7/1/2");
+            }
+
+            if (strIonka.IndexOf("7/1/ ") > -1)
+            {
+                strIonka = strIonka.Replace("7/1/ ", "7/1/");
+            }
             string[] delimiters = new string[] { " ","\r\n"};
 
            // strIonka = strIonka.Replace("///", "/ //");
@@ -23,6 +45,7 @@ namespace GeospaceEntity.Helper
             foreach (var item in strCodes)
             {
                 string ss = item;
+
 
                 if ((ss.Length == 10 || ss.Length == 11) && ss.IndexOf("///") > -1)
                 {
