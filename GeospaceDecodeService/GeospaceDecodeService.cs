@@ -17,13 +17,16 @@ namespace GeospaceDecodeService
     {
         Logger logger;
         Logger error;
+        Logger logumagf;
         public GeospaceDecodeService()
         {
             InitializeComponent();
             logger = LogManager.GetLogger("log");
             error = LogManager.GetLogger("error");
+            logumagf = LogManager.GetLogger("logumagf");
             logger.Debug("InitializeComponent");
         }
+
 
         protected override void OnStart(string[] args)
         {
@@ -43,8 +46,23 @@ namespace GeospaceDecodeService
         {
 
         }
-
-
+        public void WriteUmagf(GeospaceEntity.Models.Codes.CodeUmagf umagf)
+        {
+            logumagf.Debug(umagf.Raw);
+            logumagf.Debug("SS " + umagf.Station.Code.ToString() + " " + umagf.Station.Name );
+            logumagf.Debug(umagf.HH.ToString() + ":00" + "  " + umagf.DD.ToString() + "." + umagf.MM.ToString() + "." + umagf.YYYY.ToString());
+            logumagf.Debug("AK" + " = " + umagf.ak);
+            logumagf.Debug("k1 = " + umagf.k1.ToString());
+            logumagf.Debug("k2 = " + umagf.k2.ToString());
+            logumagf.Debug("k3 = " + umagf.k3.ToString());
+            logumagf.Debug("k4 = " + umagf.k4.ToString());
+            logumagf.Debug("k5 = " + umagf.k5.ToString());
+            logumagf.Debug("k6 = " + umagf.k6.ToString());
+            logumagf.Debug("k7 = " + umagf.k7.ToString());
+            logumagf.Debug("k8 = " + umagf.k8.ToString());
+            logumagf.Debug("+++++++++++++++++++++++++++++++++++");
+        }
+        
         private void timer1_Tick_1(object sender, EventArgs e)
         {
             eventLog1.WriteEntry("GeospaceDecodeService: Timer");
@@ -61,7 +79,7 @@ namespace GeospaceDecodeService
             string strFile = Ini.GetValue("COMMON", "FileName", "D:\\Мои документы\\visual studio 2013\\Projects\\GeoSpace\\documents\\armgf1dan.txt");
 
             //strFile = @"\\10.8.5.123\obmen\armgf1dan.txt";
-
+            strFile = "c:\\users\\distomin\\Projects\\GeoSpace\\documents\\armgf1dan.txt";
             if (!File.Exists(strFile))
             {
                 eventLog1.WriteEntry("Файл не существует:");
@@ -83,17 +101,59 @@ namespace GeospaceDecodeService
 
                         string theCode = GeospaceEntity.Helper.HelperIonka.Normalize(item);
 
+                        GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf = new GeospaceEntity.Models.Codes.CodeUmagf();
+                       
                         foreach (var code in theCode.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries))
                         {
+                            string code_source = code;
+                            int numDate = 1;
+                            int numIndex = 2;
+
                             if (code.Length > 6)
                             {
+                                
+                                if (code.Substring(0).ToUpper().IndexOf("UMAGF") >= 0)
+                                {
+                                    string[] arrayGroups = code_source.Split(' ');
+                                    if (arrayGroups.Length >= 9)
+                                    {
+                                        numDate = 3;
+                                        numIndex = 5;
+                                        GeospaceEntity.Helper.HelperUmagf.Umagf_BigGroup1_NumStation(arrayGroups, 1, theCodeUmagf);
+                                        GeospaceEntity.Helper.HelperUmagf.Umagf_BigGroup2_FullData(arrayGroups, 2, theCodeUmagf);
+                                        GeospaceEntity.Helper.HelperUmagf.Umagf_Group1_DateCreate2(arrayGroups, numDate, theCodeUmagf);
+
+                                        GeospaceEntity.Helper.HelperUmagf.Umagf_Group2_AK(arrayGroups, numIndex, theCodeUmagf);
+                                        GeospaceEntity.Helper.HelperUmagf.Umagf_Group3_K_index(arrayGroups, numIndex, theCodeUmagf);
+
+                                        theCodeUmagf.Raw = code_source;
+                                        if (theCodeUmagf.GetByDateUTC() == null)
+                                        {
+                                            //theCodeUmagf.Save();
+                                        }
+                                        WriteUmagf(theCodeUmagf);
+                                    }
+                                        /*
+                                    else
+                                        GeospaceEntity.Helper.HelperUmagf.Umagf_Group1_DateCreate(arrayGroups, numDate, theCodeUmagf);
+                                    
+                                    GeospaceEntity.Helper.HelperUmagf.Umagf_Group2_AK(arrayGroups, numIndex, theCodeUmagf);
+                                    GeospaceEntity.Helper.HelperUmagf.Umagf_Group3_K_index(arrayGroups, numIndex, theCodeUmagf);
+
+                                    theCodeUmagf.Raw = code_source;
+                                    if (theCodeUmagf.GetByDateUTC() == null)
+                                    {
+                                        //theCodeUmagf.Save();
+                                    }
+                                    WriteUmagf(theCodeUmagf);*/
+                                }                                
+
                                 if (code.Substring(0, 5).ToUpper() == "IONKA")
                                 {
                                     logger.Debug(code);
                                     
                                     try
                                     {
-                                        string code_source = code;
                                         code_source = GeospaceEntity.Helper.HelperIonka.Check(code);
 
                                         int StationCode = GeospaceEntity.Helper.HelperIonka.Ionka_Group02_Station(code_source);
@@ -103,7 +163,7 @@ namespace GeospaceDecodeService
                                         {
                                             theStation = new Station();
                                             theStation.Code = StationCode;
-                                            theStation.Save();
+                                            //theStation.Save();
                                         }
 
                                         if (StationCode == 43501)
@@ -144,8 +204,12 @@ namespace GeospaceDecodeService
                                                     theCodeIonka.Raw = code_source;
 
 
-                                                    theCodeIonka.Save();
+                                                   // theCodeIonka.Save();
                                                 }
+
+                                                theCodeUmagf.YYYY = theCodeIonka.YYYY;
+                                                theCodeUmagf.MM = theCodeIonka.MM;
+                                                theCodeUmagf.Station = theCodeIonka.Station;
                                             }
                                             catch(Exception err)
                                             {
@@ -172,9 +236,8 @@ namespace GeospaceDecodeService
                                                     theErr.Description = Description;
                                                     theErr.Raw = String.Format("RawMessage\n {0}\n\nRawMessageNormalize\n {1}\n\nIonka\n {2}",
                                                         item.ToString(), code_source, code);
-                                                    try
                                                     {
-                                                        theErr.Save();
+                                                    theErr.Save();
 
                                                     }
                                                     catch
@@ -212,7 +275,6 @@ namespace GeospaceDecodeService
                                     }
 
                                 }
-
                             }
 
                         }// foreach (var code in theCode.Split
