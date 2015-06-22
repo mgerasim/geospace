@@ -27,17 +27,15 @@
                   <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Продукция<span class="caret"></span></a>
                       <ul class="dropdown-menu" role="menu">
-                          <li>@Html.ActionLink("Просмотр всей продукции", "Index", "Products")</li>
+                          <li>@Html.ActionLink("Редактировать продукцию", "Index", "Products")</li>
                           <li class="divider"></li>
-                          <li>@Html.ActionLink("Территория", "Index", "Territory")</li>
-                          <li>@Html.ActionLink("Административные районы и населённые пункты", "Index", "Region")</li>
+                          <li>@Html.ActionLink("Месячный прогноз ионосферной магнитной возмущенности", "EditForecastMonthIonosphera", "Products")</li>
+                          <li>@Html.ActionLink("Пятидневный прогноз медианы", "EditForecastDaysFives", "Products")</li>
+                          <li>@Html.ActionLink("Обзор гелеогеофизической обстановки и прогноз на 1-3 суток", "EditReviewGeoEnv", "Products")</li>
+                          <li>@Html.ActionLink("Месячный обзор гелеогеофизической обстановки", "EditReviewGeoEnvMonth", "Products")</li>
                           <li class="divider"></li>
-                          <li>@Html.ActionLink("Облачность", "Index", "CloudinessTemplate")</li>
-                          <li>@Html.ActionLink("Осадки", "Index", "PrecipitationTemplate")</li>
-                          <li>@Html.ActionLink("Ветер", "Index", "WindTemplate")</li>
-                          <li>@Html.ActionLink("Явления", "Index", "ConditionTemplate")</li>
-                          <li class="divider"></li>
-                          <li>@Html.ActionLink("Уточнения", "Index", "ClarificationTemplate")</li>
+                          <li>@Html.ActionLink("Сводная таблица по разделам: солнце, магнитное поле Земли, ионосфера", "DownloadTableSun", "Products")</li>
+                          <li>@Html.ActionLink("Таблица нарушения радиосвязи", "DownloadDisturbanceRadio", "Products")</li>
                       </ul>
                   </li>
 
@@ -45,7 +43,7 @@
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Справочники<span class="caret"></span></a>
                       <ul class="dropdown-menu" role="menu">
                           <li>@Html.ActionLink("Станции", "Index", "Stations")</li>
-                          <li>@Html.ActionLink("Группы абонентов", "Index", "Group")</li>
+                          <!--                          <li>@Html.ActionLink("Группы абонентов", "Index", "Group")</li>
                           <li class="divider"></li>
                           <li>@Html.ActionLink("Территория", "Index", "Territory")</li>
                           <li>@Html.ActionLink("Административные районы и населённые пункты", "Index", "Region")</li>
@@ -56,8 +54,10 @@
                           <li>@Html.ActionLink("Явления", "Index", "ConditionTemplate")</li>
                           <li class="divider"></li>
                           <li>@Html.ActionLink("Уточнения", "Index", "ClarificationTemplate")</li>
+                              -->
                       </ul>
                   </li>
+                  <!--
                   <li>@Html.ActionLink("Настройки", "Index", "Settings")</li>
                   <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Администрирование<span class="caret"></span></a>
@@ -65,6 +65,7 @@
                           <li>@Html.ActionLink("Обновить схему", "Update", "Schema")</li>
                       </ul>
                   </li>
+                      -->
               </ul>
           </div><!-- /.navbar-collapse -->
 </div><!-- /.container-fluid -->

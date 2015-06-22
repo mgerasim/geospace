@@ -402,5 +402,274 @@ namespace GeospaceMediana.Controllers
             byte[] fileBytes = System.IO.File.ReadAllBytes(path);
             return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
         }
+
+        public ActionResult EditForecastDaysFives()
+        {
+            GeospaceEntity.Models.Product theProduct = null;
+
+            try
+            {
+
+                List<GeospaceEntity.Models.Product> theList = (new GeospaceEntity.Models.Product()).GetAll();
+
+                if (theList.Count == 0)
+                {
+                    theProduct = new GeospaceEntity.Models.Product();
+                    theProduct.Save();
+                }
+                else
+                {
+                    theProduct = theList[0];
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+            }
+
+
+
+            return View(theProduct);
+        }
+        [HttpPost]
+        public ActionResult EditForecastDaysFives(FormCollection collection)
+        {
+            GeospaceEntity.Models.Product theProduct = null;
+
+            try
+            {
+
+                List<GeospaceEntity.Models.Product> theList = (new GeospaceEntity.Models.Product()).GetAll();
+
+                if (theList.Count == 0)
+                {
+                    theProduct = new GeospaceEntity.Models.Product();
+                    theProduct.Save();
+                }
+                else
+                {
+                    theProduct = theList[0];
+                }
+                theProduct.forecast_days_fives = "";
+                string param = collection.Get("forecastdaysfives");
+                foreach(var line in param.Split(new string[] { "\r\n" },StringSplitOptions.None))
+                {
+                    string ss = line;
+                    ss = ss.Trim();
+                    theProduct.forecast_days_fives += ss + "\r\n";
+
+                }
+                theProduct.Update();
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+            }
+
+            return RedirectToAction("Index");
+        }
+
+
+
+        public ActionResult EditForecastMonthIonosphera()
+        {
+            GeospaceEntity.Models.Product theProduct = null;
+
+            try
+            {
+
+                List<GeospaceEntity.Models.Product> theList = (new GeospaceEntity.Models.Product()).GetAll();
+
+                if (theList.Count == 0)
+                {
+                    theProduct = new GeospaceEntity.Models.Product();
+                    theProduct.Save();
+                }
+                else
+                {
+                    theProduct = theList[0];
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+            }
+
+
+
+            return View(theProduct);
+        }
+        [HttpPost]
+        public ActionResult EditForecastMonthIonosphera(FormCollection collection)
+        {
+            GeospaceEntity.Models.Product theProduct = null;
+
+            try
+            {
+
+                List<GeospaceEntity.Models.Product> theList = (new GeospaceEntity.Models.Product()).GetAll();
+
+                if (theList.Count == 0)
+                {
+                    theProduct = new GeospaceEntity.Models.Product();
+                    theProduct.Save();
+                }
+                else
+                {
+                    theProduct = theList[0];
+                }
+                theProduct.forecast_month_ionosphera = "";
+                string param = collection.Get("forecastmonthionosphera");
+                foreach (var line in param.Split(new string[] { "\r\n" }, StringSplitOptions.None))
+                {
+                    string ss = line;
+                    ss = ss.Trim();
+                    theProduct.forecast_month_ionosphera += ss + "\r\n";
+
+                }
+                theProduct.Update();
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+            }
+
+            return RedirectToAction("Index");
+        }
+
+
+
+        public ActionResult EditReviewGeoEnv()
+        {
+            GeospaceEntity.Models.Product theProduct = null;
+
+            try
+            {
+
+                List<GeospaceEntity.Models.Product> theList = (new GeospaceEntity.Models.Product()).GetAll();
+
+                if (theList.Count == 0)
+                {
+                    theProduct = new GeospaceEntity.Models.Product();
+                    theProduct.Save();
+                }
+                else
+                {
+                    theProduct = theList[0];
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+            }
+
+
+
+            return View(theProduct);
+        }
+        [HttpPost]
+        public ActionResult EditReviewGeoEnv(FormCollection collection)
+        {
+            GeospaceEntity.Models.Product theProduct = null;
+
+            try
+            {
+
+                List<GeospaceEntity.Models.Product> theList = (new GeospaceEntity.Models.Product()).GetAll();
+
+                if (theList.Count == 0)
+                {
+                    theProduct = new GeospaceEntity.Models.Product();
+                    theProduct.Save();
+                }
+                else
+                {
+                    theProduct = theList[0];
+                }
+                theProduct.review_geoenv = "";
+                string param = collection.Get("reviewgeoenv");
+                foreach (var line in param.Split(new string[] { "\r\n" }, StringSplitOptions.None))
+                {
+                    string ss = line;
+                    ss = ss.Trim();
+                    theProduct.review_geoenv += ss + "\r\n";
+
+                }
+                theProduct.Update();
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult EditReviewGeoEnvMonth()
+        {
+            GeospaceEntity.Models.Product theProduct = null;
+
+            try
+            {
+
+                List<GeospaceEntity.Models.Product> theList = (new GeospaceEntity.Models.Product()).GetAll();
+
+                if (theList.Count == 0)
+                {
+                    theProduct = new GeospaceEntity.Models.Product();
+                    theProduct.Save();
+                }
+                else
+                {
+                    theProduct = theList[0];
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+            }
+
+
+
+            return View(theProduct);
+        }
+        [HttpPost]
+        public ActionResult EditReviewGeoEnvMonth(FormCollection collection)
+        {
+            GeospaceEntity.Models.Product theProduct = null;
+
+            try
+            {
+
+                List<GeospaceEntity.Models.Product> theList = (new GeospaceEntity.Models.Product()).GetAll();
+
+                if (theList.Count == 0)
+                {
+                    theProduct = new GeospaceEntity.Models.Product();
+                    theProduct.Save();
+                }
+                else
+                {
+                    theProduct = theList[0];
+                }
+                theProduct.review_geoenv_month = "";
+                string param = collection.Get("reviewgeoenvmonth");
+                foreach (var line in param.Split(new string[] { "\r\n" }, StringSplitOptions.None))
+                {
+                    string ss = line;
+                    ss = ss.Trim();
+                    theProduct.review_geoenv_month += ss + "\r\n";
+
+                }
+                theProduct.Update();
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+            }
+
+            return RedirectToAction("Index");
+        }
+
     }
 }

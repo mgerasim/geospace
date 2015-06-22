@@ -2,17 +2,20 @@
     ViewBag.Title = "Продукция";
 }
 
+@if (ViewBag.Error != null)
+{
+    <p>@ViewBag.Error</p>
+
+}
+
+
 <h2>Месячный прогноз ионосферной магнитной возмущенности</h2>
 <p>
-    <a class="btn btn-default" href="#" data-toggle="modal" data-target="#modal-forecast-month-ionosphera" role="button">Изменить</a>
+    <a class="btn btn-default" href="~/Products/EditForecastMonthIonosphera" role="button">Изменить</a>
     <a class="btn btn-default" href="~/Products/ShowForecastMonthIonosphera" role="button">Просмотр</a>
     
     <p>
         <div id="div-forecast-month-ionosphera" class="forecast">
-
-            <div class="alert alert-danger" role="alert">Ошибка при сохранении прогноза!</div>
-
-            <div class="alert alert-success" role="alert">Прогноз успешно сохранен!</div>
             <p>
                 @Html.Raw("<pre>"+ Html.Encode(Model.forecast_month_ionosphera) + "</pre>")
             </p>
@@ -20,72 +23,17 @@
     </p>
 </p>
 
-<div class="modal fade" id="modal-forecast-month-ionosphera" tabindex="-1" role="dialog" aria-labelledby="modal-label-forecast-month-ionosphera">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="modal-label-forecast-month-ionosphera">Месячный прогноз ионосферной магнитной возмщенности</h4>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="modal-textarea-forecast-month-ionosphera">Введите прогноз</label>
-                    <textarea class="form-control" id="modal-textarea-forecast-month-ionosphera" rows=8 placeholder="Прогноз"></textarea>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" onclick="SaveModalForecastMonthIonosphera()" class="btn btn-primary" data-dismiss="modal">Сохранить</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-            </div>
-        </div>
-    </div>
-</div>
-<script>
-    $(document).ready(function() {
-        $(".alert").hide();
-    });
-    function SaveModalForecastMonthIonosphera() {
-        
-        var forecast = $("#modal-textarea-forecast-month-ionosphera").val();
-        var param = { text: forecast };
-        $.ajax({
-            cache: false,
-            url: '@Url.Action("SaveForecastMonthIonosphera", "Products")',
-            data: param,
-            success: function (data) {
-                $("#div-forecast-month-ionosphera .alert-danger").hide();
-                if (data.length > 5) 
-                {
-                    $("#div-forecast-month-ionosphera .alert-danger").text(data);
-                    $("#div-forecast-month-ionosphera .alert-danger").show();
-                }
-                else
-                {
-                    location.reload();
-                }
-            },
-            error: function (x, e) {
-                $("#div-forecast-month-ionosphera .alert-danger").show();
-               
-            }
-        });
-    }
-</script>
-
-
 
 
 
 <h2>Пятидневный прогноз медианы</h2>
 <p>
-    <a class="btn btn-default" href="#" data-toggle="modal" data-target="#modal-forecast-days-fives" role="button">Изменить</a>
+    <a class="btn btn-default" href="~/Products/EditForecastDaysFives" role="button">Изменить</a>
     <a class="btn btn-default" href="~/Products/ShowForecastDaysFives" role="button">Просмотр</a>
 <p>
     <div id="div-forecast-days-fives" class="forecast">
 
-        <div class="alert alert-danger" role="alert">Ошибка при сохранении прогноза!</div>
-
-        <div class="alert alert-success" role="alert">Прогноз успешно сохранен!</div>
+        
 <p>
     @Html.Raw("<pre>"+ Html.Encode(Model.forecast_days_fives) + "</pre>")
 </p>
@@ -93,65 +41,14 @@
     </p>
 </p>
 
-<div class="modal fade" id="modal-forecast-days-fives" tabindex="-1" role="dialog" aria-labelledby="modal-label-forecast-days-fives">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="modal-label-forecast-days-fives">Месячный прогноз ионосферной магнитной возмщенности</h4>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="modal-textarea-forecast-days-fives">Введите прогноз</label>
-                    <textarea class="form-control" id="modal-textarea-forecast-days-fives" rows=8 placeholder="Прогноз"></textarea>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" onclick="SaveModalForecastDaysFives()" class="btn btn-primary" data-dismiss="modal">Сохранить</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-            </div>
-        </div>
-    </div>
-</div>
-<script>
-    function SaveModalForecastDaysFives() {
-
-        var forecast = $("#modal-textarea-forecast-days-fives").val();
-        var param = { text: forecast };
-        $.ajax({
-            cache: false,
-            url: '@Url.Action("SaveForecastDaysFives", "Products")',
-            data: param,
-            success: function (data) {
-                $("#div-forecast-days-fives .alert-danger").hide();
-                if (data.length > 5)
-                {
-                    $("#div-forecast-days-fives .alert-danger").text(data);
-                    $("#div-forecast-days-fives .alert-danger").show();
-                }
-                else
-                {
-                    location.reload();
-                }
-            },
-            error: function (x, e) {
-                $("#div-forecast-days-fives .alert-danger").show();
-
-            }
-        });
-    }
-</script>
 
 <h2>Обзор гелеогеофизической обстановки, прогноз на 1-3 суток</h2>
 <p>
-    <a class="btn btn-default" href="#" data-toggle="modal" data-target="#modal-review-geoenv" role="button">Изменить</a>
+    <a class="btn btn-default" href="~/Products/EditReviewGeoenv" role="button">Изменить</a>
     <a class="btn btn-default" href="~/Products/ShowReviewGeoenv" role="button">Просмотр</a>
 <p>
     <div id="div-review-geoenv" class="forecast">
 
-        <div class="alert alert-danger" role="alert">Ошибка при сохранении прогноза!</div>
-
-        <div class="alert alert-success" role="alert">Прогноз успешно сохранен!</div>
 <p>
     @Html.Raw("<pre>"+ Html.Encode(Model.review_geoenv) + "</pre>")
 </p>
@@ -159,121 +56,18 @@
     </p>
 </p>
 
-<div class="modal fade" id="modal-review-geoenv" tabindex="-1" role="dialog" aria-labelledby="modal-label-review-geoenv">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="modal-label-review-geoenv">Месячный прогноз ионосферной магнитной возмщенности</h4>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="modal-textarea-review-geoenv">Введите прогноз</label>
-                    <textarea class="form-control" id="modal-textarea-review-geoenv" rows=8 placeholder="Прогноз"></textarea>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" onclick="SaveModalReviewGeoEnv()" class="btn btn-primary" data-dismiss="modal">Сохранить</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-            </div>
-        </div>
-    </div>
-</div>
-<script>
-    function SaveModalReviewGeoEnv() {
-
-        var forecast = $("#modal-textarea-review-geoenv").val();
-        var param = { text: forecast };
-        $.ajax({
-            cache: false,
-            url: '@Url.Action("SaveReviewGeoEnv", "Products")',
-            data: param,
-            success: function (data) {
-                $("#div-review-geoenv .alert-danger").hide();
-                if (data.length > 5)
-                {
-                    $("#div-review-geoenv .alert-danger").text(data);
-                    $("#div-review-geoenv .alert-danger").show();
-                }
-                else
-                {
-                    location.reload();
-                }
-            },
-            error: function (x, e) {
-                $("#div-review-geoenv .alert-danger").show();
-
-            }
-        });
-    }
-</script>
-
-
 <h2>Месячный обзор гелеогеофизической обстановки</h2>
 <p>
-    <a class="btn btn-default" href="#" data-toggle="modal" data-target="#modal-review-geoenv-month" role="button">Изменить</a>
+    <a class="btn btn-default" href="~/Products/EditReviewGeoenvMonth" role="button">Изменить</a>
     <a class="btn btn-default" href="~/Products/ShowReviewGeoenvMonth" role="button">Просмотр</a>
-<p>
+</p>
     <div id="div-review-geoenv-month" class="forecast">
-
-        <div class="alert alert-danger" role="alert">Ошибка при сохранении прогноза!</div>
-
-        <div class="alert alert-success" role="alert">Прогноз успешно сохранен!</div>
 <p>
     @Html.Raw("<pre>"+ Html.Encode(Model.review_geoenv_month) + "</pre>")
 </p>
         </div>
     </p>
 </p>
-
-<div class="modal fade" id="modal-review-geoenv-month" tabindex="-1" role="dialog" aria-labelledby="modal-label-review-geoenv-month">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="modal-label-review-geoenv-month">Месячный прогноз ионосферной магнитной возмщенности</h4>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="modal-textarea-review-geoenv-month">Введите прогноз</label>
-                    <textarea class="form-control" id="modal-textarea-review-geoenv-month" rows=8 placeholder="Прогноз"></textarea>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" onclick="SaveModalReviewGeoEnvMonth()" class="btn btn-primary" data-dismiss="modal">Сохранить</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-            </div>
-        </div>
-    </div>
-</div>
-<script>
-    function SaveModalReviewGeoEnvMonth() {
-
-        var forecast = $("#modal-textarea-review-geoenv-month").val();
-        var param = { text: forecast };
-        $.ajax({
-            cache: false,
-            url: '@Url.Action("SaveReviewGeoEnvMonth", "Products")',
-            data: param,
-            success: function (data) {
-                $("#div-review-geoenv-month .alert-danger").hide();
-                if (data.length > 5)
-                {
-                    $("#div-review-geoenv-month .alert-danger").text(data);
-                    $("#div-review-geoenv-month .alert-danger").show();
-                }
-                else
-                {
-                    location.reload();
-                }
-            },
-            error: function (x, e) {
-                $("#div-review-geoenv-month .alert-danger").show();
-
-            }
-        });
-    }
-</script>
 
 <h2>Сводная таблица по разделам: солнце, магнитное поле Земли, ионосфера</h2>
 <a class="btn btn-default" href="~/Products/ShowTableSun" role="button">Просмотр</a>

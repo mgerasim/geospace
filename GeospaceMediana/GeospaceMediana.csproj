@@ -265,6 +265,10 @@
     <Content Include="Views\Products\ShowReviewGeoEnvMonth.cshtml" />
     <Content Include="Views\Products\ShowTableSun.cshtml" />
     <Content Include="Views\Products\ShowDisturbanceRadio.cshtml" />
+    <Content Include="Views\Products\EditForecastDaysFives.cshtml" />
+    <Content Include="Views\Products\EditForecastMonthIonosphera.cshtml" />
+    <Content Include="Views\Products\EditReviewGeoEnv.cshtml" />
+    <Content Include="Views\Products\EditReviewGeoEnvMonth.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
