@@ -1,5 +1,7 @@
-﻿using System;
+﻿using GeospaceEntity.Models;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,18 +13,36 @@ namespace GeospaceEntity.Helper
         //получить из Umagf день, часы, минуты
         public static void Umagf_Group1_DateCreate( string[] arrayGroups, int num, GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf)
         {
+            arrayGroups[num] = arrayGroups[num].Replace( "/", "" );
+
             int len = arrayGroups[num].Length;
             theCodeUmagf.DD = Convert.ToInt32(arrayGroups[num].Substring(0, 2));
             theCodeUmagf.HH = Convert.ToInt32(arrayGroups[num].Substring(len - 2, 2));     
         }
 
+        public static void Umagf_Group1_DateCreate2(string[] arrayGroups, int num, GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf)
+        {
+            arrayGroups[num] = arrayGroups[num].Replace("/", "");
+
+            int len = arrayGroups[num].Length;
+            theCodeUmagf.HH = Convert.ToInt32(arrayGroups[num].Substring(0, 2));
+            theCodeUmagf.MI = Convert.ToInt32(arrayGroups[num].Substring(len - 2, 2));
+        }
+
         public static void Umagf_BigGroup1_NumStation(string[] arrayGroups, int num, GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf)
         {
-            theCodeUmagf.Station.Code = Convert.ToInt32(arrayGroups[num]);
+            int number = Convert.ToInt32(arrayGroups[num]);
+            Station theStation = (new Station()).GetByCode(number);
+            if (theStation == null)
+            {
+                theStation = new Station();
+                theStation.Code = number;
+                theStation.Save();
+            }
+            theCodeUmagf.Station = theStation;
         }
         public static void Umagf_BigGroup2_FullData(string[] arrayGroups, int num, GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf)
         {
-            int len = arrayGroups[num].Length;
             theCodeUmagf.YYYY = DateTime.Now.Year;
             theCodeUmagf.MM = Convert.ToInt32(arrayGroups[num].Substring(1, 2));
             theCodeUmagf.DD = Convert.ToInt32(arrayGroups[num].Substring(3, 2));
@@ -30,10 +50,16 @@ namespace GeospaceEntity.Helper
             //получить из Umagf AK
         public static void Umagf_Group2_AK(string[] arrayGroups, int num, GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf)
         {
-            int len = arrayGroups[num].Length;
-            if (arrayGroups[num][0] == '1' && Char.IsDigit( arrayGroups[num][len - 2])
-                                           && Char.IsDigit( arrayGroups[num][len - 1]))
-                theCodeUmagf.ak = Convert.ToInt32(arrayGroups[num].Substring(len - 2, 2));
+            StreamWriter sw = new StreamWriter("c:\\users\\distomin\\Projects\\GeoSpace\\documents\\umdan.txt", true); 
+            int len = arrayGroups[num].Length;           
+            
+            if (arrayGroups[num][0] == '1' )
+                if (Char.IsDigit(arrayGroups[num][len - 2])
+                                           || Char.IsDigit(arrayGroups[num][len - 1]))
+                {
+                    theCodeUmagf.ak = Convert.ToInt32(arrayGroups[num].Substring(len - 2, 2));
+                }
+            sw.Close();
         }
 
         //получить из Umagf K-индексы

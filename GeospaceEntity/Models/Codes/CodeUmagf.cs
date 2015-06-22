@@ -38,6 +38,20 @@ namespace GeospaceEntity.Models.Codes
             ID = -1;
             created_at = DateTime.Now;
             updated_at = DateTime.Now;
+
+            k1 = 1000;
+            k2 = 1000;
+            k3 = 1000;
+            k4 = 1000;
+            k5 = 1000;
+            k6 = 1000;
+            k7 = 1000;
+            k8 = 1000;
+
+            ak = 1000;
+
+            Raw = "";
+            ErrorMessage = "";
         }
 
         public CodeUmagf(string strUmagf)
@@ -61,7 +75,7 @@ namespace GeospaceEntity.Models.Codes
         }
 
         //по параметрам получаем объект из БД, если его нет значит сохраниме новую запись в БД
-        public Codes.CodeUmagf GetByDateUTC()
+        public virtual Codes.CodeUmagf GetByDateUTC()
         {
             Repositories.CodeUmagfRepository repo = new Repositories.CodeUmagfRepository();
             return repo.GetByDateUTC(Station, YYYY, MM, DD, HH, MI);
