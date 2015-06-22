@@ -14,7 +14,6 @@ namespace GeospaceEntity.Helper
         public static void Umagf_Group1_DateCreate( string[] arrayGroups, int num, GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf)
         {
             arrayGroups[num] = arrayGroups[num].Replace( "/", "" );
-
             int len = arrayGroups[num].Length;
             theCodeUmagf.DD = Convert.ToInt32(arrayGroups[num].Substring(0, 2));
             theCodeUmagf.HH = Convert.ToInt32(arrayGroups[num].Substring(len - 2, 2));     
