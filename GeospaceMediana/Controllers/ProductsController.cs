@@ -456,6 +456,10 @@ namespace GeospaceMediana.Controllers
                 {
                     string ss = line;
                     ss = ss.Trim();
+                    ss = ss.Replace("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t", " ");
+                    ss = ss.Replace("\t\t\t\t\t\t\t\t\t\t\t\t", " ");
+                    ss = ss.Replace("\t\t\t\t\t\t\t\t\t\t", " ");
+                    ss = ss.Replace("\t\t\t\t\t\t\t\t", " ");
                     theProduct.forecast_days_fives += ss + "\r\n";
 
                 }
@@ -524,6 +528,18 @@ namespace GeospaceMediana.Controllers
                 {
                     string ss = line;
                     ss = ss.Trim();
+                    ss = ss.Replace("   ", " ");
+                    ss = ss.Replace("  ", " ");
+                    if (ss.Length < 5) continue;
+                    switch (ss.Substring(0, 5))
+                    {
+                        case "ИОНЕС":
+                        case "ИОНДП":
+                        case "ИОНФФ":
+                        case "МАГПО":
+                            ss = "                    " + ss;
+                            break;
+                    }
                     theProduct.forecast_month_ionosphera += ss + "\r\n";
 
                 }
