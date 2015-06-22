@@ -45,19 +45,35 @@ namespace GeospaceEntity.Models.Codes
             this.created_at = DateTime.Now;
             this.updated_at = DateTime.Now;
 
-            k1 = 0;
-            k2 = 0;
-            k3 = 0;
-            k4 = 0;
-            k5 = 0;
-            k6 = 0;
-            k7 = 0;
-            k8 = 0;
+            k1 = 1000;
+            k2 = 1000;
+            k3 = 1000;
+            k4 = 1000;
+            k5 = 1000;
+            k6 = 1000;
+            k7 = 1000;
+            k8 = 1000;
 
-            ak = 0;
+            ak = 1000;
 
             Raw = "";
             ErrorMessage = "";
+        }
+
+        //по параметрам получаем объект из БД, если его нет значит сохраниме новую запись в БД
+        public Codes.CodeUmagf GetByDateUTC()
+        {
+            Repositories.CodeUmagfRepository repo = new Repositories.CodeUmagfRepository();
+            return repo.GetByDateUTC(Station, YYYY, MM, DD, HH, MI);
+        }
+
+        //сохранить новую запись в БД
+        public virtual void Save()
+        {
+            this.created_at = DateTime.Now;
+            this.updated_at = DateTime.Now;
+            GeospaceEntity.Common.IRepository<CodeUmagf> repo = new Repositories.CodeUmagfRepository();
+            repo.Save(this);
         }
     }
 }

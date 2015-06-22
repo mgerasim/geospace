@@ -83,17 +83,34 @@ namespace GeospaceDecodeService
 
                         string theCode = GeospaceEntity.Helper.HelperIonka.Normalize(item);
 
+                        bool flagIonka = false;                 //если найдена IONKA искать UMAGF
+                        GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf = new GeospaceEntity.Models.Codes.CodeUmagf();
+
                         foreach (var code in theCode.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries))
                         {
+                            string code_source = code;
                             if (code.Length > 6)
                             {
+                                if (code.Substring(0).ToUpper().IndexOf("UMAGF") >= 0 && flagIonka)
+                                {
+                                    string[] arrayGroups = code_source.Split(' ');
+                                    //GeospaceEntity.Helper.HelperUmagf.Umagf_Group1_DateCreate(arrayGroups[1], theCodeUmagf);
+                                    //GeospaceEntity.Helper.HelperUmagf.Umagf_Group2_AK(arrayGroups[2], theCodeUmagf);
+                                    //GeospaceEntity.Helper.HelperUmagf.Umagf_Group3_K_index(arrayGroups, theCodeUmagf);
+                                    theCodeUmagf.Raw = code_source;
+
+                                    if (theCodeUmagf.GetByDateUTC() == null)
+                                    {
+                                        //theCodeUmagf.Save();
+                                    }
+                                }
+
                                 if (code.Substring(0, 5).ToUpper() == "IONKA")
                                 {
                                     logger.Debug(code);
                                     
                                     try
                                     {
-                                        string code_source = code;
                                         code_source = GeospaceEntity.Helper.HelperIonka.Check(code);
 
                                         int StationCode = GeospaceEntity.Helper.HelperIonka.Ionka_Group02_Station(code_source);
@@ -193,6 +210,8 @@ namespace GeospaceDecodeService
                                     }
 
                                 }
+                                else
+                                    flagIonka = false;
 
                             }
 

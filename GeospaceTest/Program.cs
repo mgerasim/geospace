@@ -65,25 +65,34 @@ namespace GeospaceTest
 
                         string theCode = GeospaceEntity.Helper.HelperIonka.Normalize(item);
 
-                        bool flagIonka = false;                 //если найдена IONKA искать UMAGF
                         GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf = new GeospaceEntity.Models.Codes.CodeUmagf();
 
                         foreach (var code in theCode.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries))
                         {
                             string code_source = code;
+                            int numDate = 1;
+                            int numIndex = 2;
+
                             if (code.Length > 6)
                             {
-                                if (code.Substring(0).ToUpper().IndexOf("UMAGF") >= 0 && flagIonka)
+                                if (code.Substring(0).ToUpper().IndexOf("UMAGF") >= 0)
                                 {
                                     string [] arrayGroups = code_source.Split(' ');
-                                    GeospaceEntity.Helper.HelperUmagf.Umagf_Group1_DateCreate(arrayGroups[1], theCodeUmagf);
-                                    GeospaceEntity.Helper.HelperUmagf.Umagf_Group2_AK(arrayGroups[2], theCodeUmagf);
-                                    GeospaceEntity.Helper.HelperUmagf.Umagf_Group3_K_index( arrayGroups, theCodeUmagf);
+                                    if (arrayGroups.Length >= 9)
+                                    {
+                                        numDate = 1;
+                                        numIndex = 5;
+                                        GeospaceEntity.Helper.HelperUmagf.Umagf_BigGroup1_NumStation(arrayGroups, 1, theCodeUmagf);
+                                        GeospaceEntity.Helper.HelperUmagf.Umagf_BigGroup2_FullData(arrayGroups, 2, theCodeUmagf);
+                                    }
+                                    GeospaceEntity.Helper.HelperUmagf.Umagf_Group1_DateCreate(arrayGroups, numDate, theCodeUmagf);
+                                    GeospaceEntity.Helper.HelperUmagf.Umagf_Group2_AK(arrayGroups, numIndex, theCodeUmagf);
+                                    GeospaceEntity.Helper.HelperUmagf.Umagf_Group3_K_index(arrayGroups, numIndex, theCodeUmagf);
+                                    theCodeUmagf.Raw = code_source;
                                 }
 
                                 if (code.Substring(0, 5).ToUpper() == "IONKA")
-                                {
-                                    flagIonka = true;                                    
+                                {                                
                                     try
                                     {                                        
                                         code_source = GeospaceEntity.Helper.HelperIonka.Check(code);
@@ -193,8 +202,6 @@ namespace GeospaceTest
                                     }
 
                                 }
-                                else
-                                    flagIonka = false;
 
                             }
 
