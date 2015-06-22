@@ -9,39 +9,6 @@
 }
 
 
-<h2>Месячный прогноз ионосферной магнитной возмущенности</h2>
-<p>
-    <a class="btn btn-default" href="~/Products/EditForecastMonthIonosphera" role="button">Изменить</a>
-    <a class="btn btn-default" href="~/Products/ShowForecastMonthIonosphera" role="button">Просмотр</a>
-    
-    <p>
-        <div id="div-forecast-month-ionosphera" class="forecast">
-            <p>
-                @Html.Raw("<pre>"+ Html.Encode(Model.forecast_month_ionosphera) + "</pre>")
-            </p>
-        </div>
-    </p>
-</p>
-
-
-
-
-<h2>Пятидневный прогноз медианы</h2>
-<p>
-    <a class="btn btn-default" href="~/Products/EditForecastDaysFives" role="button">Изменить</a>
-    <a class="btn btn-default" href="~/Products/ShowForecastDaysFives" role="button">Просмотр</a>
-<p>
-    <div id="div-forecast-days-fives" class="forecast">
-
-        
-<p>
-    @Html.Raw("<pre>"+ Html.Encode(Model.forecast_days_fives) + "</pre>")
-</p>
-        </div>
-    </p>
-</p>
-
-
 <h2>Обзор гелеогеофизической обстановки, прогноз на 1-3 суток</h2>
 <p>
     <a class="btn btn-default" href="~/Products/EditReviewGeoenv" role="button">Изменить</a>
@@ -52,9 +19,35 @@
 <p>
     @Html.Raw("<pre>"+ Html.Encode(Model.review_geoenv) + "</pre>")
 </p>
-        </div>
-    </p>
+</div>
+
+<h2>Пятидневный прогноз медианы</h2>
+<p>
+    <a class="btn btn-default" href="~/Products/EditForecastDaysFives" role="button">Изменить</a>
+    <a class="btn btn-default" href="~/Products/ShowForecastDaysFives" role="button">Просмотр</a>
+<p>
+    <div id="div-forecast-days-fives" class="forecast">
+
+
+<p>
+    @Html.Raw("<pre>"+ Html.Encode(Model.forecast_days_fives) + "</pre>")
 </p>
+</div>
+
+
+<h2>Месячный прогноз ионосферной магнитной возмущенности</h2>
+<p>
+    <a class="btn btn-default" href="~/Products/EditForecastMonthIonosphera" role="button">Изменить</a>
+    <a class="btn btn-default" href="~/Products/ShowForecastMonthIonosphera" role="button">Просмотр</a>
+    
+ <p>
+<div id="div-forecast-month-ionosphera" class="forecast">
+    <p>
+        @Html.Raw("<pre>"+ Html.Encode(Model.forecast_month_ionosphera) + "</pre>")
+    </p>
+</div>
+
+
 
 <h2>Месячный обзор гелеогеофизической обстановки</h2>
 <p>
