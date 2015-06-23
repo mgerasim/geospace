@@ -14,8 +14,8 @@ namespace GeospaceTest
         {
            // Support01();
            // Support02();
-            Support03();
-           // Support04();
+            //Support03();
+            Support04();
            // Support05(); 
             Console.WriteLine("Ok");
             Console.ReadKey();
@@ -33,6 +33,13 @@ namespace GeospaceTest
         }
         static void Support04()
         {
+            string str = "03/03/";
+            str = str.Replace("/", "");
+            int len = str.Length;
+            Console.WriteLine(str);
+            int q= Convert.ToInt32(str.Substring(0, 2));
+            int d = Convert.ToInt32(str.Substring(len - 2, 2));
+            return;
             string strFile = Environment.CurrentDirectory;
             strFile = "D:\\мои документы\\visual studio 2013\\Projects\\GeoSpace\\documents\\armgf1dan.txt";
 

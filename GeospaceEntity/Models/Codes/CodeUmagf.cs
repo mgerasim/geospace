@@ -38,7 +38,7 @@ namespace GeospaceEntity.Models.Codes
             ID = -1;
             created_at = DateTime.Now;
             updated_at = DateTime.Now;
-
+            MI = 0;
             k1 = 1000;
             k2 = 1000;
             k3 = 1000;
