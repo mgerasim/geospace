@@ -123,27 +123,45 @@ namespace GeospaceDecodeService
                                         numIndex = 5;
                                         bool existStatFromBD = GeospaceEntity.Helper.HelperUmagf.Umagf_BigGroup1_NumStation(arrayGroups, 1, theCodeUmagf);
                                         GeospaceEntity.Helper.HelperUmagf.Umagf_BigGroup2_FullData(arrayGroups, 2, theCodeUmagf);
+<<<<<<< HEAD
+                                        GeospaceEntity.Helper.HelperUmagf.Umagf_Group1_DateCreate(arrayGroups, numDate, theCodeUmagf, true);
+=======
                                         GeospaceEntity.Helper.HelperUmagf.Umagf_Group1_DateCreate(arrayGroups, numDate, theCodeUmagf);
+>>>>>>> 5998eca5ec545f1d4d6ae0003ab7159aed4d8c44
 
                                         GeospaceEntity.Helper.HelperUmagf.Umagf_Group2_AK(arrayGroups, numIndex, theCodeUmagf);
                                         GeospaceEntity.Helper.HelperUmagf.Umagf_Group3_K_index(arrayGroups, numIndex, theCodeUmagf);
 
+<<<<<<< HEAD
                                         //theCodeUmagf.Raw = code_source;
-                                        if (theCodeUmagf.GetByDateUTC() == null && existStatFromBD )
+                                        //if (theCodeUmagf.GetByDateUTC() == null)
                                         //{
                                         //    theCodeUmagf.Save();
                                         //}
                                         //WriteUmagf(theCodeUmagf);
-                                    }
+=======
+                                        theCodeUmagf.Raw = code_source;
+                                        if (theCodeUmagf.GetByDateUTC() == null && existStatFromBD )
+                                        {
+                                            //theCodeUmagf.Save();
+                                        }
                                         if (existStatFromBD)
                                             WriteUmagf(theCodeUmagf);
                                         else
                                             logumagf.Debug( "\nстанция №" + theCodeUmagf.Station.Code.ToString() + "не найдена в БД: " +
                                                 code_source + "\n" );
+>>>>>>> 5998eca5ec545f1d4d6ae0003ab7159aed4d8c44
+                                    }
                                     else
                                         GeospaceEntity.Helper.HelperUmagf.Umagf_Group1_DateCreate(arrayGroups, numDate, theCodeUmagf, true);
+<<<<<<< HEAD
                                         GeospaceEntity.Helper.HelperUmagf.Umagf_Group2_AK(arrayGroups, numIndex, theCodeUmagf);
                                         GeospaceEntity.Helper.HelperUmagf.Umagf_Group3_K_index(arrayGroups, numIndex, theCodeUmagf);
+=======
+                                    
+                                    GeospaceEntity.Helper.HelperUmagf.Umagf_Group2_AK(arrayGroups, numIndex, theCodeUmagf);
+                                    GeospaceEntity.Helper.HelperUmagf.Umagf_Group3_K_index(arrayGroups, numIndex, theCodeUmagf);
+>>>>>>> 5998eca5ec545f1d4d6ae0003ab7159aed4d8c44
 
                                     theCodeUmagf.Raw = code_source;
                                     if (theCodeUmagf.GetByDateUTC() == null)

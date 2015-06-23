@@ -11,14 +11,24 @@ namespace GeospaceEntity.Helper
     public static class HelperUmagf
     {
         //получить из Umagf день, часы, минуты
-        public static void Umagf_Group1_DateCreate( string[] arrayGroups, int num, GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf)
+        public static void Umagf_Group1_DateCreate( string[] arrayGroups, int num, GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf, bool flag=false)
         {
             arrayGroups[num] = arrayGroups[num].Replace( "/", "" );
             int len = arrayGroups[num].Length;
-            theCodeUmagf.DD = Convert.ToInt32(arrayGroups[num].Substring(0, 2));
-            theCodeUmagf.HH = Convert.ToInt32(arrayGroups[num].Substring(len - 2, 2));     
-        }
 
+            if (flag) //из коротокой строки Umagf
+            {
+                theCodeUmagf.DD = Convert.ToInt32(arrayGroups[num].Substring(0, 2));
+                theCodeUmagf.HH = Convert.ToInt32(arrayGroups[num].Substring(len - 2, 2));
+            }
+            else  //из длиной строки Umagf
+            {
+                theCodeUmagf.HH = Convert.ToInt32(arrayGroups[num].Substring(0, 2));
+                theCodeUmagf.MI = Convert.ToInt32(arrayGroups[num].Substring(len - 2, 2));
+            }
+               
+        }
+        /*
         public static void Umagf_Group1_DateCreate2(string[] arrayGroups, int num, GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf)
         {
             arrayGroups[num] = arrayGroups[num].Replace("/", "");
@@ -26,27 +36,33 @@ namespace GeospaceEntity.Helper
             int len = arrayGroups[num].Length;
             theCodeUmagf.HH = Convert.ToInt32(arrayGroups[num].Substring(0, 2));
             theCodeUmagf.MI = Convert.ToInt32(arrayGroups[num].Substring(len - 2, 2));
-        }
+        }*/
 
-        public static void Umagf_BigGroup1_NumStation(string[] arrayGroups, int num, GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf)
+        //получает индекс станции, если в БД такой станции НЕ СОЗДОВАТЬ эту станцию в БД
+        public static bool Umagf_BigGroup1_NumStation(string[] arrayGroups, int num, GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf)
         {
             int number = Convert.ToInt32(arrayGroups[num]);
             Station theStation = (new Station()).GetByCode(number);
             if (theStation == null)
             {
-                theStation = new Station();
+                return false;
+                /*theStation = new Station();
                 theStation.Code = number;
-                theStation.Save();
+                theStation.Save();*/
             }
             theCodeUmagf.Station = theStation;
+            return true;
         }
+
+        //получить год/месяц/день из длиной строки Umagf
         public static void Umagf_BigGroup2_FullData(string[] arrayGroups, int num, GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf)
         {
             theCodeUmagf.YYYY = DateTime.Now.Year;
             theCodeUmagf.MM = Convert.ToInt32(arrayGroups[num].Substring(1, 2));
             theCodeUmagf.DD = Convert.ToInt32(arrayGroups[num].Substring(3, 2));
         }
-            //получить из Umagf AK
+
+        //получить из Umagf AK
         public static void Umagf_Group2_AK(string[] arrayGroups, int num, GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf)
         {
             int len = arrayGroups[num].Length;           

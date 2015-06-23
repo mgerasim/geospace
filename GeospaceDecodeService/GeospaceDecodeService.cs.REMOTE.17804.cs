@@ -61,8 +61,7 @@ namespace GeospaceDecodeService
             logumagf.Debug("k6 = " + umagf.k6.ToString());
             logumagf.Debug("k7 = " + umagf.k7.ToString());
             logumagf.Debug("k8 = " + umagf.k8.ToString());
-            logumagf.Debug("+++++++++++++
-                ++++++++++++++++++++++");
+            logumagf.Debug("+++++++++++++++++++++++++++++++++++");
         }
         
         private void timer1_Tick_1(object sender, EventArgs e)
@@ -128,29 +127,30 @@ namespace GeospaceDecodeService
                                         GeospaceEntity.Helper.HelperUmagf.Umagf_Group2_AK(arrayGroups, numIndex, theCodeUmagf);
                                         GeospaceEntity.Helper.HelperUmagf.Umagf_Group3_K_index(arrayGroups, numIndex, theCodeUmagf);
 
-                                        //theCodeUmagf.Raw = code_source;
+                                        theCodeUmagf.Raw = code_source;
                                         if (theCodeUmagf.GetByDateUTC() == null && existStatFromBD )
-                                        //{
-                                        //    theCodeUmagf.Save();
-                                        //}
-                                        //WriteUmagf(theCodeUmagf);
-                                    }
+                                        {
+                                            //theCodeUmagf.Save();
+                                        }
                                         if (existStatFromBD)
                                             WriteUmagf(theCodeUmagf);
                                         else
                                             logumagf.Debug( "\nстанция №" + theCodeUmagf.Station.Code.ToString() + "не найдена в БД: " +
                                                 code_source + "\n" );
+                                    }
+                                        /*
                                     else
                                         GeospaceEntity.Helper.HelperUmagf.Umagf_Group1_DateCreate(arrayGroups, numDate, theCodeUmagf, true);
-                                        GeospaceEntity.Helper.HelperUmagf.Umagf_Group2_AK(arrayGroups, numIndex, theCodeUmagf);
-                                        GeospaceEntity.Helper.HelperUmagf.Umagf_Group3_K_index(arrayGroups, numIndex, theCodeUmagf);
+                                    
+                                    GeospaceEntity.Helper.HelperUmagf.Umagf_Group2_AK(arrayGroups, numIndex, theCodeUmagf);
+                                    GeospaceEntity.Helper.HelperUmagf.Umagf_Group3_K_index(arrayGroups, numIndex, theCodeUmagf);
 
                                     theCodeUmagf.Raw = code_source;
                                     if (theCodeUmagf.GetByDateUTC() == null)
                                     {
                                         //theCodeUmagf.Save();
                                     }
-                                    WriteUmagf(theCodeUmagf);
+                                    WriteUmagf(theCodeUmagf);*/
                                 }                                
 
                                 if (code.Substring(0, 5).ToUpper() == "IONKA")
