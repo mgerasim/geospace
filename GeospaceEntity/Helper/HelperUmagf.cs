@@ -42,7 +42,7 @@ namespace GeospaceEntity.Helper
         public static bool Umagf_BigGroup1_NumStation(string[] arrayGroups, int num, GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf)
         {
             int number = Convert.ToInt32(arrayGroups[num]);
-            Station theStation = (new Station()).GetByCode(number);
+            Station theStation = (new Station().GetByCode(number));
             if (theStation == null)
             {
                 return false;
