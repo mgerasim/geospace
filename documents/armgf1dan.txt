@@ -1,1496 +1,3 @@
-&&&&&&&&&&&&&&&15 20150616
-025 021011/=n335
-zira40 omsh 152208
-ionka 37701 50616 7/1/4 /0000 04642 24/16 04805 03424 31460 //1/1
-0282/ //7//=
-
-
-025 040001/=n354
-zira40 hbrw 160000
-ionda 15h99 46224 56426 66326 7h1h1 84829 94529 05327 15027
-ionha 41f30 45e35 40p41 40d30
-prognoz 00000 55555 11111 11111
-15h88 NIL
-ionha 4hf30 4he35 prognoz 00000 55555 magpo 11111
-15h89 26524 36829 46730 57529 67827 77729 86727 95928 0h1h1
-ionha 40f30 44e36 prognoz 00000 66666 magpo 11111
-15h91 057h1 16028 25929 36130 46028 57128 67228 75726 84829
-95426 0h1h1 1h1h1
-ionha 40f30 46e36 prognoz 00000 66666
-27046-
-
-
-025 025011/=n834
-zira40 diks 160000
-ampli 38701 15622 0262/
-ampli 38701 15623 0208/
-ampli 38701 15624 0103/
-magma 38701 50615 21245 14///
-uabse 38701 15124 31355 91404 02/15
-umagf 38701 50616 0000/
-15009 1//// 24455 37545 51404 24945-
-
-
-025 020001/=n851
-zira40 krqr 160000
-IONKA 39601 50616 7/1/9 /0000 04746 26/12 03233 04020 35303 02900 0293/ 056// =
-
-
-025 025011/=n247
-zira40 diks 160000
-usfre 33603 38701 50615 22//3 ////3 23//3 ////3 24//3 ////3 
-usfre 33703 38701 50615 22//3 ////3 23//3 ////3 24//3 ////3 
-ionka 38701 50615 7/1/4 /2200 //3/3 00//3 //3/3 //3/3 00000
-//3/3 //30/ //0//
-ionka 38701 50615 7/1/5 /2300 //3/3 00//3 //3/3 //3/3 00000
-//3/3 //30/ //0//
-ionka 38701 50615 7/1/6 /2400 //3/3 00//3 //3/3 //3/3 00000
-//3/3 //30/ //0//-
-
-
-025 020001/=n028
-zira40 krqr 160015
-IONKA 39601 50616 7/1/6 /0015 //0/0 /0//0 //0/0 //0/0 /0//0 //0/0 //00/ //0// =
-
-
-025 020001/=n281
-zira40 krqr 160030
-IONKA 39601 50616 7/1/3 /0030 //0/0 /0//0 //0/0 //0/0 /0//0 //0/0 //00/ //0// =
-
-
-025 020001/=n913
-zira40 krqr 160045
-IONKA 39601 50616 7/1/9 /0045 //0/0 /0//0 //0/0 //0/0 /0//0 //0/0 //00/ //0// =
-
-
-025 021011/=n787
-zira40 omsh 152208
-ionka 37701 50616 7/1/3 /0100 05041 24/16 04000 03820 33460 //1/1
-0232/ //7//=
-
-
-025 020001/=n189
-zira40 krqr 160100
-IONKA 39601 50616 7/1/2 /0100 05046 27/13 03333 04322 36284 03200 0323/ 059// =
-
-
-025 020001/=n861
-zira40 krqr 160115
-IONKA 39601 50616 7/1/5 /0115 //0/0 /0//0 //026 //0/0 /0//0 //0/0 //00/ //0// =
-
-
-025 020001/=n264
-zira40 krqr 160130
-IONKA 39601 50616 7/1/0 /0130 052/0 27//0 //0/0 042/0 /0//0 //0/0 //00/ 059// =
-
-
-025 020001/=n903
-zira40 krqr 160145
-IONKA 39601 50616 7/1/8 /0145 //0/0 /0//0 //026 //0/0 /0//0 //0/0 //00/ //0// =
-
-
-025 021011/=n870
-zira40 omsh 152208
-ionka 37701 50616 7/1/0 /0200 //2/2 /2//2 //2/2 //2/2 /2//2 //2/2
-//20/ //2//=
-
-
-025 020001/=n997
-zira40 krqr 160200
-IONKA 39601 50616 7/1/2 /0200 05150 25/18 03719 04423 36315 03205 0323/ 059// =
-
-
-025 020001/=n859
-zira40 krqr 160215
-IONKA 39601 50616 7/1/6 /0215 //0/0 /0//0 //017 //0/0 /0//0 //0/0 //00/ //0// =
-
-
-025 020001/=n941
-zira40 krqr 160230
-IONKA 39601 50616 7/1/5 /0230 //0/0 /0//0 //0/0 //0/0 /0//0 //0/0 //00/ //0// =
-
-
-025 020001/=n585
-zira40 krqr 160245
-IONKA 39601 50616 7/1/9 /0245 052/0 25//0 //0/0 046/0 /0//0 //0/0 //00/ 059// =
-
-
-025 025011/=n305
-zira40 diks 160300
-umagf 38702 50616 03/00 1500/ 1//// 2//// 3//// /////= 
-uabse 38702 15103 /////=
-
-
-025 021011/=n585
-zira40 omsh 152208
-ionka 37701 50616 7/1/9 /0300 05245 24/33 //2/2 04323 31460 //2/2
-//70/ //7//=
-
-
-025 025011/=n829
-zira40 diks 160300
-ampli 38701 16601 0109/
-ampli 38701 16602 0252/
-ampli 38701 16603 0228/
-magma 38701 50616 00035 08///-
-
-
-025 025011/=n830
-zira40 diks 160300
-usfre 33603 38701 50616 01//3 ////3 02//3 ////3 03//3 ////3 
-usfre 33703 38701 50616 01//3 ////3 02//3 ////3 03//3 ////3 
-ionka 38701 50616 7/1/1 /0100 //3/3 00//3 //3/3 //3/3 00000
-//3/3 //30/ //0//
-ionka 38701 50616 7/1/2 /0200 //3/3 00//3 //3/3 //3/3 00000
-//3/3 //30/ //0//
-ionka 38701 50616 7/1/3 /0300 //3/3 00//3 //3/3 //3/3 00000
-//3/3 //30/ //0//-
-
-
-025 020001/=n331
-zira40 krqr 160300
-IONKA 39601 50616 7/1/7 /0300 05544 27/14 03713 04521 38318 //100 0373/ 063// =
-
-
-025 046012/=n856
-zira40 pewk 160306
-umagf 47701 50616 0300/ 15030 1//// 20000 30000=
-
-
-025 040011/=n744
-zira40 hbrw 160300
-ionka 43501 50616 /2100 05341 27/19 03715 04127 33//7 /2200 05546
-27/22 05625 043/1 /1365 /2300 //1/1 /1/26 07125 //1/1 /1//1 /0000
-//1/1 /1/36 11015 //1/1 /1//1 /0100 05448 27/37 08620 047/1 /1//7
-/0200 05552 25/36 05715 04926 36//7 umagf 15002 1/017 23234 34333=
-
-
-025 021011/=n889
-zira40 omsh 160513
-ionka 37701 50616 7/1/1 /0400 05248 23/16 //7/7 04423 33480 03310 //70/ 
-//7//=
-
-
-025 021011/=n927
-zira40 omsh 160513
-ionka 37701 50616 7/1/9 /0500 05352 23/14 //7/7 04721 34480 03410 //70/ 
-//7//=
-
-
-025 025011/=n452
-zira40 diks 160300
-umagf 38702 50616 03/00 1500/ 1//// 2//// 3//// /////= 
-uabse 38702 15103 /////=
-
-
-025 025011/=n593
-zira40 diks 160600
-UMAGF 38802 50616 0300/ 15009 1/264 26455 33464 20810 21340
-21525 51412 20356=
-UABSE 38802 15124 00000 00000 00/00=
-
-
-025 025011/=n372
-zira40 diks 160600
-ampli 38701 16604 0076/
-ampli 38701 16605 0063/
-ampli 38701 16606 0048/
-magma 38701 50616 03063 12///-
-
-
-025 025011/=n373
-zira40 diks 160600
-usfre 33603 38701 50616 04//3 ////3 05//3 ////3 06//3 ////3 
-usfre 33703 38701 50616 04//3 ////3 05//3 ////3 06//3 ////3 
-ionka 38701 50616 7/1/4 /0400 //3/3 00//3 //3/3 //3/3 00000
-//3/3 //30/ //0//
-ionka 38701 50616 7/1/5 /0500 //3/3 00//3 //3/3 //3/3 00000
-//3/3 //30/ //0//
-ionka 38701 50616 7/1/6 /0600 //3/3 00//3 //3/3 //3/3 00000
-//3/3 //30/ //0//-
-
-
-025 021011/=n474
-zira40 omsh 160513
-ionka 37701 50616 7/1/9 /0600 05450 23/17 //7/7 04620 32480 03510 //70/ 
-//7//=
-
-
-025 052003/=n667
-zirs43 obpg 160620
-moskwa ipg 16/06 0920=
-habarowsk,nowosibirsk,murmansk,ta{kent=
-:PRODUCT: 0615RSGA.TXT
-:ISSUED: 2015 JUN 15 2200 UTC
-JOINT USAF/NOAA SOLAR GEOPHYSICAL ACTIVITY REPORT AND FORECAST
-SDF NUMBER 166 ISSUED AT 2200Z ON 15 JUN 2015
-IA.  ANALYSIS OF SOLAR ACTIVE REGIONS AND ACTIVITY FROM 14/2100Z TO
-15/2100Z: SOLAR ACTIVITY HAS BEEN AT LOW LEVELS FOR THE PAST 24 HOURS.
-THE LARGEST SOLAR EVENT OF THE PERIOD WAS A C2 EVENT OBSERVED AT
-15/1032Z. THERE ARE CURRENTLY 6 NUMBERED SUNSPOT REGIONS ON THE DISK.
-IB.  SOLAR ACTIVITY FORECAST: SOLAR ACTIVITY IS EXPECTED TO BE LOW WITH
-A CHANCE FOR M-CLASS FLARES ON DAY ONE (16 JUN) AND EXPECTED TO BE LOW
-WITH A SLIGHT CHANCE FOR AN M-CLASS FLARE ON DAYS TWO AND THREE (17 JUN,
-18 JUN).
-IIA.  GEOPHYSICAL ACTIVITY SUMMARY 14/2100Z TO 15/2100Z: THE GEOMAGNETIC
-FIELD HAS BEEN AT QUIET TO ACTIVE LEVELS FOR THE PAST 24 HOURS. SOLAR
-WIND SPEED, AS MEASURED BY THE ACE SPACECRAFT, REACHED A PEAK SPEED OF
-633 KM/S AT 15/0126Z. TOTAL IMF REACHED 8 NT AT 14/2100Z. THE MAXIMUM
-SOUTHWARD COMPONENT OF BZ REACHED -4 NT AT 15/1700Z. ELECTRONS GREATER
-THAN 2 MEV AT GEOSYNCHRONOUS ORBIT REACHED A PEAK LEVEL OF 3307 PFU.
-IIB.  GEOPHYSICAL ACTIVITY FORECAST: THE GEOMAGNETIC FIELD IS EXPECTED
-TO BE AT QUIET TO MINOR STORM LEVELS ON DAY ONE (16 JUN), QUIET TO
-UNSETTLED LEVELS ON DAY TWO (17 JUN) AND QUIET LEVELS ON DAY THREE (18
-JUN).
-III.  EVENT PROBABILITIES 16 JUN-18 JUN
-CLASS M    30/20/15
-CLASS X    05/01/01
-PROTON     05/01/01
-PCAF       GREEN
-IV.  PENTICTON 10.7 CM FLUX
-OBSERVED           15 JUN 135
-PREDICTED   16 JUN-18 JUN 130/125/120
-90 DAY MEAN        15 JUN 126
-V.  GEOMAGNETIC A INDICES
-OBSERVED AFR/AP 14 JUN  019/022
-ESTIMATED AFR/AP 15 JUN  015/018
-PREDICTED AFR/AP 16 JUN-18 JUN  014/018-009/008-006/005
-VI.  GEOMAGNETIC ACTIVITY PROBABILITIES 16 JUN-18 JUN
-A.  MIDDLE LATITUDES
-ACTIVE                40/20/10
-MINOR STORM           25/05/01
-MAJOR-SEVERE STORM    05/01/01
-B.  HIGH LATITUDES
-ACTIVE                10/15/20
-MINOR STORM           25/30/20
-MAJOR-SEVERE STORM    60/25/10
-BOUMOS 16743
-UFOFH 42503 50614 /0000 0061X 10001 2057X 3065X 4055X 5057X 
-6058X 7061X 8055X 9059X 0062X 1066X 2072X 3070X 4072X 5066X 
-60006 70006 80006 90006 00006 1058X 2063X 3071X UFOFH 42404 
-50614 /0000 0064X 1062X 2058X 3061X 4064X 5061X 6064X 7062X 
-8061X 9059X 0066X 1068X 2072X 3071X 4069X 5068X 6067X 7064X 
-8065X 9057X 0056X 1062X 2078X 3083X UFOFH 41305 50614 /0000 
-0081X 1085X 2085X 3089X 4098X 5098X 6091X 7085X 8086X 9079X 
-0078X 1078X 2073X 3071X 4066X 50006 60006 70006 80006 90006 
-0054X 1051X 2052X 3061X UFOFH 41206 50614 /0000 0076X 1087X 
-2095X 3098X 4098X 5103X 6106X 7102X 8104X 9102X 0090X 1080X 
-2065X 3066X 4066X 5060X 6068X 7070X 8055X 9048X 0048X 1045X 
-2052X 3062X UFOFH 41207 50614 /0000 0080X 1095X 2098X 3105X 
-4106X 50000 60000 70000 80000 9130X 0109X 1089X 2071X 3068X 
-4062X 5053X 6050X 7053X 8051X 9053X 0047X 1042X 2044X 3063X 
-URANJ 81202 50615 00245 03030 02003 URANJ 81202 50615 00410 
-03030 04503 URANJ 81202 50615 00610 03030 06503 URANJ 81202 
-50615 01415 03030 09503 URANJ 81202 50615 02695 03030 13803 
-URANJ 81202 50615 04995 03030 16303 URANJ 81202 50615 08800 
-03030 29303 URANJ 81202 50615 15400 03030 54703 URANJ 81202 
-50615 00245 04041 90400 30400 50150 /0400 URANJ 26204 50615 
-00245 04041 90400 60403 50800 /0402 URANJ 32404 50615 00245 
-04041 90400 60403 50630 /0402 URANJ 32404 50615 00410 04041 
-90402 50402 60509 /0402 URANJ 81202 50615 00245 04041 90402 
-50403 51000 /0403 URANJ 81202 50615 00245 05051 90513 50513 
-51200 /0513 URANJ 32404 50615 00245 05051 90513 50513 50900 
-/0513 URANJ 32404 50615 00245 05051 90552 30552 50170 /0552 
-URANJ 81202 50615 00245 05051 90552 30552 50140 /0552 UFOFH 
-43301 50614 /0000 0067/ 1///2 2///1 3064/ 4//// 5069/ 6069/ 
-7070/ 8078/ 9077/ 0073/ 1070/ 2053/ 3065/ 4066/ 5052/ 6066/ 
-7066/ 8060/ 9052/ 0050/ 1066/ 2074/ 3060/ UFOFH 43302 50614 
-/0000 0///1 1///1 2///1 3//// 4///1 5048/ 6066/ 7063/ 8073/ 
-9073/ 0070/ 1069/ 2053/ 3044/ 4///1 5065/ 6066/ 7052/ 8066/ 
-9052/ 0056/ 1068/ 2076/ 3072/ UFOFH 44403 50614 /0000 0//// 
-1//// 2///1 3///1 4//// 5//// 6063/ 7068/ 8070/ 9071/ 0075/ 
-1070/ 2///1 3073/ 4///1 5///1 6061/ 7063/ 8064/ 9055/ 0063/ 
-1077/ 2079/ 3087/ UFOFH 44408 50614 /0000 0//// 1//// 2//// 
-3058/ 4//// 5///1 6064/ 7063/ 8059/ 9066/ 0064/ 1064/ 2066/ 
-3067/ 4063/ 5062/ 6062/ 7063/ 8060/ 9060/ 0067/ 1077/ 2///1 
-3///1 UFOFH 42503 50612 /0000 0071X 1071X 2068X 3073X 4072X 
-5076X 6072X 7071X 8072X 9073X 0069X 1074X 2078X 3080X 4080X 
-5077X 6072X 7071X 8070X 9066X 0065X 1073X 2082X 3073X UFOFH 
-42404 50612 /0000 0087X 1079X 2078X 3075X 4083X 5082X 6089X 
-7086X 8082X 9080X 0080X 1080X 2077X 3081X 4082X 50006 6083X 
-70006 80006 9071X 0065X 1070X 2082X 3072X UFOFH 41305 50612 
-/0000 0072X 1081X 2091X 3093X 40001 5114X 6119X 7121X 8122X 
-9113X 0105X 1092X 2093X 3090X 4092X 5090X 6095X 7093X 8092X 
-9096X 0083X 1058X 2057X 3064X UFOFH 41206 50612 /0000 0076X 
-1089X 2101X 3111X 4120X 5125X 6134X 70003 8136X 9128X 0124X 
-1123X 2104X 30000 4114X 5118X 6119X 7117X 8112X 9114X 0084X 
-1060X 2060X 3068X UFOFH 41207 50612 /0000 0079X 1092X 2097X 
-3110X 40000 50000 60000 7135X 8134X 90000 0130X 1131X 2126X 
-3116X 4110X 5108X 6110X 7109X 8116X 90000 00006 1056X 2057X 
-3063X UFOFH 42503 50613 /0000 0069X 1068X 2068X 3068X 4069X 
-5068X 6070X 7068X 8069X 9071X 0068X 1068X 2072X 3076X 4079X 
-5078X 6072X 7063X 80006 90006 0056X 1070X 2064X 3069X UFOFH 
-42404 50613 /0000 0074X 1078X 2073X 3077X 4084X 5081X 6084X 
-7083X 8080X 9081X 0081X 1078X 2077X 3077X 40006 5081X 6082X 
-7077X 8069X 9063X 0061X 1067X 2076X 3065X UFOFH 41305 50613 
-/0000 0069X 1079X 2084X 3090X 4098X 5109X 6115X 7114X 8113X 
-9116X 0114X 1102X 2086X 3085X 4088X 5086X 6089X 7090X 8078X 
-90006 00006 10006 2060X 3078X UFOFH 41206 50613 /0000 0076X 
-1089X 2094X 3095X 4102X 5112X 6119X 7125X 8129X 9122X 0124X 
-1100X 2083X 3080X 4080X 5080X 6091X 7089X 8083X 9065X 00006 
-1050X 2052X 3076X UFOFH 41207 50613 /0000 0078X 1091X 2103X 
-30000 40000 50000 6128X 7138X 8145X 9136X 0133X 1119X 2101X 
-3094X 4090X 5097X 6100X 7094X 8093X 9076X 0058X 1046X 2047X 
-3069X UFLAE 32404 50615 37009 07017 60749 30753 80755 UMAGF 
-46501 50613 0000/ 12001 1/007 21211 33222 UMAGF 45601 50615 
-0301/ 12007 1/009 22222 33223 UMAGF 38501 50615 0330/ 12035 
-1/008 21223 33222 UMAGF 36701 50614 0900/ 13091 1/091 24334 
-35723 10310 70815 50032 24247 UMAGF 46501 50614 0000/ 13006 
-1/009 22233 32122 UMAGF 45601 50615 0302/ 13001 1/016 24233 
-33333 UMAGF 38501 50615 0330/ 13035 1/008 21331 32124 UABSE 
-38701 14124 30042 90052 01/03 UMAGF 38701 50615 0000/ 14000 
-1/309 27456 33544 50053 24721 UMAGF 33603 50615 0000/ 14004 
-1/012 23233 33322 UMAGF 33702 50615 0015/ 14008 1/041 27234 
-33455 UMAGF 46501 50615 0000/ 14005 1/014 23235 31222 UMAGF 
-43501 50615 0300/ 14008 1/020 24345 32233 UMAGF 45601 50615 
-0303/ 14001 1/047 24835 32233 UMAGF 38501 50615 0330/ 14033 
-1/013 22332 32232 UMAGF 34503 50615 0300/ 14000 1/010 23233 
-32222 UMAGF 36701 50615 0330/ 14030 1/164 22353 34453 UMAGF 
-43701 50615 0330/ 14035 1/121 23563 34433 UMAGF 47701 50615 
-0330/ 14034 1/121 23563 34333 UMAGF 31802 50615 0000/ 14002 
-1/036 26346 34334 UMAGF 36701 50615 0900/ 14091 1/164 25344 
-35333 52216 24716 URANJ 32404 50615 00245 10100 02310 URANJ 
-32404 50615 00410 10100 05410 URANJ 32404 50615 01415 10100 
-10210 URANJ 32404 50615 02695 10100 12710 URANJ 32404 50615 
-04995 10100 16310 URANJ 32404 50615 08800 10100 26410 URANJ 
-32404 50615 15400 10100 55910 URANJ 34502 50615 03000 06120 
-13709 URANJ 34502 50615 00204 06120 00509 URANJ 32404 50615 
-00245 13131 91348 51348 50670 /1348 UFLAE 32404 50615 22619 
-07014 61532 31534 81540 URANJ 22501 50615 02800 16170 13317 
-URANJ 22501 50615 02800 19200 13520 UFLAE 21305 50615 18513 
-07054 61847 31913 82144 URANJ 22501 50615 02800 22230 13623
-
-
-025 052003/=n668
-zirs43 obpg 160620
-moskwa ipg 16/06 0920=
-habarowsk,nowosibirsk,murmansk,ta{kent=
-:PRODUCT: 0616SRS.TXT
-:ISSUED: 2015 JUN 16 0030 UTC
-JOINT USAF/NOAA SOLAR REGION SUMMARY
-SRS NUMBER 167 ISSUED AT 0030Z ON 16 JUN 2015
-REPORT COMPILED FROM DATA RECEIVED AT SWO ON 15 JUN
-I.  REGIONS WITH SUNSPOTS.  LOCATIONS VALID AT 15/2400Z 
-NMBR LOCATION  LO  AREA  Z   LL   NN MAG TYPE
-2365 S13W61   083  0090 CSO  05   04 BETA
-2366 N16W57   079  0000 AXX  00   01 ALPHA
-2367 S20E20   002  0400 EKC  12   29 BETA
-2368 S06W79   101  0000 AXX  00   01 ALPHA
-2369 N06E33   349  0010 BXO  01   02 BETA
-2370 N18E10   012  0020 CRO  06   10 BETA
-IA. H-ALPHA PLAGES WITHOUT SPOTS.  LOCATIONS VALID AT 15/2400Z JUN
-NMBR  LOCATION  LO
-2361  N18W88   110
-2362  N07W78   100
-2364  S07W64   086
-II. REGIONS DUE TO RETURN 16 JUN TO 18 JUN
-NMBR LAT    LO
-NONE
-:PRODUCT: 0616SGAS.TXT
-:ISSUED: 2015 JUN 16 0245 UTC
-JOINT USAF/NOAA SOLAR AND GEOPHYSICAL ACTIVITY SUMMARY
-SGAS NUMBER 167 ISSUED AT 0245Z ON 16 JUN 2015
-THIS REPORT IS COMPILED FROM DATA RECEIVED AT SWO ON 15 JUN
-A.  ENERGETIC EVENTS
-BEGIN  MAX  END  RGN   LOC   XRAY  OP 245MHZ 10CM   SWEEP
- 0400 0400 0400                       150                           
- 0402 0403 0403                       1000                          
- 0513 0513 0513                       1200                          
- 0552 0552 0552                       140                           
- 0552 0552 0552                       170                           
- 1345 1349 1415  2360        C1.8     670                           
-B.  PROTON EVENTS:  NONE.
-C.  GEOMAGNETIC ACTIVITY SUMMARY:  THE GEOMAGNETIC FIELD RANGED FROM
-QUIET TO ACTIVE CONDITIONS TODAY,
-DEPENDING ON THE ORIENTATION OF
-BZ COMPONENT OF THE IMF.
-D.  STRATWARM:  NOT AVAILABLE
-E.  DAILY INDICES: (REAL-TIME PRELIMINARY/ESTIMATED VALUES)
-10 CM 135  SSN 107  AFR/AP 013/013   X-RAY BACKGROUND B7.4
-DAILY PROTON FLUENCE (FLUX ACCUMULATION OVER 24 HRS)
-GT 1 MEV 8.2E+05   GT 10 MEV 1.0E+04 P/(CM2-STER-DAY)
-(GOES-13 SATELLITE SYNCHRONOUS ORBIT W75 DEGREES)
-DAILY ELECTRON FLUENCE
-GT 2 MEV 6.40E+07 E/(CM2-STER-DAY)
-(GOES-13 SATELLITE SYNCHRONOUS ORBIT W75 DEGREES)
-3 HOUR K-INDICES:
-BOULDER 2 3 3 4 3 3 2 2 PLANETARY 2 2 3 3 3 3 3 3 
-F.  COMMENTS:  NONE
-
-
-025 052003/=n712
-zirs43 obpg 160620
-moskwa ipg 16/06 0920=
-habarowsk,nowosibirsk,murmansk,ta{kent=
-:PRODUCT: 0616GEOA.TXT
-:ISSUED: 2015 JUN 16 0330 UTC
-GEOALERT WWA167
-UGEOA 20401 50616 0330/ 9930/ 
-11161 20161 30161
-99999
-UGEOE 20401 50616 0330/ 15/06
-04002 0400/ 04002 9//99 01502 0//// ///// 9////
-04022 0403/ 04032 9//99 01003 0//// ///// 9////
-05132 0513/ 05132 9//99 01203 0//// ///// 9////
-05522 0552/ 05522 9//99 01402 0//// ///// 9////
-05522 0552/ 05522 9//99 01702 0//// ///// 9////
-13452 1349/ 14152 11899 06702 0//// ///// 92360
-99999
-UGEOI 20401 50616 0330/ 15///
-10107 21350 3014/ 4///0 50000 67507 71004 80009 90520
-99999
-UGEOR 20401 50616 0330/ 15/24 16106
-12365 20000 30000 43212 50090 60004 36113 01000
-12366 20000 30000 41001 50000 60001 45716 00000
-12367 20000 30100 45532 50400 60029 22020 19300
-12368 20000 30100 41001 50000 60001 37906 00000
-12369 20000 30000 42012 50010 60002 13306 00000
-12370 20000 30000 43112 50020 60010 11018 00000
-99999
-
-
-025 020001/=n639
-zira40 krqr 160545
-IONKA 39601 50616 7/1/7 /0545 //0/0 /0//0 //003 //0/0 /0//0 //0/0 //00/ //0// =
-
-
-025 020001/=n640
-zira40 krqr 160530
-IONKA 39601 50616 7/1/6 /0530 //0/0 /0//0 //008 //0/0 /0//0 //0/0 //00/ //0// =
-
-
-025 020001/=n643
-zira40 krqr 160600
-IONKA 39601 50616 7/1/6 /0600 05643 28/16 04307 04820 37291 //100 0383/ 064// =
-
-
-025 020001/=n654
-zira40 krqr 160630
-IONKA 39601 50616 7/1/5 /0630 056/0 26//0 //008 046/0 /0//0 //0/0 //00/ 063// =
-
-
-025 020001/=n466
-zira40 krqr 160400
-IONKA 39601 50616 7/1/7 /0400 05640 28/17 03713 04620 38287 03400 0343/ 063// =
-
-
-025 020001/=n480
-zira40 krqr 160415
-IONKA 39601 50616 7/1/5 /0415 053/0 30//0 //012 040/0 /0//0 //0/0 //00/ 061// =
-
-
-025 020001/=n485
-zira40 krqr 160430
-IONKA 39601 50616 7/1/2 /0430 055/0 27//0 //012 047/0 /0296 034/0 //00/ 062// =
-
-
-025 020001/=n489
-zira40 krqr 160500
-IONKA 39601 50616 7/1/1 /0500 05544 27/15 04007 04821 37297 033/0 0373/ 064// =
-
-
-025 020001/=n498
-zira40 krqr 160515
-IONKA 39601 50616 7/1/4 /0515 //0/0 /0//0 //012 //0/0 /0//0 //0/0 //00/ //0// =
-
-
-025 020001/=n512
-zira40 krqr 160645
-IONKA 39601 50616 7/1/8 /0645 //0/0 /0//0 //012 //0/0 /0//0 //0/0 //00/ //0// =
-
-
-025 021011/=n674
-zira40 omsh 160513
-ionka 37701 50616 7/1/0 /0700 05547 23/26 //7/7 04622 31480 03611 //70/ 
-//7//
-
-
-025 020001/=n743
-zira40 krqr 160315
-IONKA 39601 50616 7/1/5 /0315 054/0 29//0 //0/0 045/0 /0//0 //0/0 //00/ 061// =
-
-
-025 020001/=n747
-zira40 krqr 160700
-IONKA 39601 50616 7/1/5 /0700 05744 26/13 04005 04819 37313 03400 0343/ 065// =
-
-
-025 020001/=n322
-zira40 krqr 160715
-IONKA 39601 50616 7/1/6 /0715 060/0 26//0 //003 048/0 /0329 034/0 //00/ 067// =
-
-
-025 020001/=n245
-zira40 krqr 160730
-IONKA 39601 50616 7/1/1 /0730 056/0 26//0 //003 //0/0 /0//0 //0/0 //00/ 063// =
-
-
-025 020001/=n796
-zira40 krqr 160745
-IONKA 39601 50616 7/1/6 /0745 057/0 26//0 //003 046/0 /0307 034/0 //00/ 064// =
-
-
-025 020001/=n015
-zira40 krqr 160800
-IONKA 39601 50616 7/1/2 /0800 05747 26/16 03404 04821 37344 034/0 0353/ 065// =
-
-
-025 021011/=n062
-zira40 omsh 160513
-ionka 37701 50616 7/1/8 /0800 05744 24/16 //7/7 04721 33460 03411 //70/ 
-//7//
-
-
-025 052004/=n422
-zirs44 obpg 160819
-moskwa ipg 16/06 1119=
-  
-  obzor kosmi~eskoj pogody za 15 i`nq 2015 goda.
-  integralxnaq solne~naq aktiwnostx - umerennaq.
-  na diske solnca nabl`dalosx {estx grupp pqten.
-    w gruppe 2360 (za{la za zapadnyj 
-  limb 14 i`nq) w 19.27 msk byla zaregistrirowana 
-  prodolvitelxnaq wspy{ka (46 minut) s klassa.   
-  plo}adx gruppy 2367, nahodq}ejsq w SE-kwadrante solne~nogo
-  diska, uweli~ilasx ot 340 do 400 mdp, magnitnaq konfiguraciq 
-  uprostilasx do wETA. ona ne proqwlqla wspy{e~noj aktiwnosti.
-        wspy{e~naq aktiwnostx - nizkaq.
-  geomagnitnoe pole po dannym sredne{irotnyh stancij - 
-  ot spokojnogo do neustoj~iwogo;
-  po dannym wysoko{irotnyh stancij -  ot slabo wozmu}ennogo do
-  umerenno wozmu}ennogo.
-    
-  radiacionnaq obstanowka na trassah pilotiruemyh kosmi~eskih
-  apparatow - newozmu}ennaq.
-  po dannym murmanskogo ugms srywy kw-radioswqzi 14 i`nq 
-  byli zaregistrirowany na trassah:
-  kolxskogo poluostrowa w 02-04, 16-18, 21-23 msk;
-  sewernogo i wosto~nogo naprawlenij w 01-04, 14, 17-18, 21-23 msk;
-  `vnogo naprawleniq w 02-04, 13-18 msk.
-  prognoz kosmi~eskoj pogody na 16 - 17 i`nq 2015 g.
-        wozmovno, ~to wspy{e~naq aktiwnostx budet w osnownom 
-  nizkaq, wozmovny wspy{ki m klassa 16 i`nq; 
-  geomagnitnoe pole - spokojnoe;
-  radiacionnaq obstanowka - newozmu}ennaq.
-  wozmovny srywy kw-radioswqzi w otdelxnye ~asy sutok.
-  wypolneno 16.06.2015 10.45 msk. geliogeofizi~eskaq sluvba fgbu "ipg"
-
-
-025 020001/=n475
-zira40 krqr 160815
-IONKA 39601 50616 7/1/2 /0815 057/0 27//0 //003 046/0 /0287 034/0 //00/ 064// =
-
-
-025 020001/=n219
-zira40 krqr 160830
-IONKA 39601 50616 7/1/9 /0830 059/0 25//0 //0/0 046/0 /0333 033/0 //00/ 066// =
-
-
-025 020001/=n634
-zira40 krqr 160845
-IONKA 39601 50616 7/1/7 /0845 058/0 28//0 //0/0 045/0 /0317 033/0 //00/ 065// =
-
-
-025 052000/=n833
-zirs40 obpg 160852
-moskwa ipg 16/06 1152=
-habarowsk,nowosibirsk,murmansk,ta{kent=
-UMAGF 36701 50614 0330/ 13034 1/085 22433 33457
-UMAGF 33603 50616 0000/ 15001 1/011 22223 34321
-UABSE 38701 15124 31355 91404 02/15
-UMAGF 38701 50616 0000/ 15003 1/310 24455 37545 51404 24945
-UMAGF 33702 50616 0005/ 15001 1/023 22214 35453
-UMAGF 46501 50616 0000/ 15007 1/014 22234 33233
-UMAGF 43501 50616 0300/ 15003 1/017 23234 34333
-UMAGF 38501 50616 0330/ 15034 1/012 22244 32223
-UMAGF 34503 50616 0300/ 15004 1/008 22212 33321
-UMAGF 36701 50616 0330/ 15032 1/116 23355 34536
-UMAGF 43701 50616 0330/ 15036 1/157 23457 34433
-UMAGF 47701 50616 0330/ 15035 1/164 23466 36333
-UMAGF 31802 50616 0000/ 15008 1/026 22444 35434
-
-
-025 040001/=n948
-zira40 hbrw 160900
-ionda 16h99 04624 1h2h2 25223 65423
-ionha 31f41 35e45 30p41 30d40
-16h88 nil
-ionha 3hf40 3he45
-16h89 0h1h1 15525
-ionha 31f41 35e46
-16h91 nil
-ionha 3hf40 3he46
-magha 15189 17323 44333=
-27047-
-
-
-025 025011/=n743
-zira40 diks 160900
-ampli 38701 16607 0098/
-ampli 38701 16608 0064/
-ampli 38701 16609 0075/
-magma 38701 50616 06094 19///-
-
-
-025 025011/=n744
-zira40 diks 160900
-usfre 33603 38701 50616 07//3 ////3 08//3 ////3 09//3 ////3 
-usfre 33703 38701 50616 07//3 ////3 08//3 ////3 09//3 ////3 
-ionka 38701 50616 7/1/7 /0700 //3/3 00//3 //3/3 //3/3 00000
-//3/3 //30/ //0//
-ionka 38701 50616 7/1/8 /0800 //3/3 00//3 //3/3 //3/3 00000
-//3/3 //30/ //0//
-ionka 38701 50616 7/1/9 /0900 //3/3 00//3 //3/3 //3/3 00000
-//3/3 //30/ //0//-
-
-
-025 020001/=n923
-zira40 krqr 160900
-IONKA 39601 50616 7/1/0 /0900 05940 28/19 //7/7 04721 35290 033/0 //70/ 067// =
-
-
-025 020001/=n144
-zira40 krqr 160915
-IONKA 39601 50616 7/1/5 /0915 //0/0 /0//0 //0/0 //0/0 /0//0 //0/0 //00/ //0// =
-
-
-025 021011/=n200
-zira40 omsh 160513
-ionka 37701 50616 7/1/1 /0900 05746 23/25 //7/7 04723 /2480 03520 //70/ 
-//7//
-
-
-025 040011/=n455
-zira40 hbrw 160900
-ionka 43501 50616 /0300 //1/1 /1/36 11915 //1/1 /1//1 /0400 06039
-28/35 09825 04922 35//7 /0500 05641 28/27 //9/9 04820 38//7 /0600
-05744 26/24 //9/9 04822 36//7 /0700 05840 28/34 05735 04824 33//7
-/0800 06433 29/14 05115 //1/1 /1340=
-
-
-025 021011/=n698
-zira40 omsh 160513
-ionka 37701 50616 7/1/8 /0900 05746 23/25 //7/7 04723   36480 03520  //70/ 
-//7//
-
-
-025 020001/=n496
-zira40 krqr 160930
-IONKA 39601 50616 7/1/5 /0930 058/0 27//0 //0/0 045/0 /0320 032/0 //00/ 066// =
-
-
-025 052001/=n664
-zirs41 obpg 160936
-moskwa ipg 16/06 1236=
-habarowsk,nowosibirsk,moskwa utro,murmansk,ta{kent=
-     CBOdKA iHEj     16. 6.2015      9 ~AC UT
-   ionda 15X81 850/1 95129 04827 14228 0/1/1 1/1/1 249/7 352/7 
-   ionha 31f41 36E45 31p41 30d40 
-         15X79 86329 96930 07030 15929 05027 15027 25927 35826 
-   ionha 31f41 36E46 
-         15X98 84630 94428 04229 14531 04726 15125 25628 35628 
-   ionha 31f41 36E46 
-         15X13 86233 95031 03930 13030 03032 14133 25333 36532 
-   ionha 30f40 3XE45 
-         magha 15079 1/008 22212 33321=
-
-
-025 020001/=n117
-zira40 krqr 160945
-IONKA 39601 50616 7/1/9 /0945 055/0 28//0 //0/0 044/0 /0299 032/0 //00/ 062// =
-
-
-025 020001/=n373
-zira40 krqr 161000
-IONKA 39601 50616 7/1/6 /1000 05838 28/18 //7/7 04521 37288 03204 //70/ 066// =
-
-
-025 021011/=n620
-zira40 omsh 160513
-ionka 37701 50616 7/1/7 /1000 05744 24/35 //2/2 04722 36460 03520 //70/ 
-//7//
-
-
-025 020001/=n031
-zira40 krqr 161015
-IONKA 39601 50616 7/1/6 /1015 057/0 28//0 //0/0 044/0 /0284 031/0 //00/ 065// =
-
-
-025 020001/=n721
-zira40 krqr 161030
-IONKA 39601 50616 7/1/9 /1030 056/0 28//0 //0/0 043/0 /0301 031/0 //00/ 063// =
-
-
-025 020001/=n856
-zira40 krqr 161045
-IONKA 39601 50616 7/1/1 /1045 056/0 28//0 //012 043/0 /0304 031/0 //00/ 063// =
-
-
-025 052002/=n435
-zirs42 obpg 161059
-moskwa ipg 16/06 1359=
-    operatiwnaq swodka geliogeofizi~eskoj sluvby
-    geliogeofizi~eskie dannye za 15 i`nq 2015 g.
- 1.integralxnaq solne~naq aktiwnostx umerennaq   
-   W<BOU>=107,W<kis>=      F<BOU>=135,F<MOS>=137
- 2.na diske solnca gruppy pqten:
-    N   koordi     S  c`rih     magn      wspy{ki
-   obl   naty     mdp klass   N  tip  SS   M   X =1 >1
-   2365 S13 W61    90  CSO    4  B     0   0   0  0  0
-   2366 N16 W57     0  AXX    1  A     0   0   0  0  0
-   2367 S20 E20   400  EKC   29  B     1   0   0  0  0
-   2368 S06 W79     0  AXX    1  A     1   0   0  0  0
-   2369 N06 E33    10  BXO    2  B     0   0   0  0  0
-   2370 N18 E10    20  CRO   10  B     0   0   0  0  0
-   summarnaq aktiwnostx diska solnca:  2   0   0  0  0
-   ob}ee koli~estwo grupp pqten: 6
- 3.|nergi~nye sobytiq:
-      BPEMq UT          KOOPdi      OpT    245       CpEKT
- HA~.  MAKC  KOHEc  P-H  HATy  PEHT bAll   MHZ 10CM   Tip
- 0400  0400  04002 ////                    150              
- 0402  0403  04032 ////                   1000              
- 0513  0513  05132 ////                   1200              
- 0552  0552  05522 ////                    140              
- 0552  0552  05522 ////                    170              
- 0750  0754  0757  2368 S09W70 C1.7 SF                      
- 1023  1032  1037       N12E81 C2.5                         
- 1345  1349  14152 2360        C1.8        670              
- 1439  1442  1446       N06W70 C1.4                         
-                                 
- 4.geomagnitnoe pole po dannym sredne{irotnyh stancij: spokojnoe         
-   AP<BOU>=013  AP<MOS>=012  KP<MOS>=22244322
-    stanciq         wremq  UT    qwlenie
-                   patrulx qwl
-   pAPATuHKA        00-24        qwlenie otsutstwuet    
-   MAgAdAH                       net dannyh             
-   HOBOCibiPCK      00-24
-   p.TuHguCKA                    net dannyh             
-   MOCKBA           00-24
-   sankt-peterburg  00-24        qwlenie otsutstwuet    
-   barencburg       00-24        qwlenie otsutstwuet    
-   habarowsk        00-24        qwlenie otsutstwuet    
-   murmansk         00-24        qwlenie otsutstwuet    
-   dikson           00-24        qwlenie otsutstwuet    
-   o.izwestij                    net dannyh             
-   sostoqnie magnitosfery <isz meteor>: ne oceniwalosx    
- 5.sostoqnie ionosfery po regionam (w ballah) :
-         sloi :       F2          ES      d       F2
-        (FEpd)  F-otklonenie   E-|kran. p-pogl. d-diff.
-   polqr.{apka   -net dannyh       X       X       X
-   zona siqn.   1-slabo otric.     6       1       0
-   sred.{iroty  0-spokojno         6
-   wostok       0-spokojno         5
-   `g           0-spokojno         X
-   zapad        0-spokojno         5
- 6.radiacionnaq obstanowka w okp :
-   - po dannym ka "meteor"
-    w polqrnyh zonah magnitosfery: fon gkl  
-   maksimalxnye intensiwnosti na        UT sostawili:
-   |nergiq <m|w>   EP>15   EP>25   EP>40   EP>90
-    na trassah pka: newozmu}ennaq          
-   -po dannym ka "GOES"
-    na geostacionarnoj orbite: fon gkl  
-            intensiwnosti potokow
-   wremq   er>10  wremq   er>30  wremq   er>50  wremq  er>100
-     UT     PFU     UT     PFU     UT     PFU     UT     PFU
-    na trassah pka: newozmu}ennaq       
-    prognoz parametrow geliogeofizi~eskoj obstanowki na :
-                  17.06.15      18.06.15      19.06.15
- 1.integralxnaq solne~naq aktiwnostx:
-                  wozmovna      wozmovna      ovidaetsq   
-                  umerennaq     umerennaq     nizkaq      
- 2.wspy{e~naq aktiwnostx
-   <maks. rentgen. klass>:
-                  wozmoven M    ovidaetsq C9  ovidaetsq C9
-   <maks.opti~eskij ball>:
-                  wozmoven 1    wozmoven 1    wozmoven 1  
- 3.geomagnitnoe pole:
-                  ovidaetsq     ovidaetsq     ovidaetsq   
-                  spokojnoe     spokojnoe     spokojnoe   
- 4.radiacionnaq obstanowka
-  -sobytiq skl:
-                  ne ovida`tsq  ne ovida`tsq  ne ovida`tsq
-  -na trassah pka : wozmu}eniq
-                  ne ovida`tsq  ne ovida`tsq  ne ovida`tsq
- 5.sostoqnie ionosfery po regionam :
-                     FEpd
-   polqr.{apka       XXXX
-   zona siqn.        1610
-   sred.{iroty       06
-   wostok            06
-   `g                05
-   zapad             05
-   RWC RUSSIA  10.51 UT 16.06.2015
-
-
-025 052002/=n573
-zirs42 obpg 161059
-moskwa ipg 16/06 1359=
-    operatiwnaq swodka geliogeofizi~eskoj sluvby
-    geliogeofizi~eskie dannye za 15 i`nq 2015 G.
- 1.integralxnaq solne~naq aktiwnostx umerennaq   
-   W<BOU>=107,W<kis>=      F<BOU>=135,F<MOS>=137
- 2.na diske solnca gruppy pqten:
-    N   koordi     S  c`rih     magn      wspy{ki
-   obl   naty     mdp klass   N  tip  SS   M   X =1 >1
-   2365 S13 W61    90  CSO    4  B     0   0   0  0  0
-   2366 N16 W57     0  AXX    1  A     0   0   0  0  0
-   2367 S20 E20   400  EKC   29  B     1   0   0  0  0
-   2368 S06 W79     0  AXX    1  A     1   0   0  0  0
-   2369 N06 E33    10  BXO    2  B     0   0   0  0  0
-   2370 N18 E10    20  CRO   10  B     0   0   0  0  0
-   summarnaq aktiwnostx diska solnca:  2   0   0  0  0
-   ob}ee koli~estwo grupp pqten: 6
- 3.|nergi~nye sobytiq:
-      BPEMq UT          KOOPdi      OpT    245       CpEKT
- HA~.  MAKC  KOHEc  P-H  HATy  PEHT bAll   MHZ 10CM   Tip
- 0400  0400  04002 ////                    150              
- 0402  0403  04032 ////                   1000              
- 0513  0513  05132 ////                   1200              
- 0552  0552  05522 ////                    140              
- 0552  0552  05522 ////                    170              
- 0750  0754  0757  2368 S09W70 C1.7 SF                      
- 1023  1032  1037       N12E81 C2.5                         
- 1345  1349  14152 2360        C1.8        670              
- 1439  1442  1446       N06W70 C1.4                         
-                                 
- 4.geomagnitnoe pole po dannym sredne{irotnyh stancij: spokojnoe         
-   AP<BOU>=013  AP<MOS>=012  KP<MOS>=22244322
-    stanciq         wremq  UT    qwlenie
-                   patrulx qwl
-   pAPATuHKA        00-24        qwlenie otsutstwuet    
-   MAgAdAH                       net dannyh             
-   HOBOCibiPCK      00-24
-   p.TuHguCKA                    net dannyh             
-   MOCKBA           00-24
-   sankt-peterburg  00-24        qwlenie otsutstwuet    
-   barencburg       00-24        qwlenie otsutstwuet    
-   habarowsk        00-24        qwlenie otsutstwuet    
-   murmansk         00-24        qwlenie otsutstwuet    
-   dikson           00-24        qwlenie otsutstwuet    
-   o.izwestij                    net dannyh             
-   sostoqnie magnitosfery <isz meteor>: ne oceniwalosx    
- 5.sostoqnie ionosfery po regionam (w ballah) :
-         sloi :       F2          ES      d       F2
-        (FEpd)  F-otklonenie   E-|kran. p-pogl. d-diff.
-   polqr.{apka   -net dannyh       X       X       X
-   zona siqn.   1-slabo otric.     6       1       0
-   sred.{iroty  0-spokojno         6
-   wostok       0-spokojno         5
-   `g           0-spokojno         X
-   zapad        0-spokojno         5
- 6.radiacionnaq obstanowka w okp :
-   - po dannym ka "meteor"
-    w polqrnyh zonah magnitosfery: fon gkl  
-   maksimalxnye intensiwnosti na        UT sostawili:
-   |nergiq <m|w>   Ep>15   EP>25   Ep>40   Ep>90
-    na trassah pka: newozmu}ennaq          
-   -po dannym ka "GOES"
-    na geostacionarnoj orbite: fon gkl  
-            intensiwnosti potokow
-   wremq   eR>10  wremq   eR>30  wremq   eR>50  wremq  eR>100
-     UT     PFU     UT     PFU     UT     PFU     UT     PFU
-    na trassah pka: newozmu}ennaq       
-    prognoz parametrow geliogeofizi~eskoj obstanowki na :
-                  17.06.15      18.06.15      19.06.15
- 1.integralxnaq solne~naq aktiwnostx:
-                  wozmovna      wozmovna      ovidaetsq   
-                  umerennaq     umerennaq     nizkaq      
- 2.wspy{e~naq aktiwnostx
-   <maks. rentgen. klass>:
-                  wozmoven M    ovidaetsq C9  ovidaetsq C9
-   <maks.opti~eskij ball>:
-                  wozmoven 1    wozmoven 1    wozmoven 1  
- 3.geomagnitnoe pole:
-                  ovidaetsq     ovidaetsq     ovidaetsq   
-                  spokojnoe     spokojnoe     spokojnoe   
- 4.radiacionnaq obstanowka
-  -sobytiq skl:
-                  ne ovida`tsq  ne ovida`tsq  ne ovida`tsq
-  -na trassah pka : wozmu}eniq
-                  ne ovida`tsq  ne ovida`tsq  ne ovida`tsq
- 5.sostoqnie ionosfery po regionam :
-                     FEpd
-   polqr.{apka       XXXX
-   zona siqn.        1610
-   sred.{iroty       06
-   wostok            06
-   `g                05
-   zapad             05
-   RWC RUSSIA  10.51 UT 16.06.2015
-
-
-025 020001/=n774
-zira40 krqr 161100
-IONKA 39601 50616 7/1/3 /1100 05838 27/15 //7/7 04422 35301 03003 //70/ 065// =
-
-
-025 021011/=n055
-zira40 omsh 160513
-ionka 37701 50616 7/1/7 /1100 05742 24/32 //7/7 04522 35450 033/2 //70/ 
-//7//
-
-
-025 020001/=n339
-zira40 krqr 161115
-IONKA 39601 50616 7/1/9 /1115 057/0 29//0 //0/0 043/0 /0314 030/0 //00/ 064// =
-
-
-025 020001/=n406
-zira40 krqr 161130
-IONKA 39601 50616 7/1/2 /1130 058/0 30//0 //0/0 //0/0 /0324 029/0 //00/ 065// =
-
-
-025 020001/=n895
-zira40 krqr 161145
-IONKA 39601 50616 7/1/1 /1145 058/0 29//0 //0/0 //0/0 /0329 029/0 //00/ 065// =
-
-
-025 025011/=n930
-zira40 diks 161200
-ampli 38701 16610 0070/
-ampli 38701 16611 0062/
-ampli 38701 16612 0078/
-magma 38701 50616 09123 15///-
-
-
-025 025011/=n932
-zira40 diks 161200
-usfre 33603 38701 50616 10//3 ////3 11//3 ////3 12//3 ////3 
-usfre 33703 38701 50616 10//3 ////3 11//3 ////3 12//3 ////3 
-ionka 38701 50616 7/1/1 /1000 //3/3 00//3 //3/3 //3/3 00000
-//3/3 //30/ //0//
-ionka 38701 50616 7/1/2 /1100 //3/3 00//3 //3/3 //3/3 00000
-//3/3 //30/ //0//
-ionka 38701 50616 7/1/3 /1200 //3/3 00//3 //3/3 //3/3 00000
-//3/3 //30/ //0//-
-
-
-025 020001/=n007
-zira40 krqr 161200
-IONKA 39601 50616 7/1/8 /1200 06031 30/17 03143 04123 35285 02910 0293/ 068// =
-
-
-025 021011/=n371
-zira40 omsh 160513
-ionka 37701 50616 7/1/0 /1200 05538 25/23 //7/7 04522 34440 03311 //70/ 
-//7//
-
-
-025 020001/=n656
-zira40 krqr 161215
-IONKA 39601 50616 7/1/9 /1215 056/0 33//0 //0/0 //0/0 /0274 028/0 //00/ 064// =
-
-
-025 020001/=n056
-zira40 krqr 161230
-IONKA 39601 50616 7/1/2 /1230 056/0 32//0 //030 038/0 /0287 027/0 //00/ 064// =
-
-
-025 020001/=n844
-zira40 krqr 161245
-IONKA 39601 50616 7/1/1 /1245 056/0 30//0 //030 //0/0 /0293 026/0 //00/ 064// =
-
-
-025 020001/=n216
-zira40 krqr 161300
-IONKA 39601 50616 7/1/4 /1300 05829 31/13 03720 03725 /7274 02410 0243/ 067// =
-
-
-025 021011/=n274
-zira40 omsh 160513
-ionka 37701 50616 7/1/9 /1300 05738 27/32 //2/2 04224 34385 //2/2 //70/ 
-//7//
-
-
-025 020001/=n935
-zira40 krqr 161315
-IONKA 39601 50616 7/1/6 /1315 058/0 29//0 //030 //0/0 /0299 025/0 //00/ 066// =
-
-
-025 052000/=n013
-zirs40 obpg 161328
-moskwa ipg 16/06 1628=
-habarowsk,nowosibirsk,murmansk,ta{kent=
-URANJ 34502 50616 03000 06120 14009
-URANJ 34502 50616 00204 06121 00909 90600 11200 50015 X////
-UFLAE 32404 50615 37009 07017 60749 30753 80755
-UFLAE 32404 50615 22619 07014 61532 31534 81540
-UFLAE 21305 50615 18513 07054 61847 31913 82144
-GEOALERT WWA167
-UGEOA 20401 50616 0330/ 9930/
-11161 20161 30161 99999
-UGEOE 20401 50616 0330/ 15/06
-04002 0400/ 04002 9//99 01502 0//// ///// 9////
-04022 0403/ 04032 9//99 01003 0//// ///// 9////
-05132 0513/ 05132 9//99 01203 0//// ///// 9////
-05522 0552/ 05522 9//99 01402 0//// ///// 9////
-05522 0552/ 05522 9//99 01702 0//// ///// 9////
-13452 1349/ 14152 11899 06702 0//// ///// 92360
-99999
-UGEOI 20401 50616 0330/ 15///
-10107 21350 3014/ 4///0 50000 67507 71004 80009 90520
-99999
-UGEOR 20401 50616 0330/ 15/24 16106
-12365 20000 30000 43212 50090 60004 36113 01000
-12366 20000 30000 41001 50000 60001 45716 00000
-12367 20000 30100 45532 50400 60029 22020 19300
-12368 20000 30100 41001 50000 60001 37906 00000
-12369 20000 30000 42012 50010 60002 13306 00000
-12370 20000 30000 43112 50020 60010 11018 00000
-99999
-TENCM 13016 12517 12018
-AFRED 01416 00917 00618
-prognoz na 17 i`nq 2015
-integralxnaq solne~naq aktiwnostx umerennaq
-ovida`tsq wspy{ki s klassa, estx nebolx{aq weroqtnostx
-wspy{ek m klassa
-magnitnoe pole spokojnoe
-radiacionnaq obstanowka newozmu}ennaq
-
-
-025 020001/=n315
-zira40 krqr 161330
-IONKA 39601 50616 7/1/2 /1330 057/0 31//0 //030 035/0 /0290 024/0 //00/ 065// =
-
-
-025 020001/=n896
-zira40 krqr 161345
-IONKA 39601 50616 7/1/0 /1345 057/0 29//0 //030 //0/0 /0302 023/0 //00/ 065// =
-
-
-025 020001/=n339
-zira40 krqr 161400
-IONKA 39601 50616 7/1/4 /1400 058/0 30/15 02343 //025 /0303 02028 0233/ 066// =
-
-
-025 021011/=n791
-zira40 omsh 160513
-ionka 37701 50616 7/1/2 /1400 05536 25/30 //2/2 04323 33440 //2/2 //70/ 
-//7//
-
-
-025 020001/=n096
-zira40 krqr 161415
-IONKA 39601 50616 7/1/9 /1415 057/0 30//0 //030 //0/0 /0311 021/0 //00/ 066// =
-
-
-025 020001/=n283
-zira40 krqr 161430
-IONKA 39601 50616 7/1/8 /1430 058/0 29//0 //021 //0/0 /0332 021/0 //00/ 066// =
-
-
-025 020001/=n750
-zira40 krqr 161445
-IONKA 39601 50616 7/1/5 /1445 058/0 29//0 //026 //0/0 /0310 020/0 //00/ 067// =
-
-
-025 025011/=n609
-zira40 diks 161500
-ampli 38701 16613 0084/
-ampli 38701 16614 0075/
-ampli 38701 16615 0059/
-magma 38701 50616 12153 12///-
-
-
-025 025011/=n610
-zira40 diks 161500
-usfre 33603 38701 50616 13//3 ////3 14//3 ////3 15//3 ////3 
-usfre 33703 38701 50616 13//3 ////3 14//3 ////3 15//3 ////3 
-ionka 38701 50616 7/1/4 /1300 //3/3 00//3 //3/3 //3/3 00000
-//3/3 //30/ //0//
-ionka 38701 50616 7/1/5 /1400 //3/3 00//3 //3/3 //3/3 00000
-//3/3 //30/ //0//
-ionka 38701 50616 7/1/6 /1500 //3/3 00//3 //3/3 //3/3 00000
-//3/3 //30/ //0//-
-
-
-025 021011/=n951
-zira40 omsh 161457
-ionka 37701 50616 7/1/5 /1500 05726 29/26 04035 //7/7 /7335 //1/1 0313/ 
-//7//
-
-
-025 020001/=n158
-zira40 krqr 161500
-IONKA 39601 50616 7/1/1 /1500 059/0 30/16 02723 //026 /0305 //1/1 0212/ 068// =
-
-
-025 020001/=n144
-zira40 krqr 161515
-IONKA 39601 50616 7/1/9 /1515 057/0 30//0 //017 //0/0 /0319 018/0 //00/ 066// =
-
-
-025 020001/=n642
-zira40 krqr 161530
-IONKA 39601 50616 7/1/4 /1530 058/0 29//0 //012 //0/0 /0331 018/0 //00/ 066// =
-
-
-025 020001/=n543
-zira40 krqr 161545
-IONKA 39601 50616 7/1/8 /1545 062/0 28//0 //012 //0/0 /0340 017/0 //00/ 070// =
-
-
-025 021011/=n015
-zira40 omsh 161457
-ionka 37701 50616 7/1/0 /1600 05825 31/22 09625 //7/7 /7310 //1/1 0252/ 
-//7//
-
-
-025 020001/=n099
-zira40 krqr 161600
-IONKA 39601 50616 7/1/8 /1600 061/0 30/13 03914 //027 /0326 //1/1 0172/ 071// =
-
-
-025 020001/=n573
-zira40 krqr 161615
-IONKA 39601 50616 7/1/8 /1615 071/0 30//0 //017 //0/0 /0319 016/0 //00/ 079// =
-
-
-025 020001/=n527
-zira40 krqr 161630
-IONKA 39601 50616 7/1/8 /1630 062/0 30//0 //012 //0/0 /0316 016/0 //00/ 070// =
-
-
-025 052001/=n660
-zirs41 obpg 161636
-moskwa ipg 16/06 1936=
-habarowsk,nowosibirsk,moskwa utro,murmansk,ta{kent=
-     CBOdKA iHEj     16. 6.2015     21 ~AC UT
-   ionda 16X81 45523 556/7 65726 75526 85529 
-   ionha 41f31 44E35 4Xp31 4Xd30 
-         16X79 46726 56927 66128 75727 85829 
-   ionha 41f31 46E36 
-         16X98 45726 55828 66030 75830 86130 
-   ionha 41f31 45E36 
-         16X13 47730 59328 68230 76730 8/0/0 
-   ionha 40f30 4XE35=
-
-
-025 020001/=n613
-zira40 krqr 161645
-IONKA 39601 50616 7/1/9 /1645 073/0 29//0 //008 //0/0 /0332 016/0 //00/ 081// =
-
-
-025 021011/=n403
-zira40 omsh 161457
-ionka 37701 50616 7/1/0 /1700 05628 29618 05625 //7/7 /7345 //1/1 0302/ 
-070//
-
-
-025 021011/=n452
-zira40 omsh 161457
-ionka 37701 50616 7/1/0 /1700 05628 29618 05625 //7/7 /7345 //1/1 0302/ 
-070//=
-
-
-025 020001/=n627
-zira40 krqr 161700
-IONKA 39601 50616 7/1/4 /1700 067/0 29/12 06214 //028 /0323 //1/1 0302/ 083// =
-
-
-025 020001/=n925
-zira40 krqr 161715
-IONKA 39601 50616 7/1/6 /1715 066/0 30//0 //012 //0/0 /0331 015/0 //00/ 074// =
-
-
-025 020001/=n504
-zira40 krqr 161730
-IONKA 39601 50616 7/1/1 /1730 060/0 30//0 //017 //0/0 /0318 015/0 //00/ 069// =
-
-
-025 020001/=n892
-zira40 krqr 161745
-IONKA 39601 50616 7/1/1 /1745 060/0 30//0 //021 //0/0 /0318 015/0 //00/ 068// =
-
-
-025 025011/=n889
-zira40 diks 161800
-ampli 38701 16616 0053/
-ampli 38701 16617 0085/
-ampli 38701 16618 0159/
-magma 38701 50616 15185 20///-
-
-
-025 025011/=n890
-zira40 diks 161800
-usfre 33603 38701 50616 16//3 ////3 17//3 ////3 18//3 ////3 
-usfre 33703 38701 50616 16//3 ////3 17//3 ////3 18//3 ////3 
-ionka 38701 50616 7/1/7 /1600 //3/3 00//3 //3/3 //3/3 00000
-//3/3 //30/ //0//
-ionka 38701 50616 7/1/8 /1700 //3/3 00//3 //3/3 //3/3 00000
-//3/3 //30/ //0//
-ionka 38701 50616 7/1/9 /1800 //3/3 00//3 //3/3 //3/3 00000
-//3/3 //30/ //0//-
-
-
-025 021011/=n891
-zira40 omsh 161804
-ionka 37701 50616 7/1/7 /1800 05329 29/21 05440 //7/7 /7330 //1/1 0222/ 
-//7//=
-
-
-025 020001/=n290
-zira40 krqr 161800
-IONKA 39601 50616 7/1/1 /1800 064/0 28/11 03320 //027 /0357 //1/1 0242/ 071// =
-
-
-025 020001/=n528
-zira40 krqr 161815
-IONKA 39601 50616 7/1/3 /1815 061/0 30//0 //017 //0/0 /0333 015/0 //00/ 069// =
-
-
-025 020001/=n879
-zira40 krqr 161830
-IONKA 39601 50616 7/1/3 /1830 062/0 28//0 //0/0 //0/0 /0343 015/0 //00/ 070// =
-
-
-025 020001/=n562
-zira40 krqr 161845
-IONKA 39601 50616 7/1/0 /1845 058/0 30//0 //0/0 //0/0 /0341 015/0 //00/ 066// =
-
-
-025 021011/=n428
-zira40 omsh 161804
-ionka 37701 50616 7/1/6 /1900 05226 29/23 //2/2 //7/7 /7345 //2/2 //70/ 
-//7//=
-
-
-025 020001/=n943
-zira40 krqr 161900
-IONKA 39601 50616 7/1/9 /1900 061/0 29/10 02761 //030 /0360 //147 0174/ 071// =
-
-
-025 020001/=n442
-zira40 krqr 161915
-IONKA 39601 50616 7/1/3 /1915 062/0 29//0 //030 //0/0 /0335 016/0 //00/ 070// =
-
-
-025 020001/=n474
-zira40 krqr 161930
-IONKA 39601 50616 7/1/8 /1930 061/0 30//0 //030 //0/0 /0332 016/0 //00/ 070// =
-
-
-025 020001/=n820
-zira40 krqr 161945
-IONKA 39601 50616 7/1/1 /1945 065/0 32//0 //0/0 //0/0 /0299 016/0 //00/ 072// =
-
-
-025 021011/=n460
-zira40 omsh 161804
-ionka 37701 50616 7/1/6 /2000 05528 29/17 //2/2 //7/7 /7345 //2/2 //70/ 
-//7//=
-
-
-025 020001/=n868
-zira40 krqr 162000
-IONKA 39601 50616 7/1/3 /2000 063/0 29/10 02109 //026 /0326 //1/1 0142/ 073// =
-
-
-025 020001/=n506
-zira40 krqr 162015
-IONKA 39601 50616 7/1/9 /2015 063/0 33//0 //026 //0/0 /0282 017/0 //00/ 071// =
-
-
-025 020001/=n001
-zira40 krqr 162030
-IONKA 39601 50616 7/1/1 /2030 057/0 29//0 //021 //0/0 /0316 018/0 //00/ 065// =
-
-
-025 020001/=n296
-zira40 krqr 162045
-IONKA 39601 50616 7/1/7 /2045 057/0 29//0 //026 //0/0 /0320 018/0 //00/ 065// =
-
-
-025 021011/=n625
-zira40 omsh 161804
-ionka 37701 50616 7/1/7 /2100 05328 28/19 //2/2 //7/7 /7355 //2/2 //70/ 
-//7//=
-
-
-025 020001/=n451
-zira40 krqr 162100
-IONKA 39601 50616 7/1/7 /2100 05828 30/11 02530 02925 32308 01508 0213/ 066// =
-
-
-025 040011/=n762
-zira40 hbrw 162100
-ionka 43501 50616 /0900 06433 28/14 05115 //1/1 /1350 /1000 070/7
-29/22 04515 /1100 072/7 30/23 04305 /1200 071/7 29/16 05805 /1300
-072/7 29/11 03000 /1400 064/7 30/21 02710 /1500 058/7 27/19 02605
-/1600 055/7 29/23 //2/2 /1700 052/7 29/11 //2/2 /1800 053/7 25/12
-//2/2 /1900 053/7 31/22 //2/2 /2000 058/7 29/24 //2/2 =
-
-
-025 020001/=n244
-zira40 krqr 162115
-IONKA 39601 50616 7/1/4 /2115 056/0 31//0 //0/0 //0/0 /0305 020/0 //00/ 064// =
-
-
-025 020001/=n328
-zira40 krqr 162130
-IONKA 39601 50616 7/1/9 /2130 056/0 29//0 //003 //0/0 /0310 021/0 //00/ 065// =
-
-
-025 020001/=n843
-zira40 krqr 162145
-IONKA 39601 50616 7/1/8 /2145 057/0 29//0 //0/0 //0/0 /0324 021/0 //00/ 065// =
-
-
-025 021011/=n474
-zira40 omsh 161804
-ionka 37701 50616 7/1/5 /2100 05328 28/19 //2/2 //7/7 /7355 019/2 //70/ 
-//7//=
-
-
-025 021011/=n565
-zira40 omsh 161804
-ionka 37701 50616 7/1/7 /2100 05328 28/19 //7/7 //7/7 /7355 019/2 //70/ 
-//7//=
-
-
-025 021011/=n589
-zira40 omsh 161804
-ionka 37701 50616 7/1/5 /2100 05328 28/19 //7/7 //7/7 /7355 019/2 //70/ 
-//7//=
-
-
-025 021011/=n755
-zira40 omsh 161804
-ionka 37701 50616 7/1/7 /2200 05328 28/20 //7/7 //7/7 /7370 020/2 //70/ 
-//7//=
-
-
-025 020001/=n436
-zira40 krqr 162200
-IONKA 39601 50616 7/1/1 /2200 06030 29/11 02635 03325 35293 02107 0243/ 069// =
-
-
-025 020001/=n345
-zira40 krqr 162215
-IONKA 39601 50616 7/1/7 /2215 057/0 31//0 //0/0 //0/0 /0294 023/0 //00/ 065// =
-
-
-025 025011/=n864
-zira40 diks 162100
-ampli 38701 16619 0186/
-ampli 38701 16620 0113/
-ampli 38701 16621 0058/
-magma 38701 50616 18214 16///-
-
-
-025 025011/=n865
-zira40 diks 162100
-usfre 33603 38701 50616 19//3 ////3 20//3 ////3 21//3 ////3 
-usfre 33703 38701 50616 19//3 ////3 20//3 ////3 21//3 ////3 
-ionka 38701 50616 7/1/0 /1900 //3/3 00//3 //3/3 //3/3 00000
-//3/3 //30/ //0//
-ionka 38701 50616 7/1/2 /2000 //3/3 00//3 //3/3 //3/3 00000
-//3/3 //30/ //0//
-ionka 38701 50616 7/1/3 /2100 //3/3 00//3 //3/3 //3/3 00000
-//3/3 //30/ //0//-
-
-
-025 020001/=n046
-zira40 krqr 162230
-IONKA 39601 50616 7/1/9 /2230 058/0 29//0 //0/0 034/0 /0309 024/0 //00/ 067// =
-
-
-025 020001/=n114
-zira40 krqr 162245
-IONKA 39601 50616 7/1/5 /2245 058/0 30//0 //0/0 //0/0 /0304 025/0 //00/ 066// =
-
-
-025 021011/=n766
-zira40 omsh 161804
-ionka 37701 50616 7/1/3 /2300 05135 27/15 02730 03325 32380 02225 //73/ 
-//7//=
-
-
-025 020001/=n026
-zira40 krqr 162300
-IONKA 39601 50616 7/1/9 /2300 06030 30/13 02743 03823 33311 02412 0273/ 068// =
-
-
-025 020001/=n353
-zira40 krqr 162315
-IONKA 39601 50616 7/1/8 /2315 061/0 30//0 //021 //0/0 /0308 026/0 //00/ 069// =
-
-
-025 045011/=n529
-zira40 ptrp 160200
-IONKA 46501 50616 7/3/8 /0000 05938 30/18 05002 //1/1 /1374 
-//102 0493/ //7// /0100 //11  /1/16 07100 //1/1 /1//1 //103 
-0713/ //7// /0200 06043 28/16 04300 048/1 /1//7 //100 0433/ 
-//7//
-
-
-025 045011/=n530
-zira40 ptrp 160500
-IONKA 46501 50616 7/3/2 /0300 06138 29/14 05401 //1/1 /1//1 
-//100 0543/ //7// /0400 06136 29/18 04316 047/1 /1//7 //104 
-0423/ //7// /0500 05939 28/15 05311 //1/1 /1//7 //102 0493/ 
-//7//
-
-
-025 045011/=n531
-zira40 ptrp 160800
-IONKA 46501 50616 7/3/9 /0600 0571  /1/17 06410 //1/1 /1//1 
-//104 0503/ //7// /0700 //11  /1/18 06903 //1/1 /1//1 //1/1 
-0693/ //7// /0800 06430 28/16 04509 //7/7 /7358 //106 0383/ 
-//7//
-
-
-025 045011/=n532
-zira40 ptrp 161100
-IONKA 46501 50616 7/3/4 /0900 06831 28/13 05803 //7/7 /7346 
-//1/2 0503/ //7// /1000 07626 30/12 03407 //7/7 /7324 //110 
-0343/ //7// /1100 07325 29/13 //2/2 //7/7 /7347 //7/7 //20/ 
-//7//
-
-
-025 045011/=n533
-zira40 ptrp 161400
-IONKA 46501 50616 7/3/5 /1200 07024 31/13 01903 //7/7 /7311 
-//7/7 0181/ //7// /1300 06422 30616 //2/2 //7/7 /7311 //7/7 
-//20/ //7// /1400 04724 28610 01725 //7/7 /7336 //7/7 0156/ 
-//7//
-
-
-025 045011/=n534
-zira40 ptrp 161700
-IONKA 46501 50616 7/3/1 /1500 04227 28/10 01723 //7/7 /7359 
-//7/7 0156/ //7// /1600 03929 27/10 02111 //7/7 /7380 //7/7 
-0191/ //7// /1700 04532 28/12 03212 //7/7 /7353 //1/2 0243/ 
-//7//
-
-
-025 045011/=n535
-zira40 ptrp 162000
-IONKA 46501 50616 7/3/9 /1800 05230 27/14 04214 //7/1 /7358 
-//120 0323/ //7// /1900 05837 27/12 03708 041/1 /1378 //110 
-0353/ //7// /2000 06435 28/15 04111 044/1 /1369 //103 0373/ 
-//7//
-
-
-025 045011/=n536
-zira40 ptrp 162300
-IONKA 46501 50616 7/3/3 /2100 06635 27/16 03600 04522 34364 
-//104 0353/ //7// /2200 06636 29/14 04103 047/1 /1361 //102 
-0403/ //7// /2300 06236 28/17 04003 04720 40//7 //100 0393/ 
-//7//
-
-
-025 020001/=n902
-zira40 krqr 162330
-IONKA 39601 50616 7/1/9 /2330 060/0 29//0 //030 //0/0 /0305 027/0 //00/ 068// =
-
-
-025 020001/=n165
-zira40 krqr 162345
-IONKA 39601 50616 7/1/1 /2345 056/0 32//0 //030 //0/0 /0297 028/0 //00/ 064// =
-
-
 &&&&&&&&&&&&&&&15 20150617
 025 040001/=n040
 zira40 hbrw 170000
@@ -10712,5 +9219,1440 @@ IONKA 39601 50622 7/1/0 /0815 067/0 29//0 //012 044/0 /0//0 //0/0 //00/ 074// =
 025 020001/=n787
 zira40 krqr 220830
 IONKA 39601 50622 7/1/1 /0830 071/0 30//0 //012 046/0 /0//0 //0/0 //00/ 079// =
+
+
+025 020001/=n255
+zira40 krqr 220845
+IONKA 39601 50622 7/1/7 /0845 069/0 31//0 //0/0 046/0 /0280 033/0 //00/ 078// =
+
+
+025 052004/=n407
+zirs44 obpg 220851
+moskwa ipg 22/06 1151=
+	
+	obzor kosmi~eskoj pogody za 19-21 i`nq 2015 goda.
+	integralxnaq solne~naq aktiwnostx - umerennaq.
+  na diske solnca nabl`dalosx dwe gruppy pqten. 
+  	plo}adx gruppy 2371 (N13W00) uweli~ilasx ot 1020
+  do 1180 mdp, ~islo pqten uweli~ilosx ot 26 do 42, magnitnaq
+  konfiguraciq ostawalasx BETA-GAMMA-DELTA. w nej zaregistrirowano
+  tri wspy{ki m klassa i odinnadcatx wspy{ek s klassa w rentgenowskom
+  diapazone. wspy{ki m2.0/1N w 04.42 msk (58 minut) i m2.6 w 05.36 msk
+  (56 minut) 21 i`nq soprowovdalisx wybrosom koronalxnoj massy,
+  naprawlennym w storonu zemli.
+  plo}adx gruppy 2367 (S18W64) umenx{ilasx ot 300 do 230 mdp,
+  ~islo pqten umenx{ilosx ot 31 do 17, magnitnaq konfiguraciq 
+  ostawalasx BETA-GAMMA. w nej 21 i`nq nabl`dalisx dwe wspy{ki
+  m klassa.
+  
+        wspy{e~naq aktiwnostx 19 i`nq - nizkaq; 20-21 i`nq -
+  umerennaq.
+	geomagnitnoe pole po dannym sredne{irotnyh stancij 
+  19-20 i`nq -  o~enx spokojnoe; 21 i`nq - spokojnoe;
+  po dannym wysoko{irotnyh stancij 19 i`nq - ot spokojnogo do
+  slabo wozmu}ennogo; 20- 21 i`nq - ot o~enx spokojnogo
+  do spokojnogo; 
+    
+	radiacionnaq obstanowka na trassah pilotiruemyh kosmi~eskih
+  apparatow - newozmu}ennaq. 
+  intensiwnostx potokow protonow: 
+  po dannym ka "GOES" dlq EP>10 MEV s 19 po 21 i`nq uweli~ilasx ot
+  J = 11.3 P.F.U. w 03.05 msk do J = 14.6 P.F.U w 23.55 msk; 
+  po dannym ka "|lektro-l" intensiwnostx potokow protonow w interwale
+  |nergij 23-42 MEV izmenilasx ot J = 1.1 P.F.U. do J = 1.6 P.F.U. 21 i`nq. 
+  na 11.25 msk 22 i`nq po dannym ka "GOES" intensiwnostx
+  dlq EP>10 MEV  J = 109 P.F.U.;
+  dlq EP>30 MEV  J = 1.6 P.F.U.
+  po dannym ka "|lektro-l" intensiwnostx potokow protonow w interwale
+  |nergij 23-42 MEV na 11.25 msk sostawila J = 3 P.F.U.
+  
+	po dannym murmanskogo ugms srywy kw-radioswqzi 21 i`nq byli
+  zaregistrirowany na trassah:
+  kolxskogo poluostrowa w 06, 14, 16, 19, 21, 22 msk;
+  sewernogo i wosto~nogo naprawlenij w 00, 02 - 04, 06-08, 14,
+  19, 20 msk;
+  `vnogo naprawleniq w 11, 15 msk.
+	prognoz kosmi~eskoj pogody na 22 - 23 i`nq 2015 g.
+        wspy{e~naq aktiwnostx ovidaetsq umerennaq,
+  nebolx{aq weroqtnostx wspy{ek h klassa, w tom ~isle protonnyh;
+  geomagnitnoe pole wozmovno neustoj~iwoe (sme 18 - 19 i`nq);
+  w radiacionnoj obstanowke wozmu}eniq maloweroqtny;
+        ovida`tsq srywy kw-radioswqzi w otdelxnye ~asy sutok.
+        ovidaetsq poglo}enie radiowoln w kw-diapazone w polqrnoj {apke (pp{).
+  wypolneno 22.06.2015 11.20 msk. geliogeofizi~eskaq sluvba fgbu "ipg"
+
+
+025 044011/=n046
+zira40 mgdn 220900
+ionka
+45601 50621 7/1/5 /0700 //3/3 /3//3 //3/3 //3/3 /3//3 //3/3 //3//
+//3//=
+ionka
+45601 50621 7/1/6 /0800 //3/3 /3//3 //3/3 //3/3 /3//3 //3/3 //3//
+//3//=
+ionka
+45601 50622 7/1/7 /0900 //3/3 /3//3 //3/3 //3/3 /3//3 //3/3 //3//
+//3//=
+
+
+025 040001/=n283
+zira40 hbrw 220900
+ionda 22h99 05830 15529 26926 37028
+ionha 30f40 34e45 30p41 30d41
+   22h88 0h3h3 1h3h3 2h3h3 3h3h3
+ionha 3hf40 3he44
+   22h89 08133 16930
+ionha 30f40 35e46
+   21h91 06730 15826 26232 36030 46130 57430 67329 76829 86430
+     96730 06827 16531
+ionha 30f40 36e46
+magha 21189 09111 01522=
+27057-
+
+
+025 021011/=n655
+zira40 omsh 220226
+ionka 37701 50622 7/1/9 /0300 07232 27/23 //7/7 04722 34330 03411 //7/7 
+//7//=
+
+
+025 020001/=n729
+zira40 krqr 220900
+IONKA 39601 50622 7/1/6 /0900 07131 30/12 03304 04621 36277 03102 0313/ 080// =
+
+
+025 025011/=n427
+zira40 diks 220900
+usfre 33603 38701 50622 07//3 ////3 08//3 ////3 09//3 ////3 
+usfre 33703 38701 50622 07//3 ////3 08//3 ////3 09//3 ////3 
+ionka 38701 50622 7/1/7 /0700 //3/3 00//3 //3/3 //3/3 00000
+//3/3 //30/ //0//
+ionka 38701 50622 7/1/8 /0800 //3/3 00//3 //3/3 //3/3 00000
+//3/3 //30/ //0//
+ionka 38701 50622 7/1/9 /0900 //3/3 00//3 //3/3 //3/3 00000
+//3/3 //30/ //0//-
+
+
+025 020001/=n764
+zira40 krqr 220915
+IONKA 39601 50622 7/1/1 /0915 068/0 30//0 //012 046/0 /0278 033/0 //00/ 076// =
+
+
+025 040011/=n766
+zira40 hbrw 220900
+ionka 43501 50622 /0300 06630 31/37 07215 05020 37300 /0400
+06338 29/34 05115 04820 41//7 /0500 06733 29/33 05915 05021
+34335 /0600 07035 28/33 05410 049/1 34350 /0700 07133 29/25
+06405 //1/1 /1330 /0800 07232 30/28 05115 041/1 36320=
+
+
+025 025011/=n924
+zira40 diks 220900
+ampli 38701 22607 0141/
+ampli 38701 22608 0177/
+ampli 38701 22609 0416/
+magma 38701 50622 06096 21///-
+
+
+025 020001/=n090
+zira40 krqr 220930
+IONKA 39601 50622 7/1/7 /0930 066/0 31//0 //0/0 045/0 /0283 032/0 //00/ 075// =
+
+
+025 052001/=n533
+zirs41 obpg 220940
+moskwa ipg 22/06 1240=
+habarowsk,nowosibirsk,moskwa utro,murmansk,ta{kent=
+     CBOdKA iHEj     22. 6.2015      9 ~AC UT
+   ionda 21X81 86031 95731 06032 16230 05331 16028 26630 37029 
+   ionha 34f44 31E41 3Xp41 3Xd41 
+         21X79 86031 96532 06132 15932 05731 16228 26231 36928 
+   ionha 30f40 35E45 
+         21X89 86730 95930 06729 17830 08133 16930 26329 37028 
+   ionha 34f44 36E46 
+         21X13 85732 94532 03030 12631 03533 14633 25734 36932 
+   ionha 30f40 3XE45 
+         magha 21079 1/006 21111 31322=
+
+
+025 020001/=n704
+zira40 krqr 220945
+IONKA 39601 50622 7/1/6 /0945 067/0 29//0 //0/0 //0/0 /0313 032/0 //00/ 075// =
+
+
+025 020001/=n440
+zira40 krqr 221000
+IONKA 39601 50622 7/1/0 /1000 06632 29/15 03020 04621 36287 02904 0293/ 075// =
+
+
+025 021011/=n518
+zira40 omsh 220226
+ionka 37701 50622 7/1/0 /1000 06934 26/23 //7/7 04622 37340 03311 //7/7 
+//7//=
+
+
+025 020001/=n474
+zira40 krqr 221015
+IONKA 39601 50622 7/1/0 /1015 067/0 30//0 //0/0 //0/0 /0317 031/0 //00/ 075// =
+
+
+025 052000/=n349
+zirs40 obpg 221027
+moskwa ipg 22/06 1327=
+habarowsk,nowosibirsk,murmansk,ta{kent=
+UMAGF 33603 50620 0000/ 19004 1/004 22122 32100
+UABSE 38701 19124 /0000 00000
+UMAGF 46501 50620 0000/ 19004 1/001 21110 30000
+UMAGF 45601 50622 0300/ 19003 1/004 22121 31002
+UMAGF 38501 50622 0330/ 19030 1/003 21121 30011
+UMAGF 43701 50620 0330/ 19031 1/019 22221 30112
+UMAGF 36701 50621 0900/ 20093 1/021 22100 32122 50746 24467
+UMAGF 36701 50621 0330/ 20035 1/018 2/121 30011
+UMAGF 46501 50621 0000/ 20006 1/002 21110 30001
+UMAGF 45601 50622 0301/ 20000 1/003 21120 31011
+UMAGF 38501 50622 0330/ 20033 1/001 20100 30001
+UMAGF 47701 50621 0330/ 20035 1/009 21100 31111
+UMAGF 38701 50622 0000/ 21003 1/084 21222 32444 52147 25337
+UMAGF 33702 50622 0006/ 21001 1/007 21112 32322
+UMAGF 33603 50622 0000/ 21009 1/010 22123 32422
+UMAGF 46501 50622 0000/ 21006 1/006 20110 30422
+UMAGF 45601 50622 0302/ 21002 1/008 21111 31423
+UMAGF 43501 50622 0300/ 21002 1/009 21110 31522
+UMAGF 38501 50622 0330/ 21030 1/007 20111 34222
+UMAGF 34503 50622 0300/ 21008 1/006 21111 31322
+UMAGF 36701 50622 0330/ 21033 1/034 22221 34221
+UMAGF 43701 50622 0330/ 21039 1/031 22210 34222
+UMAGF 47701 50622 0330/ 21035 1/028 21211 33232
+UABSE 38701 21124 /0000 00000
+UMAGF 31802 50622 0000/ 21000 1/010 22322 32323
+APMOS 50622 00821 01923 01924
+UMAGF 34504 50622 0330/ 21001 1/008 21111 31422
+
+
+025 020001/=n185
+zira40 krqr 221030
+IONKA 39601 50622 7/1/4 /1030 067/0 31//0 //0/0 043/0 /0289 031/0 //00/ 076// =
+
+
+025 052003/=n000
+zirs43 obpg 221040
+moskwa ipg 22/06 1340=
+habarowsk,nowosibirsk,murmansk,ta{kent=
+BOUMOS 22749
+URANJ 26204 50621 08800 01011 90129 30130 50120 /0129
+URANJ 81202 50621 08800 01011 90129 30130 50130 /0129
+UFLAE 21305 50621 11612 07097 60115 20130 90135
+URANJ 26204 50621 00410 01011 90136 30136 60120 /0136
+URANJ 26204 50621 00610 01011 90136 30137 60150 /0137
+URANJ 26204 50621 01415 01011 90135 30138 50270 /0136
+URANJ 26204 50621 02695 01011 90135 30139 50409 /0136
+URANJ 26204 50621 04995 01011 90134 50143 50890 /0136
+URANJ 26204 50621 08800 01011 90134 50143 51500 /0136 
+URANJ 26204 50621 15400 01011 90135 50140 50780 /0136
+URANJ 26204 50621 00245 01011 90152 30152 60450 /0152
+URANJ 26204 50621 01415 01011 90151 30151 50100 /0151
+URANJ 81202 50621 00245 01011 90152 40157 50360 /0152
+URANJ 81202 50621 02695 01011 90152 30152 50100 /0152
+URANJ 26204 50621 00410 02021 90205 30207 50480 /0205
+URANJ 26204 50621 00610 02//1 90204 3//// 50430 /0206
+URANJ 26204 50621 01415 02//1 90203 3//// 50260 /0207
+URANJ 26204 50621 02695 02//1 90207 3//// 50140 /0207
+URANJ 26204 50621 04995 02//1 90207 3//// 50100 /0207 
+URANJ 81202 50621 00410 02//1 90205 4//// 50400 /0205
+URANJ 26204 50621 00245 02031 90216 60327 51000 /0250
+URANJ 26204 50621 00410 02031 90205 40330 50480 /0205
+URANJ 26204 50621 00610 02031 90204 40330 50440 /0240
+URANJ 26204 50621 01415 02031 90203 60315 50670 /0249
+URANJ 26204 50621 02695 02031 90207 40314 50409 /0226
+URANJ 26204 50621 04995 02031 90207 40315 50320 /0226
+URANJ 26204 50621 08800 02031 90208 30309 50220 /0225
+URANJ 34502 50620 03000 06120 14309
+URANJ 34502 50620 00204 06121 01509 90600 11200 50015 X////
+UFOFH 42503 50620 /0000 0054X 1058X 2055X 3048X 40001 5052X
+60001 7048X 8053X 9056X 0057X 1060X 2064X 3070X 4069X 5069X
+6065X 7060X 8055X 9054X 0055X 1064X 2065X 3061X
+UFOFH 42404 50620 /0000 0068X 1065X 2060X 3061X 40001 5057X
+6061X 7062X 8065X 9063X 0065X 1064X 2073X 3072X 4072X 5074X
+6071X 7068X 8065X 9063X 0061X 1060X 2064X 3068X
+UFOFH 41305 50620 /0000 0074X 1068X 2077X 3069X 4082X 5085X
+6094X 7094X 8089X 9083X 0085X 1088X 2087X 3084X 4081X 5074X
+60006 70006 80006 9066X 00006 10006 2052X 3066X
+UFOFH 41206 50620 /0000 0070X 1070X 2065X 3080X 4084X 5099X
+6105X 7100X 8093X 9088X 0092X 1096X 2081X 3073X 4072X 50006
+6060X 70006 8073X 90006 00006 10006 2060X 3065X
+UFOFH 41207 50620 /0000 0068X 1066X 2078X 3087X 4095X 5109X 
+6110X 7109X 8108X 9103X 0110X 1105X 2091X 3071X 4069X 5064X 
+6063X 7065X 8071X 9046X 0044X 1042X 2051X 3064X
+URANJ 26204 50621 00410 03031 90340 50345 60120 /0343
+URANJ 81202 50621 00245 02031 90233 60329 51000 /0250
+URANJ 81202 50621 00410 02031 90205 40326 50400 /0205
+URANJ 81202 50621 00610 02031 90204 60329 50520 /0240
+URANJ 81202 50621 01415 02031 90203 60315 50650 /0249
+URANJ 81202 50621 02695 02031 90204 40320 50490 /0226
+URANJ 81202 50621 04995 02031 90207 40317 50300 /0226
+URANJ 81202 50621 08800 02031 90207 30315 50250 /0225 
+URANJ 81202 50621 15400 02021 90222 20255 50120 /0238
+UFLAE 81202 50621 11312 18198 60107 10140 80434
+URANJ 26204 50621 00245 00051 90000 10506 50930 /0343
+URANJ 81202 50621 01415 05050 09805
+URANJ 81202 50621 02695 05050 15505
+URANJ 81202 50621 04995 05050 19405
+URANJ 81202 50621 08800 05050 32105 
+URANJ 81202 50621 15400 05050 53305
+UFLAE 32404 50621 34826 07040 70653 20657 90701
+UFLAE 32404 50621 11114 07041 70703 20704 90730
+URANJ 32404 50621 00245 03071 90335 10708 50520 /0357
+UFLAE 32404 50621 35721 07012 60813 30814 80819
+UFLAE 32404 50621 10915 07029 70735 30737 90831
+UFLAE 81202 50621 11014 07040 60733 10738 80832
+UFLAE 32404 50621 10815 07060 70836 30845 90854
+UFLAE 81202 50621 10913 07011 60837 10838 80858
+UMAGF 31802 50620 0000/ 19004 1/013 23433 33121 10500 
+UMAGF 36701 50620 0900/ 19096 1/031 22201 31321 90245 50824 24483
+UMAGF 38701 50621 0000/ 20002 1/043 22222 32023 52126 25455
+UMAGF 33603 50621 0000/ 20001 1/003 22122 31000
+UMAGF 33702 50621 0011/ 20001 1/003 21112 31101
+UMAGF 43501 50621 0300/ 20004 1/001 21010 30001
+UMAGF 34503 50621 0300/ 20001 1/003 21122 30110
+UMAGF 47701 50621 0330/ 20034 1/009 21100 311/1
+UABSE 38701 20124 /0000 00000
+UMAGF 36701 50621 0330/ 20036 1/019 2/121 30011
+UMAGF 43701 50621 0330/ 20032 1/008 21100 30101
+UMAGF 31802 50621 0000/ 20002 1/007 21322 32212 
+UFLAE 32404 50621 10207 07056 60914 30921 80929
+URANJ 81202 50621 00245 00091 90000 10930 50960 /0345
+UFLAE 81202 50621 10306 07020 60914 10915 90937
+URANJ 32404 50621 01415 10100 10110
+URANJ 32404 50621 02695 10100 13310
+URANJ 32404 50621 04995 10100 19710
+URANJ 32404 50621 08800 10100 27010
+URANJ 32404 50621 15400 10100 52010
+UFLAE 32404 50621 35721 18021 70924 30942 81031
+UFLAE 32404 50621 10713 17108 71045 31050 81111
+URANJ 32404 50621 02695 09091 90941 30942 50120 /0942 
+URANJ 32404 50621 04995 09091 90941 30943 50130 /0942
+URANJ 32404 50621 08800 09091 90942 30942 50130 /0942
+URANJ 32404 50621 15400 09091 90942 30942 50070 /0942
+UFLAE 32404 50621 35517 07015 61113 31115 91120
+UFLAE 32404 50621 35921 07020 71213 31213 91217
+URANJ 32404 50621 00245 07111 90751 11145 50380 /0948
+UMAGF 30503 50621 1004/ 20062 1/006 21101 31011
+UMAGF 31523 50621 0000/ 20006 1/002 20101 31001
+UFLAE 21305 50621 36118 07016 61248 21252 81255
+UFLAE 21305 50621 36118 07043 61330 21333 81342
+UFLAE 32404 50621 36122 07037 71332 31333 91339
+UFLAE 21305 50621 36118 07013 61414 31414 81417
+UFLAE 32404 50621 36122 07023 61432 31432 81436
+UFLAE 21305 50621 36118 07037 61432 31432 81437
+URANJ 34502 50621 03000 06121 15009 90940 30945 50124 X0945
+URANJ 34502 50621 00204 06121 02009 90600 11200 50035 X////
+UFLAE 21305 50621 36021 07038 61442 31443 81452
+UFLAE 32404 50621 36021 07036 71442 31443 81452
+URANJ 32404 50621 00245 13151 91311 11553 50500 /1424
+UCMEO 93001 50621 1550/ 50621 60236 80654 0431/ 042// 113//
+41337 50621 60124 80312 11312 12371 1112/
+URANJ 17401 50621 00245 13161 91311 11609 50220 /1549
+UFLAE 21305 50621 36219 07021 61613 31632 81653
+UFLAE 21305 50621 40008 07010 61635 31636 81654
+URANJ 17401 50621 00245 17170 05817
+URANJ 17401 50621 00410 17170 04817
+URANJ 17401 50621 00610 17170 06417
+URANJ 17401 50621 01415 17170 09417
+URANJ 17401 50621 02695 17170 12917
+URANJ 17401 50621 04995 17170 17817
+URANJ 17401 50621 08800 17170 27317
+URANJ 17401 50621 15400 17170 29817
+UFLAE 21305 50621 36318 07045 61707 31736 81749
+UFLAE 21305 50621 36318 07045 61707 31736 81749
+UFLAE 21305 50621 36318 07045 61707 31736 81749
+URANJ 22501 50621 02800 16170 13317
+UFLAE 32404 50621 36221 07038 61613 31736 91753
+URANJ 32404 50621 00245 17171 91758 31758 50100 /1758
+UFLAE 21305 50621 36418 07031 61756 31819 81858
+UFLAE 21305 50621 36418 07013 61920 31920 81924
+URANJ 17401 50621 00245 19191 91950 31950 50150 /1950
+URANJ 26204 50621 00245 19191 91956 31956 60100 /1956
+URANJ 26204 50621 00245 20201 92009 32009 60140 /2009
+URANJ 17401 50621 00245 20201 92009 32010 50140 /2009
+UFLAE 21305 50621 36418 07012 62034 32041 82045
+URANJ 22501 50621 02800 19200 13220
+URANJ 17401 50621 00245 21211 92126 32127 50100 /2126
+URANJ 26204 50621 00245 21211 92126 32127 50150 /2127
+URANJ 26204 50621 00245 23230 04823
+URANJ 26204 50621 00410 23230 05123
+URANJ 26204 50621 00610 23230 07123
+URANJ 26204 50621 01415 23230 08923
+URANJ 26204 50621 02995 23230 12123
+URANJ 26204 50621 04995 23230 19323
+URANJ 26204 50621 08800 23230 31823
+URANJ 26204 50621 15400 23230 58123
+
+
+025 020001/=n352
+zira40 krqr 221045
+IONKA 39601 50622 7/1/9 /1045 067/0 30//0 //021 042/0 /0279 031/0 //00/ 075// =
+
+
+025 052002/=n176
+zirs42 obpg 221104
+moskwa ipg 22/06 1404=
+    operatiwnaq swodka geliogeofizi~eskoj sluvby
+    geliogeofizi~eskie dannye za 21 i`nq 2015 g.
+ 1.integralxnaq solne~naq aktiwnostx umerennaq   
+   W<BOU>= 79,W<kis>=      F<BOU>=136,F<MOS>=150
+ 2.na diske solnca gruppy pqten:
+    N   koordi     S  c`rih     magn      wspy{ki
+   obl   naty     mdp klass   N  tip  SS   M   X =1 >1
+   2367 S18 W64   230  DAC   17  BG   14   2   0  0  1
+   2371 N13 W00  1180  FKC   42  BGD   5   2   0  2  0
+   summarnaq aktiwnostx diska solnca: 19   4   0  2  1
+   ob}ee koli~estwo grupp pqten: 2
+ 3.|nergi~nye sobytiq:
+      BPEMq UT          KOOPdi      OpT    245       CpEKT
+ HA~.  MAKC  KOHEc  P-H  HATy  PEHT bAll   MHZ 10CM   Tip
+ 0102  0142  02002 2371 N12E13 M2.0  1N    360 100   II/IV  
+ 0206  0236  03022 2371        M2.6       1000 490          
+ 0938  0944  09502 2367 S21W57 M3.8  2B        120    IV    
+ 1328  1333  1336  2367 S22W61 C1.3 SF                      
+ 1429  1432  1434  2367 S22W61 C1.4 SF                      
+ 1535  1640  17442 2367 S19W62 C2.6  SF               IV    
+ 1758  1758  17582 ////                    100              
+ 1810  1820  18282 2367 S18W64 M1.1  SF                     
+ 1950  1950  19502 ////                    150              
+ 1956  1956  19562 ////                    100              
+ 2009  2013  20152 2371        C1.5        140              
+ 2126  2127  21272 ////                    150              
+ 2228  2240  2255  2367 S18W67 C6.5                         
+ 2321  2127  23592 ////                               IV    
+ 4.geomagnitnoe pole po dannym sredne{irotnyh stancij: spokojnoe         
+   AP<BOU>=008  AP<MOS>=008  KP<MOS>=11111422
+    stanciq         wremq  UT    qwlenie
+                   patrulx qwl
+   pAPATuHKA        00-24        qwlenie otsutstwuet    
+   MAgAdAH          00-24        qwlenie otsutstwuet    
+   HOBOCibiPCK      00-24
+   p.TuHguCKA                    net dannyh             
+   MOCKBA           00-24
+   sankt-peterburg  00-24        qwlenie otsutstwuet    
+   barencburg       00-24        qwlenie otsutstwuet    
+   habarowsk        00-24        qwlenie otsutstwuet    
+   murmansk         00-24        qwlenie otsutstwuet    
+   dikson           00-24        qwlenie otsutstwuet    
+   o.izwestij                    net dannyh             
+   sostoqnie magnitosfery <isz meteor>: ne oceniwalosx    
+ 5.sostoqnie ionosfery po regionam (w ballah) :
+         sloi :       F2          ES      d       F2
+        (FEpd)  F-otklonenie   E-|kran. p-pogl. d-diff.
+   polqr.{apka   -net dannyh       X       X       X
+   zona siqn.   4-slabo polov.     5       0       0
+   sred.{iroty  0-spokojno         6
+   wostok       0-spokojno         6
+   `g           0-spokojno         X
+   zapad        4-slabo polov.     6
+ 6.radiacionnaq obstanowka w okp :
+   - po dannym ka "meteor"
+    w polqrnyh zonah magnitosfery: potoki nizko|nergi~nyh protonow
+   maksimalxnye intensiwnosti na        UT sostawili:
+   |nergiq <m|w>   EP>15   EP>25   EP>40   EP>90
+    na trassah pka: newozmu}ennaq         
+   -po dannym ka "GOES"
+    na geostacionarnoj orbite: potoki nizko|nergi~nyh protonow
+            intensiwnosti potokow
+   wremq   er>10  wremq   er>30  wremq   er>50  wremq  er>100
+     UT     PFU     UT     PFU     UT     PFU     UT     PFU
+   23.50    55.3
+    na trassah pka: newozmu}ennaq       
+ radiacionnaq obstanowka w okp na 22. 6.2015 g.
+   - po dannym ka "meteor"
+    w polqrnyh zonah magnitosfery: potoki protonow
+   maksimalxnye intensiwnosti na        UT sostawili:
+   |nergiq <m|w>   EP>15   EP>25   EP>40   EP>90
+    na trassah pka: newozmu}ennaq       
+   -po dannym ka "GOES"
+    na geostacionarnoj orbite: potoki protonow
+            intensiwnosti potokow
+   wremq   er>10  wremq   er>30  wremq   er>50  wremq  er>100
+     UT     PFU     UT     PFU     UT     PFU     UT     PFU
+   10.40    278   10.40    2.5
+    na trassah pka: newozmu}ennaq       
+    prognoz parametrow geliogeofizi~eskoj obstanowki na :
+                  23.06.15      24.06.15      25.06.15
+ 1.integralxnaq solne~naq aktiwnostx:
+                  ovidaetsq     wozmovna      wozmovna    
+                  umerennaq     umerennaq     umerennaq   
+ 2.wspy{e~naq aktiwnostx
+   <maks. rentgen. klass>:
+                  ovidaetsq M   ovidaetsq M   ovidaetsq M 
+   <maks.opti~eskij ball>:
+                  wozmoven 1    wozmoven 1    wozmoven 1  
+ 3.geomagnitnoe pole:
+                  wozmovno      wozmovno      ovidaetsq   
+                  neustoj~iwoe  neustoj~iwoe  spokojnoe   
+ 4.radiacionnaq obstanowka
+  -sobytiq skl:
+                  ne ovida`tsq  ne ovida`tsq  ne ovida`tsq
+  -na trassah pka : wozmu}eniq
+                  ne ovida`tsq  ne ovida`tsq  ne ovida`tsq
+ 5.sostoqnie ionosfery po regionam :
+                     FEpd
+   polqr.{apka       XXXX
+   zona siqn.        4500
+   sred.{iroty       06
+   wostok            06
+   `g                05
+   zapad             46
+   RWC RUSSIA  10.48 UT 22.06.2015
+
+
+025 052002/=n180
+zirs42 obpg 221104
+moskwa ipg 22/06 1404=
+    operatiwnaq swodka geliogeofizi~eskoj sluvby
+    geliogeofizi~eskie dannye za 21 i`nq 2015 G.
+ 1.integralxnaq solne~naq aktiwnostx umerennaq   
+   W<BOU>= 79,W<kis>=      F<BOU>=136,F<MOS>=150
+ 2.na diske solnca gruppy pqten:
+    N   koordi     S  c`rih     magn      wspy{ki
+   obl   naty     mdp klass   N  tip  SS   M   X =1 >1
+   2367 S18 W64   230  DAC   17  BG   14   2   0  0  1
+   2371 N13 W00  1180  FKC   42  BGD   5   2   0  2  0
+   summarnaq aktiwnostx diska solnca: 19   4   0  2  1
+   ob}ee koli~estwo grupp pqten: 2
+ 3.|nergi~nye sobytiq:
+      BPEMq UT          KOOPdi      OpT    245       CpEKT
+ HA~.  MAKC  KOHEc  P-H  HATy  PEHT bAll   MHZ 10CM   Tip
+ 0102  0142  02002 2371 N12E13 M2.0  1N    360 100   II/IV  
+ 0206  0236  03022 2371        M2.6       1000 490          
+ 0938  0944  09502 2367 S21W57 M3.8  2B        120    IV    
+ 1328  1333  1336  2367 S22W61 C1.3 SF                      
+ 1429  1432  1434  2367 S22W61 C1.4 SF                      
+ 1535  1640  17442 2367 S19W62 C2.6  SF               IV    
+ 1758  1758  17582 ////                    100              
+ 1810  1820  18282 2367 S18W64 M1.1  SF                     
+ 1950  1950  19502 ////                    150              
+ 1956  1956  19562 ////                    100              
+ 2009  2013  20152 2371        C1.5        140              
+ 2126  2127  21272 ////                    150              
+ 2228  2240  2255  2367 S18W67 C6.5                         
+ 2321  2127  23592 ////                               IV    
+ 4.geomagnitnoe pole po dannym sredne{irotnyh stancij: spokojnoe         
+   AP<BOU>=008  AP<MOS>=008  KP<MOS>=11111422
+    stanciq         wremq  UT    qwlenie
+                   patrulx qwl
+   pAPATuHKA        00-24        qwlenie otsutstwuet    
+   MAgAdAH          00-24        qwlenie otsutstwuet    
+   HOBOCibiPCK      00-24
+   p.TuHguCKA                    net dannyh             
+   MOCKBA           00-24
+   sankt-peterburg  00-24        qwlenie otsutstwuet    
+   barencburg       00-24        qwlenie otsutstwuet    
+   habarowsk        00-24        qwlenie otsutstwuet    
+   murmansk         00-24        qwlenie otsutstwuet    
+   dikson           00-24        qwlenie otsutstwuet    
+   o.izwestij                    net dannyh             
+   sostoqnie magnitosfery <isz meteor>: ne oceniwalosx    
+ 5.sostoqnie ionosfery po regionam (w ballah) :
+         sloi :       F2          ES      d       F2
+        (FEpd)  F-otklonenie   E-|kran. p-pogl. d-diff.
+   polqr.{apka   -net dannyh       X       X       X
+   zona siqn.   4-slabo polov.     5       0       0
+   sred.{iroty  0-spokojno         6
+   wostok       0-spokojno         6
+   `g           0-spokojno         X
+   zapad        4-slabo polov.     6
+ 6.radiacionnaq obstanowka w okp :
+   - po dannym ka "meteor"
+    w polqrnyh zonah magnitosfery: potoki nizko|nergi~nyh protonow
+   maksimalxnye intensiwnosti na        UT sostawili:
+   |nergiq <m|w>   Ep>15   EP>25   Ep>40   Ep>90
+    na trassah pka: newozmu}ennaq         
+   -po dannym ka "GOES"
+    na geostacionarnoj orbite: potoki nizko|nergi~nyh protonow
+            intensiwnosti potokow
+   wremq   eR>10  wremq   eR>30  wremq   eR>50  wremq  eR>100
+     UT     PFU     UT     PFU     UT     PFU     UT     PFU
+   23.50    55.3
+    na trassah pka: newozmu}ennaq       
+ radiacionnaq obstanowka w okp na 22. 6.2015 G.
+   - po dannym ka "meteor"
+    w polqrnyh zonah magnitosfery: potoki protonow
+   maksimalxnye intensiwnosti na        UT sostawili:
+   |nergiq <m|w>   Ep>15   EP>25   Ep>40   Ep>90
+    na trassah pka: newozmu}ennaq       
+   -po dannym ka "GOES"
+    na geostacionarnoj orbite: potoki protonow
+            intensiwnosti potokow
+   wremq   eR>10  wremq   eR>30  wremq   eR>50  wremq  eR>100
+     UT     PFU     UT     PFU     UT     PFU     UT     PFU
+   10.40    278   10.40    2.5
+    na trassah pka: newozmu}ennaq       
+    prognoz parametrow geliogeofizi~eskoj obstanowki na :
+                  23.06.15      24.06.15      25.06.15
+ 1.integralxnaq solne~naq aktiwnostx:
+                  ovidaetsq     wozmovna      wozmovna    
+                  umerennaq     umerennaq     umerennaq   
+ 2.wspy{e~naq aktiwnostx
+   <maks. rentgen. klass>:
+                  ovidaetsq M   ovidaetsq M   ovidaetsq M 
+   <maks.opti~eskij ball>:
+                  wozmoven 1    wozmoven 1    wozmoven 1  
+ 3.geomagnitnoe pole:
+                  wozmovno      wozmovno      ovidaetsq   
+                  neustoj~iwoe  neustoj~iwoe  spokojnoe   
+ 4.radiacionnaq obstanowka
+  -sobytiq skl:
+                  ne ovida`tsq  ne ovida`tsq  ne ovida`tsq
+  -na trassah pka : wozmu}eniq
+                  ne ovida`tsq  ne ovida`tsq  ne ovida`tsq
+ 5.sostoqnie ionosfery po regionam :
+                     FEpd
+   polqr.{apka       XXXX
+   zona siqn.        4500
+   sred.{iroty       06
+   wostok            06
+   `g                05
+   zapad             46
+   RWC RUSSIA  10.48 UT 22.06.2015
+
+
+025 020001/=n197
+zira40 krqr 221100
+IONKA 39601 50622 7/1/9 /1100 07029 30/14 03823 04122 37285 03003 0343/ 078// =
+
+
+025 021011/=n433
+zira40 omsh 220226
+ /1100 ionka 37701 50622 7/1/5 /1100 06632 26/35 //2/2 04521 36340 //2/2 
+//70/ //7//=
+
+
+025 020001/=n803
+zira40 krqr 221115
+IONKA 39601 50622 7/1/6 /1115 067/0 31//0 //026 //0/0 /0288 030/0 //00/ 075// =
+
+
+025 020001/=n375
+zira40 krqr 221130
+IONKA 39601 50622 7/1/5 /1130 067/0 32//0 //0/0 040/0 /0267 029/0 //00/ 075// =
+
+
+025 020001/=n798
+zira40 krqr 221145
+IONKA 39601 50622 7/1/0 /1145 067/0 33//0 //0/0 043/0 /0271 029/0 //00/ 075// =
+
+
+025 052000/=n074
+zirs40 obpg 221154
+moskwa ipg 22/06 1454=
+habarowsk,nowosibirsk,murmansk,ta{kent=
+  prognoz solne~noj aktiwnosti, geomagnitnogo polq 
+  i radiacionnoj obstanowki na period 
+  s 24 i`nq po 20 i`lq 2015 goda.
+        integralxnaq solne~naq aktiwnostx w na~ale perioda
+   ovidaetsq umerennaq, dalee wozmovno ponivenie;
+   wspy{e~naq aktiwnostx w na~ale perioda ovidaetsq umerennaq;
+   rekurrentnye wozmu}eniq geomagnitnogo polq: 24-25 i`nq,
+   1-3, 5-6, 10-12 i`lq.
+  wozmu}eniq radiacionnoj obstanowki maloweroqtny.
+     
+  geliogeofizi~eskaq sluvba fgbu "ipg" 22.06.2015
+
+
+025 044011/=n390
+zira40 mgdn 221200
+ionka
+45601 50621 7/1/9 /1000 //3/3 /3//3 //3/3 //3/3 /3//3 //3/3 //3//
+//3//=
+ionka
+45601 50621 7/1/0 /1100 //3/3 /3//3 //3/3 //3/3 /3//3 //3/3 //3//
+//3//=
+ionka
+45601 50622 7/1/1 /1200 //3/3 /3//3 //3/3 //3/3 /3//3 //3/3 //3//
+//3//=
+
+
+025 020001/=n001
+zira40 krqr 221200
+IONKA 39601 50622 7/1/6 /1200 06627 31/13 //7/7 04021 /7273 02805 //70/ 075// =
+
+
+025 021011/=n576
+zira40 omsh 220226
+ /1100 ionka 37701 50622 7/1/3 /1200 06134 27/35 //2/2 //7/7 /7330 //2/2 
+//70/ //7//=
+
+
+025 020001/=n819
+zira40 krqr 221215
+IONKA 39601 50622 7/1/9 /1215 064/0 30//0 //0/0 //0/0 /0288 028/0 //00/ 072// =
+
+
+025 020001/=n177
+zira40 krqr 221230
+IONKA 39601 50622 7/1/3 /1230 064/0 33//0 //030 037/0 /0271 027/0 //00/ 072// =
+
+
+025 020001/=n029
+zira40 krqr 221245
+IONKA 39601 50622 7/1/3 /1245 063/0 32//0 //0/0 //0/0 /0281 026/0 //00/ 071// =
+
+
+025 020001/=n187
+zira40 krqr 221300
+IONKA 39601 50622 7/1/0 /1300 06427 30/13 03034 03522 /7277 02408 0263/ 073// =
+
+
+025 021011/=n711
+zira40 omsh 220226
+ /1100  37701 50622 7/1/2 /1300 //2/2 /2//2 //2/2 //2/2 /2//2 //2/2 //20/ 
+//2//=
+
+
+025 020001/=n253
+zira40 krqr 221315
+IONKA 39601 50622 7/1/4 /1315 064/0 31//0 //030 //0/0 /0281 025/0 //00/ 072// =
+
+
+025 020001/=n411
+zira40 krqr 221330
+IONKA 39601 50622 7/1/3 /1330 064/0 31//0 //030 035/0 /0285 024/0 //00/ 073// =
+
+
+025 020001/=n920
+zira40 krqr 221345
+IONKA 39601 50622 7/1/6 /1345 064/0 31//0 //021 //0/0 /0282 023/0 //00/ 072// =
+
+
+025 052000/=n288
+zirs40 obpg 221357
+moskwa ipg 22/06 1657=
+habarowsk,nowosibirsk,murmansk,ta{kent=
+URANJ 34502 50621 03000 06121 15009 90940 30945 50124 X0945
+URANJ 34502 50622 03000 06120 13609
+URANJ 34502 50622 00204 06121 01009 90600 11200 50015 X////
+UFLAE 21305 50621 11612 07097 60115 20130 90135
+UFLAE 81202 50621 11312 18198 60107 10140 80434
+TENCM 13521 13522 13023
+AFRED 00721 01922 01523
+UFLAE 32404 50621 34826 07040 70653 20657 90701
+UFLAE 32404 50621 11114 07041 70703 20704 90730
+UFLAE 32404 50621 35721 07012 60813 30814 80819
+UFLAE 32404 50621 10915 07029 70735 30737 90831
+UFLAE 81202 50621 11014 07040 60733 10738 80832
+UFLAE 32404 50621 10815 07060 70836 30845 90854
+UFLAE 81202 50621 10913 07011 60837 10838 80858
+UFLAE 32404 50621 10207 07056 60914 30921 80929
+UFLAE 81202 50621 10306 07020 60914 10915 90937
+UFLAE 32404 50621 35721 18021 70924 30942 81031
+UFLAE 32404 50621 36122 07023 61432 31432 81436
+UFLAE 21305 50621 36418 07012 62034 32041 82045
+GEOALERT WWA173
+UGEOA 20401 50622 0330/ 9930/
+12221 24222 37221 99999
+UGEOE 20401 50622 0330/ 21/11
+01022 0142/ 02002 22011 23602 21002 11312 92371
+02062 0236/ 03022 22699 01003 04902 ///// 92371
+09382 0944/ 09502 23822 0//// 11202 35721 92367
+15352 1640/ 17442 12600 0//// 1//// 36219 92367
+17582 1758/ 17582 9//99 01002 0//// ///// 9////
+18102 1820/ 18282 21100 0//// 0//// 36418 92367
+19502 1950/ 19502 9//99 01502 0//// ///// 9////
+19562 1956/ 19562 9//99 01002 0//// ///// 9////
+20092 2013/ 20152 11599 01402 0//// ///// 92371
+21262 2127/ 21272 9//99 01502 0//// ///// 9////
+23212 2127/ 23592 9//99 0//// 1//// ///// 9////
+99999
+UGEOR 20401 50622 0330/ 21/24 22102
+12367 20200 31401 44333 50230 60017 36418 17202
+12371 20200 30520 46536 51180 60042 40013 29722
+99999
+UGEOI 20401 50622 0330/ 21///
+10079 21362 3008/ 4///0 50400 6//// 7//// 80004 91410
+99999
+UFLAE 21305 50621 36118 07013 61414 31414 81417
+UFLAE 32404 50621 10713 17108 71045 31050 81111
+UFLAE 32404 50621 35517 07015 61113 31115 91120
+UFLAE 21305 50621 36118 07016 61248 21252 81255
+UFLAE 21305 50621 36118 07043 61330 21333 81342
+UFLAE 32404 50621 36122 07037 71332 31333 91339
+UFLAE 21305 50621 36118 07037 61432 31432 81437
+UFLAE 21305 50621 36021 07038 61442 31443 81452
+UFLAE 32404 50621 36021 07036 71442 31443 81452
+UFLAE 21305 50621 36219 07021 61613 31632 81653
+UFLAE 21305 50621 40008 07010 61635 31636 81654
+UFLAE 21305 50621 36318 07045 61707 31736 81749
+UFLAE 32404 50621 36221 07038 61613 31736 91753
+UFLAE 21305 50621 36418 07031 61756 31819 81858
+UFLAE 21305 50621 36418 07013 61920 31920 81924
+UFLAE 32404 50621 35921 07020 71213 31213 91217
+TENCM 13522 13023 12524
+AFRED 03222 02623 01124
+prognoz na 23 i`nq 2015 goda.
+integralxnaq solne~naq aktiwnostx ovidaetsq umerennaq.
+wspy{e~naq aktiwnostx - umerennaq; nebolx{aq weroqtnostx
+wspy{ek h klassa, w tom ~isle protonnyh. geomagnitnoe
+pole wozmovno neustoj~iwoe. w radiacionnoj obstanowke
+wozmu}eniq maloweroqtny.
+
+
+025 020001/=n176
+zira40 krqr 221400
+IONKA 39601 50622 7/1/9 /1400 06626 31/13 03319 03225 /7284 //114 0253/ 074// =
+
+
+025 021011/=n264
+zira40 omsh 220226
+ /1100  37701 50622 7/1/3  /1400 //2/2 /2//2 //2/2 //2/2 /2//2 //2/2 //20/ 
+//2// =
+
+
+025 020001/=n057
+zira40 krqr 221415
+IONKA 39601 50622 7/1/1 /1415 065/0 30//0 //021 031/0 /0286 021/0 //00/ 073// =
+
+
+025 020001/=n950
+zira40 krqr 221430
+IONKA 39601 50622 7/1/0 /1430 067/0 31//0 //030 //0/0 /0304 021/0 //00/ 075// =
+
+
+025 020001/=n642
+zira40 krqr 221445
+IONKA 39601 50622 7/1/9 /1445 066/0 31//0 //030 //0/0 /0292 020/0 //00/ 074// =
+
+
+025 021011/=n709
+zira40 omsh 221502
+ionka 37701 50522 7/1/4 /1500 //2/2 /2//2 //2/2 //2/2 /2//2 //2/2 //20/ 
+//2//=
+
+
+025 021011/=n725
+zira40 omsh 221502
+ionka 37701 50622 7/1/4 /1500 //2/2 /2//2 //2/2 //2/2 /2//2 //2/2 //20/ 
+//2//=
+
+
+025 020001/=n991
+zira40 krqr 221500
+IONKA 39601 50622 7/1/4 /1500 068/0 29/12 02430 //025 /0315 01525 0153/ 076// =
+
+
+025 025011/=n266
+zira40 diks 221500
+ampli 38701 22613 0091/
+ampli 38701 22614 0114/
+ampli 38701 22615 0167/
+magma 38701 50622 12155 14///-
+
+
+025 025011/=n267
+zira40 diks 221500
+usfre 33603 38701 50622 13//3 ////3 14//3 ////3 15//3 ////3 
+usfre 33703 38701 50622 13//3 ////3 14//3 ////3 15//3 ////3 
+ionka 38701 50622 7/1/4 /1300 //3/3 00//3 //3/3 //3/3 00000
+//3/3 //30/ //0//
+ionka 38701 50622 7/1/5 /1400 //3/3 00//3 //3/3 //3/3 00000
+//3/3 //30/ //0//
+ionka 38701 50622 7/1/6 /1500 //3/3 00//3 //3/3 //3/3 00000
+//3/3 //30/ //0//-
+
+
+025 044011/=n615
+zira40 mgdn 221500
+ionka
+45601 50621 7/1/2 /1300 //3/3 /3//3 //3/3 //3/3 /3//3 //3/3 //3//
+//3//=
+ionka
+45601 50621 7/1/3 /1400 //3/3 /3//3 //3/3 //3/3 /3//3 //3/3 //3//
+//3//=
+ionka
+45601 50622 7/1/4 /1500 //3/3 /3//3 //3/3 //3/3 /3//3 //3/3 //3//
+//3//=
+
+
+025 020001/=n132
+zira40 krqr 221515
+IONKA 39601 50622 7/1/4 /1515 065/0 31//0 //030 //0/0 /0310 019/0 //00/ 073// =
+
+
+025 020001/=n852
+zira40 krqr 221530
+IONKA 39601 50622 7/1/7 /1530 068/0 32//0 //030 //0/0 /0293 018/0 //00/ 076// =
+
+
+025 020001/=n745
+zira40 krqr 221545
+IONKA 39601 50622 7/1/3 /1545 058/0 31//0 //0/0 //0/0 /0290 017/0 //00/ 066// =
+
+
+025 021011/=n451
+zira40 omsh 221503
+ionka 37701 50622 7/1/5 /1600 //2/2 /2//2 //2/2 //2/2 /2//2 //2/2 //20/ 
+//2//=
+
+
+025 020001/=n329
+zira40 krqr 221600
+IONKA 39601 50622 7/1/1 /1600 056/0 27/11 02719 //026 /0338 //1/1 0236/ 071// =
+
+
+025 020001/=n496
+zira40 krqr 221615
+IONKA 39601 50622 7/1/6 /1615 047/0 28//0 //026 //0/0 /0340 016/0 //00/ 055// =
+
+
+025 052001/=n191
+zirs41 obpg 221628
+moskwa ipg 22/06 1928=
+habarowsk,nowosibirsk,moskwa utro,murmansk,ta{kent=
+     CBOdKA iHEj     22. 6.2015     21 ~AC UT
+   ionda 22X81 47127 57028 65928 7/2/2 8/2/2 
+   ionha 40f30 44E34 42p32 4Xd31 
+         22X79 47426 58127 67030 76228 86529 
+   ionha 40f30 46E36 
+         22X98 46428 56629 66631 76631 85627 
+   ionha 40f30 46E36 
+         22X13 48530 59828 68530 77432 8/0/0 
+   ionha 40f30 4XE35=
+
+
+025 020001/=n738
+zira40 krqr 221630
+IONKA 39601 50622 7/1/5 /1630 049/0 27//0 //026 //0/0 /0367 016/0 //00/ 057// =
+
+
+025 020001/=n889
+zira40 krqr 221645
+IONKA 39601 50622 7/1/9 /1645 037/0 26//0 //026 //0/0 /0399 016/0 //00/ 045// =
+
+
+025 021011/=n242
+zira40 omsh 221503
+ionka 37701 50622 7/1/6 /1700 //2/2 /2//2 //2/2 //2/2 /2//2 //2/2 //20/ 
+//2//=
+
+
+025 020001/=n835
+zira40 krqr 221700
+IONKA 39601 50622 7/1/6 /1700 037/0 27/10 02630 //031 /0389 //1/1 0152/ 058// =
+
+
+025 020001/=n406
+zira40 krqr 221715
+IONKA 39601 50622 7/1/7 /1715 //0/0 /0//0 //030 //0/0 /0//0 //0/0 //00/ //0// =
+
+
+025 020001/=n953
+zira40 krqr 221730
+IONKA 39601 50622 7/1/4 /1730 //0/0 /0//0 //012 //0/0 /0//0 //0/0 //00/ //0// =
+
+
+025 020001/=n279
+zira40 krqr 221745
+IONKA 39601 50622 7/1/0 /1745 058/0 27//0 //0/0 //0/0 /0383 015/0 //00/ 065// =
+
+
+025 021011/=n566
+zira40 omsh 221503
+ionka 37701 50622 7/1/7 /1800 //2/2 /2//2 //2/2 //2/2 /2//2 //2/2 //20/ 
+//2//=
+
+
+025 025011/=n328
+zira40 diks 221800
+ampli 38701 22616 0096/
+ampli 38701 22617 0387/
+ampli 38701 22618 0302/
+magma 38701 50622 15186 21///-
+
+
+025 025011/=n329
+zira40 diks 221800
+usfre 33603 38701 50622 16//3 ////3 17//3 ////3 18//3 ////3 
+usfre 33703 38701 50622 16//3 ////3 17//3 ////3 18//3 ////3 
+ionka 38701 50622 7/1/7 /1600 //3/3 00//3 //3/3 //3/3 00000
+//3/3 //30/ //0//
+ionka 38701 50622 7/1/8 /1700 //3/3 00//3 //3/3 //3/3 00000
+//3/3 //30/ //0//
+ionka 38701 50622 7/1/9 /1800 //3/3 00//3 //3/3 //3/3 00000
+//3/3 //30/ //0//-
+
+
+025 020001/=n434
+zira40 krqr 221800
+IONKA 39601 50622 7/1/5 /1800 036/0 28/10 01946 //028 /0321 012/1 0122/ 083// =
+
+
+025 044011/=n706
+zira40 mgdn 221800
+ionka
+45601 50621 7/1/5 /1600 //3/3 /3//3 //3/3 //3/3 /3//3 //3/3 //3//
+//3//=
+ionka
+45601 50621 7/1/6 /1700 //3/3 /3//3 //3/3 //3/3 /3//3 //3/3 //3//
+//3//=
+ionka
+45601 50622 7/1/7 /1800 //3/3 /3//3 //3/3 //3/3 /3//3 //3/3 //3//
+//3//=
+
+
+025 020001/=n950
+zira40 krqr 221815
+IONKA 39601 50622 7/1/5 /1815 //0/0 /0//0 //0/0 //0/0 /0//0 //0/0 //00/ //0// =
+
+
+025 020001/=n242
+zira40 krqr 221830
+IONKA 39601 50622 7/1/7 /1830 067/0 27//0 //0/0 //0/0 /0358 015/0 //00/ 074// =
+
+
+025 020001/=n151
+zira40 krqr 221845
+IONKA 39601 50622 7/1/3 /1845 052/0 33//0 //012 //0/0 /0313 015/0 //00/ 060// =
+
+
+025 021011/=n657
+zira40 omsh 221503
+ionka 37701 50622 7/1/8 /1900 //2/2 /2//2 //2/2 //2/2 /2//2 //2/2 //20/ 
+//2//=
+
+
+025 020001/=n426
+zira40 krqr 221900
+IONKA 39601 50622 7/1/7 /1900 //6/0 /6/16 03702 //030 /0//6 //1/1 0272/ 068// =
+
+
+025 020001/=n145
+zira40 krqr 221915
+IONKA 39601 50622 7/1/6 /1915 //0/0 /0//0 //0/0 //0/0 /0//0 //0/0 //00/ //0// =
+
+
+025 020001/=n126
+zira40 krqr 221930
+IONKA 39601 50622 7/1/3 /1930 //0/0 /0//0 //0/0 //0/0 /0//0 //0/0 //00/ //0// =
+
+
+025 020001/=n494
+zira40 krqr 221945
+IONKA 39601 50622 7/1/9 /1945 //0/0 /0//0 //0/0 //0/0 /0//0 //0/0 //00/ //0// =
+
+
+025 021011/=n764
+zira40 omsh 221503
+ionka 37701 50622 7/1/0 /2000 //2/2 /2//2 //2/2 //2/2 /2//2 //2/2 //20/ 
+//2//=
+
+
+025 020001/=n338
+zira40 krqr 222000
+IONKA 39601 50622 7/1/4 /2000 //2/0 /2//2 //2/2 //0/2 /0//2 //2/2 //20/ //2// =
+
+
+025 020001/=n224
+zira40 krqr 222015
+IONKA 39601 50622 7/1/8 /2015 //0/0 /0//0 //0/0 //0/0 /0//0 //0/0 //00/ //0// =
+
+
+025 020001/=n721
+zira40 krqr 222030
+IONKA 39601 50622 7/1/5 /2030 //0/0 /0//0 //0/0 //0/0 /0//0 //0/0 //00/ //0// =
+
+
+025 020001/=n071
+zira40 krqr 222045
+IONKA 39601 50622 7/1/1 /2045 //0/0 /0//0 //0/0 //0/0 /0//0 //0/0 //00/ //0// =
+
+
+025 021011/=n275
+zira40 omsh 221503
+ionka 37701 50622 7/1/1 /2100 //2/2 /2//2 //2/2 //2/2 /2//2 //2/2 //20/ 
+//2//=
+
+
+025 025011/=n797
+zira40 diks 222100
+usfre 33603 38701 50622 19//3 ////3 20//3 ////3 21//3 ////3 
+usfre 33703 38701 50622 19//3 ////3 20//3 ////3 21//3 ////3 
+ionka 38701 50622 7/1/0 /1900 //3/3 00//3 //3/3 //3/3 00000
+//3/3 //30/ //0//
+ionka 38701 50622 7/1/2 /2000 //3/3 00//3 //3/3 //3/3 00000
+//3/3 //30/ //0//
+ionka 38701 50622 7/1/3 /2100 //3/3 00//3 //3/3 //3/3 00000
+//3/3 //30/ //0//-
+
+
+025 020001/=n009
+zira40 krqr 222100
+IONKA 39601 50622 7/1/5 /2100 //2/0 /2//2 //2/2 //0/2 /0//2 //2/2 //20/ //2// =
+
+
+025 025011/=n317
+zira40 diks 222100
+ampli 38701 22619 0716/
+ampli 38701 22620 0801/
+ampli 38701 22621 1366/
+magma 38701 50622 18219 21///-
+
+
+025 044011/=n690
+zira40 mgdn 222100
+ionka
+45601 50621 7/1/8 /1900 //3/3 /3//3 //3/3 //3/3 /3//3 //3/3 //3//
+//3//=
+ionka
+45601 50621 7/1/0 /2000 //3/3 /3//3 //3/3 //3/3 /3//3 //3/3 //3//
+//3//=
+ionka
+45601 50622 7/1/1 /2100 //3/3 /3//3 //3/3 //3/3 /3//3 //3/3 //3//
+//3//=
+
+
+025 040011/=n150
+zira40 hbrw 222100
+ionka 43501 50622 /0900 08031 28/12 04440 040/1 34345 /1000
+079/7 30/17 05325 /1100 079/7 30/16 05410 /1200 080/7 30/24 
+05915 /1300 071/7 29/23 03310 /1400 065/7 28/24 03710 /1500
+062/7 28/16 //2/2 /1600 060/7 28/16 //2/2 /1700 057/7 26/24
+//2/2 /1800 055/7 28/14 //2/2 /1900 053/7 33/12 01520 /2000
+04934 27/24 04620 033/1 30375=
+
+
+025 020001/=n174
+zira40 krqr 222115
+IONKA 39601 50622 7/1/9 /2115 //0/0 /0//0 //0/0 //0/0 /0//0 //0/0 //00/ //0// =
+
+
+025 020001/=n254
+zira40 krqr 222130
+IONKA 39601 50622 7/1/6 /2130 //0/0 /0//0 //0/0 //0/0 /0//0 //0/0 //00/ //0// =
+
+
+025 020001/=n708
+zira40 krqr 222145
+IONKA 39601 50622 7/1/2 /2145 //0/0 /0//0 //0/0 //0/0 /0//0 //0/0 //00/ //0// =
+
+
+025 021011/=n583
+zira40 omsh 221503
+ionka 37701 50622 7/1/2 /2200 //2/2 /2//2 //2/2 //2/2 /2//2 //2/2 //20/ 
+//2//=
+
+
+025 020001/=n785
+zira40 krqr 222200
+IONKA 39601 50622 7/1/2 /2200 //2/2 /2//2 //2/2 //2/2 /2//2 //2/2 //20/ //2// =
+
+
+025 020001/=n175
+zira40 krqr 222215
+IONKA 39601 50622 7/1/0 /2215 //0/0 /0//0 //0/0 //0/0 /0//0 //0/0 //00/ //0// =
+
+
+025 020001/=n798
+zira40 krqr 222230
+IONKA 39601 50622 7/1/7 /2230 //0/0 /0//0 //0/0 //0/0 /0//0 //0/0 //00/ //0// =
+
+
+025 020001/=n936
+zira40 krqr 222245
+IONKA 39601 50622 7/1/3 /2245 //0/0 /0//0 //0/0 //0/0 /0//0 //0/0 //00/ //0// =
+
+
+025 021011/=n130
+zira40 omsh 221503
+ionka 37701 50622 7/1/3 /2300 //2/2 /2//2 //2/2 //2/2 /2//2 //2/2 //20/ 
+//2//=
+
+
+025 020001/=n744
+zira40 krqr 222300
+IONKA 39601 50622 7/1/4 /2300 04348 24/28 //2/2 03330 32418 //2/2 //20/ 052// =
+
+
+025 020001/=n216
+zira40 krqr 222315
+IONKA 39601 50622 7/1/1 /2315 //0/0 /0//0 //0/0 //0/0 /0//0 //0/0 //00/ //0// =
+
+
+025 045011/=n427
+zira40 ptrp 220200
+IONKA 46501 50622 7/3/0 /0000 06040 28/18 06807 048/1 /1//7 
+//109 0483/ //7// /0100 06732 31349 //7/7 049/3 /3315 //2/2 
+//70/ //7// /0200 06635 30352 //7/7 //7/7 /7349 //2/2 //70/ 
+//7//
+
+
+025 045011/=n428
+zira40 ptrp 220430
+IONKA 46501 50622 7/3/0 /0300 06433 31348 //7/7 049/2 /2//7 
+//2/2 //70/ //7// /0400 06136 30351 //7/7 //3/3 /3//7 //2/2 
+//70/ //7// /0430 06040 28/19 03604 04820 37//7 //102 0353/ 
+//7//
+
+
+025 045011/=n429
+zira40 ptrp 220615
+IONKA 46501 50622 7/3/7 /0500 06434 30349 //7/7 //3/3 /3337 
+//2/2 //70/ //7// /0600 06632 29339 //7/7 //726 /7333 //2/2 
+//70/ //7// /0615 06633 30/17 //7/7 //723 /7329 03303 //70/ 
+//7//
+
+
+025 045011/=n430
+zira40 ptrp 220900
+IONKA 46501 50622 7/3/7 /0700 06432 29/19 03415 //723 /7327 
+//103 0333/ //7// /0800 06633 27/13 03007 //724 /7355 //102 
+0253/ //7// /0900 08127 33321 //7/7 //725 /7327 //2/2 //70/ 
+//7//
+
+
+025 045011/=n431
+zira40 ptrp 221200
+IONKA 46501 50622 7/3/4 /1000 07926 28/17 //7/7 //7/7 /7350 
+017/2 //70/ //7// /1100 08122 31/12 //7/7 //7/7 /7307 012/2 
+//70/ //7// /1200 07324 30/10 01807 //7/7 /7336 //7/7 0161/ 
+//7//
+
+
+025 045011/=n432
+zira40 ptrp 221500
+IONKA 46501 50622 7/3/8 /1300 06523 30/11 01914 //7/7 /7318 
+//7/7 0161/ //7// /1400 05825 28/10 01803 //7/7 /7364 //7/7 
+0151/ //7// /1500 05528 27/10 02601 //7/7 /7388 //7/7 0161/ 
+//7//
+
+
+025 045011/=n433
+zira40 ptrp 221800
+IONKA 46501 50622 7/3/9 /1600 05230 27/10 02614 //7/7 /7384 
+//7/7 0241/ //7// /1700 04538 26/10 //7/7 02329 28436 01206 
+//70/ //7// /1800 05135 28/12 02420 03427 31370 //120 0223/ 
+//7//
+
+
+025 045011/=n434
+zira40 ptrp 222100
+IONKA 46501 50622 7/3/9 /1900 05333 28/20 03724 //1/1 /1337 
+//114 0373/ //7// /1945 04630 33/19 03518 //724 /7//7 //101 
+0343/ //7// /2100 //77  /7/17 03517 04022 38//7 //101 0343/ 
+//7//
+
+
+025 045011/=n435
+zira40 ptrp 222300
+IONKA 46501 50622 7/1/0 /2300 //33  /3314 //3/3 //3/3 /3//3 
+//3/3 //30/ //7//
+
+
+025 020001/=n740
+zira40 krqr 222330
+IONKA 39601 50622 7/1/8 /2330 //0/0 /0//0 //0/0 //0/0 /0//0 //0/0 //00/ //0// =
+
+
+025 020001/=n989
+zira40 krqr 222345
+IONKA 39601 50622 7/1/7 /2345 045/0 28//0 //0/0 //0/0 /0286 028/0 //00/ 053// =
+
+
+025 021011/=n199
+zira40 omsh 221503
+ionka 37701 50623 7/1/8 /0000 //2/2 /2//2 //2/2 //2/2 /2//2 //2/2 //20/ 
+//2//=
+
+
+&&&&&&&&&&&&&&&15 20150623
+025 025011/=n927
+zira40 diks 230000
+ampli 38701 22622 0524/
+ampli 38701 22623 0172/
+ampli 38701 22624 0128/
+magma 38701 50622 21247 16///
+uabse 38701 22124 31842 91908 02/21
+umagf 38701 50623 0000/
+22004 1//// 22465 35697 60600 52009 24112-
+
+
+025 040001/=n217
+zira40 hbrw 230000
+ionda 22h99 47226 56926 66127 7h2h2 8h2h2 9h2h2 0h2h2 1h2h2
+ionha 4hf31 40e34 43p32 40d31
+22h88 tehpri~ina
+ionha 4hf31 4he35
+22h89 26329 37028 47230 57930 68030 76528 86028 95528 04927
+ionha 40f30 45e36
+22h91 06028 16630 26130 36430 46630 56627 67928 77330 85828
+95227 05128 14633
+ionha 41f31 43e35
+magnitnoe pole wozmu}ennoe
+wozmovny naru{eniq radioswqzi=
+27058-
+
+
+025 025011/=n465
+zira40 diks 230000
+usfre 33603 38701 50622 22//3 ////3 23//3 ////3 24//3 ////3 
+usfre 33703 38701 50622 22//3 ////3 23//3 ////3 24//3 ////3 
+ionka 38701 50622 7/1/4 /2200 //3/3 00//3 //3/3 //3/3 00000
+//3/3 //30/ //0//
+ionka 38701 50622 7/1/5 /2300 //3/3 00//3 //3/3 //3/3 00000
+//3/3 //30/ //0//
+ionka 38701 50622 7/1/6 /2400 //3/3 00//3 //3/3 //3/3 00000
+//3/3 //30/ //0//-
+
+
+025 020001/=n470
+zira40 krqr 230000
+IONKA 39601 50623 7/1/4 /0000 04546 26/21 03300 03727 35359 //1/1 0292/ 054// =
+
+
+025 044011/=n644
+zira40 mgdn 230000
+ionka
+45601 50622 7/1/2 /2200 //3/3 /3//3 //3/3 //3/3 /3//3 //3/3 //3// //3//=
+ionka
+45601 50622 7/1/3 /2300 //3/3 /3//3 //3/3 //3/3 /3//3 //3/3 //3// //3//=
+ionka
+45601 50623 7/1/8 /0000 //3/3 /3//3 //3/3 //3/3 /3//3 //3/3 //3// //3//=
+
+
+025 020001/=n745
+zira40 krqr 230015
+IONKA 39601 50623 7/1/9 /0015 //0/0 /0//0 //003 //0/0 /0//0 //0/0 //00/ //0// =
+
+
+025 020001/=n995
+zira40 krqr 230030
+IONKA 39601 50623 7/1/6 /0030 //0/0 /0//0 //003 //0/0 /0//0 //0/0 //00/ //0// =
+
+
+025 020001/=n713
+zira40 krqr 230045
+IONKA 39601 50623 7/1/9 /0045 //0/0 /0//0 //0/0 //0/0 /0//0 //0/0 //00/ //0// =
+
+
+025 020001/=n225
+zira40 krqr 230100
+IONKA 39601 50623 7/1/2 /0100 04166 22/18 036/0 03920 37244 02815 0232/ 050// =
+
+
+025 020001/=n824
+zira40 krqr 230115
+IONKA 39601 50623 7/1/7 /0115 //0/0 /0//0 //0/0 //0/0 /0//0 //0/0 //00/ //0// =
+
+
+025 020001/=n180
+zira40 krqr 230130
+IONKA 39601 50623 7/1/4 /0130 //0/0 /0//0 //0/0 //0/0 /0//0 //0/0 //00/ //0// =
+
+
+025 021011/=n686
+zira40 omsh 221503
+ionka 37701 50623 7/1/9 /0100 //2/2 /2//2 //2/2 //2/2 /2//2 //2/2 //20/ 
+//2//=
+
+
+025 020001/=n798
+zira40 krqr 230145
+IONKA 39601 50623 7/1/0 /0145 //0/0 /0//0 //0/0 //0/0 /0//0 //0/0 //00/ //0// =
+
+
+025 021011/=n222
+zira40 omsh 221503
+ionka 37701 50623 7/1/0 /0200 //2/2 /2//2 //2/2 //2/2 /2//2 //2/2 //20/ 
+//2//=
+
+
+025 020001/=n161
+zira40 krqr 230200
+IONKA 39601 50623 7/1/1 /0200 04366 22/17 03500 04121 36244 03013 0252/ 052// =
+
+
+025 020001/=n933
+zira40 krqr 230215
+IONKA 39601 50623 7/1/8 /0215 //0/0 /0//0 //0/0 //0/0 /0//0 //0/0 //00/ //0// =
+
+
+025 021011/=n957
+zira40 omsh 211436
+ionka 37701 50621 7/1/0 /1300 06028 29/18 //7/7 04324 34340 03011 //70/ 
+//7//=
+
+
+025 021011/=n959
+zira40 omsh 211436
+ionka 37701 50621 7/1/5 /1400 06228 29/16 //7/7 04023 35340 02811 //70/ 
+//7//=
+
+
+025 020001/=n189
+zira40 krqr 230230
+IONKA 39601 50623 7/1/5 /0230 //0/0 /0//0 //0/0 //0/0 /0//0 //0/0 //00/ //0// =
+
+
+025 021011/=n316
+zira40 omsh 220226
+ /1100  37701 50622 7/1/2 /1300 //2/2 /2//2 //2/2 //2/2 /2//2 //2/2 //20/ 
+//2//=
+
+
+025 021011/=n318
+zira40 omsh 220226
+ /1100  37701 50622 7/1/3  /1400 //2/2 /2//2 //2/2 //2/2 /2//2 //2/2 //20/ 
+//2// =
+
+
+025 020001/=n959
+zira40 krqr 230245
+IONKA 39601 50623 7/1/1 /0245 //0/0 /0//0 //0/0 //0/0 /0//0 //0/0 //00/ //0// =
+
+
+025 044011/=n474
+zira40 mgdn 230300
+ionka
+45601 50623 7/1/9 /0100 //3/3 /3//3 //3/3 //3/3 /3//3 //3/3 //3// //3//=
+ionka
+45601 50623 7/1/0 /0200 //3/3 /3//3 //3/3 //3/3 /3//3 //3/3 //3// //3//=
+ionka
+45601 50623 7/1/1 /0300 //3/3 /3//3 //3/3 //3/3 /3//3 //3/3 //3// //3//=
+UMAGF
+45601 50623 0300/ 22006 1/062 22254 33596=
+
+
+025 021011/=n844
+zira40 omsh 230227
+ionka 37701 50623 7/1/1 /0300 //2/2 /2//2 //2/2 //2/2 /2//2 //2/2 //20/ 
+//2//=
+
+
+025 025011/=n902
+zira40 diks 230300
+umagf 38702 50623 03/00 2200/ 1//// 2//// 3//// /////=
+uabse 38702 22103 /////=
+
+
+025 020001/=n226
+zira40 krqr 230300
+IONKA 39601 50623 7/1/1 /0300 //2/2 /2//2 //2/2 //2/2 /2//2 //2/2 //20/ //2// =
+
+
+025 025011/=n233
+zira40 diks 230300
+ampli 38701 23601 0300/
+ampli 38701 23602 0798/
+ampli 38701 23603 0477/
+magma 38701 50623 00037 10///-
+
+
+025 025011/=n234
+zira40 diks 230300
+usfre 33603 38701 50623 01//3 ////3 02//3 ////3 03//3 ////3 
+usfre 33703 38701 50623 01//3 ////3 02//3 ////3 03//3 ////3 
+ionka 38701 50623 7/1/1 /0100 //3/3 00//3 //3/3 //3/3 00000
+//3/3 //30/ //0//
+ionka 38701 50623 7/1/2 /0200 //3/3 00//3 //3/3 //3/3 00000
+//3/3 //30/ //0//
+ionka 38701 50623 7/1/3 /0300 //3/3 00//3 //3/3 //3/3 00000
+//3/3 //30/ //0//-
 
 

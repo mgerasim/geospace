@@ -27,6 +27,7 @@ namespace GeospaceMediana.Models
         public int Step;
 
         protected List<GeospaceEntity.Models.Codes.CodeIonka> theIonkaValues;
+        protected List<GeospaceEntity.Models.Codes.CodeUmagf> theUmagfValues;
 
         public List<GeospaceEntity.Models.Station> Stations
         {
@@ -63,6 +64,10 @@ namespace GeospaceMediana.Models
             Step = step;
 
             theIonkaValues = (List<GeospaceEntity.Models.Codes.CodeIonka>)(new GeospaceEntity.Models.Codes.CodeIonka()).GetByPeriod((new GeospaceEntity.Models.Station()).GetByCode(StationCode),
+                Start.Year, Start.Month, Start.Day,
+                Start.AddDays(limit).Year, Start.AddDays(limit).Month, Start.AddDays(limit).Day);
+
+            theUmagfValues = (List<GeospaceEntity.Models.Codes.CodeUmagf>)(new GeospaceEntity.Models.Codes.CodeUmagf()).GetByPeriod((new GeospaceEntity.Models.Station()).GetByCode(StationCode),
                 Start.Year, Start.Month, Start.Day,
                 Start.AddDays(limit).Year, Start.AddDays(limit).Month, Start.AddDays(limit).Day);
         }
@@ -116,6 +121,16 @@ namespace GeospaceMediana.Models
                 return result[0];
             }
             return new GeospaceEntity.Models.Codes.CodeIonka();
+        }
+        
+        public GeospaceEntity.Models.Codes.CodeUmagf GetValueUmagf(int YYYY, int MM, int DD)
+        {
+            List<GeospaceEntity.Models.Codes.CodeUmagf> result = theUmagfValues.Where(x => x.YYYY == YYYY && x.MM == MM && x.DD == DD).ToList();
+            if (result.Count != 0)
+            {
+                return result[0];
+            }
+            return new GeospaceEntity.Models.Codes.CodeUmagf();
         }
     }
 }

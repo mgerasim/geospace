@@ -67,8 +67,11 @@
                     <td rowspan="3"></td>
                     @foreach (var item in Model.GetHeader())
                     {
+
+                        CodeUmagf theCode = Model.GetValueUmagf(item.YYYY, item.MM, item.DD);
+                        
                         <td colspan="7">
-                            Ak
+                            Ak=@theCode._ak
                         </td>
                     }
                 </tr>
@@ -85,19 +88,21 @@
                 <tr>
                     @foreach (var item in Model.GetHeader())
                     {
+
+                        CodeUmagf theCode = Model.GetValueUmagf(item.YYYY, item.MM, item.DD);
+                        
                         <td colspan="7">
                             <table class="table-bordered" width="100%">
 
                                 <tr>
-                                    <td width="12%">1</td>
-                                    <td width="12%">2</td>
-                                    <td width="12%">3</td>
-                                    <td width="12%">4</td>
-                                    <td width="12%"></td>
-                                    <td width="12%"></td>
-                                    <td width="12%"></td>
-                                    <td width="12%"></td>
-
+                                    <td width="12%">@theCode._k1</td>
+                                    <td width="12%">@theCode._k2</td>
+                                    <td width="12%">@theCode._k3</td>
+                                    <td width="12%">@theCode._k4</td>
+                                    <td width="12%">@theCode._k5</td>
+                                    <td width="12%">@theCode._k6</td>
+                                    <td width="12%">@theCode._k7</td>
+                                    <td width="12%">@theCode._k8</td>
                                 </tr>
 
                             </table>

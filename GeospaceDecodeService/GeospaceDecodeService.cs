@@ -79,8 +79,9 @@ namespace GeospaceDecodeService
 
             string strFile = Ini.GetValue("COMMON", "FileName", "D:\\Мои документы\\visual studio 2013\\Projects\\GeoSpace\\documents\\armgf1dan.txt");
 
-            //strFile = @"\\10.8.5.123\obmen\armgf1dan.txt";C:\Users\azyryanov\Desktop\1\documents
-            strFile = "C:\\Users\\azyryanov\\Desktop\\1\\documents\\armgf1dan.txt";
+            strFile = @"\\10.8.5.123\obmen\armgf1dan.txt";
+            //strFile = "C:\\Users\\azyryanov\\Desktop\\1\\documents\\armgf1dan.txt";
+            //strFile = "D:\\Мои документы\\visual studio 2013\\Projects\\GeoSpace\\documents\\armgf1dan.txt";
             if (!File.Exists(strFile))
             {
                 eventLog1.WriteEntry("Файл не существует:");
@@ -142,7 +143,7 @@ namespace GeospaceDecodeService
                                     theCodeUmagf.Raw = code_source;
                                     if (theCodeUmagf.GetByDateUTC() == null && existStatFromBD)
                                     {
-                                        //theCodeUmagf.Save();                                        
+                                        theCodeUmagf.Save();                                        
                                     }
                                     logumagf.Error(existStatFromBD);
                                     if (existStatFromBD)
