@@ -8,6 +8,21 @@ namespace GeospaceEntity.Helper
 {
     public static class HelperIonka
     {
+        public static bool FindSpecialGroup(string str)
+        {
+            if (str[1] == '/' || str[3] == '/')
+                return true;
+            else return false;
+        }
+        public static bool FindTimePeriod(string str) // поиск временого периода группы
+        {
+            if (str[0] == '/' && (Convert.ToInt32(str.Substring(1))) % 100 == 0 && Char.IsDigit(str[1]) && Char.IsDigit(str[2]))
+            {
+                return true;
+            }
+            else
+                return false;
+        }
         public static string Normalize(string strIonka)
         {
 

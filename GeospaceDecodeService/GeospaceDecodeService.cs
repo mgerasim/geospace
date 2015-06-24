@@ -159,8 +159,6 @@ namespace GeospaceDecodeService
                                     
                                     try
                                     {
-                                        
-
                                         code_source = GeospaceEntity.Helper.HelperIonka.Check(code_source);
 
                                         int StationCode = GeospaceEntity.Helper.HelperIonka.Ionka_Group02_Station(code_source);
@@ -172,36 +170,38 @@ namespace GeospaceDecodeService
                                             theStation.Code = StationCode;
                                             theStation.Save();
                                         }
-                                        /*
-                                        if (StationCode == 37701)
-                                        {
-                                            if (code_source.Split(' ')[2] == "50406" ) {
-                                                CodeIonka theCodeIonka = new CodeIonka();
-                                                theCodeIonka.Station = theStation;
-                                                theCodeIonka.DD = 
-                                            }
-                                        }
-                                        */
-                                        if (StationCode == 43501)
-                                        {
-                                            logger.Debug("timer1_Tick_1: StationCode: 43501: " + code_source);
-                                            // Для Хабарвска код ИОНКА упращенный
-                                            string[] arrayString = code_source.Split(' ');
-                                            string token = arrayString[2];
+                                        //if (StationCode == 43501)
+                                        //{
+                                        //    logger.Debug("timer1_Tick_1: StationCode: 43501: " + code_source);
+                                        //    // Для Хабарвска код ИОНКА упращенный
+                                        //    string[] arrayString = code_source.Split(' ');
+                                        //    string token = arrayString[2];
 
-                                            int group_count = (arrayString.Count() - 3) / 6;
+                                        //    int group_count = (arrayString.Count() - 3) / 6;
 
-                                            code_source = code_source.Replace(token, token + " 0/" + group_count.ToString()+"/0");
-                                            logger.Debug("timer1_Tick_1: StationCode: 43501: " + code_source);
-
-                                            
-                                        }
+                                        //    code_source = code_source.Replace(token, token + " 0/" + group_count.ToString()+"/0");
+                                        //    logger.Debug("timer1_Tick_1: StationCode: 43501: " + code_source);
+                                        //}
 
                                         DateTime Created_At = GeospaceEntity.Helper.HelperIonka.Ionka_Group03_DateCreate(code_source);
                                         int DD = Created_At.Day;
                                         int MM = Created_At.Month;
                                         int YYYY = Created_At.Year;
-                                        int sessionCount = GeospaceEntity.Helper.HelperIonka.Ionka_Group04_Count(code_source);
+                                        string[] arrayGroups = code_source.Split(' ');
+                                        int sessionCount = 0;
+                                        int startGroup = 4;
+                                        if (GeospaceEntity.Helper.HelperIonka.FindSpecialGroup(arrayGroups[3])) //есть ли группа 4
+                                            sessionCount = GeospaceEntity.Helper.HelperIonka.Ionka_Group04_Count(code_source);
+                                        else
+                                        {
+                                            startGroup = 3;
+                                            if (GeospaceEntity.Helper.HelperIonka.FindTimePeriod(arrayGroups[3]))
+                                            {
+
+                                            }                
+                                        }
+
+                                        sessionCount = GeospaceEntity.Helper.HelperIonka.Ionka_Group04_Count(code_source);
                                         
                                         for (int i = 0; i < sessionCount; i++)
                                         {
