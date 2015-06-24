@@ -33,15 +33,9 @@ namespace GeospaceTest
         }
         static void Support04()
         {
-            string str = "03/03/";
-            str = str.Replace("/", "");
-            int len = str.Length;
-            Console.WriteLine(str);
-            int q= Convert.ToInt32(str.Substring(0, 2));
-            int d = Convert.ToInt32(str.Substring(len - 2, 2));
-            return;
             string strFile = Environment.CurrentDirectory;
-            strFile = "D:\\мои документы\\visual studio 2013\\Projects\\GeoSpace\\documents\\armgf1dan.txt";
+            //strFile = "D:\\мои документы\\visual studio 2013\\Projects\\GeoSpace\\documents\\armgf1dan.txt";
+            strFile = @"\\10.8.5.123\obmen\armgf1dan.txt";
 
             if (File.Exists(strFile))
             {
@@ -72,32 +66,75 @@ namespace GeospaceTest
 
                         string theCode = GeospaceEntity.Helper.HelperIonka.Normalize(item);
 
-                        GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf = new GeospaceEntity.Models.Codes.CodeUmagf();
+                        int UmagfYYYY = 0;
+                        int UmagfMM = 0;
+                        Station UmagfStationFromIonka = new Station();
+                        bool flagIonka = false;                    //если есть ионка, то брать данные( станция, месяц, год) из ионки, если нет, то из умагф
+
 
                         foreach (var code in theCode.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries))
                         {
                             string code_source = code;
                             int numDate = 1;
                             int numIndex = 2;
-
+                            bool existStatFromBD = true;
                             if (code.Length > 6)
                             {
                                 if (code.Substring(0).ToUpper().IndexOf("UMAGF") >= 0)
                                 {
-                                    string [] arrayGroups = code_source.Split(' ');
-                                    if (arrayGroups.Length >= 9)
+                                    try
                                     {
-                                        numDate = 1;
-                                        numIndex = 5;
-                                        GeospaceEntity.Helper.HelperUmagf.Umagf_BigGroup1_NumStation(arrayGroups, 1, theCodeUmagf);
-                                        GeospaceEntity.Helper.HelperUmagf.Umagf_BigGroup2_FullData(arrayGroups, 2, theCodeUmagf);
-                                    }
-                                    GeospaceEntity.Helper.HelperUmagf.Umagf_Group1_DateCreate(arrayGroups, numDate, theCodeUmagf);
-                                    GeospaceEntity.Helper.HelperUmagf.Umagf_Group2_AK(arrayGroups, numIndex, theCodeUmagf);
-                                    GeospaceEntity.Helper.HelperUmagf.Umagf_Group3_K_index(arrayGroups, numIndex, theCodeUmagf);
-                                    theCodeUmagf.Raw = code_source;
-                                }
+                                        GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf = new GeospaceEntity.Models.Codes.CodeUmagf();
+                                        string[] arrayGroups = code_source.Split(' ');
+                                        if (!flagIonka)
+                                        {
+                                            numDate = 3;
+                                            numIndex = 5;
+                                            //logumagf.Debug( "1" );
+                                            existStatFromBD = GeospaceEntity.Helper.HelperUmagf.Umagf_BigGroup1_NumStation(arrayGroups, 1, theCodeUmagf);
+                                            //logumagf.Debug("2");
+                                            GeospaceEntity.Helper.HelperUmagf.Umagf_BigGroup2_FullData(arrayGroups, 2, theCodeUmagf);
+                                            //logumagf.Debug("3");
+                                            GeospaceEntity.Helper.HelperUmagf.Umagf_Group1_DateCreate(arrayGroups, numDate, theCodeUmagf);
+                                            //logumagf.Debug("4");
+                                            GeospaceEntity.Helper.HelperUmagf.Umagf_Group2_AK(arrayGroups, numIndex, theCodeUmagf);
+                                            //logumagf.Debug("5");
+                                            GeospaceEntity.Helper.HelperUmagf.Umagf_Group3_K_index(arrayGroups, numIndex, theCodeUmagf);
+                                            //logumagf.Debug("6");
+                                        }
+                                        else
+                                        {
+                                            theCodeUmagf.Station = UmagfStationFromIonka;
+                                            theCodeUmagf.YYYY = UmagfYYYY;
+                                            theCodeUmagf.MM = UmagfMM;
+                                            GeospaceEntity.Helper.HelperUmagf.Umagf_Group1_DateCreate(arrayGroups, numDate, theCodeUmagf, true);
+                                            GeospaceEntity.Helper.HelperUmagf.Umagf_Group2_AK(arrayGroups, numIndex, theCodeUmagf);
+                                            GeospaceEntity.Helper.HelperUmagf.Umagf_Group3_K_index(arrayGroups, numIndex, theCodeUmagf);
+                                        }
 
+                                        theCodeUmagf.Raw = code_source;
+                                        if (theCodeUmagf.GetByDateUTC() == null && existStatFromBD && theCodeUmagf.Station != null)
+                                        {
+                                            //theCodeUmagf.Save();
+                                        }
+                                        /*
+                                        if (existStatFromBD)
+                                            WriteUmagf(theCodeUmagf);
+                                        else
+                                            logumagf.Error("\nстанция №" + theCodeUmagf.Station.Code.ToString() + "не найдена в БД: " +
+                                                code_source + "\n");*/
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        /*logumagf.Error("\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                                        logumagf.Error(ex.Message);
+                                        logumagf.Error(ex.Source);
+                                        logumagf.Error("\ncode_source:");
+                                        logumagf.Error(code_source);
+                                        logumagf.Error(ex.StackTrace + "\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");*/
+                                    }
+                                }                         
+                                
                                 if (code.Substring(0, 5).ToUpper() == "IONKA")
                                 {                                
                                     try
@@ -148,10 +185,6 @@ namespace GeospaceTest
                                             //theTemp.Save();
                                         }
 
-                                        theCodeUmagf.YYYY = theTemp.YYYY;
-                                        theCodeUmagf.MM = theTemp.MM;
-                                        theCodeUmagf.Station = theTemp.Station;
-
                                         for (int i = 0; i < sessionCount; i++)
                                         {
                                             string strSession = GeospaceEntity.Helper.HelperIonka.Ionka_GroupData_Get(i, code_source);
@@ -169,6 +202,10 @@ namespace GeospaceTest
                                                     theCodeIonka.YYYY = Created_At.Year;
 
                                                     theCodeIonka.Station = theStation;
+
+                                                    UmagfYYYY = theCodeIonka.YYYY;
+                                                    UmagfMM = theCodeIonka.MM;
+                                                    //UmagfStation = theCodeIonka.Station;
 
                                                     //theCodeIonka.Save();
                                                 }
