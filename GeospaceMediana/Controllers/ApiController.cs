@@ -40,5 +40,20 @@ namespace GeospaceMediana.Controllers
             }
             return Json(theResult, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GetUmagfByPeriod(int StationCode, int startYYYY, int startMM, int startDD, int endYYYY, int endMM, int endDD)
+        {
+            Station station = new Station();
+            station = station.GetByCode(StationCode);
+
+            List<CodeUmagf> theList = (List<CodeUmagf>)(new CodeUmagf()).GetByPeriod(station, startYYYY, startMM, startDD, endYYYY, endMM, endDD);
+            List<ApiUmagf> theResult = new List<ApiUmagf>();
+            foreach (var item in theList)
+            {
+                ApiUmagf jsonObj = new ApiUmagf(item);
+                theResult.Add(jsonObj);
+            }
+            return Json(theResult, JsonRequestBehavior.AllowGet);
+        }
     }
 }
