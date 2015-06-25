@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,21 @@ namespace GeospaceEntity.Helper
 {
     public static class HelperIonka
     {
+        public static bool FindSpecialGroup(string str)
+        {
+            if (str[1] == '/' || str[3] == '/')
+                return true;
+            else return false;
+        }
+        public static bool FindTimePeriod(string str) // поиск временого периода группы
+        {
+            if (str[0] == '/' && (Convert.ToInt32(str.Substring(1))) % 100 == 0 && Char.IsDigit(str[1]) && Char.IsDigit(str[2]))
+            {
+                return true;
+            }
+            else
+                return false;
+        }
         public static string Normalize(string strIonka)
         {
 
@@ -32,9 +48,9 @@ namespace GeospaceEntity.Helper
             {
                 strIonka = strIonka.Replace("7/1/ ", "7/1/");
             }
-            string[] delimiters = new string[] { " ","\r\n"};
+            string[] delimiters = new string[] { " ", "\r\n" };
 
-           // strIonka = strIonka.Replace("///", "/ //");
+            // strIonka = strIonka.Replace("///", "/ //");
             string[] strCodes = strIonka.Split(delimiters,
                                  StringSplitOptions.None);
             if (strCodes.Count() == 1)
@@ -83,11 +99,12 @@ namespace GeospaceEntity.Helper
                     bool flag = true;
                     for (int i = 0; i < ss.Length; i++)
                     {
-                        if (!Char.IsDigit(ss[i])) {
+                        if (!Char.IsDigit(ss[i]))
+                        {
                             flag = false;
                         }
                     }
-                    ss = ss.Replace(ss[ss.Length-1].ToString(), "");
+                    ss = ss.Replace(ss[ss.Length - 1].ToString(), "");
                 }
                 if (ss.Length == 4)
                 {
@@ -108,7 +125,7 @@ namespace GeospaceEntity.Helper
                     strIonkaNormalize += ss;
                     strIonkaNormalize += " ";
                 }
-                
+
 
             }
             return strIonkaNormalize;
@@ -128,7 +145,7 @@ namespace GeospaceEntity.Helper
             res += Convert.ToInt32(strToken);
             return res;
         }
-        public static string Check(string strIonka) 
+        public static string Check(string strIonka)
         {
             strIonka = strIonka.Replace("\"", "");
             strIonka = strIonka.Replace("///", "/ //");
@@ -143,7 +160,7 @@ namespace GeospaceEntity.Helper
             if (numberStation == 43501)
             {
                 // Для станции с кодом 43501 Хабаровск код IONKA упращенный
-                return strIonka ;
+                return strIonka;
             }
             string tokenGroup04 = arrayString[3];
             int numberControl = Convert.ToInt32(tokenGroup04.Substring(0, 1));
@@ -151,22 +168,22 @@ namespace GeospaceEntity.Helper
             {
                 throw new Exception(String.Format("В коде {0} служебная группа {1} не имеет служебную цифру = 7",
                     strIonka,
-                    tokenGroup04)); 
+                    tokenGroup04));
             }
 
             if (tokenGroup04.Substring(1, 1) != "/")
             {
-                throw new Exception(String.Format("В коде {0} служебная группа {1} не соответствует формату Н/М/К", 
-                    strIonka, 
-                    tokenGroup04));                
+                throw new Exception(String.Format("В коде {0} служебная группа {1} не соответствует формату Н/М/К",
+                    strIonka,
+                    tokenGroup04));
             }
 
 
             if (tokenGroup04.Substring(3, 1) != "/")
             {
-                new Exception(String.Format("В коде {0} служебная группа {1} не соответствует формату Н/М/К", 
-                    strIonka, 
-                    tokenGroup04)); 
+                new Exception(String.Format("В коде {0} служебная группа {1} не соответствует формату Н/М/К",
+                    strIonka,
+                    tokenGroup04));
             }
 
             return strIonka;
@@ -210,7 +227,7 @@ namespace GeospaceEntity.Helper
             string stringGroupData = strIonka.Substring(24 + 36 * sessionNumber, 35);
             return stringGroupData;
         }
-        
+
         public static int Ionka_Group05_HH(string strSession)
         {
             string[] arrayTokens = strSession.Split(' ');
@@ -235,7 +252,7 @@ namespace GeospaceEntity.Helper
             string token = arrayTokens[1];
             token = token.Substring(0, 3);
             int f0F2 = ParseToken(token);
-            
+
             return f0F2;
         }
 
@@ -245,7 +262,7 @@ namespace GeospaceEntity.Helper
             string token = arrayTokens[1];
             token = token.Substring(3, 2);
             int hF2 = ParseToken(token);
-            
+
             return hF2;
         }
 
@@ -264,7 +281,7 @@ namespace GeospaceEntity.Helper
             string token = arrayTokens[2];
             token = token.Substring(3, 2);
             int fmin = ParseToken(token);
-            
+
             return fmin;
         }
 
@@ -284,7 +301,7 @@ namespace GeospaceEntity.Helper
             string token = arrayTokens[3];
             token = token.Substring(3, 2);
             int hEs = ParseToken(token);
-            
+
             return hEs;
         }
 
@@ -311,7 +328,7 @@ namespace GeospaceEntity.Helper
             string[] arrayTokens = strSession.Split(' ');
             string token = arrayTokens[5];
             token = token.Substring(0, 2);
-            
+
             int M3000F1 = ParseToken(token);
             return M3000F1;
         }
@@ -349,11 +366,9 @@ namespace GeospaceEntity.Helper
             string[] arrayTokens = strSession.Split(' ');
             string token = arrayTokens[7];
             token = token.Substring(0, 3);
-            int fbEs = ParseToken(token) ;
+            int fbEs = ParseToken(token);
             return fbEs;
         }
-
-
 
         public static int Ionka_Group12_Es(string strSession)
         {
@@ -361,7 +376,7 @@ namespace GeospaceEntity.Helper
             string token = arrayTokens[7];
             token = token.Substring(3, 1);
             int Es = ParseToken(token);
-            
+
             return Es;
         }
         public static int Ionka_Group13_fx1(string strSession)
@@ -369,8 +384,21 @@ namespace GeospaceEntity.Helper
             string[] arrayTokens = strSession.Split(' ');
             string token = arrayTokens[8];
             token = token.Substring(0, 3);
-            int fx1=ParseToken(token);
+            int fx1 = ParseToken(token);
             return fx1;
+        }
+
+        //печатает все возможные комбинации кода ионка
+        public static void Print_All_Code_Ionka(string strIonka, List<int> listLengthLines)
+        {
+            foreach (int len in listLengthLines)
+                if (strIonka.Length == len) return;
+
+            listLengthLines.Add(strIonka.Length);
+
+            StreamWriter sw = new StreamWriter("C:\\Users\\distomin\\Projects\\GeoSpace\\documents\\All_Code_Ionka.txt", true);
+            sw.WriteLine(strIonka);
+            sw.Close();
         }
     }
 }
