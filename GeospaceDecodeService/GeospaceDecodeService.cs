@@ -205,65 +205,59 @@ namespace GeospaceDecodeService
                                         int DD = Created_At.Day;
                                         int MM = Created_At.Month;
                                         int YYYY = Created_At.Year;
+                                        UmagfYYYY = YYYY;
+                                        UmagfMM = MM; 
                                         string[] arrayGroups = code_source.Split(' ');
                                         int sessionCount = 0;
                                         int startGroup = 4;
                                         if (GeospaceEntity.Helper.HelperIonka.FindSpecialGroup(arrayGroups[3])) //есть ли группа 4
                                             sessionCount = GeospaceEntity.Helper.HelperIonka.Ionka_Group04_Count(code_source);
                                         else
-                                        {
                                             startGroup = 3;
-                                            if (GeospaceEntity.Helper.HelperIonka.FindTimePeriod(arrayGroups[3]))
+                                        int lastHour = -1;
+                                        List<int> addressStartSession = new List<int>();
+                                        int lenArrayGroup = arrayGroups.Length;
+                                            // Поиск временных групп
+                                        for(int i = startGroup; i < lenArrayGroup; i++)
+                                        {
+                                            int hour = GeospaceEntity.Helper.HelperIonka.FindTimePeriod(arrayGroups[i]);
+                                            if (hour != -1)
                                             {
-
-                                            }                
+                                                if (lastHour < hour || lastHour == -1)
+                                                {
+                                                    if (hour / 100 == 23)//проверка на последний час и переход 
+                                                        lastHour = -1;
+                                                    else
+                                                        lastHour = hour / 100;
+                                                    addressStartSession.Add(i);//Добавлене в список адрессов групп
+                                                    sessionCount++;
+                                                }
+                                            }
+                                            // Добавление в конец последнего адреса -> конца последней группы по времени
+                                            if(i == lenArrayGroup-1)
+                                                addressStartSession.Add(i);
                                         }
-
-                                        sessionCount = GeospaceEntity.Helper.HelperIonka.Ionka_Group04_Count(code_source);
-                                        
+                                        //обработка каждой временной группы
                                         for (int i = 0; i < sessionCount; i++)
                                         {
                                             try
                                             {
-                                                string strSession;
-                                                if (StationCode != 43501)
-                                                {
-                                                    strSession = GeospaceEntity.Helper.HelperIonka.Ionka_GroupData_Get(i, code_source);
-                                                }
-                                                else
-                                                {
-                                                    strSession = GeospaceEntity.Helper.HelperIonka.Ionka_GroupData_Get_Khabarovsk(i, code_source);
-                                                }
-                                                int HH = GeospaceEntity.Helper.HelperIonka.Ionka_Group05_HH(strSession);
-                                                int MI = GeospaceEntity.Helper.HelperIonka.Ionka_Group05_MI(strSession);
-
+                                                List<string> sessionGroup = GeospaceEntity.Helper.HelperIonka.SetListTimeSession(arrayGroups, addressStartSession, i);//создание новой под группы по времени
+                                                int HH = GeospaceEntity.Helper.HelperIonka.Ionka_Group05_HH(sessionGroup[0]);
+                                                int MI = GeospaceEntity.Helper.HelperIonka.Ionka_Group05_MI(sessionGroup[0]);
                                                 GeospaceEntity.Models.Codes.CodeIonka theCodeIonka = (new GeospaceEntity.Models.Codes.CodeIonka()).GetByDateUTC(theStation, YYYY, MM, DD, HH, MI);
                                                 if (theCodeIonka == null)
                                                 {
-                                                    if (StationCode != 43501)
-                                                    {
-                                                        theCodeIonka = new GeospaceEntity.Models.Codes.CodeIonka(strSession);
-                                                    }
-                                                    else
-                                                    {
-                                                        theCodeIonka = new GeospaceEntity.Models.Codes.CodeIonka();
-                                                        theCodeIonka.Parse_Khabarovsk(strSession);
-                                                    }
+                                                    theCodeIonka = new GeospaceEntity.Models.Codes.CodeIonka(sessionGroup);
                                                     theCodeIonka.DD = Created_At.Day;
                                                     theCodeIonka.MM = Created_At.Month;
                                                     theCodeIonka.YYYY = Created_At.Year;
-
                                                     theCodeIonka.Station = theStation;
                                                     theCodeIonka.Raw = code_source;
-
-
                                                     theCodeIonka.Save();
                                                 }
-
-                                                UmagfYYYY = theCodeIonka.YYYY;
-                                                UmagfMM = theCodeIonka.MM;                                                
                                             }
-                                            catch(Exception err)
+                                            catch (Exception err)
                                             {
                                                 error.Error("Error:");
                                                 error.Error(err.Message);
@@ -272,13 +266,11 @@ namespace GeospaceDecodeService
                                                 {
                                                     error.Error(err.InnerException.Message);
                                                     error.Error("Raw: " + code_source);
-
                                                 }
                                                 else
                                                 {
                                                     error.Error("InnerException is null");
                                                 }
-
                                                 Error theErr;
                                                 string Description = err.Message + err.StackTrace;
                                                 theErr = (new Error()).GetByDescription(Description);
@@ -288,9 +280,9 @@ namespace GeospaceDecodeService
                                                     theErr.Description = Description;
                                                     theErr.Raw = String.Format("RawMessage\n {0}\n\nRawMessageNormalize\n {1}\n\nIonka\n {2}",
                                                         item.ToString(), code_source, code);
-                                                    try{
-                                                    theErr.Save();
-
+                                                    try
+                                                    {
+                                                        theErr.Save();
                                                     }
                                                     catch
                                                     {
@@ -300,7 +292,6 @@ namespace GeospaceDecodeService
 
                                             }
                                         }
-
                                     }
                                     catch (Exception ex)
                                     {
@@ -312,7 +303,6 @@ namespace GeospaceDecodeService
                                         error.Error(ex.Message);
                                         error.Error(ex.Source);
                                         error.Error(ex.StackTrace);
-
                                         Error theErr;
                                         string Description = ex.Message + ex.StackTrace;
                                         theErr = (new Error()).GetByDescription(Description);
@@ -323,20 +313,16 @@ namespace GeospaceDecodeService
                                                 item, theCode, code);
                                             theErr.Save();
                                         }
-
                                     }
-
                                 }
                             }
 
                         }// foreach (var code in theCode.Split
                     }
-
                 }
             }
             catch (Exception ex)
             {
-
                 error.Error("Global Error:");
                 error.Error(ex.Message);
                 error.Error(ex.StackTrace);

@@ -8,33 +8,60 @@ namespace GeospaceEntity.Models.Codes
 {
     public class CodeIonka
     {
+
         public CodeIonka()
         {
             ID = -1;
             created_at = DateTime.Now;
             updated_at = DateTime.Now;
         }
-        public CodeIonka(string strIonka)  
+
+        public CodeIonka(List<string> sessionGroup)
         {
+            // TODO: Complete member initialization
             this.created_at = DateTime.Now;
             this.updated_at = DateTime.Now;
-            HH = GeospaceEntity.Helper.HelperIonka.Ionka_Group05_HH(strIonka);
-            MI = GeospaceEntity.Helper.HelperIonka.Ionka_Group05_MI(strIonka);
-            f0F2 = GeospaceEntity.Helper.HelperIonka.Ionka_Group06_f0F2(strIonka);
-            hF2 = GeospaceEntity.Helper.HelperIonka.Ionka_Group06_hF2(strIonka);
-            M3000F2 = GeospaceEntity.Helper.HelperIonka.Ionka_Group07_M3000F2(strIonka);
-            fmin = GeospaceEntity.Helper.HelperIonka.Ionka_Group07_fmin(strIonka);
-            f0Es = GeospaceEntity.Helper.HelperIonka.Ionka_Group08_f0Es(strIonka);
-            hEs = GeospaceEntity.Helper.HelperIonka.Ionka_Group08_hEs(strIonka);
-            f0F1 = GeospaceEntity.Helper.HelperIonka.Ionka_Group09_f0F1(strIonka);
-            hF1 = GeospaceEntity.Helper.HelperIonka.Ionka_Group09_hF1(strIonka);
-            M3000F1 = GeospaceEntity.Helper.HelperIonka.Ionka_Group10_M3000F1(strIonka);
-            hMF2 = GeospaceEntity.Helper.HelperIonka.Ionka_Group10_hMF2(strIonka);
-            f0E = GeospaceEntity.Helper.HelperIonka.Ionka_Group11_f0E(strIonka);
-            hE = GeospaceEntity.Helper.HelperIonka.Ionka_Group11_hE(strIonka);
-            fbEs = GeospaceEntity.Helper.HelperIonka.Ionka_Group12_fbEs(strIonka);
-            Es = GeospaceEntity.Helper.HelperIonka.Ionka_Group12_Es(strIonka);
-            fx1 = GeospaceEntity.Helper.HelperIonka.Ionka_Group13_fx1(strIonka);
+            HH = GeospaceEntity.Helper.HelperIonka.Ionka_Group05_HH(sessionGroup[0]);
+            MI = GeospaceEntity.Helper.HelperIonka.Ionka_Group05_MI(sessionGroup[0]);
+            if (sessionGroup.Count >= 2)
+            {
+                f0F2 = GeospaceEntity.Helper.HelperIonka.Ionka_Group06_f0F2(sessionGroup[1]);
+                hF2 = GeospaceEntity.Helper.HelperIonka.Ionka_Group06_hF2(sessionGroup[1]);
+            }
+            if (sessionGroup.Count >= 3)
+            {
+                M3000F2 = GeospaceEntity.Helper.HelperIonka.Ionka_Group07_M3000F2(sessionGroup[2]);
+                fmin = GeospaceEntity.Helper.HelperIonka.Ionka_Group07_fmin(sessionGroup[2]);
+            }
+            if (sessionGroup.Count >= 4)
+            {
+                f0Es = GeospaceEntity.Helper.HelperIonka.Ionka_Group08_f0Es(sessionGroup[3]);
+                hEs = GeospaceEntity.Helper.HelperIonka.Ionka_Group08_hEs(sessionGroup[3]);
+            }
+            if (sessionGroup.Count >= 5)
+            {
+                f0F1 = GeospaceEntity.Helper.HelperIonka.Ionka_Group09_f0F1(sessionGroup[4]);
+                hF1 = GeospaceEntity.Helper.HelperIonka.Ionka_Group09_hF1(sessionGroup[4]);
+            }
+            if (sessionGroup.Count >= 6)
+            {
+                M3000F1 = GeospaceEntity.Helper.HelperIonka.Ionka_Group10_M3000F1(sessionGroup[5]);
+                hMF2 = GeospaceEntity.Helper.HelperIonka.Ionka_Group10_hMF2(sessionGroup[5]);
+            }
+            if (sessionGroup.Count >= 7)
+            {
+                f0E = GeospaceEntity.Helper.HelperIonka.Ionka_Group11_f0E(sessionGroup[6]);
+                hE = GeospaceEntity.Helper.HelperIonka.Ionka_Group11_hE(sessionGroup[6]);
+            }
+            if (sessionGroup.Count >= 8)
+            {
+                fbEs = GeospaceEntity.Helper.HelperIonka.Ionka_Group12_fbEs(sessionGroup[7]);
+                Es = GeospaceEntity.Helper.HelperIonka.Ionka_Group12_Es(sessionGroup[7]);
+            }
+            if (sessionGroup.Count >= 6)
+            {
+                fx1 = GeospaceEntity.Helper.HelperIonka.Ionka_Group13_fx1(sessionGroup[8]);
+            }
             Raw = "";
             ErrorMessage = "";
         }
@@ -152,28 +179,5 @@ namespace GeospaceEntity.Models.Codes
             return Value.ToString();
         }
 
-        public virtual void Parse_Khabarovsk(string strIonka)
-        {
-
-            HH = GeospaceEntity.Helper.HelperIonka.Ionka_Group05_HH(strIonka);
-            MI = GeospaceEntity.Helper.HelperIonka.Ionka_Group05_MI(strIonka);
-            f0F2 = GeospaceEntity.Helper.HelperIonka.Ionka_Group06_f0F2(strIonka);
-            hF2 = GeospaceEntity.Helper.HelperIonka.Ionka_Group06_hF2(strIonka);
-            M3000F2 = GeospaceEntity.Helper.HelperIonka.Ionka_Group07_M3000F2(strIonka);
-            fmin = GeospaceEntity.Helper.HelperIonka.Ionka_Group07_fmin(strIonka);
-            f0Es = GeospaceEntity.Helper.HelperIonka.Ionka_Group08_f0Es(strIonka);
-            hEs = GeospaceEntity.Helper.HelperIonka.Ionka_Group08_hEs(strIonka);
-            f0F1 = GeospaceEntity.Helper.HelperIonka.Ionka_Group09_f0F1(strIonka);
-            hF1 = GeospaceEntity.Helper.HelperIonka.Ionka_Group09_hF1(strIonka);
-            M3000F1 = GeospaceEntity.Helper.HelperIonka.Ionka_Group10_M3000F1(strIonka);
-            hMF2 = GeospaceEntity.Helper.HelperIonka.Ionka_Group10_hMF2(strIonka);
-            /*
-            f0E = GeospaceEntity.Helper.HelperIonka.Ionka_Group11_f0E(strIonka);
-            hE = GeospaceEntity.Helper.HelperIonka.Ionka_Group11_hE(strIonka);
-            fbEs = GeospaceEntity.Helper.HelperIonka.Ionka_Group12_fbEs(strIonka);
-            Es = GeospaceEntity.Helper.HelperIonka.Ionka_Group12_Es(strIonka);
-            fx1 = GeospaceEntity.Helper.HelperIonka.Ionka_Group13_fx1(strIonka);
-             * */
-        }
     }
 }

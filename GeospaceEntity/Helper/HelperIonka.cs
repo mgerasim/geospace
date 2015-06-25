@@ -8,20 +8,27 @@ namespace GeospaceEntity.Helper
 {
     public static class HelperIonka
     {
-        public static bool FindSpecialGroup(string str)
+        public static bool FindSpecialGroup(string str) // поиск специальной группы
         {
             if (str[1] == '/' || str[3] == '/')
                 return true;
             else return false;
         }
-        public static bool FindTimePeriod(string str) // поиск временого периода группы
+        public static int FindTimePeriod(string str) // поиск временого периода группы
         {
             if (str[0] == '/' && (Convert.ToInt32(str.Substring(1))) % 100 == 0 && Char.IsDigit(str[1]) && Char.IsDigit(str[2]))
             {
-                return true;
+                return Convert.ToInt32(str.Substring(1));
             }
             else
-                return false;
+                return -1;
+        }
+        public static List<string> SetListTimeSession(string[] arrayGroups, List<int> addressStartSession, int i)
+        {
+            List<string> list = new List<string>();
+            for(int j = addressStartSession[i]; j < addressStartSession[i+1] || j < addressStartSession.Count; j++)
+                list.Add(arrayGroups[j]);
+            return list;
         }
         public static string Normalize(string strIonka)
         {
@@ -61,7 +68,6 @@ namespace GeospaceEntity.Helper
             {
                 string ss = item;
 
-
                 if ((ss.Length == 10 || ss.Length == 11) && ss.IndexOf("///") > -1)
                 {
                     ss = ss.Replace("///", "/ //");
@@ -79,7 +85,6 @@ namespace GeospaceEntity.Helper
                 }
                 if (ss.IndexOf("//7///=") > -1)
                 {
-
                     ss = ss.Replace("//7///=", "//7//");
                     ss = ss.Replace("//7///", "//7//");
                 }
@@ -123,8 +128,6 @@ namespace GeospaceEntity.Helper
                     strIonkaNormalize += ss;
                     strIonkaNormalize += " ";
                 }
-                
-
             }
             return strIonkaNormalize;
         }
@@ -208,8 +211,7 @@ namespace GeospaceEntity.Helper
 
         public static int Ionka_Group04_Count(string strIonka)
         {
-            string[] arrayString = strIonka.Split(' ');
-            string token = arrayString[3];
+            string token = strIonka;
             int sessionCount = Convert.ToInt32(token.Substring(2, 1));
             return sessionCount;
         }
@@ -228,66 +230,48 @@ namespace GeospaceEntity.Helper
         
         public static int Ionka_Group05_HH(string strSession)
         {
-            string[] arrayTokens = strSession.Split(' ');
-            string token = arrayTokens[0];
-            token = token.Substring(1, 2);
-            int MM = ParseToken(token);
+            string str = strSession.Substring(1, 2);
+            int MM = ParseToken(str);
             return MM;
         }
 
         public static int Ionka_Group05_MI(string strSession)
         {
-            string[] arrayTokens = strSession.Split(' ');
-            string token = arrayTokens[0];
-            token = token.Substring(3, 2);
-            int DD = ParseToken(token);
+            string str = strSession.Substring(3, 2);
+            int DD = ParseToken(str);
             return DD;
         }
-
         public static int Ionka_Group06_f0F2(string strSession)
         {
-            string[] arrayTokens = strSession.Split(' ');
-            string token = arrayTokens[1];
-            token = token.Substring(0, 3);
-            int f0F2 = ParseToken(token);
-            
+            string str = strSession.Substring(0, 3);
+            int f0F2 = ParseToken(str);
             return f0F2;
         }
 
         public static int Ionka_Group06_hF2(string strSession)
         {
-            string[] arrayTokens = strSession.Split(' ');
-            string token = arrayTokens[1];
-            token = token.Substring(3, 2);
+            string token = strSession.Substring(3, 2);
             int hF2 = ParseToken(token);
-            
             return hF2;
         }
 
         public static int Ionka_Group07_M3000F2(string strSession)
         {
-            string[] arrayTokens = strSession.Split(' ');
-            string token = arrayTokens[2];
-            token = token.Substring(0, 2);
+            string token = strSession.Substring(0, 2);
             int M3000F2 = ParseToken(token);
             return M3000F2;
         }
 
         public static int Ionka_Group07_fmin(string strSession)
         {
-            string[] arrayTokens = strSession.Split(' ');
-            string token = arrayTokens[2];
-            token = token.Substring(3, 2);
+            string token = strSession.Substring(3, 2);
             int fmin = ParseToken(token);
-            
             return fmin;
         }
 
         public static int Ionka_Group08_f0Es(string strSession)
         {
-            string[] arrayTokens = strSession.Split(' ');
-            string token = arrayTokens[3];
-            token = token.Substring(0, 3);
+            string token = strSession.Substring(0, 3);
             int f0Es = ParseToken(token);
 
             return f0Es;
@@ -295,95 +279,71 @@ namespace GeospaceEntity.Helper
 
         public static int Ionka_Group08_hEs(string strSession)
         {
-            string[] arrayTokens = strSession.Split(' ');
-            string token = arrayTokens[3];
-            token = token.Substring(3, 2);
+            string token = strSession.Substring(3, 2);
             int hEs = ParseToken(token);
-            
             return hEs;
         }
 
         public static int Ionka_Group09_f0F1(string strSession)
         {
-            string[] arrayTokens = strSession.Split(' ');
-            string token = arrayTokens[4];
-            token = token.Substring(0, 3);
+            string token = strSession.Substring(0, 3);
             int f0F1 = ParseToken(token);
             return f0F1;
         }
 
         public static int Ionka_Group09_hF1(string strSession)
         {
-            string[] arrayTokens = strSession.Split(' ');
-            string token = arrayTokens[4];
-            token = token.Substring(3, 2);
+            string token = strSession.Substring(3, 2);
             int hF1 = ParseToken(token);
             return hF1;
         }
 
         public static int Ionka_Group10_M3000F1(string strSession)
         {
-            string[] arrayTokens = strSession.Split(' ');
-            string token = arrayTokens[5];
-            token = token.Substring(0, 2);
-            
+            string token = strSession.Substring(0, 2);      
             int M3000F1 = ParseToken(token);
             return M3000F1;
         }
 
         public static int Ionka_Group10_hMF2(string strSession)
         {
-            string[] arrayTokens = strSession.Split(' ');
-            string token = arrayTokens[5];
-            token = token.Substring(0, 2);
+            string token = strSession.Substring(0, 2);
             int hMF2 = ParseToken(token);
-
             return hMF2;
         }
 
         public static int Ionka_Group11_f0E(string strSession)
         {
-            string[] arrayTokens = strSession.Split(' ');
-            string token = arrayTokens[6];
-            token = token.Substring(0, 3);
+            string token = strSession.Substring(0, 3);
             int f0E = ParseToken(token);
             return f0E;
         }
 
         public static int Ionka_Group11_hE(string strSession)
         {
-            string[] arrayTokens = strSession.Split(' ');
-            string token = arrayTokens[6];
-            token = token.Substring(3, 2);
+            string token = strSession.Substring(3, 2);
             int hE = ParseToken(token);
             return hE;
         }
 
         public static int Ionka_Group12_fbEs(string strSession)
         {
-            string[] arrayTokens = strSession.Split(' ');
-            string token = arrayTokens[7];
-            token = token.Substring(0, 3);
-            int fbEs = ParseToken(token) ;
+            string token = strSession.Substring(0, 3);
+            int fbEs = ParseToken(token);
             return fbEs;
         }
 
-
-
         public static int Ionka_Group12_Es(string strSession)
         {
-            string[] arrayTokens = strSession.Split(' ');
-            string token = arrayTokens[7];
-            token = token.Substring(3, 1);
+            string token = strSession.Substring(3, 1);
             int Es = ParseToken(token);
             
             return Es;
         }
+
         public static int Ionka_Group13_fx1(string strSession)
         {
-            string[] arrayTokens = strSession.Split(' ');
-            string token = arrayTokens[8];
-            token = token.Substring(0, 3);
+            string token = strSession.Substring(0, 3);
             int fx1=ParseToken(token);
             return fx1;
         }
