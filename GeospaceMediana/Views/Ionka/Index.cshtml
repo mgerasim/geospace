@@ -13,7 +13,7 @@
                     </th>
                     @foreach (var item in Model.GetHeader())
                     {
-                        <th colspan="7">
+                        <th class="right-thick-line left-thick-line" colspan="7">
                             @item.Name
                         </th>
                     }
@@ -23,11 +23,31 @@
 
                     @foreach (var item in Model.GetHeader())
                     {
-                        foreach (var subitem in Model.GetHeaderValue())
+                        var listSubItem = Model.GetHeaderValue();
+                        var lastSubItem = listSubItem[listSubItem.Count-1];
+                        var firstSubItem = listSubItem[0];                    
+
+                        foreach (var subitem in listSubItem)
                         {
-                            <th>
-                                @subitem
-                            </th>
+                            if(subitem == firstSubItem)
+                            {
+                                <th class="left-thick-line">
+                                    @subitem
+                                </th>
+                            }
+                            else
+                            if(subitem == lastSubItem)
+                            {
+                                <th class="right-thick-line">
+                                    @subitem
+                                </th>
+                            }
+                            else
+                            {
+                                <th>
+                                    @subitem
+                                </th>
+                            }
                         }
                     }
 
@@ -43,22 +63,34 @@
                             @item.Name
                         </td>
                         @foreach (var subitem in Model.GetHeader())
-{
-    CodeIonka theCode = Model.GetValue(subitem.YYYY, subitem.MM, subitem.DD, item.HH);
+                        {
+                            CodeIonka theCode = Model.GetValue(subitem.YYYY, subitem.MM, subitem.DD, item.HH);
 
-                            <td data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">
+                            bool isLowDensityIonization = theCode._f0F2 == "G" && theCode._M3000F2 == "G";
+                            
+                            <td class="left-thick-line" data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">
                                 @theCode._f0F2
                             </td>
                             <td data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">
                                 @theCode._M3000F2
                             </td>
-                            <td data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">@theCode._f0F1</td>
-                            <td data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">@theCode._M3000F1</td>
+                            <td data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">
+                                @if(isLowDensityIonization)
+                                {
+                                    @theCode._f0F1
+                                }
+                            </td>
+                            <td data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">
+                                @if(isLowDensityIonization)
+                                {
+                                    @theCode._M3000F1
+                                }
+                            </td>
                             <td data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">@theCode._f0Es</td>
                             <td data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)"></td>
-                            <td data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">@theCode._fmin</td>
-                            
-                        }
+                            <td class="right-thick-line" data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">@theCode._fmin</td>
+
+}
                         
                     </tr>
 
@@ -69,8 +101,8 @@
                     {
 
                         CodeUmagf theCode = Model.GetValueUmagf(item.YYYY, item.MM, item.DD);
-                        
-                        <td colspan="7">
+
+                        <td class="right-thick-line left-thick-line" colspan="7">
                             Ak=@theCode._ak
                         </td>
                     }
@@ -79,7 +111,7 @@
                 <tr>
                     @foreach (var item in Model.GetHeader())
                     {
-                        <td colspan="7">
+                        <td class="right-thick-line left-thick-line" colspan="7">
                             K-индексы
                         </td>
                     }
@@ -90,8 +122,8 @@
                     {
 
                         CodeUmagf theCode = Model.GetValueUmagf(item.YYYY, item.MM, item.DD);
-                        
-                        <td colspan="7">
+
+                        <td class="right-thick-line left-thick-line" colspan="7">
                             <table class="table-bordered" width="100%">
 
                                 <tr>

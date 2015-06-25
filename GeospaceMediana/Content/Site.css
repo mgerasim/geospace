@@ -59,3 +59,13 @@ textarea {
 .validation-summary-valid {
     display: none;
 }
+
+.right-thick-line {
+    border-right-width: 2px !important; 
+    border-right-color: #888 !important;
+}
+
+.left-thick-line {
+    border-left-width: 2px !important; 
+    border-left-color: #888 !important;
+}
