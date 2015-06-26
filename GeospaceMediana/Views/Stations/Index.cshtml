@@ -9,6 +9,7 @@
         <th>Индекс</th>
         <th>Наименование</th>
         <th></th>
+        <th></th>
     </tr>
     @foreach (var item in Model)
     {
@@ -21,6 +22,9 @@
             </td>
             <td>
                 @Html.ActionLink("Редактировать", "Edit", new { id = item.ID})
+            </td>
+            <td>
+                @Html.ActionLink("Удалить", "Delete", new { id = item.ID })
             </td>
         </tr>
         

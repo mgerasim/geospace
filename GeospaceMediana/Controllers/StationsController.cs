@@ -1,4 +1,5 @@
-﻿using GeospaceEntity.Models;
+﻿using GeospaceEntity.Common;
+using GeospaceEntity.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +39,34 @@ namespace GeospaceMediana.Controllers
             catch
             {
                 return this.Edit(id);
+            }
+        }
+
+        public ActionResult Delete(int id)
+        {
+            Station model = new Station();
+            model = model.GetById(id);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int id, FormCollection collection)
+        {
+            try
+            {
+                Station model = new Station();
+                model = model.GetById(id);
+
+                model.Delete();
+
+                return RedirectToAction("Index");
+            }
+            catch(Exception e)
+            {
+                ViewBag.error = e.ToString();
+
+                return View();
             }
         }
 

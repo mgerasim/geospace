@@ -13,5 +13,11 @@
       <key column="Station_ID"/>
       <one-to-many class="GeospaceEntity.Models.Codes.CodeIonka"/>
     </set>
+  
+    <set name="UmagfValues" cascade="all" >
+      <key column="Station_ID"/>
+      <one-to-many class="GeospaceEntity.Models.Codes.CodeUmagf"/>
+    </set>
+  
   </class>
 </hibernate-mapping>

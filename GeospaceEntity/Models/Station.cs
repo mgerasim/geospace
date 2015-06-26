@@ -33,6 +33,19 @@ namespace GeospaceEntity.Models
             }
         }
 
+        private ICollection<Codes.CodeUmagf> _UmagfValues;
+        public virtual ICollection<Codes.CodeUmagf> UmagfValues
+        {
+            get
+            {
+                return this._UmagfValues;
+            }
+            set
+            {
+                this._UmagfValues = value;
+            }
+        }
+
         public virtual void TryParser(string strIonka)
         {
             try
@@ -113,6 +126,13 @@ namespace GeospaceEntity.Models
         {
             IRepository<Station> repo = new StationRepository();
             return (List<Station>)(repo.GetAll());
+        }
+
+        public virtual void Delete()
+        {
+            IRepository<Station> repo = new StationRepository();
+
+            repo.Delete(this);
         }
     }
 }
