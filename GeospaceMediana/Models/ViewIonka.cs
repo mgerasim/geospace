@@ -104,9 +104,9 @@ namespace GeospaceMediana.Models
         {
             List<string> theList = new List<string>();
             theList.Add("f0 F2");
-            theList.Add("M3k F2");
+            theList.Add("M3000 F2");
             theList.Add("f0 F1");
-            theList.Add("M3k F1");
+            theList.Add("M3000 F1");
             theList.Add("f0 Es");
             theList.Add("D");
             theList.Add("f min");

@@ -69,3 +69,8 @@ textarea {
     border-left-width: 2px !important; 
     border-left-color: #888 !important;
 }
+
+.sub-header {
+    text-align: center !important;  
+    vertical-align: middle !important;
+}

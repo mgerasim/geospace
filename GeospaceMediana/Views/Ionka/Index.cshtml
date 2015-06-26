@@ -27,25 +27,26 @@
                         var lastSubItem = listSubItem[listSubItem.Count-1];
                         var firstSubItem = listSubItem[0];                    
 
-                        foreach (var subitem in listSubItem)
+                        foreach (var _subitem in listSubItem)
                         {
-                            if(subitem == firstSubItem)
+                            var subitem = _subitem.Replace(" ", "<br>");
+                            
+                            if(_subitem == firstSubItem)
                             {
-                                <th class="left-thick-line">
-                                    @subitem
+                                <th class="left-thick-line sub-header">
+                                    @Html.Raw(subitem)
+                                </th>
+                            }
+                            else if (_subitem == lastSubItem)
+                            {
+                                <th class="right-thick-line sub-header">
+                                    @Html.Raw(subitem)
                                 </th>
                             }
                             else
-                            if(subitem == lastSubItem)
                             {
-                                <th class="right-thick-line">
-                                    @subitem
-                                </th>
-                            }
-                            else
-                            {
-                                <th>
-                                    @subitem
+                                <th class="sub-header">
+                                    @Html.Raw(subitem)
                                 </th>
                             }
                         }
