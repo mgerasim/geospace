@@ -8,6 +8,8 @@ namespace GeospaceEntity.Models.Codes
 {
     public class CodeIonka
     {
+        private string strSession;
+
 
         public CodeIonka()
         {
@@ -15,7 +17,7 @@ namespace GeospaceEntity.Models.Codes
             created_at = DateTime.Now;
             updated_at = DateTime.Now;
         }
-
+        
         public CodeIonka(List<string> sessionGroup)
         {
             // TODO: Complete member initialization
@@ -58,12 +60,18 @@ namespace GeospaceEntity.Models.Codes
                 fbEs = GeospaceEntity.Helper.HelperIonka.Ionka_Group12_fbEs(sessionGroup[7]);
                 Es = GeospaceEntity.Helper.HelperIonka.Ionka_Group12_Es(sessionGroup[7]);
             }
-            if (sessionGroup.Count >= 6)
+            if (sessionGroup.Count >= 9)
             {
                 fx1 = GeospaceEntity.Helper.HelperIonka.Ionka_Group13_fx1(sessionGroup[8]);
             }
             Raw = "";
             ErrorMessage = "";
+        }
+
+        public CodeIonka(string strSession)
+        {
+            // TODO: Complete member initialization
+            this.strSession = strSession;
         }
 
         public virtual Station Station { get; set; }

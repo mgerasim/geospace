@@ -173,123 +173,115 @@ namespace GeospaceDecodeService
                                 if (code.Substring(0, 5).ToUpper() == "IONKA")
                                 {
                                     flagIonka = true;
-                                    logger.Debug(code);
+                                   
                                     
                                     try
                                     {                              
                                         code_source = GeospaceEntity.Helper.HelperIonka.Check(code_source);
-
                                         int StationCode = GeospaceEntity.Helper.HelperIonka.Ionka_Group02_Station(code_source);
-
                                         Station theStation = (new Station()).GetByCode(StationCode);
-                                        if (theStation==null)
+                                        if (theStation != null)
                                         {
-                                            theStation = new Station();
-                                            theStation.Code = StationCode;
-                                            theStation.Save();
-                                        }
-
-                                        UmagfStationFromIonka = theStation;
-
-                                        //    // Для Хабарвска код ИОНКА упращенный
-                                        //    string[] arrayString = code_source.Split(' ');
-                                        //    string token = arrayString[2];
-
-                                        //    int group_count = (arrayString.Count() - 3) / 6;
-
-                                        //    code_source = code_source.Replace(token, token + " 0/" + group_count.ToString()+"/0");
-                                        //    logger.Debug("timer1_Tick_1: StationCode: 43501: " + code_source);
-                                        //}
-
-                                        DateTime Created_At = GeospaceEntity.Helper.HelperIonka.Ionka_Group03_DateCreate(code_source);
-                                        int DD = Created_At.Day;
-                                        int MM = Created_At.Month;
-                                        int YYYY = Created_At.Year;
-                                        UmagfYYYY = YYYY;
-                                        UmagfMM = MM; 
-                                        string[] arrayGroups = code_source.Split(' ');
-                                        int sessionCount = 0;
-                                        int startGroup = 4;
-                                        if (GeospaceEntity.Helper.HelperIonka.FindSpecialGroup(arrayGroups[3])) //есть ли группа 4
-                                            sessionCount = GeospaceEntity.Helper.HelperIonka.Ionka_Group04_Count(code_source);
-                                        else
-                                            startGroup = 3;
-                                        int lastHour = -1;
-                                        List<int> addressStartSession = new List<int>();
-                                        int lenArrayGroup = arrayGroups.Length;
+                                            logger.Debug(code);
+                                            UmagfStationFromIonka = theStation;
+                                            DateTime Created_At = GeospaceEntity.Helper.HelperIonka.Ionka_Group03_DateCreate(code_source);
+                                            int DD = Created_At.Day;
+                                            int MM = Created_At.Month;
+                                            int YYYY = Created_At.Year;
+                                            UmagfYYYY = YYYY;
+                                            UmagfMM = MM;
+                                            string[] arrayGroups = code_source.Split(' ');
+                                            int sessionCount = 0;
+                                            int startGroup = 4;
+                                            if (GeospaceEntity.Helper.HelperIonka.FindSpecialGroup(arrayGroups[3])) //есть ли группа 4
+                                                sessionCount = GeospaceEntity.Helper.HelperIonka.Ionka_Group04_Count(arrayGroups[3]);
+                                            else
+                                                startGroup = 3;
+                                            int lastHour = -1;
+                                            List<List<string>> sessionGroup = new List<List<string>>();
+                                            List<int> addressStartSession = new List<int>();
+                                            int lenArrayGroup = arrayGroups.Length;
                                             // Поиск временных групп
-                                        for(int i = startGroup; i < lenArrayGroup; i++)
-                                        {
-                                            int hour = GeospaceEntity.Helper.HelperIonka.FindTimePeriod(arrayGroups[i]);
-                                            if (hour != -1)
+                                            List<string> sess = new List<string>();
+                                            for (int i = startGroup; i < lenArrayGroup - 1; i++)
                                             {
-                                                if (lastHour < hour || lastHour == -1)
+                                                int hour = GeospaceEntity.Helper.HelperIonka.FindTimePeriod(arrayGroups[i]);
+                                                if (hour != -1)
                                                 {
-                                                    if (hour / 100 == 23)//проверка на последний час и переход 
-                                                        lastHour = -1;
-                                                    else
+
+                                                    if (lastHour != -1)
+                                                    {
+                                                        sessionGroup.Add(sess);
+                                                        sess.Clear();
+                                                    }
+                                                    if (lastHour < hour || lastHour == -1)
+                                                    {
+                                                        if (Math.Abs(lastHour - hour / 100) > 22)
+                                                            sessionGroup.Clear();
                                                         lastHour = hour / 100;
-                                                    addressStartSession.Add(i);//Добавлене в список адрессов групп
-                                                    sessionCount++;
-                                                }
-                                            }
-                                            // Добавление в конец последнего адреса -> конца последней группы по времени
-                                            if(i == lenArrayGroup-1)
-                                                addressStartSession.Add(i);
-                                        }
-                                        //обработка каждой временной группы
-                                        for (int i = 0; i < sessionCount; i++)
-                                        {
-                                            try
-                                            {
-                                                List<string> sessionGroup = GeospaceEntity.Helper.HelperIonka.SetListTimeSession(arrayGroups, addressStartSession, i);//создание новой под группы по времени
-                                                int HH = GeospaceEntity.Helper.HelperIonka.Ionka_Group05_HH(sessionGroup[0]);
-                                                int MI = GeospaceEntity.Helper.HelperIonka.Ionka_Group05_MI(sessionGroup[0]);
-                                                GeospaceEntity.Models.Codes.CodeIonka theCodeIonka = (new GeospaceEntity.Models.Codes.CodeIonka()).GetByDateUTC(theStation, YYYY, MM, DD, HH, MI);
-                                                if (theCodeIonka == null)
-                                                {
-                                                    theCodeIonka = new GeospaceEntity.Models.Codes.CodeIonka(sessionGroup);
-                                                    theCodeIonka.DD = Created_At.Day;
-                                                    theCodeIonka.MM = Created_At.Month;
-                                                    theCodeIonka.YYYY = Created_At.Year;
-                                                    theCodeIonka.Station = theStation;
-                                                    theCodeIonka.Raw = code_source;
-                                                    theCodeIonka.Save();
-                                                }
-                                            }
-                                            catch (Exception err)
-                                            {
-                                                error.Error("Error:");
-                                                error.Error(err.Message);
-                                                error.Error(err.StackTrace);
-                                                if (err.InnerException != null)
-                                                {
-                                                    error.Error(err.InnerException.Message);
-                                                    error.Error("Raw: " + code_source);
+                                                    }
+                                                    sess.Add(arrayGroups[i]);
                                                 }
                                                 else
+                                                    sess.Add(arrayGroups[i]);
+                                            }
+                                            sessionGroup.Add(sess);
+                                            //sessionGroup.Add(sess);
+                                            //обработка каждой временной группы
+                                            foreach(var session in sessionGroup)
+                                            {
+                                                try
                                                 {
-                                                    error.Error("InnerException is null");
+                                                    //List<string> sessionGroup = GeospaceEntity.Helper.HelperIonka.SetListTimeSession(arrayGroups, addressStartSession, i);//создание новой под группы по времени
+                                                    int HH = GeospaceEntity.Helper.HelperIonka.Ionka_Group05_HH(session[0]);
+                                                    int MI = GeospaceEntity.Helper.HelperIonka.Ionka_Group05_MI(session[0]);
+                                                    GeospaceEntity.Models.Codes.CodeIonka theCodeIonka = (new GeospaceEntity.Models.Codes.CodeIonka()).GetByDateUTC(theStation, YYYY, MM, DD, HH, MI);
+                                                    if (theCodeIonka == null)
+                                                    {
+                                                        theCodeIonka = new GeospaceEntity.Models.Codes.CodeIonka(session);
+                                                        theCodeIonka.DD = Created_At.Day;
+                                                        theCodeIonka.MM = Created_At.Month;
+                                                        theCodeIonka.YYYY = Created_At.Year;
+                                                        theCodeIonka.Station = theStation;
+                                                        theCodeIonka.Raw = code_source;
+                                                        theCodeIonka.Save();
+                                                    }
                                                 }
-                                                Error theErr;
-                                                string Description = err.Message + err.StackTrace;
-                                                theErr = (new Error()).GetByDescription(Description);
-                                                if (theErr == null)
+                                                catch (Exception err)
                                                 {
-                                                    theErr = new Error();
-                                                    theErr.Description = Description;
-                                                    theErr.Raw = String.Format("RawMessage\n {0}\n\nRawMessageNormalize\n {1}\n\nIonka\n {2}",
-                                                        item.ToString(), code_source, code);
-                                                    try
+                                                    error.Error(code);
+                                                    error.Error("Error:");
+                                                    error.Error(err.Message);
+                                                    error.Error(err.StackTrace);
+                                                    if (err.InnerException != null)
                                                     {
-                                                        theErr.Save();
+                                                        error.Error(err.InnerException.Message);
+                                                        error.Error("Raw: " + code_source);
                                                     }
-                                                    catch
+                                                    else
                                                     {
-                                                        error.Error("Not save to Error obj");
+                                                        error.Error("InnerException is null");
                                                     }
-                                                }
+                                                    Error theErr;
+                                                    string Description = err.Message + err.StackTrace;
+                                                    theErr = (new Error()).GetByDescription(Description);
+                                                    if (theErr == null)
+                                                    {
+                                                        theErr = new Error();
+                                                        theErr.Description = Description;
+                                                        theErr.Raw = String.Format("RawMessage\n {0}\n\nRawMessageNormalize\n {1}\n\nIonka\n {2}",
+                                                            item.ToString(), code_source, code);
+                                                        try
+                                                        {
+                                                            theErr.Save();
+                                                        }
+                                                        catch
+                                                        {
+                                                            error.Error("Not save to Error obj");
+                                                        }
+                                                    }
 
+                                                }
                                             }
                                         }
                                     }

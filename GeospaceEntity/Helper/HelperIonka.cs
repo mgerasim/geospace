@@ -16,9 +16,14 @@ namespace GeospaceEntity.Helper
         }
         public static int FindTimePeriod(string str) // поиск временого периода группы
         {
-            if (str[0] == '/' && (Convert.ToInt32(str.Substring(1))) % 100 == 0 && Char.IsDigit(str[1]) && Char.IsDigit(str[2]))
+            if ((str[0] == '/'))
             {
-                return Convert.ToInt32(str.Substring(1));
+                if ((Char.IsDigit(str[1]) && Char.IsDigit(str[2]) && Char.IsDigit(str[3]) && Char.IsDigit(str[4])))
+                {
+                    return Convert.ToInt32(str.Substring(1));
+                }
+                else
+                    return -1; 
             }
             else
                 return -1;
@@ -26,7 +31,7 @@ namespace GeospaceEntity.Helper
         public static List<string> SetListTimeSession(string[] arrayGroups, List<int> addressStartSession, int i)
         {
             List<string> list = new List<string>();
-            for(int j = addressStartSession[i]; j < addressStartSession[i+1] || j < addressStartSession.Count; j++)
+            for(int j = addressStartSession[i]; j < addressStartSession[i+1] && j < arrayGroups.Length ; j++)
                 list.Add(arrayGroups[j]);
             return list;
         }
