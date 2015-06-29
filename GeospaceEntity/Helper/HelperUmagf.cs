@@ -72,8 +72,7 @@ namespace GeospaceEntity.Helper
             int len = arrayGroups[num].Length;           
             
             if (arrayGroups[num][0] == '1' )
-                if (Char.IsDigit(arrayGroups[num][len - 2])
-                                           || Char.IsDigit(arrayGroups[num][len - 1]))
+                if (Char.IsDigit(arrayGroups[num][len - 2]) || Char.IsDigit(arrayGroups[num][len - 1]))
                 {
                     theCodeUmagf.ak = Convert.ToInt32(arrayGroups[num].Substring(len - 2, 2));
                 }

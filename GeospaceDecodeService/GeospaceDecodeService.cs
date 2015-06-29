@@ -123,9 +123,15 @@ namespace GeospaceDecodeService
                                     try
                                     {
                                         GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf = new GeospaceEntity.Models.Codes.CodeUmagf();
+
                                         string[] arrayGroups = code_source.Split(' ');
+
+                                        if (arrayGroups.Length > 6) flagIonka = false;
+
                                         if (!flagIonka)
                                         {
+                                            //без ионки
+
                                             numDate = 3;
                                             numIndex = 5;
                                             //logumagf.Debug( "1" );
@@ -140,7 +146,7 @@ namespace GeospaceDecodeService
                                             GeospaceEntity.Helper.HelperUmagf.Umagf_Group3_K_index(arrayGroups, numIndex, theCodeUmagf);
                                             //logumagf.Debug("6");
                                         }
-                                        else
+                                        else //если есть ионка
                                         {
                                             theCodeUmagf.Station = UmagfStationFromIonka;
                                             theCodeUmagf.YYYY = UmagfYYYY;
@@ -148,18 +154,22 @@ namespace GeospaceDecodeService
                                             GeospaceEntity.Helper.HelperUmagf.Umagf_Group1_DateCreate(arrayGroups, numDate, theCodeUmagf, true);
                                             GeospaceEntity.Helper.HelperUmagf.Umagf_Group2_AK(arrayGroups, numIndex, theCodeUmagf);
                                             GeospaceEntity.Helper.HelperUmagf.Umagf_Group3_K_index(arrayGroups, numIndex, theCodeUmagf);
+
+                                            flagIonka = false;
                                         }
 
                                         theCodeUmagf.Raw = code_source;
                                         if (theCodeUmagf.GetByDateUTC() == null && existStatFromBD && theCodeUmagf.Station != null)
                                         {
                                             //theCodeUmagf.Save();
+                                            logumagf.Debug("Save");
                                         }
+                                        else logumagf.Debug("Not Save");
+                                        
                                         if (existStatFromBD)
                                             WriteUmagf(theCodeUmagf);
                                         else
-                                            logumagf.Error("\nстанция №" + theCodeUmagf.Station.Code.ToString() + "не найдена в БД: " +
-                                                code_source + "\n");
+                                            logumagf.Debug("\nстанция не найдена в БД: " + code_source + "\n");
                                     }
                                     catch (Exception ex)
                                     {
