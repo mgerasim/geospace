@@ -9,12 +9,17 @@ namespace GeospaceEntity.Helper
 {
     public static class HelperIonka
     {
+<<<<<<< HEAD
         public static bool FindSpecialGroup(string str) // поиск специальной группы
+=======
+        public static bool FindSpecialGroup(string str)
+>>>>>>> origin/BranchDima
         {
             if (str[1] == '/' || str[3] == '/')
                 return true;
             else return false;
         }
+<<<<<<< HEAD
         public static int FindTimePeriod(string str) // поиск временого периода группы
         {
             if ((str[0] == '/'))
@@ -35,6 +40,16 @@ namespace GeospaceEntity.Helper
             for(int j = addressStartSession[i]; j < addressStartSession[i+1] && j < arrayGroups.Length ; j++)
                 list.Add(arrayGroups[j]);
             return list;
+=======
+        public static bool FindTimePeriod(string str) // поиск временого периода группы
+        {
+            if (str[0] == '/' && (Convert.ToInt32(str.Substring(1))) % 100 == 0 && Char.IsDigit(str[1]) && Char.IsDigit(str[2]))
+            {
+                return true;
+            }
+            else
+                return false;
+>>>>>>> origin/BranchDima
         }
         public static string Normalize(string strIonka)
         {
@@ -135,6 +150,11 @@ namespace GeospaceEntity.Helper
                     strIonkaNormalize += ss;
                     strIonkaNormalize += " ";
                 }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> origin/BranchDima
             }
             return strIonkaNormalize;
         }
@@ -250,8 +270,16 @@ namespace GeospaceEntity.Helper
         }
         public static int Ionka_Group06_f0F2(string strSession)
         {
+<<<<<<< HEAD
             string str = strSession.Substring(0, 3);
             int f0F2 = ParseToken(str);
+=======
+            string[] arrayTokens = strSession.Split(' ');
+            string token = arrayTokens[1];
+            token = token.Substring(0, 3);
+            int f0F2 = ParseToken(token);
+
+>>>>>>> origin/BranchDima
             return f0F2;
         }
 
@@ -259,6 +287,10 @@ namespace GeospaceEntity.Helper
         {
             string token = strSession.Substring(3, 2);
             int hF2 = ParseToken(token);
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/BranchDima
             return hF2;
         }
 
@@ -273,6 +305,10 @@ namespace GeospaceEntity.Helper
         {
             string token = strSession.Substring(3, 2);
             int fmin = ParseToken(token);
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/BranchDima
             return fmin;
         }
 
@@ -288,6 +324,10 @@ namespace GeospaceEntity.Helper
         {
             string token = strSession.Substring(3, 2);
             int hEs = ParseToken(token);
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/BranchDima
             return hEs;
         }
 
@@ -307,7 +347,14 @@ namespace GeospaceEntity.Helper
 
         public static int Ionka_Group10_M3000F1(string strSession)
         {
+<<<<<<< HEAD
             string token = strSession.Substring(0, 2);      
+=======
+            string[] arrayTokens = strSession.Split(' ');
+            string token = arrayTokens[5];
+            token = token.Substring(0, 2);
+
+>>>>>>> origin/BranchDima
             int M3000F1 = ParseToken(token);
             return M3000F1;
         }
@@ -335,7 +382,13 @@ namespace GeospaceEntity.Helper
 
         public static int Ionka_Group12_fbEs(string strSession)
         {
+<<<<<<< HEAD
             string token = strSession.Substring(0, 3);
+=======
+            string[] arrayTokens = strSession.Split(' ');
+            string token = arrayTokens[7];
+            token = token.Substring(0, 3);
+>>>>>>> origin/BranchDima
             int fbEs = ParseToken(token);
             return fbEs;
         }
@@ -350,8 +403,15 @@ namespace GeospaceEntity.Helper
 
         public static int Ionka_Group13_fx1(string strSession)
         {
+<<<<<<< HEAD
             string token = strSession.Substring(0, 3);
+            int fx1=ParseToken(token);
+=======
+            string[] arrayTokens = strSession.Split(' ');
+            string token = arrayTokens[8];
+            token = token.Substring(0, 3);
             int fx1 = ParseToken(token);
+>>>>>>> origin/BranchDima
             return fx1;
         }
 

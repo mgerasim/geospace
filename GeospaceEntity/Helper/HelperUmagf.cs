@@ -57,9 +57,13 @@ namespace GeospaceEntity.Helper
         //получить год/месяц/день из длиной строки Umagf
         public static void Umagf_BigGroup2_FullData(string[] arrayGroups, int num, GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf)
         {
-            theCodeUmagf.YYYY = DateTime.Now.Year;
-            theCodeUmagf.MM = Convert.ToInt32(arrayGroups[num].Substring(1, 2));
-            theCodeUmagf.DD = Convert.ToInt32(arrayGroups[num].Substring(3, 2));
+            arrayGroups[num] = arrayGroups[num].Replace("/", "");
+            if (arrayGroups[num].Length >= 5 && arrayGroups.Length > num)
+            {
+                theCodeUmagf.YYYY = DateTime.Now.Year;
+                theCodeUmagf.MM = Convert.ToInt32(arrayGroups[num].Substring(1, 2));
+                theCodeUmagf.DD = Convert.ToInt32(arrayGroups[num].Substring(3, 2));
+            }
         }
 
         //получить из Umagf AK
@@ -68,39 +72,48 @@ namespace GeospaceEntity.Helper
             int len = arrayGroups[num].Length;           
             
             if (arrayGroups[num][0] == '1' )
-                if (Char.IsDigit(arrayGroups[num][len - 2])
-                                           || Char.IsDigit(arrayGroups[num][len - 1]))
+                if (Char.IsDigit(arrayGroups[num][len - 2]) || Char.IsDigit(arrayGroups[num][len - 1]))
                 {
                     theCodeUmagf.ak = Convert.ToInt32(arrayGroups[num].Substring(len - 2, 2));
                 }
         }
 
         //получить из Umagf K-индексы
-        public static void Umagf_Group3_K_index(string[] arrayGroups, int num, GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf)
+        public static void Umagf_Group3_K_index(string[] arrayGroups, int num, GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf )
         {
-            int len = arrayGroups[num+1].Length;
-            if (arrayGroups[num + 1][0] == '2')
+            int group2 = -1, group3 = -1;
+            for (int i = num + 1; i < arrayGroups.Length; i++)
             {
-                if( Char.IsDigit(arrayGroups[num + 1][len - 4]) )
-                    theCodeUmagf.k1 = Convert.ToInt32(arrayGroups[num + 1].Substring(len - 4, 1));
-                if (Char.IsDigit(arrayGroups[num + 1][len - 3]))
-                    theCodeUmagf.k2 = Convert.ToInt32(arrayGroups[num + 1].Substring(len - 3, 1));
-                if (Char.IsDigit(arrayGroups[num + 1][len - 2]))
-                    theCodeUmagf.k3 = Convert.ToInt32(arrayGroups[num + 1].Substring(len - 2, 1));
-                if (Char.IsDigit(arrayGroups[num + 1][len - 1]))
-                    theCodeUmagf.k4 = Convert.ToInt32(arrayGroups[num + 1].Substring(len - 1, 1));
+                if (arrayGroups[i].Length > 0)
+                {
+                    if (arrayGroups[i][0] == '2') group2 = i;
+                    if (arrayGroups[i][0] == '3') group3 = i;
+                }
             }
-            len = arrayGroups[num + 2].Length;
-            if (arrayGroups[num + 2][0] == '3')
+
+            if (group2 > 0)
             {
-                if (Char.IsDigit(arrayGroups[num + 2][len - 4]))
-                    theCodeUmagf.k5 = Convert.ToInt32(arrayGroups[num + 2].Substring(len - 4, 1));
-                if (Char.IsDigit(arrayGroups[num + 2][len - 3]))
-                theCodeUmagf.k6 = Convert.ToInt32(arrayGroups[num + 2].Substring(len - 3, 1));
-                if (Char.IsDigit(arrayGroups[num + 2][len - 2]))
-                    theCodeUmagf.k7 = Convert.ToInt32(arrayGroups[num + 2].Substring(len - 2, 1));
-                if (Char.IsDigit(arrayGroups[num + 2][len - 1]))
-                    theCodeUmagf.k8 = Convert.ToInt32(arrayGroups[num + 2].Substring(len - 1, 1));
+                int len = arrayGroups[group2].Length;
+                if (Char.IsDigit(arrayGroups[group2][len - 4]))
+                    theCodeUmagf.k1 = Convert.ToInt32(arrayGroups[group2].Substring(len - 4, 1));
+                if (Char.IsDigit(arrayGroups[group2][len - 3]))
+                    theCodeUmagf.k2 = Convert.ToInt32(arrayGroups[group2].Substring(len - 3, 1));
+                if (Char.IsDigit(arrayGroups[group2][len - 2]))
+                    theCodeUmagf.k3 = Convert.ToInt32(arrayGroups[group2].Substring(len - 2, 1));
+                if (Char.IsDigit(arrayGroups[group2][len - 1]))
+                    theCodeUmagf.k4 = Convert.ToInt32(arrayGroups[group2].Substring(len - 1, 1));
+            }            
+            if (group3 > 0)
+            {
+                int len = arrayGroups[group3].Length;
+                if (Char.IsDigit(arrayGroups[group3][len - 4]))
+                    theCodeUmagf.k5 = Convert.ToInt32(arrayGroups[group3].Substring(len - 4, 1));
+                if (Char.IsDigit(arrayGroups[group3][len - 3]))
+                    theCodeUmagf.k6 = Convert.ToInt32(arrayGroups[group3].Substring(len - 3, 1));
+                if (Char.IsDigit(arrayGroups[group3][len - 2]))
+                    theCodeUmagf.k7 = Convert.ToInt32(arrayGroups[group3].Substring(len - 2, 1));
+                if (Char.IsDigit(arrayGroups[group3][len - 1]))
+                    theCodeUmagf.k8 = Convert.ToInt32(arrayGroups[group3].Substring(len - 1, 1));
             }
         }
     }
