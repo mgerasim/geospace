@@ -58,7 +58,7 @@ namespace GeospaceEntity.Helper
         public static void Umagf_BigGroup2_FullData(string[] arrayGroups, int num, GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf)
         {
             arrayGroups[num] = arrayGroups[num].Replace("/", "");
-            if (arrayGroups[num].Length >= 5)
+            if (arrayGroups[num].Length >= 5 && arrayGroups.Length > num)
             {
                 theCodeUmagf.YYYY = DateTime.Now.Year;
                 theCodeUmagf.MM = Convert.ToInt32(arrayGroups[num].Substring(1, 2));
@@ -72,8 +72,7 @@ namespace GeospaceEntity.Helper
             int len = arrayGroups[num].Length;           
             
             if (arrayGroups[num][0] == '1' )
-                if (Char.IsDigit(arrayGroups[num][len - 2])
-                                           || Char.IsDigit(arrayGroups[num][len - 1]))
+                if (Char.IsDigit(arrayGroups[num][len - 2]) || Char.IsDigit(arrayGroups[num][len - 1]))
                 {
                     theCodeUmagf.ak = Convert.ToInt32(arrayGroups[num].Substring(len - 2, 2));
                 }
@@ -83,10 +82,13 @@ namespace GeospaceEntity.Helper
         public static void Umagf_Group3_K_index(string[] arrayGroups, int num, GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf )
         {
             int group2 = -1, group3 = -1;
-            for (int i = num + 1; i < arrayGroups.Length-1; i++)
+            for (int i = num + 1; i < arrayGroups.Length; i++)
             {
-                if (arrayGroups[i][0] == '2') group2 = i;
-                if (arrayGroups[i][0] == '3') group3 = i;
+                if (arrayGroups[i].Length > 0)
+                {
+                    if (arrayGroups[i][0] == '2') group2 = i;
+                    if (arrayGroups[i][0] == '3') group3 = i;
+                }
             }
 
             if (group2 > 0)
