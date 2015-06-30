@@ -161,7 +161,7 @@ namespace GeospaceDecodeService
                                         theCodeUmagf.Raw = code_source;
                                         if (theCodeUmagf.GetByDateUTC() == null && existStatFromBD && theCodeUmagf.Station != null)
                                         {
-                                            //theCodeUmagf.Save();
+                                            theCodeUmagf.Save();
                                             logumagf.Debug("Save");
                                         }
                                         else logumagf.Debug("Not Save");

@@ -170,6 +170,7 @@ namespace GeospaceEntity.Helper
                 // Для станции с кодом 43501 Хабаровск код IONKA упращенный
                 return strIonka;
             }
+            /*
             string tokenGroup04 = arrayString[3];
             int numberControl = Convert.ToInt32(tokenGroup04.Substring(0, 1));
             if (numberControl != 7)
@@ -193,7 +194,7 @@ namespace GeospaceEntity.Helper
                     strIonka,
                     tokenGroup04));
             }
-
+            */
             return strIonka;
         }
 
