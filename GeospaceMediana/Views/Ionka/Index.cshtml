@@ -3,6 +3,27 @@
     ViewBag.Title = @ViewBag.Title;
 }
 
+@section Scripts
+{
+    @Scripts.Render("~/bundles/ionka-edit")
+}
+
+@section Styles
+{
+    @Styles.Render("~/Content/ionka.css")
+}
+
+@{
+    var firstItemHeader = Model.GetHeader()[0];
+}
+
+<script>
+    var submitUrl = "@Url.Action("Submit", "Ionka")";
+    var currentYear = "@firstItemHeader.YYYY";
+    var currentMonth = "@firstItemHeader.MM";
+    var currentStationCode = "@Model.StationCode";
+</script>
+
 <div class="row">
     <div class="col-md-12">
         <table class="table table-bordered table-striped">
@@ -25,12 +46,12 @@
                     {
                         var listSubItem = Model.GetHeaderValue();
                         var lastSubItem = listSubItem[listSubItem.Count-1];
-                        var firstSubItem = listSubItem[0];                    
+                        var firstSubItem = listSubItem[0];
 
                         foreach (var _subitem in listSubItem)
                         {
                             var subitem = _subitem.Replace(" ", "<br>");
-                            
+
                             if(_subitem == firstSubItem)
                             {
                                 <th class="left-thick-line sub-header">
@@ -68,34 +89,56 @@
                             CodeIonka theCode = Model.GetValue(subitem.YYYY, subitem.MM, subitem.DD, item.HH);
 
                             bool isLowDensityIonization = theCode._f0F2 == "G" && theCode._M3000F2 == "G";
-                            
-                            <td class="left-thick-line" data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">
+                            bool isDiffusio = theCode._f0F2 == "F" && theCode._M3000F2 == "F";
+                            string editable = theCode._f0F2.IsEmpty() ? "" : "editable-ionka";
+                            string editableWithLowDensityIonization = theCode._f0F2.IsEmpty() || isLowDensityIonization == false ? "" : "editable-ionka";
+
+                            <td class="left-thick-line @editable" data-day="@subitem.DD" data-hour="@item.HH" data-type="f0F2" data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">
                                 @theCode._f0F2
                             </td>
-                            <td data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">
+                            <td class="@editable" data-day="@subitem.DD" data-hour="@item.HH" data-type="M3000F2" data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">
                                 @theCode._M3000F2
                             </td>
-                            <td data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">
-                                @if(isLowDensityIonization)
+                            <td class="@editableWithLowDensityIonization" data-day="@subitem.DD" data-hour="@item.HH" data-type="f0F1" data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">
+                                @if (isLowDensityIonization)
                                 {
                                     @theCode._f0F1
                                 }
                             </td>
-                            <td data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">
-                                @if(isLowDensityIonization)
+                            <td class="@editableWithLowDensityIonization" data-day="@subitem.DD" data-hour="@item.HH" data-type="M3000F1" data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">
+                                @if (isLowDensityIonization)
                                 {
                                     @theCode._M3000F1
                                 }
                             </td>
-                            <td data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">@theCode._f0Es</td>
-                            <td data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)"></td>
-                            <td class="right-thick-line" data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">@theCode._fmin</td>
+                            <td class="@editable" data-day="@subitem.DD" data-hour="@item.HH" data-type="f0Es" data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">
+                                @if(theCode._f0Es == "B")
+                                {
+                                    @: 0
+                                }
+                                else
+                                {
+                                    @theCode._f0Es
+                                }
+                            </td>
+                            <td data-day="@subitem.DD" data-hour="@item.HH" data-type="D" data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">
+                                @if (isDiffusio)
+                                {
+                                    @: 3
+                                }
+                                else if (theCode._f0F2.IsEmpty() == false)
+                                {
+                                    @: 0
+                                }
+                            </td>
+                            <td class="right-thick-line @editable" data-day="@subitem.DD" data-hour="@item.HH" data-type="fmin" data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">@theCode._fmin</td>
 
-}
-                        
+
+                        }
+
                     </tr>
 
-                }
+    }
                 <tr>
                     <td rowspan="3"></td>
                     @foreach (var item in Model.GetHeader())

@@ -110,6 +110,11 @@ namespace GeospaceEntity.Models.Codes
             Repositories.CodeIonkaRepository repo = new Repositories.CodeIonkaRepository();
             return repo.GetByDateUTC(station, YYYY, MM, DD, HH, MI);
         }
+        public virtual Codes.CodeIonka GetByDate(Station station, int YYYY, int MM, int DD, int HH)
+        {
+            Repositories.CodeIonkaRepository repo = new Repositories.CodeIonkaRepository();
+            return repo.GetByDate(station, YYYY, MM, DD, HH);
+        }
         public virtual IList<Codes.CodeIonka> GetByPeriod(Station station, int startYYYY, int startMM, int startDD, int endYYYY, int endMM, int endDD)
         {
             Repositories.CodeIonkaRepository repo = new Repositories.CodeIonkaRepository();
