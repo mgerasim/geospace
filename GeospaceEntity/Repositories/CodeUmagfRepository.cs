@@ -89,18 +89,16 @@ namespace GeospaceEntity.Repositories
                 if (endMM > startMM)
                 {
                     criteria.Add(Restrictions.Between("MM", startMM, endMM));
+
+                    criteria.Add(Restrictions.Or(
+                        Restrictions.And(Restrictions.Eq("MM", startMM), Restrictions.Between("DD", startDD, 100)),
+                        Restrictions.And(Restrictions.Eq("MM", endMM), Restrictions.Between("DD", 0, endDD))
+                        ));
                 }
                 else
                 {
                     criteria.Add(Restrictions.Eq("MM", endMM));
-                }
-                if (endDD > startDD)
-                {
                     criteria.Add(Restrictions.Between("DD", startDD, endDD));
-                }
-                else
-                {
-                    criteria.Add(Restrictions.Eq("DD", endDD));
                 }
                 return criteria.List<GeospaceEntity.Models.Codes.CodeUmagf>();
             }
