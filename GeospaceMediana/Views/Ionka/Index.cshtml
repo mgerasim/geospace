@@ -140,6 +140,21 @@
 
     }
                 <tr>
+
+                    @functions {
+                        string convertToTwoNumbers(string val)
+                        {
+                            string str = "";
+
+                            if (val.Length == 1)
+                            {
+                                str = "0";
+                            }
+
+                            return str + val;
+                        }
+                    }
+
                     <td rowspan="3"></td>
                     @foreach (var item in Model.GetHeader())
                     {
@@ -147,7 +162,7 @@
                         CodeUmagf theCode = Model.GetValueUmagf(item.YYYY, item.MM, item.DD);
 
                         <td class="right-thick-line left-thick-line" colspan="7">
-                            Ak=@theCode._ak
+                            Ak=@convertToTwoNumbers(theCode._ak)
                         </td>
                     }
                 </tr>
