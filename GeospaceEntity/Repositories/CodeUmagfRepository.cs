@@ -49,7 +49,7 @@ namespace GeospaceEntity.Repositories
             }
         }
 
-        GeospaceEntity.Models.Codes.CodeUmagf IRepository<GeospaceEntity.Models.Codes.CodeUmagf>.GetById(int id)
+        public GeospaceEntity.Models.Codes.CodeUmagf GetById(int id)
         {
             using (ISession session = NHibernateHelper.OpenSession())
                 return session.CreateCriteria<GeospaceEntity.Models.Codes.CodeUmagf>().Add(Restrictions.Eq("ID", id)).UniqueResult<GeospaceEntity.Models.Codes.CodeUmagf>();
@@ -115,6 +115,21 @@ namespace GeospaceEntity.Repositories
                     .Add(Restrictions.Eq("DD", DD))
                     .Add(Restrictions.Eq("HH", HH))
                     .Add(Restrictions.Eq("MI", MI)).UniqueResult<GeospaceEntity.Models.Codes.CodeUmagf>();
+
+        }
+
+        public GeospaceEntity.Models.Codes.CodeUmagf GetByDate(Station station, int YYYY, int MM, int DD)
+        {
+
+            // На один день несколько записей ?!
+
+            using (ISession session = NHibernateHelper.OpenSession())
+
+                return session.CreateCriteria<GeospaceEntity.Models.Codes.CodeUmagf>()
+                    .Add(Restrictions.Eq("Station", station))
+                    .Add(Restrictions.Eq("YYYY", YYYY))
+                    .Add(Restrictions.Eq("MM", MM))
+                    .Add(Restrictions.Eq("DD", DD)).List<GeospaceEntity.Models.Codes.CodeUmagf>()[0];
 
         }
         

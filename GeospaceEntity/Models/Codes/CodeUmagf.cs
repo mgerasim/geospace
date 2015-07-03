@@ -31,6 +31,9 @@ namespace GeospaceEntity.Models.Codes
         //AK
         public virtual int ak { get; set; }
 
+        // Явления
+        public virtual string events { get; set; }
+
         public virtual string Raw { get; set; }
         public virtual string ErrorMessage { get; set; }
         public CodeUmagf()
@@ -188,11 +191,28 @@ namespace GeospaceEntity.Models.Codes
                     return DisplayValue(this.k8);
             }
         }
+
+        public virtual string _events
+        {
+            get
+            {
+                if (this.ID < 0)
+                    return "";
+                else
+                    return this.events;
+            }
+        }
         //по параметрам получаем объект из БД, если его нет значит сохраниме новую запись в БД
         public virtual Codes.CodeUmagf GetByDateUTC()
         {
             Repositories.CodeUmagfRepository repo = new Repositories.CodeUmagfRepository();
             return repo.GetByDateUTC(Station, YYYY, MM, DD, HH, MI);
+        }
+
+        public virtual Codes.CodeUmagf GetByDate(Station station, int YYYY, int MM, int DD)
+        {
+            Repositories.CodeUmagfRepository repo = new Repositories.CodeUmagfRepository();
+            return repo.GetByDate(station, YYYY, MM, DD);
         }
 
         //сохранить новую запись в БД
@@ -203,10 +223,24 @@ namespace GeospaceEntity.Models.Codes
             GeospaceEntity.Common.IRepository<CodeUmagf> repo = new Repositories.CodeUmagfRepository();
             repo.Save(this);
         }
+
+        public virtual void Update()
+        {
+            this.updated_at = DateTime.Now;
+            GeospaceEntity.Common.IRepository<CodeUmagf> repo = new Repositories.CodeUmagfRepository();
+            repo.Update(this);
+        }
+
         public virtual IList<Codes.CodeUmagf> GetByPeriod(Station station, int startYYYY, int startMM, int startDD, int endYYYY, int endMM, int endDD)
         {
             Repositories.CodeUmagfRepository repo = new Repositories.CodeUmagfRepository();
             return repo.GetByPeriod(station, startYYYY, startMM, startDD, endYYYY, endMM, endDD);
+        }
+
+        public virtual Codes.CodeUmagf GetById(int id)
+        {
+            Repositories.CodeUmagfRepository repo = new Repositories.CodeUmagfRepository();
+            return repo.GetById(id);
         }
     }
 }

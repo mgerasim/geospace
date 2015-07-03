@@ -22,7 +22,8 @@ namespace GeospaceMediana
                         "~/Scripts/bootstrap.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/ionka-edit").Include(
-                        "~/Scripts/ionka-edit.js"));
+                        "~/Scripts/ionka-edit.js",
+                        "~/Scripts/umagf-edit.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.

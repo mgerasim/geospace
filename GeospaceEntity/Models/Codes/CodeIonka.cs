@@ -173,6 +173,58 @@ namespace GeospaceEntity.Models.Codes
                     fbEs, Es,
                     fx1);
         }
+
+        public virtual void SetValueByType(string type, int value)
+        {
+            switch (type)
+            {
+                case "f0F2":
+                    f0F2 = value;
+                    break;
+                case "M3000F2":
+                    M3000F2 = value;
+                    break;
+                case "f0F1":
+                    f0F1 = value;
+                    break;
+                case "M3000F1":
+                    M3000F1 = value;
+                    break;
+                case "f0Es":
+                    if (value == 0)
+                    {
+                        f0Es = 1002;
+                    }
+                    else
+                    {
+                        f0Es = value;
+                    }
+                    break;
+                case "fmin":
+                    fmin = value;
+                    break;
+            }
+        }
+
+        public static int ConvertCodeToInt(string code)
+        {
+            switch (code.ToUpper())
+            {
+                case "0":
+                case "00": return 1000;
+                case "A": return 1001;
+                case "B": return  1002;
+                case "C": return 1003;
+                case "D": return 1004;
+                case "E": return 1005;
+                case "F": return 1006;
+                case "G": return 1007;
+                case "N": return 1008;
+                case "R": return 1009;
+                default: return Int32.Parse(code);
+            }
+        }
+
         public virtual string DisplayValue(int Value)
         {
             switch (Value)
