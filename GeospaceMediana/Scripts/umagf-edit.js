@@ -78,7 +78,9 @@
                 });
             }
             else {
-                oldValue = "Ak=" + oldValue;
+                if (type == "ak") {
+                    oldValue = "Ak=" + oldValue;
+                }
                 currentCell.empty().html(oldValue);
             }
 

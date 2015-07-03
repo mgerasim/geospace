@@ -26,12 +26,50 @@
     var currentStationCode = "@Model.StationCode";
 </script>
 
+<style>
+    html, body, table, .row, .col-md-12 {
+        height: 100%;
+    }
+
+    .container-fluid {
+        height: 90%;
+    }
+
+    tr.ionka-data td {
+        padding: 0px !important;
+        text-align: center;
+        vertical-align: middle !important;
+    }
+
+    td.umagf-data {
+        padding: 0px !important;
+        padding-left: 8px !important;
+        vertical-align: middle !important;
+        height: 30px;
+    }
+
+    th.ionka-header {
+        padding: 0px !important;
+        padding-bottom: 8px !important;
+        padding-top: 8px !important;
+        text-align: center;
+
+        width: auto;
+    }
+
+    td.kind-data {
+        padding: 8px !important;
+        vertical-align: middle !important;
+        height: 30px;
+    }
+</style>
+
 <div class="row">
     <div class="col-md-12">
-        <table class="table table-bordered table-striped">
+        <table style="table-layout: fixed" class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <th rowspan="2">
+                    <th rowspan="2" style="width: 36px">
                         Час
                     </th>
                     @foreach (var item in Model.GetHeader())
@@ -47,28 +85,28 @@
                     @foreach (var item in Model.GetHeader())
                     {
                         var listSubItem = Model.GetHeaderValue();
-                        var lastSubItem = listSubItem[listSubItem.Count-1];
+                        var lastSubItem = listSubItem[listSubItem.Count - 1];
                         var firstSubItem = listSubItem[0];
 
                         foreach (var _subitem in listSubItem)
                         {
                             var subitem = _subitem.Replace(" ", "<br>");
 
-                            if(_subitem == firstSubItem)
+                            if (_subitem == firstSubItem)
                             {
-                                <th class="left-thick-line sub-header">
+                                <th class="left-thick-line sub-header ionka-header">
                                     @Html.Raw(subitem)
                                 </th>
                             }
                             else if (_subitem == lastSubItem)
                             {
-                                <th class="right-thick-line sub-header">
+                                <th class="right-thick-line sub-header ionka-header">
                                     @Html.Raw(subitem)
                                 </th>
                             }
                             else
                             {
-                                <th class="sub-header">
+                                <th class="sub-header ionka-header">
                                     @Html.Raw(subitem)
                                 </th>
                             }
@@ -82,7 +120,7 @@
 
                 @foreach (var item in Model.GetHour())
                 {
-                    <tr>
+                    <tr class="ionka-data">
                         <td>
                             @item.Name
                         </td>
@@ -115,7 +153,7 @@
                                 }
                             </td>
                             <td class="@editable" data-day="@subitem.DD" data-hour="@item.HH" data-type="f0Es" data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">
-                                @if(theCode._f0Es == "B")
+                                @if (theCode._f0Es == "B")
                                 {
                                     @: 0
                                 }
@@ -129,7 +167,7 @@
                                 {
                                     @: 3
                                 }
-                                else if(isStationError)
+                                else if (isStationError)
                                 {
                                     @: C
                                 }
@@ -145,7 +183,7 @@
 
                     </tr>
 
-    }
+                }
                 <tr>
 
                     @functions {
@@ -170,7 +208,7 @@
 
                         string editable = theCode._k1.IsEmpty() ? "" : "editable-umagf";
 
-                        <td class="right-thick-line left-thick-line @editable" data-id="@theCode.ID" data-type="ak" colspan="7">
+                        <td class="right-thick-line left-thick-line @editable umagf-data" data-id="@theCode.ID" data-type="ak" colspan="7">
                             Ak=@convertToTwoNumbers(theCode._ak)
                         </td>
                     }
@@ -179,7 +217,7 @@
                 <tr>
                     @foreach (var item in Model.GetHeader())
                     {
-                        <td class="right-thick-line left-thick-line" colspan="7">
+                        <td class="right-thick-line left-thick-line umagf-data" colspan="7">
                             K-индексы
                         </td>
                     }
@@ -192,8 +230,8 @@
                         CodeUmagf theCode = Model.GetValueUmagf(item.YYYY, item.MM, item.DD);
 
                         string editable = theCode._k1.IsEmpty() ? "" : "editable-umagf";
-                        
-                        <td class="right-thick-line left-thick-line" colspan="7">
+
+                        <td class="right-thick-line left-thick-line kind-data" colspan="7">
                             <table class="table-bordered" width="100%">
 
                                 <tr>
@@ -213,10 +251,10 @@
                 </tr>
 
                 <tr>
-                    <td rowspan="3"></td>
+                    <td rowspan="2"></td>
                     @foreach (var item in Model.GetHeader())
                     {
-                        <td class="right-thick-line left-thick-line" colspan="7">Явления</td>
+                        <td class="right-thick-line left-thick-line umagf-data" colspan="7">Явления</td>
                     }
                 </tr>
 
@@ -227,7 +265,7 @@
 
                         string editable = theCode._k1.IsEmpty() ? "" : "editable-umagf";
 
-                        <td class="right-thick-line left-thick-line @editable" data-id="@theCode.ID" data-type="events" colspan="7" style="height: 27px">@theCode._events</td>
+                        <td class="right-thick-line left-thick-line @editable umagf-data" data-id="@theCode.ID" data-type="events" colspan="7" style="height: 27px">@theCode._events</td>
                     }
                 </tr>
 

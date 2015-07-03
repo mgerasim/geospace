@@ -90,8 +90,6 @@
 
         var inputHtml = "<input type=\"text\" id=\"edit\" value=\"" + oldValue + "\" />";
 
-        currentCell.css("padding", "0px");
-
         var cellWidth = currentCell.width();
         var cellHeight = currentCell.height();
 
@@ -100,14 +98,15 @@
         $('#edit').width(cellWidth - 2); // 1+1 border width
         $('#edit').height(cellHeight - 2);
         currentCell.width(cellWidth);
+        currentCell.height(cellHeight);
 
         $('#edit').focus();
         $('#edit').select();
         $('#edit').blur(function () {
 
             var newValue = $(this).val().trim();
-            currentCell.css("padding", "8px");
             currentCell.width("");
+            currentCell.height("");
 
             if (newValue != oldValue) {
                 var day = currentCell.data("day");
@@ -165,6 +164,7 @@
         $('#edit').width(cellWidth - 2); // 1+1 border width
         $('#edit').height(cellHeight - 2);
         currentCell.width(cellWidth);
+        currentCell.height(cellHeight);
 
         $('#edit').focus();
         $('#edit').blur(function () {
@@ -172,6 +172,7 @@
             var newValue = $(this).val().trim();
             currentCell.css("padding", "8px");
             currentCell.width("");
+            currentCell.height("");
 
             if(newValue != "")
             {
