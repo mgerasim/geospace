@@ -357,16 +357,377 @@ namespace GeospaceEntity.Helper
         }
 
         //печатает все возможные комбинации кода ионка
-        public static void Print_All_Code_Ionka(string strIonka, List<int> listLengthLines)
+        public static void Print_All_Code_Ionka(string strIonka, List<int> listLengthLines, string pathFile )
         {
             foreach (int len in listLengthLines)
                 if (strIonka.Length == len) return;
 
             listLengthLines.Add(strIonka.Length);
 
-            StreamWriter sw = new StreamWriter("C:\\Users\\distomin\\Projects\\GeoSpace\\documents\\All_Code_Ionka.txt", true);
+            StreamWriter sw = new StreamWriter(pathFile, true);
             sw.WriteLine(strIonka);
             sw.Close();
+        }
+
+        //проверка на группу /ЧЧММ и возврат объекта типа DateTime
+        public static bool Find_Time(string strTime, Time time)
+        {
+            int res;
+            if (strTime[0] == '/' && Int32.TryParse(strTime.Substring(1), out res))
+            {
+                time.init(Convert.ToInt32(strTime.Substring(1, 2)), Convert.ToInt32(strTime.Substring(3, 2)));
+                if (!time.Check_Format()) return false;
+            }
+            else return false;
+
+            return true;
+        }
+
+        //среднее значения для класса Time
+        public static Time Avg_Time( List<Time> listDiff )
+        {
+            int hh = 0, mi = 0; 
+            for( int i = 0; i < listDiff.Count(); i++ )
+            {
+                hh += listDiff[i].HH.val;
+                mi += listDiff[i].MI.val;
+            }
+            return new Time(hh / listDiff.Count(), mi / listDiff.Count());
+        }
+
+        //Алгоритм поиска сеансов зондирования.
+        //Если средние значение больше максимального - удалить максимальное значение
+        public static void Search_Time_Sess_With_Avg(List<Time> listTimes, List<int> listPositions)
+        {
+            List<Time> listDiff = new List<Time>();
+            for (int i = 0; i < listTimes.Count() - 1; i+=2)
+                listDiff.Add(listTimes[i + 1] - listTimes[i]);
+
+            Time avgTime = Avg_Time(listDiff);
+            if (avgTime < new Time(3, 0)) avgTime = 2 * avgTime;
+
+            Time maxTimeDiff = new Time();
+            int index = 0;
+
+            Search_Max_Time(listDiff, ref maxTimeDiff, ref index);
+
+            if (maxTimeDiff > avgTime)
+            {
+                listTimes.RemoveAt(index);
+                listPositions.RemoveAt(index);
+            }
+        }
+
+        //Алгоритм поиска сеансов зондирования.
+        //Проверяет растояниие между сессиями, если 2 сеанса находяться рядом друг с другом - удалить первый
+        public static void Search_Time_Sess_With_Dist(List<Time> listTimes, List<int> listPositions)
+        {
+            for (int i = 0; i < listPositions.Count() - 1; i++)
+            {
+                if( listPositions[i+1] - listPositions[i] == 1 )
+                {
+                    listTimes.RemoveAt(i);
+                    listPositions.RemoveAt(i);
+                }
+            }
+
+            
+        }
+        /// <summary>
+        /// Формирует массивы сеансов зандирония за текущий и пердыдущий день(Опционально)
+        /// </summary>
+        /// <param name="PrevDay"> Данные за пердыдущий день</param>
+        /// <param name="Day"> Данные за текущий день</param>
+        /// <param name="listTime"> Время сеансов зондирования</param>
+        /// <param name="arrayGroups"> Массив кодов телеграммы</param>
+        /// <param name="listPositions"> Позиций кодов времени в массиве телеграммы</param>
+ 
+        public static void List_Time_Session(List<List<string> > PrevDay, List<List<string> > Day, List<Time> listTime, string[] arrayGroups, List<int> listPositions)
+        {
+            listPositions.Add(arrayGroups.Length-1);
+            for (int i = 0; i < listTime.Count(); i++ )
+            {
+                if (i > 0)
+                {
+                    if(listTime[i] < listTime[i-1])
+                    {
+                        foreach(var index in Day)
+                        {
+                            PrevDay.Add(new List<string>(index));
+                        }
+                        Day.Clear();
+                    }
+                }
+                List<string> lineListGroup = new List<string>();
+                for(int k = listPositions[i]; k < listPositions[i+1]; k++)
+                {
+                    lineListGroup.Add(arrayGroups[k]);
+                }
+                Day.Add(lineListGroup);
+            }
+        }
+        public static void Search_Max_Time(List<Time> list, ref Time time, ref int index)
+        {
+            time.init(list[0]);
+            for( int i = 0; i < list.Count(); i++ )
+            {
+                if( time < list[i] )
+                {
+                    time = list[i];
+                    index = i + 1;
+                }
+            }
+            if (index == 0) index++;
+        }
+        
+        /// <summary>
+        ///  Поиск сеансов зондирования
+        /// </summary>
+        /// <param name="Day">Данные за текущий день</param>
+        /// <param name="PrevDay">Данные за предыдущий день</param>
+        /// <param name="arrayGroups">Массив кодов телеграммы</param>
+        /// <param name="startGroup">Начальное положение временной группы</param>
+        public static void Search_Time_Sessions( List<List<string>> Day, List<List<string>> PrevDay, string[] arrayGroups, int startGroup)
+        {
+            List<Time> listTimes = new List<Time>();
+            List<int> listPositions = new List<int>();
+            List<string []> listTimeSessions = new List<string []>();
+            
+            Time currTime = new Time();
+
+            //создает массивы из времени сеансов зондирования и положения этих сеансов в arrayGroups
+            for (int i = startGroup; i < arrayGroups.Length - 1; i++)
+            {
+                if (Find_Time(arrayGroups[i], currTime))
+                {
+                    listTimes.Add(new Time( currTime ));
+                    listPositions.Add(i);
+                }
+            }
+            if (listTimes.Count() > 1)
+            {
+                //Алгоритм поиска сеансов зондирования.
+                //Проверяет растояниие между сессиями, если 2 сеанса находяться рядом друг с другом - удалить первый
+                Search_Time_Sess_With_Dist(listTimes, listPositions);
+
+                //Алгоритм поиска сеансов зондирования.
+                //Если средние значение больше максимального - удалить максимальное значение 
+                Search_Time_Sess_With_Avg(listTimes, listPositions);
+            }
+            List_Time_Session(PrevDay,Day,listTimes,arrayGroups,listPositions);
+            
+        }
+    }
+    public class Time
+    {
+        public Limits HH;
+        public Limits MI;
+
+        public Time()
+        {
+            HH = new Limits(0, 23);
+            MI = new Limits(0, 59);
+        }
+
+        public Time( int hh_, int mi_ )
+        {
+            HH = new Limits(hh_, 0, 23);
+            MI = new Limits(mi_, 0, 59);
+
+            //if (mi_ > 59) HH++;
+        }   
+
+        public Time( Time obj )
+        {
+            HH = obj.HH;
+            MI = obj.MI;
+        }
+
+        public void init( int hh_, int mi_ )
+        {
+            HH = new Limits(hh_, 0, 23);
+            MI = new Limits(mi_, 0, 59);
+
+            //if (mi_ > 59) HH++;
+        }
+        public void init(Time obj)
+        {
+            HH = obj.HH;
+            MI = obj.MI;
+        }
+
+        //метод для проверки ЧЧ и МИ
+        public bool Check_Format()
+        {
+            if (HH.start > HH.val || HH.val > HH.end) return false;
+            if (MI.start > MI.val || MI.val > MI.end) return false;
+
+            return true;
+        }
+
+        public static Time operator *(int a, Time b)
+        {
+            Time c = new Time(b);
+            c.HH = a * b.HH;
+            c.MI = a * b.MI;
+            return c;
+        }
+
+        public static Time operator + ( Time a, Time b )
+        {
+            Time c = new Time();
+            c.MI = a.MI + b.MI;
+            c.HH = a.HH + b.HH;
+            if (a.MI.val + b.MI.val > a.MI.end) c.HH = c.HH + new Limits((a.MI.val + b.MI.val) / (a.MI.end + 1), a.MI.start, a.MI.end);
+
+            return c;
+        }
+
+        public static Time operator - (Time a, Time b)
+        {
+            Time c = new Time();
+            c.MI = a.MI - b.MI;
+            c.HH = a.HH - b.HH;
+            if ((a.MI - b.MI).val > a.MI.val) c.HH--;
+
+            return c;
+        }
+
+        public static bool operator > ( Time a, Time b )
+        {
+            if (a.HH > b.HH) return true;
+            if (a.HH == b.HH && a.MI > b.MI)  return true;
+            return false;
+        }
+
+        public static bool operator >= (Time a, Time b)
+        {
+            if (a.HH > b.HH) return true;
+            if (a.HH == b.HH && a.MI >= b.MI) return true;
+            return false;
+        }
+
+        public static bool operator <(Time a, Time b)
+        {
+            if (a.HH < b.HH) return true;
+            if (a.HH == b.HH && a.MI < b.MI) return true;
+            return false;
+        }
+
+        public static bool operator <= (Time a, Time b)
+        {
+            if (a.HH < b.HH) return true;
+            if (a.HH == b.HH && a.MI <= b.MI) return true;
+            return false;
+        }
+
+        public static bool operator == (Time a, Time b)
+        {
+            if (a.HH == b.HH && a.MI == b.MI) return true;
+            return false;
+        }
+
+        public static bool operator != (Time a, Time b)
+        {
+            if (a.HH != b.HH && a.MI != b.MI) return true;
+            return false;
+        }
+    }
+
+    public class Limits
+    {
+        public int val = 0;
+        public int start = 0;
+        public int end = 0;
+
+        public Limits( int val_ ) { val = val_; }
+
+        public Limits(Limits obj) { val = obj.val; }
+
+        public Limits( int val_, int start_, int end_ ) { init(val_, start_, end_); }
+
+        public Limits( int start_, int end_ ) { start = start_; end = end_; }
+
+        public void init( int start_, int end_ ) { start = start_; end = end_; }
+
+        public void init(int val_, int start_, int end_)
+        {
+            val = val_;
+            start = start_;
+            end = end_;
+
+            //if (val < start) val = start;
+            //if (val > end) val = start + val - end - 1;
+        }
+
+        public static Limits operator * ( int a, Limits b )
+        {
+            return new Limits( a * b.val, b.start, b.end );
+        }
+
+        public static Limits operator+ (Limits a, Limits b)
+        {
+            if( a.val + b.val <= a.end ) return new Limits( a.val + b.val, a.start, a.end );
+            else return new Limits((a.val + b.val) % (a.end + 1), a.start, a.end);
+        }
+
+        public static Limits operator ++ (Limits a)
+        {
+            if (a.val + 1 <= a.end) return new Limits(a.val + 1, a.start, a.end);
+            else return new Limits(a.start, a.start, a.end);
+        }
+
+        public static Limits operator- (Limits a, Limits b)
+        {
+            if (a.val - b.val >= a.start) return new Limits(a.val - b.val, a.start, a.end);
+            else return new Limits(a.end - Math.Abs(a.val - b.val) + 1, a.start, a.end);
+        }
+
+        public static Limits operator -- (Limits a)
+        {
+            if (a.val - 1 >= a.start) return new Limits(a.val - 1, a.start, a.end);
+            else return new Limits(a.end, a.start, a.end);
+        }
+
+        public static bool operator > ( Limits a, Limits b )
+        {
+            if (a.val > b.val) return true;
+
+            return false;
+        }
+
+        public static bool operator >= (Limits a, Limits b)
+        {
+            if (a.val >= b.val) return true;
+
+            return false;
+        }
+
+        public static bool operator < (Limits a, Limits b)
+        {
+            if (a.val < b.val) return true;
+
+            return false;
+        }
+        public static bool operator <= (Limits a, Limits b)
+        {
+            if (a.val <= b.val) return true;
+
+            return false;
+        }
+
+        public static bool operator == (Limits a, Limits b)
+        {
+            if (a.val == b.val) return true;
+
+            return false;
+        }
+
+        public static bool operator != (Limits a, Limits b)
+        {
+            if (a.val != b.val) return true;
+
+            return false;
         }
     }
 }

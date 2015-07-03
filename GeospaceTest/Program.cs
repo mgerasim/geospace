@@ -15,11 +15,67 @@ namespace GeospaceTest
            // Support01();
            // Support02();
             //Support03();
-            Support04();
+            //Support04();
            // Support05(); 
+
+            Support06();
             Console.WriteLine("Ok");
             Console.ReadKey();
         }
+
+        static void Support06()
+        {
+            string strFile = "C:\\Users\\distomin\\Projects\\GeoSpace\\documents\\All_Code_Ionka.txt";
+            GeospaceEntity.Common.NHibernateHelper.UpdateSchema();
+            using (StreamReader sr = new StreamReader(strFile))
+            {
+                String line = sr.ReadToEnd();
+                string[] delimiters = new string[] { "[ETX]" };
+                foreach (var item in line.Split(new char[] { '\u0002', '\u0003' },
+                                StringSplitOptions.RemoveEmptyEntries))
+                {
+                    string theCode = GeospaceEntity.Helper.HelperIonka.Normalize(item);
+
+                    foreach (var code in theCode.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries))
+                    {
+                        string code_source = code;                        
+
+                        int UmagfYYYY = 0;
+                        int UmagfMM = 0;
+                        Station UmagfStationFromIonka = new Station();
+
+                        code_source = GeospaceEntity.Helper.HelperIonka.Check(code_source);
+                        //GeospaceEntity.Helper.HelperIonka.Print_All_Code_Ionka(code_source, listLengthLines, "C:\\Users\\distomin\\Projects\\GeoSpace\\documents\\All_Code_Ionka.txt");
+
+                        int StationCode = GeospaceEntity.Helper.HelperIonka.Ionka_Group02_Station(code_source);
+                        Station theStation = (new Station()).GetByCode(StationCode);
+                        if (theStation != null)
+                        {
+                            //logger.Debug(code);
+                            UmagfStationFromIonka = theStation;
+
+                            DateTime Created_At = GeospaceEntity.Helper.HelperIonka.Ionka_Group03_DateCreate(code_source);
+                            int DD = Created_At.Day;
+                            int MM = Created_At.Month;
+                            int YYYY = Created_At.Year;
+                            UmagfYYYY = YYYY;
+                            UmagfMM = MM;
+                            string[] arrayGroups = code_source.Split(' ');
+                            int sessionCount = 0;
+                            int startGroup = 4;
+                            if (GeospaceEntity.Helper.HelperIonka.FindSpecialGroup(arrayGroups[3])) //есть ли группа 4
+                                sessionCount = GeospaceEntity.Helper.HelperIonka.Ionka_Group04_Count(arrayGroups[3]);
+                            else
+                                startGroup = 3;
+                            List<List<string>> Day = new List<List<string>>();
+                            List<List<string>> PrevDay = new List<List<string>>();
+                            GeospaceEntity.Helper.HelperIonka.Search_Time_Sessions(Day, PrevDay, arrayGroups, startGroup );
+                        }
+                    }
+                }
+            }
+        }
+
         static void Support05()
         {
             int StationCode = 43501;
