@@ -78,28 +78,24 @@ namespace GeospaceEntity.Repositories
                 ICriteria criteria = session.CreateCriteria(typeof(GeospaceEntity.Models.Codes.CodeUmagf));
                 criteria.AddOrder(Order.Desc("ID"));
                 criteria.Add(Restrictions.Eq("Station", station));
-                if (endYYYY > startYYYY)
-                {
-                    criteria.Add(Restrictions.Between("YYYY", startYYYY, endYYYY));
-                }
-                else
-                {
-                    criteria.Add(Restrictions.Eq("YYYY", endYYYY));
-                }
-                if (endMM > startMM)
-                {
-                    criteria.Add(Restrictions.Between("MM", startMM, endMM));
 
-                    criteria.Add(Restrictions.Or(
-                        Restrictions.And(Restrictions.Eq("MM", startMM), Restrictions.Between("DD", startDD, 100)),
-                        Restrictions.And(Restrictions.Eq("MM", endMM), Restrictions.Between("DD", 0, endDD))
-                        ));
-                }
-                else
-                {
-                    criteria.Add(Restrictions.Eq("MM", endMM));
-                    criteria.Add(Restrictions.Between("DD", startDD, endDD));
-                }
+                System.DateTime startDate = new DateTime(startYYYY, startMM, startDD);
+                System.DateTime endDate = new DateTime(endYYYY, endMM, endDD);
+
+                var strYYYY = Projections.Cast(NHibernateUtil.String, Projections.Property("YYYY"));
+                var strMM = Projections.Cast(NHibernateUtil.String, Projections.Property("MM"));
+                var strDD = Projections.Cast(NHibernateUtil.String, Projections.Property("DD"));
+
+                var sl = Projections.Cast(NHibernateUtil.String, Projections.Constant("/"));
+
+                var projDate = Projections.SqlFunction("concat", NHibernateUtil.String, strDD, sl,
+                    strMM, sl,
+                    strYYYY);
+
+                projDate = Projections.Cast(NHibernateUtil.DateTime, projDate);
+
+                criteria.Add(Restrictions.Between(projDate, startDate, endDate));
+
                 return criteria.List<GeospaceEntity.Models.Codes.CodeUmagf>();
             }
         }
