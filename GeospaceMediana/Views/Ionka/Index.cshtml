@@ -153,9 +153,9 @@
                                 }
                             </td>
                             <td class="@editable" data-day="@subitem.DD" data-hour="@item.HH" data-type="f0Es" data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">
-                                @if (theCode._f0Es == "B")
+                                @if (theCode._f0Es == "B" || theCode._f0Es == "0")
                                 {
-                                    @: 0
+                                    @: 00
                                 }
                                 else
                                 {

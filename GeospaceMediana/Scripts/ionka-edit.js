@@ -22,6 +22,8 @@
         var cell_f0F2 = getCell(day, hour, "f0F2");
         var cell_M3000F2 = getCell(day, hour, "M3000F2");
 
+        var cell_f0Es = getCell(day, hour, "f0Es");
+
         var cell_D = getCell(day, hour, "D");
 
         if (cell_f0F2.text().trim() == "G" && cell_M3000F2.text().trim() == "G")
@@ -50,6 +52,11 @@
                 cell_f0F1.unbind('dblclick');
                 cell_M3000F1.unbind('dblclick');
             }
+        }
+
+        if (cell_f0Es.text().trim() == "0")
+        {
+            cell_f0Es.text("00");
         }
 
         if (cell_f0F2.text().trim() == "F" && cell_M3000F2.text().trim() == "F")
