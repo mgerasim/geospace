@@ -18,25 +18,28 @@ namespace GeospaceEntity.Helper
 
             if (flag) //из коротокой строки Umagf
             {
-                theCodeUmagf.DD = Convert.ToInt32(arrayGroups[num].Substring(0, 2));
-                theCodeUmagf.HH = Convert.ToInt32(arrayGroups[num].Substring(len - 2, 2));
+                DateTime dt = new DateTime(theCodeUmagf.YYYY,
+                    theCodeUmagf.MM,
+                    Convert.ToInt32(arrayGroups[num].Substring(0, 2)));
+                int DayZ = Convert.ToInt32(arrayGroups[num].Substring(0, 2));
+                if (Math.Abs(DayZ - theCodeUmagf.DD) > 15)
+                {
+                    dt = dt.AddMonths(-1);
+                    theCodeUmagf.MM = dt.Month;
+                    theCodeUmagf.YYYY = dt.Year;
+                }
+
+                theCodeUmagf.DD = DayZ;
+                int pos = 2;
+                if (arrayGroups[num].Length == 5) pos = 3;
+                theCodeUmagf.HH = Convert.ToInt32(arrayGroups[num].Substring(len - pos, 2));
             }
             else  //из длиной строки Umagf
             {
                 theCodeUmagf.HH = Convert.ToInt32(arrayGroups[num].Substring(0, 2));
                 theCodeUmagf.MI = Convert.ToInt32(arrayGroups[num].Substring(len - 2, 2));
-            }
-               
+            }               
         }
-        /*
-        public static void Umagf_Group1_DateCreate2(string[] arrayGroups, int num, GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf)
-        {
-            arrayGroups[num] = arrayGroups[num].Replace("/", "");
-
-            int len = arrayGroups[num].Length;
-            theCodeUmagf.HH = Convert.ToInt32(arrayGroups[num].Substring(0, 2));
-            theCodeUmagf.MI = Convert.ToInt32(arrayGroups[num].Substring(len - 2, 2));
-        }*/
 
         //получает индекс станции, если в БД такой станции НЕ СОЗДОВАТЬ эту станцию в БД
         public static bool Umagf_BigGroup1_NumStation(string[] arrayGroups, int num, GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf)
@@ -60,9 +63,15 @@ namespace GeospaceEntity.Helper
             arrayGroups[num] = arrayGroups[num].Replace("/", "");
             if (arrayGroups[num].Length >= 5 && arrayGroups.Length > num)
             {
-                theCodeUmagf.YYYY = DateTime.Now.Year;
-                theCodeUmagf.MM = Convert.ToInt32(arrayGroups[num].Substring(1, 2));
-                theCodeUmagf.DD = Convert.ToInt32(arrayGroups[num].Substring(3, 2));
+                DateTime dt = new DateTime(DateTime.Now.Year,
+                    Convert.ToInt32(arrayGroups[num].Substring(1, 2)),
+                    Convert.ToInt32(arrayGroups[num].Substring(3, 2)));
+                
+                //dt = dt.AddDays(-1);
+
+                theCodeUmagf.YYYY = dt.Year;
+                theCodeUmagf.MM = dt.Month;
+                theCodeUmagf.DD = dt.Day;
             }
         }
 

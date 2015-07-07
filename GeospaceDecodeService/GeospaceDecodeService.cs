@@ -107,6 +107,7 @@ namespace GeospaceDecodeService
 
                         int UmagfYYYY = 0;
                         int UmagfMM = 0;
+                        int UmagfDD = 0;
                         Station UmagfStationFromIonka = new Station();
                         bool flagIonka = false;                    //если есть ионка, то брать данные( станция, месяц, год) из ионки, если нет, то из умагф
 
@@ -134,23 +135,20 @@ namespace GeospaceDecodeService
 
                                             numDate = 3;
                                             numIndex = 5;
-                                            //logumagf.Debug( "1" );
+                                            
                                             existStatFromBD = GeospaceEntity.Helper.HelperUmagf.Umagf_BigGroup1_NumStation(arrayGroups, 1, theCodeUmagf);
-                                            //logumagf.Debug("2");
                                             GeospaceEntity.Helper.HelperUmagf.Umagf_BigGroup2_FullData(arrayGroups, 2, theCodeUmagf);
-                                            //logumagf.Debug("3");
-                                            GeospaceEntity.Helper.HelperUmagf.Umagf_Group1_DateCreate(arrayGroups, numDate, theCodeUmagf);
-                                            //logumagf.Debug("4");
+                                            //GeospaceEntity.Helper.HelperUmagf.Umagf_Group1_DateCreate(arrayGroups, numDate, theCodeUmagf);       
+                                            GeospaceEntity.Helper.HelperUmagf.Umagf_Group1_DateCreate(arrayGroups, numDate + 1, theCodeUmagf, true);
                                             GeospaceEntity.Helper.HelperUmagf.Umagf_Group2_AK(arrayGroups, numIndex, theCodeUmagf);
-                                            //logumagf.Debug("5");
                                             GeospaceEntity.Helper.HelperUmagf.Umagf_Group3_K_index(arrayGroups, numIndex, theCodeUmagf);
-                                            //logumagf.Debug("6");
                                         }
                                         else //если есть ионка
                                         {
                                             theCodeUmagf.Station = UmagfStationFromIonka;
                                             theCodeUmagf.YYYY = UmagfYYYY;
                                             theCodeUmagf.MM = UmagfMM;
+                                            theCodeUmagf.DD = UmagfDD;
                                             GeospaceEntity.Helper.HelperUmagf.Umagf_Group1_DateCreate(arrayGroups, numDate, theCodeUmagf, true);
                                             GeospaceEntity.Helper.HelperUmagf.Umagf_Group2_AK(arrayGroups, numIndex, theCodeUmagf);
                                             GeospaceEntity.Helper.HelperUmagf.Umagf_Group3_K_index(arrayGroups, numIndex, theCodeUmagf);
@@ -207,6 +205,7 @@ namespace GeospaceDecodeService
                                             int YYYY = Created_At.Year;
                                             UmagfYYYY = YYYY;
                                             UmagfMM = MM;
+                                            UmagfDD = DD;
                                             string[] arrayGroups = code_source.Split(' ');
                                             int sessionCount = 0;
                                             int startGroup = 4;
