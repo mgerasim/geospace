@@ -102,6 +102,10 @@ namespace GeospaceEntity.Helper
                     {
                         ss = ss.Replace("00", "0");
                     }
+                    if (ss.Length == 6 && ss.Substring(0, 1) == "0")
+                    {
+                        ss = ss.Substring(1);
+                    }
                 }
 
                 if (ss.Length == 6)
