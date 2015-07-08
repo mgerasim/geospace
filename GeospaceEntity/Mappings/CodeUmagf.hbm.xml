@@ -24,6 +24,7 @@
     <property name="k8" />
 
     <property name="ak" />
+    <property name="events" type="string" length="10000"/>
     
     <property name="Raw" type="string" length="10000"/>
     <property name="ErrorMessage" type="string" length="10000"/>

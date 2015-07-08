@@ -31,6 +31,9 @@ namespace GeospaceEntity.Models.Codes
         //AK
         public virtual int ak { get; set; }
 
+        //строка с явлениями вида:  явление1.ЧЧ:ММ, явление2.ЧЧ:ММ, ...
+        public virtual string events { get; set; }
+
         public virtual string Raw { get; set; }
         public virtual string ErrorMessage { get; set; }
         public CodeUmagf()
@@ -49,6 +52,7 @@ namespace GeospaceEntity.Models.Codes
             k8 = 1000;
 
             ak = 1000;
+            events = "";            
 
             Raw = "";
             ErrorMessage = "";
@@ -70,6 +74,7 @@ namespace GeospaceEntity.Models.Codes
 
             ak = 1000;
 
+            events = ""; 
             Raw = "";
             ErrorMessage = "";
         }
@@ -102,6 +107,7 @@ namespace GeospaceEntity.Models.Codes
                     return DisplayValue(this.ak);
             }
         }
+
         public virtual string _k1
         {
             get

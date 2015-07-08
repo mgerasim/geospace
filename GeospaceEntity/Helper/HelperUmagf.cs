@@ -88,7 +88,7 @@ namespace GeospaceEntity.Helper
         }
 
         //получить из Umagf K-индексы
-        public static void Umagf_Group3_K_index(string[] arrayGroups, int num, GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf )
+        public static int Umagf_Group3_K_index(string[] arrayGroups, int num, GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf )
         {
             int group2 = -1, group3 = -1;
             for (int i = num + 1; i < arrayGroups.Length; i++)
@@ -124,6 +124,44 @@ namespace GeospaceEntity.Helper
                 if (Char.IsDigit(arrayGroups[group3][len - 1]))
                     theCodeUmagf.k8 = Convert.ToInt32(arrayGroups[group3].Substring(len - 1, 1));
             }
+            return group3;
+        }
+
+        //получает строку с явлениями вида: явление1.ЧЧ:ММ, явление2.ЧЧ:ММ, ...
+        public static void Umagf_Events( string[] arrayGroups, int posLastGroup_KIndex, GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf )
+        {
+            if (posLastGroup_KIndex < 0 && arrayGroups.Length < posLastGroup_KIndex + 1) return;
+
+            for (int i = posLastGroup_KIndex + 1; i < arrayGroups.Length && arrayGroups[i].Length > 0; i++)
+            {
+                if (arrayGroups[i].Substring(0, 1) == "5")
+                {
+                    i++;
+                    continue;
+                }
+                if (theCodeUmagf.events.Length != 0) theCodeUmagf.events += ", ";
+                theCodeUmagf.events += arrayGroups[i].Substring(0, 1) + "." +
+                                          arrayGroups[i].Substring(1, 2) + ":" + arrayGroups[i].Substring(3, 2);
+            }
+        }
+
+        //печатает все возможные комбинации кода Umagf
+        public static void Print_All_Code_Umagf(string strUmagf, List<int> listLengthLines, List<string> listComb, string pathFile)
+        {
+            int count = 0;
+            foreach (int len in listLengthLines)
+            {
+                if (strUmagf.Length == len) count++;
+                if (count == 10) return;
+            }
+
+            listLengthLines.Add(strUmagf.Length);
+            listComb.Add(strUmagf);
+
+            StreamWriter sw = new StreamWriter(pathFile);
+            foreach( string s in listComb)
+                sw.WriteLine(s);
+            sw.Close();
         }
     }
 }

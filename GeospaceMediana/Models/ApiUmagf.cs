@@ -13,6 +13,7 @@ namespace GeospaceMediana.Models
         public ApiUmagf(GeospaceEntity.Models.Codes.CodeUmagf codeUmagf)
         {
             ak = codeUmagf.ak;
+            events = codeUmagf.events;
             k1 = codeUmagf.k1;
             k2 = codeUmagf.k2;
             k3 = codeUmagf.k3;
@@ -50,6 +51,9 @@ namespace GeospaceMediana.Models
 
         [JsonProperty("ak")]
         public int ak { get; set; }
+
+        [JsonProperty("events")]
+        public string events { get; set; }
 
         [JsonProperty("k1")]
         public int k1 { get; set; }
