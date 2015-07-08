@@ -18,25 +18,28 @@ namespace GeospaceEntity.Helper
 
             if (flag) //из коротокой строки Umagf
             {
-                theCodeUmagf.DD = Convert.ToInt32(arrayGroups[num].Substring(0, 2));
-                theCodeUmagf.HH = Convert.ToInt32(arrayGroups[num].Substring(len - 2, 2));
+                DateTime dt = new DateTime(theCodeUmagf.YYYY,
+                    theCodeUmagf.MM,
+                    Convert.ToInt32(arrayGroups[num].Substring(0, 2)));
+                int DayZ = Convert.ToInt32(arrayGroups[num].Substring(0, 2));
+                if (Math.Abs(DayZ - theCodeUmagf.DD) > 15)
+                {
+                    dt = dt.AddMonths(-1);
+                    theCodeUmagf.MM = dt.Month;
+                    theCodeUmagf.YYYY = dt.Year;
+                }
+
+                theCodeUmagf.DD = DayZ;
+                int pos = 2;
+                if (arrayGroups[num].Length == 5) pos = 3;
+                theCodeUmagf.HH = Convert.ToInt32(arrayGroups[num].Substring(len - pos, 2));
             }
             else  //из длиной строки Umagf
             {
                 theCodeUmagf.HH = Convert.ToInt32(arrayGroups[num].Substring(0, 2));
                 theCodeUmagf.MI = Convert.ToInt32(arrayGroups[num].Substring(len - 2, 2));
-            }
-               
+            }               
         }
-        /*
-        public static void Umagf_Group1_DateCreate2(string[] arrayGroups, int num, GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf)
-        {
-            arrayGroups[num] = arrayGroups[num].Replace("/", "");
-
-            int len = arrayGroups[num].Length;
-            theCodeUmagf.HH = Convert.ToInt32(arrayGroups[num].Substring(0, 2));
-            theCodeUmagf.MI = Convert.ToInt32(arrayGroups[num].Substring(len - 2, 2));
-        }*/
 
         //получает индекс станции, если в БД такой станции НЕ СОЗДОВАТЬ эту станцию в БД
         public static bool Umagf_BigGroup1_NumStation(string[] arrayGroups, int num, GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf)
@@ -60,9 +63,15 @@ namespace GeospaceEntity.Helper
             arrayGroups[num] = arrayGroups[num].Replace("/", "");
             if (arrayGroups[num].Length >= 5 && arrayGroups.Length > num)
             {
-                theCodeUmagf.YYYY = DateTime.Now.Year;
-                theCodeUmagf.MM = Convert.ToInt32(arrayGroups[num].Substring(1, 2));
-                theCodeUmagf.DD = Convert.ToInt32(arrayGroups[num].Substring(3, 2));
+                DateTime dt = new DateTime(DateTime.Now.Year,
+                    Convert.ToInt32(arrayGroups[num].Substring(1, 2)),
+                    Convert.ToInt32(arrayGroups[num].Substring(3, 2)));
+                
+                //dt = dt.AddDays(-1);
+
+                theCodeUmagf.YYYY = dt.Year;
+                theCodeUmagf.MM = dt.Month;
+                theCodeUmagf.DD = dt.Day;
             }
         }
 
@@ -79,7 +88,7 @@ namespace GeospaceEntity.Helper
         }
 
         //получить из Umagf K-индексы
-        public static void Umagf_Group3_K_index(string[] arrayGroups, int num, GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf )
+        public static int Umagf_Group3_K_index(string[] arrayGroups, int num, GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf )
         {
             int group2 = -1, group3 = -1;
             for (int i = num + 1; i < arrayGroups.Length; i++)
@@ -115,6 +124,76 @@ namespace GeospaceEntity.Helper
                 if (Char.IsDigit(arrayGroups[group3][len - 1]))
                     theCodeUmagf.k8 = Convert.ToInt32(arrayGroups[group3].Substring(len - 1, 1));
             }
+            return group3;
+        }
+
+        //получает строку с явлениями вида: явление1.ЧЧ:ММ, явление2.ЧЧ:ММ, ...
+        public static void Umagf_Events( string[] arrayGroups, int posLastGroup_KIndex, GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf )
+        {
+            if (posLastGroup_KIndex < 0 && arrayGroups.Length < posLastGroup_KIndex + 1) return;
+
+            for (int i = posLastGroup_KIndex + 1; i < arrayGroups.Length && arrayGroups[i].Length > 0; i++)
+            {
+                if (arrayGroups[i].Substring(0, 1) == "5")
+                {
+                    i++;
+                    continue;
+                }
+                if (theCodeUmagf.events.Length != 0) theCodeUmagf.events += ", ";
+                theCodeUmagf.events += arrayGroups[i].Substring(0, 1) + "." +
+                                          arrayGroups[i].Substring(1, 2) + ":" + arrayGroups[i].Substring(3, 2);
+            }
+        }
+
+        //печатает все возможные комбинации кода Umagf
+        public static void Print_All_Code_Umagf(string strUmagf, List<int> listLengthLines, List<string> listComb, string pathFile)
+        {
+            int count = 0;
+            foreach (int len in listLengthLines)
+            {
+                if (strUmagf.Length == len) count++;
+                if (count == 10) return;
+            }
+
+            listLengthLines.Add(strUmagf.Length);
+            listComb.Add(strUmagf);
+
+            StreamWriter sw = new StreamWriter(pathFile);
+            foreach( string s in listComb)
+                sw.WriteLine(s);
+            sw.Close();
+        }
+        
+        public static void Umagf_Check(Models.Codes.CodeUmagf theCodeUmagf)
+        {
+            int n = 0;
+            int[] array = { 3, 7, 15, 27, 48, 80, 140, 240, 400 };
+            double An = 0.0;
+            if (theCodeUmagf.k1 != 1000) { n++; An += array[theCodeUmagf.k1 - 1]; }
+            if (theCodeUmagf.k2 != 1000) { n++; An += array[theCodeUmagf.k2 - 1]; }
+            if (theCodeUmagf.k3 != 1000) { n++; An += array[theCodeUmagf.k3 - 1]; }
+            if (theCodeUmagf.k4 != 1000) { n++; An += array[theCodeUmagf.k4 - 1]; }
+            if (theCodeUmagf.k5 != 1000) { n++; An += array[theCodeUmagf.k5 - 1]; }
+            if (theCodeUmagf.k6 != 1000) { n++; An += array[theCodeUmagf.k6 - 1]; }
+            if (theCodeUmagf.k7 != 1000) { n++; An += array[theCodeUmagf.k7 - 1]; }
+            if (theCodeUmagf.k8 != 1000) { n++; An += array[theCodeUmagf.k8 - 1]; }
+            if (n > 0)
+            {
+                An = Math.Round(An / n);
+                if (GeospaceEntity.Helper.HelperUmagf.Metround(An)*2 == theCodeUmagf.ak)
+                    theCodeUmagf.ak = GeospaceEntity.Helper.HelperUmagf.Metround(An);
+                if (theCodeUmagf.ak == 1000)
+                    theCodeUmagf.ak = GeospaceEntity.Helper.HelperUmagf.Metround(An);
+            }
+        }
+
+        private static int Metround(double p)
+        {
+            int x = Convert.ToInt32(p*10);
+            if (x % 10 > 5) return x / 10 + 1;
+            if (x % 10 < 5) return x / 10;
+            if (x % 10 == 5) return ((x - 5) % 2 == 0) ? x / 10 : x / 10 + 1;
+            return Convert.ToInt32(p);
         }
     }
 }

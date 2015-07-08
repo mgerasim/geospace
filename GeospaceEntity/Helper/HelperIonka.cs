@@ -170,6 +170,7 @@ namespace GeospaceEntity.Helper
                 // Для станции с кодом 43501 Хабаровск код IONKA упращенный
                 return strIonka;
             }
+            /*
             string tokenGroup04 = arrayString[3];
             int numberControl = Convert.ToInt32(tokenGroup04.Substring(0, 1));
             if (numberControl != 7)
@@ -193,7 +194,7 @@ namespace GeospaceEntity.Helper
                     strIonka,
                     tokenGroup04));
             }
-
+            */
             return strIonka;
         }
 
@@ -356,16 +357,164 @@ namespace GeospaceEntity.Helper
         }
 
         //печатает все возможные комбинации кода ионка
-        public static void Print_All_Code_Ionka(string strIonka, List<int> listLengthLines)
+        public static void Print_All_Code_Ionka(string strIonka, List<int> listLengthLines, string pathFile )
         {
             foreach (int len in listLengthLines)
                 if (strIonka.Length == len) return;
 
             listLengthLines.Add(strIonka.Length);
 
-            StreamWriter sw = new StreamWriter("C:\\Users\\distomin\\Projects\\GeoSpace\\documents\\All_Code_Ionka.txt", true);
+            StreamWriter sw = new StreamWriter(pathFile, true);
             sw.WriteLine(strIonka);
             sw.Close();
+        }
+
+        //проверка на группу /ЧЧММ и возврат объекта типа DateTime
+        public static bool Find_Time(string strTime, Time time)
+        {
+            int res;
+            if (strTime[0] == '/' && Int32.TryParse(strTime.Substring(1), out res))
+            {
+                time.init(Convert.ToInt32(strTime.Substring(1, 2)), Convert.ToInt32(strTime.Substring(3, 2)));
+                if (!time.Check_Format()) return false;
+            }
+            else return false;
+
+            return true;
+        }
+
+        //среднее значения для класса Time
+        public static Time Avg_Time( List<Time> listDiff )
+        {
+            int hh = 0, mi = 0; 
+            for( int i = 0; i < listDiff.Count(); i++ )
+            {
+                hh += listDiff[i].HH.val;
+                mi += listDiff[i].MI.val;
+            }
+            return new Time(hh / listDiff.Count(), mi / listDiff.Count());
+        }
+
+        //Алгоритм поиска сеансов зондирования.
+        //Если средние значение больше максимального - удалить максимальное значение
+        public static void Search_Time_Sess_With_Avg(List<Time> listTimes, List<int> listPositions)
+        {
+            List<Time> listDiff = new List<Time>();
+            for (int i = 0; i < listTimes.Count() - 1; i+=2)
+                listDiff.Add(listTimes[i + 1] - listTimes[i]);
+
+            Time avgTime = Avg_Time(listDiff);
+            if (avgTime < new Time(3, 0)) avgTime = 2 * avgTime;
+
+            Time maxTimeDiff = new Time();
+            int index = 0;
+
+            Search_Max_Time(listDiff, ref maxTimeDiff, ref index);
+
+            if (maxTimeDiff > avgTime)
+            {
+                listTimes.RemoveAt(index);
+                listPositions.RemoveAt(index);
+            }
+        }
+
+        //Алгоритм поиска сеансов зондирования.
+        //Проверяет растояниие между сессиями, если 2 сеанса находяться рядом друг с другом - удалить первый
+        public static void Search_Time_Sess_With_Dist(List<Time> listTimes, List<int> listPositions)
+        {
+            for (int i = 0; i < listPositions.Count() - 1; i++)
+            {
+                if( listPositions[i+1] - listPositions[i] == 1 )
+                {
+                    listTimes.RemoveAt(i);
+                    listPositions.RemoveAt(i);
+                }
+            }
+
+            
+        }
+        /// <summary>
+        /// Формирует массивы сеансов зандирония за текущий и пердыдущий день(Опционально)
+        /// </summary>
+        /// <param name="PrevDay"> Данные за пердыдущий день</param>
+        /// <param name="Day"> Данные за текущий день</param>
+        /// <param name="listTime"> Время сеансов зондирования</param>
+        /// <param name="arrayGroups"> Массив кодов телеграммы</param>
+        /// <param name="listPositions"> Позиций кодов времени в массиве телеграммы</param>
+ 
+        public static void List_Time_Session(List<List<string> > PrevDay, List<List<string> > Day, List<Time> listTime, string[] arrayGroups, List<int> listPositions)
+        {
+            listPositions.Add(arrayGroups.Length-1);
+            for (int i = 0; i < listTime.Count(); i++ )
+            {
+                if (i > 0)
+                {
+                    if(listTime[i] < listTime[i-1])
+                    {
+                        foreach(var index in Day)
+                        {
+                            PrevDay.Add(new List<string>(index));
+                        }
+                        Day.Clear();
+                    }
+                }
+                List<string> lineListGroup = new List<string>();
+                for(int k = listPositions[i]; k < listPositions[i+1]; k++)
+                {
+                    lineListGroup.Add(arrayGroups[k]);
+                }
+                Day.Add(lineListGroup);
+            }
+        }
+        public static void Search_Max_Time(List<Time> list, ref Time time, ref int index)
+        {
+            time.init(list[0]);
+            for( int i = 0; i < list.Count(); i++ )
+            {
+                if( time < list[i] )
+                {
+                    time = list[i];
+                    index = i + 1;
+                }
+            }
+            if (index == 0) index++;
+        }
+        
+        /// <summary>
+        ///  Поиск сеансов зондирования
+        /// </summary>
+        /// <param name="Day">Данные за текущий день</param>
+        /// <param name="PrevDay">Данные за предыдущий день</param>
+        /// <param name="arrayGroups">Массив кодов телеграммы</param>
+        /// <param name="startGroup">Начальное положение временной группы</param>
+        public static void Search_Time_Sessions( List<List<string>> Day, List<List<string>> PrevDay, string[] arrayGroups, int startGroup)
+        {
+            List<Time> listTimes = new List<Time>();
+            List<int> listPositions = new List<int>();
+            List<string []> listTimeSessions = new List<string []>();
+            
+            Time currTime = new Time();
+
+            //создает массивы из времени сеансов зондирования и положения этих сеансов в arrayGroups
+            for (int i = startGroup; i < arrayGroups.Length - 1; i++)
+            {
+                if (Find_Time(arrayGroups[i], currTime))
+                {
+                    listTimes.Add(new Time( currTime ));
+                    listPositions.Add(i);
+                }
+            }
+            if (listTimes.Count() > 1)
+            {
+                //Алгоритм поиска сеансов зондирования.
+                //Проверяет растояниие между сессиями, если 2 сеанса находяться рядом друг с другом - удалить первый
+                Search_Time_Sess_With_Dist(listTimes, listPositions);
+
+                //Алгоритм поиска сеансов зондирования.
+                //Если средние значение больше максимального - удалить максимальное значение 
+                Search_Time_Sess_With_Avg(listTimes, listPositions);
+            }
+            List_Time_Session(PrevDay,Day,listTimes,arrayGroups,listPositions);            
         }
     }
 }

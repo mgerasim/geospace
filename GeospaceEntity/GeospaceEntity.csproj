@@ -54,6 +54,7 @@
     <Compile Include="Common\IRepository.cs" />
     <Compile Include="Common\NHibernateHelper.cs" />
     <Compile Include="Helper\HelperIonka.cs" />
+    <Compile Include="Helper\HelperTimeForIonka.cs" />
     <Compile Include="Helper\HelperUmagf.cs" />
     <EmbeddedResource Include="Mappings\Product.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
