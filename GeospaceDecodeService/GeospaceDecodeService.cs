@@ -61,6 +61,7 @@ namespace GeospaceDecodeService
             logumagf.Debug("k6 = " + umagf.k6.ToString());
             logumagf.Debug("k7 = " + umagf.k7.ToString());
             logumagf.Debug("k8 = " + umagf.k8.ToString());
+            logumagf.Debug("events = " + umagf.events);
             logumagf.Debug("+++++++++++++++++++++++++++++++++++");
         }
 
@@ -71,6 +72,7 @@ namespace GeospaceDecodeService
             logger.Debug("timer1_Tick_1: AppDir:" + AppDomain.CurrentDomain.BaseDirectory);
 
             List<int> listLengthLines = new List<int>();
+            List<string> listComb = new List<string>();
 
             AMS.Profile.Ini Ini = new AMS.Profile.Ini(AppDomain.CurrentDomain.BaseDirectory + "\\GeospaceDecodeService.ini");
             if (!Ini.HasSection("COMMON"))
@@ -126,13 +128,12 @@ namespace GeospaceDecodeService
                                         GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf = new GeospaceEntity.Models.Codes.CodeUmagf();
 
                                         string[] arrayGroups = code_source.Split(' ');
+                                        int posLastGroup_KIndex;
 
                                         if (arrayGroups.Length > 6) flagIonka = false;
 
-                                        if (!flagIonka)
+                                        if (!flagIonka) //без ионки
                                         {
-                                            //без ионки
-
                                             numDate = 3;
                                             numIndex = 5;
                                             
@@ -140,8 +141,6 @@ namespace GeospaceDecodeService
                                             GeospaceEntity.Helper.HelperUmagf.Umagf_BigGroup2_FullData(arrayGroups, 2, theCodeUmagf);
                                             //GeospaceEntity.Helper.HelperUmagf.Umagf_Group1_DateCreate(arrayGroups, numDate, theCodeUmagf);       
                                             GeospaceEntity.Helper.HelperUmagf.Umagf_Group1_DateCreate(arrayGroups, numDate + 1, theCodeUmagf, true);
-                                            GeospaceEntity.Helper.HelperUmagf.Umagf_Group2_AK(arrayGroups, numIndex, theCodeUmagf);
-                                            GeospaceEntity.Helper.HelperUmagf.Umagf_Group3_K_index(arrayGroups, numIndex, theCodeUmagf);
                                         }
                                         else //если есть ионка
                                         {
@@ -149,12 +148,16 @@ namespace GeospaceDecodeService
                                             theCodeUmagf.YYYY = UmagfYYYY;
                                             theCodeUmagf.MM = UmagfMM;
                                             theCodeUmagf.DD = UmagfDD;
-                                            GeospaceEntity.Helper.HelperUmagf.Umagf_Group1_DateCreate(arrayGroups, numDate, theCodeUmagf, true);
-                                            GeospaceEntity.Helper.HelperUmagf.Umagf_Group2_AK(arrayGroups, numIndex, theCodeUmagf);
-                                            GeospaceEntity.Helper.HelperUmagf.Umagf_Group3_K_index(arrayGroups, numIndex, theCodeUmagf);
+                                            GeospaceEntity.Helper.HelperUmagf.Umagf_Group1_DateCreate(arrayGroups, numDate, theCodeUmagf, true);                                            
 
                                             flagIonka = false;
                                         }
+
+                                        GeospaceEntity.Helper.HelperUmagf.Umagf_Group2_AK(arrayGroups, numIndex, theCodeUmagf);
+                                        posLastGroup_KIndex = GeospaceEntity.Helper.HelperUmagf.Umagf_Group3_K_index(arrayGroups, numIndex, theCodeUmagf);
+                                        GeospaceEntity.Helper.HelperUmagf.Umagf_Events(arrayGroups, posLastGroup_KIndex, theCodeUmagf);
+
+                                        //GeospaceEntity.Helper.HelperUmagf.Print_All_Code_Umagf(code_source, listLengthLines, listComb, "C:\\Users\\distomin\\Projects\\GeoSpace\\documents\\All_Code_Umagf.txt");
 
                                         theCodeUmagf.Raw = code_source;
                                         if (theCodeUmagf.GetByDateUTC() == null && existStatFromBD && theCodeUmagf.Station != null)
