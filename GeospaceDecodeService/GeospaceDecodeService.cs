@@ -156,7 +156,7 @@ namespace GeospaceDecodeService
                                         GeospaceEntity.Helper.HelperUmagf.Umagf_Group2_AK(arrayGroups, numIndex, theCodeUmagf);
                                         posLastGroup_KIndex = GeospaceEntity.Helper.HelperUmagf.Umagf_Group3_K_index(arrayGroups, numIndex, theCodeUmagf);
                                         GeospaceEntity.Helper.HelperUmagf.Umagf_Events(arrayGroups, posLastGroup_KIndex, theCodeUmagf);
-
+                                        GeospaceEntity.Helper.HelperUmagf.Umagf_Check(theCodeUmagf);
                                         //GeospaceEntity.Helper.HelperUmagf.Print_All_Code_Umagf(code_source, listLengthLines, listComb, "C:\\Users\\distomin\\Projects\\GeoSpace\\documents\\All_Code_Umagf.txt");
 
                                         theCodeUmagf.Raw = code_source;
