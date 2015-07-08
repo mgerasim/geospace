@@ -59,6 +59,7 @@
     <EmbeddedResource Include="Mappings\Product.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <Compile Include="Helper\Other.cs" />
     <Compile Include="Models\Codes\CodeIonka.cs" />
     <Compile Include="Models\Codes\CodeUmagf.cs" />
     <Compile Include="Models\Error.cs" />
