@@ -167,20 +167,21 @@ namespace GeospaceEntity.Helper
         public static void Umagf_Check(Models.Codes.CodeUmagf theCodeUmagf)
         {
             int n = 0;
+            int[] array = { 3, 7, 15, 27, 48, 80, 140, 240, 400 };
             double An = 0.0;
-            if (theCodeUmagf.k1 != 1000) { n++; An += theCodeUmagf.k1; }
-            if (theCodeUmagf.k2 != 1000) { n++; An += theCodeUmagf.k2; }
-            if (theCodeUmagf.k3 != 1000) { n++; An += theCodeUmagf.k3; }
-            if (theCodeUmagf.k4 != 1000) { n++; An += theCodeUmagf.k4; }
-            if (theCodeUmagf.k5 != 1000) { n++; An += theCodeUmagf.k5; }
-            if (theCodeUmagf.k6 != 1000) { n++; An += theCodeUmagf.k6; }
-            if (theCodeUmagf.k7 != 1000) { n++; An += theCodeUmagf.k7; }
-            if (theCodeUmagf.k8 != 1000) { n++; An += theCodeUmagf.k8; }
+            if (theCodeUmagf.k1 != 1000) { n++; An += array[theCodeUmagf.k1 - 1]; }
+            if (theCodeUmagf.k2 != 1000) { n++; An += array[theCodeUmagf.k2 - 1]; }
+            if (theCodeUmagf.k3 != 1000) { n++; An += array[theCodeUmagf.k3 - 1]; }
+            if (theCodeUmagf.k4 != 1000) { n++; An += array[theCodeUmagf.k4 - 1]; }
+            if (theCodeUmagf.k5 != 1000) { n++; An += array[theCodeUmagf.k5 - 1]; }
+            if (theCodeUmagf.k6 != 1000) { n++; An += array[theCodeUmagf.k6 - 1]; }
+            if (theCodeUmagf.k7 != 1000) { n++; An += array[theCodeUmagf.k7 - 1]; }
+            if (theCodeUmagf.k8 != 1000) { n++; An += array[theCodeUmagf.k8 - 1]; }
             if (n > 0)
             {
                 An = Math.Round(An / n);
-                if (GeospaceEntity.Helper.HelperUmagf.Metround(An / 2) == theCodeUmagf.ak)
-                    theCodeUmagf.ak = GeospaceEntity.Helper.HelperUmagf.Metround(An / 2);
+                if (GeospaceEntity.Helper.HelperUmagf.Metround(An)*2 == theCodeUmagf.ak)
+                    theCodeUmagf.ak = GeospaceEntity.Helper.HelperUmagf.Metround(An);
                 if (theCodeUmagf.ak == 1000)
                     theCodeUmagf.ak = GeospaceEntity.Helper.HelperUmagf.Metround(An);
             }
