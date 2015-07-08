@@ -1,4 +1,6 @@
-﻿using GeospaceMediana.Models;
+﻿using GeospaceEntity.Models;
+using GeospaceEntity.Models.Codes;
+using GeospaceMediana.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +45,32 @@ namespace GeospaceMediana.Controllers
             ViewBag.Type = type;
 
             return View(Model);
+        }
+
+        public ActionResult Submit(int stationcode, int year, int month, int day, string type, int hour, string newValue)
+        {
+            try
+            {
+                Station station = new Station();
+                station = station.GetByCode(stationcode);
+
+                CodeIonka codeIonka = new CodeIonka();
+
+                codeIonka = codeIonka.GetByDate(station, year, month, day, hour);
+
+                int iNewValue = CodeIonka.ConvertCodeToInt(newValue);
+                codeIonka.SetValueByType(type, iNewValue);
+
+                codeIonka.Update();
+
+                return Content("");
+            }
+            catch (Exception)
+            {
+                // return Content(e.ToString());
+                return Content("Ошибка применения изменения! Проверьте корректность вводимых данных.");
+            }
+
         }
 
     }
