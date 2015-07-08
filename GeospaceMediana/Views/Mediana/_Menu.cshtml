@@ -1,0 +1,101 @@
+﻿
+<li class="dropdown">
+    <a id="login_head" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">@Model.StationName <span class="caret"></span></a>
+    <ul class="dropdown-menu" role="menu">
+
+        @foreach (var item in Model.Stations)
+        {
+            if (Model.StationCode != item.Code)
+            {
+                string name = item.Name == null ? " " : item.Name;
+                
+                <li>
+                    @Html.ActionLink(name,
+                                "Index",
+                                "Mediana",
+                                new
+                                {
+                                    station = item.Code,
+                                    year = Model.Start.Year,
+                                    month = Model.Start.Month,
+                                    type = ViewBag.Type
+                                }, null)
+                </li>
+            }
+        }
+
+    </ul>
+</li>
+
+@{
+    var startPrevMonth = Model.Start.AddMonths(-1);
+    var startNextMonth = Model.Start.AddMonths(1);
+}
+
+<li>
+    @Html.ActionLink("Пред.",
+            "Index",
+            "Mediana",
+            new
+            {                                                     
+                station = Model.StationCode,
+                year = startPrevMonth.Year,
+                month = startPrevMonth.Month,
+                type = ViewBag.Type
+            },
+                                new
+                                {
+                                    @class = "btn btn-default btn-lg"
+                                }
+)
+</li>
+<li>
+    @Html.ActionLink("След.",
+            "Index",
+            "Mediana",
+            new
+            {                                                     // routeValues
+                station = Model.StationCode,
+                year = startNextMonth.Year,
+                month = startNextMonth.Month,
+                type = ViewBag.Type
+            },
+                                new
+                                {
+                                    @class = "btn btn-default btn-lg"
+                                }
+)
+</li>
+
+@helper ShowTypeSelector(string type)
+{
+    var link = Html.ActionLink(type,
+            "Index",
+            "Mediana",
+            new
+            {
+                station = Model.StationCode,
+                year = Model.Start.Year,
+                month = Model.Start.Month,
+                type = type
+            }, null);
+    
+    if (ViewBag.Type == type)
+    { 
+        <li style="font-weight: bolder">
+            @link
+        </li>
+        
+    }
+    else
+    {
+        <li>
+            @link
+        </li>
+    }
+
+}
+
+
+@ShowTypeSelector("f0F2")
+@ShowTypeSelector("M3000F2")

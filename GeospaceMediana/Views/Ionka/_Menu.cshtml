@@ -1,66 +1,49 @@
 ﻿
-<ul class="nav navbar-nav">
-    <li class="dropdown active">
-        <a id="login_head" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Данные <span class="caret"></span></a>
-        <ul class="dropdown-menu" role="menu">
+<li class="dropdown">
+    <a id="login_head" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">@Model.StationName <span class="caret"></span></a>
+    <ul class="dropdown-menu" role="menu">
 
-            <li><a href="#" data-toggle="modal" data-target="#myModalChangePassword" data-toggle="popover" data-placement="top">Характеристика суток</a></li>
-            <li class="divider"></li>
-
-            <li><a href="#" onclick="StopRadiusSession()">Медианна</a></li>
-            <li><a href="#" onclick="CheckProfile()">Перезагрузка профиля</a></li>
-
-        </ul>
-    </li>
-    @if (@ViewContext.RouteData.Values["controller"] == "Ionka")
-    { 
-    <li class="dropdown">
-        <a id="login_head" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">@Model.StationName <span class="caret"></span></a>
-        <ul class="dropdown-menu" role="menu">
-
-            @foreach (var item in Model.Stations)
+        @foreach (var item in Model.Stations)
+        {
+            if (Model.StationCode != item.Code)
             {
-                if (Model.StationCode != item.Code)
-                {
-                    <li><a href="~/?station=@(item.Code)&start=@(Model.DateToString(Model.Start))&limit=@(Model.Limit)&step=@(Model.Step)">@item.Name</a></li>
-                }
+                <li><a href="~/?station=@(item.Code)&start=@(Model.DateToString(Model.Start))&limit=@(Model.Limit)&step=@(Model.Step)">@item.Name</a></li>
             }
+        }
 
-        </ul>
-    </li>
-    <li>
-        @Html.ActionLink("Пред.",
-                "Index",
-                "Ionka",
-                new
-                {                                                     // routeValues
-                    station = Model.StationCode,
-                    start = Model.Start.AddDays(-Model.Limit).ToString("yyyyMMdd"),
-                    limit = Model.Limit,
-                    step = Model.Step
-                },
-                                  new
-                                  {
-                                      @class = "btn btn-default btn-lg"
-                                  }
-    )
-    </li>
-    <li>
-        @Html.ActionLink("След.",
-                "Index",
-                "Ionka",
-                new
-                {                                                     // routeValues
-                    station = Model.StationCode,
-                    start = Model.End.ToString("yyyyMMdd"),
-                    limit = Model.Limit,
-                    step = Model.Step
-                },
-                                  new
-                                  {
-                                      @class = "btn btn-default btn-lg"
-                                  }
-    )
-    </li>
-    }
-</ul>
+    </ul>
+</li>
+<li>
+    @Html.ActionLink("Пред.",
+            "Index",
+            "Ionka",
+            new
+            {                                                     // routeValues
+                station = Model.StationCode,
+                start = Model.Start.AddDays(-Model.Limit).ToString("yyyyMMdd"),
+                limit = Model.Limit,
+                step = Model.Step
+            },
+                                new
+                                {
+                                    @class = "btn btn-default btn-lg"
+                                }
+)
+</li>
+<li>
+    @Html.ActionLink("След.",
+            "Index",
+            "Ionka",
+            new
+            {                                                     // routeValues
+                station = Model.StationCode,
+                start = Model.End.ToString("yyyyMMdd"),
+                limit = Model.Limit,
+                step = Model.Step
+            },
+                                new
+                                {
+                                    @class = "btn btn-default btn-lg"
+                                }
+)
+</li>

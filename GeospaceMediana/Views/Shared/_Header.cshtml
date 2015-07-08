@@ -19,54 +19,71 @@
       
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      
-                @Html.Partial("~/Views/Ionka/_Menu.cshtml")        
-
-              <ul class="nav navbar-nav navbar-right">
-
-                  <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Продукция<span class="caret"></span></a>
+              <ul class="nav navbar-nav">
+                  <li class="dropdown active">
+                      <a id="login_head" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Данные <span class="caret"></span></a>
                       <ul class="dropdown-menu" role="menu">
-                          <li>@Html.ActionLink("Редактировать продукцию", "Index", "Products")</li>
+
+                          <li><a href="#" data-toggle="modal" data-target="#myModalChangePassword" data-toggle="popover" data-placement="top">Характеристика суток</a></li>
                           <li class="divider"></li>
-                          <li>@Html.ActionLink("Обзор гелеогеофизической обстановки и прогноз на 1-3 суток", "EditReviewGeoEnv", "Products")</li>
-                          <li>@Html.ActionLink("Месячный прогноз ионосферной магнитной возмущенности", "EditForecastMonthIonosphera", "Products")</li>
-                          <li>@Html.ActionLink("Пятидневный прогноз медианы", "EditForecastDaysFives", "Products")</li>
-                          <li>@Html.ActionLink("Месячный обзор гелеогеофизической обстановки", "EditReviewGeoEnvMonth", "Products")</li>
-                          <li class="divider"></li>
-                          <li>@Html.ActionLink("Сводная таблица по разделам: солнце, магнитное поле Земли, ионосфера", "DownloadTableSun", "Products")</li>
-                          <li>@Html.ActionLink("Таблица нарушения радиосвязи", "DownloadDisturbanceRadio", "Products")</li>
+
+                          <li>@Html.ActionLink("Медиана", "Index", "Mediana")</li>
+                          <li><a href="#" onclick="CheckProfile()">Перезагрузка профиля</a></li>
+
                       </ul>
                   </li>
+                  @try
+                  {
+                     @Html.Partial("_Menu")
+                  }
+                  catch (InvalidOperationException) { }
+                  </ul>
 
-                  <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Справочники<span class="caret"></span></a>
-                      <ul class="dropdown-menu" role="menu">
-                          <li>@Html.ActionLink("Станции", "Index", "Stations")</li>
-                          <!--                          <li>@Html.ActionLink("Группы абонентов", "Index", "Group")</li>
-                          <li class="divider"></li>
-                          <li>@Html.ActionLink("Территория", "Index", "Territory")</li>
-                          <li>@Html.ActionLink("Административные районы и населённые пункты", "Index", "Region")</li>
-                          <li class="divider"></li>
-                          <li>@Html.ActionLink("Облачность", "Index", "CloudinessTemplate")</li>
-                          <li>@Html.ActionLink("Осадки", "Index", "PrecipitationTemplate")</li>
-                          <li>@Html.ActionLink("Ветер", "Index", "WindTemplate")</li>
-                          <li>@Html.ActionLink("Явления", "Index", "ConditionTemplate")</li>
-                          <li class="divider"></li>
-                          <li>@Html.ActionLink("Уточнения", "Index", "ClarificationTemplate")</li>
-                              -->
-                      </ul>
-                  </li>
-                  <!--
-                  <li>@Html.ActionLink("Настройки", "Index", "Settings")</li>
-                  <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Администрирование<span class="caret"></span></a>
-                      <ul class="dropdown-menu" role="menu">
-                          <li>@Html.ActionLink("Обновить схему", "Update", "Schema")</li>
-                      </ul>
-                  </li>
-                      -->
-              </ul>
-          </div><!-- /.navbar-collapse -->
+                  <ul class="nav navbar-nav navbar-right">
+
+                      <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Продукция<span class="caret"></span></a>
+                          <ul class="dropdown-menu" role="menu">
+                              <li>@Html.ActionLink("Редактировать продукцию", "Index", "Products")</li>
+                              <li class="divider"></li>
+                              <li>@Html.ActionLink("Обзор гелеогеофизической обстановки и прогноз на 1-3 суток", "EditReviewGeoEnv", "Products")</li>
+                              <li>@Html.ActionLink("Месячный прогноз ионосферной магнитной возмущенности", "EditForecastMonthIonosphera", "Products")</li>
+                              <li>@Html.ActionLink("Пятидневный прогноз медианы", "EditForecastDaysFives", "Products")</li>
+                              <li>@Html.ActionLink("Месячный обзор гелеогеофизической обстановки", "EditReviewGeoEnvMonth", "Products")</li>
+                              <li class="divider"></li>
+                              <li>@Html.ActionLink("Сводная таблица по разделам: солнце, магнитное поле Земли, ионосфера", "DownloadTableSun", "Products")</li>
+                              <li>@Html.ActionLink("Таблица нарушения радиосвязи", "DownloadDisturbanceRadio", "Products")</li>
+                          </ul>
+                      </li>
+
+                      <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Справочники<span class="caret"></span></a>
+                          <ul class="dropdown-menu" role="menu">
+                              <li>@Html.ActionLink("Станции", "Index", "Stations")</li>
+                              <!--                          <li>@Html.ActionLink("Группы абонентов", "Index", "Group")</li>
+                    <li class="divider"></li>
+                    <li>@Html.ActionLink("Территория", "Index", "Territory")</li>
+                    <li>@Html.ActionLink("Административные районы и населённые пункты", "Index", "Region")</li>
+                    <li class="divider"></li>
+                    <li>@Html.ActionLink("Облачность", "Index", "CloudinessTemplate")</li>
+                    <li>@Html.ActionLink("Осадки", "Index", "PrecipitationTemplate")</li>
+                    <li>@Html.ActionLink("Ветер", "Index", "WindTemplate")</li>
+                    <li>@Html.ActionLink("Явления", "Index", "ConditionTemplate")</li>
+                    <li class="divider"></li>
+                    <li>@Html.ActionLink("Уточнения", "Index", "ClarificationTemplate")</li>
+                        -->
+                          </ul>
+                      </li>
+                      <!--
+            <li>@Html.ActionLink("Настройки", "Index", "Settings")</li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Администрирование<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li>@Html.ActionLink("Обновить схему", "Update", "Schema")</li>
+                </ul>
+            </li>
+                -->
+                  </ul>
+</div><!-- /.navbar-collapse -->
 </div><!-- /.container-fluid -->
 </nav>

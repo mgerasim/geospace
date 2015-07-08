@@ -274,6 +274,7 @@
     <Content Include="Views\Products\EditReviewGeoEnv.cshtml" />
     <Content Include="Views\Products\EditReviewGeoEnvMonth.cshtml" />
     <Content Include="Views\Stations\Delete.cshtml" />
+    <Content Include="Views\Mediana\_Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

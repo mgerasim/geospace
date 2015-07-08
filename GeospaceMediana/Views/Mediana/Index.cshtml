@@ -1,5 +1,54 @@
-﻿@{
+﻿@using GeospaceEntity.Models.Codes;
+@{
     ViewBag.Title = @ViewBag.Title;
 }
 
-<h2>Index</h2>
+<h2>Медиана (@ViewBag.Date)</h2>
+
+<style>
+    table td, th {
+        text-align: center;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+        <table style="table-layout: fixed" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th style="width: 36px">День</th>
+                    @for (int i = 0; i < 24; i++)
+                    {
+                        <th>@i</th>
+                    }
+
+                </tr>
+            </thead>
+
+            <tbody>
+                @for (int day = 1; day <= ViewBag.CountDaysInMonth; day++)
+                {
+                    <tr>
+                        <td>@day</td>
+                        @for (int hour = 0; hour < 24; hour++)
+                        {
+                            CodeIonka theCode = Model.GetValue(ViewBag.Year, ViewBag.Month, day, hour);
+                            
+                            <td>
+                                @if(ViewBag.Type == "f0F2")
+                                {
+                                    @theCode._f0F2
+                                }
+                                else
+                                {
+                                    @theCode._M3000F2
+                                }
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
