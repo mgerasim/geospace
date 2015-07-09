@@ -131,6 +131,7 @@
                             bool isLowDensityIonization = theCode._f0F2 == "G" && theCode._M3000F2 == "G";
                             bool isDiffusio = theCode._f0F2 == "F" && theCode._M3000F2 == "F";
                             bool isStationError = theCode._f0F2 == "C" && theCode._M3000F2 == "C";
+                            bool isAbsorption = theCode._f0F2 == "B" && theCode._M3000F2 == "B";
                             string editable = theCode._f0F2.IsEmpty() ? "add-ionka" : "editable-ionka";
                             string editableWithLowDensityIonization = theCode._f0F2.IsEmpty() || isLowDensityIonization == false ? "" : "editable-ionka";
 
@@ -153,7 +154,11 @@
                                 }
                             </td>
                             <td class="@editable" data-day="@subitem.DD" data-hour="@item.HH" data-type="f0Es" data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">
-                                @if (theCode._f0Es == "B" || theCode._f0Es == "0")
+                                @if(isAbsorption)
+                                {
+                                    @: B
+                                }
+                                else if (theCode._f0Es == "B" || theCode._f0Es == "0")
                                 {
                                     @: 00
                                 }
@@ -162,14 +167,22 @@
                                     @theCode._f0Es
                                 }
                             </td>
-                            <td data-day="@subitem.DD" data-hour="@item.HH" data-type="D" data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">
-                                @if (isDiffusio)
+                            <td class="@editable" data-day="@subitem.DD" data-hour="@item.HH" data-type="D" data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">
+                                @if (isStationError)
+                                {
+                                    @: C
+                                }
+                                else if(isAbsorption)
+                                {
+                                    @: B
+                                }
+                                else if(isDiffusio)
                                 {
                                     @: 3
                                 }
-                                else if (isStationError)
+                                else if (theCode._Diffusio != "-1")
                                 {
-                                    @: C
+                                    @theCode._Diffusio
                                 }
                                 else if (theCode._f0F2.IsEmpty() == false)
                                 {

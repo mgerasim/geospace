@@ -14,6 +14,7 @@ namespace GeospaceEntity.Models.Codes
         public CodeIonka()
         {
             ID = -1;
+            Diffusio = -1;
             created_at = DateTime.Now;
             updated_at = DateTime.Now;
         }
@@ -98,6 +99,7 @@ namespace GeospaceEntity.Models.Codes
         public virtual int fbEs { get; set; }
         public virtual int Es { get; set; }
         public virtual int fx1 { get; set; }
+        public virtual int Diffusio { get; set; }
         public virtual string Raw { get; set; }
         public virtual string ErrorMessage { get; set; }
 
@@ -126,6 +128,7 @@ namespace GeospaceEntity.Models.Codes
         public virtual string _f0Es { get { if (this.ID < 0) return ""; else return DisplayValue(this.f0Es); } }
         public virtual string _f0E { get { if (this.ID < 0) return ""; else return DisplayValue(this.f0E); } }
         public virtual string _Es { get { if (this.ID < 0) return ""; else return DisplayValue(this.Es); } }
+        public virtual string _Diffusio { get { if (this.ID < 0) return ""; else return DisplayValue(this.Diffusio); } }
         public virtual void Save()
         {
             this.created_at = DateTime.Now;
@@ -202,6 +205,9 @@ namespace GeospaceEntity.Models.Codes
                     break;
                 case "fmin":
                     fmin = value;
+                    break;
+                case "D":
+                    Diffusio = value;
                     break;
             }
         }

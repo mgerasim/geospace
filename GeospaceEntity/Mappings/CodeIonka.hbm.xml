@@ -28,6 +28,9 @@
     <property name="fbEs" />
     <property name="Es" />
     <property name="fx1" />
+    <property name="Diffusio">
+      <column name="Diffusio" default="-1" not-null="true"/>
+    </property>
     <property name="Raw" type="string" length="10000"/>
     <property name="ErrorMessage" type="string" length="10000"/>
     

@@ -67,7 +67,7 @@
         {
             cell_D.text("C");
         }
-        else
+        else if (cell_D.text() != "1" && cell_D.text() != "2")
         {
             cell_D.text("0");
         }
