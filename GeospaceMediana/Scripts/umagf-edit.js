@@ -4,6 +4,7 @@
         var currentCell = $(this);
         var id = currentCell.data("id");
         var type = currentCell.data("type");
+        var day = currentCell.data("day");
 
         if (this.children["edit"] != null)
             return;
@@ -14,6 +15,8 @@
         {
             oldValue = oldValue.split("=")[1];
         }
+
+        oldValue = oldValue.trim() == "/" || oldValue.trim() == "//" ? "" : oldValue;
 
         var inputHtml = "<input type=\"text\" id=\"edit\" value=\"" + oldValue + "\" />";
 
@@ -40,11 +43,18 @@
 
             if (newValue != oldValue) {
                 
+                if (oldValue == "" && type != "ak")
+                {
+                    oldValue = "/"
+                }
 
                 currentCell.empty().html("<div id=\"facebookG\"><div id=\"blockG_1\" class=\"facebook_blockG\"></div><div id=\"blockG_2\" class=\"facebook_blockG\"></div><div id=\"blockG_3\" class=\"facebook_blockG\"></div></div>");
 
                 var resUrl = window.submitUmagfUrl +
-                            "?id=" + id +
+                            "?stationcode=" + window.currentStationCode +
+                            "&year=" + window.currentYear +
+                            "&month=" + window.currentMonth +
+                            "&day=" + day +
                             "&type=" + type +
                             "&newvalue=" + newValue;
 
@@ -80,6 +90,10 @@
             else {
                 if (type == "ak") {
                     oldValue = "Ak=" + oldValue;
+                } else {
+                    if (oldValue == "") {
+                        oldValue = "/"
+                    }
                 }
                 currentCell.empty().html(oldValue);
             }

@@ -30,9 +30,6 @@
         {
             if (cell_f0F1.hasClass("editable-ionka") == false)
             {
-                cell_f0F1.text("0");
-                cell_M3000F1.text("0");
-
                 cell_f0F1.addClass("editable-ionka");
                 cell_M3000F1.addClass("editable-ionka");
 
@@ -60,17 +57,24 @@
             cell_f0Es.text("00");
         }
 
-        if (cell_f0F2.text().trim() == "F" && cell_M3000F2.text().trim() == "F")
+        if (cell_f0F2.text().trim() != "" && cell_M3000F2.text().trim() != "")
         {
-            cell_D.text("3");
+            if (cell_f0F2.text().trim() == "F" && cell_M3000F2.text().trim() == "F") {
+                cell_D.text("3");
+            }
+            else if (cell_f0F2.text().trim() == "C" && cell_M3000F2.text().trim() == "C") {
+                cell_D.text("C");
+            }
+            else if (cell_f0F2.text().trim() == "B" && cell_M3000F2.text().trim() == "B") {
+                cell_D.text("B");
+            }
+            else if (cell_D.text() != "1" && cell_D.text() != "2" && cell_D.text() != "3") {
+                cell_D.text("0");
+            }
         }
-        else if(cell_f0F2.text().trim() == "C" && cell_M3000F2.text().trim() == "C")
+        else
         {
-            cell_D.text("C");
-        }
-        else if (cell_D.text() != "1" && cell_D.text() != "2")
-        {
-            cell_D.text("0");
+            cell_D.text("");
         }
     }
 
@@ -154,76 +158,7 @@
         });
     }
 
-    function addEvent(e) {
-        var currentCell = $(this);
-
-        if (this.children["edit"] != null)
-            return;
-
-        var inputHtml = "<input type=\"text\" id=\"edit\" />";
-
-        currentCell.css("padding", "0px");
-
-        var cellWidth = currentCell.width();
-        var cellHeight = currentCell.height();
-
-        currentCell.empty().append(inputHtml);
-
-        $('#edit').width(cellWidth - 2); // 1+1 border width
-        $('#edit').height(cellHeight - 2);
-        currentCell.width(cellWidth);
-        currentCell.height(cellHeight);
-
-        $('#edit').focus();
-        $('#edit').blur(function () {
-
-            var newValue = $(this).val().trim();
-            currentCell.css("padding", "8px");
-            currentCell.width("");
-            currentCell.height("");
-
-            if(newValue != "")
-            {
-                var day = currentCell.data("day");
-                var type = currentCell.data("type");
-                var hour = currentCell.data("hour");
-
-                currentCell.empty().html("<div id=\"facebookG\"><div id=\"blockG_1\" class=\"facebook_blockG\"></div><div id=\"blockG_2\" class=\"facebook_blockG\"></div><div id=\"blockG_3\" class=\"facebook_blockG\"></div></div>");
-
-                var resUrl = window.addUrl +
-                            "?stationcode=" + window.currentStationCode +
-                            "&year=" + window.currentYear +
-                            "&month=" + window.currentMonth +
-                            "&day=" + day +
-                            "&type=" + type +
-                            "&hour=" + hour +
-                            "&newvalue=" + newValue;
-
-                $.ajax({
-                    url: resUrl,
-                    success: function (data) {
-                        if (data == "") {
-                            fillCells(day, hour);
-                            currentCell.empty().text(newValue.toUpperCase());
-                            updateCells(day, hour);
-
-                        }
-                        else {
-                            currentCell.empty().html("");
-                            alert(data);
-                        }
-                    }
-                });
-            }
-            else {
-                currentCell.empty().html("");
-            }
-            
-        });
-    }
-
     $('td.editable-ionka').dblclick(editEvent);
-    $('td.add-ionka').dblclick(addEvent);
 
     $(window).keydown(function (event) {
         if (event.keyCode == 13) {

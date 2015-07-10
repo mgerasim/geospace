@@ -125,7 +125,7 @@ namespace GeospaceEntity.Repositories
                     .Add(Restrictions.Eq("Station", station))
                     .Add(Restrictions.Eq("YYYY", YYYY))
                     .Add(Restrictions.Eq("MM", MM))
-                    .Add(Restrictions.Eq("DD", DD)).List<GeospaceEntity.Models.Codes.CodeUmagf>()[0];
+                    .Add(Restrictions.Eq("DD", DD)).UniqueResult<GeospaceEntity.Models.Codes.CodeUmagf>();
 
         }
         

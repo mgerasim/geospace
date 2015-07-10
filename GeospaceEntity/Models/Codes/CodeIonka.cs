@@ -14,7 +14,24 @@ namespace GeospaceEntity.Models.Codes
         public CodeIonka()
         {
             ID = -1;
+
             Diffusio = -1;
+            f0F2 = -1;
+            hF2 = -1;
+            M3000F2 = -1;
+            fmin = -1;
+            f0Es = -1;
+            hEs = -1;
+            f0F1 = -1;
+            hF1 = -1;
+            M3000F1 = -1;
+            hMF2 = -1;
+            f0E = -1;
+            hE = -1;
+            fbEs = -1;
+            Es = -1;
+            fx1 = -1;
+
             created_at = DateTime.Now;
             updated_at = DateTime.Now;
         }
@@ -107,28 +124,28 @@ namespace GeospaceEntity.Models.Codes
         public virtual string _f0F1 
         { 
             get 
-            { 
-                if (this.ID < 0) 
+            {
+                if (this.ID < 0 || this.f0F1 < 0) 
                     return ""; 
                 else 
                     return DisplayValue(this.f0F1); 
             } 
         }
-        public virtual string _f0F2 { get { if (this.ID < 0) return ""; else return DisplayValue(this.f0F2); } }
-        public virtual string _M3000F2 { get { if (this.ID < 0) return ""; else return DisplayValue(this.M3000F2); } }
-        public virtual string _M3000F1 { get { if (this.ID < 0) return ""; else return DisplayValue(this.M3000F1); } }
-        public virtual string _hMF2 { get { if (this.ID < 0) return ""; else return DisplayValue(this.hMF2); } }
-        public virtual string _hF2 { get { if (this.ID < 0) return ""; else return DisplayValue(this.hF2); } }
-        public virtual string _hF1 { get { if (this.ID < 0) return ""; else return DisplayValue(this.hF1); } }
-        public virtual string _hEs { get { if (this.ID < 0) return ""; else return DisplayValue(this.hEs); } }
-        public virtual string _hE { get { if (this.ID < 0) return ""; else return DisplayValue(this.hE); } }
-        public virtual string _fx1 { get { if (this.ID < 0) return ""; else return DisplayValue(this.fx1); } }
-        public virtual string _fmin { get { if (this.ID < 0) return ""; else return DisplayValue(this.fmin); } }
-        public virtual string _fbEs { get { if (this.ID < 0) return ""; else return DisplayValue(this.fbEs); } }
-        public virtual string _f0Es { get { if (this.ID < 0) return ""; else return DisplayValue(this.f0Es); } }
-        public virtual string _f0E { get { if (this.ID < 0) return ""; else return DisplayValue(this.f0E); } }
-        public virtual string _Es { get { if (this.ID < 0) return ""; else return DisplayValue(this.Es); } }
-        public virtual string _Diffusio { get { if (this.ID < 0) return ""; else return DisplayValue(this.Diffusio); } }
+        public virtual string _f0F2 { get { if (this.ID < 0 || this.f0F2 < 0) return ""; else return DisplayValue(this.f0F2); } }
+        public virtual string _M3000F2 { get { if (this.ID < 0 || this.M3000F2 < 0) return ""; else return DisplayValue(this.M3000F2); } }
+        public virtual string _M3000F1 { get { if (this.ID < 0 || this.M3000F1 < 0) return ""; else return DisplayValue(this.M3000F1); } }
+        public virtual string _hMF2 { get { if (this.ID < 0 || this.hMF2 < 0) return ""; else return DisplayValue(this.hMF2); } }
+        public virtual string _hF2 { get { if (this.ID < 0 || this.hF2 < 0) return ""; else return DisplayValue(this.hF2); } }
+        public virtual string _hF1 { get { if (this.ID < 0 || this.hF1 < 0) return ""; else return DisplayValue(this.hF1); } }
+        public virtual string _hEs { get { if (this.ID < 0 || this.hEs < 0) return ""; else return DisplayValue(this.hEs); } }
+        public virtual string _hE { get { if (this.ID < 0 || this.hE < 0) return ""; else return DisplayValue(this.hE); } }
+        public virtual string _fx1 { get { if (this.ID < 0 || this.fx1 < 0) return ""; else return DisplayValue(this.fx1); } }
+        public virtual string _fmin { get { if (this.ID < 0 || this.fmin < 0) return ""; else return DisplayValue(this.fmin); } }
+        public virtual string _fbEs { get { if (this.ID < 0 || this.fbEs < 0) return ""; else return DisplayValue(this.fbEs); } }
+        public virtual string _f0Es { get { if (this.ID < 0 || this.f0Es < 0) return ""; else return DisplayValue(this.f0Es); } }
+        public virtual string _f0E { get { if (this.ID < 0 || this.f0E < 0) return ""; else return DisplayValue(this.f0E); } }
+        public virtual string _Es { get { if (this.ID < 0 || this.Es < 0) return ""; else return DisplayValue(this.Es); } }
+        public virtual string _Diffusio { get { if (this.ID < 0 || this.Diffusio < 0) return ""; else return DisplayValue(this.Diffusio); } }
         public virtual void Save()
         {
             this.created_at = DateTime.Now;
@@ -227,6 +244,7 @@ namespace GeospaceEntity.Models.Codes
                 case "G": return 1007;
                 case "N": return 1008;
                 case "R": return 1009;
+                case "": return -1;
                 default: return Int32.Parse(code);
             }
         }
