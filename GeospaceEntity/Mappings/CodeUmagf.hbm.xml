@@ -7,12 +7,24 @@
     </id>
     <property name="created_at" />
     <property name="updated_at" />
-    <property name="HH" />
-    <property name="MM" />
-    <property name="DD" />
-    <property name="YYYY" />
+
+    <property name="HH" >
+      <column name="HH" check="(HH &gt;= 0 AND HH &lt;= 23)"/>
+    </property>
+
+    <property name="MM">
+      <column name="MM" check="(MM &gt;= 1 AND MM &lt;= 12)" unique-key="date" not-null="true"  />
+    </property>
+
+    <property name="DD">
+      <column name="DD" check="(DD &gt;= 1 AND DD &lt;= 31)" unique-key="date" not-null="true"  />
+    </property>
+
+    <property name="YYYY" not-null="true" unique-key="date" />
+
     <property name="MI" />
-    <many-to-one name="Station" column="Station_ID" lazy="false"/>
+    
+    <many-to-one name="Station" not-null="true" column="Station_ID" lazy="false" unique-key="date"/>
     
     <property name="k1" />
     <property name="k2" />

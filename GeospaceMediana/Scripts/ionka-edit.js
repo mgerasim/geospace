@@ -28,10 +28,11 @@
 
         if (cell_f0F2.text().trim() == "G" && cell_M3000F2.text().trim() == "G")
         {
-            cell_f0F1.text("0");
-            cell_M3000F1.text("0");
             if (cell_f0F1.hasClass("editable-ionka") == false)
             {
+                cell_f0F1.text("0");
+                cell_M3000F1.text("0");
+
                 cell_f0F1.addClass("editable-ionka");
                 cell_M3000F1.addClass("editable-ionka");
 
