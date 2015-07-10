@@ -86,7 +86,7 @@
         <table style="table-layout: fixed" class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <th style="width: 36px">День</th>
+                    <th style="width: 40px">День</th>
                     @for (int i = 0; i < 24; i++)
                     {
                         <th class="bottom-thick-line">@i</th>
@@ -106,7 +106,7 @@
 
                             string editable = theCode._f0F2.IsEmpty() ? "" : "editable-mediana";
 
-                            <td data-day="@day" data-hour="@hour" data-type="@ViewBag.Type" class="@editable">
+                            <td data-day="@day" data-hour="@hour" data-type="@ViewBag.Type" class="editable-mediana">
                                 @if (ViewBag.Type == "f0F2")
                                 {
                                     @theCode._f0F2
@@ -117,6 +117,36 @@
                                 }
                             </td>
                         }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<h2>Медианы</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        <table style="table-layout: fixed" class="table table-bordered table-striped">
+            @{
+                GeospaceMediana.Models.Medians medians = ViewBag.Medians;
+            }
+            <tbody>
+                @foreach(var range in medians.Ranges)
+                {
+                    <tr>
+                        <td class="right-thick-line" style="width: 40px">@range.Header</td>
+                            @for (int hour = 0; hour < 24; hour++)
+                            {
+                                <td>
+                                    @if (range.Values[hour] != 0)
+                                    {
+                                        @range.Values[hour]
+                                    }
+                                </td>
+                            }
                     </tr>
                 }
             </tbody>

@@ -38,11 +38,13 @@ namespace GeospaceMediana.Controllers
 
             ViewBag.Date = startMonth.ToString("MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture);
             ViewBag.CountDaysInMonth = countDays;
-
+            
             ViewBag.Month = startMonth.Month;
             ViewBag.Year = startMonth.Year;
 
             ViewBag.Type = type;
+
+            ViewBag.Medians = new Medians(startMonth.Year, startMonth.Month, Model, type);
 
             return View(Model);
         }
@@ -51,6 +53,8 @@ namespace GeospaceMediana.Controllers
         {
             try
             {
+                int iNewValue = CodeIonka.ConvertCodeToInt(newValue);
+
                 Station station = new Station();
                 station = station.GetByCode(stationcode);
 
@@ -58,10 +62,27 @@ namespace GeospaceMediana.Controllers
 
                 codeIonka = codeIonka.GetByDate(station, year, month, day, hour);
 
-                int iNewValue = CodeIonka.ConvertCodeToInt(newValue);
-                codeIonka.SetValueByType(type, iNewValue);
+                if(codeIonka == null) // Если запись отсутствует
+                {
+                    codeIonka = new CodeIonka();
 
-                codeIonka.Update();
+                    codeIonka.Station = station;
+                    codeIonka.YYYY = year;
+                    codeIonka.MM = month;
+                    codeIonka.DD = day;
+                    codeIonka.HH = hour;
+
+                    codeIonka.SetValueByType(type, iNewValue);
+                    codeIonka.Save();
+                }
+                else
+                {
+                    codeIonka.SetValueByType(type, iNewValue);
+                    codeIonka.Update();
+                }
+                
+
+                
 
                 return Content("");
             }

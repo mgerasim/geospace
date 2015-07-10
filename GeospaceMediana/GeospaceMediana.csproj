@@ -152,6 +152,7 @@
     </Compile>
     <Compile Include="Models\ApiIonka.cs" />
     <Compile Include="Models\ApiUmagf.cs" />
+    <Compile Include="Models\Medians.cs" />
     <Compile Include="Models\ViewIonka.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
