@@ -55,12 +55,9 @@ namespace GeospaceMediana.Controllers
             {
                 int iNewValue = CodeIonka.ConvertCodeToInt(newValue);
 
-                Station station = new Station();
-                station = station.GetByCode(stationcode);
+                Station station = Station.GetByCode(stationcode);
 
-                CodeIonka codeIonka = new CodeIonka();
-
-                codeIonka = codeIonka.GetByDate(station, year, month, day, hour);
+                CodeIonka codeIonka = CodeIonka.GetByDate(station, year, month, day, hour);
 
                 if(codeIonka == null) // Если запись отсутствует
                 {

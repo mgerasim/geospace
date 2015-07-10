@@ -33,14 +33,14 @@ namespace GeospaceMediana.Models
         {
             get
             {
-                return (new GeospaceEntity.Models.Station()).GetAll();
+                return GeospaceEntity.Models.Station.GetAll();
             }
         }
         public String StationName
         {
             get
             {
-                return (new GeospaceEntity.Models.Station()).GetByCode(this.StationCode).Name;
+                return GeospaceEntity.Models.Station.GetByCode(this.StationCode).Name;
             }
         }
         public DateTime End
@@ -63,11 +63,11 @@ namespace GeospaceMediana.Models
             Limit = limit;
             Step = step;
 
-            theIonkaValues = (List<GeospaceEntity.Models.Codes.CodeIonka>)(new GeospaceEntity.Models.Codes.CodeIonka()).GetByPeriod((new GeospaceEntity.Models.Station()).GetByCode(StationCode),
+            theIonkaValues = (List<GeospaceEntity.Models.Codes.CodeIonka>)GeospaceEntity.Models.Codes.CodeIonka.GetByPeriod(GeospaceEntity.Models.Station.GetByCode(StationCode),
                 Start.Year, Start.Month, Start.Day,
                 Start.AddDays(limit).Year, Start.AddDays(limit).Month, Start.AddDays(limit).Day);
 
-            theUmagfValues = (List<GeospaceEntity.Models.Codes.CodeUmagf>)(new GeospaceEntity.Models.Codes.CodeUmagf()).GetByPeriod((new GeospaceEntity.Models.Station()).GetByCode(StationCode),
+            theUmagfValues = (List<GeospaceEntity.Models.Codes.CodeUmagf>)GeospaceEntity.Models.Codes.CodeUmagf.GetByPeriod(GeospaceEntity.Models.Station.GetByCode(StationCode),
                 Start.Year, Start.Month, Start.Day,
                 Start.AddDays(limit).Year, Start.AddDays(limit).Month, Start.AddDays(limit).Day);
         }

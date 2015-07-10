@@ -33,12 +33,9 @@ namespace GeospaceMediana.Controllers
             {
                 int iNewValue = CodeIonka.ConvertCodeToInt(newValue);
 
-                Station station = new Station();
-                station = station.GetByCode(stationcode);
+                Station station = Station.GetByCode(stationcode);
 
-                CodeIonka codeIonka = new CodeIonka();
-
-                codeIonka = codeIonka.GetByDate(station, year, month, day, hour);
+                CodeIonka codeIonka = CodeIonka.GetByDate(station, year, month, day, hour);
 
                 if (codeIonka == null)
                 {
@@ -73,12 +70,9 @@ namespace GeospaceMediana.Controllers
         {
             try
             {
-                Station station = new Station();
-                station = station.GetByCode(stationcode);
+                Station station = Station.GetByCode(stationcode);
 
-                CodeUmagf codeUmagf = new CodeUmagf();
-
-                codeUmagf = codeUmagf.GetByDate(station, year, month, day);
+                CodeUmagf codeUmagf = CodeUmagf.GetByDate(station, year, month, day);
 
                 bool isUpdate = true;
 
@@ -135,9 +129,9 @@ namespace GeospaceMediana.Controllers
 
                 return Content("");
             } 
-            catch(Exception e) {
-                return Content(e.ToString());
-                //return Content("Ошибка применения изменения! Проверьте корректность вводимых данных.");
+            catch(Exception) {
+               // return Content(e.ToString());
+                return Content("Ошибка применения изменения! Проверьте корректность вводимых данных.");
             }
            
         }

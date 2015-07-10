@@ -15,14 +15,12 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Index()
         {
-            GeospaceEntity.Models.Station theStation = new GeospaceEntity.Models.Station();
-            return View(theStation.GetAll());
+            return View(GeospaceEntity.Models.Station.GetAll());
         }
 
         public ActionResult Edit(int id)
         {
-            GeospaceEntity.Models.Station theStation = new GeospaceEntity.Models.Station();
-            return View(theStation.GetById(id));
+            return View(GeospaceEntity.Models.Station.GetById(id));
         }
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
@@ -30,8 +28,7 @@ namespace GeospaceMediana.Controllers
             
             try
             {   
-                Station model = new Station();
-                model = model.GetById(id);            
+                Station model = Station.GetById(id);
                 model.Name = collection.Get("Name");
                 model.Update();
                 return RedirectToAction("Index");
@@ -44,8 +41,7 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Delete(int id)
         {
-            Station model = new Station();
-            model = model.GetById(id);
+            Station model = Station.GetById(id);
 
             return View(model);
         }
@@ -55,8 +51,7 @@ namespace GeospaceMediana.Controllers
         {
             try
             {
-                Station model = new Station();
-                model = model.GetById(id);
+                Station model = Station.GetById(id);
 
                 model.Delete();
 

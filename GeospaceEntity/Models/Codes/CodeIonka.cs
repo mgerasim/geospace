@@ -160,22 +160,22 @@ namespace GeospaceEntity.Models.Codes
             GeospaceEntity.Common.IRepository<CodeIonka> repo = new Repositories.CodeIonkaRepository();
             repo.Update(this);
         }
-        public virtual Codes.CodeIonka GetByDateUTC(Station station, int YYYY, int MM, int DD, int HH, int MI)
+        public static Codes.CodeIonka GetByDateUTC(Station station, int YYYY, int MM, int DD, int HH, int MI)
         {
             Repositories.CodeIonkaRepository repo = new Repositories.CodeIonkaRepository();
             return repo.GetByDateUTC(station, YYYY, MM, DD, HH, MI);
         }
-        public virtual Codes.CodeIonka GetByDate(Station station, int YYYY, int MM, int DD, int HH)
+        public static Codes.CodeIonka GetByDate(Station station, int YYYY, int MM, int DD, int HH)
         {
             Repositories.CodeIonkaRepository repo = new Repositories.CodeIonkaRepository();
             return repo.GetByDate(station, YYYY, MM, DD, HH);
         }
-        public virtual IList<Codes.CodeIonka> GetByPeriod(Station station, int startYYYY, int startMM, int startDD, int endYYYY, int endMM, int endDD)
+        public static IList<Codes.CodeIonka> GetByPeriod(Station station, int startYYYY, int startMM, int startDD, int endYYYY, int endMM, int endDD)
         {
             Repositories.CodeIonkaRepository repo = new Repositories.CodeIonkaRepository();
             return repo.GetByPeriod(station, startYYYY, startMM, startDD, endYYYY, endMM, endDD);
         }
-        public virtual IList<Codes.CodeIonka> GetAll()
+        public static IList<Codes.CodeIonka> GetAll()
         {
             GeospaceEntity.Common.IRepository<CodeIonka> repo = new Repositories.CodeIonkaRepository();
             return repo.GetAll();
