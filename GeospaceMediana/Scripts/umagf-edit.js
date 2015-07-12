@@ -16,7 +16,9 @@
             oldValue = oldValue.split("=")[1];
         }
 
-        oldValue = oldValue.trim() == "/" || oldValue.trim() == "//" ? "" : oldValue;
+        var needSlash = oldValue.trim() == "/" || oldValue.trim() == "//";
+
+        oldValue = needSlash ? "" : oldValue;
 
         var inputHtml = "<input type=\"text\" id=\"edit\" value=\"" + oldValue + "\" />";
 
@@ -88,12 +90,12 @@
                 });
             }
             else {
+                if (needSlash) {
+                    oldValue = "/"
+                }
+
                 if (type == "ak") {
                     oldValue = "Ak=" + oldValue;
-                } else {
-                    if (oldValue == "") {
-                        oldValue = "/"
-                    }
                 }
                 currentCell.empty().html(oldValue);
             }
