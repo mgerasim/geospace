@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="GeospaceEntity.Models.Codes" assembly="GeospaceEntity">
+  <class name="CodeUmagfError" table="Geospace_CodeUmagfError">
+    <id name="ID" unsaved-value="0">
+      <column name="ID" not-null="true" />
+      <generator class="identity"/>
+    </id>
+    <property name="created_at" />
+    <property name="updated_at" />
+
+    <property name="check" type="bool"/>
+   
+    <property name="Raw" type="string" length="10000"/>
+   
+  </class>
+</hibernate-mapping>
