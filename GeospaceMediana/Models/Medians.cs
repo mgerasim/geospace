@@ -51,7 +51,7 @@ namespace GeospaceMediana.Models
 
                 List<int> listValues;
 
-                for (int hour = 0; hour < 23; hour++)
+                for (int hour = 0; hour < 24; hour++)
                 {
                     medians[hour] = 0;
 
@@ -113,6 +113,21 @@ namespace GeospaceMediana.Models
                         calcDate = calcDate.AddDays(1);
                     }
                 }
+                
+                if(calcDate.Month == 2)
+                {
+                    if (calcDate.Day == 29)
+                    {
+                        if (countDays == 28)
+                        {
+                            calcDate = new DateTime(calcDate.Year, calcDate.Month, 27);
+                        }
+                        else
+                        {
+                            calcDate = new DateTime(calcDate.Year, calcDate.Month, 28);
+                        }
+                    }
+                }
             }
         }
 
@@ -126,7 +141,9 @@ namespace GeospaceMediana.Models
 
                 try
                 {
-                    codeIonka = codesIonka.Where(x => x.YYYY == date.Year && x.MM == date.Month && x.DD == date.Day && x.HH == hour).Single<CodeIonka>();
+                    codeIonka = codesIonka.Where(x => x.YYYY == date.Year && x.MM == date.Month && x.DD == date.Day && x.HH == hour)
+                        .OrderBy(x => x.MI)
+                        .ToList()[0];
                 }
                 catch(Exception)
                 {

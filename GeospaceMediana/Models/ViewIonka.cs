@@ -115,7 +115,10 @@ namespace GeospaceMediana.Models
 
         public GeospaceEntity.Models.Codes.CodeIonka GetValue(int YYYY, int MM, int DD, int HH)
         {
-            List<GeospaceEntity.Models.Codes.CodeIonka> result = theIonkaValues.Where(x => x.YYYY==YYYY && x.MM==MM && x.DD==DD && x.HH==HH).ToList();
+            List<GeospaceEntity.Models.Codes.CodeIonka> result = theIonkaValues.Where(x => x.YYYY==YYYY && x.MM==MM && x.DD==DD && x.HH==HH)
+                .OrderBy(x=>x.MI)
+                .ToList();
+
             if (result.Count!=0)
             {
                 return result[0];
@@ -125,7 +128,11 @@ namespace GeospaceMediana.Models
         
         public GeospaceEntity.Models.Codes.CodeUmagf GetValueUmagf(int YYYY, int MM, int DD)
         {
-            List<GeospaceEntity.Models.Codes.CodeUmagf> result = theUmagfValues.Where(x => x.YYYY == YYYY && x.MM == MM && x.DD == DD).ToList();
+            List<GeospaceEntity.Models.Codes.CodeUmagf> result = theUmagfValues.Where(x => x.YYYY == YYYY && x.MM == MM && x.DD == DD)
+                .OrderBy(x => x.HH)
+                .OrderBy(x => x.MI)
+                .ToList();
+
             if (result.Count != 0)
             {
                 return result[0];
