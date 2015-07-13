@@ -44,7 +44,7 @@ namespace GeospaceMediana.Controllers
 
             ViewBag.Type = type;
 
-            ViewBag.Medians = new Medians(startMonth.Year, startMonth.Month, Model, type);
+            ViewBag.Medians = new Medians(Station.GetByCode(station), startMonth.Year, startMonth.Month, type);
 
             return View(Model);
         }

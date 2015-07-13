@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GeospaceEntity.Models;
+using GeospaceEntity.Models.Codes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -27,61 +29,39 @@ namespace GeospaceMediana.Models
 
         public IList<RangeDays> Ranges = new List<RangeDays>();
 
-        public Medians(int year, int month, ViewIonka viewIonka, string type)
+        public Medians(Station station, int year, int month, string type)
         {
+            DateTime curMonth = new DateTime(year, month, DateTime.DaysInMonth(year, month));
+            DateTime tmpPrevMonth = curMonth.AddMonths(-1);
+            DateTime prevMonth = new DateTime(tmpPrevMonth.Year, tmpPrevMonth.Month, 1);
+
+            var codesIonka = CodeIonka.GetByPeriod(station, prevMonth, curMonth); 
+
             Type = type;
 
             int countDays = DateTime.DaysInMonth(year, month);
+            
+            int curMin = 6;
+            int curMax = 10;
+            DateTime calcDate = new DateTime(year, month, 4);
 
-            int curMin = 1;
-
-            while(curMin <= countDays)
+            for (int i = 0; i < 6; i++)
             {
-                int curMax = curMin + 4;
-
-                if(curMax > countDays)
-                    curMax = countDays;
-
                 int[] medians = new int[24];
 
-                List<int> listValues = new List<int>();
+                List<int> listValues;
 
                 for (int hour = 0; hour < 23; hour++)
                 {
                     medians[hour] = 0;
-                    listValues.Clear();
 
-                    for (int day = curMin; day <= curMax; day++)
-                    {
-                        var codeIonka = viewIonka.GetValue(year, month, day, hour);
+                    DateTime endRange = calcDate.AddDays(-1);
 
-                        if (codeIonka.ID < 0)
-                        {
-                            listValues.Clear();
-                            break;
-                        }
-
-                        int value = 0;
-
-                        switch (type)
-                        {
-                            case "f0F2":
-                                value = codeIonka.f0F2;
-                                break;
-                            case "M3000F2":
-                                value = codeIonka.M3000F2;
-                                break;
-                        }
-
-                        if(value < 1000)
-                        {
-                            listValues.Add(value);
-                        }
-                    }
+                    listValues = getValuesByRange(codesIonka, type, hour, endRange.AddDays(-10), endRange);
 
                     listValues.Sort();
 
-                    if(listValues.Count != 0)
+                    if (listValues.Count != 0)
                     {
                         if (listValues.Count == 1)
                         {
@@ -102,7 +82,7 @@ namespace GeospaceMediana.Models
                         }
                     }
 
-                    
+
                 }
 
                 Ranges.Add(new RangeDays
@@ -112,8 +92,68 @@ namespace GeospaceMediana.Models
                     Values = medians,
                 });
 
-                curMin = curMax + 1;
+                curMin += 5;
+                curMax += 5;
+                calcDate = calcDate.AddDays(5);
+
+                if (calcDate.Day == 29)
+                {
+                    curMin = 1;
+                    curMax = 5;
+                }
+
+                if(countDays == 31)
+                {
+                    if(calcDate.Day == 24)
+                    {
+                        curMax = 31;
+                    }
+                    else if (calcDate.Day == 29)
+                    {
+                        calcDate = calcDate.AddDays(1);
+                    }
+                }
             }
+        }
+
+        private List<int> getValuesByRange(IList<CodeIonka> codesIonka, string type, int hour, DateTime startDate, DateTime endDate)
+        {
+            List<int> listValues = new List<int>();
+
+            for (var date = startDate; date <= endDate; date = date.AddDays(1))
+            {
+                CodeIonka codeIonka;
+
+                try
+                {
+                    codeIonka = codesIonka.Where(x => x.YYYY == date.Year && x.MM == date.Month && x.DD == date.Day && x.HH == hour).Single<CodeIonka>();
+                }
+                catch(Exception)
+                {
+                    listValues.Clear();
+                    break;
+                }
+
+                int value = 0;
+
+                switch (type)
+                {
+                    case "f0F2":
+                        value = codeIonka.f0F2;
+                        break;
+                    case "M3000F2":
+                        value = codeIonka.M3000F2;
+                        break;
+                }
+
+                if (value < 1000)
+                {
+                    listValues.Add(value);
+                }
+
+            }
+
+            return listValues;
         }
 
     }

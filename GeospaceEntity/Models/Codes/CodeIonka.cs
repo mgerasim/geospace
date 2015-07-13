@@ -175,6 +175,13 @@ namespace GeospaceEntity.Models.Codes
             Repositories.CodeIonkaRepository repo = new Repositories.CodeIonkaRepository();
             return repo.GetByPeriod(station, startYYYY, startMM, startDD, endYYYY, endMM, endDD);
         }
+
+        public static IList<Codes.CodeIonka> GetByPeriod(Station station, DateTime startDate, DateTime endDate)
+        {
+            Repositories.CodeIonkaRepository repo = new Repositories.CodeIonkaRepository();
+            return repo.GetByPeriod(station, startDate.Year, startDate.Month, startDate.Day, endDate.Year, endDate.Month, endDate.Day);
+        }
+
         public static IList<Codes.CodeIonka> GetAll()
         {
             GeospaceEntity.Common.IRepository<CodeIonka> repo = new Repositories.CodeIonkaRepository();

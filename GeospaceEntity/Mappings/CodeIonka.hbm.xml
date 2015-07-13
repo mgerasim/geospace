@@ -9,7 +9,7 @@
     <property name="updated_at" />
 
     <property name="HH" >
-      <column name="HH" check="(HH &gt;= 0 AND HH &lt;= 23)" unique-key="date" not-null="true"  />
+      <column name="HH" check="(HH &gt;= 0 AND HH &lt;= 23)" unique-key="date" not-null="true" />
     </property>
 
     <property name="MM">
@@ -22,7 +22,7 @@
 
     <property name="YYYY" not-null="true" unique-key="date" />
 
-    <property name="MI" />
+    <property name="MI" not-null="true" unique-key="date" />
 
     <many-to-one name="Station" not-null="true" column="Station_ID" lazy="false" unique-key="date"/>
     <property name="f0F2" />

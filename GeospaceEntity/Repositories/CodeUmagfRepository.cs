@@ -67,6 +67,7 @@ namespace GeospaceEntity.Repositories
             {
                 ICriteria criteria = session.CreateCriteria(typeof(GeospaceEntity.Models.Codes.CodeUmagf));
                 criteria.AddOrder(Order.Desc("ID"));
+                criteria.AddOrder(Order.Asc("MI"));
                 return criteria.List<GeospaceEntity.Models.Codes.CodeUmagf>();
             }
         }
@@ -96,6 +97,8 @@ namespace GeospaceEntity.Repositories
 
                 criteria.Add(Restrictions.Between(projDate, startDate, endDate));
 
+                criteria.AddOrder(Order.Asc("MI"));
+
                 return criteria.List<GeospaceEntity.Models.Codes.CodeUmagf>();
             }
         }
@@ -116,16 +119,24 @@ namespace GeospaceEntity.Repositories
 
         public GeospaceEntity.Models.Codes.CodeUmagf GetByDate(Station station, int YYYY, int MM, int DD)
         {
-
-            // На один день несколько записей ?!
-
             using (ISession session = NHibernateHelper.OpenSession())
-
-                return session.CreateCriteria<GeospaceEntity.Models.Codes.CodeUmagf>()
+            {
+                var list = session.CreateCriteria<GeospaceEntity.Models.Codes.CodeUmagf>()
                     .Add(Restrictions.Eq("Station", station))
                     .Add(Restrictions.Eq("YYYY", YYYY))
                     .Add(Restrictions.Eq("MM", MM))
-                    .Add(Restrictions.Eq("DD", DD)).UniqueResult<GeospaceEntity.Models.Codes.CodeUmagf>();
+                    .Add(Restrictions.Eq("DD", DD))
+                    .AddOrder(Order.Asc("MI"))
+                    .List<GeospaceEntity.Models.Codes.CodeUmagf>();
+
+                if (list.Count != 0)
+                {
+                    return list[0];
+                }
+
+                return null;
+
+            }
 
         }
         
