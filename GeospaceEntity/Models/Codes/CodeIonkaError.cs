@@ -44,12 +44,19 @@ namespace GeospaceEntity.Models.Codes
             GeospaceEntity.Common.IRepository<CodeIonkaError> repo = new Repositories.CodeIonkaErrorRepository();
             repo.Update(this);
         }
+        //по параметрам получаем объект из БД, если его нет значит сохраниме новую запись в БД
+        public virtual Codes.CodeIonkaError GetByRaw()
+        {
+            Repositories.CodeIonkaErrorRepository repo = new Repositories.CodeIonkaErrorRepository();
+            return repo.GetByRaw(Raw);
+        }
 
         public virtual IList<Codes.CodeIonkaError> GetAll()
         {
             GeospaceEntity.Common.IRepository<CodeIonkaError> repo = new Repositories.CodeIonkaErrorRepository();
             return repo.GetAll();
         }
+
         //public virtual Codes.CodeIonkaError GetById(int id)
         //{
         //    Repositories.CodeIonkaErrorRepository repo = new Repositories.CodeIonkaErrorRepository();
