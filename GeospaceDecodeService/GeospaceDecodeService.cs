@@ -182,8 +182,10 @@ namespace GeospaceDecodeService
                                         logumagf.Error(ex.StackTrace + "\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
 
                                         CodeUmagfError umagfError = new CodeUmagfError();
-                                        umagfError.Raw = theCode;
-                                        umagfError.Save();
+                                        umagfError.Raw = item;
+                                        umagfError.ErrorMessage = ex.Message + "\n" + ex.InnerException + "\n" + ex.Source + "\n" + ex.StackTrace;
+
+                                        if (umagfError.GetByRaw() == null) umagfError.Save();
                                     }
                                 }
 

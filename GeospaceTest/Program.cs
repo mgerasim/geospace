@@ -189,10 +189,7 @@ namespace GeospaceTest
                                         umagfError.Raw = item;
                                         umagfError.ErrorMessage = ex.Message + "\n" + ex.InnerException + "\n" + ex.Source + "\n" + ex.StackTrace;
 
-                                        CodeUmagfError c = umagfError.GetByRaw();
-
-                                        if( umagfError.GetByRaw() == null)
-                                            umagfError.Save();
+                                        if( umagfError.GetByRaw() == null ) umagfError.Save();
                                     }
                                 }
 
