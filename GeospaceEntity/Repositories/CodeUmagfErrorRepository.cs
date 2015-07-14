@@ -48,6 +48,18 @@ namespace GeospaceEntity.Repositories
                 }
             }
         }
+        public GeospaceEntity.Models.Codes.CodeUmagfError GetById(int id)
+        {
+            using (ISession session = NHibernateHelper.OpenSession())
+                return session.CreateCriteria<GeospaceEntity.Models.Codes.CodeUmagfError>().Add(Restrictions.Eq("ID", id)).UniqueResult<GeospaceEntity.Models.Codes.CodeUmagfError>();
+        }
+
+        public GeospaceEntity.Models.Codes.CodeUmagfError GetByCode(int code)
+        {
+            using (ISession session = NHibernateHelper.OpenSession())
+                return session.CreateCriteria<GeospaceEntity.Models.Codes.CodeUmagfError>().Add(Restrictions.Eq("Code", code)).UniqueResult<GeospaceEntity.Models.Codes.CodeUmagfError>();
+        }
+
         IList<GeospaceEntity.Models.Codes.CodeUmagfError> IRepository<GeospaceEntity.Models.Codes.CodeUmagfError>.GetAll()
         {
             using (ISession session = NHibernateHelper.OpenSession())
@@ -56,6 +68,11 @@ namespace GeospaceEntity.Repositories
                 criteria.AddOrder(Order.Desc("ID"));
                 return criteria.List<GeospaceEntity.Models.Codes.CodeUmagfError>();
             }
+        }
+        public GeospaceEntity.Models.Codes.CodeUmagfError GetByRaw( string raw)
+        {
+            using (ISession session = NHibernateHelper.OpenSession())
+                return session.CreateCriteria<GeospaceEntity.Models.Codes.CodeUmagfError>().Add(Restrictions.Eq("Raw", raw)).UniqueResult<GeospaceEntity.Models.Codes.CodeUmagfError>();
         }
 
         GeospaceEntity.Models.Codes.CodeUmagfError IRepository<GeospaceEntity.Models.Codes.CodeUmagfError>.GetById(int id)
