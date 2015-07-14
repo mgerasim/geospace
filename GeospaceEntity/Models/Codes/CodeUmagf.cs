@@ -205,14 +205,14 @@ namespace GeospaceEntity.Models.Codes
                     return this.events;
             }
         }
-        //по параметрам получаем объект из БД, если его нет значит сохраниме новую запись в БД
-        public virtual Codes.CodeUmagf GetByDateUTC()
+        
+        public static Codes.CodeUmagf GetByDateUTC(Station station, int YYYY, int MM, int DD, int HH, int MI)
         {
             Repositories.CodeUmagfRepository repo = new Repositories.CodeUmagfRepository();
-            return repo.GetByDateUTC(Station, YYYY, MM, DD, HH, MI);
+            return repo.GetByDateUTC(station, YYYY, MM, DD, HH, MI);
         }
 
-        public virtual Codes.CodeUmagf GetByDate(Station station, int YYYY, int MM, int DD)
+        public static Codes.CodeUmagf GetByDate(Station station, int YYYY, int MM, int DD)
         {
             Repositories.CodeUmagfRepository repo = new Repositories.CodeUmagfRepository();
             return repo.GetByDate(station, YYYY, MM, DD);
@@ -234,13 +234,13 @@ namespace GeospaceEntity.Models.Codes
             repo.Update(this);
         }
 
-        public virtual IList<Codes.CodeUmagf> GetByPeriod(Station station, int startYYYY, int startMM, int startDD, int endYYYY, int endMM, int endDD)
+        public static IList<Codes.CodeUmagf> GetByPeriod(Station station, int startYYYY, int startMM, int startDD, int endYYYY, int endMM, int endDD)
         {
             Repositories.CodeUmagfRepository repo = new Repositories.CodeUmagfRepository();
             return repo.GetByPeriod(station, startYYYY, startMM, startDD, endYYYY, endMM, endDD);
         }
 
-        public virtual Codes.CodeUmagf GetById(int id)
+        public static Codes.CodeUmagf GetById(int id)
         {
             Repositories.CodeUmagfRepository repo = new Repositories.CodeUmagfRepository();
             return repo.GetById(id);

@@ -130,8 +130,10 @@
 
                             bool isLowDensityIonization = theCode._f0F2 == "G" && theCode._M3000F2 == "G";
                             bool isDiffusio = theCode._f0F2 == "F" && theCode._M3000F2 == "F";
+                            bool isHaveF2 = theCode._f0F2.IsEmpty() == false && theCode._M3000F2.IsEmpty() == false;
                             bool isStationError = theCode._f0F2 == "C" && theCode._M3000F2 == "C";
-                            string editable = theCode._f0F2.IsEmpty() ? "add-ionka" : "editable-ionka";
+                            bool isAbsorption = theCode._f0F2 == "B" && theCode._M3000F2 == "B";
+                            string editable = "editable-ionka";
                             string editableWithLowDensityIonization = theCode._f0F2.IsEmpty() || isLowDensityIonization == false ? "" : "editable-ionka";
 
                             <td class="left-thick-line @editable" data-day="@subitem.DD" data-hour="@item.HH" data-type="f0F2" data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">
@@ -153,7 +155,11 @@
                                 }
                             </td>
                             <td class="@editable" data-day="@subitem.DD" data-hour="@item.HH" data-type="f0Es" data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">
-                                @if (theCode._f0Es == "B" || theCode._f0Es == "0")
+                                @if(isAbsorption)
+                                {
+                                    @: B
+                                }
+                                else if (theCode._f0Es == "G" || theCode._f0Es == "B" || theCode._f0Es == "0")
                                 {
                                     @: 00
                                 }
@@ -162,16 +168,24 @@
                                     @theCode._f0Es
                                 }
                             </td>
-                            <td data-day="@subitem.DD" data-hour="@item.HH" data-type="D" data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">
-                                @if (isDiffusio)
-                                {
-                                    @: 3
-                                }
-                                else if (isStationError)
+                            <td class="@editable" data-day="@subitem.DD" data-hour="@item.HH" data-type="D" data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">
+                                @if (isStationError)
                                 {
                                     @: C
                                 }
-                                else if (theCode._f0F2.IsEmpty() == false)
+                                else if(isAbsorption)
+                                {
+                                    @: B
+                                }
+                                else if(isDiffusio)
+                                {
+                                    @: 3
+                                }
+                                else if (theCode.Diffusio != -1 && isHaveF2)
+                                {
+                                    @theCode._Diffusio
+                                }
+                                else if (isHaveF2)
                                 {
                                     @: 0
                                 }
@@ -191,7 +205,7 @@
                         {
                             string str = "";
 
-                            if (val.Length == 1)
+                            if (val.Length == 1 && val[0] != '/')
                             {
                                 str = "0";
                             }
@@ -206,9 +220,9 @@
 
                         CodeUmagf theCode = Model.GetValueUmagf(item.YYYY, item.MM, item.DD);
 
-                        string editable = theCode._k1.IsEmpty() ? "" : "editable-umagf";
+                        string editable = "editable-umagf";
 
-                        <td class="right-thick-line left-thick-line @editable umagf-data" data-id="@theCode.ID" data-type="ak" colspan="7">
+                        <td class="right-thick-line left-thick-line @editable umagf-data" data-day="@item.DD" data-type="ak" colspan="7">
                             Ak=@convertToTwoNumbers(theCode._ak)
                         </td>
                     }
@@ -229,20 +243,20 @@
 
                         CodeUmagf theCode = Model.GetValueUmagf(item.YYYY, item.MM, item.DD);
 
-                        string editable = theCode._k1.IsEmpty() ? "" : "editable-umagf";
+                        string editable = "editable-umagf";
 
                         <td class="right-thick-line left-thick-line kind-data" colspan="7">
                             <table class="table-bordered" width="100%">
 
                                 <tr>
-                                    <td class="@editable" data-id="@theCode.ID" data-type="k1" width="12%">@theCode._k1</td>
-                                    <td class="@editable" data-id="@theCode.ID" data-type="k2" width="12%">@theCode._k2</td>
-                                    <td class="@editable" data-id="@theCode.ID" data-type="k3" width="12%">@theCode._k3</td>
-                                    <td class="@editable" data-id="@theCode.ID" data-type="k4" width="12%">@theCode._k4</td>
-                                    <td class="@editable" data-id="@theCode.ID" data-type="k5" width="12%">@theCode._k5</td>
-                                    <td class="@editable" data-id="@theCode.ID" data-type="k6" width="12%">@theCode._k6</td>
-                                    <td class="@editable" data-id="@theCode.ID" data-type="k7" width="12%">@theCode._k7</td>
-                                    <td class="@editable" data-id="@theCode.ID" data-type="k8" width="12%">@theCode._k8</td>
+                                    <td class="@editable" data-day="@item.DD" data-type="k1" width="12%">@theCode._k1</td>
+                                    <td class="@editable" data-day="@item.DD" data-type="k2" width="12%">@theCode._k2</td>
+                                    <td class="@editable" data-day="@item.DD" data-type="k3" width="12%">@theCode._k3</td>
+                                    <td class="@editable" data-day="@item.DD" data-type="k4" width="12%">@theCode._k4</td>
+                                    <td class="@editable" data-day="@item.DD" data-type="k5" width="12%">@theCode._k5</td>
+                                    <td class="@editable" data-day="@item.DD" data-type="k6" width="12%">@theCode._k6</td>
+                                    <td class="@editable" data-day="@item.DD" data-type="k7" width="12%">@theCode._k7</td>
+                                    <td class="@editable" data-day="@item.DD" data-type="k8" width="12%">@theCode._k8</td>
                                 </tr>
 
                             </table>
@@ -265,7 +279,7 @@
 
                         string editable = theCode._k1.IsEmpty() ? "" : "editable-umagf";
 
-                        <td class="right-thick-line left-thick-line @editable umagf-data" data-id="@theCode.ID" data-type="events" colspan="7" style="height: 27px">@theCode._events</td>
+                        <td class="right-thick-line left-thick-line @editable umagf-data" data-day="@item.DD" data-type="events" colspan="7" style="height: 27px">@theCode._events</td>
                     }
                 </tr>
 

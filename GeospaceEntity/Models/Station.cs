@@ -86,13 +86,13 @@ namespace GeospaceEntity.Models
             }
         }
 
-        public virtual GeospaceEntity.Models.Station GetByCode(int code)
+        public static GeospaceEntity.Models.Station GetByCode(int code)
         {
             Repositories.StationRepository repo = new Repositories.StationRepository();
             return repo.GetByCode(code);
         }
 
-        public virtual GeospaceEntity.Models.Station GetById(int id)
+        public static GeospaceEntity.Models.Station GetById(int id)
         {
             IRepository<Station> repo = new Repositories.StationRepository();
             return repo.GetById(id);
@@ -122,7 +122,7 @@ namespace GeospaceEntity.Models
             repo.Update(this);
         }
 
-        public virtual List<Station> GetAll()
+        public static List<Station> GetAll()
         {
             IRepository<Station> repo = new StationRepository();
             return (List<Station>)(repo.GetAll());

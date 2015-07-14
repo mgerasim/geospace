@@ -16,7 +16,7 @@ namespace GeospaceMediana.Controllers
 
         public JsonResult GetIonka()
         {
-            List<CodeIonka> theList = (List<CodeIonka>)(new CodeIonka()).GetAll();
+            List<CodeIonka> theList = (List<CodeIonka>)CodeIonka.GetAll();
             List<ApiIonka> theResult = new List<ApiIonka>();
             foreach(var item in theList)
             {
@@ -28,10 +28,9 @@ namespace GeospaceMediana.Controllers
 
         public JsonResult GetIonkaByPeriod(int StationCode, int startYYYY, int startMM, int startDD, int endYYYY, int endMM, int endDD)
         {
-            Station station = new Station();
-            station = station.GetByCode(StationCode);
+            Station station = Station.GetByCode(StationCode);
 
-            List<CodeIonka> theList = (List<CodeIonka>)(new CodeIonka()).GetByPeriod(station, startYYYY, startMM, startDD, endYYYY, endMM, endDD);
+            List<CodeIonka> theList = (List<CodeIonka>)CodeIonka.GetByPeriod(station, startYYYY, startMM, startDD, endYYYY, endMM, endDD);
             List<ApiIonka> theResult = new List<ApiIonka>();
             foreach (var item in theList)
             {
@@ -43,10 +42,9 @@ namespace GeospaceMediana.Controllers
 
         public JsonResult GetUmagfByPeriod(int StationCode, int startYYYY, int startMM, int startDD, int endYYYY, int endMM, int endDD)
         {
-            Station station = new Station();
-            station = station.GetByCode(StationCode);
+            Station station = Station.GetByCode(StationCode);
 
-            List<CodeUmagf> theList = (List<CodeUmagf>)(new CodeUmagf()).GetByPeriod(station, startYYYY, startMM, startDD, endYYYY, endMM, endDD);
+            List<CodeUmagf> theList = (List<CodeUmagf>)CodeUmagf.GetByPeriod(station, startYYYY, startMM, startDD, endYYYY, endMM, endDD);
             List<ApiUmagf> theResult = new List<ApiUmagf>();
             foreach (var item in theList)
             {

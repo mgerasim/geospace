@@ -3,12 +3,82 @@
     ViewBag.Title = @ViewBag.Title;
 }
 
+@section Scripts
+{
+    @Scripts.Render("~/bundles/mediana-edit")
+    @Scripts.Render("~/Scripts/jquery.stickyheader.js")
+}
+
+<script>
+    var submitUrl = "@Url.Action("Submit", "Mediana")";
+    var currentYear = "@ViewBag.Year";
+    var currentMonth = "@ViewBag.Month";
+    var currentStationCode = "@Model.StationCode";
+</script>
+
 <h2>Медиана (@ViewBag.Date)</h2>
 
 <style>
     table td, th {
         text-align: center;
     }
+
+    #edit {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        border: 1px;
+        border-style: solid;
+        border-color: #666;
+        display: inline-block;
+        position: relative;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    .sticky-wrap {
+        overflow-x: auto;
+        position: relative;
+        margin-bottom: 1.5em;
+        width: 100%;
+    }
+
+        .sticky-wrap .sticky-thead,
+        .sticky-wrap .sticky-col,
+        .sticky-wrap .sticky-intersect {
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: all .125s ease-in-out;
+            z-index: 50;
+            width: auto;
+        }
+
+        .sticky-wrap .sticky-thead {
+            box-shadow: 0 0.25em 0.1em -0.1em rgba(0,0,0,.125);
+            z-index: 100;
+            width: 100%;
+        }
+
+        .sticky-wrap .sticky-intersect {
+            opacity: 1;
+            z-index: 150;
+        }
+
+            .sticky-wrap .sticky-intersect th {
+                background-color: #666;
+                color: #eee;
+            }
+
+        .sticky-wrap td,
+        .sticky-wrap th {
+            box-sizing: border-box;
+        }
 </style>
 
 <div class="row">
@@ -16,10 +86,10 @@
         <table style="table-layout: fixed" class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <th style="width: 36px">День</th>
+                    <th style="width: 40px">День</th>
                     @for (int i = 0; i < 24; i++)
                     {
-                        <th>@i</th>
+                        <th class="bottom-thick-line">@i</th>
                     }
 
                 </tr>
@@ -29,13 +99,15 @@
                 @for (int day = 1; day <= ViewBag.CountDaysInMonth; day++)
                 {
                     <tr>
-                        <td>@day</td>
+                        <td class="right-thick-line">@day</td>
                         @for (int hour = 0; hour < 24; hour++)
                         {
                             CodeIonka theCode = Model.GetValue(ViewBag.Year, ViewBag.Month, day, hour);
-                            
-                            <td>
-                                @if(ViewBag.Type == "f0F2")
+
+                            string editable = theCode._f0F2.IsEmpty() ? "" : "editable-mediana";
+
+                            <td data-day="@day" data-hour="@hour" data-type="@ViewBag.Type" class="editable-mediana">
+                                @if (ViewBag.Type == "f0F2")
                                 {
                                     @theCode._f0F2
                                 }
@@ -45,6 +117,36 @@
                                 }
                             </td>
                         }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<h2>Медианы</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        <table style="table-layout: fixed" class="table table-bordered table-striped">
+            @{
+                GeospaceMediana.Models.Medians medians = ViewBag.Medians;
+            }
+            <tbody>
+                @foreach(var range in medians.Ranges)
+                {
+                    <tr>
+                        <td class="right-thick-line" style="width: 40px">@range.Header</td>
+                            @for (int hour = 0; hour < 24; hour++)
+                            {
+                                <td>
+                                    @if (range.Values[hour] != 0)
+                                    {
+                                        @range.Values[hour]
+                                    }
+                                </td>
+                            }
                     </tr>
                 }
             </tbody>

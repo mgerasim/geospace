@@ -27,72 +27,66 @@ namespace GeospaceMediana.Controllers
             return View(Model);
         }
 
-        public ActionResult Add(int stationcode, int year, int month, int day, string type, int hour, string newValue)
-        {
-            try
-            {
-                Station station = new Station();
-                station = station.GetByCode(stationcode);
-
-                CodeIonka codeIonka = new CodeIonka();
-
-                codeIonka.Station = station;
-                codeIonka.YYYY = year;
-                codeIonka.MM = month;
-                codeIonka.DD = day;
-                codeIonka.HH = hour;
-
-                int iNewValue = CodeIonka.ConvertCodeToInt(newValue);
-                codeIonka.SetValueByType(type, iNewValue);
-
-                codeIonka.Save();
-
-                return Content("");
-            }
-            catch(Exception)
-            {
-                // return Content(e.ToString());
-                return Content("Ошибка добавления! Проверьте корректность вводимых данных.");
-            }
-
-
-            
-
-        }
-
         public ActionResult Submit(int stationcode, int year, int month, int day, string type, int hour, string newValue)
         {
             try
             {
-                Station station = new Station();
-                station = station.GetByCode(stationcode);
-
-                CodeIonka codeIonka = new CodeIonka();
-
-                codeIonka = codeIonka.GetByDate(station, year, month, day, hour);
-
                 int iNewValue = CodeIonka.ConvertCodeToInt(newValue);
-                codeIonka.SetValueByType(type, iNewValue);
 
-                codeIonka.Update();
+                Station station = Station.GetByCode(stationcode);
+
+                CodeIonka codeIonka = CodeIonka.GetByDate(station, year, month, day, hour);
+
+                if (codeIonka == null)
+                {
+                    codeIonka = new CodeIonka();
+
+                    codeIonka.Station = station;
+                    codeIonka.YYYY = year;
+                    codeIonka.MM = month;
+                    codeIonka.DD = day;
+                    codeIonka.HH = hour;
+
+                    codeIonka.SetValueByType(type, iNewValue);
+                    codeIonka.Save();
+                }
+                else
+                {
+                    codeIonka.SetValueByType(type, iNewValue);
+                    codeIonka.Update();
+                }
 
                 return Content("");
             }
-            catch(Exception)
+            catch (Exception)
             {
-               // return Content(e.ToString());
+                // return Content(e.ToString());
                 return Content("Ошибка применения изменения! Проверьте корректность вводимых данных.");
             }
             
         }
 
-        public ActionResult SubmitUmagf(int id, string type, string newValue)
+        public ActionResult SubmitUmagf(int stationcode, int year, int month, int day, string type, string newValue)
         {
             try
             {
-                CodeUmagf codeUmagf = new CodeUmagf();
+                Station station = Station.GetByCode(stationcode);
 
-                codeUmagf = codeUmagf.GetById(id);
+                CodeUmagf codeUmagf = CodeUmagf.GetByDate(station, year, month, day);
+
+                bool isUpdate = true;
+
+                if(codeUmagf == null)
+                {
+                    codeUmagf = new CodeUmagf();
+
+                    codeUmagf.Station = station;
+                    codeUmagf.YYYY = year;
+                    codeUmagf.MM = month;
+                    codeUmagf.DD = day;
+
+                    isUpdate = false;
+                }
 
                 switch (type)
                 {
@@ -128,12 +122,15 @@ namespace GeospaceMediana.Controllers
                         break;
                 }
 
-                codeUmagf.Update();
+                if (isUpdate)
+                    codeUmagf.Update();
+                else
+                    codeUmagf.Save();
 
                 return Content("");
             } 
             catch(Exception) {
-                // return Content(e.ToString());
+               // return Content(e.ToString());
                 return Content("Ошибка применения изменения! Проверьте корректность вводимых данных.");
             }
            

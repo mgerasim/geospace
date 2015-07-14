@@ -33,14 +33,14 @@ namespace GeospaceMediana.Models
         {
             get
             {
-                return (new GeospaceEntity.Models.Station()).GetAll();
+                return GeospaceEntity.Models.Station.GetAll();
             }
         }
         public String StationName
         {
             get
             {
-                return (new GeospaceEntity.Models.Station()).GetByCode(this.StationCode).Name;
+                return GeospaceEntity.Models.Station.GetByCode(this.StationCode).Name;
             }
         }
         public DateTime End
@@ -63,11 +63,11 @@ namespace GeospaceMediana.Models
             Limit = limit;
             Step = step;
 
-            theIonkaValues = (List<GeospaceEntity.Models.Codes.CodeIonka>)(new GeospaceEntity.Models.Codes.CodeIonka()).GetByPeriod((new GeospaceEntity.Models.Station()).GetByCode(StationCode),
+            theIonkaValues = (List<GeospaceEntity.Models.Codes.CodeIonka>)GeospaceEntity.Models.Codes.CodeIonka.GetByPeriod(GeospaceEntity.Models.Station.GetByCode(StationCode),
                 Start.Year, Start.Month, Start.Day,
                 Start.AddDays(limit).Year, Start.AddDays(limit).Month, Start.AddDays(limit).Day);
 
-            theUmagfValues = (List<GeospaceEntity.Models.Codes.CodeUmagf>)(new GeospaceEntity.Models.Codes.CodeUmagf()).GetByPeriod((new GeospaceEntity.Models.Station()).GetByCode(StationCode),
+            theUmagfValues = (List<GeospaceEntity.Models.Codes.CodeUmagf>)GeospaceEntity.Models.Codes.CodeUmagf.GetByPeriod(GeospaceEntity.Models.Station.GetByCode(StationCode),
                 Start.Year, Start.Month, Start.Day,
                 Start.AddDays(limit).Year, Start.AddDays(limit).Month, Start.AddDays(limit).Day);
         }
@@ -115,7 +115,10 @@ namespace GeospaceMediana.Models
 
         public GeospaceEntity.Models.Codes.CodeIonka GetValue(int YYYY, int MM, int DD, int HH)
         {
-            List<GeospaceEntity.Models.Codes.CodeIonka> result = theIonkaValues.Where(x => x.YYYY==YYYY && x.MM==MM && x.DD==DD && x.HH==HH).ToList();
+            List<GeospaceEntity.Models.Codes.CodeIonka> result = theIonkaValues.Where(x => x.YYYY==YYYY && x.MM==MM && x.DD==DD && x.HH==HH)
+                .OrderBy(x=>x.MI)
+                .ToList();
+
             if (result.Count!=0)
             {
                 return result[0];
@@ -125,7 +128,11 @@ namespace GeospaceMediana.Models
         
         public GeospaceEntity.Models.Codes.CodeUmagf GetValueUmagf(int YYYY, int MM, int DD)
         {
-            List<GeospaceEntity.Models.Codes.CodeUmagf> result = theUmagfValues.Where(x => x.YYYY == YYYY && x.MM == MM && x.DD == DD).ToList();
+            List<GeospaceEntity.Models.Codes.CodeUmagf> result = theUmagfValues.Where(x => x.YYYY == YYYY && x.MM == MM && x.DD == DD)
+                .OrderBy(x => x.HH)
+                .OrderBy(x => x.MI)
+                .ToList();
+
             if (result.Count != 0)
             {
                 return result[0];
