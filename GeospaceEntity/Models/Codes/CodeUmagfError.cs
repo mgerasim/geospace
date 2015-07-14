@@ -12,15 +12,18 @@ namespace GeospaceEntity.Models.Codes
         public virtual DateTime created_at { get; set; }
         public virtual DateTime updated_at { get; set; }
         public virtual string Raw { get; set; }
+        public virtual string ErrorMessage { get; set; }
 
         //по умолчанию false
         //если запись проверил специалист, то устанавливается true
-        public virtual bool check { get; set; }
+        public virtual bool CheckError { get; set; }
 
         public CodeUmagfError()
         {
+            ID = -1;
             Raw = "";
-            check = false;
+            ErrorMessage = "";
+            CheckError = false;
 
             created_at = DateTime.Now;
             updated_at = DateTime.Now;
@@ -42,16 +45,23 @@ namespace GeospaceEntity.Models.Codes
             repo.Update(this);
         }
 
+        //по параметрам получаем объект из БД, если его нет значит сохраниме новую запись в БД
+        public virtual Codes.CodeUmagfError GetByRaw()
+        {
+            Repositories.CodeUmagfErrorRepository repo = new Repositories.CodeUmagfErrorRepository();
+            return repo.GetByRaw( Raw );
+        }
+
         public virtual IList<Codes.CodeUmagfError> GetAll()
         {
             GeospaceEntity.Common.IRepository<CodeUmagfError> repo = new Repositories.CodeUmagfErrorRepository();
             return repo.GetAll();
         }
 
-        //public virtual Codes.CodeUmagfError GetById(int id)
-        //{
-        //    Repositories.CodeUmagfErrorRepository repo = new Repositories.CodeUmagfErrorRepository();
-        //    return repo.GetById(id);
-        //}
+        public virtual Codes.CodeUmagfError GetById(int id)
+        {
+            Repositories.CodeUmagfErrorRepository repo = new Repositories.CodeUmagfErrorRepository();
+            return repo.GetById(id);
+        }
     }
 }

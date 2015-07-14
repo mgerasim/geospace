@@ -172,7 +172,7 @@ namespace GeospaceDecodeService
                                         else
                                             logumagf.Debug("\nстанция не найдена в БД: " + code_source + "\n");
                                     }
-                                    catch (Exception ex)
+                                    catch ( System.Exception ex)
                                     {
                                         logumagf.Error("\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                                         logumagf.Error(ex.Message);
@@ -180,6 +180,10 @@ namespace GeospaceDecodeService
                                         logumagf.Error("\ncode_source:");
                                         logumagf.Error(code_source);
                                         logumagf.Error(ex.StackTrace + "\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+
+                                        CodeUmagfError umagfError = new CodeUmagfError();
+                                        umagfError.Raw = theCode;
+                                        umagfError.Save();
                                     }
                                 }
 

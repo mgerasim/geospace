@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GeospaceEntity.Models.Codes;
 
 namespace GeospaceTest
 {
@@ -90,7 +91,7 @@ namespace GeospaceTest
         }
         static void Support04()
         {
-            string strFile = @"\\10.8.5.123\obmen\armgf1dan.txt";
+            string strFile = "C:\\Users\\distomin\\Projects\\GeoSpace\\documents\\umagf_error.txt";
 
             List<int> listLengthLines = new List<int>();
             List<string> listComb = new List<string>();
@@ -183,6 +184,15 @@ namespace GeospaceTest
                                         logumagf.Error(code_source);
                                         logumagf.Error(ex.StackTrace + "\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
                                       * */
+
+                                        CodeUmagfError umagfError = new CodeUmagfError();
+                                        umagfError.Raw = item;
+                                        umagfError.ErrorMessage = ex.Message + "\n" + ex.InnerException + "\n" + ex.Source + "\n" + ex.StackTrace;
+
+                                        CodeUmagfError c = umagfError.GetByRaw();
+
+                                        if( umagfError.GetByRaw() == null)
+                                            umagfError.Save();
                                     }
                                 }
 
@@ -356,7 +366,6 @@ namespace GeospaceTest
         static void Support03()
         {
             GeospaceEntity.Common.NHibernateHelper.UpdateSchema();
-
         }
        /* static void Support02()
         {

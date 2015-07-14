@@ -6,11 +6,9 @@
       <generator class="identity"/>
     </id>
     <property name="created_at" />
-    <property name="updated_at" />
-
-    <property name="check" type="bool"/>
-   
-    <property name="Raw" type="string" length="10000"/>
-   
+    <property name="updated_at" />      
+    <property name="Raw" type="string" length="10000" />
+    <property name="ErrorMessage" type="string" length="10000" />
+    <property name="CheckError" />    
   </class>
 </hibernate-mapping>

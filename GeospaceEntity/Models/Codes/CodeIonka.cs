@@ -10,7 +10,6 @@ namespace GeospaceEntity.Models.Codes
     {
         private string strSession;
 
-
         public CodeIonka()
         {
             ID = -1;

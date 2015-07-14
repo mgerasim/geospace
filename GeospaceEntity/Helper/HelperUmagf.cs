@@ -44,16 +44,23 @@ namespace GeospaceEntity.Helper
         //получает индекс станции, если в БД такой станции НЕ СОЗДОВАТЬ эту станцию в БД
         public static bool Umagf_BigGroup1_NumStation(string[] arrayGroups, int num, GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf)
         {
-            int number = Convert.ToInt32(arrayGroups[num]);
-            Station theStation = (new Station().GetByCode(number));
-            if (theStation == null)
+            try
             {
-                return false;
-                /*theStation = new Station();
-                theStation.Code = number;
-                theStation.Save();*/
+                int number = Convert.ToInt32(arrayGroups[num]);
+                Station theStation = (new Station().GetByCode(number));
+                if (theStation == null)
+                {
+                    return false;
+                    /*theStation = new Station();
+                    theStation.Code = number;
+                    theStation.Save();*/
+                }
+                theCodeUmagf.Station = theStation;
             }
-            theCodeUmagf.Station = theStation;
+            catch( System.Exception ex)
+            {
+                throw new System.Exception("Ошибка в индексе станции: " + arrayGroups[num].ToString(), ex );
+            }
             return true;
         }
 

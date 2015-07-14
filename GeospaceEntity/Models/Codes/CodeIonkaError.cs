@@ -12,15 +12,18 @@ namespace GeospaceEntity.Models.Codes
         public virtual DateTime created_at { get; set; }
         public virtual DateTime updated_at { get; set; }
         public virtual string Raw { get; set; }
+        public virtual string ErrorMessage { get; set; }
 
         //по умолчанию false
         //если запись проверил специалист, то устанавливается true
-        public virtual bool check { get; set; }
+        public virtual bool CheckError { get; set; }
 
         public CodeIonkaError()
         {
+            ID = -1;
             Raw = "";
-            check = false;
+            ErrorMessage = "";
+            CheckError = false;
 
             created_at = DateTime.Now;
             updated_at = DateTime.Now;
