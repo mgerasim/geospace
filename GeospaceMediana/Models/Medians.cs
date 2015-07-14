@@ -57,7 +57,7 @@ namespace GeospaceMediana.Models
 
                     DateTime endRange = calcDate.AddDays(-1);
 
-                    listValues = getValuesByRange(codesIonka, type, hour, endRange.AddDays(-10), endRange);
+                    listValues = getValuesByRange(codesIonka, type, hour, endRange.AddDays(-9), endRange);
 
                     listValues.Sort();
 
@@ -72,7 +72,7 @@ namespace GeospaceMediana.Models
                             int index1 = listValues.Count / 2 - 1;
                             int index2 = listValues.Count / 2;
 
-                            medians[hour] = (listValues[index1] + listValues[index2]) / 2;
+                            medians[hour] = (int)Math.Ceiling( (listValues[index1] + listValues[index2]) / 2.0 );
                         }
                         else
                         {
