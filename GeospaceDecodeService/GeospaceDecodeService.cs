@@ -276,6 +276,11 @@ namespace GeospaceDecodeService
                                                             error.Error("Not save to Error obj");
                                                         }
                                                     }
+                                                    CodeIonkaError IonkaError = new CodeIonkaError();
+                                                    IonkaError.ErrorMessage = err.Message + "\n" + err.InnerException + "\n" + err.Source + "\n" + err.StackTrace;
+                                                    IonkaError.Raw = theCode;
+                                                    if (IonkaError.GetByRaw() == null)
+                                                        IonkaError.Save();
 
                                                 }
                                             }
@@ -332,6 +337,11 @@ namespace GeospaceDecodeService
                                                             error.Error("Not save to Error obj");
                                                         }
                                                     }
+                                                    CodeIonkaError IonkaError = new CodeIonkaError();
+                                                    IonkaError.ErrorMessage = err.Message + "\n" + err.InnerException + "\n" + err.Source + "\n" + err.StackTrace;
+                                                    IonkaError.Raw = theCode;
+                                                    if (IonkaError.GetByRaw() == null)
+                                                        IonkaError.Save();
 
                                                 }
                                             }
@@ -357,6 +367,11 @@ namespace GeospaceDecodeService
                                                 item, theCode, code);
                                             theErr.Save();
                                         }
+                                        CodeIonkaError IonkaError = new CodeIonkaError();
+                                        IonkaError.ErrorMessage = ex.Message + "\n" + ex.InnerException + "\n" + ex.Source + "\n" + ex.StackTrace;
+                                        IonkaError.Raw = theCode;
+                                        if(IonkaError.GetByRaw() == null)
+                                            IonkaError.Save();
                                     }
                                 }
                             }

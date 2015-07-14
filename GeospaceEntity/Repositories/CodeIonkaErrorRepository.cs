@@ -48,12 +48,6 @@ namespace GeospaceEntity.Repositories
                     }
                 }
             }
-            GeospaceEntity.Models.Codes.CodeIonkaError IRepository<GeospaceEntity.Models.Codes.CodeIonkaError>.GetById(int id)
-            {
-                using (ISession session = NHibernateHelper.OpenSession())
-                    return session.CreateCriteria<GeospaceEntity.Models.Codes.CodeIonkaError>().Add(Restrictions.Eq("ID", id)).UniqueResult<GeospaceEntity.Models.Codes.CodeIonkaError>();
-            }
-
             IList<GeospaceEntity.Models.Codes.CodeIonkaError> IRepository<GeospaceEntity.Models.Codes.CodeIonkaError>.GetAll()
             {
                 using (ISession session = NHibernateHelper.OpenSession())
@@ -62,6 +56,18 @@ namespace GeospaceEntity.Repositories
                     criteria.AddOrder(Order.Desc("ID"));
                     return criteria.List<GeospaceEntity.Models.Codes.CodeIonkaError>();
                 }
+            }
+
+            public GeospaceEntity.Models.Codes.CodeIonkaError GetByRaw(string raw)
+            {
+                using (ISession session = NHibernateHelper.OpenSession())
+                    return session.CreateCriteria<GeospaceEntity.Models.Codes.CodeIonkaError>().Add(Restrictions.Eq("Raw", raw)).UniqueResult<GeospaceEntity.Models.Codes.CodeIonkaError>();
+            }
+
+            GeospaceEntity.Models.Codes.CodeIonkaError IRepository<GeospaceEntity.Models.Codes.CodeIonkaError>.GetById(int id)
+            {
+                using (ISession session = NHibernateHelper.OpenSession())
+                    return session.CreateCriteria<GeospaceEntity.Models.Codes.CodeIonkaError>().Add(Restrictions.Eq("ID", id)).UniqueResult<GeospaceEntity.Models.Codes.CodeIonkaError>();
             }
             #endregion
         }

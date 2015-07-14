@@ -11,6 +11,7 @@ namespace GeospaceEntity.Helper
     {
         public static bool FindSpecialGroup(string str) // поиск специальной группы
         {
+
             if (str[1] == '/' || str[3] == '/')
                 return true;
             else return false;
@@ -206,26 +207,50 @@ namespace GeospaceEntity.Helper
         {
             string[] arrayString = strIonka.Split(' ');
             string strStation = arrayString[1];
-            int numberStation = ParseToken(strStation);
-            return numberStation;
+            try
+            {
+                int numberStation = ParseToken(strStation);
+                return numberStation;
+            }
+            catch (System.Exception ex)
+            {
+                throw new System.Exception("Ошибка в индексе станции: " + strStation, ex);
+            }
+            return -1;
         }
 
         public static DateTime Ionka_Group03_DateCreate(string strIonka)
         {
             string[] arrayString = strIonka.Split(' ');
             string token = arrayString[2];
-            int month = Convert.ToInt32(token.Substring(1, 2));
-            int day = Convert.ToInt32(token.Substring(3, 2));
-            int year = DateTime.Now.Year;
-            DateTime dateCreate = new DateTime(year, month, day);
-            return dateCreate;
+            try
+            {
+                int month = Convert.ToInt32(token.Substring(1, 2));
+                int day = Convert.ToInt32(token.Substring(3, 2));
+                int year = DateTime.Now.Year;
+                DateTime dateCreate = new DateTime(year, month, day);
+                return dateCreate;
+            }
+            catch (System.Exception ex)
+            {
+                throw new System.Exception("Ошибка в дате: " + token, ex);
+            }
+            return new DateTime();
         }
 
         public static int Ionka_Group04_Count(string strIonka)
         {
-            string token = strIonka;
-            int sessionCount = Convert.ToInt32(token.Substring(2, 1));
-            return sessionCount;
+            try
+            {
+                string token = strIonka;
+                int sessionCount = Convert.ToInt32(token.Substring(2, 1));
+                return sessionCount;
+            }
+            catch (System.Exception ex)
+            {
+                throw new System.Exception("Ошибка вслужебной группе , в количестве сеансов зондирования: " + strIonka, ex);
+            }
+            return -1;
         }
 
         public static string Ionka_GroupData_Get(int sessionNumber, string strIonka)
@@ -242,36 +267,78 @@ namespace GeospaceEntity.Helper
 
         public static int Ionka_Group05_HH(string strSession)
         {
-            string str = strSession.Substring(1, 2);
-            int MM = ParseToken(str);
-            return MM;
+            try
+            {
+                string str = strSession.Substring(1, 2);
+                int MM = ParseToken(str);
+                return MM;
+            }
+            catch (System.Exception ex)
+            {
+                throw new System.Exception("Ошибка в дате(Время - часы): " + strSession, ex);
+            }
+            return -1;
         }
 
         public static int Ionka_Group05_MI(string strSession)
         {
-            string str = strSession.Substring(3, 2);
-            int DD = ParseToken(str);
-            return DD;
+            try
+            {
+                string str = strSession.Substring(3, 2);
+                int DD = ParseToken(str);
+                return DD;
+            }
+            catch (System.Exception ex)
+            {
+                throw new System.Exception("Ошибка в дате(Время минуты): " + strSession, ex);
+            }
+            return -1;
+            
         }
         public static int Ionka_Group06_f0F2(string strSession)
         {
-            string str = strSession.Substring(0, 3);
-            int f0F2 = ParseToken(str);
-            return f0F2;
+            try
+            {
+                string str = strSession.Substring(0, 3);
+                int f0F2 = ParseToken(str);
+                return f0F2;
+            }
+            catch (System.Exception ex)
+            {
+                throw new System.Exception("Ошибка в f0F2 : " + strSession, ex);
+            }
+            return -1;
         }
 
         public static int Ionka_Group06_hF2(string strSession)
         {
-            string token = strSession.Substring(3, 2);
-            int hF2 = ParseToken(token);
-            return hF2;
+            try
+            {
+                string token = strSession.Substring(3, 2);
+                int hF2 = ParseToken(token);
+                return hF2;
+            }
+            catch (System.Exception ex)
+            {
+                throw new System.Exception("Ошибка в  hF2 : " + strSession, ex);
+            }
+            return -1;
+            
         }
 
         public static int Ionka_Group07_M3000F2(string strSession)
         {
-            string token = strSession.Substring(0, 2);
-            int M3000F2 = ParseToken(token);
-            return M3000F2;
+            try
+            {
+                string token = strSession.Substring(0, 2);
+                int M3000F2 = ParseToken(token);
+                return M3000F2;
+            }
+            catch (System.Exception ex)
+            {
+                throw new System.Exception("Ошибка в  M3000F2 : " + strSession, ex);
+            }
+            return -1;
         }
 
         public static int Ionka_Group07_fmin(string strSession)
@@ -283,81 +350,168 @@ namespace GeospaceEntity.Helper
 
         public static int Ionka_Group08_f0Es(string strSession)
         {
-            string token = strSession.Substring(0, 3);
-            int f0Es = ParseToken(token);
-
-            return f0Es;
+            try
+            {
+                string token = strSession.Substring(0, 3);
+                int f0Es = ParseToken(token);
+                return f0Es;
+            }
+            catch (System.Exception ex)
+            {
+                throw new System.Exception("Ошибка в  f0Es : " + strSession, ex);
+            }
+            return -1;
         }
 
         public static int Ionka_Group08_hEs(string strSession)
         {
-            string token = strSession.Substring(3, 2);
-            int hEs = ParseToken(token);
-            return hEs;
+            try
+            {
+                string token = strSession.Substring(3, 2);
+                int hEs = ParseToken(token);
+                return hEs;
+            }
+            catch (System.Exception ex)
+            {
+                throw new System.Exception("Ошибка в  hEs : " + strSession, ex);
+            }
+            return -1;
         }
 
         public static int Ionka_Group09_f0F1(string strSession)
         {
-            string token = strSession.Substring(0, 3);
-            int f0F1 = ParseToken(token);
-            return f0F1;
+            try
+            {
+                string token = strSession.Substring(0, 3);
+                int f0F1 = ParseToken(token);
+                return f0F1;
+            }
+            catch (System.Exception ex)
+            {
+                throw new System.Exception("Ошибка в  f0F1 : " + strSession, ex);
+            }
+            return -1;
         }
 
         public static int Ionka_Group09_hF1(string strSession)
         {
-            string token = strSession.Substring(3, 2);
-            int hF1 = ParseToken(token);
-            return hF1;
+            try
+            {
+                string token = strSession.Substring(3, 2);
+                int hF1 = ParseToken(token);
+                return hF1;
+            }
+            catch (System.Exception ex)
+            {
+                throw new System.Exception("Ошибка в  hF1 : " + strSession, ex);
+            }
+            return -1;
         }
 
         public static int Ionka_Group10_M3000F1(string strSession)
         {
-            string token = strSession.Substring(0, 2);      
-            int M3000F1 = ParseToken(token);
-            return M3000F1;
+            try
+            {
+                string token = strSession.Substring(0, 2);
+                int M3000F1 = ParseToken(token);
+                return M3000F1;
+            }
+            catch (System.Exception ex)
+            {
+                throw new System.Exception("Ошибка в  M3000F1 : " + strSession, ex);
+            }
+            return -1;
         }
 
         public static int Ionka_Group10_hMF2(string strSession)
         {
-            string token = strSession.Substring(0, 2);
-            int hMF2 = ParseToken(token);
-            return hMF2;
+            try
+            {
+                string token = strSession.Substring(0, 2);
+                int hMF2 = ParseToken(token);
+                return hMF2;
+            }
+            catch (System.Exception ex)
+            {
+                throw new System.Exception("Ошибка в  hMF2 : " + strSession, ex);
+            }
+            return -1;
+            
         }
 
         public static int Ionka_Group11_f0E(string strSession)
         {
-            string token = strSession.Substring(0, 3);
-            int f0E = ParseToken(token);
-            return f0E;
+            try
+            {
+                string token = strSession.Substring(0, 3);
+                int f0E = ParseToken(token);
+                return f0E;
+            }
+            catch (System.Exception ex)
+            {
+                throw new System.Exception("Ошибка в  f0E : " + strSession, ex);
+            }
+            return -1;
         }
 
         public static int Ionka_Group11_hE(string strSession)
         {
-            string token = strSession.Substring(3, 2);
-            int hE = ParseToken(token);
-            return hE;
+            try
+            {
+                string token = strSession.Substring(3, 2);
+                int hE = ParseToken(token);
+                return hE;
+            }
+            catch (System.Exception ex)
+            {
+                throw new System.Exception("Ошибка в  hE : " + strSession, ex);
+            }
+            return -1;
         }
 
         public static int Ionka_Group12_fbEs(string strSession)
         {
-            string token = strSession.Substring(0, 3);
-            int fbEs = ParseToken(token);
-            return fbEs;
+            try
+            {
+                string token = strSession.Substring(0, 3);
+                int fbEs = ParseToken(token);
+                return fbEs;
+            }
+            catch (System.Exception ex)
+            {
+                throw new System.Exception("Ошибка в  fbEs : " + strSession, ex);
+            }
+            return -1;
         }
 
         public static int Ionka_Group12_Es(string strSession)
         {
-            string token = strSession.Substring(3, 1);
-            int Es = ParseToken(token);
-
-            return Es;
+            try
+            {
+                string token = strSession.Substring(3, 1);
+                int Es = ParseToken(token);
+                return Es;
+            }
+            catch (System.Exception ex)
+            {
+                throw new System.Exception("Ошибка в  Es : " + strSession, ex);
+            }
+            return -1;
         }
 
         public static int Ionka_Group13_fx1(string strSession)
         {
-            string token = strSession.Substring(0, 3);
-            int fx1 = ParseToken(token);
-            return fx1;
+            try
+            {
+                string token = strSession.Substring(0, 3);
+                int fx1 = ParseToken(token);
+                return fx1;
+            }
+            catch (System.Exception ex)
+            {
+                throw new System.Exception("Ошибка в  fx1 : " + strSession, ex);
+            }
+            return -1;
         }
 
         //печатает все возможные комбинации кода ионка
@@ -376,14 +530,22 @@ namespace GeospaceEntity.Helper
         //проверка на группу /ЧЧММ и возврат объекта типа DateTime
         public static bool Find_Time(string strTime, Time time)
         {
-            int res;
-            if (strTime[0] == '/' && Int32.TryParse(strTime.Substring(1), out res))
+            try
             {
-                time.init(Convert.ToInt32(strTime.Substring(1, 2)), Convert.ToInt32(strTime.Substring(3, 2)));
-                if (!time.Check_Format()) return false;
-            }
-            else return false;
+                int res;
+                if (strTime[0] == '/' && Int32.TryParse(strTime.Substring(1), out res))
+                {
+                    time.init(Convert.ToInt32(strTime.Substring(1, 2)), Convert.ToInt32(strTime.Substring(3, 2)));
+                    if (!time.Check_Format()) return false;
+                }
+                else return false;
 
+                return true;
+            }
+            catch (System.Exception ex)
+            {
+                throw new System.Exception("Ошибка впоиске временных отрезков /HHMM : " + strTime, ex);
+            }
             return true;
         }
 
