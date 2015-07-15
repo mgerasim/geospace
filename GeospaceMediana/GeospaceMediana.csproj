@@ -143,6 +143,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Content\ionka.css" />
     <Compile Include="Controllers\ApiController.cs" />
+    <Compile Include="Controllers\CharacterizationDayController.cs" />
     <Compile Include="Controllers\IonkaController.cs" />
     <Compile Include="Controllers\MedianaController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
@@ -152,6 +153,7 @@
     </Compile>
     <Compile Include="Models\ApiIonka.cs" />
     <Compile Include="Models\ApiUmagf.cs" />
+    <Compile Include="Models\CharacterizationDay.cs" />
     <Compile Include="Models\Medians.cs" />
     <Compile Include="Models\ViewIonka.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -278,6 +280,8 @@
     <Content Include="Views\Products\EditReviewGeoEnvMonth.cshtml" />
     <Content Include="Views\Stations\Delete.cshtml" />
     <Content Include="Views\Mediana\_Menu.cshtml" />
+    <Content Include="Views\CharacterizationDay\Index.cshtml" />
+    <Content Include="Views\CharacterizationDay\_Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

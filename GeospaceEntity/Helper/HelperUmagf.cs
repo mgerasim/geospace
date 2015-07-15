@@ -54,7 +54,7 @@ namespace GeospaceEntity.Helper
             try
             {
                 int number = Convert.ToInt32(arrayGroups[num]);
-                Station theStation = (new Station().GetByCode(number));
+                Station theStation = Station.GetByCode(number);
                 if (theStation == null)
                 {
                     return false;

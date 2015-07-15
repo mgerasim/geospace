@@ -1,0 +1,157 @@
+﻿@using GeospaceMediana.Models;
+@{
+    ViewBag.Title = @ViewBag.Title;
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/Scripts/jquery.stickyheader.js")
+}
+
+<h2>Характеристика суток</h2>
+
+<style>
+    table td, th {
+        text-align: center;
+    }
+
+    #edit {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        border: 1px;
+        border-style: solid;
+        border-color: #666;
+        display: inline-block;
+        position: relative;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    .sticky-wrap {
+        overflow-x: auto;
+        position: relative;
+        margin-bottom: 1.5em;
+        width: 100%;
+    }
+
+        .sticky-wrap .sticky-thead,
+        .sticky-wrap .sticky-col,
+        .sticky-wrap .sticky-intersect {
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: all .125s ease-in-out;
+            z-index: 50;
+            width: auto;
+        }
+
+        .sticky-wrap .sticky-thead {
+            box-shadow: 0 0.25em 0.1em -0.1em rgba(0,0,0,.125);
+            z-index: 100;
+            width: 100%;
+        }
+
+        .sticky-wrap .sticky-intersect {
+            opacity: 1;
+            z-index: 150;
+        }
+
+            .sticky-wrap .sticky-intersect th {
+                background-color: #666;
+                color: #eee;
+            }
+
+        .sticky-wrap td,
+        .sticky-wrap th {
+            box-sizing: border-box;
+        }
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+        <table style="table-layout: fixed" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th class="thick-line" style="width: 60px">Медиана</th>
+                    <th class="thick-line" style="width: 40px">Часы</th>
+                    @for (int day = ViewBag.DayStart; day <= ViewBag.DayEnd; day++)
+                    {
+                        <th class="thick-line" colspan="3">@day</th>
+                    }
+
+                </tr>
+            </thead>
+
+            @{
+                CharacterizationDay charDay = ViewBag.CharacterizationDay;
+            }
+
+            <tbody>
+                @for(int hour = 0; hour < 24; hour++)
+                {
+                    <tr>
+                        <td class="left-thick-line right-thick-line">@ViewBag.RangeMedians.Values[hour]</td>
+                        <td class="left-thick-line right-thick-line">@hour.ToString("D2")</td>
+
+                        @for (int day = ViewBag.DayStart; day <= ViewBag.DayEnd; day++)
+                        {
+                            var value = charDay.GetValue(day, hour);
+                            
+                            <td class="left-thick-line">@value._f0F2</td>
+                            <td>@value._PrevRating</td>
+                            <td class="right-thick-line">@value._Rating</td>
+                        }
+                    </tr>
+                }
+
+                <tr>
+                    <td class="top-thick-line left-thick-line" style="height: 29px;" colspan="2"></td>
+                    @for (int day = ViewBag.DayStart; day <= ViewBag.DayEnd; day++)
+{
+                        <td class="left-thick-line top-thick-line"></td>
+                        <td class="top-thick-line"></td>
+                        <td class="right-thick-line top-thick-line"></td>
+                    }
+                </tr>
+
+                <tr>
+                    <td class="left-thick-line" colspan="2">00-11</td>
+                    @for (int day = ViewBag.DayStart; day <= ViewBag.DayEnd; day++)
+{
+                        <td class="left-thick-line"></td>
+                        <td></td>
+                        <td class="right-thick-line">@charDay.GetFirstHalfDayValue(day)</td>
+                    }
+                </tr>
+
+                <tr>
+                    <td class="left-thick-line" colspan="2">12-23</td>
+                    @for (int day = ViewBag.DayStart; day <= ViewBag.DayEnd; day++)
+{
+                        <td class="left-thick-line"></td>
+                        <td></td>
+                        <td class="right-thick-line">@charDay.GetSecondHalfDayValue(day)</td>
+                    }
+                </tr>
+
+                <tr>
+                    <td class="left-thick-line bottom-thick-line" colspan="2">сутки</td>
+                    @for (int day = ViewBag.DayStart; day <= ViewBag.DayEnd; day++)
+{
+                        <td class="left-thick-line bottom-thick-line"></td>
+                        <td class="bottom-thick-line"></td>
+                        <td class="right-thick-line bottom-thick-line">@charDay.GetFullDayValue(day)</td>
+                    }
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
+
+</div>
