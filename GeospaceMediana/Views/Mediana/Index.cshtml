@@ -86,7 +86,7 @@
         <table style="table-layout: fixed" class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <th style="width: 40px">День</th>
+                    <th style="width: 45px">День</th>
                     @for (int i = 0; i < 24; i++)
                     {
                         <th class="bottom-thick-line">@i</th>
@@ -137,7 +137,7 @@
                 @foreach(var range in medians.Ranges)
                 {
                     <tr>
-                        <td class="right-thick-line" style="width: 40px">@range.Header</td>
+                        <td class="right-thick-line" style="width: 45px">@range.Header</td>
                             @for (int hour = 0; hour < 24; hour++)
                             {
                                 <td>

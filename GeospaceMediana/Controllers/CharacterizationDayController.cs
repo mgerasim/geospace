@@ -29,6 +29,16 @@ namespace GeospaceMediana.Controllers
             
             int endDay = rangeMedians.Max;
 
+            DateTime currStartDay = new DateTime(year, month, startDay);
+            DateTime nextStartDate = currStartDay.AddDays(5);
+            DateTime prevStartDate = currStartDay.AddDays(-5);
+
+            if (nextStartDate.Day > 1 && nextStartDate.Day < 6)
+                nextStartDate = new DateTime(nextStartDate.Year, nextStartDate.Month, 1);
+
+            if (prevStartDate.Day != 26 && prevStartDate.Day > 21)
+                prevStartDate = new DateTime(prevStartDate.Year, prevStartDate.Month, 26);
+
             ViewBag.DayStart = startDay;
             ViewBag.DayEnd = endDay;
             ViewBag.CharacterizationDay = new CharacterizationDay(station, rangeMedians, year, month, startDay);
@@ -38,6 +48,9 @@ namespace GeospaceMediana.Controllers
             ViewBag.Stations = Station.GetAll();
             ViewBag.Station = station;
             ViewBag.RangeMedians = rangeMedians;
+
+            ViewBag.PrevStartDate = prevStartDate;
+            ViewBag.NextStartDate = nextStartDate;
 
             return View();
         }

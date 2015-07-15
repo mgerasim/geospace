@@ -34,9 +34,9 @@
             new
             {
                 stationCode = ViewBag.StationCode,
-                year = ViewBag.Year,
-                month = ViewBag.Month,
-                startDay = ViewBag.DayStart
+                year = ViewBag.PrevStartDate.Year,
+                month = ViewBag.PrevStartDate.Month,
+                startDay = ViewBag.PrevStartDate.Day
             },
                                 new
                                 {
@@ -51,9 +51,9 @@
             new
             {                                                     // routeValues
                 stationCode = ViewBag.StationCode,
-                year = ViewBag.Year,
-                month = ViewBag.Month,
-                startDay = ViewBag.DayStart
+                year = ViewBag.NextStartDate.Year,
+                month = ViewBag.NextStartDate.Month,
+                startDay = ViewBag.NextStartDate.Day
             },
                                 new
                                 {
