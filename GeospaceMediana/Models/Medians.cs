@@ -96,7 +96,7 @@ namespace GeospaceMediana.Models
                 curMax += 5;
                 calcDate = calcDate.AddDays(5);
 
-                if (calcDate.Day == 29)
+                if (i == 4)
                 {
                     curMin = 1;
                     curMax = 5;
@@ -116,15 +116,15 @@ namespace GeospaceMediana.Models
                 
                 if(calcDate.Month == 2)
                 {
-                    if (calcDate.Day == 29)
+                    if (i == 4)
                     {
                         if (countDays == 28)
                         {
-                            calcDate = new DateTime(calcDate.Year, calcDate.Month, 27);
+                            calcDate = new DateTime(year, month, 27);
                         }
                         else
                         {
-                            calcDate = new DateTime(calcDate.Year, calcDate.Month, 28);
+                            calcDate = new DateTime(year, month, 28);
                         }
                     }
                 }

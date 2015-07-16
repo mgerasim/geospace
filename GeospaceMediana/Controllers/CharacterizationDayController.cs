@@ -33,6 +33,9 @@ namespace GeospaceMediana.Controllers
             DateTime nextStartDate = currStartDay.AddDays(5);
             DateTime prevStartDate = currStartDay.AddDays(-5);
 
+            if (nextStartDate.Day == 31)
+                nextStartDate = nextStartDate.AddDays(1);
+
             if (nextStartDate.Day > 1 && nextStartDate.Day < 6)
                 nextStartDate = new DateTime(nextStartDate.Year, nextStartDate.Month, 1);
 
@@ -51,6 +54,8 @@ namespace GeospaceMediana.Controllers
 
             ViewBag.PrevStartDate = prevStartDate;
             ViewBag.NextStartDate = nextStartDate;
+
+            ViewBag.Date = currStartDay.ToString("MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture);
 
             return View();
         }

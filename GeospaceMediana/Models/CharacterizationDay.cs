@@ -250,20 +250,25 @@ namespace GeospaceMediana.Models
 
         private double calcRating(int val)
         {
+            int positiveVal = Math.Abs(val);
+
             double rating;
 
-            if(val >= 0 && val <= 10) {
+            if (positiveVal >= 0 && positiveVal <= 10)
+            {
                 rating = 0;
             }
-            else if (val >= 11 && val <= 20) {
+            else if (positiveVal >= 11 && positiveVal <= 20)
+            {
                 rating = 0.5;
             }
-            else if(val >= 61) {
+            else if (positiveVal >= 61)
+            {
                 rating = 5;
             } else {
-                val = val % 5 == 0 ? val - 1 : val;
+                positiveVal = positiveVal % 5 == 0 ? positiveVal - 1 : positiveVal;
 
-                rating = 1 + (((val + 5 - (val % 5)) - 25) / 5.0) * 0.5;
+                rating = 1 + (((positiveVal + 5 - (positiveVal % 5)) - 25) / 5.0) * 0.5;
             }
 
             if (val < 0)
