@@ -221,3 +221,5 @@ UpgradeLog*.XML
 
 .hg/
 .hgignore
+
+documents/

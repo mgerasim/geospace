@@ -141,6 +141,8 @@ namespace GeospaceDecodeService
                                             GeospaceEntity.Helper.HelperUmagf.Umagf_BigGroup2_FullData(arrayGroups, 2, theCodeUmagf);
                                             //GeospaceEntity.Helper.HelperUmagf.Umagf_Group1_DateCreate(arrayGroups, numDate, theCodeUmagf);       
                                             GeospaceEntity.Helper.HelperUmagf.Umagf_Group1_DateCreate(arrayGroups, numDate + 1, theCodeUmagf, true);
+
+                                            theCodeUmagf.Raw = code_source;
                                         }
                                         else //если есть ионка
                                         {
@@ -151,6 +153,7 @@ namespace GeospaceDecodeService
                                             GeospaceEntity.Helper.HelperUmagf.Umagf_Group1_DateCreate(arrayGroups, numDate, theCodeUmagf, true);                                            
 
                                             flagIonka = false;
+                                            theCodeUmagf.Raw = item;
                                         }
 
                                         GeospaceEntity.Helper.HelperUmagf.Umagf_Group2_AK(arrayGroups, numIndex, theCodeUmagf);
@@ -159,7 +162,7 @@ namespace GeospaceDecodeService
                                         GeospaceEntity.Helper.HelperUmagf.Umagf_Check(theCodeUmagf);
                                         //GeospaceEntity.Helper.HelperUmagf.Print_All_Code_Umagf(code_source, listLengthLines, listComb, "C:\\Users\\distomin\\Projects\\GeoSpace\\documents\\All_Code_Umagf.txt");
 
-                                        theCodeUmagf.Raw = item;
+                           
                                         if (CodeUmagf.GetByDateUTC( theCodeUmagf.Station, theCodeUmagf.YYYY, theCodeUmagf.MM,
                                             theCodeUmagf.DD, theCodeUmagf.HH, theCodeUmagf.MI) == null && existStatFromBD && theCodeUmagf.Station != null)
                                         {
@@ -192,8 +195,7 @@ namespace GeospaceDecodeService
 
                                 if (code.Substring(0, 5).ToUpper() == "IONKA")
                                 {
-                                    flagIonka = true;
-                                   
+                                    flagIonka = true;                                  
 
                                     try
                                     {
