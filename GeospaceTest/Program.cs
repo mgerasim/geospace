@@ -16,13 +16,20 @@ namespace GeospaceTest
            // Support01();
            // Support02();
             //Support03();
-            Support04();
+            //Support04();
            // Support05(); 
 
            // Support06();
+            Support07();
             Console.WriteLine("Ok");
             Console.ReadKey();
         }
+
+        private static void Support07()
+        {
+            GeospaceEntity.Helper.Other.Print_Code_Day("C:\\Users\\distomin\\Projects\\GeoSpace\\documents\\");
+            
+        } 
 
         static void Support06()
         {

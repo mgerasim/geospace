@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace GeospaceEntity.Models.Codes
 {
@@ -244,6 +245,13 @@ namespace GeospaceEntity.Models.Codes
         {
             Repositories.CodeUmagfRepository repo = new Repositories.CodeUmagfRepository();
             return repo.GetById(id);
+        }
+        public virtual void PrintToFile(StreamWriter sw)
+        {
+            sw.WriteLine(Raw);
+            sw.WriteLine("Hour:{0} Min:{1} Day:{2} Month:{12} Year:{13} K:{3}{4}{5}{6} {7}{8}{9}{10} Ak:{11} Events:{14}", 
+                HH, MI, DD,_k1,_k2,_k3,_k4,_k5,_k6,_k7,_k8, _ak, MM, YYYY, events);
+            sw.WriteLine("_______________________________________________________________");
         }
     }
 }

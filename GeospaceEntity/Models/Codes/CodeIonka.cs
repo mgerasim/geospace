@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace GeospaceEntity.Models.Codes
 {
@@ -173,6 +174,21 @@ namespace GeospaceEntity.Models.Codes
                     fx1);
         }
 
+        public virtual void PrintToFile(StreamWriter sw)
+        {
+            sw.WriteLine(Raw);
+            sw.WriteLine("Hour:{0} Min:{1} Day:{2} Month:{18} Year:{19} f0F2:{3} hF2:{4} M3000F2:{5} fmin:{6} f0Es:{7} hEs:{8} f0F1:{9} hF1:{10} M3000F1:{11} hMF2:{12} f0E:{13} hE:{14} fbEs:{15} Es:{16} fx1:{17}",
+                    HH, MI, DD,
+                    _f0F2, _hF2,
+                    _M3000F2, _fmin,
+                    _f0Es, _hEs,
+                    _f0F1, _hF1,
+                    _M3000F1, _hMF2,
+                    _f0E, _hE,
+                    _fbEs, _Es,
+                    _fx1, MM, YYYY);
+            sw.WriteLine("_______________________________________________________________");
+        }
         public virtual void SetValueByType(string type, int value)
         {
             switch (type)
