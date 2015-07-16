@@ -54,7 +54,7 @@ namespace GeospaceEntity.Helper
             try
             {
                 int number = Convert.ToInt32(arrayGroups[num]);
-                Station theStation = (new Station().GetByCode(number));
+                Station theStation = Station.GetByCode(number);
                 if (theStation == null)
                 {
                     return false;
@@ -125,8 +125,8 @@ namespace GeospaceEntity.Helper
                 {
                     if (arrayGroups[i].Length > 0)
                     {
-                        if (arrayGroups[i][0] == '2') group2 = i;
-                        if (arrayGroups[i][0] == '3') group3 = i;
+                        if (arrayGroups[i][0] == '2' && group2 > 0) group2 = i;
+                        if (arrayGroups[i][0] == '3' && group3 > 0) group3 = i;
                     }
                 }
 

@@ -27,7 +27,7 @@ namespace GeospaceEntity.Helper
         }
         public static void Print_Code_Day(String dirName)
         {
-            IList<Station> StationList = (new Station()).GetAll();  //Список станций
+            IList<Station> StationList = Station.GetAll();          //Список станций
             DateTime dataPrev = DateTime.Now.AddDays(-1);           //предыдущий день
             DateTime dataNow = DateTime.Now;
             StreamWriter swIonka = new StreamWriter(dirName + "Ionka\\" + dataPrev.ToString("ddMMyy") + ".txt");
@@ -35,12 +35,12 @@ namespace GeospaceEntity.Helper
             foreach (var stat in StationList)
             {
                 //Вывод Ionka
-                IList<CodeIonka> IListIonka = (new CodeIonka()).GetByPeriod(stat, dataPrev.Year, dataPrev.Month, dataPrev.Day,
+                IList<CodeIonka> IListIonka = CodeIonka.GetByPeriod(stat, dataPrev.Year, dataPrev.Month, dataPrev.Day,
                     dataNow.Year, dataNow.Month, dataNow.Day);
                 foreach(var ionka in IListIonka)
                     ionka.PrintToFile(swIonka);
                 //Вывод Umagf
-                IList<CodeUmagf> IListUmagf = (new CodeUmagf()).GetByPeriod(stat, dataPrev.Year, dataPrev.Month, dataPrev.Day,
+                IList<CodeUmagf> IListUmagf = CodeUmagf.GetByPeriod(stat, dataPrev.Year, dataPrev.Month, dataPrev.Day,
                     dataNow.Year, dataNow.Month, dataNow.Day);
                 foreach (var umagf in IListUmagf)
                     umagf.PrintToFile(swUmagf);
