@@ -152,6 +152,7 @@
     </Compile>
     <Compile Include="Models\ApiIonka.cs" />
     <Compile Include="Models\ApiUmagf.cs" />
+    <Compile Include="Models\Medians.cs" />
     <Compile Include="Models\ViewIonka.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -228,6 +229,7 @@
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
+    <Content Include="Scripts\jquery.stickyheader.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -237,6 +239,7 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\ionka-edit.js" />
+    <Content Include="Scripts\mediana-edit.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\umagf-edit.js" />
     <Content Include="Scripts\_references.js" />

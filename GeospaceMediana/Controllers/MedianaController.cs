@@ -1,4 +1,6 @@
-﻿using GeospaceMediana.Models;
+﻿using GeospaceEntity.Models;
+using GeospaceEntity.Models.Codes;
+using GeospaceMediana.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,13 +38,57 @@ namespace GeospaceMediana.Controllers
 
             ViewBag.Date = startMonth.ToString("MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture);
             ViewBag.CountDaysInMonth = countDays;
-
+            
             ViewBag.Month = startMonth.Month;
             ViewBag.Year = startMonth.Year;
 
             ViewBag.Type = type;
 
+            ViewBag.Medians = new Medians(Station.GetByCode(station), startMonth.Year, startMonth.Month, type);
+
             return View(Model);
+        }
+
+        public ActionResult Submit(int stationcode, int year, int month, int day, string type, int hour, string newValue)
+        {
+            try
+            {
+                int iNewValue = CodeIonka.ConvertCodeToInt(newValue);
+
+                Station station = Station.GetByCode(stationcode);
+
+                CodeIonka codeIonka = CodeIonka.GetByDate(station, year, month, day, hour);
+
+                if(codeIonka == null) // Если запись отсутствует
+                {
+                    codeIonka = new CodeIonka();
+
+                    codeIonka.Station = station;
+                    codeIonka.YYYY = year;
+                    codeIonka.MM = month;
+                    codeIonka.DD = day;
+                    codeIonka.HH = hour;
+
+                    codeIonka.SetValueByType(type, iNewValue);
+                    codeIonka.Save();
+                }
+                else
+                {
+                    codeIonka.SetValueByType(type, iNewValue);
+                    codeIonka.Update();
+                }
+                
+
+                
+
+                return Content("");
+            }
+            catch (Exception)
+            {
+                // return Content(e.ToString());
+                return Content("Ошибка применения изменения! Проверьте корректность вводимых данных.");
+            }
+
         }
 
     }

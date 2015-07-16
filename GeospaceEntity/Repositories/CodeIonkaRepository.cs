@@ -96,6 +96,8 @@ namespace GeospaceEntity.Repositories
 
                     criteria.Add(Restrictions.Between(projDate, startDate, endDate));
 
+                    criteria.AddOrder(Order.Asc("MI"));
+
                     return criteria.List<GeospaceEntity.Models.Codes.CodeIonka>();
                 }
             }
@@ -117,13 +119,24 @@ namespace GeospaceEntity.Repositories
             public GeospaceEntity.Models.Codes.CodeIonka GetByDate(Station station, int YYYY, int MM, int DD, int HH)
             {
                 using (ISession session = NHibernateHelper.OpenSession())
-
-                    return session.CreateCriteria<GeospaceEntity.Models.Codes.CodeIonka>()
+                {
+                    var list = session.CreateCriteria<GeospaceEntity.Models.Codes.CodeIonka>()
                         .Add(Restrictions.Eq("Station", station))
                         .Add(Restrictions.Eq("YYYY", YYYY))
                         .Add(Restrictions.Eq("MM", MM))
                         .Add(Restrictions.Eq("DD", DD))
-                        .Add(Restrictions.Eq("HH", HH)).UniqueResult<GeospaceEntity.Models.Codes.CodeIonka>();
+                        .Add(Restrictions.Eq("HH", HH))
+                        .AddOrder(Order.Asc("MI"))
+                        .List<GeospaceEntity.Models.Codes.CodeIonka>();
+
+                    if(list.Count != 0)
+                    {
+                        return list[0];
+                    }
+
+                    return null;
+
+                }
             }
 
             #endregion

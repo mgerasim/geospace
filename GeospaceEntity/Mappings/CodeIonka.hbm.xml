@@ -7,12 +7,24 @@
     </id>
     <property name="created_at" />
     <property name="updated_at" />
-    <property name="HH" />
-    <property name="MM" />
-    <property name="DD" />
-    <property name="YYYY" />
-    <property name="MI" />
-    <many-to-one name="Station" column="Station_ID" lazy="false"/>
+
+    <property name="HH" >
+      <column name="HH" check="(HH &gt;= 0 AND HH &lt;= 23)" unique-key="date" not-null="true" />
+    </property>
+
+    <property name="MM">
+      <column name="MM" check="(MM &gt;= 1 AND MM &lt;= 12)" unique-key="date" not-null="true"  />
+    </property>
+
+    <property name="DD">
+      <column name="DD" check="(DD &gt;= 1 AND DD &lt;= 31)" unique-key="date" not-null="true"  />
+    </property>
+
+    <property name="YYYY" not-null="true" unique-key="date" />
+
+    <property name="MI" not-null="true" unique-key="date" />
+
+    <many-to-one name="Station" not-null="true" column="Station_ID" lazy="false" unique-key="date"/>
     <property name="f0F2" />
     <property name="hF2" />
     <property name="M3000F2" />
@@ -28,8 +40,11 @@
     <property name="fbEs" />
     <property name="Es" />
     <property name="fx1" />
+    <property name="Diffusio">
+      <column name="Diffusio" default="-1" not-null="true"/>
+    </property>
     <property name="Raw" type="string" length="10000"/>
     <property name="ErrorMessage" type="string" length="10000"/>
-    
+
   </class>
 </hibernate-mapping>

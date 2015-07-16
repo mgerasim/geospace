@@ -14,6 +14,24 @@ namespace GeospaceEntity.Models.Codes
         public CodeIonka()
         {
             ID = -1;
+
+            Diffusio = -1;
+            f0F2 = -1;
+            hF2 = -1;
+            M3000F2 = -1;
+            fmin = -1;
+            f0Es = -1;
+            hEs = -1;
+            f0F1 = -1;
+            hF1 = -1;
+            M3000F1 = -1;
+            hMF2 = -1;
+            f0E = -1;
+            hE = -1;
+            fbEs = -1;
+            Es = -1;
+            fx1 = -1;
+
             created_at = DateTime.Now;
             updated_at = DateTime.Now;
         }
@@ -98,6 +116,7 @@ namespace GeospaceEntity.Models.Codes
         public virtual int fbEs { get; set; }
         public virtual int Es { get; set; }
         public virtual int fx1 { get; set; }
+        public virtual int Diffusio { get; set; }
         public virtual string Raw { get; set; }
         public virtual string ErrorMessage { get; set; }
 
@@ -105,27 +124,28 @@ namespace GeospaceEntity.Models.Codes
         public virtual string _f0F1 
         { 
             get 
-            { 
-                if (this.ID < 0) 
+            {
+                if (this.ID < 0 || this.f0F1 < 0) 
                     return ""; 
                 else 
                     return DisplayValue(this.f0F1); 
             } 
         }
-        public virtual string _f0F2 { get { if (this.ID < 0) return ""; else return DisplayValue(this.f0F2); } }
-        public virtual string _M3000F2 { get { if (this.ID < 0) return ""; else return DisplayValue(this.M3000F2); } }
-        public virtual string _M3000F1 { get { if (this.ID < 0) return ""; else return DisplayValue(this.M3000F1); } }
-        public virtual string _hMF2 { get { if (this.ID < 0) return ""; else return DisplayValue(this.hMF2); } }
-        public virtual string _hF2 { get { if (this.ID < 0) return ""; else return DisplayValue(this.hF2); } }
-        public virtual string _hF1 { get { if (this.ID < 0) return ""; else return DisplayValue(this.hF1); } }
-        public virtual string _hEs { get { if (this.ID < 0) return ""; else return DisplayValue(this.hEs); } }
-        public virtual string _hE { get { if (this.ID < 0) return ""; else return DisplayValue(this.hE); } }
-        public virtual string _fx1 { get { if (this.ID < 0) return ""; else return DisplayValue(this.fx1); } }
-        public virtual string _fmin { get { if (this.ID < 0) return ""; else return DisplayValue(this.fmin); } }
-        public virtual string _fbEs { get { if (this.ID < 0) return ""; else return DisplayValue(this.fbEs); } }
-        public virtual string _f0Es { get { if (this.ID < 0) return ""; else return DisplayValue(this.f0Es); } }
-        public virtual string _f0E { get { if (this.ID < 0) return ""; else return DisplayValue(this.f0E); } }
-        public virtual string _Es { get { if (this.ID < 0) return ""; else return DisplayValue(this.Es); } }
+        public virtual string _f0F2 { get { if (this.ID < 0 || this.f0F2 < 0) return ""; else return DisplayValue(this.f0F2); } }
+        public virtual string _M3000F2 { get { if (this.ID < 0 || this.M3000F2 < 0) return ""; else return DisplayValue(this.M3000F2); } }
+        public virtual string _M3000F1 { get { if (this.ID < 0 || this.M3000F1 < 0) return ""; else return DisplayValue(this.M3000F1); } }
+        public virtual string _hMF2 { get { if (this.ID < 0 || this.hMF2 < 0) return ""; else return DisplayValue(this.hMF2); } }
+        public virtual string _hF2 { get { if (this.ID < 0 || this.hF2 < 0) return ""; else return DisplayValue(this.hF2); } }
+        public virtual string _hF1 { get { if (this.ID < 0 || this.hF1 < 0) return ""; else return DisplayValue(this.hF1); } }
+        public virtual string _hEs { get { if (this.ID < 0 || this.hEs < 0) return ""; else return DisplayValue(this.hEs); } }
+        public virtual string _hE { get { if (this.ID < 0 || this.hE < 0) return ""; else return DisplayValue(this.hE); } }
+        public virtual string _fx1 { get { if (this.ID < 0 || this.fx1 < 0) return ""; else return DisplayValue(this.fx1); } }
+        public virtual string _fmin { get { if (this.ID < 0 || this.fmin < 0) return ""; else return DisplayValue(this.fmin); } }
+        public virtual string _fbEs { get { if (this.ID < 0 || this.fbEs < 0) return ""; else return DisplayValue(this.fbEs); } }
+        public virtual string _f0Es { get { if (this.ID < 0 || this.f0Es < 0) return ""; else return DisplayValue(this.f0Es); } }
+        public virtual string _f0E { get { if (this.ID < 0 || this.f0E < 0) return ""; else return DisplayValue(this.f0E); } }
+        public virtual string _Es { get { if (this.ID < 0 || this.Es < 0) return ""; else return DisplayValue(this.Es); } }
+        public virtual string _Diffusio { get { if (this.ID < 0 || this.Diffusio < 0) return ""; else return DisplayValue(this.Diffusio); } }
         public virtual void Save()
         {
             this.created_at = DateTime.Now;
@@ -140,22 +160,29 @@ namespace GeospaceEntity.Models.Codes
             GeospaceEntity.Common.IRepository<CodeIonka> repo = new Repositories.CodeIonkaRepository();
             repo.Update(this);
         }
-        public virtual Codes.CodeIonka GetByDateUTC(Station station, int YYYY, int MM, int DD, int HH, int MI)
+        public static Codes.CodeIonka GetByDateUTC(Station station, int YYYY, int MM, int DD, int HH, int MI)
         {
             Repositories.CodeIonkaRepository repo = new Repositories.CodeIonkaRepository();
             return repo.GetByDateUTC(station, YYYY, MM, DD, HH, MI);
         }
-        public virtual Codes.CodeIonka GetByDate(Station station, int YYYY, int MM, int DD, int HH)
+        public static Codes.CodeIonka GetByDate(Station station, int YYYY, int MM, int DD, int HH)
         {
             Repositories.CodeIonkaRepository repo = new Repositories.CodeIonkaRepository();
             return repo.GetByDate(station, YYYY, MM, DD, HH);
         }
-        public virtual IList<Codes.CodeIonka> GetByPeriod(Station station, int startYYYY, int startMM, int startDD, int endYYYY, int endMM, int endDD)
+        public static IList<Codes.CodeIonka> GetByPeriod(Station station, int startYYYY, int startMM, int startDD, int endYYYY, int endMM, int endDD)
         {
             Repositories.CodeIonkaRepository repo = new Repositories.CodeIonkaRepository();
             return repo.GetByPeriod(station, startYYYY, startMM, startDD, endYYYY, endMM, endDD);
         }
-        public virtual IList<Codes.CodeIonka> GetAll()
+
+        public static IList<Codes.CodeIonka> GetByPeriod(Station station, DateTime startDate, DateTime endDate)
+        {
+            Repositories.CodeIonkaRepository repo = new Repositories.CodeIonkaRepository();
+            return repo.GetByPeriod(station, startDate.Year, startDate.Month, startDate.Day, endDate.Year, endDate.Month, endDate.Day);
+        }
+
+        public static IList<Codes.CodeIonka> GetAll()
         {
             GeospaceEntity.Common.IRepository<CodeIonka> repo = new Repositories.CodeIonkaRepository();
             return repo.GetAll();
@@ -218,6 +245,9 @@ namespace GeospaceEntity.Models.Codes
                 case "fmin":
                     fmin = value;
                     break;
+                case "D":
+                    Diffusio = value;
+                    break;
             }
         }
 
@@ -236,6 +266,7 @@ namespace GeospaceEntity.Models.Codes
                 case "G": return 1007;
                 case "N": return 1008;
                 case "R": return 1009;
+                case "": return -1;
                 default: return Int32.Parse(code);
             }
         }
