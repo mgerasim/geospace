@@ -152,6 +152,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ApiIonka.cs" />
+    <Compile Include="Models\ApiMediana.cs" />
     <Compile Include="Models\ApiUmagf.cs" />
     <Compile Include="Models\CharacterizationDay.cs" />
     <Compile Include="Models\Medians.cs" />

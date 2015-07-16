@@ -53,5 +53,21 @@ namespace GeospaceMediana.Controllers
             }
             return Json(theResult, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GetMedianaByDate(int StationCode, int YYYY, int MM)
+        {
+            Station station = Station.GetByCode(StationCode);
+
+            Medians medians = new Medians(station, YYYY, MM, "f0F2");
+
+            List<ApiMediana> theResult = new List<ApiMediana>();
+
+            foreach (var range in medians.Ranges)
+            {
+                ApiMediana jsonObj = new ApiMediana(range);
+                theResult.Add(jsonObj);
+            }
+            return Json(theResult, JsonRequestBehavior.AllowGet);
+        }
     }
 }

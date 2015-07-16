@@ -19,6 +19,13 @@ namespace GeospaceMediana.Models
             this.MI = theObj.MI;
             this.f0F2 = theObj.f0F2;
 
+            this.M3000F2 = theObj.M3000F2;
+            this.f0F1 = theObj.f0F1;
+            this.M3000F1 = theObj.M3000F1;
+            this.f0Es = theObj.f0Es;
+            this.Diffusio = theObj.Diffusio;
+            this.fmin = theObj.fmin;
+
         }
         [JsonProperty("StationCode")]
         public int StationCode { get; set; }
@@ -39,5 +46,23 @@ namespace GeospaceMediana.Models
 
         [JsonProperty("f0F2")]
         public int f0F2 { get; set; }
+
+        [JsonProperty("M3000F2")]
+        public int M3000F2 { get; set; }
+
+        [JsonProperty("f0F1")]
+        public int f0F1 { get; set; }
+
+        [JsonProperty("M3000F1")]
+        public int M3000F1 { get; set; }
+
+        [JsonProperty("f0Es")]
+        public int f0Es { get; set; }
+
+        [JsonProperty("Diffusio")]
+        public int Diffusio { get; set; }
+
+        [JsonProperty("fmin")]
+        public int fmin { get; set; }
     }
 }
