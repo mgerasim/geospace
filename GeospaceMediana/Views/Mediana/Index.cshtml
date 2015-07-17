@@ -162,10 +162,21 @@
                                 GeospaceEntity.Models.Mediana mediana = ViewBag.ViewMediana.GetValue(hour, numberRange);
                                 
                                 <td>
-                                    @if (mediana.f0F2 != 0)
+                                    @if(ViewBag.Type == "f0F2")
                                     {
-                                        @mediana._f0F2
+                                        if (mediana.f0F2 != 0)
+                                        {
+                                            @mediana._f0F2
+                                        }
                                     }
+                                    else
+                                    {
+                                        if (mediana.M3000F2 != 0)
+                                        {
+                                            @mediana._M3000F2
+                                        }
+                                    }
+                                    
                                 </td>
                             }
                     </tr>
