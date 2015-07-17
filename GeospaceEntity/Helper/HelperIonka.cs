@@ -109,6 +109,7 @@ namespace GeospaceEntity.Helper
                     }
                 }
 
+                /*/////////////////////////////////////////////////////////////////////
                 if (ss.Length == 6)
                 {
                     bool flag = true;
@@ -117,10 +118,13 @@ namespace GeospaceEntity.Helper
                         if (!Char.IsDigit(ss[i]))
                         {
                             flag = false;
+                           
                         }
                     }
                     ss = ss.Replace(ss[ss.Length - 1].ToString(), "");
+                    
                 }
+                *//////////////////////////////////////////////////////////////////////
                 if (ss.Length == 4)
                 {
                     ss = ss.Replace("/73/", "//73/");
@@ -141,6 +145,19 @@ namespace GeospaceEntity.Helper
                     strIonkaNormalize += " ";
                 }
             }
+
+            /*
+            if( strIonkaNormalize != strIonka )
+            {
+                StreamWriter sw = new StreamWriter("C:\\Users\\distomin\\Projects\\GeoSpace\\documents\\1.txt", true);
+
+                sw.WriteLine(strIonka);
+                sw.WriteLine(strIonkaNormalize);
+                sw.WriteLine("\n");
+
+                sw.Close();
+            }
+            */
             return strIonkaNormalize;
         }
         public static int ParseToken(string strToken)
@@ -221,6 +238,7 @@ namespace GeospaceEntity.Helper
 
         public static DateTime Ionka_Group03_DateCreate(string strIonka)
         {
+            DateTime dateCreate;
             string[] arrayString = strIonka.Split(' ');
             string token = arrayString[2];
             try
@@ -228,15 +246,15 @@ namespace GeospaceEntity.Helper
                 int month = Convert.ToInt32(token.Substring(1, 2));
                 int day = Convert.ToInt32(token.Substring(3, 2));
                 int year = DateTime.Now.Year;
-                DateTime dateCreate = new DateTime(year, month, day);
-                return dateCreate;
+                dateCreate = new DateTime(year, month, day);
             }
             catch (System.Exception ex)
             {
                 throw new System.Exception("Ошибка в дате: " + token, ex);
             }
-            return new DateTime();
+            return dateCreate;
         }
+
 
         public static int Ionka_Group04_Count(string strIonka)
         {

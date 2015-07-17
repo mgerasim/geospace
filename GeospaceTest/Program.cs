@@ -17,11 +17,11 @@ namespace GeospaceTest
            // Support01();
            // Support02();
             //Support03();
-            //Support04();
+            Support04();
            // Support05(); 
 
            // Support06();
-            Support07();
+            //Support07();
             Console.WriteLine("Ok");
             Console.ReadKey();
         }
@@ -88,7 +88,8 @@ namespace GeospaceTest
 
         static void Support04()
         {
-            string strFile = "C:\\Users\\distomin\\Projects\\GeoSpace\\documents\\umagf_error.txt";
+            //string strFile = "C:\\Users\\distomin\\Projects\\GeoSpace\\documents\\test.txt";
+            string strFile = @"\\10.8.5.123\obmen\armgf1dan.txt";
 
             List<int> listLengthLines = new List<int>();
             List<string> listComb = new List<string>();
@@ -182,11 +183,11 @@ namespace GeospaceTest
                                         logumagf.Error(ex.StackTrace + "\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
                                       * */
 
-                                        CodeUmagfError umagfError = new CodeUmagfError();
+                                        Error umagfError = new Error();
                                         umagfError.Raw = item;
-                                        umagfError.ErrorMessage = ex.Message + "\n" + ex.InnerException + "\n" + ex.Source + "\n" + ex.StackTrace;
+                                        umagfError.Description = ex.Message + "\n" + ex.InnerException + "\n" + ex.Source + "\n" + ex.StackTrace;
 
-                                        if( umagfError.GetByRaw() == null ) umagfError.Save();
+                                        if (umagfError.GetByDescription(item) == null) umagfError.Save();
                                     }
                                 }
 

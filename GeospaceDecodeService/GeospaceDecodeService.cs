@@ -104,7 +104,6 @@ namespace GeospaceDecodeService
                     foreach (var item in line.Split(new char[] { '\u0002', '\u0003' },
                                  StringSplitOptions.RemoveEmptyEntries))
                     {
-
                         string theCode = GeospaceEntity.Helper.HelperIonka.Normalize(item);
 
                         int UmagfYYYY = 0;
@@ -185,11 +184,11 @@ namespace GeospaceDecodeService
                                         logumagf.Error(code_source);
                                         logumagf.Error(ex.StackTrace + "\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
 
-                                        CodeUmagfError umagfError = new CodeUmagfError();
+                                        Error umagfError = new Error();
                                         umagfError.Raw = item;
-                                        umagfError.ErrorMessage = ex.Message + "\n" + ex.InnerException + "\n" + ex.Source + "\n" + ex.StackTrace;
+                                        umagfError.Description = ex.Message + "\n" + ex.InnerException + "\n" + ex.Source + "\n" + ex.StackTrace;
 
-                                        if (umagfError.GetByRaw() == null) umagfError.Save();
+                                        if (umagfError.GetByDescription(item) == null) umagfError.Save();
                                     }
                                 }
 
@@ -281,10 +280,10 @@ namespace GeospaceDecodeService
                                                             error.Error("Not save to Error obj");
                                                         }
                                                     }
-                                                    CodeIonkaError IonkaError = new CodeIonkaError();
-                                                    IonkaError.ErrorMessage = err.Message + "\n" + err.InnerException + "\n" + err.Source + "\n" + err.StackTrace;
-                                                    IonkaError.Raw = theCode;
-                                                    if (IonkaError.GetByRaw() == null)
+                                                    Error IonkaError = new Error();
+                                                    IonkaError.Description = err.Message + "\n" + err.InnerException + "\n" + err.Source + "\n" + err.StackTrace;
+                                                    IonkaError.Raw = item;
+                                                    if (IonkaError.GetByDescription(item) == null)
                                                         IonkaError.Save();
 
                                                 }
@@ -342,10 +341,10 @@ namespace GeospaceDecodeService
                                                             error.Error("Not save to Error obj");
                                                         }
                                                     }
-                                                    CodeIonkaError IonkaError = new CodeIonkaError();
-                                                    IonkaError.ErrorMessage = err.Message + "\n" + err.InnerException + "\n" + err.Source + "\n" + err.StackTrace;
-                                                    IonkaError.Raw = theCode;
-                                                    if (IonkaError.GetByRaw() == null)
+                                                    Error IonkaError = new Error();
+                                                    IonkaError.Description = err.Message + "\n" + err.InnerException + "\n" + err.Source + "\n" + err.StackTrace;
+                                                    IonkaError.Raw = item;
+                                                    if (IonkaError.GetByDescription(item) == null)
                                                         IonkaError.Save();
 
                                                 }
@@ -372,10 +371,10 @@ namespace GeospaceDecodeService
                                                 item, theCode, code);
                                             theErr.Save();
                                         }
-                                        CodeIonkaError IonkaError = new CodeIonkaError();
-                                        IonkaError.ErrorMessage = ex.Message + "\n" + ex.InnerException + "\n" + ex.Source + "\n" + ex.StackTrace;
-                                        IonkaError.Raw = theCode;
-                                        if(IonkaError.GetByRaw() == null)
+                                        Error IonkaError = new Error();
+                                        IonkaError.Description = ex.Message + "\n" + ex.InnerException + "\n" + ex.Source + "\n" + ex.StackTrace;
+                                        IonkaError.Raw = item;
+                                        if (IonkaError.GetByDescription(item) == null)
                                             IonkaError.Save();
                                     }
                                 }
