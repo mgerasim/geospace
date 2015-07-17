@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using GeospaceEntity.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,15 +10,19 @@ namespace GeospaceMediana.Models
     [JsonObject]
     public class ApiMediana
     {
-        public ApiMediana(Medians.RangeDays rangeDays)
+        public ApiMediana(IList<Mediana> medians, int year, int month, int numberRange)
         {
             Values = new List<int>();
 
-            Range = rangeDays.Header;
+            var range = MedianaCalculator.GetRangeFromNumber(new DateTime(year, month, 1), numberRange);
+
+            Range = range.Header;
 
             for(int hour=0; hour<24; hour++)
             {
-                Values.Add(rangeDays.Values[hour]);
+                Mediana mediana = medians.Where(x => x.HH == hour && x.RangeNumber == numberRange).Single();
+
+                Values.Add(mediana.f0F2);
             }
         }
 

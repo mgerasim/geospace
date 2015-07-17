@@ -14,10 +14,22 @@
     <a class="btn btn-default" href="~/Products/EditReviewGeoenv" role="button">Изменить</a>
     <a class="btn btn-default" href="~/Products/ShowReviewGeoenv" role="button">Просмотр</a>
 <p>
-    <div id="div-review-geoenv" class="forecast">
+<div id="div-review-geoenv" class="forecast">
+
+    <p>
+        @Html.Raw("<pre>"+ Html.Encode(Model.review_geoenv) + "</pre>")
+    </p>
+</div>
+
+<h2>Полусуточный прогноз</h2>
+<p>
+    <a class="btn btn-default" href="~/Products/EditSubdayForecast" role="button">Изменить</a>
+    <a class="btn btn-default" href="~/Products/ShowSubdayForecast" role="button">Просмотр</a>
+<p>
+    <div id="div-subday-forecast" class="forecast">
 
 <p>
-    @Html.Raw("<pre>"+ Html.Encode(Model.review_geoenv) + "</pre>")
+    @Html.Raw("<pre>" + Html.Encode(Model.subday_forecast) + "</pre>")
 </p>
 </div>
 

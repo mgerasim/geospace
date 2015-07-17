@@ -1,5 +1,6 @@
 ﻿using GeospaceEntity.Models;
 using GeospaceEntity.Models.Codes;
+using GeospaceEntity.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -135,16 +136,21 @@ namespace GeospaceMediana.Models
         private List<DayRating> _listSecondHalfDay = new List<DayRating>();
         private List<DayRating> _listFullDay = new List<DayRating>();
 
-        public CharacterizationDay(Station station, Medians.RangeDays rangeMedians, int year, int month, int startDay)
+        public CharacterizationDay(Station station, int rangeNumber, int year, int month)
         {
-            var startDate = new DateTime(year, month, startDay);
+            var curDate = new DateTime(year, month, 1);
+            var range = MedianaCalculator.GetRangeFromNumber(curDate, rangeNumber);
 
-            var listCodeIonka = CodeIonka.GetByPeriod(station, startDate, startDate.AddDays(5));
+            var startDate = new DateTime(year, month, range.Min);
+
+            var listCodeIonka = CodeIonka.GetByPeriod(station, startDate, startDate.AddDays(range.Max - range.Min));
+
+            var medians = Mediana.GetByRangeNumber(station, year, month, rangeNumber);
 
             var halfDayCalc = new HalfDay();
             var fullDayCalc = new FullDay();
 
-            for(int day = startDay; day <= rangeMedians.Max; day++)
+            for (int day = range.Min; day <= range.Max; day++)
             {
                 double firstHalf = 0;
                 double secondHalf = 0;
@@ -152,12 +158,13 @@ namespace GeospaceMediana.Models
                 for (int hour = 0; hour < 24; hour++)
                 {
                     CodeIonka codeIonka;
+                    int medianaValue;
 
-                    if (rangeMedians.Values[hour] == 0)
-                        continue;
 
                     try
                     {
+                        medianaValue = medians.Where(x => x.HH == hour).Single().f0F2;
+
                         codeIonka = listCodeIonka.Where(x => x.YYYY == year && x.MM == month && x.DD == day && x.HH == hour)
                             .OrderBy(x => x.MI)
                             .ToList()[0];
@@ -167,6 +174,8 @@ namespace GeospaceMediana.Models
                         continue;
                     }
 
+                    if (medianaValue == 0)
+                        continue;
                    
 
                     var characterizationDayValue = new CharacterizationDayValue();
@@ -182,7 +191,7 @@ namespace GeospaceMediana.Models
                         continue;
                     }
 
-                    int median = rangeMedians.Values[hour];
+                    int median = medianaValue;
 
                     characterizationDayValue.PrevRating = (int) Math.Round( ((characterizationDayValue.f0F2 - median) / ((double)median)) * 100 );
                     characterizationDayValue.Rating = calcRating(characterizationDayValue.PrevRating);

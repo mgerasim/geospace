@@ -95,8 +95,11 @@
             <tbody>
                 @for(int hour = 0; hour < 24; hour++)
                 {
+                   GeospaceEntity.Models.Mediana mediana = ViewBag.ViewMediana.GetValue(hour, ViewBag.RangeNumber);
+                    
+                    
                     <tr>
-                        <td class="left-thick-line right-thick-line">@ViewBag.RangeMedians.Values[hour]</td>
+                        <td class="left-thick-line right-thick-line">@mediana._f0F2</td>
                         <td class="left-thick-line right-thick-line">@hour.ToString("D2")</td>
 
                         @for (int day = ViewBag.DayStart; day <= ViewBag.DayEnd; day++)

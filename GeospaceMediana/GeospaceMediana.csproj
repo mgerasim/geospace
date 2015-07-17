@@ -153,10 +153,12 @@
     </Compile>
     <Compile Include="Models\ApiIonka.cs" />
     <Compile Include="Models\ApiMediana.cs" />
+    <Compile Include="Models\ApiProduct.cs" />
     <Compile Include="Models\ApiUmagf.cs" />
     <Compile Include="Models\CharacterizationDay.cs" />
-    <Compile Include="Models\Medians.cs" />
+    <Compile Include="Models\MedianaCalculator.cs" />
     <Compile Include="Models\ViewIonka.cs" />
+    <Compile Include="Models\ViewMediana.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -283,6 +285,8 @@
     <Content Include="Views\Mediana\_Menu.cshtml" />
     <Content Include="Views\CharacterizationDay\Index.cshtml" />
     <Content Include="Views\CharacterizationDay\_Menu.cshtml" />
+    <Content Include="Views\Products\EditSubdayForecast.cshtml" />
+    <Content Include="Views\Products\ShowSubdayForecast.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
