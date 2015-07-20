@@ -4,6 +4,7 @@ using GeospaceMediana.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -76,7 +77,7 @@ namespace GeospaceMediana.Controllers
 
             ApiProduct apiProduct = new ApiProduct(product.GetAll()[0]);
 
-            return Json(apiProduct, JsonRequestBehavior.AllowGet);
+            return Json(apiProduct, "application/json", Encoding.GetEncoding("windows-1251"), JsonRequestBehavior.AllowGet);
         }
     }
 }

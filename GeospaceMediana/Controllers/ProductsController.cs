@@ -742,7 +742,34 @@ namespace GeospaceMediana.Controllers
 
             return RedirectToAction("Index");
         }
+        public ActionResult EditSubdayForecast()
+        {
+            GeospaceEntity.Models.Product theProduct = null;
 
+            try
+            {
+
+                List<GeospaceEntity.Models.Product> theList = (new GeospaceEntity.Models.Product()).GetAll();
+
+                if (theList.Count == 0)
+                {
+                    theProduct = new GeospaceEntity.Models.Product();
+                    theProduct.Save();
+                }
+                else
+                {
+                    theProduct = theList[0];
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+            }
+
+
+
+            return View(theProduct);
+        }
         [HttpPost]
         public ActionResult EditSubdayForecast(FormCollection collection)
         {
