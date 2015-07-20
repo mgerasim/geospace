@@ -27,5 +27,17 @@ namespace GeospaceMediana.Models
             }
         }
 
+        public Mediana GetValue(int year, int month, int hour, int numberRange)
+        {
+            try
+            {
+                return medianaValues.Where(x => x.YYYY == year && x.MM == month && x.HH == hour && x.RangeNumber == numberRange).Single();
+            }
+            catch (Exception)
+            {
+                return new Mediana();
+            }
+        }
+
     }
 }

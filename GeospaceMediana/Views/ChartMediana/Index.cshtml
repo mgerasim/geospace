@@ -17,11 +17,21 @@
         },
 
         title: {
-            text: 'Медиана (Июль 2015)'
+            text: 'Медиана (@ViewBag.PrevDate.ToString("MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture)-@ViewBag.CurDate.ToString("MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture))'
         },
 
-        xAxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Медиана'
+            }
+           // categories: ['0', '1', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        },
+
+        xAxis :{
+            title: {
+                text: 'Час'
+            }
         },
 
         plotOptions: {
@@ -46,7 +56,6 @@
                             $('#drop').html(
                                 'In <b>' + this.series.name + '</b>, <b>' + this.category + '</b> was set to <b>' + Highcharts.numberFormat(this.y, 2) + '</b>');
 
-                            this.y = 2;
                         }
                     }
                 },
@@ -64,30 +73,92 @@
             yDecimals: 2
         },
 
-        series: [{
-            data: [0, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
-            name: "Июль 11-15",
-            dragMinY: 0,
-            draggableY: true
-        }]
+        @{
+            Page.needComma = false;
+        }
+
+        @helper DrawSeries(DateTime date)
+        {
+            GeospaceMediana.Models.ViewMediana viewMedaiana = ViewBag.ViewMediana;
+            
+            for(int range = 0;range<6;range++)
+            {
+                string name = date.ToString("yyyy MMMM", System.Globalization.CultureInfo.CurrentCulture) + " " +
+                              GeospaceMediana.Models.MedianaCalculator.GetRangeFromNumber(date, range).Header;
+                
+                var values = new List<int>();
+
+                for(int hour=0; hour<24; hour++)
+                {
+                    var mediana = viewMedaiana.GetValue(date.Year, date.Month, hour, range);
+
+                    if (mediana.f0F2 == 0)
+                    {
+                        break;
+                    }
+                        
+                    values.Add(mediana.f0F2);
+                }
+                
+                if(values.Count != 24)
+                {
+                    continue;
+                }
+
+                if (Page.needComma)
+                {
+                    @:,
+                }
+                
+                @: { data: [
+                
+                for(int hour=0; hour<24; hour++)
+                {
+                    @values[hour]
+            
+                    if(hour != 23)
+                    {
+                        @:,
+                    }
+                }
+            
+            
+                @: ],
+
+                @Html.Raw("name: \""+name+"\"")
+
+                @: ,dragMinY: 0, draggableY: true}
+
+                Page.needComma = true;
+            }
+        }
+
+        series: [ 
+            @DrawSeries(ViewBag.PrevDate)
+            @DrawSeries(ViewBag.CurDate)
+        ]
 
     });
 
 </script>
 }
 
-
-
-<h2>Медиана (@ViewBag.Date)</h2>
-
 <style>
-    
+    html, body, .container-fluid {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        overflow: auto; /* добавить полосу прокрутки */
+    }
 </style>
 
-<div class="row">
-    <div class="col-md-12">
-        <div id="container" style="height: 400px"></div>
-        
+<div class="row" style="height: 100%">
+    <div class="col-md-12" style="height: 100%">
+        <div id="container" style="height: 100%"></div>
+
     </div>
 
 </div>

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GeospaceEntity.Models;
+using GeospaceMediana.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +13,7 @@ namespace GeospaceMediana.Controllers
         //
         // GET: /ChartMediana/
 
-        public ActionResult Index(int year = -1, int month = -1, int station = 43501)
+        public ActionResult Index(int year = -1, int month = -1, int stationCode = 43501)
         {
             DateTime nowDateTime = DateTime.Now;
 
@@ -25,11 +27,20 @@ namespace GeospaceMediana.Controllers
                 year = nowDateTime.Year;
             }
 
-            var listSeries = new[]
-            { 
-                new { Number = 10, Name = "Smith" },
-                new { Number = 10, Name = "John" } 
-            }.ToList();
+            DateTime curDate = new DateTime(year, month, 1);
+            DateTime prevDate = curDate.AddMonths(-1);
+
+            Station station = Station.GetByCode(stationCode);
+
+            IList<Mediana> listMediana = Mediana.GetByMonth(station, curDate.Year, curDate.Month)
+                .Concat(Mediana.GetByMonth(station, prevDate.Year, prevDate.Month)).ToList();
+
+            ViewMediana viewMediana = new ViewMediana(listMediana);
+
+            ViewBag.CurDate = curDate;
+            ViewBag.PrevDate = prevDate;
+
+            ViewBag.ViewMediana = viewMediana;
 
             return View();
         }
