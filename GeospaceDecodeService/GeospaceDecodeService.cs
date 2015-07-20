@@ -160,7 +160,12 @@ namespace GeospaceDecodeService
                                         //GeospaceEntity.Helper.HelperUmagf.Print_All_Code_Umagf(code_source, listLengthLines, listComb, "C:\\Users\\distomin\\Projects\\GeoSpace\\documents\\All_Code_Umagf.txt");
 
                                         theCodeUmagf.Raw = code_source;
-                                        if (theCodeUmagf.GetByDateUTC() == null && existStatFromBD && theCodeUmagf.Station != null)
+                                        if (CodeUmagf.GetByDateUTC(theCodeUmagf.Station,
+                                                    theCodeUmagf.YYYY,
+                                                    theCodeUmagf.MM,
+                                                    theCodeUmagf.DD,
+                                                    theCodeUmagf.HH,
+                                                    theCodeUmagf.MI) == null && existStatFromBD && theCodeUmagf.Station != null)
                                         {
                                             theCodeUmagf.Save();
                                             logumagf.Debug("Save");
@@ -200,7 +205,7 @@ namespace GeospaceDecodeService
                                         //GeospaceEntity.Helper.HelperIonka.Print_All_Code_Ionka(code_source, listLengthLines, "C:\\Users\\distomin\\Projects\\GeoSpace\\documents\\All_Code_Ionka.txt");
 
                                         int StationCode = GeospaceEntity.Helper.HelperIonka.Ionka_Group02_Station(code_source);
-                                        Station theStation = (new Station()).GetByCode(StationCode);
+                                        Station theStation = Station.GetByCode(StationCode);
                                         if (theStation != null)
                                         {
                                             logger.Debug(code);
@@ -233,7 +238,7 @@ namespace GeospaceDecodeService
                                                     //List<string> sessionGroup = GeospaceEntity.Helper.HelperIonka.SetListTimeSession(arrayGroups, addressStartSession, i);//создание новой под группы по времени
                                                     int HH = GeospaceEntity.Helper.HelperIonka.Ionka_Group05_HH(session[0]);
                                                     int MI = GeospaceEntity.Helper.HelperIonka.Ionka_Group05_MI(session[0]);
-                                                    GeospaceEntity.Models.Codes.CodeIonka theCodeIonka = (new GeospaceEntity.Models.Codes.CodeIonka()).GetByDateUTC(theStation, YYYY, MM, DD, HH, MI);
+                                                    GeospaceEntity.Models.Codes.CodeIonka theCodeIonka = GeospaceEntity.Models.Codes.CodeIonka.GetByDateUTC(theStation, YYYY, MM, DD, HH, MI);
                                                     if (theCodeIonka == null)
                                                     {
                                                         theCodeIonka = new GeospaceEntity.Models.Codes.CodeIonka(session);
@@ -294,7 +299,7 @@ namespace GeospaceDecodeService
                                                     int HH = GeospaceEntity.Helper.HelperIonka.Ionka_Group05_HH(session[0]);
                                                     int MI = GeospaceEntity.Helper.HelperIonka.Ionka_Group05_MI(session[0]);
                                                     DateTime PrevDay_At = Created_At.AddDays(-1);
-                                                    GeospaceEntity.Models.Codes.CodeIonka theCodeIonka = (new GeospaceEntity.Models.Codes.CodeIonka()).GetByDateUTC(theStation, PrevDay_At.Year, PrevDay_At.Month, PrevDay_At.Day, HH, MI);
+                                                    GeospaceEntity.Models.Codes.CodeIonka theCodeIonka = GeospaceEntity.Models.Codes.CodeIonka.GetByDateUTC(theStation, PrevDay_At.Year, PrevDay_At.Month, PrevDay_At.Day, HH, MI);
                                                     if (theCodeIonka == null)
                                                     {
                                                         theCodeIonka = new GeospaceEntity.Models.Codes.CodeIonka(session);
