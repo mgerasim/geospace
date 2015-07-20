@@ -144,6 +144,7 @@
     <Content Include="Content\ionka.css" />
     <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="Controllers\CharacterizationDayController.cs" />
+    <Compile Include="Controllers\ChartMedianaController.cs" />
     <Compile Include="Controllers\IonkaController.cs" />
     <Compile Include="Controllers\MedianaController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
@@ -231,6 +232,8 @@
     <None Include="Properties\PublishProfiles\GeoSpace.pubxml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\draggable-points.js" />
+    <Content Include="Scripts\highcharts.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
@@ -287,6 +290,7 @@
     <Content Include="Views\CharacterizationDay\_Menu.cshtml" />
     <Content Include="Views\Products\EditSubdayForecast.cshtml" />
     <Content Include="Views\Products\ShowSubdayForecast.cshtml" />
+    <Content Include="Views\ChartMediana\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

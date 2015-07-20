@@ -74,18 +74,21 @@ namespace GeospaceMediana.Models
             public int Day;
             public int Hour;
 
-            public int f0F2 = int.MaxValue;
+            public int f0 = int.MaxValue;
             public int PrevRating = int.MaxValue;
             public double Rating = double.MaxValue;
 
             public string viewf0F2;
+            public string viewf0F1;
 
-            public string _f0F2
+            public string viewf0;
+
+            public string _f0
             {
                 get
                 {
-                    if (f0F2 == int.MaxValue) return "";
-                    return viewf0F2;
+                    if (f0 == int.MaxValue) return "";
+                    return viewf0;
                 }
             }
 
@@ -180,12 +183,21 @@ namespace GeospaceMediana.Models
 
                     var characterizationDayValue = new CharacterizationDayValue();
 
-                    characterizationDayValue.f0F2 = codeIonka.f0F2;
-                    characterizationDayValue.viewf0F2 = codeIonka._f0F2;
                     characterizationDayValue.Day = day;
                     characterizationDayValue.Hour = hour;
 
-                    if (codeIonka.f0F2 == -1 || codeIonka.f0F2 >= 1000)
+                    if (codeIonka._f0F2 == "C" || codeIonka._f0F2 == "G")
+                    {
+                        characterizationDayValue.f0 = codeIonka.f0F1;
+                        characterizationDayValue.viewf0 = "/" + codeIonka._f0F1;
+                    }
+                    else
+                    {
+                        characterizationDayValue.f0 = codeIonka.f0F2;
+                        characterizationDayValue.viewf0 = codeIonka._f0F2;
+                    }
+
+                    if (characterizationDayValue.f0 == -1 || characterizationDayValue.f0 >= 1000)
                     {
                         _listValues.Add(characterizationDayValue);
                         continue;
@@ -193,7 +205,7 @@ namespace GeospaceMediana.Models
 
                     int median = medianaValue;
 
-                    characterizationDayValue.PrevRating = (int) Math.Round( ((characterizationDayValue.f0F2 - median) / ((double)median)) * 100 );
+                    characterizationDayValue.PrevRating = (int) Math.Round( ((characterizationDayValue.f0 - median) / ((double)median)) * 100 );
                     characterizationDayValue.Rating = calcRating(characterizationDayValue.PrevRating);
 
                     if(hour >= 0 && hour < 12)

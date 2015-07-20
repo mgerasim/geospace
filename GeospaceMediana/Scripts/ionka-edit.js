@@ -26,7 +26,8 @@
 
         var cell_D = getCell(day, hour, "D");
 
-        if (cell_f0F2.text().trim() == "G" && cell_M3000F2.text().trim() == "G")
+        if ((cell_f0F2.text().trim() == "G" && cell_M3000F2.text().trim() == "G") ||
+            (cell_f0F2.text().trim() == "C" && cell_M3000F2.text().trim() == "C"))
         {
             if (cell_f0F1.hasClass("editable-ionka") == false)
             {

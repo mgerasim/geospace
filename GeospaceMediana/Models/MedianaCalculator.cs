@@ -175,8 +175,7 @@ namespace GeospaceMediana.Models
                 }
                 catch(Exception)
                 {
-                    listValues.Clear();
-                    break;
+                    continue;
                 }
 
                 int value = 0;
