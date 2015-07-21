@@ -32,8 +32,8 @@ namespace GeospaceTest
 
             ILogger theLogFile = new LoggerNLog();
             
-            IDecode theDecode = new Decode(theLogFile);
-            theDecode.Run("");
+            IDecode theDecode = new Decode(theLogFile, "");
+            theDecode.Run();
             
         }
         static void Support06()

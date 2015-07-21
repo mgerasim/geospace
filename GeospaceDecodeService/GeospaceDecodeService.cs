@@ -1,4 +1,5 @@
-﻿using GeospaceEntity.Models;
+﻿using GeospaceCore;
+using GeospaceEntity.Models;
 using GeospaceEntity.Models.Codes;
 using NLog;
 using System;
@@ -16,83 +17,84 @@ namespace GeospaceDecodeService
 {
     public partial class GeospaceDecodeService : ServiceBase
     {
+        
         Logger logger;
         Logger error;
         Logger logumagf;
+        
+
+        IDecode theDecode;
+        GeospaceCore.ILogger theLogger;
         public GeospaceDecodeService()
         {
             InitializeComponent();
-            logger = LogManager.GetLogger("log");
-            error = LogManager.GetLogger("error");
-            logumagf = LogManager.GetLogger("logumagf");
-            logger.Debug("InitializeComponent");
+            //logger = LogManager.GetLogger("log");
+           // error = LogManager.GetLogger("error");
+           // logumagf = LogManager.GetLogger("logumagf");
+            //logger.Debug("InitializeComponent");
         }
 
 
         protected override void OnStart(string[] args)
         {
             eventLog1.WriteEntry("GeospaceDecodeService: Start");
-            logger.Debug("GeospaceDecodeService: Start");
-            timer1_Tick_1(null, null);
+            //logger.Debug("GeospaceDecodeService: Start");
+
+            AMS.Profile.Ini Ini = new AMS.Profile.Ini(AppDomain.CurrentDomain.BaseDirectory + "\\GeospaceDecodeService.ini");
+            if (!Ini.HasSection("COMMON"))
+            {
+              //  error.Debug("Not HasSection COMMON");
+                Ini.SetValue("COMMON", "FileName", "D:\\Мои документы\\visual studio 2013\\Projects\\GeoSpace\\documents\\armgf1dan.txt");                
+            }
+
+            string strFile = Ini.GetValue("COMMON", "FileName", "D:\\Мои документы\\visual studio 2013\\Projects\\GeoSpace\\documents\\armgf1dan.txt");
+
+            bool bDebug = Ini.GetValue("COMMON", "DEBUG", false);
+
+            //strFile = @"\\10.8.5.123\obmen\armgf1dan.txt";
+            //strFile = "C:\\Users\\azyryanov\\Desktop\\1\\documents\\armgf1dan.txt";
+            //strFile = "D:\\Мои документы\\visual studio 2013\\Projects\\GeoSpace\\documents\\armgf1dan.txt";
+            if (!File.Exists(strFile))
+            {
+                //eventLog1.WriteEntry("Файл не существует:");
+               // eventLog1.WriteEntry(strFile);
+               // error.Error("Указанный файл: " + strFile + " не существует");
+                return;
+            }
+
+            theLogger = new LoggerNLog();
+            theDecode = new Decode(theLogger, strFile);
+
+            theDecode.Run();
+
         }
 
         protected override void OnStop()
         {
             timer1.Stop();
             eventLog1.WriteEntry("GeospaceDecodeService: Stop");
-            logger.Debug("GeospaceDecodeService: Stop");
+           // logger.Debug("GeospaceDecodeService: Stop");
         }
 
         private void eventLog1_EntryWritten(object sender, EntryWrittenEventArgs e)
         {
 
         }
-        public void WriteUmagf(GeospaceEntity.Models.Codes.CodeUmagf umagf)
-        {
-            logumagf.Debug(umagf.Raw);
-            logumagf.Debug("SS " + umagf.Station.Code.ToString() + " - " + umagf.Station.Name);
-            logumagf.Debug(umagf.HH.ToString() + ":" + umagf.MI.ToString() + "  " + umagf.DD.ToString() + "." + umagf.MM.ToString() + "." + umagf.YYYY.ToString());
-            logumagf.Debug("AK" + " = " + umagf.ak);
-            logumagf.Debug("k1 = " + umagf.k1.ToString());
-            logumagf.Debug("k2 = " + umagf.k2.ToString());
-            logumagf.Debug("k3 = " + umagf.k3.ToString());
-            logumagf.Debug("k4 = " + umagf.k4.ToString());
-            logumagf.Debug("k5 = " + umagf.k5.ToString());
-            logumagf.Debug("k6 = " + umagf.k6.ToString());
-            logumagf.Debug("k7 = " + umagf.k7.ToString());
-            logumagf.Debug("k8 = " + umagf.k8.ToString());
-            logumagf.Debug("events = " + umagf.events);
-            logumagf.Debug("+++++++++++++++++++++++++++++++++++");
-        }
-
+        
         private void timer1_Tick_1(object sender, EventArgs e)
         {
+            /*
             eventLog1.WriteEntry("GeospaceDecodeService: Timer");
             logger.Debug("timer1_Tick_1: Enter");
             logger.Debug("timer1_Tick_1: AppDir:" + AppDomain.CurrentDomain.BaseDirectory);
 
             List<int> listLengthLines = new List<int>();
             List<string> listComb = new List<string>();
+            */
 
-            AMS.Profile.Ini Ini = new AMS.Profile.Ini(AppDomain.CurrentDomain.BaseDirectory + "\\GeospaceDecodeService.ini");
-            if (!Ini.HasSection("COMMON"))
-            {
-                error.Debug("Not HasSection COMMON");
-                Ini.SetValue("COMMON", "FileName", "D:\\Мои документы\\visual studio 2013\\Projects\\GeoSpace\\documents\\armgf1dan.txt");
-            }
+            theDecode.Run();
 
-            string strFile = Ini.GetValue("COMMON", "FileName", "D:\\Мои документы\\visual studio 2013\\Projects\\GeoSpace\\documents\\armgf1dan.txt");
-
-            strFile = @"\\10.8.5.123\obmen\armgf1dan.txt";
-            //strFile = "C:\\Users\\azyryanov\\Desktop\\1\\documents\\armgf1dan.txt";
-            //strFile = "D:\\Мои документы\\visual studio 2013\\Projects\\GeoSpace\\documents\\armgf1dan.txt";
-            if (!File.Exists(strFile))
-            {
-                eventLog1.WriteEntry("Файл не существует:");
-                eventLog1.WriteEntry(strFile);
-                error.Error("Указанный файл: " + strFile + " не существует");
-                return;
-            }
+            /*
             logger.Debug("timer1_Tick_1: FileName:" + strFile);
             try
             {
@@ -393,6 +395,7 @@ namespace GeospaceDecodeService
                 error.Error(ex.Message);
                 error.Error(ex.StackTrace);
             }
+             */
         }
     }
 }

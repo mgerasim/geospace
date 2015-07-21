@@ -57,6 +57,12 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GeospaceEntity\GeospaceEntity.csproj">
+      <Project>{66cd59c8-2326-4b9f-b15f-663b8576d893}</Project>
+      <Name>GeospaceEntity</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

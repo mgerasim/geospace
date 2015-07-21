@@ -8,6 +8,6 @@ namespace GeospaceCore
 {
     public interface IDecode
     {
-        void Run(string fileName);
+        void Run();
     }
 }
