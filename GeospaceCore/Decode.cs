@@ -316,6 +316,7 @@ namespace GeospaceCore
                                 }
 
                             }// foreach (var code in theCode.Split
+
                         }
                     }
                 }
