@@ -233,7 +233,14 @@ namespace GeospaceEntity.Helper
                     words = false;
                     thirdTime = false;
                 }
-
+                //Сдвоенные группы
+                 if (ss.Length == 10)
+                 {
+                     strIonkaNormalize += ss.Substring(0, 5);
+                     strIonkaNormalize += " ";
+                     strIonkaNormalize += ss.Substring(5, 5);
+                     strIonkaNormalize += " ";
+                 }
 
                 if (ss.Length == 5)
                 {
