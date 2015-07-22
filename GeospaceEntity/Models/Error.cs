@@ -36,7 +36,7 @@ namespace GeospaceEntity.Models
             return repo.GetByRaw(Raw);
         }
 
-        public virtual GeospaceEntity.Models.Error GetByDescription(string Description)
+        public virtual GeospaceEntity.Models.Error GetByDescription()
         {
             ErrorRepository repo = new ErrorRepository();
             return repo.GetByDescription(Description);

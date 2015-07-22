@@ -86,7 +86,7 @@
         <table style="table-layout: fixed" class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <th style="width: 40px">День</th>
+                    <th style="width: 45px">День</th>
                     @for (int i = 0; i < 24; i++)
                     {
                         <th class="bottom-thick-line">@i</th>
@@ -125,32 +125,65 @@
 
 </div>
 
-<h2>Медианы</h2>
+<h2>Медианы</h2> 
 
 <div class="row">
     <div class="col-md-12">
-        <table style="table-layout: fixed" class="table table-bordered table-striped">
+
+        @Html.ActionLink("Выполнить расчет",
+            "Calc",
+            "Mediana",
+            new
+            {
+                station = Model.StationCode,
+                year = ViewBag.Year,
+                month = ViewBag.Month,
+                type = ViewBag.Type
+            },
+                                new
+                                {
+                                    @class = "btn btn-default"
+                                }
+)
+
+        <table style="table-layout: fixed; margin-top: 10px;" class="table table-bordered table-striped">
             @{
-                GeospaceMediana.Models.Medians medians = ViewBag.Medians;
+                GeospaceMediana.Models.ViewMediana viewMediana = ViewBag.ViewMediana;
             }
             <tbody>
-                @foreach(var range in medians.Ranges)
+                @for (int numberRange = 0; numberRange < 6; numberRange++)
                 {
+                    
+                    
                     <tr>
-                        <td class="right-thick-line" style="width: 40px">@range.Header</td>
+                        <td class="right-thick-line" style="white-space: nowrap; width: 45px">@GeospaceMediana.Models.MedianaCalculator.GetRangeFromNumber(new DateTime(ViewBag.Year, ViewBag.Month, 1), numberRange).Header</td>
                             @for (int hour = 0; hour < 24; hour++)
                             {
+                                GeospaceEntity.Models.Mediana mediana = ViewBag.ViewMediana.GetValue(hour, numberRange);
+                                
                                 <td>
-                                    @if (range.Values[hour] != 0)
+                                    @if(ViewBag.Type == "f0F2")
                                     {
-                                        @range.Values[hour]
+                                        if (mediana.f0F2 != 0)
+                                        {
+                                            @mediana._f0F2
+                                        }
                                     }
+                                    else
+                                    {
+                                        if (mediana.M3000F2 != 0)
+                                        {
+                                            @mediana._M3000F2
+                                        }
+                                    }
+                                    
                                 </td>
                             }
                     </tr>
                 }
             </tbody>
         </table>
+        
     </div>
 
 </div>

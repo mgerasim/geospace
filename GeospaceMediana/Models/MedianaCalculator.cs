@@ -7,42 +7,74 @@ using System.Web;
 
 namespace GeospaceMediana.Models
 {
-    public class Medians
+    public class MedianaCalculator
     {
-        public class RangeDays
+        public class Range
         {
             public string Header
             {
                 get
                 {
-                    return Min == Max ? Max.ToString() : Min.ToString() + "-" + Max.ToString();
+                    return Min.ToString()+"-"+Max.ToString();
                 }
             }
 
             public int Min;
             public int Max;
-
-            public int[] Values;
         }
 
-        string Type;
+        public static int GetNumberFromStartRange(int startRange)
+        {
+            if (startRange == 1)
+                return 5;
 
-        public IList<RangeDays> Ranges = new List<RangeDays>();
+            return (startRange - 1) / 5 - 1;
+        }
 
-        public Medians(Station station, int year, int month, string type)
+        public static Range GetRangeFromNumber(DateTime date, int number)
+        {
+            List<Range> ranges = new List<Range>();
+
+            int curMin = 1;
+            int curMax = 5;
+
+            for (int i = 0; i < 5; i++)
+            {
+                curMin += 5;
+                curMax += 5;
+
+                ranges.Add(new Range { Min = curMin, Max = curMax });
+            }
+
+            ranges.Add(new Range { Min = 1, Max = 5 });
+
+            int countDays = DateTime.DaysInMonth(date.Year, date.Month);
+
+            if(countDays == 31)
+            {
+                ranges[4].Max = 31;
+            }
+
+            if (date.Month == 2)
+            {
+                ranges[4].Max = countDays;
+            }
+
+            return ranges[number];
+
+        }
+
+        public static void Calc(Station station, int year, int month, string type)
         {
             DateTime curMonth = new DateTime(year, month, DateTime.DaysInMonth(year, month));
             DateTime tmpPrevMonth = curMonth.AddMonths(-1);
             DateTime prevMonth = new DateTime(tmpPrevMonth.Year, tmpPrevMonth.Month, 1);
 
-            var codesIonka = CodeIonka.GetByPeriod(station, prevMonth, curMonth); 
-
-            Type = type;
+            var codesIonka = CodeIonka.GetByPeriod(station, prevMonth, curMonth);
 
             int countDays = DateTime.DaysInMonth(year, month);
             
-            int curMin = 6;
-            int curMax = 10;
+            
             DateTime calcDate = new DateTime(year, month, 4);
 
             for (int i = 0; i < 6; i++)
@@ -81,34 +113,38 @@ namespace GeospaceMediana.Models
                             medians[hour] = listValues[index];
                         }
                     }
-
-
                 }
 
-                Ranges.Add(new RangeDays
+                for(int hour=0;hour<24;hour++)
                 {
-                    Min = curMin,
-                    Max = curMax,
-                    Values = medians,
-                });
+                    Mediana mediana = Mediana.GetByDate(station, year, month, hour, i);
+                    mediana.Station = station;
+                    mediana.YYYY = year;
+                    mediana.MM = month;
+                    mediana.HH = hour;
+                    mediana.RangeNumber = i;
 
-                curMin += 5;
-                curMax += 5;
+                    switch (type)
+                    {
+                        case "f0F2":
+                            mediana.f0F2 = medians[hour];
+                            break;
+                        case "M3000F2":
+                            mediana.M3000F2 = medians[hour];
+                            break;
+                    }
+
+                    if (mediana.ID < 0)
+                        mediana.Save();
+                    else
+                        mediana.Update();
+                }
+
                 calcDate = calcDate.AddDays(5);
-
-                if (calcDate.Day == 29)
-                {
-                    curMin = 1;
-                    curMax = 5;
-                }
 
                 if(countDays == 31)
                 {
-                    if(calcDate.Day == 24)
-                    {
-                        curMax = 31;
-                    }
-                    else if (calcDate.Day == 29)
+                    if (calcDate.Day == 29)
                     {
                         calcDate = calcDate.AddDays(1);
                     }
@@ -116,22 +152,22 @@ namespace GeospaceMediana.Models
                 
                 if(calcDate.Month == 2)
                 {
-                    if (calcDate.Day == 29)
+                    if (i == 4)
                     {
                         if (countDays == 28)
                         {
-                            calcDate = new DateTime(calcDate.Year, calcDate.Month, 27);
+                            calcDate = new DateTime(year, month, 27);
                         }
                         else
                         {
-                            calcDate = new DateTime(calcDate.Year, calcDate.Month, 28);
+                            calcDate = new DateTime(year, month, 28);
                         }
                     }
                 }
             }
         }
 
-        private List<int> getValuesByRange(IList<CodeIonka> codesIonka, string type, int hour, DateTime startDate, DateTime endDate)
+        private static List<int> getValuesByRange(IList<CodeIonka> codesIonka, string type, int hour, DateTime startDate, DateTime endDate)
         {
             List<int> listValues = new List<int>();
 
@@ -147,8 +183,7 @@ namespace GeospaceMediana.Models
                 }
                 catch(Exception)
                 {
-                    listValues.Clear();
-                    break;
+                    continue;
                 }
 
                 int value = 0;

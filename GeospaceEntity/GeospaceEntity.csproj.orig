@@ -54,16 +54,16 @@
     <Compile Include="Common\IRepository.cs" />
     <Compile Include="Common\NHibernateHelper.cs" />
     <Compile Include="Helper\HelperIonka.cs" />
-<<<<<<< HEAD
+    <Compile Include="Helper\HelperTimeForIonka.cs" />
+    <Compile Include="Helper\HelperUmagf.cs" />
     <EmbeddedResource Include="Mappings\Product.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-=======
-    <Compile Include="Helper\HelperUmagf.cs" />
->>>>>>> 8bba564ccce1a4e9087e8dfd085e6cf4b912170a
+    <Compile Include="Helper\Other.cs" />
     <Compile Include="Models\Codes\CodeIonka.cs" />
     <Compile Include="Models\Codes\CodeUmagf.cs" />
     <Compile Include="Models\Error.cs" />
+    <Compile Include="Models\Mediana.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Station.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -71,6 +71,7 @@
     <Compile Include="Repositories\ErrorRepository.cs" />
     <Compile Include="Repositories\CodeIonkaRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
+    <Compile Include="Repositories\MedianaRepository.cs" />
     <Compile Include="Repositories\StationRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -95,6 +96,19 @@
     <EmbeddedResource Include="Mappings\CodeUmagf.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+<<<<<<< HEAD
+=======
+    <EmbeddedResource Include="Mappings\CodeIonkaError.hbm.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mappings\CodeUmagfError.hbm.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mappings\Mediana.hbm.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+>>>>>>> master
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.9.1-vsdoc.js" />

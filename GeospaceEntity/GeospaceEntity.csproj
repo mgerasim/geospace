@@ -63,6 +63,7 @@
     <Compile Include="Models\Codes\CodeIonka.cs" />
     <Compile Include="Models\Codes\CodeUmagf.cs" />
     <Compile Include="Models\Error.cs" />
+    <Compile Include="Models\Mediana.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Station.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Repositories\ErrorRepository.cs" />
     <Compile Include="Repositories\CodeIonkaRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
+    <Compile Include="Repositories\MedianaRepository.cs" />
     <Compile Include="Repositories\StationRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -93,6 +95,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Mappings\CodeUmagf.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mappings\Mediana.hbm.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

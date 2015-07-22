@@ -24,10 +24,11 @@
                       <a id="login_head" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Данные <span class="caret"></span></a>
                       <ul class="dropdown-menu" role="menu">
 
-                          <li><a href="#" data-toggle="modal" data-target="#myModalChangePassword" data-toggle="popover" data-placement="top">Характеристика суток</a></li>
+                          <li>@Html.ActionLink("Характеристика суток", "Index", "CharacterizationDay")</li>
                           <li class="divider"></li>
 
                           <li>@Html.ActionLink("Медиана", "Index", "Mediana")</li>
+                          <li>@Html.ActionLink("Диаграмма", "Index", "ChartMediana")</li>
                           <li><a href="#" onclick="CheckProfile()">Перезагрузка профиля</a></li>
 
                       </ul>
@@ -45,6 +46,7 @@
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Продукция<span class="caret"></span></a>
                           <ul class="dropdown-menu" role="menu">
                               <li>@Html.ActionLink("Редактировать продукцию", "Index", "Products")</li>
+                              <!--
                               <li class="divider"></li>
                               <li>@Html.ActionLink("Обзор гелеогеофизической обстановки и прогноз на 1-3 суток", "EditReviewGeoEnv", "Products")</li>
                               <li>@Html.ActionLink("Месячный прогноз ионосферной магнитной возмущенности", "EditForecastMonthIonosphera", "Products")</li>
@@ -53,6 +55,7 @@
                               <li class="divider"></li>
                               <li>@Html.ActionLink("Сводная таблица по разделам: солнце, магнитное поле Земли, ионосфера", "DownloadTableSun", "Products")</li>
                               <li>@Html.ActionLink("Таблица нарушения радиосвязи", "DownloadDisturbanceRadio", "Products")</li>
+                              -->
                           </ul>
                       </li>
 

@@ -13,6 +13,8 @@
     <property name="review_geoenv_month" type="string" length="10000"/>
     <property name="disturbance_radio" />
     <property name="table_sun" />
+    <property name="subday_forecast"  type="string" length="10000"/>
+    <property name="description"  type="string" length="10000"/>
     
   </class>
 </hibernate-mapping>

@@ -134,7 +134,7 @@
                             bool isStationError = theCode._f0F2 == "C" && theCode._M3000F2 == "C";
                             bool isAbsorption = theCode._f0F2 == "B" && theCode._M3000F2 == "B";
                             string editable = "editable-ionka";
-                            string editableWithLowDensityIonization = theCode._f0F2.IsEmpty() || isLowDensityIonization == false ? "" : "editable-ionka";
+                            string editableWithLowDensityIonization = theCode._f0F2.IsEmpty() || (isLowDensityIonization == false && isStationError == false) ? "" : "editable-ionka";
 
                             <td class="left-thick-line @editable" data-day="@subitem.DD" data-hour="@item.HH" data-type="f0F2" data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">
                                 @theCode._f0F2
@@ -143,13 +143,13 @@
                                 @theCode._M3000F2
                             </td>
                             <td class="@editableWithLowDensityIonization" data-day="@subitem.DD" data-hour="@item.HH" data-type="f0F1" data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">
-                                @if (isLowDensityIonization)
+                                @if (isLowDensityIonization || isStationError)
                                 {
                                     @theCode._f0F1
                                 }
                             </td>
                             <td class="@editableWithLowDensityIonization" data-day="@subitem.DD" data-hour="@item.HH" data-type="M3000F1" data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">
-                                @if (isLowDensityIonization)
+                                @if (isLowDensityIonization || isStationError)
                                 {
                                     @theCode._M3000F1
                                 }

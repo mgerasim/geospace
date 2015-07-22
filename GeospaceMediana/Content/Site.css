@@ -75,6 +75,17 @@ textarea {
     border-bottom-color: #888 !important;
 }
 
+.top-thick-line {
+    border-top-width: 2px !important; 
+    border-top-color: #888 !important;
+}
+
+.thick-line {
+    border-top-width: 2px !important;
+    border-width: 2px !important; 
+    border-color: #888 !important;
+}
+
 .sub-header {
     text-align: center !important;  
     vertical-align: middle !important;

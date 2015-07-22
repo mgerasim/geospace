@@ -1,4 +1,47 @@
-﻿(function() { 
+﻿(function () {
+
+    function getCell(day, hour, type) {
+        return $('td')
+                .filter('[data-day="' + day + '"]')
+                .filter('[data-hour="' + hour + '"]')
+                .filter('[data-type="' + type + '"]');
+    }
+
+    function moveEdit(currentCell, keyCode) {
+        var day = currentCell.data("day");
+        var type = currentCell.data("type");
+        var hour = currentCell.data("hour");
+
+        switch (keyCode) {
+            case 37: // left
+                hour--;
+                break;
+            case 38: // up
+                day--;
+                break;
+            case 39: // right
+                hour++;
+                break;
+            case 40: // down
+                day++;
+                break;
+        }
+
+        var newCell = getCell(day, hour, type);
+
+        if (newCell.length == 0)
+            return;
+
+        if (newCell.hasClass("editable-mediana") == false) {
+            moveEdit(newCell, keyCode);
+            return;
+        }
+
+        $('#edit').blur();
+        newCell.dblclick();
+    }
+
+
     function editEvent(e) {
         var currentCell = $(this);
 
@@ -19,6 +62,13 @@
         $('#edit').height(cellHeight - 2 + 16);
         currentCell.width(cellWidth);
         currentCell.height(cellHeight);
+
+        $('#edit').keydown(function (event) {
+            if (event.keyCode >= 37 && event.keyCode <= 40) {
+                event.preventDefault();
+                moveEdit(currentCell, event.keyCode);
+            }
+        });
 
         $('#edit').focus();
         $('#edit').select();

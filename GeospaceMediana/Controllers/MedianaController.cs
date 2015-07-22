@@ -36,6 +36,8 @@ namespace GeospaceMediana.Controllers
             int countDays = DateTime.DaysInMonth(startMonth.Year, startMonth.Month);
             ViewIonka Model = new ViewIonka(station, start, countDays, countDays);
 
+            var objStation = Station.GetByCode(station);
+
             ViewBag.Date = startMonth.ToString("MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture);
             ViewBag.CountDaysInMonth = countDays;
             
@@ -44,9 +46,24 @@ namespace GeospaceMediana.Controllers
 
             ViewBag.Type = type;
 
-            ViewBag.Medians = new Medians(Station.GetByCode(station), startMonth.Year, startMonth.Month, type);
+            ViewBag.ViewMediana = new ViewMediana(Mediana.GetByMonth(objStation, year, month));
 
             return View(Model);
+        }
+
+        public ActionResult Calc(int year, int month, int station, string type)
+        {
+            var objStation = Station.GetByCode(station);
+
+            MedianaCalculator.Calc(objStation, year, month, type);
+
+            return RedirectToAction("Index", new
+            {
+                station = station,
+                year = year,
+                month = month,
+                type = type
+            });
         }
 
         public ActionResult Submit(int stationcode, int year, int month, int day, string type, int hour, string newValue)

@@ -1,0 +1,196 @@
+﻿@using GeospaceEntity.Models.Codes;
+@{
+    ViewBag.Title = @ViewBag.Title;
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/Scripts/highcharts.js")
+    @Scripts.Render("~/Scripts/draggable-points.js")
+
+<script>
+    var chart = new Highcharts.Chart({
+
+        chart: {
+            renderTo: 'container',
+            animation: false
+        },
+
+        title: {
+            text: 'Медиана (@ViewBag.PrevDate.ToString("MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture)-@ViewBag.CurDate.ToString("MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture))'
+        },
+
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Медиана'
+            },
+            lineWidth: 2
+        },
+
+        xAxis :{
+            title: {
+                text: 'Час'
+            },
+            categories: [
+                @for(int i=0;i<24;i++)
+                {
+                    @Html.Raw("'"+i.ToString("00")+"'")
+                    
+                    if(i!=23)
+                    {
+                        @:,
+                    }
+                }
+            ],
+            lineWidth: 2,
+            gridLineWidth: 1,
+            tickInterval:1,
+            tickmarkPlacement: 'on',
+        },
+
+        plotOptions: {
+            series: {
+                point: {
+                    events: {
+
+                        drag: function (e) {
+                            this.y = parseInt(e.newY, 10);
+                        },
+
+                        drop: function () {
+                            this.y = parseInt(this.y, 10);
+
+                            var dateRange = this.series.name.split(" ");
+                            var hour = this.category;
+                            var newValue = this.y;
+
+                            var date = dateRange[0] + " " + dateRange[1];
+                            var startRange = dateRange[2].split("-")[0];
+
+                            var resUrl = "@Url.Action("Submit", "ChartMediana")" +
+                                "?stationCode=" + @ViewBag.Station.Code +
+                                "&hour=" + hour +
+                                "&startRange=" + startRange +
+                                "&date=" + date +
+                                "&newValue=" + newValue;
+                            
+                            $.ajax({
+                                url: resUrl,
+                                success: function (data) {
+                                    if(data!="")
+                                    {
+                                        alert(data);
+                                        this.y = 0;
+                                        chart.redraw();
+                                    }
+                                }
+                            });
+                        }
+                    }
+                },
+                stickyTracking: true
+            },
+            column: {
+                stacking: 'normal'
+            },
+            line: {
+                cursor: 'ns-resize'
+            }
+        },
+
+        tooltip: {
+            yDecimals: 2
+        },
+
+        @{
+            Page.needComma = false;
+        }
+
+        @helper DrawSeries(DateTime date)
+        {
+            GeospaceMediana.Models.ViewMediana viewMedaiana = ViewBag.ViewMediana;
+            
+            for(int range = 0;range<6;range++)
+            {
+                string name = date.ToString("yyyy MMMM", System.Globalization.CultureInfo.CurrentCulture) + " " +
+                              GeospaceMediana.Models.MedianaCalculator.GetRangeFromNumber(date, range).Header;
+                
+                var values = new List<int>();
+
+                for(int hour=0; hour<24; hour++)
+                {
+                    var mediana = viewMedaiana.GetValue(date.Year, date.Month, hour, range);
+
+                    if (mediana.f0F2 == 0)
+                    {
+                        break;
+                    }
+                        
+                    values.Add(mediana.f0F2);
+                }
+                
+                if(values.Count != 24)
+                {
+                    continue;
+                }
+
+                if (Page.needComma)
+                {
+                    @:,
+                }
+                
+                @: { data: [
+                
+                for(int hour=0; hour<24; hour++)
+                {
+                    @values[hour]
+            
+                    if(hour != 23)
+                    {
+                        @:,
+                    }
+                }
+            
+            
+                @: ],
+
+                @Html.Raw("name: \""+name+"\"")
+
+                @: ,dragMinY: 0, draggableY: true}
+
+                Page.needComma = true;
+            }
+        }
+
+        series: [ 
+            @DrawSeries(ViewBag.PrevDate)
+            @DrawSeries(ViewBag.CurDate)
+        ]
+
+    });
+
+</script>
+}
+
+<style>
+    html, body, .container-fluid {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        overflow: auto; /* добавить полосу прокрутки */
+    }
+</style>
+
+<div class="row" style="height: 100%">
+    <div class="col-md-12" style="height: 100%">
+        <div id="container" style="height: 100%"></div>
+
+    </div>
+
+</div>
+
+

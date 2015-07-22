@@ -4,6 +4,7 @@ using GeospaceMediana.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -52,6 +53,31 @@ namespace GeospaceMediana.Controllers
                 theResult.Add(jsonObj);
             }
             return Json(theResult, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetMedianaByDate(int StationCode, int YYYY, int MM)
+        {
+            Station station = Station.GetByCode(StationCode);
+
+            var medians = Mediana.GetByMonth(station, YYYY, MM);
+
+            List<ApiMediana> theResult = new List<ApiMediana>();
+
+            for (int numberRange = 0; numberRange < 6;numberRange++ )
+            {
+                ApiMediana jsonObj = new ApiMediana(medians, YYYY, MM, numberRange);
+                theResult.Add(jsonObj);
+            }
+            return Json(theResult, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetProducts()
+        {
+            Product product = new Product();
+
+            ApiProduct apiProduct = new ApiProduct(product.GetAll()[0]);
+
+            return Json(apiProduct, "application/json", Encoding.GetEncoding("windows-1251"), JsonRequestBehavior.AllowGet);
         }
     }
 }

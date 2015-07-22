@@ -19,6 +19,9 @@ namespace GeospaceEntity.Models
         public virtual string review_geoenv_month {get; set;}
         public virtual string disturbance_radio { get; set; }
         public virtual string table_sun { get; set; }
+        public virtual string subday_forecast { get; set; }
+        public virtual string description { get; set; }
+
 
         public Product()
         {
