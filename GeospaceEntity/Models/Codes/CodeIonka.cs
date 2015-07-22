@@ -35,6 +35,31 @@ namespace GeospaceEntity.Models.Codes
             created_at = DateTime.Now;
             updated_at = DateTime.Now;
         }
+
+        //public void SetCodeIonka( int val)
+        //{
+        //    ID = -1;
+
+        //    Diffusio = val;
+        //    f0F2 = val;
+        //    hF2 = val;
+        //    M3000F2 = val;
+        //    fmin = val;
+        //    f0Es = val;
+        //    hEs = val;
+        //    f0F1 = val;
+        //    hF1 = val;
+        //    M3000F1 = val;
+        //    hMF2 = val;
+        //    f0E = val;
+        //    hE = val;
+        //    fbEs = val;
+        //    Es = val;
+        //    fx1 = val;
+
+        //    created_at = DateTime.Now;
+        //    updated_at = DateTime.Now;
+        //}
         
         public CodeIonka(List<string> sessionGroup)
         {
@@ -45,6 +70,20 @@ namespace GeospaceEntity.Models.Codes
             MI = GeospaceEntity.Helper.HelperIonka.Ionka_Group05_MI(sessionGroup[0]);
             if (sessionGroup.Count >= 2)
             {
+                //bool flag = false;
+
+                //for (int k = 0; k < sessionGroup[0].Length; k++)
+                //{
+                //    if (sessionGroup[0][k] > 61)
+                //        flag = true;
+                //}
+                //if (flag)
+                //{
+                //    this.SetCodeIonka(1003);
+                //    return;
+                //}
+
+
                 f0F2 = GeospaceEntity.Helper.HelperIonka.Ionka_Group06_f0F2(sessionGroup[1]);
                 hF2 = GeospaceEntity.Helper.HelperIonka.Ionka_Group06_hF2(sessionGroup[1]);
             }

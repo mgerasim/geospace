@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GeospaceEntity.Models.Codes;
+using GeospaceEntity.Helper;
 
 namespace GeospaceTest
 {
@@ -88,8 +89,8 @@ namespace GeospaceTest
 
         static void Support04()
         {
-            //string strFile = "C:\\Users\\distomin\\Projects\\GeoSpace\\documents\\test.txt";
-            string strFile = @"\\10.8.5.123\obmen\armgf1dan.txt";
+            string strFile = "C:\\Users\\distomin\\Projects\\GeoSpace\\documents\\test.txt";
+            //string strFile = @"\\10.8.5.123\obmen\armgf1dan.txt";
 
             List<int> listLengthLines = new List<int>();
             List<string> listComb = new List<string>();
@@ -235,15 +236,25 @@ namespace GeospaceTest
                                                     int HH = GeospaceEntity.Helper.HelperIonka.Ionka_Group05_HH(session[0]);
                                                     int MI = GeospaceEntity.Helper.HelperIonka.Ionka_Group05_MI(session[0]);
                                                     CodeIonka theCodeIonka = CodeIonka.GetByDateUTC(theStation, YYYY, MM, DD, HH, MI);
+
+                                                    theCodeIonka = new GeospaceEntity.Models.Codes.CodeIonka(session);
+                                                    theCodeIonka.DD = Created_At.Day;
+                                                    theCodeIonka.MM = Created_At.Month;
+                                                    theCodeIonka.YYYY = Created_At.Year;
+                                                    theCodeIonka.Station = theStation;
+
+                                                    theCodeIonka.Raw = code_source;
+
                                                     if (theCodeIonka == null)
-                                                    {
+                                                    {                                                        
                                                         theCodeIonka = new GeospaceEntity.Models.Codes.CodeIonka(session);
                                                         theCodeIonka.DD = Created_At.Day;
                                                         theCodeIonka.MM = Created_At.Month;
                                                         theCodeIonka.YYYY = Created_At.Year;
-                                                        theCodeIonka.Station = theStation;
+                                                        theCodeIonka.Station = theStation;                                                        
+
                                                         theCodeIonka.Raw = code_source;
-                                                        theCodeIonka.Save();
+                                                        //theCodeIonka.Save();
                                                     }
                                                 }
                                                 catch (Exception err)

@@ -37,6 +37,8 @@ namespace GeospaceEntity.Helper
                 list.Add(arrayGroups[j]);
             return list;
         }
+
+
         public static string Normalize(string strIonka)
         {
 
@@ -71,6 +73,10 @@ namespace GeospaceEntity.Helper
                 return "";
             }
             string strIonkaNormalize = "";
+            string prevItem = "";
+            string prevPrevItem = "";
+            bool firstTime = false, secondTime = false, words = false, thirdTime = false;
+            string message = "";
             foreach (var item in strCodes)
             {
                 string ss = item;
@@ -135,14 +141,118 @@ namespace GeospaceEntity.Helper
                         ss = "0" + ss;
                     }
                 }
+                //определяет сообщения о сбоях (нет эл.) после нахождения времени (/ЧЧМИ)
+                if (!thirdTime && !words)
+                    message = "";
+
+                if (words)
+                    if (Find_Time(ss) || ss.Substring(0).ToUpper().IndexOf("UMAGF") > -1)
+                        thirdTime = true;
+                    else message += ss + "|";
+
+                if ((secondTime || firstTime) && !words)
+                {
+                    //words = true;
+                    for (int k = 0; k < ss.Length; k++)
+                    {
+                        if (ss[k] > 61)
+                            words = true;
+                    }
+
+                    if (ss.Substring(0).ToUpper().IndexOf("UMAGF") > -1) thirdTime = true;
+                    else
+                        if (words)
+                            message += ss + "|";
+
+                    if (!words && firstTime && secondTime)
+                    {
+                        firstTime = false;
+                        secondTime = false;
+                    }
+                    //else message += ss + "|";  
+
+                }
+
+                if (firstTime && !secondTime && !thirdTime)
+                {
+                    if (Find_Time(ss))
+                    {
+                        secondTime = true;
+                        prevItem = ss;
+                    }
+                    else
+                        if (!words) firstTime = false;
+
+                }
+
+                if (Find_Time(ss) && !firstTime)
+                {
+                    firstTime = true;
+                    prevPrevItem = ss;
+                }
+
+                if (ss.Length > 5)
+                {
+                    //string sss = ss.Replace(" ", "");
+                    int pos = ss.IndexOf("-");
+                    if (pos > 0)
+                    {
+                        string s1 = ss.Substring(0, pos);
+                        string s2 = ss.Substring(pos + 1);
+
+                        if (s1.Length == 5 && s2.Length == 5)
+                        {
+                            firstTime = true;
+                            secondTime = true;
+                            prevItem = s2;
+                            prevPrevItem = s1;
+                            strIonkaNormalize += prevPrevItem + " " + prevItem + " ";
+                        }
+                    }
+                }
+
+                if (firstTime && words && thirdTime)
+                {
+                    int m = 6;
+                    if (secondTime) m = 12;
+                    strIonkaNormalize = strIonkaNormalize.Remove(strIonkaNormalize.Length - m);
+                    Time startTime = new Time();
+                    Time endTime = new Time();
+
+                    Find_Time(prevPrevItem, startTime);
+                    Find_Time(prevItem, endTime);
+                    
+                    if (secondTime)
+                        strIonkaNormalize += Set_All_Value(startTime, endTime, message, strIonkaNormalize.Length - 3);
+                    else
+                        strIonkaNormalize += Set_All_Value(startTime, startTime, message, strIonkaNormalize.Length + 3);
+
+                    if (ss.Substring(0).ToUpper().IndexOf("UMAGF") > -1) firstTime = false;
+                    else prevPrevItem = ss;
+                    secondTime = false;
+                    words = false;
+                    thirdTime = false;
+                }
+
+
                 if (ss.Length == 5)
                 {
-                    if (Char.IsLetter(ss[0]))
+                    if (ss.Substring(0).ToUpper().IndexOf("UMAGF") > -1 || ss.Substring(0).ToUpper().IndexOf("IONKA") > -1)
                     {
-                        ss = "\r\n" + ss;
+                        strIonkaNormalize += "\r\n" + ss + " ";
                     }
-                    strIonkaNormalize += ss;
-                    strIonkaNormalize += " ";
+
+                    bool notWords = true;
+                    for (int k = 0; k < ss.Length; k++)
+                    {
+                        if (ss[k] > 61)
+                            notWords = false;
+                    }
+                    if (notWords)
+                    {
+                        strIonkaNormalize += ss;
+                        strIonkaNormalize += " ";
+                    }
                 }
             }
 
@@ -158,8 +268,63 @@ namespace GeospaceEntity.Helper
                 sw.Close();
             }
             */
+            
+
             return strIonkaNormalize;
         }
+
+        public static string Set_All_Value( Time start, Time end, string message, int startPos )
+        {
+            string s = "";
+
+            int k = start.HH.val;
+            int finish;
+            if (start.HH.val <= end.HH.val) finish = end.HH.val - start.HH.val;
+            else finish = 24 - start.HH.val + end.HH.val;
+
+            for (int h = 0; h <= finish; h++)
+            {
+                string ss = k.ToString();
+                if (k < 10) ss = '0' + k.ToString();
+                s += "/" + ss + "00 " + "//3/3 /3//3 //3/3 //3/3 /3//3 //3/3 //3// //3/3 " + message + " "; // ;
+
+                k++;
+                if( k == 24 ) k = 0;
+            }
+
+            string posSrart = (startPos - 5).ToString();
+
+            string hours = "/";
+            if (start.HH.val < 10) hours += '0' + start.HH.val.ToString();
+            else hours += start.HH.val.ToString();
+            hours += "00 ";
+
+            if( start != end )
+            { 
+                hours += "- /";
+                if (end.HH.val < 10) hours += '0' + end.HH.val.ToString();
+                else hours += end.HH.val.ToString();
+                hours += "00 ";
+            }
+
+            string lenghtMessage = (hours.Length + message.Length).ToString();
+
+            string posEnd = ((s + "\0 alert 00000 00000 00000 " + hours + message + " \0").Length).ToString();
+
+            while (lenghtMessage.Length != 5)
+                lenghtMessage = "0" + lenghtMessage;
+
+            while (posSrart.Length != 5)
+                posSrart = "0" + posSrart;
+
+            while (posEnd.Length != 5)
+                posEnd = "0" + posEnd;
+
+            string special = "\0 alert " + posSrart + " " + posEnd + " " + lenghtMessage + " " + hours + message + " \0";
+
+            return s;// +special;
+        }
+
         public static int ParseToken(string strToken)
         {
             int res = 0;
@@ -545,26 +710,29 @@ namespace GeospaceEntity.Helper
             sw.Close();
         }
 
-        //проверка на группу /ЧЧММ и возврат объекта типа DateTime
-        public static bool Find_Time(string strTime, Time time)
+        //проверка на группу /ЧЧММ и возврат объекта типа Time
+        public static bool Find_Time(string strTime, Time time = null)
         {
+            bool a = true;
             try
             {
+                if (strTime.Length == 0) a = false;
                 int res;
-                if (strTime[0] == '/' && Int32.TryParse(strTime.Substring(1), out res))
+                if (strTime[0] == '/' && Int32.TryParse(strTime.Substring(1), out res) && strTime.Length == 5)
                 {
-                    time.init(Convert.ToInt32(strTime.Substring(1, 2)), Convert.ToInt32(strTime.Substring(3, 2)));
-                    if (!time.Check_Format()) return false;
+                    if (time != null)
+                    {
+                        time.init(Convert.ToInt32(strTime.Substring(1, 2)), Convert.ToInt32(strTime.Substring(3, 2)));
+                        if (!time.Check_Format()) a = false;
+                    }
                 }
-                else return false;
-
-                return true;
+                else a = false;
             }
             catch (System.Exception ex)
             {
-                throw new System.Exception("Ошибка впоиске временных отрезков /HHMM : " + strTime, ex);
+                //throw new System.Exception("Ошибка в поиске временных отрезков /HHMM : " + strTime, ex);
             }
-            return true;
+            return a;
         }
 
         //среднее значения для класса Time

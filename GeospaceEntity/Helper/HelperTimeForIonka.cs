@@ -118,6 +118,9 @@ namespace GeospaceEntity.Helper
 
         public static bool operator !=(Time a, Time b)
         {
+            if (ReferenceEquals(a, b)) return false;
+            if (ReferenceEquals(a, null) || ReferenceEquals(b, null)) return true;
+
             if (a.HH != b.HH && a.MI != b.MI) return true;
             return false;
         }
