@@ -179,7 +179,48 @@ namespace GeospaceCore
                                                             theCodeIonka.YYYY = Created_At.Year;
                                                             theCodeIonka.Station = theStation;
                                                             theCodeIonka.Raw = code_source;
-                                                            theCodeIonka.Save();
+                                                            //проверка на отказ записи в будущее))
+                                                            DateTime DayNow = DateTime.Now;
+                                                            if (DayNow.Hour >= HH || theCodeIonka.DD < DayNow.Day || theCodeIonka.MM < DayNow.Day || theCodeIonka.YYYY < DayNow.Year)
+                                                                theCodeIonka.Save();
+                                                            else
+                                                            {
+                                                                //Проверка на существование данных за пердыдущий день
+                                                                DateTime IonkaDay = new DateTime(YYYY, MM, DD);
+                                                                IonkaDay = IonkaDay.AddDays(-1);
+                                                                CodeIonka theCodeIonkaOld = CodeIonka.GetByDateUTC(theStation, IonkaDay.Year, IonkaDay.Month, IonkaDay.Day, HH, MI);
+                                                                if (theCodeIonka == null)
+                                                                {
+                                                                    //Запись за предыдущий день
+                                                                    theCodeIonka = new GeospaceEntity.Models.Codes.CodeIonka(session);
+                                                                    theCodeIonka.DD = IonkaDay.Day;
+                                                                    theCodeIonka.MM = IonkaDay.Month;
+                                                                    theCodeIonka.YYYY = IonkaDay.Year;
+                                                                    theCodeIonka.Station = theStation;
+                                                                    theCodeIonka.Raw = code_source;
+                                                                    theCodeIonka.Save();
+                                                                }
+                                                                else
+                                                                {
+                                                                    //Запись в ошибки
+                                                                    Error IonkaError = new Error();
+                                                                    IonkaError.Description = "Ошибка в дате";
+                                                                    IonkaError.Raw = item;
+                                                                    if (IonkaError.GetByRaw(item) == null)
+                                                                        IonkaError.Save();
+                                                                }
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            if (theCodeIonka.Raw != theCode)
+                                                            {
+                                                                Error IonkaError = new Error();
+                                                                IonkaError.Description = "Повторная телеграмма";
+                                                                IonkaError.Raw = item;
+                                                                if (IonkaError.GetByRaw(item) == null)
+                                                                    IonkaError.Save();
+                                                            }
                                                         }
                                                     }
                                                     catch (Exception err)
@@ -241,6 +282,17 @@ namespace GeospaceCore
                                                             theCodeIonka.Station = theStation;
                                                             theCodeIonka.Raw = code_source;
                                                             theCodeIonka.Save();
+                                                        }
+                                                        else
+                                                        {
+                                                            if (theCodeIonka.Raw != theCode)
+                                                            {
+                                                                Error IonkaError = new Error();
+                                                                IonkaError.Description = "Повторная телеграмма";
+                                                                IonkaError.Raw = item;
+                                                                if (IonkaError.GetByRaw(item) == null)
+                                                                    IonkaError.Save();
+                                                            }
                                                         }
                                                     }
                                                     catch (Exception err)
