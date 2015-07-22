@@ -292,6 +292,7 @@
     <Content Include="Views\Products\ShowSubdayForecast.cshtml" />
     <Content Include="Views\ChartMediana\Index.cshtml" />
     <Content Include="Views\ChartMediana\_Menu.cshtml" />
+    <Content Include="Views\Products\EditDescription.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

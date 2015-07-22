@@ -20,14 +20,7 @@ namespace GeospaceEntity.Models
         public virtual string disturbance_radio { get; set; }
         public virtual string table_sun { get; set; }
         public virtual string subday_forecast { get; set; }
-
-        public virtual string subday_forecast_win1251 { get { return ""; }  }
-        public virtual string forecast_month_ionosphera_win1251 { get { return ""; } }
-        public virtual string forecast_days_fives_win1251 { get { return ""; } }
-        public virtual string review_geoenv_win1251 { get { return ""; } }
-        public virtual string review_geoenv_month_win1251 { get { return ""; } }
-        public virtual string disturbance_radio_win1251 { get { return ""; } }
-        public virtual string table_sun_win1251 { get { return ""; } }
+        public virtual string description { get; set; }
 
 
         public Product()

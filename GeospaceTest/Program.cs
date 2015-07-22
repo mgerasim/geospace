@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GeospaceEntity.Models.Codes;
+using GeospaceCore;
 
 namespace GeospaceTest
 {
@@ -15,15 +16,26 @@ namespace GeospaceTest
         {
            // Support01();
            // Support02();
-            //Support03();
-            Support04();
+            Support03();
+           // Support04();
            // Support05(); 
 
            // Support06();
+            Support07();
             Console.WriteLine("Ok");
             Console.ReadKey();
         }
+        static void Support07()
+        {
+            ILogger theLogger = new LoggerConsole();
+            theLogger.LogIonka("test ionka");
 
+            ILogger theLogFile = new LoggerNLog();
+            
+            IDecode theDecode = new Decode(theLogFile);
+            theDecode.Run("");
+            
+        }
         static void Support06()
         {
             string strFile = "C:\\Users\\distomin\\Projects\\GeoSpace\\documents\\All_Code_Ionka.txt";

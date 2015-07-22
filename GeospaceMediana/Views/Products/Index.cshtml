@@ -74,10 +74,15 @@
     </p>
 </p>
 
-<h2>Сводная таблица по разделам: солнце, магнитное поле Земли, ионосфера</h2>
-<a class="btn btn-default" href="~/Products/ShowTableSun" role="button">Просмотр</a>
 
 
+<h2>Примечание к таблицам и графикам</h2>
+<p>
+    <a class="btn btn-default" href="~/Products/EditDescription" role="button">Изменить</a>
+<p>
+    <div id="div-description" class="forecast">
 
-<h2>Таблица нарушения радиосвязи</h2>
-<a class="btn btn-default" href="~/Products/ShowDisturbanceRadio" role="button">Просмотр</a>
+<p>
+    @Html.Raw("<pre>" + Html.Encode(Model.description) + "</pre>")
+</p>
+</div>
