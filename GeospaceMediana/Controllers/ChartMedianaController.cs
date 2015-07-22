@@ -29,6 +29,7 @@ namespace GeospaceMediana.Controllers
 
             DateTime curDate = new DateTime(year, month, 1);
             DateTime prevDate = curDate.AddMonths(-1);
+            DateTime nextDate = curDate.AddMonths(1);
 
             Station station = Station.GetByCode(stationCode);
 
@@ -39,10 +40,37 @@ namespace GeospaceMediana.Controllers
 
             ViewBag.CurDate = curDate;
             ViewBag.PrevDate = prevDate;
+            ViewBag.NextDate = nextDate;
 
             ViewBag.ViewMediana = viewMediana;
+            ViewBag.Station = station;
+            ViewBag.Stations = Station.GetAll();
 
             return View();
+        }
+
+        public ActionResult Submit(int stationCode, int startRange, string date, int hour, int newValue)
+        {
+            try
+            {
+                Station station = Station.GetByCode(stationCode);
+
+                DateTime dateTime = DateTime.ParseExact(date, "yyyy MMMM", System.Globalization.CultureInfo.CurrentCulture);
+
+                int numberRange = MedianaCalculator.GetNumberFromStartRange(startRange);
+
+                Mediana mediana = Mediana.GetByDate(station, dateTime.Year, dateTime.Month, hour, numberRange);
+
+                mediana.f0F2 = newValue;
+
+                mediana.Update();
+
+                return Content("");
+            }
+            catch
+            {
+                return Content("Ошибка применения изменения!");
+            }
         }
 
     }

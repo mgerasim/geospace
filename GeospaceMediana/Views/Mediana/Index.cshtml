@@ -156,7 +156,7 @@
                     
                     
                     <tr>
-                        <td class="right-thick-line" style="width: 45px">@GeospaceMediana.Models.MedianaCalculator.GetRangeFromNumber(new DateTime(ViewBag.Year, ViewBag.Month, 1), numberRange).Header</td>
+                        <td class="right-thick-line" style="white-space: nowrap; width: 45px">@GeospaceMediana.Models.MedianaCalculator.GetRangeFromNumber(new DateTime(ViewBag.Year, ViewBag.Month, 1), numberRange).Header</td>
                             @for (int hour = 0; hour < 24; hour++)
                             {
                                 GeospaceEntity.Models.Mediana mediana = ViewBag.ViewMediana.GetValue(hour, numberRange);
