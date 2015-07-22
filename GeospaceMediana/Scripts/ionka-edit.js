@@ -92,6 +92,67 @@
         cells.dblclick(editEvent);
     }
 
+    var lineHeaders = ["f0F2", "M3000F2", "f0F1", "M3000F1", "f0Es", "D", "fmin"];
+
+    var numberTypeDictionary = {};
+
+    for(var i=0;i<7;i++)
+    {
+        numberTypeDictionary[lineHeaders[i]] = i;
+    }
+
+    function moveEdit(currentCell, keyCode)
+    {
+        var day = currentCell.data("day");
+        var type = currentCell.data("type");
+        var hour = currentCell.data("hour");
+
+        var numberType = numberTypeDictionary[type];
+
+        switch (keyCode) {
+            case 37: // left
+                numberType--;
+                break;
+            case 38: // up
+                hour--;
+                break;
+            case 39: // right
+                numberType++;
+                break;
+            case 40: // down
+                hour++;
+                break;
+        }
+
+        if(numberType < 0)
+        {
+            numberType = 6;
+            day--;
+        }
+
+        if(numberType > 6)
+        {
+            numberType = 0;
+            day++;
+        }
+
+        type = lineHeaders[numberType];
+
+        var newCell = getCell(day, hour, type);
+
+        if (newCell.length == 0)
+            return;
+
+        if (newCell.hasClass("editable-ionka") == false)
+        {
+            moveEdit(newCell, keyCode);
+            return;
+        }
+
+        $('#edit').blur();
+        newCell.dblclick();
+    }
+
     function editEvent(e)
     {
         var currentCell = $(this);
@@ -112,6 +173,14 @@
         $('#edit').height(cellHeight - 2);
         currentCell.width(cellWidth);
         currentCell.height(cellHeight);
+
+        $('#edit').keydown(function (event) {
+            if (event.keyCode >= 37 && event.keyCode <= 40)
+            {
+                event.preventDefault();
+                moveEdit(currentCell, event.keyCode);
+            }
+        });
 
         $('#edit').focus();
         $('#edit').select();

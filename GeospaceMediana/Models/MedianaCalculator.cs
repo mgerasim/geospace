@@ -23,6 +23,14 @@ namespace GeospaceMediana.Models
             public int Max;
         }
 
+        public static int GetNumberFromStartRange(int startRange)
+        {
+            if (startRange == 1)
+                return 5;
+
+            return (startRange - 1) / 5 - 1;
+        }
+
         public static Range GetRangeFromNumber(DateTime date, int number)
         {
             List<Range> ranges = new List<Range>();

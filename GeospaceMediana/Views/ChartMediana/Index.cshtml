@@ -24,14 +24,29 @@
             min: 0,
             title: {
                 text: 'Медиана'
-            }
-           // categories: ['0', '1', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            },
+            lineWidth: 2
         },
 
         xAxis :{
             title: {
                 text: 'Час'
-            }
+            },
+            categories: [
+                @for(int i=0;i<24;i++)
+                {
+                    @Html.Raw("'"+i.ToString("00")+"'")
+                    
+                    if(i!=23)
+                    {
+                        @:,
+                    }
+                }
+            ],
+            lineWidth: 2,
+            gridLineWidth: 1,
+            tickInterval:1,
+            tickmarkPlacement: 'on',
         },
 
         plotOptions: {
@@ -40,26 +55,41 @@
                     events: {
 
                         drag: function (e) {
-                            // Returning false stops the drag and drops. Example:
-                            /*
-                            if (e.newY > 300) {
-                                this.y = 300;
-                                return false;
-                            }
-                            */
-
-                            $('#drag').html(
-                                'Dragging <b>' + this.series.name + '</b>, <b>' + this.category + '</b> to <b>' + Highcharts.numberFormat(e.y, 2) + '</b>');
-
+                            this.y = parseInt(e.newY, 10);
                         },
-                        drop: function () {
-                            $('#drop').html(
-                                'In <b>' + this.series.name + '</b>, <b>' + this.category + '</b> was set to <b>' + Highcharts.numberFormat(this.y, 2) + '</b>');
 
+                        drop: function () {
+                            this.y = parseInt(this.y, 10);
+
+                            var dateRange = this.series.name.split(" ");
+                            var hour = this.category;
+                            var newValue = this.y;
+
+                            var date = dateRange[0] + " " + dateRange[1];
+                            var startRange = dateRange[2].split("-")[0];
+
+                            var resUrl = "@Url.Action("Submit", "ChartMediana")" +
+                                "?stationCode=" + @ViewBag.Station.Code +
+                                "&hour=" + hour +
+                                "&startRange=" + startRange +
+                                "&date=" + date +
+                                "&newValue=" + newValue;
+                            
+                            $.ajax({
+                                url: resUrl,
+                                success: function (data) {
+                                    if(data!="")
+                                    {
+                                        alert(data);
+                                        this.y = 0;
+                                        chart.redraw();
+                                    }
+                                }
+                            });
                         }
                     }
                 },
-                stickyTracking: false
+                stickyTracking: true
             },
             column: {
                 stacking: 'normal'

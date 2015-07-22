@@ -199,6 +199,9 @@ namespace GeospaceMediana.Models
 
                     if (characterizationDayValue.f0 == -1 || characterizationDayValue.f0 >= 1000)
                     {
+                        characterizationDayValue.f0 = codeIonka.f0F2;
+                        characterizationDayValue.viewf0 = codeIonka._f0F2;
+
                         _listValues.Add(characterizationDayValue);
                         continue;
                     }
