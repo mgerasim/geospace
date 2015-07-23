@@ -8,6 +8,8 @@
     <tr>
         <th>Индекс</th>
         <th>Наименование</th>
+        <th>Долгота</th>
+        <th>Ширина</th>
         <th></th>
         <th></th>
     </tr>
@@ -19,6 +21,12 @@
             </td>
             <td>
                 @Html.Encode(item.Name)
+            </td>
+            <td>
+                @Html.Encode(item.Longitude)
+            </td>
+            <td>
+                @Html.Encode(item.Latitude)
             </td>
             <td>
                 @Html.ActionLink("Редактировать", "Edit", new { id = item.ID})

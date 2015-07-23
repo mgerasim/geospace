@@ -14,8 +14,9 @@ namespace GeospaceEntity.Models
         public virtual DateTime created_at { get; set; }
         public virtual DateTime updated_at { get; set; }
         public virtual string Name { get; set; }
-        public virtual int Code { get; set; }
-
+        public virtual int Code { get; set; }        
+        public virtual double Longitude { get; set; }
+        public virtual double Latitude { get; set; }
         public Station()
         {
             this._IonkaValues = new System.Collections.Generic.HashSet<Codes.CodeIonka>();
