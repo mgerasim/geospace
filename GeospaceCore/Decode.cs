@@ -130,7 +130,6 @@ namespace GeospaceCore
                                     {
                                         flagIonka = true;
 
-
                                         try
                                         {
                                             code_source = GeospaceEntity.Helper.HelperIonka.Check(code_source);
@@ -173,12 +172,13 @@ namespace GeospaceCore
                                                         GeospaceEntity.Models.Codes.CodeIonka theCodeIonka = GeospaceEntity.Models.Codes.CodeIonka.GetByDateUTC(theStation, YYYY, MM, DD, HH, MI);
                                                         if (theCodeIonka == null)
                                                         {
-                                                            theCodeIonka = new GeospaceEntity.Models.Codes.CodeIonka(session);
+                                                            theCodeIonka = new CodeIonka();
                                                             theCodeIonka.DD = Created_At.Day;
                                                             theCodeIonka.MM = Created_At.Month;
                                                             theCodeIonka.YYYY = Created_At.Year;
                                                             theCodeIonka.Station = theStation;
                                                             theCodeIonka.Raw = code_source;
+                                                            theCodeIonka.Decode(session);
                                                             //проверка на отказ записи в будущее))
                                                             DateTime DayNow = DateTime.Now;
                                                             if (DayNow.Hour >= HH || theCodeIonka.DD < DayNow.Day || theCodeIonka.MM < DayNow.Day || theCodeIonka.YYYY < DayNow.Year)
@@ -192,12 +192,12 @@ namespace GeospaceCore
                                                                 if (theCodeIonka == null)
                                                                 {
                                                                     //Запись за предыдущий день
-                                                                    theCodeIonka = new GeospaceEntity.Models.Codes.CodeIonka(session);
                                                                     theCodeIonka.DD = IonkaDay.Day;
                                                                     theCodeIonka.MM = IonkaDay.Month;
                                                                     theCodeIonka.YYYY = IonkaDay.Year;
                                                                     theCodeIonka.Station = theStation;
                                                                     theCodeIonka.Raw = code_source;
+                                                                    theCodeIonka.Decode(session);
                                                                     theCodeIonka.Save();
                                                                 }
                                                                 else
@@ -275,12 +275,13 @@ namespace GeospaceCore
                                                         GeospaceEntity.Models.Codes.CodeIonka theCodeIonka = GeospaceEntity.Models.Codes.CodeIonka.GetByDateUTC(theStation, PrevDay_At.Year, PrevDay_At.Month, PrevDay_At.Day, HH, MI);
                                                         if (theCodeIonka == null)
                                                         {
-                                                            theCodeIonka = new GeospaceEntity.Models.Codes.CodeIonka(session);
+                                                            theCodeIonka = new CodeIonka();
                                                             theCodeIonka.DD = PrevDay_At.Day;
                                                             theCodeIonka.MM = PrevDay_At.Month;
                                                             theCodeIonka.YYYY = PrevDay_At.Year;
                                                             theCodeIonka.Station = theStation;
                                                             theCodeIonka.Raw = code_source;
+                                                            theCodeIonka.Decode(session);
                                                             theCodeIonka.Save();
                                                         }
                                                         else

@@ -61,7 +61,7 @@ namespace GeospaceEntity.Models.Codes
         //    updated_at = DateTime.Now;
         //}
         
-        public CodeIonka(List<string> sessionGroup)
+        public virtual void Decode(List<string> sessionGroup)
         {
             // TODO: Complete member initialization
             this.created_at = DateTime.Now;
@@ -84,45 +84,45 @@ namespace GeospaceEntity.Models.Codes
                 //}
 
 
-                f0F2 = GeospaceEntity.Helper.HelperIonka.Ionka_Group06_f0F2(sessionGroup[1]);
-                hF2 = GeospaceEntity.Helper.HelperIonka.Ionka_Group06_hF2(sessionGroup[1]);
+                f0F2 = GeospaceEntity.Helper.HelperIonka.Ionka_Group06_f0F2(sessionGroup[1], this);
+                hF2 = GeospaceEntity.Helper.HelperIonka.Ionka_Group06_hF2(sessionGroup[1], this);
             }
             if (sessionGroup.Count >= 3)
             {
-                M3000F2 = GeospaceEntity.Helper.HelperIonka.Ionka_Group07_M3000F2(sessionGroup[2]);
-                fmin = GeospaceEntity.Helper.HelperIonka.Ionka_Group07_fmin(sessionGroup[2]);
+                M3000F2 = GeospaceEntity.Helper.HelperIonka.Ionka_Group07_M3000F2(sessionGroup[2], this);
+                fmin = GeospaceEntity.Helper.HelperIonka.Ionka_Group07_fmin(sessionGroup[2], this);
+
+                Diffusio = GeospaceEntity.Helper.HelperIonka.Ionka_Group07_diffusio(sessionGroup[2], this);
             }
             if (sessionGroup.Count >= 4)
             {
-                f0Es = GeospaceEntity.Helper.HelperIonka.Ionka_Group08_f0Es(sessionGroup[3]);
-                hEs = GeospaceEntity.Helper.HelperIonka.Ionka_Group08_hEs(sessionGroup[3]);
+                f0Es = GeospaceEntity.Helper.HelperIonka.Ionka_Group08_f0Es(sessionGroup[3], this);
+                hEs = GeospaceEntity.Helper.HelperIonka.Ionka_Group08_hEs(sessionGroup[3], this);
             }
             if (sessionGroup.Count >= 5)
             {
-                f0F1 = GeospaceEntity.Helper.HelperIonka.Ionka_Group09_f0F1(sessionGroup[4]);
-                hF1 = GeospaceEntity.Helper.HelperIonka.Ionka_Group09_hF1(sessionGroup[4]);
+                f0F1 = GeospaceEntity.Helper.HelperIonka.Ionka_Group09_f0F1(sessionGroup[4], this);
+                hF1 = GeospaceEntity.Helper.HelperIonka.Ionka_Group09_hF1(sessionGroup[4], this);
             }
             if (sessionGroup.Count >= 6)
             {
-                M3000F1 = GeospaceEntity.Helper.HelperIonka.Ionka_Group10_M3000F1(sessionGroup[5]);
-                hMF2 = GeospaceEntity.Helper.HelperIonka.Ionka_Group10_hMF2(sessionGroup[5]);
+                M3000F1 = GeospaceEntity.Helper.HelperIonka.Ionka_Group10_M3000F1(sessionGroup[5], this);
+                hMF2 = GeospaceEntity.Helper.HelperIonka.Ionka_Group10_hMF2(sessionGroup[5], this);
             }
             if (sessionGroup.Count >= 7)
             {
-                f0E = GeospaceEntity.Helper.HelperIonka.Ionka_Group11_f0E(sessionGroup[6]);
-                hE = GeospaceEntity.Helper.HelperIonka.Ionka_Group11_hE(sessionGroup[6]);
+                f0E = GeospaceEntity.Helper.HelperIonka.Ionka_Group11_f0E(sessionGroup[6], this);
+                hE = GeospaceEntity.Helper.HelperIonka.Ionka_Group11_hE(sessionGroup[6], this);
             }
             if (sessionGroup.Count >= 8)
             {
-                fbEs = GeospaceEntity.Helper.HelperIonka.Ionka_Group12_fbEs(sessionGroup[7]);
-                Es = GeospaceEntity.Helper.HelperIonka.Ionka_Group12_Es(sessionGroup[7]);
+                fbEs = GeospaceEntity.Helper.HelperIonka.Ionka_Group12_fbEs(sessionGroup[7], this);
+                Es = GeospaceEntity.Helper.HelperIonka.Ionka_Group12_Es(sessionGroup[7], this);
             }
             if (sessionGroup.Count >= 9)
             {
-                fx1 = GeospaceEntity.Helper.HelperIonka.Ionka_Group13_fx1(sessionGroup[8]);
+                fx1 = GeospaceEntity.Helper.HelperIonka.Ionka_Group13_fx1(sessionGroup[8], this);
             }
-            Raw = "";
-            ErrorMessage = "";
         }
 
         public CodeIonka(string strSession)

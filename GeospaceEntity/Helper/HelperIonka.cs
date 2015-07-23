@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GeospaceEntity.Models.Codes;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -59,10 +60,10 @@ namespace GeospaceEntity.Helper
                 strIonka = strIonka.Replace("7/1/ 2", "7/1/2");
             }
 
-            if (strIonka.IndexOf("7/1/ ") > -1)
-            {
-                strIonka = strIonka.Replace("7/1/ ", "7/1/");
-            }
+            //if (strIonka.IndexOf("7/1/ ") > -1)
+            //{
+            //    strIonka = strIonka.Replace("7/1/ ", "7/1/");
+            //}
             string[] delimiters = new string[] { " ", "\r\n" };
 
             // strIonka = strIonka.Replace("///", "/ //");
@@ -148,7 +149,7 @@ namespace GeospaceEntity.Helper
                 if (words)
                     if (Find_Time(ss) || ss.Substring(0).ToUpper().IndexOf("UMAGF") > -1)
                         thirdTime = true;
-                    else message += ss + "|";
+                    else message += ss + " ";
 
                 if ((secondTime || firstTime) && !words)
                 {
@@ -162,7 +163,7 @@ namespace GeospaceEntity.Helper
                     if (ss.Substring(0).ToUpper().IndexOf("UMAGF") > -1) thirdTime = true;
                     else
                         if (words)
-                            message += ss + "|";
+                            message += ss + " ";
 
                     if (!words && firstTime && secondTime)
                     {
@@ -214,7 +215,7 @@ namespace GeospaceEntity.Helper
                 if (firstTime && words && thirdTime)
                 {
                     int m = 6;
-                    if (secondTime) m = 12;
+                    if (secondTime) m += 6;
                     strIonkaNormalize = strIonkaNormalize.Remove(strIonkaNormalize.Length - m);
                     Time startTime = new Time();
                     Time endTime = new Time();
@@ -236,10 +237,19 @@ namespace GeospaceEntity.Helper
                 //Сдвоенные группы
                  if (ss.Length == 10)
                  {
-                     strIonkaNormalize += ss.Substring(0, 5);
-                     strIonkaNormalize += " ";
-                     strIonkaNormalize += ss.Substring(5, 5);
-                     strIonkaNormalize += " ";
+                     bool prov = true;
+                     for (int k = 0; k < ss.Length; k++)
+                     {
+                         if (ss[k] > 61)
+                             prov = false;
+                     }
+                     if (prov)
+                     {
+                         strIonkaNormalize += ss.Substring(0, 5);
+                         strIonkaNormalize += " ";
+                         strIonkaNormalize += ss.Substring(5, 5);
+                         strIonkaNormalize += " ";
+                     }
                  }
 
                 if (ss.Length == 5)
@@ -274,8 +284,7 @@ namespace GeospaceEntity.Helper
 
                 sw.Close();
             }
-            */
-            
+            */           
 
             return strIonkaNormalize;
         }
@@ -330,6 +339,14 @@ namespace GeospaceEntity.Helper
             string special = "\0 alert " + posSrart + " " + posEnd + " " + lenghtMessage + " " + hours + message + " \0";
 
             return s;// +special;
+        }
+
+        public static string Gen_Error_Message( CodeIonka ci )
+        {
+            return ci.Station.Code.ToString() + " "
+                    + ci.Station.Name + " "
+                    + ci.DD + "." + ci.MM + "." + ci.YYYY + " "
+                    + ci.HH + ":" + ci.MI + ". ";
         }
 
         public static int ParseToken(string strToken)
@@ -480,12 +497,12 @@ namespace GeospaceEntity.Helper
             }
             catch (System.Exception ex)
             {
-                throw new System.Exception("Ошибка в дате(Время минуты): " + strSession, ex);
+                throw new System.Exception( "Ошибка в дате(Время минуты): " + strSession, ex);
             }
             return -1;
             
         }
-        public static int Ionka_Group06_f0F2(string strSession)
+        public static int Ionka_Group06_f0F2(string strSession, CodeIonka ci)
         {
             try
             {
@@ -495,12 +512,12 @@ namespace GeospaceEntity.Helper
             }
             catch (System.Exception ex)
             {
-                throw new System.Exception("Ошибка в f0F2 : " + strSession, ex);
+                throw new System.Exception(Gen_Error_Message(ci) + "Ошибка в f0F2 : " + strSession, ex);
             }
             return -1;
         }
 
-        public static int Ionka_Group06_hF2(string strSession)
+        public static int Ionka_Group06_hF2(string strSession, CodeIonka ci)
         {
             try
             {
@@ -510,13 +527,13 @@ namespace GeospaceEntity.Helper
             }
             catch (System.Exception ex)
             {
-                throw new System.Exception("Ошибка в  hF2 : " + strSession, ex);
+                throw new System.Exception(Gen_Error_Message(ci) + "Ошибка в  hF2 : " + strSession, ex);
             }
             return -1;
             
         }
 
-        public static int Ionka_Group07_M3000F2(string strSession)
+        public static int Ionka_Group07_M3000F2(string strSession, CodeIonka ci)
         {
             try
             {
@@ -526,19 +543,49 @@ namespace GeospaceEntity.Helper
             }
             catch (System.Exception ex)
             {
-                throw new System.Exception("Ошибка в  M3000F2 : " + strSession, ex);
+                throw new System.Exception(Gen_Error_Message(ci) + "Ошибка в  M3000F2 : " + strSession, ex);
             }
             return -1;
         }
 
-        public static int Ionka_Group07_fmin(string strSession)
+        public static int Ionka_Group07_fmin(string strSession, CodeIonka ci)
         {
-            string token = strSession.Substring(3, 2);
-            int fmin = ParseToken(token);
+            int fmin = 0;
+            try
+            {
+                string token = strSession.Substring(3, 2);
+                fmin = ParseToken(token);
+                
+            }
+            catch (System.Exception ex)
+            {
+                throw new System.Exception(Gen_Error_Message(ci) + "Ошибка в  fmin : " + strSession, ex);
+            }
             return fmin;
         }
 
-        public static int Ionka_Group08_f0Es(string strSession)
+        public static int Ionka_Group07_diffusio(string strSession, CodeIonka ci )
+        {
+            int diffusio = 0;
+            try
+            {
+                string token = strSession.Substring(2, 1);
+                diffusio = ParseToken(token);
+
+                if (diffusio == 1000) diffusio = 0;
+
+                if (diffusio == 6 && ci.f0F2 == 1006 && ci.M3000F2 == 1006) diffusio = 3;
+
+                if (diffusio == 6 && ci.f0F2 != 1006 && ci.M3000F2 != 1006) diffusio = 1;
+            }
+            catch (System.Exception ex)
+            {
+                throw new System.Exception( Gen_Error_Message(ci) + "Ошибка в  diffusio : " + strSession, ex);
+            }
+            return diffusio;
+        }
+
+        public static int Ionka_Group08_f0Es(string strSession, CodeIonka ci)
         {
             try
             {
@@ -548,12 +595,12 @@ namespace GeospaceEntity.Helper
             }
             catch (System.Exception ex)
             {
-                throw new System.Exception("Ошибка в  f0Es : " + strSession, ex);
+                throw new System.Exception(Gen_Error_Message(ci) + "Ошибка в  f0Es : " + strSession, ex);
             }
             return -1;
         }
 
-        public static int Ionka_Group08_hEs(string strSession)
+        public static int Ionka_Group08_hEs(string strSession, CodeIonka ci)
         {
             try
             {
@@ -563,12 +610,12 @@ namespace GeospaceEntity.Helper
             }
             catch (System.Exception ex)
             {
-                throw new System.Exception("Ошибка в  hEs : " + strSession, ex);
+                throw new System.Exception(Gen_Error_Message(ci) + "Ошибка в  hEs : " + strSession, ex);
             }
             return -1;
         }
 
-        public static int Ionka_Group09_f0F1(string strSession)
+        public static int Ionka_Group09_f0F1(string strSession, CodeIonka ci)
         {
             try
             {
@@ -578,12 +625,12 @@ namespace GeospaceEntity.Helper
             }
             catch (System.Exception ex)
             {
-                throw new System.Exception("Ошибка в  f0F1 : " + strSession, ex);
+                throw new System.Exception(Gen_Error_Message(ci) + "Ошибка в  f0F1 : " + strSession, ex);
             }
             return -1;
         }
 
-        public static int Ionka_Group09_hF1(string strSession)
+        public static int Ionka_Group09_hF1(string strSession, CodeIonka ci)
         {
             try
             {
@@ -593,12 +640,12 @@ namespace GeospaceEntity.Helper
             }
             catch (System.Exception ex)
             {
-                throw new System.Exception("Ошибка в  hF1 : " + strSession, ex);
+                throw new System.Exception(Gen_Error_Message(ci) + "Ошибка в  hF1 : " + strSession, ex);
             }
             return -1;
         }
 
-        public static int Ionka_Group10_M3000F1(string strSession)
+        public static int Ionka_Group10_M3000F1(string strSession, CodeIonka ci)
         {
             try
             {
@@ -608,12 +655,12 @@ namespace GeospaceEntity.Helper
             }
             catch (System.Exception ex)
             {
-                throw new System.Exception("Ошибка в  M3000F1 : " + strSession, ex);
+                throw new System.Exception(Gen_Error_Message(ci) + "Ошибка в  M3000F1 : " + strSession, ex);
             }
             return -1;
         }
 
-        public static int Ionka_Group10_hMF2(string strSession)
+        public static int Ionka_Group10_hMF2(string strSession, CodeIonka ci)
         {
             try
             {
@@ -623,13 +670,13 @@ namespace GeospaceEntity.Helper
             }
             catch (System.Exception ex)
             {
-                throw new System.Exception("Ошибка в  hMF2 : " + strSession, ex);
+                throw new System.Exception(Gen_Error_Message(ci) + "Ошибка в  hMF2 : " + strSession, ex);
             }
             return -1;
             
         }
 
-        public static int Ionka_Group11_f0E(string strSession)
+        public static int Ionka_Group11_f0E(string strSession, CodeIonka ci)
         {
             try
             {
@@ -639,12 +686,12 @@ namespace GeospaceEntity.Helper
             }
             catch (System.Exception ex)
             {
-                throw new System.Exception("Ошибка в  f0E : " + strSession, ex);
+                throw new System.Exception(Gen_Error_Message(ci) + "Ошибка в  f0E : " + strSession, ex);
             }
             return -1;
         }
 
-        public static int Ionka_Group11_hE(string strSession)
+        public static int Ionka_Group11_hE(string strSession, CodeIonka ci)
         {
             try
             {
@@ -654,12 +701,12 @@ namespace GeospaceEntity.Helper
             }
             catch (System.Exception ex)
             {
-                throw new System.Exception("Ошибка в  hE : " + strSession, ex);
+                throw new System.Exception(Gen_Error_Message(ci) + "Ошибка в  hE : " + strSession, ex);
             }
             return -1;
         }
 
-        public static int Ionka_Group12_fbEs(string strSession)
+        public static int Ionka_Group12_fbEs(string strSession, CodeIonka ci)
         {
             try
             {
@@ -669,12 +716,12 @@ namespace GeospaceEntity.Helper
             }
             catch (System.Exception ex)
             {
-                throw new System.Exception("Ошибка в  fbEs : " + strSession, ex);
+                throw new System.Exception(Gen_Error_Message(ci) + "Ошибка в  fbEs : " + strSession, ex);
             }
             return -1;
         }
 
-        public static int Ionka_Group12_Es(string strSession)
+        public static int Ionka_Group12_Es(string strSession, CodeIonka ci)
         {
             try
             {
@@ -684,12 +731,12 @@ namespace GeospaceEntity.Helper
             }
             catch (System.Exception ex)
             {
-                throw new System.Exception("Ошибка в  Es : " + strSession, ex);
+                throw new System.Exception(Gen_Error_Message(ci) + "Ошибка в  Es : " + strSession, ex);
             }
             return -1;
         }
 
-        public static int Ionka_Group13_fx1(string strSession)
+        public static int Ionka_Group13_fx1(string strSession, CodeIonka ci)
         {
             try
             {
@@ -699,7 +746,7 @@ namespace GeospaceEntity.Helper
             }
             catch (System.Exception ex)
             {
-                throw new System.Exception("Ошибка в  fx1 : " + strSession, ex);
+                throw new System.Exception(Gen_Error_Message(ci) + "Ошибка в  fx1 : " + strSession, ex);
             }
             return -1;
         }
