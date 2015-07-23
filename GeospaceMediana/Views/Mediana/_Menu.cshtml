@@ -66,36 +66,3 @@
                                 }
 )
 </li>
-
-@helper ShowTypeSelector(string type)
-{
-    var link = Html.ActionLink(type,
-            "Index",
-            "Mediana",
-            new
-            {
-                station = Model.StationCode,
-                year = Model.Start.Year,
-                month = Model.Start.Month,
-                type = type
-            }, null);
-    
-    if (ViewBag.Type == type)
-    { 
-        <li style="font-weight: bolder">
-            @link
-        </li>
-        
-    }
-    else
-    {
-        <li>
-            @link
-        </li>
-    }
-
-}
-
-
-@ShowTypeSelector("f0F2")
-@ShowTypeSelector("M3000F2")

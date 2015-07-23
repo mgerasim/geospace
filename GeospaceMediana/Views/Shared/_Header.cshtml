@@ -21,15 +21,36 @@
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav">
                   <li class="dropdown active">
-                      <a id="login_head" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Данные <span class="caret"></span></a>
+                      <a id="login_head" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">@ViewBag.NameMenu<span class="caret"></span></a>
                       <ul class="dropdown-menu" role="menu">
 
-                          <li>@Html.ActionLink("Характеристика суток", "Index", "CharacterizationDay")</li>
-                          <li class="divider"></li>
+                        @helper ShowMenuLink(string linkText, string action, string controller, object routValues, string viewBagNameMenu, bool beforeDivider = false, bool afterDivider = false)
+                        {
+                            if (ViewBag.NameMenu != viewBagNameMenu)
+                            {
+                                if(beforeDivider)
+                                {
+                                    <li class="divider"></li>
+                                }
+                                
+                                <li><a href="@Url.Action(action, controller, routValues)">@Html.Raw(linkText)</a></li>
+                            
+                                if(afterDivider)
+                                {
+                                    <li class="divider"></li>
+                                }
+                            }
+                        }
 
-                          <li>@Html.ActionLink("Медиана", "Index", "Mediana")</li>
-                          <li>@Html.ActionLink("Диаграмма", "Index", "ChartMediana")</li>
-                          <li><a href="#" onclick="CheckProfile()">Перезагрузка профиля</a></li>
+                          @ShowMenuLink("Данные", "Index", "Ionka", null, "Данные", false, true)
+
+                          @ShowMenuLink("Медиана <b>f0F2</b>", "Index", "Mediana", new { type = "f0F2" }, "Медиана f0F2")
+                          @ShowMenuLink("Медиана <b>M3000F2</b>", "Index", "Mediana", new { type = "M3000F2" }, "Медиана M3000F2")
+                          <li class="divider"></li>
+                          @ShowMenuLink("Характеристика суток <b>f0F2</b>", "Index", "CharacterizationDay", new { type = "f0F2" }, "Характеристика суток f0F2")
+                          @ShowMenuLink("Характеристика суток <b>M3000F2</b>", "Index", "CharacterizationDay", new { type = "M3000F2" }, "Характеристика суток M3000F2")
+
+                          @ShowMenuLink("Диаграмма", "Index", "ChartMediana", null, "Диаграмма", true, false)
 
                       </ul>
                   </li>

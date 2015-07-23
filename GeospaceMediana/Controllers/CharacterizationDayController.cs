@@ -13,8 +13,10 @@ namespace GeospaceMediana.Controllers
         //
         // GET: /CharacterizationDay/
 
-        public ActionResult Index(int stationCode = 43501, int year = -1, int month = -1, int rangeNumber = -1)
+        public ActionResult Index(int stationCode = 43501, int year = -1, int month = -1, int rangeNumber = -1, string type = "f0F2")
         {
+            ViewBag.NameMenu = "Характеристика суток " + type;
+
             if(year == -1)
             {
                 year = DateTime.Now.Year;
@@ -51,7 +53,7 @@ namespace GeospaceMediana.Controllers
 
             ViewBag.DayStart = currRange.Min;
             ViewBag.DayEnd = currRange.Max;
-            ViewBag.CharacterizationDay = new CharacterizationDay(station, rangeNumber, year, month);
+            ViewBag.CharacterizationDay = new CharacterizationDay(station, rangeNumber, year, month, type);
 
             ViewBag.Year = year;
             ViewBag.Month = month;
@@ -65,6 +67,8 @@ namespace GeospaceMediana.Controllers
 
             ViewBag.PrevRangeNumber = prevRangeNumber;
             ViewBag.NextRangeNumber = nextRangeNumber;
+
+            ViewBag.Type = type;
 
             ViewBag.Date = currStartDay.ToString("MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture);
 

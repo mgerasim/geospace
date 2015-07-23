@@ -18,6 +18,8 @@ namespace GeospaceMediana.Controllers
         {
             @ViewBag.Title = "Медиана";
 
+            ViewBag.NameMenu = "Медиана " + type;
+
             DateTime nowDateTime = DateTime.Now;
 
             if(month == -1)

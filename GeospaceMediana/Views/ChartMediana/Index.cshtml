@@ -20,6 +20,10 @@
             text: 'Медиана (@ViewBag.PrevDate.ToString("MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture)-@ViewBag.CurDate.ToString("MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture))'
         },
 
+        tooltip: {
+            animation: false
+        },
+
         yAxis: {
             min: 0,
             title: {
@@ -81,7 +85,6 @@
                                     if(data!="")
                                     {
                                         alert(data);
-                                        this.y = 0;
                                         chart.redraw();
                                     }
                                 }

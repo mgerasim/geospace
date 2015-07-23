@@ -62,7 +62,7 @@
 
             return {
                 x: draggableX ? newX : dragPoint.x,
-                y: draggableY ? newY : dragPoint.y
+                y: draggableY ? parseInt(newY, 10) : dragPoint.y
             };
         }
 
