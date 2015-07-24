@@ -20,8 +20,15 @@
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav">
-                  <li class="dropdown active">
-                      <a id="login_head" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">@ViewBag.NameMenu<span class="caret"></span></a>
+
+                  @{
+                      bool isActiveMenu = ViewBag.NameMenu != null;
+                      string activeMenuName = isActiveMenu ? "active" : "";
+                      string nameMenu = isActiveMenu ? ViewBag.NameMenu : "Меню";
+                  }
+
+                  <li class="dropdown @activeMenuName">
+                      <a id="login_head" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">@nameMenu<span class="caret"></span></a>
                       <ul class="dropdown-menu" role="menu">
 
                         @helper ShowMenuLink(string linkText, string action, string controller, object routValues, string viewBagNameMenu, bool beforeDivider = false, bool afterDivider = false)
