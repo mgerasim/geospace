@@ -20,16 +20,20 @@
             text: 'Медиана (@ViewBag.PrevDate.ToString("MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture)-@ViewBag.CurDate.ToString("MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture))'
         },
 
-        tooltip: {
-            animation: false
-        },
-
         yAxis: {
             min: 0,
             title: {
                 text: 'Медиана'
             },
             lineWidth: 2
+        },
+
+        tooltip: {
+            animation: false,
+            yDecimals: 2,
+            formatter: function() {
+                return '<i>' + this.point.series.name + '</i><br/>Час: ' + this.x + '<br/>Медиана' + ': <b>' + this.y + '</b>';
+            }
         },
 
         xAxis :{
@@ -100,10 +104,6 @@
             line: {
                 cursor: 'ns-resize'
             }
-        },
-
-        tooltip: {
-            yDecimals: 2
         },
 
         @{
