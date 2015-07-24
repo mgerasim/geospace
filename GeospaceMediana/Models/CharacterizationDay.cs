@@ -166,7 +166,17 @@ namespace GeospaceMediana.Models
 
                     try
                     {
-                        medianaValue = medians.Where(x => x.HH == hour).Single().f0F2;
+                        Mediana mediana = medians.Where(x => x.HH == hour).Single();
+
+                        if(type == "f0F2")
+                        {
+                            medianaValue = mediana.f0F2;
+                        }
+                        else
+                        {
+                            medianaValue = mediana.M3000F2;
+                        }
+                        
 
                         codeIonka = listCodeIonka.Where(x => x.YYYY == year && x.MM == month && x.DD == day && x.HH == hour)
                             .OrderBy(x => x.MI)

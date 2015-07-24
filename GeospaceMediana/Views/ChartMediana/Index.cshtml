@@ -33,6 +33,16 @@
             yDecimals: 2,
             formatter: function() {
                 return '<i>' + this.point.series.name + '</i><br/>Час: ' + this.x + '<br/>Медиана' + ': <b>' + this.y + '</b>';
+            },
+
+            positioner: function (labelWidth, labelHeight, point) {
+                var tooltipX, tooltipY;
+                tooltipX = point.plotX + chart.plotLeft - labelWidth / 2;
+                tooltipY = point.plotY + chart.plotTop + 20;
+                return {
+                    x: tooltipX,
+                    y: tooltipY
+                };
             }
         },
 

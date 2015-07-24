@@ -15,7 +15,12 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Index(int stationCode = 43501, int year = -1, int month = -1, int rangeNumber = -1, string type = "f0F2")
         {
-            ViewBag.NameMenu = "Характеристика суток " + type;
+            if (type == "M3000F2")
+                ViewBag.ViewType = "M3000";
+            else
+                ViewBag.ViewType = type;
+
+            ViewBag.NameMenu = "Характеристика суток " + ViewBag.ViewType;
 
             if(year == -1)
             {

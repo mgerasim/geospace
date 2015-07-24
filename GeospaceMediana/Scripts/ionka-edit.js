@@ -14,6 +14,14 @@
                 .filter('[data-hour="' + hour + '"]');
     }
 
+    function setCellText(cell, text)
+    {
+        if(cell.find("#edit").length == 0)
+        {
+            cell.text(text);
+        }
+    }
+
     function updateCells(day, hour)
     {
         var cell_f0F1 = getCell(day, hour, "f0F1");
@@ -41,8 +49,8 @@
         }
         else
         {
-            cell_f0F1.text("");
-            cell_M3000F1.text("");
+            setCellText(cell_f0F1, "");
+            setCellText(cell_M3000F1, "");
             if (cell_f0F1.hasClass("editable-ionka"))
             {
                 cell_f0F1.removeClass("editable-ionka");
@@ -55,27 +63,27 @@
 
         if (cell_f0Es.text().trim() == "0")
         {
-            cell_f0Es.text("00");
+            setCellText(cell_f0Es, "00");
         }
 
         if (cell_f0F2.text().trim() != "" && cell_M3000F2.text().trim() != "")
         {
             if (cell_f0F2.text().trim() == "F" && cell_M3000F2.text().trim() == "F") {
-                cell_D.text("3");
+                setCellText(cell_D, "3");
             }
             else if (cell_f0F2.text().trim() == "C" && cell_M3000F2.text().trim() == "C") {
-                cell_D.text("C");
+                setCellText(cell_D, "C");
             }
             else if (cell_f0F2.text().trim() == "B" && cell_M3000F2.text().trim() == "B") {
-                cell_D.text("B");
+                setCellText(cell_D, "B");
             }
             else if (cell_D.text() != "1" && cell_D.text() != "2" && cell_D.text() != "3") {
-                cell_D.text("0");
+                setCellText(cell_D, "0");
             }
         }
         else
         {
-            cell_D.text("");
+            setCellText(cell_D, "");
         }
     }
 

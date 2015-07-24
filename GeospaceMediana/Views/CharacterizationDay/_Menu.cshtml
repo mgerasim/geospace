@@ -18,7 +18,8 @@
                                     stationCode = item.Code,
                                     year = ViewBag.Year,
                                     month = ViewBag.Month,
-                                    rangeNumber = ViewBag.RangeNumber
+                                    rangeNumber = ViewBag.RangeNumber,
+                                    type = ViewBag.Type
                                 }, null)
                 </li>
             }
@@ -36,7 +37,8 @@
                 stationCode = ViewBag.Station.Code,
                 year = ViewBag.PrevStartDate.Year,
                 month = ViewBag.PrevStartDate.Month,
-                rangeNumber = ViewBag.PrevRangeNumber
+                rangeNumber = ViewBag.PrevRangeNumber,
+                type = ViewBag.Type
             },
                                 new
                                 {
@@ -53,7 +55,8 @@
                 stationCode = ViewBag.Station.Code,
                 year = ViewBag.NextStartDate.Year,
                 month = ViewBag.NextStartDate.Month,
-                rangeNumber = ViewBag.NextRangeNumber
+                rangeNumber = ViewBag.NextRangeNumber,
+                type = ViewBag.Type
             },
                                 new
                                 {

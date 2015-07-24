@@ -18,7 +18,14 @@ namespace GeospaceMediana.Controllers
         {
             @ViewBag.Title = "Медиана";
 
-            ViewBag.NameMenu = "Медиана " + type;
+            if (type == "M3000F2")
+                ViewBag.ViewType = "M3000";
+            else
+                ViewBag.ViewType = type;
+
+            ViewBag.NameMenu = "Медиана " + ViewBag.ViewType;
+
+
 
             DateTime nowDateTime = DateTime.Now;
 

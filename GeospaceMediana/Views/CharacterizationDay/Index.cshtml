@@ -8,7 +8,7 @@
     @Scripts.Render("~/Scripts/jquery.stickyheader.js")
 }
 
-<h2 style="float: left">Характеристика суток (@ViewBag.Date)</h2><h2 style="float: right">Слой: @ViewBag.Type</h2>
+<h2 style="float: left">Характеристика суток (@ViewBag.Date)</h2><h2 style="float: right">@ViewBag.ViewType</h2>
 
 <style>
     table td, th {
@@ -99,7 +99,17 @@
                     
                     
                     <tr>
-                        <td class="left-thick-line right-thick-line">@mediana._f0F2</td>
+                        <td class="left-thick-line right-thick-line">
+                            @if(ViewBag.Type == "f0F2")
+                            {
+                                @mediana._f0F2
+                            }
+                            else
+                            {
+                                @mediana._M3000F2
+                            }
+                        
+                        </td>
                         <td class="left-thick-line right-thick-line">@hour.ToString("D2")</td>
 
                         @for (int day = ViewBag.DayStart; day <= ViewBag.DayEnd; day++)
