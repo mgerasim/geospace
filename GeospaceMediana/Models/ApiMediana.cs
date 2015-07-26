@@ -20,7 +20,10 @@ namespace GeospaceMediana.Models
 
             for(int hour=0; hour<24; hour++)
             {
-                Mediana mediana = medians.Where(x => x.HH == hour && x.RangeNumber == numberRange).Single();
+                Mediana mediana = medians.FirstOrDefault(x => x.HH == hour && x.RangeNumber == numberRange);
+
+                if (mediana == null)
+                    mediana = new Mediana();
 
                 Values.Add(mediana.f0F2);
             }
