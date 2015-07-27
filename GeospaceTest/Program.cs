@@ -28,6 +28,7 @@ namespace GeospaceTest
         }
         static void Support07()
         {
+
             string s1 = @"\\10.8.5.123\obmen\armgf1dan.txt";
             string s2 = "C:\\Users\\distomin\\Projects\\GeoSpace\\documents\\test.txt";
             ILogger theLogFile = new LoggerNLog();            

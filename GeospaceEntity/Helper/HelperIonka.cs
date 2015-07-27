@@ -778,6 +778,8 @@ namespace GeospaceEntity.Helper
                     {
                         time.init(Convert.ToInt32(strTime.Substring(1, 2)), Convert.ToInt32(strTime.Substring(3, 2)));
                         if (!time.Check_Format()) a = false;
+
+                        if (time.MI.val % 15 != 0) a = false;
                     }
                 }
                 else a = false;
@@ -817,7 +819,7 @@ namespace GeospaceEntity.Helper
 
             Search_Max_Time(listDiff, ref maxTimeDiff, ref index);
 
-            if (maxTimeDiff > avgTime)
+            if (maxTimeDiff >= avgTime)
             {
                 listTimes.RemoveAt(index);
                 listPositions.RemoveAt(index);
