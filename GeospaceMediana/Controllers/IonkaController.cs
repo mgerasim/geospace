@@ -18,6 +18,9 @@ namespace GeospaceMediana.Controllers
         public ActionResult Index(int station = 43501, string start = "", int limit = 5, int step = 5 )
         {
             @ViewBag.Title = "Геофизические данные";
+
+            ViewBag.NameMenu = "Данные";
+
             if (start == "")
             {
                 start = String.Format("{0:yyyyMMdd}", DateTime.Now.AddDays(-1));

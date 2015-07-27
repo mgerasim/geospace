@@ -74,49 +74,52 @@ namespace GeospaceMediana.Models
 
             int countDays = DateTime.DaysInMonth(year, month);
             
-            
             DateTime calcDate = new DateTime(year, month, 4);
 
             for (int i = 0; i < 6; i++)
             {
-                int[] medians = new int[24];
-
-                List<int> listValues;
-
-                for (int hour = 0; hour < 24; hour++)
+                int[] medians = Enumerable.Repeat(-1, 24).ToArray();
+                
+                if(calcDate <= DateTime.Now)
                 {
-                    medians[hour] = 0;
-
-                    DateTime endRange = calcDate.AddDays(-1);
-
-                    listValues = getValuesByRange(codesIonka, type, hour, endRange.AddDays(-9), endRange);
-
-                    listValues.Sort();
-
-                    if (listValues.Count != 0)
+                    for (int hour = 0; hour < 24; hour++)
                     {
-                        if (listValues.Count == 1)
-                        {
-                            medians[hour] = listValues[0];
-                        }
-                        else if (listValues.Count % 2 == 0)
-                        {
-                            int index1 = listValues.Count / 2 - 1;
-                            int index2 = listValues.Count / 2;
+                        DateTime endRange = calcDate.AddDays(-1);
 
-                            medians[hour] = (int)Math.Ceiling( (listValues[index1] + listValues[index2]) / 2.0 );
-                        }
-                        else
-                        {
-                            int index = listValues.Count / 2;
+                        List<int> listValues = getValuesByRange(codesIonka, type, hour, endRange.AddDays(-9), endRange);
 
-                            medians[hour] = listValues[index];
+                        listValues.Sort();
+
+                        if (listValues.Count != 0)
+                        {
+                            if (listValues.Count == 1)
+                            {
+                                medians[hour] = listValues[0];
+                            }
+                            else if (listValues.Count % 2 == 0)
+                            {
+                                int index1 = listValues.Count / 2 - 1;
+                                int index2 = listValues.Count / 2;
+
+                                medians[hour] = (int)Math.Ceiling((listValues[index1] + listValues[index2]) / 2.0);
+                            }
+                            else
+                            {
+                                int index = listValues.Count / 2;
+
+                                medians[hour] = listValues[index];
+                            }
                         }
                     }
                 }
 
+                
+
                 for(int hour=0;hour<24;hour++)
                 {
+                    if (medians[hour] == -1)
+                        continue;
+
                     Mediana mediana = Mediana.GetByDate(station, year, month, hour, i);
                     mediana.Station = station;
                     mediana.YYYY = year;

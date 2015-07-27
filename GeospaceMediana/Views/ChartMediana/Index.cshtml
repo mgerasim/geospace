@@ -13,7 +13,8 @@
 
         chart: {
             renderTo: 'container',
-            animation: false
+            animation: false,
+            type: "spline"
         },
 
         title: {
@@ -25,7 +26,26 @@
             title: {
                 text: 'Медиана'
             },
-            lineWidth: 2
+            lineWidth: 2,
+            max: 120
+        },
+
+        tooltip: {
+            animation: false,
+            yDecimals: 2,
+            formatter: function() {
+                return '<i>' + this.point.series.name + '</i><br/>Час: ' + this.x + '<br/>Медиана' + ': <b>' + this.y + '</b>';
+            },
+
+            positioner: function (labelWidth, labelHeight, point) {
+                var tooltipX, tooltipY;
+                tooltipX = point.plotX + chart.plotLeft - labelWidth / 2;
+                tooltipY = point.plotY + chart.plotTop + 20;
+                return {
+                    x: tooltipX,
+                    y: tooltipY
+                };
+            }
         },
 
         xAxis :{
@@ -81,7 +101,6 @@
                                     if(data!="")
                                     {
                                         alert(data);
-                                        this.y = 0;
                                         chart.redraw();
                                     }
                                 }
@@ -97,10 +116,6 @@
             line: {
                 cursor: 'ns-resize'
             }
-        },
-
-        tooltip: {
-            yDecimals: 2
         },
 
         @{

@@ -139,7 +139,7 @@ namespace GeospaceMediana.Models
         private List<DayRating> _listSecondHalfDay = new List<DayRating>();
         private List<DayRating> _listFullDay = new List<DayRating>();
 
-        public CharacterizationDay(Station station, int rangeNumber, int year, int month)
+        public CharacterizationDay(Station station, int rangeNumber, int year, int month, string type)
         {
             var curDate = new DateTime(year, month, 1);
             var range = MedianaCalculator.GetRangeFromNumber(curDate, rangeNumber);
@@ -166,7 +166,17 @@ namespace GeospaceMediana.Models
 
                     try
                     {
-                        medianaValue = medians.Where(x => x.HH == hour).Single().f0F2;
+                        Mediana mediana = medians.Where(x => x.HH == hour).Single();
+
+                        if(type == "f0F2")
+                        {
+                            medianaValue = mediana.f0F2;
+                        }
+                        else
+                        {
+                            medianaValue = mediana.M3000F2;
+                        }
+                        
 
                         codeIonka = listCodeIonka.Where(x => x.YYYY == year && x.MM == month && x.DD == day && x.HH == hour)
                             .OrderBy(x => x.MI)
@@ -186,21 +196,44 @@ namespace GeospaceMediana.Models
                     characterizationDayValue.Day = day;
                     characterizationDayValue.Hour = hour;
 
-                    if (codeIonka._f0F2 == "C" || codeIonka._f0F2 == "G")
+                    int valueF1;
+                    string viewF1;
+                    int valueF2;
+                    string viewF2;
+
+                    if(type == "f0F2")
                     {
-                        characterizationDayValue.f0 = codeIonka.f0F1;
-                        characterizationDayValue.viewf0 = "/" + codeIonka._f0F1;
+                        viewF2 = codeIonka._f0F2;
+                        viewF1 = codeIonka._f0F1;
+
+                        valueF2 = codeIonka.f0F2;
+                        valueF1 = codeIonka.f0F1;
                     }
                     else
                     {
-                        characterizationDayValue.f0 = codeIonka.f0F2;
-                        characterizationDayValue.viewf0 = codeIonka._f0F2;
+                        viewF2 = codeIonka._M3000F2;
+                        viewF1 = codeIonka._M3000F1;
+
+                        valueF2 = codeIonka.M3000F2;
+                        valueF1 = codeIonka.M3000F1;
+
+                    }
+
+                    if (viewF2 == "C" || viewF2 == "G")
+                    {
+                        characterizationDayValue.f0 = valueF1;
+                        characterizationDayValue.viewf0 = "/" + viewF1;
+                    }
+                    else
+                    {
+                        characterizationDayValue.f0 = valueF2;
+                        characterizationDayValue.viewf0 = viewF2;
                     }
 
                     if (characterizationDayValue.f0 == -1 || characterizationDayValue.f0 >= 1000)
                     {
-                        characterizationDayValue.f0 = codeIonka.f0F2;
-                        characterizationDayValue.viewf0 = codeIonka._f0F2;
+                        characterizationDayValue.f0 = valueF2;
+                        characterizationDayValue.viewf0 = viewF2;
 
                         _listValues.Add(characterizationDayValue);
                         continue;

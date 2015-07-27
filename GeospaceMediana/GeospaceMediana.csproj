@@ -146,6 +146,7 @@
     <Compile Include="Controllers\CharacterizationDayController.cs" />
     <Compile Include="Controllers\ChartMedianaController.cs" />
     <Compile Include="Controllers\IonkaController.cs" />
+    <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\MedianaController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\StationsController.cs" />
@@ -295,6 +296,7 @@
     <Content Include="Views\ChartMediana\_Menu.cshtml" />
     <Content Include="Views\Products\EditDescription.cshtml" />
     <Content Include="Views\Dropout\Index.cshtml" />
+    <Content Include="Views\Map\Stations.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
