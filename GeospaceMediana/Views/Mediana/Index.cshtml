@@ -7,6 +7,64 @@
 {
     @Scripts.Render("~/bundles/mediana-edit")
     @Scripts.Render("~/Scripts/jquery.stickyheader.js")
+
+    <script>
+        var buttonCalc = $(".btn-calc");
+        var statusCalc = $("#status-calc");
+
+        function showCalc()
+        {
+            buttonCalc.attr("disabled", "true");
+            statusCalc.css("display", "inline-block");
+            buttonCalc.unbind("click");
+        }
+
+        function hideCalc()
+        {
+            buttonCalc.removeAttr("disabled");
+            statusCalc.css("display", "none");
+            buttonCalc.click(sendCalcRequest);
+        }
+
+        function sendCalcRequest(e)
+        {
+            e.preventDefault();
+
+            showCalc();
+
+            $.ajax({
+                url: buttonCalc.attr("href"),
+                success: function (data) {
+                    if (data == "") {
+                        window.location.href = "@Url.Action("Index","Mediana", new
+                                                        {
+                                                            station = ViewBag.Station.Code,
+                                                            year = ViewBag.Year,
+                                                            month = ViewBag.Month,
+                                                            type = ViewBag.Type
+                                                        })"
+                    }
+                    else {
+                        hideCalc();
+                        alert(data);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    hideCalc();
+                    alert("Ошибка отправки запроса. Причина: " + textStatus);
+                }
+            });
+        }
+
+        buttonCalc.click(sendCalcRequest);
+
+
+    </script>
+}
+
+@section Styles
+{
+    @Styles.Render("~/Content/css-loadtriangles.css")
 }
 
 <script>
@@ -83,7 +141,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <table style="table-layout: fixed" class="table table-bordered table-striped">
+        <table style="table-layout: fixed; min-width: 583px;" class="table table-bordered table-striped">
             <thead>
                 <tr>
                     <th style="width: 45px">День</th>
@@ -130,21 +188,43 @@
 <div class="row">
     <div class="col-md-12">
 
-        @Html.ActionLink("Выполнить расчет",
-            "Calc",
-            "Mediana",
-            new
-            {
-                station = Model.StationCode,
-                year = ViewBag.Year,
-                month = ViewBag.Month,
-                type = ViewBag.Type
-            },
-                                new
-                                {
-                                    @class = "btn btn-default"
-                                }
-)
+        <table>
+            <tr>
+                <td>
+                    @Html.ActionLink("Выполнить расчет",
+                                    "Calc",
+                                    "Mediana",
+                                    new
+                                    {
+                                        station = Model.StationCode,
+                                        year = ViewBag.Year,
+                                        month = ViewBag.Month,
+                                        type = ViewBag.Type
+                                    },
+                                                        new
+                                                        {
+                                                            @class = "btn btn-default btn-calc"
+                                                        }
+                                    )
+                </td>
+                <td id="status-calc" style="display: none; padding-left: 10px; height: 100%;">
+                    <div style="display: inline-block; padding-left: 30px; vertical-align: middle;">Выполняется расчет.. Пожалуйста, подождите..</div>
+                    <div style="display: inline-block; height: 100%; width: 0px; vertical-align: middle;"></div>
+                    <div class="cssload-triangles">
+                        <div class="cssload-tri cssload-invert"></div>
+                        <div class="cssload-tri cssload-invert"></div>
+                        <div class="cssload-tri"></div>
+                        <div class="cssload-tri cssload-invert"></div>
+                        <div class="cssload-tri cssload-invert"></div>
+                        <div class="cssload-tri"></div>
+                        <div class="cssload-tri cssload-invert"></div>
+                        <div class="cssload-tri"></div>
+                        <div class="cssload-tri cssload-invert"></div>
+                    </div>
+                </td>
+            </tr>
+            
+        </table>
 
         <table style="table-layout: fixed; margin-top: 10px;" class="table table-bordered table-striped">
             @{

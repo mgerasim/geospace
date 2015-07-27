@@ -54,6 +54,7 @@ namespace GeospaceMediana.Controllers
             ViewBag.Year = startMonth.Year;
 
             ViewBag.Type = type;
+            ViewBag.Station = objStation;
 
             ViewBag.ViewMediana = new ViewMediana(Mediana.GetByMonth(objStation, year, month));
 
@@ -62,17 +63,18 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Calc(int year, int month, int station, string type)
         {
-            var objStation = Station.GetByCode(station);
-
-            MedianaCalculator.Calc(objStation, year, month, type);
-
-            return RedirectToAction("Index", new
+            try
             {
-                station = station,
-                year = year,
-                month = month,
-                type = type
-            });
+                var objStation = Station.GetByCode(station);
+
+                MedianaCalculator.Calc(objStation, year, month, type);
+
+                return Content("");
+            }
+            catch
+            {
+                return Content("Во время расчета медианы произошла ошибка.");
+            }
         }
 
         public ActionResult Submit(int stationcode, int year, int month, int day, string type, int hour, string newValue)
