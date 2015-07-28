@@ -10,11 +10,18 @@ namespace GeospaceEntity.Models
 {
     public class Error
     {
+        public Error()
+        {
+            ID = -1;
+          //  FlagCheck = false;
+        }
         public virtual int ID { get; set; }
         public virtual DateTime created_at { get; set; }
         public virtual DateTime updated_at { get; set; }
         public virtual string Raw { get; set; }
-        public virtual string Description { get; set; }
+       public virtual string Description { get; set; }
+
+        //public virtual bool FlagCheck { get; set; }
         public virtual void Save()
         {
             IRepository<Error> repo = new ErrorRepository();
@@ -40,6 +47,11 @@ namespace GeospaceEntity.Models
         {
             ErrorRepository repo = new ErrorRepository();
             return repo.GetByDescription(Description);
+        }
+        public static IList<GeospaceEntity.Models.Error> GetAll()
+        {
+            IRepository<Error> repo = new ErrorRepository();
+            return (List<Error>)(repo.GetAll());
         }
     }
 }
