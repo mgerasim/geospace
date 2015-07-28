@@ -1,5 +1,28 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Отсев";
 }
 
-<h2>Index</h2>
+<h2>Таблица ошибок</h2>
+
+<table class="table table-bordered table-hover">
+    <tr>
+        <th>Телеграмма</th>
+        <th>Текст ошибки</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.Encode(item.Raw)
+            </td>
+            <td>
+                @Html.Encode(item.Description)
+            </td>       
+            <td>
+                @Html.ActionLink("Редактировать", "Edit", new { id = item.ID })
+            </td>
+        </tr>
+
+    }
+</table>

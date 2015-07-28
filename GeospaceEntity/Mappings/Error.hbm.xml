@@ -9,6 +9,5 @@
     <property name="updated_at" />
     <property name="Raw" type="string" length="10000"/>
     <property name="Description" type="string" length="10000"/>
-    
   </class>
 </hibernate-mapping>
