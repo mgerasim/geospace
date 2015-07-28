@@ -213,7 +213,7 @@ namespace GeospaceCore
                                                         }
                                                         else
                                                         {
-                                                            if (theCodeIonka.Raw != theCode)
+                                                            if (theCodeIonka.Raw != code_source)
                                                             {
                                                                 Error IonkaError = new Error();
                                                                 IonkaError.Description = "Повторная телеграмма";
@@ -286,7 +286,7 @@ namespace GeospaceCore
                                                         }
                                                         else
                                                         {
-                                                            if (theCodeIonka.Raw != theCode)
+                                                            if (theCodeIonka.Raw != code_source)
                                                             {
                                                                 Error IonkaError = new Error();
                                                                 IonkaError.Description = "Повторная телеграмма";
