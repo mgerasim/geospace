@@ -1,5 +1,37 @@
 ﻿@{
-    ViewBag.Title = "ErrorList";
+    ViewBag.Title = "Ошибки";
 }
 
-<h2>ErrorList</h2>
+<h2>Отсев</h2>
+<style type="text/css">
+    .centr {
+        text-align: center; /* Выравнивание по центру */
+        width: initial;
+        width: 87px
+    }
+</style>
+
+
+<table style="table-layout: fixed" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th class="centr">Дата появления</th>
+            <th>Текст телеграммы</th>
+            <th>Текст ошибки</th>
+        </tr>
+    </thead>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="centr">
+                    @Html.Encode(item.created_at)
+                </td>
+                <td>
+                    @Html.Encode(item.Raw)
+                </td>
+                <td>
+                    @Html.Encode(item.Description)
+                </td>
+            </tr>
+        }
+</table>
