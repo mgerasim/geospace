@@ -296,8 +296,8 @@
     <Content Include="Views\ChartMediana\Index.cshtml" />
     <Content Include="Views\ChartMediana\_Menu.cshtml" />
     <Content Include="Views\Products\EditDescription.cshtml" />
-    <Content Include="Views\Dropout\Index.cshtml" />
     <Content Include="Views\Map\Stations.cshtml" />
+    <Content Include="Views\Dropout\ErrorList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
