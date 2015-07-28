@@ -141,6 +141,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Content\bootstrapmap.css" />
     <Content Include="Content\ionka.css" />
     <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="Controllers\CharacterizationDayController.cs" />
@@ -233,7 +234,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Properties\PublishProfiles\GeoSpace.pubxml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Images\popup.png" />
     <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrapmap.js" />
     <Content Include="Scripts\draggable-points.js" />
     <Content Include="Scripts\highcharts.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
