@@ -11,6 +11,15 @@ namespace GeospaceMediana.Models
     {
         public class Range
         {
+            public Range()
+            {}
+
+            public Range(Range range)
+            {
+                Min = range.Min;
+                Max = range.Max;
+            }
+
             public string Header
             {
                 get
@@ -25,42 +34,41 @@ namespace GeospaceMediana.Models
 
         public static int GetNumberFromStartRange(int startRange)
         {
-            if (startRange == 1)
-                return 5;
-
-            return (startRange - 1) / 5 - 1;
+            return (startRange - 1) / 5;
         }
+
+        private static Range[] ranges = null;
 
         public static Range GetRangeFromNumber(DateTime date, int number)
         {
-            List<Range> ranges = new List<Range>();
-
-            int curMin = 1;
-            int curMax = 5;
-
-            for (int i = 0; i < 5; i++)
+            if(ranges == null)
             {
-                curMin += 5;
-                curMax += 5;
+                ranges = new Range[6];
 
-                ranges.Add(new Range { Min = curMin, Max = curMax });
+                int curMin = 1;
+                int curMax = 5;
+
+                for (int i = 0; i < 6; i++)
+                {
+                    ranges[i] = new Range { Min = curMin, Max = curMax };
+                    curMin += 5;
+                    curMax += 5;
+                }
             }
-
-            ranges.Add(new Range { Min = 1, Max = 5 });
-
+            
             int countDays = DateTime.DaysInMonth(date.Year, date.Month);
 
             if(countDays == 31)
             {
-                ranges[4].Max = 31;
+                ranges[5].Max = 31;
             }
 
             if (date.Month == 2)
             {
-                ranges[4].Max = countDays;
+                ranges[5].Max = countDays;
             }
 
-            return ranges[number];
+            return new Range( ranges[number] );
 
         }
 
@@ -69,6 +77,7 @@ namespace GeospaceMediana.Models
             DateTime curMonth = new DateTime(year, month, DateTime.DaysInMonth(year, month));
             DateTime tmpPrevMonth = curMonth.AddMonths(-1);
             DateTime prevMonth = new DateTime(tmpPrevMonth.Year, tmpPrevMonth.Month, 1);
+            DateTime nextMonth = prevMonth.AddMonths(2);
 
             var codesIonka = CodeIonka.GetByPeriod(station, prevMonth, curMonth);
 
@@ -76,7 +85,7 @@ namespace GeospaceMediana.Models
             
             DateTime calcDate = new DateTime(year, month, 4);
 
-            for (int i = 0; i < 6; i++)
+            for (int i = 1; i < 7; i++)
             {
                 int[] medians = Enumerable.Repeat(-1, 24).ToArray();
                 
@@ -113,23 +122,34 @@ namespace GeospaceMediana.Models
                     }
                 }
 
-                
+                DateTime medianaDate = curMonth;
+
+                int rangeNumber = i;
+
+                if (i == 6)
+                {
+                    medianaDate = nextMonth;
+                    rangeNumber = 0;
+                }
 
                 for(int hour=0;hour<24;hour++)
                 {
                     if (medians[hour] == -1)
                         continue;
 
-                    Mediana mediana = Mediana.GetByDate(station, year, month, hour, i);
+                    Mediana mediana = Mediana.GetByDate(station, medianaDate.Year, medianaDate.Month, hour, rangeNumber);
                     mediana.Station = station;
-                    mediana.YYYY = year;
-                    mediana.MM = month;
+                    mediana.YYYY = medianaDate.Year;
+                    mediana.MM = medianaDate.Month;
                     mediana.HH = hour;
-                    mediana.RangeNumber = i;
+                    mediana.RangeNumber = rangeNumber;
 
                     switch (type)
                     {
                         case "f0F2":
+                            if (mediana.IsFixed)
+                                continue;
+
                             mediana.f0F2 = medians[hour];
                             break;
                         case "M3000F2":
@@ -155,7 +175,7 @@ namespace GeospaceMediana.Models
                 
                 if(calcDate.Month == 2)
                 {
-                    if (i == 4)
+                    if (i == 5)
                     {
                         if (countDays == 28)
                         {

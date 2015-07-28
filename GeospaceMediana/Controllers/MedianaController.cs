@@ -40,6 +40,7 @@ namespace GeospaceMediana.Controllers
             }
 
             DateTime startMonth = new DateTime(year, month, 1);
+            DateTime nextMonth = startMonth.AddMonths(1);
 
             string start = String.Format("{0:yyyyMMdd}", startMonth);
             int countDays = DateTime.DaysInMonth(startMonth.Year, startMonth.Month);
@@ -56,7 +57,8 @@ namespace GeospaceMediana.Controllers
             ViewBag.Type = type;
             ViewBag.Station = objStation;
 
-            ViewBag.ViewMediana = new ViewMediana(Mediana.GetByMonth(objStation, year, month));
+            ViewBag.ViewMediana = new ViewMediana(Mediana.GetByMonth(objStation, year, month)
+                .Concat(Mediana.GetByMonth(objStation, nextMonth.Year, nextMonth.Month)).ToList());
 
             return View(Model);
         }

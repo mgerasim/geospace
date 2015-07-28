@@ -24,9 +24,21 @@ namespace GeospaceMediana.Controllers
 
             if(year == -1)
             {
+                var curDay = DateTime.Now.Day;
+
+                for (int i = 0; i < 6;i++ )
+                {
+                    var range = MedianaCalculator.GetRangeFromNumber(DateTime.Now, i);
+
+                    if(curDay >= range.Min && curDay <= range.Max)
+                    {
+                        rangeNumber = i;
+                        break;
+                    }
+                }
+
                 year = DateTime.Now.Year;
                 month = DateTime.Now.Month;
-                rangeNumber = 0;
             }
 
             Station station = Station.GetByCode(stationCode);
