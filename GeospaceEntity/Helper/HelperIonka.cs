@@ -574,9 +574,8 @@ namespace GeospaceEntity.Helper
 
                 if (diffusio == 1000) diffusio = 0;
 
-                if (diffusio == 6 && ci.f0F2 == 1006 && ci.M3000F2 == 1006) diffusio = 3;
-
-                if (diffusio == 6 && ci.f0F2 != 1006 && ci.M3000F2 != 1006) diffusio = 1;
+                //if (diffusio == 6 && ci.f0F2 == 1006 && ci.M3000F2 == 1006) diffusio = 3;
+                //if (diffusio == 6 && ci.f0F2 != 1006 && ci.M3000F2 != 1006) diffusio = 1;
             }
             catch (System.Exception ex)
             {

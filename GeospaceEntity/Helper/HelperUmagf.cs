@@ -177,8 +177,15 @@ namespace GeospaceEntity.Helper
                         continue;
                     }
                     if (theCodeUmagf.events.Length != 0) theCodeUmagf.events += ", ";
-                    theCodeUmagf.events += arrayGroups[i].Substring(0, 1) + "." +
-                                              arrayGroups[i].Substring(1, 2) + ":" + arrayGroups[i].Substring(3, 2);
+
+                    int h = Convert.ToInt32(arrayGroups[i].Substring(1, 2));
+                    int m = Convert.ToInt32(arrayGroups[i].Substring(3, 2));
+
+                    if (h >= 0 && h < 24 && m >= 0 && m < 60)
+                        theCodeUmagf.events += arrayGroups[i].Substring(0, 1) + "." +
+                                                arrayGroups[i].Substring(1, 2) + ":" + arrayGroups[i].Substring(3, 2);
+                    else throw new System.Exception("Проблема при декодировании явлений");
+                    
                 }
             }
             catch (System.Exception ex)
