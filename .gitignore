@@ -196,7 +196,7 @@ packages
 # Windows Azure Build Output
 csx
 *.build.csdef
-
+*D
 # Windows Store app package directory
 AppPackages/
 
@@ -223,3 +223,9 @@ UpgradeLog*.XML
 .hgignore
 
 documents/
+
+*BACKUP*
+*BASE*
+*LOCAL*
+*REMOTE*
+*.orig
