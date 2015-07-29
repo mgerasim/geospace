@@ -30,8 +30,8 @@
             </td>
         </tr>
     }
-        
-        
+
+
 </table>
 
 
@@ -84,27 +84,9 @@
                   basemap: "osm",
                   center: [138.483, 52.067],
                   zoom: 5
-              }
-              ", function(Map, Circle){
-              var circleGeometry = new Circle([-117.15, 32.71],{
-                  "radius": 2000
-              });
+              })
 
-              );
-              dojo.connect(map, "onLoad", createToolbar);
 
-              function createToolbar(map) {
-                  dojo.connect(dijit.byId('map'), 'resize', function () {
-                      resizeMap();
-                  });
-                  toolbar = new esri.toolbars.Draw(map);
-                  dojo.connect(toolbar, "onDrawEnd");
-              }
-
-              var symbol = new esri.symbol.SimpleMarkerSymbol(esri.symbol.SimpleMarkerSymbol.STYLE_SQUARE, 10, new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, new dojo.Color([255, 0, 0]), 1), new dojo.Color([0, 255, 0, 0.25]));
-
-              var graphic = new esri.Graphic(geometry, symbol);
-              map.graphics.add(graphic);
           });
     </script>
 
