@@ -62,6 +62,50 @@ namespace GeospaceMediana.Models
 
         }
 
+        private static int[] _calcDays = null; 
+
+        public static DateTime GetCalcDateBySeq(DateTime month, int seqNumber)
+        {
+            if(_calcDays == null)
+            {
+                _calcDays = new int[6];
+
+                for(int i=0;i<6;i++)
+                {
+                    _calcDays[i] = 5 * i + 4;
+                }
+            }
+
+            int countDays = DateTime.DaysInMonth(month.Year, month.Month);
+
+            int day = _calcDays[seqNumber];
+
+            if (countDays == 31)
+            {
+                if (seqNumber == 5)
+                {
+                    day = 30;
+                }
+            }
+
+            if (month.Month == 2)
+            {
+                if (seqNumber == 5)
+                {
+                    if (countDays == 28)
+                    {
+                        day = 27;
+                    }
+                    else
+                    {
+                        day = 28;
+                    }
+                }
+            }
+
+            return new DateTime(month.Year, month.Month, day);
+        }
+
         public static void Calc(Station station, int year, int month, string type)
         {
             DateTime curMonth = new DateTime(year, month, DateTime.DaysInMonth(year, month));
@@ -73,10 +117,10 @@ namespace GeospaceMediana.Models
 
             int countDays = DateTime.DaysInMonth(year, month);
             
-            DateTime calcDate = new DateTime(year, month, 4);
-
             for (int i = 1; i < 7; i++)
             {
+                DateTime calcDate = GetCalcDateBySeq(curMonth, i - 1);
+
                 int[] medians = Enumerable.Repeat(-1, 24).ToArray();
                 
                 if(calcDate <= DateTime.Now)
@@ -151,31 +195,6 @@ namespace GeospaceMediana.Models
                         mediana.Save();
                     else
                         mediana.Update();
-                }
-
-                calcDate = calcDate.AddDays(5);
-
-                if(countDays == 31)
-                {
-                    if (calcDate.Day == 29)
-                    {
-                        calcDate = calcDate.AddDays(1);
-                    }
-                }
-                
-                if(calcDate.Month == 2)
-                {
-                    if (i == 5)
-                    {
-                        if (countDays == 28)
-                        {
-                            calcDate = new DateTime(year, month, 27);
-                        }
-                        else
-                        {
-                            calcDate = new DateTime(year, month, 28);
-                        }
-                    }
                 }
             }
         }

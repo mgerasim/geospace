@@ -18,16 +18,23 @@ namespace GeospaceMediana.Controllers
             ViewBag.NameMenu = "Диаграмма";
 
             DateTime nowDateTime = DateTime.Now;
-
-            if (month == -1)
+            
+            if (month == -1 || year == -1)
             {
                 month = nowDateTime.Month;
+                year = nowDateTime.Year;
+
+                DateTime calcDate = MedianaCalculator.GetCalcDateBySeq(new DateTime(nowDateTime.Year, nowDateTime.Month, 1), 5);
+
+                if (nowDateTime >= calcDate)
+                {
+                    DateTime _nextDate = nowDateTime.AddMonths(1);
+                    
+                    year = _nextDate.Year;
+                    month = _nextDate.Month;
+                }
             }
 
-            if (year == -1)
-            {
-                year = nowDateTime.Year;
-            }
 
             DateTime curDate = new DateTime(year, month, 1);
             DateTime prevDate = curDate.AddMonths(-1);

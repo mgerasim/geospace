@@ -144,20 +144,16 @@
             Page.needComma = false;
         }
 
-        @helper DrawSeries(DateTime date)
+        @helper DrawSeries(DateTime date, int range)
         {
-            GeospaceMediana.Models.ViewMediana viewMedaiana = ViewBag.ViewMediana;
-            
-            for(int range = 0;range<6;range++)
-            {
-                string name = date.ToString("yyyy MMMM", System.Globalization.CultureInfo.CurrentCulture) + " " +
+            string name = date.ToString("yyyy MMMM", System.Globalization.CultureInfo.CurrentCulture) + " " +
                               GeospaceMediana.Models.MedianaCalculator.GetRangeFromNumber(date, range).Header;
                 
                 var values = new List<int>();
 
                 for(int hour=0; hour<24; hour++)
                 {
-                    var mediana = viewMedaiana.GetValue(date.Year, date.Month, hour, range);
+                    var mediana = ViewBag.ViewMediana.GetValue(date.Year, date.Month, hour, range);
 
                     if (mediana.f0F2 == 0)
                     {
@@ -169,7 +165,7 @@
                 
                 if(values.Count != 24)
                 {
-                    continue;
+                    return;
                 }
 
                 if (Page.needComma)
@@ -197,12 +193,22 @@
                 @: ,dragMinY: 0, draggableY: true}
 
                 Page.needComma = true;
-            }
         }
 
         series: [ 
-            @DrawSeries(ViewBag.PrevDate)
-            @DrawSeries(ViewBag.CurDate)
+            @{
+                GeospaceMediana.Models.ViewMediana viewMedaiana = ViewBag.ViewMediana;
+
+                for (int range = 5; range > 3; range-- )
+                {
+                    @DrawSeries(ViewBag.PrevDate, range)
+                }
+
+                for (int range = 0; range < 6; range++)
+                {
+                    @DrawSeries(ViewBag.CurDate, range)
+                }
+            }
         ]
 
     });
