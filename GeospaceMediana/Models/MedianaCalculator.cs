@@ -56,17 +56,7 @@ namespace GeospaceMediana.Models
                 }
             }
             
-            int countDays = DateTime.DaysInMonth(date.Year, date.Month);
-
-            if(countDays == 31)
-            {
-                ranges[5].Max = 31;
-            }
-
-            if (date.Month == 2)
-            {
-                ranges[5].Max = countDays;
-            }
+            ranges[5].Max = DateTime.DaysInMonth(date.Year, date.Month);
 
             return new Range( ranges[number] );
 
