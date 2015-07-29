@@ -3,40 +3,9 @@
     ViewBag.Title = "География станций";
 }
 
-
-<table>
-    <tr>
-        <th>Название </th>
-        <th>Индекс </th>
-        <th>Долгота </th>
-        <th>Широта </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Code)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Longitude)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Latitude)
-            </td>
-        </tr>
-    }
-
-
-</table>
-
+<html>
 
 <head>
-    <title>Bootstrap 101 Template</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <!-- Bootstrap -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet" media="screen">
@@ -45,58 +14,109 @@
     <link rel="stylesheet" type="text/css" href="//js.arcgis.com/3.13/esri/css/esri.css">
     <link rel="stylesheet" type="text/css" href="http://esri.github.io/bootstrap-map-js/src/css/bootstrapmap.css">
     <style type="text/css">
-        #mapDiv {
-            min-height: 100px;
-            max-height: 1000px;
+        #map {
+            min-height:800px;
+
+            margin: 0px 0px;
         }
     </style>
 
-    <!-- HTML5 IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="../assets/js/html5shiv.js"></script>
-      <script src="../assets/js/respond.min.js"></script>
-    <![endif]-->
+
+
+
+
 </head>
-<body>
 
+<script type="text/javascript">
+    var package_path = "//esri.github.com/bootstrap-map-js/src/js";
+    var dojoConfig = {
+        packages: [{
+            name: "application",
+            location: package_path
+        }]
+    };
+</script>
+<script src="//js.arcgis.com/3.13compact"></script>
 
-    <!-- Step 2. Add HTML to define the layout of the page and the map -->
-    <div class="container">
-        <div id="mapDiv"></div>
+<body>      
+
+    <div>
+        <div id="map"></div>
     </div>
 
-    <!-- Step 3. Add JS to load the responsive map -->
-    <script type="text/javascript">
-        var package_path = "//esri.github.com/bootstrap-map-js/src/js";
-        var dojoConfig = {
-            packages: [{
-                name: "application",
-                location: package_path
-            }]
-        };
-    </script>
-    <script src="//js.arcgis.com/3.13compact"></script>
+   
+    <script>var dojoConfig = { parseOnLoad: true };</script>
+    <script src="http://js.arcgis.com/3.7/"></script>
     <script>
-        require(["esri/map", "application/bootstrapmap", "dojo/domReady!", "esri/geometry/Point", ],
-          function (Map, BootstrapMap, Point) {
-              // Get a reference to the ArcGIS Map class
-              var map = BootstrapMap.create("mapDiv", {
-                  basemap: "osm",
-                  center: [138.483, 52.067],
-                  zoom: 5
-              })
+        //dojo.require("dijit.layout.BorderContainer");
+        dojo.require("esri.map");
 
+        var map;
 
-          });
+        function init() {
+            map = new esri.Map("map", {
+                basemap: "osm",
+                center: [138.483, 52.067],
+                zoom: 5
+            });
+
+            dojo.connect(map, "onLoad", function (map) {
+                @foreach (var item in Model)
+                {
+                      <text>
+                markers([@item.Longitude.ToString().Replace(',', '.'),
+                    @item.Latitude.ToString().Replace(',', '.'),
+                    @item.Code.ToString()]);
+                      </text>
+                }
+
+            });
+
+        }
+        function markers(stat) {
+
+            //setup the symbology for the graphics (route line, start and stop points and water location)
+            var infoSymbol = new esri.symbol.SimpleMarkerSymbol({
+                "color": [0, 0, 0, 0],
+                "size": 35,
+                "angle": -30,
+                "xoffset": 0,
+                "yoffset": 0,
+                "type": "esriSMS",
+                "style": "esriSMSCircle",
+                "outline": { "color": [0, 100, 255, 255], "width": 1, "type": "esriSLS", "style": "esriSLSSolid" }
+            });
+            //add points of interest (water, restroom etc) - add info template describing facilities.
+            //var infoTemplate = new esri.InfoTemplate("${w}", "x: ${a}<br />y: ${b}<br />z: ${c}");
+            var marker1 = new esri.Graphic({
+                "geometry": {
+                    "x": stat[0], "y": stat[1],
+                    "spatialReference": { "wkid": 4326 }
+                }
+            });
+
+            marker1.setSymbol(infoSymbol);
+            //marker1..setOutline(new SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, new Color([255,0,0]), 2));
+            //marker1.setInfoTemplate(infoTemplate);
+
+            var marker2 = new esri.Graphic({
+                "geometry": {
+                    "x": stat[0], "y": stat[1],
+                    "spatialReference": { "wkid": 4326 }
+                }
+            });
+            marker2.setSymbol(new esri.symbol.TextSymbol(stat[2]));
+            map.graphics.add(marker1);
+            map.graphics.add(marker2);
+
+            //map.infoWindow.resize(110, 100);
+        }
+
+        dojo.ready(init);
     </script>
-
-
-
     <!-- jQuery (for Bootstrap's JavaScript plugins) -->
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <!-- Include all  plugins or individual files as needed -->
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-
-
