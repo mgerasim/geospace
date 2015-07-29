@@ -9,6 +9,22 @@
     @Scripts.Render("~/Scripts/draggable-points.js")
 
 <script>
+
+    var monthNumber = {
+        "Январь": "01",
+        "Февраль": "02",
+        "Март": "03",
+        "Апрель": "04",
+        "Май": "05",
+        "Июнь": "06",
+        "Июль": "07",
+        "Август": "08",
+        "Сентябрь": "09",
+        "Октябрь": "10",
+        "Ноябрь": "11",
+        "Декабрь": "12"
+    }
+
     var chart = new Highcharts.Chart({
 
         chart: {
@@ -33,8 +49,14 @@
         tooltip: {
             animation: false,
             yDecimals: 2,
+            useHTML: true,
             formatter: function() {
-                return '<i>' + this.point.series.name + '</i><br/>Час: ' + this.x + '<br/>Медиана' + ': <b>' + this.y + '</b>';
+                var date = this.point.series.name.split(" ");
+
+                var numMonth = monthNumber[date[1]];
+                var range = date[2];
+
+                return '' + range + '.'+ numMonth +'<br/><center><b>' + this.y + '</b></center>';
             },
 
             positioner: function (labelWidth, labelHeight, point) {
