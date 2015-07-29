@@ -299,8 +299,8 @@
     <Content Include="Views\ChartMediana\Index.cshtml" />
     <Content Include="Views\ChartMediana\_Menu.cshtml" />
     <Content Include="Views\Products\EditDescription.cshtml" />
-    <Content Include="Views\Dropout\Index.cshtml" />
     <Content Include="Views\Map\Stations.cshtml" />
+    <Content Include="Views\Dropout\ErrorList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -332,7 +332,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>1858</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:1858/</IISUrl>
+          <IISUrl>http://localhost:8778/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
