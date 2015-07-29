@@ -70,8 +70,8 @@ namespace GeospaceEntity.Repositories
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
-                ICriteria criteria = session.CreateCriteria(typeof(GeospaceEntity.Models.Error));
-                criteria.AddOrder(Order.Asc("ID"));
+                ICriteria criteria = session.CreateCriteria(typeof(GeospaceEntity.Models.Error)).SetMaxResults(100);
+                criteria.AddOrder(Order.Desc("ID"));
                 return criteria.List<GeospaceEntity.Models.Error>();
             }
         }

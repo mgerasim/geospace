@@ -19,6 +19,10 @@ namespace GeospaceMediana.Controllers
 
             return View(GeospaceEntity.Models.Error.GetAll());
         }
+        public ActionResult ErrorList()
+        {
+            return View(GeospaceEntity.Models.Error.GetAll());
+        }
 
     }
 }
