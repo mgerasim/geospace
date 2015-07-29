@@ -141,6 +141,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Content\bootstrapmap.css" />
     <Content Include="Content\ionka.css" />
     <Content Include="Content\css-loadtriangles.css" />
     <Compile Include="Controllers\ApiController.cs" />
@@ -234,7 +235,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Properties\PublishProfiles\GeoSpace.pubxml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Images\popup.png" />
     <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrapmap.js" />
     <Content Include="Scripts\draggable-points.js" />
     <Content Include="Scripts\highcharts.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
@@ -296,8 +299,8 @@
     <Content Include="Views\ChartMediana\Index.cshtml" />
     <Content Include="Views\ChartMediana\_Menu.cshtml" />
     <Content Include="Views\Products\EditDescription.cshtml" />
-    <Content Include="Views\Dropout\Index.cshtml" />
     <Content Include="Views\Map\Stations.cshtml" />
+    <Content Include="Views\Dropout\ErrorList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -329,7 +332,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>1858</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:2000/</IISUrl>
+          <IISUrl>http://localhost:8778/</IISUrl>
           <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
           <IISAppRootUrl>http://localhost:2000/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

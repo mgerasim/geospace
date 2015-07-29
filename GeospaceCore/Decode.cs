@@ -33,11 +33,15 @@ namespace GeospaceCore
                     {
                         String line = sr.ReadToEnd();
                         string[] delimiters = new string[] { "[ETX]" };
+                        List<string> listBegin = Begin.GetAll();
+                        
                         foreach (var item in line.Split(new char[] { '\u0002', '\u0003' },
                                      StringSplitOptions.RemoveEmptyEntries))
                         {
-
-                            string theCode = GeospaceEntity.Helper.HelperIonka.Normalize(item);
+                            //string sss = item;
+                            //Print_All_Begin_Telegramm( listBegin, sss.Split( ' ', '\n' ) );
+                            //continue;
+                            string theCode = GeospaceEntity.Helper.HelperIonka.Normalize(item, listBegin);
 
                             int UmagfYYYY = 0;
                             int UmagfMM = 0;
@@ -70,9 +74,12 @@ namespace GeospaceCore
                                                 numIndex = 5;
 
                                                 existStatFromBD = GeospaceEntity.Helper.HelperUmagf.Umagf_BigGroup1_NumStation(arrayGroups, 1, theCodeUmagf);
-                                                GeospaceEntity.Helper.HelperUmagf.Umagf_BigGroup2_FullData(arrayGroups, 2, theCodeUmagf);
-                                                //GeospaceEntity.Helper.HelperUmagf.Umagf_Group1_DateCreate(arrayGroups, numDate, theCodeUmagf);       
-                                                GeospaceEntity.Helper.HelperUmagf.Umagf_Group1_DateCreate(arrayGroups, numDate + 1, theCodeUmagf, true);
+                                                if (existStatFromBD)
+                                                {
+                                                    GeospaceEntity.Helper.HelperUmagf.Umagf_BigGroup2_FullData(arrayGroups, 2, theCodeUmagf);
+                                                    //GeospaceEntity.Helper.HelperUmagf.Umagf_Group1_DateCreate(arrayGroups, numDate, theCodeUmagf);       
+                                                    GeospaceEntity.Helper.HelperUmagf.Umagf_Group1_DateCreate(arrayGroups, numDate + 1, theCodeUmagf, true);
+                                                }
                                             }
                                             else //если есть ионка
                                             {
@@ -85,27 +92,29 @@ namespace GeospaceCore
                                                 flagIonka = false;
                                             }
 
-                                            GeospaceEntity.Helper.HelperUmagf.Umagf_Group2_AK(arrayGroups, numIndex, theCodeUmagf);
-                                            posLastGroup_KIndex = GeospaceEntity.Helper.HelperUmagf.Umagf_Group3_K_index(arrayGroups, numIndex, theCodeUmagf);
-                                            GeospaceEntity.Helper.HelperUmagf.Umagf_Events(arrayGroups, posLastGroup_KIndex, theCodeUmagf);
-                                            GeospaceEntity.Helper.HelperUmagf.Umagf_Check(theCodeUmagf);
-                                            //GeospaceEntity.Helper.HelperUmagf.Print_All_Code_Umagf(code_source, listLengthLines, listComb, "C:\\Users\\distomin\\Projects\\GeoSpace\\documents\\All_Code_Umagf.txt");
-
-                                            theCodeUmagf.Raw = code_source;
-                                            if (CodeUmagf.GetByDateUTC(theCodeUmagf.Station,
-                                                        theCodeUmagf.YYYY,
-                                                        theCodeUmagf.MM,
-                                                        theCodeUmagf.DD,
-                                                        theCodeUmagf.HH,
-                                                        theCodeUmagf.MI) == null && existStatFromBD && theCodeUmagf.Station != null)
-                                            {
-                                                theCodeUmagf.Save();
-                                                logger.LogUmagf("Save");
-                                            }
-                                            else logger.LogUmagf("Not Save");
-
                                             if (existStatFromBD)
+                                            {
+                                                GeospaceEntity.Helper.HelperUmagf.Umagf_Group2_AK(arrayGroups, numIndex, theCodeUmagf);
+                                                posLastGroup_KIndex = GeospaceEntity.Helper.HelperUmagf.Umagf_Group3_K_index(arrayGroups, numIndex, theCodeUmagf);
+                                                GeospaceEntity.Helper.HelperUmagf.Umagf_Events(arrayGroups, posLastGroup_KIndex, theCodeUmagf);
+                                                GeospaceEntity.Helper.HelperUmagf.Umagf_Check(theCodeUmagf);
+                                                //GeospaceEntity.Helper.HelperUmagf.Print_All_Code_Umagf(code_source, listLengthLines, listComb, "C:\\Users\\distomin\\Projects\\GeoSpace\\documents\\All_Code_Umagf.txt");
+
+                                                theCodeUmagf.Raw = code_source;
+                                                if (CodeUmagf.GetByDateUTC(theCodeUmagf.Station,
+                                                            theCodeUmagf.YYYY,
+                                                            theCodeUmagf.MM,
+                                                            theCodeUmagf.DD,
+                                                            theCodeUmagf.HH,
+                                                            theCodeUmagf.MI) == null && existStatFromBD && theCodeUmagf.Station != null)
+                                                {
+                                                    theCodeUmagf.Save();
+                                                    logger.LogUmagf("Save");
+                                                }
+                                                else logger.LogUmagf("Not Save");
+
                                                 WriteUmagf(theCodeUmagf);
+                                            }                                               
                                             else
                                                 logger.LogUmagf("\nстанция не найдена в БД: " + code_source + "\n");
                                         }
@@ -213,7 +222,7 @@ namespace GeospaceCore
                                                         }
                                                         else
                                                         {
-                                                            if (theCodeIonka.Raw != theCode)
+                                                            if (theCodeIonka.Raw != code_source)
                                                             {
                                                                 Error IonkaError = new Error();
                                                                 IonkaError.Description = "Повторная телеграмма";
@@ -286,7 +295,7 @@ namespace GeospaceCore
                                                         }
                                                         else
                                                         {
-                                                            if (theCodeIonka.Raw != theCode)
+                                                            if (theCodeIonka.Raw != code_source)
                                                             {
                                                                 Error IonkaError = new Error();
                                                                 IonkaError.Description = "Повторная телеграмма";
@@ -402,6 +411,49 @@ namespace GeospaceCore
             logger.LogUmagf("k8 = " + umagf.k8.ToString());
             logger.LogUmagf("events = " + umagf.events);
             logger.LogUmagf("+++++++++++++++++++++++++++++++++++");
+        }
+
+        public void Print_All_Begin_Telegramm( List<string> listBegin, string[] telegramms )
+        {
+            StreamWriter sw = new StreamWriter("C:\\Users\\distomin\\Projects\\GeoSpace\\documents\\All_Begin_Telegramm.txt", true);
+
+            foreach( string s in telegramms )
+            {
+                string ss = s.Trim().ToUpper();
+                if (ss.Length == 5)
+                {
+                    bool flag = false;
+                    for (int k = 0; k < ss.Length; k++)
+                    {
+                        if ((65 <= ss[k] && ss[k] <= 90) || (97 <= ss[k] && ss[k] <= 122))
+                            flag = true;
+                        else
+                        {
+                            flag = false;
+                            break;
+                        }
+                    }
+
+                    if (flag)
+                    {
+                        foreach (string t in listBegin)
+                        {
+                            if (ss == t)
+                            {
+                                flag = false;
+                                break;
+                            }
+                        }
+                    }
+                    if (flag)
+                    {
+                        listBegin.Add(ss);
+                        sw.WriteLine(ss);
+                    }
+                }
+            }
+
+            sw.Close();
         }
     }
 }

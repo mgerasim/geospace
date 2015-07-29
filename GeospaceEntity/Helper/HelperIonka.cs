@@ -40,7 +40,7 @@ namespace GeospaceEntity.Helper
         }
 
 
-        public static string Normalize(string strIonka)
+        public static string Normalize(string strIonka, List<string> listBegin)
         {
 
             if (strIonka.IndexOf("37701 50406 01706") > -1)
@@ -254,11 +254,17 @@ namespace GeospaceEntity.Helper
 
                 if (ss.Length == 5)
                 {
-                    if (ss.Substring(0).ToUpper().IndexOf("UMAGF") > -1 || ss.Substring(0).ToUpper().IndexOf("IONKA") > -1)
+                    bool final = false;
+                    foreach( string begin in listBegin)
                     {
-                        strIonkaNormalize += "\r\n" + ss + " ";
+                        if( begin == ss.ToUpper() )
+                        {
+                            final = true;
+                            break;
+                        }
                     }
-
+                    if (final) strIonkaNormalize += "\r\n" + ss + " ";
+                    
                     bool notWords = true;
                     for (int k = 0; k < ss.Length; k++)
                     {
@@ -574,9 +580,8 @@ namespace GeospaceEntity.Helper
 
                 if (diffusio == 1000) diffusio = 0;
 
-                if (diffusio == 6 && ci.f0F2 == 1006 && ci.M3000F2 == 1006) diffusio = 3;
-
-                if (diffusio == 6 && ci.f0F2 != 1006 && ci.M3000F2 != 1006) diffusio = 1;
+                //if (diffusio == 6 && ci.f0F2 == 1006 && ci.M3000F2 == 1006) diffusio = 3;
+                //if (diffusio == 6 && ci.f0F2 != 1006 && ci.M3000F2 != 1006) diffusio = 1;
             }
             catch (System.Exception ex)
             {

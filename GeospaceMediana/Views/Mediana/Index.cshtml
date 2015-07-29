@@ -36,13 +36,13 @@
                 url: buttonCalc.attr("href"),
                 success: function (data) {
                     if (data == "") {
-                        window.location.href = "@Url.Action("Index","Mediana", new
+                        window.location.href = "@Html.Raw(Url.Action("Index","Mediana", new
                                                         {
                                                             station = ViewBag.Station.Code,
                                                             year = ViewBag.Year,
                                                             month = ViewBag.Month,
                                                             type = ViewBag.Type
-                                                        })"
+                                                        }))"
                     }
                     else {
                         hideCalc();
@@ -229,17 +229,27 @@
         <table style="table-layout: fixed; margin-top: 10px;" class="table table-bordered table-striped">
             @{
                 GeospaceMediana.Models.ViewMediana viewMediana = ViewBag.ViewMediana;
+                
+                DateTime curDate = new DateTime(ViewBag.Year, ViewBag.Month, 1);
             }
             <tbody>
-                @for (int numberRange = 0; numberRange < 6; numberRange++)
+                @for (int inumberRange = 1; inumberRange < 7; inumberRange++)
                 {
+                    DateTime medianaDate = curDate;
                     
+                    int numberRange = inumberRange;
+                    
+                    if(numberRange == 6)
+                    {
+                        medianaDate = curDate.AddMonths(1);
+                        numberRange = 0;
+                    }
                     
                     <tr>
-                        <td class="right-thick-line" style="white-space: nowrap; width: 45px">@GeospaceMediana.Models.MedianaCalculator.GetRangeFromNumber(new DateTime(ViewBag.Year, ViewBag.Month, 1), numberRange).Header</td>
+                        <td class="right-thick-line" style="white-space: nowrap; width: 45px">@GeospaceMediana.Models.MedianaCalculator.GetRangeFromNumber(medianaDate, numberRange).Header</td>
                             @for (int hour = 0; hour < 24; hour++)
                             {
-                                GeospaceEntity.Models.Mediana mediana = ViewBag.ViewMediana.GetValue(hour, numberRange);
+                                GeospaceEntity.Models.Mediana mediana = viewMediana.GetValue(medianaDate.Year, medianaDate.Month, hour, numberRange);
                                 
                                 <td>
                                     @if(ViewBag.Type == "f0F2")

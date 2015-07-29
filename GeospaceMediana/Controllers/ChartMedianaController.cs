@@ -64,6 +64,7 @@ namespace GeospaceMediana.Controllers
                 Mediana mediana = Mediana.GetByDate(station, dateTime.Year, dateTime.Month, hour, numberRange);
 
                 mediana.f0F2 = newValue;
+                mediana.IsFixed = true;
 
                 mediana.Update();
 

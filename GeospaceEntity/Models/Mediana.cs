@@ -15,6 +15,8 @@ namespace GeospaceEntity.Models
 
             created_at = DateTime.Now;
             updated_at = DateTime.Now;
+
+            IsFixed = false;
         }
 
         public virtual Station Station { get; set; }
@@ -27,6 +29,8 @@ namespace GeospaceEntity.Models
         public virtual int RangeNumber { get; set; }
         public virtual int f0F2 { get; set; }
         public virtual int M3000F2 { get; set; }
+
+        public virtual bool IsFixed { get; set; }
 
         public virtual string _f0F2 { get { if (ID < 0) return ""; return f0F2.ToString(); } }
         public virtual string _M3000F2 { get { if (ID < 0) return ""; return M3000F2.ToString(); } }
