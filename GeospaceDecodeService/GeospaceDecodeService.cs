@@ -43,7 +43,7 @@ namespace GeospaceDecodeService
             AMS.Profile.Ini Ini = new AMS.Profile.Ini(AppDomain.CurrentDomain.BaseDirectory + "\\GeospaceDecodeService.ini");
             if (!Ini.HasSection("COMMON"))
             {
-              //  error.Debug("Not HasSection COMMON");
+                //  error.Debug("Not HasSection COMMON");
                 Ini.SetValue("COMMON", "FileName", "D:\\Мои документы\\visual studio 2013\\Projects\\GeoSpace\\documents\\armgf1dan.txt");                
             }
 
