@@ -39,8 +39,24 @@
                                 {
                                     <li class="divider"></li>
                                 }
+
+                                string urlAction = Url.Action(action, controller, routValues);
                                 
-                                <li><a href="@Url.Action(action, controller, routValues)">@Html.Raw(linkText)</a></li>
+                                if(ViewBag.Station != null)
+                                {
+                                    if(routValues == null)
+                                    {
+                                        urlAction += "?";
+                                    }
+                                    else
+                                    {
+                                        urlAction += "&";
+                                    }
+
+                                    urlAction += "stationCode=" + ViewBag.Station.Code.ToString("G");
+                                }
+                                
+                                <li><a href="@urlAction">@Html.Raw(linkText)</a></li>
                             
                                 if(afterDivider)
                                 {
@@ -61,6 +77,9 @@
 
                       </ul>
                   </li>
+
+                  
+
                   @try
                   {
                      @Html.Partial("_Menu")

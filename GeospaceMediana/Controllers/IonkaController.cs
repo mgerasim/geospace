@@ -1,6 +1,7 @@
 ﻿using GeospaceEntity.Common;
 using GeospaceEntity.Models;
 using GeospaceEntity.Models.Codes;
+using GeospaceMediana.Common;
 using GeospaceMediana.Models;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace GeospaceMediana.Controllers
         //
         // GET: /Home/
 
-        public ActionResult Index(int station = 43501, string start = "", int limit = 5, int step = 5 )
+        public ActionResult Index(int stationCode = 43501, string start = "", int limit = 5, int step = 5 )
         {
             @ViewBag.Title = "Геофизические данные";
 
@@ -23,9 +24,11 @@ namespace GeospaceMediana.Controllers
 
             if (start == "")
             {
-                start = String.Format("{0:yyyyMMdd}", DateTime.Now.AddDays(-1));
+                start = String.Format("{0:yyyyMMdd}", DateTimeKhabarovsk.Now.AddDays(-1));
             }
-            ViewIonka Model = new ViewIonka(station, start, limit, step);
+            ViewIonka Model = new ViewIonka(stationCode, start, limit, step);
+            
+            ViewBag.Station = Station.GetByCode(stationCode);
 
             return View(Model);
         }

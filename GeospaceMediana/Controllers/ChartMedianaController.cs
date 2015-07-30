@@ -1,4 +1,5 @@
 ﻿using GeospaceEntity.Models;
+using GeospaceMediana.Common;
 using GeospaceMediana.Models;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace GeospaceMediana.Controllers
         {
             ViewBag.NameMenu = "Диаграмма";
 
-            DateTime nowDateTime = DateTime.Now;
+            DateTime nowDateTime = DateTimeKhabarovsk.Now;
             
             if (month == -1 || year == -1)
             {
