@@ -31,6 +31,7 @@ namespace GeospaceEntity.Models.Codes
             fbEs = -1;
             Es = -1;
             fx1 = -1;
+            Raw = "";
 
             created_at = DateTime.Now;
             updated_at = DateTime.Now;
@@ -255,8 +256,16 @@ namespace GeospaceEntity.Models.Codes
                     _fx1, MM, YYYY);
             sw.WriteLine("_______________________________________________________________");
         }
+
+        private static string StringEditedManually = "<Изменено вручную>";
+
         public virtual void SetValueByType(string type, int value)
         {
+            if (Raw.Contains(StringEditedManually) == false)
+            {
+                Raw = StringEditedManually + Raw;
+            }
+
             switch (type)
             {
                 case "f0F2":
