@@ -7,7 +7,7 @@
         {
             if (Model.StationCode != item.Code)
             {
-                <li><a href="~/?station=@(item.Code)&start=@(Model.DateToString(Model.Start))&limit=@(Model.Limit)&step=@(Model.Step)">@item.Name</a></li>
+                <li><a href="~/?stationCode=@(item.Code)&start=@(Model.DateToString(Model.Start))&limit=@(Model.Limit)&step=@(Model.Step)">@item.Name</a></li>
             }
         }
 
