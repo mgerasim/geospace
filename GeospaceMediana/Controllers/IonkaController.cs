@@ -20,7 +20,7 @@ namespace GeospaceMediana.Controllers
         {
             @ViewBag.Title = "Геофизические данные";
 
-            ViewBag.NameMenu = "Данные";
+            ViewBag.NameMenu = "Данные ионосферы";
 
             if (start == "")
             {

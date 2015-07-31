@@ -21,7 +21,7 @@ namespace GeospaceMediana.Controllers
             else
                 ViewBag.ViewType = type;
 
-            ViewBag.NameMenu = "Характеристика суток " + ViewBag.ViewType;
+            ViewBag.NameMenu = "Суточные отклонения " + ViewBag.ViewType;
 
             if(year == -1)
             {
