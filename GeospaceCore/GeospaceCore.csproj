@@ -43,7 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Decode.cs" />
     <Compile Include="IDecode.cs" />
     <Compile Include="ILogger.cs" />
