@@ -16,14 +16,14 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Index(int year = -1, int month = -1, int station = 43501, string type = "f0F2")
         {
-            @ViewBag.Title = "Медиана";
+            @ViewBag.Title = "Прогноз медианы";
 
             if (type == "M3000F2")
                 ViewBag.ViewType = "M3000";
             else
                 ViewBag.ViewType = type;
 
-            ViewBag.NameMenu = "Медиана " + ViewBag.ViewType;
+            ViewBag.NameMenu = "Прогноз медианы " + ViewBag.ViewType;
 
 
 
