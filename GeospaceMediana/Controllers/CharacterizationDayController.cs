@@ -1,4 +1,5 @@
 ﻿using GeospaceEntity.Models;
+using GeospaceMediana.Common;
 using GeospaceMediana.Models;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace GeospaceMediana.Controllers
             else
                 ViewBag.ViewType = type;
 
-            ViewBag.NameMenu = "Характеристика суток " + ViewBag.ViewType;
+            ViewBag.NameMenu = "Суточные отклонения " + ViewBag.ViewType;
 
             if(year == -1)
             {
@@ -37,8 +38,10 @@ namespace GeospaceMediana.Controllers
                     }
                 }
 
-                year = DateTime.Now.Year;
-                month = DateTime.Now.Month;
+                DateTime nowDateTime = DateTimeKhabarovsk.Now;
+
+                year = nowDateTime.Year;
+                month = nowDateTime.Month;
             }
 
             Station station = Station.GetByCode(stationCode);

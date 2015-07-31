@@ -148,6 +148,7 @@
     <Content Include="Content\bootstrapmap.css" />
     <Content Include="Content\ionka.css" />
     <Content Include="Content\css-loadtriangles.css" />
+    <Compile Include="Common\DateTimeKhabarovsk.cs" />
     <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="Controllers\CharacterizationDayController.cs" />
     <Compile Include="Controllers\ChartMedianaController.cs" />
@@ -344,8 +345,6 @@
           <DevelopmentServerPort>1858</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:8778/</IISUrl>
-          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
-          <IISAppRootUrl>http://localhost:2000/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

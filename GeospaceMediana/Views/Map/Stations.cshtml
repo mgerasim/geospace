@@ -87,7 +87,9 @@
                 "outline": { "color": [0, 100, 255, 255], "width": 1, "type": "esriSLS", "style": "esriSLSSolid" }
             });
             //add points of interest (water, restroom etc) - add info template describing facilities.
-            //var infoTemplate = new esri.InfoTemplate("${w}", "x: ${a}<br />y: ${b}<br />z: ${c}");
+            //var infoTemplate = new ersi.InfoTemplate();
+            //infoTemplate.setTitle("Population in ${NAME}");
+            //infoTemplate.setContent("!!!");
             var marker1 = new esri.Graphic({
                 "geometry": {
                     "x": stat[0], "y": stat[1],

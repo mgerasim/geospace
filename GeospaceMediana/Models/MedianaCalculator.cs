@@ -1,5 +1,6 @@
 ﻿using GeospaceEntity.Models;
 using GeospaceEntity.Models.Codes;
+using GeospaceMediana.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -113,6 +114,8 @@ namespace GeospaceMediana.Models
             DateTime prevMonth = new DateTime(tmpPrevMonth.Year, tmpPrevMonth.Month, 1);
             DateTime nextMonth = prevMonth.AddMonths(2);
 
+            DateTime nowDateTime = DateTimeKhabarovsk.Now;
+
             var codesIonka = CodeIonka.GetByPeriod(station, prevMonth, curMonth);
 
             int countDays = DateTime.DaysInMonth(year, month);
@@ -122,8 +125,8 @@ namespace GeospaceMediana.Models
                 DateTime calcDate = GetCalcDateBySeq(curMonth, i - 1);
 
                 int[] medians = Enumerable.Repeat(-1, 24).ToArray();
-                
-                if(calcDate <= DateTime.Now)
+
+                if (calcDate <= nowDateTime)
                 {
                     for (int hour = 0; hour < 24; hour++)
                     {

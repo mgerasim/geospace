@@ -1,5 +1,6 @@
 ﻿using GeospaceEntity.Models;
 using GeospaceEntity.Models.Codes;
+using GeospaceMediana.Common;
 using GeospaceMediana.Models;
 using System;
 using System.Collections.Generic;
@@ -14,20 +15,20 @@ namespace GeospaceMediana.Controllers
         //
         // GET: /Mediana/
 
-        public ActionResult Index(int year = -1, int month = -1, int station = 43501, string type = "f0F2")
+        public ActionResult Index(int year = -1, int month = -1, int stationCode = 43501, string type = "f0F2")
         {
-            @ViewBag.Title = "Медиана";
+            @ViewBag.Title = "Прогноз медианы";
 
             if (type == "M3000F2")
                 ViewBag.ViewType = "M3000";
             else
                 ViewBag.ViewType = type;
 
-            ViewBag.NameMenu = "Медиана " + ViewBag.ViewType;
+            ViewBag.NameMenu = "Прогноз медианы " + ViewBag.ViewType;
 
 
 
-            DateTime nowDateTime = DateTime.Now;
+            DateTime nowDateTime = DateTimeKhabarovsk.Now;
 
             if(month == -1)
             {
@@ -44,9 +45,9 @@ namespace GeospaceMediana.Controllers
 
             string start = String.Format("{0:yyyyMMdd}", startMonth);
             int countDays = DateTime.DaysInMonth(startMonth.Year, startMonth.Month);
-            ViewIonka Model = new ViewIonka(station, start, countDays, countDays);
+            ViewIonka Model = new ViewIonka(stationCode, start, countDays, countDays);
 
-            var objStation = Station.GetByCode(station);
+            var objStation = Station.GetByCode(stationCode);
 
             ViewBag.Date = startMonth.ToString("MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture);
             ViewBag.CountDaysInMonth = countDays;
