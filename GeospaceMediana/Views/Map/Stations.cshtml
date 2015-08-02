@@ -9,22 +9,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <!-- Bootstrap -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet" media="screen">
-
-    <!-- Step 1. Add CSS for the mapping components -->
     <link rel="stylesheet" type="text/css" href="//js.arcgis.com/3.13/esri/css/esri.css">
     <link rel="stylesheet" type="text/css" href="http://esri.github.io/bootstrap-map-js/src/css/bootstrapmap.css">
+    <!-- Step 1. Add CSS for the mapping components -->
+
     <style type="text/css">
         #map {
-            min-height:800px;
-
-            margin: 0px 0px;
+            display: inline-block;
+            height: auto;
+            min-height: 800px;
+            max-height: 1000px;
         }
     </style>
-
-
-
-
-
 </head>
 
 <script type="text/javascript">
@@ -38,13 +34,8 @@
 </script>
 <script src="//js.arcgis.com/3.13compact"></script>
 
-<body>      
-
-    <div>
-        <div id="map"></div>
-    </div>
-
-   
+<body>
+    <div id="map"></div>
     <script>var dojoConfig = { parseOnLoad: true };</script>
     <script src="http://js.arcgis.com/3.7/"></script>
     <script>
@@ -67,7 +58,7 @@
                 markers([@item.Longitude.ToString().Replace(',', '.'),
                     @item.Latitude.ToString().Replace(',', '.'),
                     @item.Code.ToString()]);
-                      </text>
+                </text>
                 }
 
             });
@@ -87,9 +78,7 @@
                 "outline": { "color": [0, 100, 255, 255], "width": 1, "type": "esriSLS", "style": "esriSLSSolid" }
             });
             //add points of interest (water, restroom etc) - add info template describing facilities.
-            //var infoTemplate = new ersi.InfoTemplate();
-            //infoTemplate.setTitle("Population in ${NAME}");
-            //infoTemplate.setContent("!!!");
+            //var infoTemplate = new esri.InfoTemplate("${w}", "x: ${a}<br />y: ${b}<br />z: ${c}");
             var marker1 = new esri.Graphic({
                 "geometry": {
                     "x": stat[0], "y": stat[1],
@@ -116,9 +105,9 @@
 
         dojo.ready(init);
     </script>
-    <!-- jQuery (for Bootstrap's JavaScript plugins) -->
-    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <!-- Include all  plugins or individual files as needed -->
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    @*<!-- jQuery (for Bootstrap's JavaScript plugins) -->
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <!-- Include all  plugins or individual files as needed -->
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>*@
 </body>
 </html>

@@ -78,20 +78,31 @@
         <table style="table-layout: fixed" class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <th class="thick-line" style="width: 60px">Медиана</th>
-                    <th class="thick-line" style="width: 40px">Часы</th>
+                    <th class="thick-line" colspan="2">День</th>
                     @for (int day = ViewBag.DayStart; day <= ViewBag.DayEnd; day++)
                     {
                         <th class="thick-line" colspan="3">@day</th>
                     }
 
                 </tr>
+
+                <tr>
+                    <th class="thick-line" style="width: 60px">Медиана</th>
+                    <th class="thick-line" style="width: 40px">Часы</th>
+                    @for (int day = ViewBag.DayStart; day <= ViewBag.DayEnd; day++)
+                    {
+
+                        <th class="thick-line">Значения</th>
+                        <th class="thick-line">Δf0F2</th>
+                        <th class="thick-line">Баллы</th>
+                    }
+                </tr>
+
             </thead>
 
             @{
                 CharacterizationDay charDay = ViewBag.CharacterizationDay;
             }
-
             <tbody>
                 @for(int hour = 0; hour < 24; hour++)
                 {
@@ -124,7 +135,7 @@
                 }
 
                 <tr>
-                    <td class="top-thick-line left-thick-line right-thick-line" style="height: 29px;" colspan="20">
+                    <td class="top-thick-line left-thick-line right-thick-line" style="height: 29px;" colspan="17">
                         <h4>Характеристика возмущений по дельта</h4>
                     </td>
 
