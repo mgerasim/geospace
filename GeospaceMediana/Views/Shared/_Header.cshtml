@@ -1,141 +1,115 @@
-﻿<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="@Url.Content("~/")">
-        <img style="max-width:100px; margin-top: -15px;" src="@Url.Content("~/Content/roshydromet.png")">        
-      </a>
-      <a class="navbar-brand" href="@Url.Content("~/")">
-        Геофизика
-      </a>
-      
-    </div>
-      
-          <!-- Collect the nav links, forms, and other content for toggling -->
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul class="nav navbar-nav">
+﻿<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="@Url.Content("~/")">
+                <img style="max-width:100px; margin-top: -15px;" src="@Url.Content("~/Content/roshydromet.png")">
+            </a>
+            <a class="navbar-brand" href="@Url.Content("~/")">
+                Геофизика
+            </a>
 
-                  @{
-                      bool isActiveMenu = ViewBag.NameMenu != null;
-                      string activeMenuName = isActiveMenu ? "active" : "";
-                      string nameMenu = isActiveMenu ? ViewBag.NameMenu : "Меню";
-                  }
+        </div>
 
-                  <li class="dropdown @activeMenuName">
-                      <a id="login_head" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">@nameMenu<span class="caret"></span></a>
-                      <ul class="dropdown-menu" role="menu">
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+
+                @{
+                    bool isActiveMenu = ViewBag.NameMenu != null;
+                    string activeMenuName = isActiveMenu ? "active" : "";
+                    string nameMenu = isActiveMenu ? ViewBag.NameMenu : "Меню";
+                }
+
+                <li class="dropdown @activeMenuName">
+                    <a id="login_head" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">@nameMenu<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
 
                         @helper ShowMenuLink(string linkText, string action, string controller, object routValues, string viewBagNameMenu, bool beforeDivider = false, bool afterDivider = false)
-                        {
-                            if (ViewBag.NameMenu != viewBagNameMenu)
-                            {
-                                if(beforeDivider)
-                                {
-                                    <li class="divider"></li>
-                                }
+{
+    if (ViewBag.NameMenu != viewBagNameMenu)
+    {
+        if (beforeDivider)
+        {
+            <li class="divider"></li>
+        }
 
-                                string urlAction = Url.Action(action, controller, routValues);
-                                
-                                if(ViewBag.Station != null)
-                                {
-                                    if(routValues == null)
-                                    {
-                                        urlAction += "?";
-                                    }
-                                    else
-                                    {
-                                        urlAction += "&";
-                                    }
+        string urlAction = Url.Action(action, controller, routValues);
 
-                                    urlAction += "stationCode=" + ViewBag.Station.Code.ToString("G");
-                                }
-                                
-                                <li><a href="@urlAction">@Html.Raw(linkText)</a></li>
-                            
-                                if(afterDivider)
-                                {
-                                    <li class="divider"></li>
-                                }
-                            }
-                        }
+        if (ViewBag.Station != null)
+        {
+            if (routValues == null)
+            {
+                urlAction += "?";
+            }
+            else
+            {
+                urlAction += "&";
+            }
 
-                          @ShowMenuLink("Данные ионосферы", "Index", "Ionka", null, "Состояние ионосферы", false, true)
+            urlAction += "stationCode=" + ViewBag.Station.Code.ToString("G");
+        }
 
-                          @ShowMenuLink("Прогноз медианы <b>f0F2</b>", "Index", "Mediana", new { type = "f0F2" }, "Прогноз медианы f0F2")
-                          @ShowMenuLink("Прогноз медианы <b>M3000</b>", "Index", "Mediana", new { type = "M3000F2" }, "Прогноз медианы M3000")
-                          <li class="divider"></li>
-                          @ShowMenuLink("Суточные отклонения <b>f0F2</b>", "Index", "CharacterizationDay", new { type = "f0F2" }, "Суточные отклонения f0F2")
-                          @ShowMenuLink("Суточные отклонения <b>M3000</b>", "Index", "CharacterizationDay", new { type = "M3000F2" }, "Суточные отклонения M3000")
+        <li><a href="@urlAction">@Html.Raw(linkText)</a></li>
 
-                          @ShowMenuLink("Диаграмма медианы", "Index", "ChartMediana", null, "Диаграмма медианы", true, false)
+        if (afterDivider)
+        {
+            <li class="divider"></li>
+        }
+    }
+}
 
-                      </ul>
-                  </li>
+                        @ShowMenuLink("Данные ионосферы", "Index", "Ionka", null, "Состояние ионосферы", false, true)
 
-                  
+                        @ShowMenuLink("Прогноз медианы <b>f0F2</b>", "Index", "Mediana", new { type = "f0F2" }, "Прогноз медианы f0F2")
+                        @ShowMenuLink("Прогноз медианы <b>M3000</b>", "Index", "Mediana", new { type = "M3000F2" }, "Прогноз медианы M3000")
+                        <li class="divider"></li>
+                        @ShowMenuLink("Суточные отклонения <b>f0F2</b>", "Index", "CharacterizationDay", new { type = "f0F2" }, "Суточные отклонения f0F2")
+                        @ShowMenuLink("Суточные отклонения <b>M3000</b>", "Index", "CharacterizationDay", new { type = "M3000F2" }, "Суточные отклонения M3000")
 
-                  @try
-                  {
-                     @Html.Partial("_Menu")
-                  }
-                  catch (InvalidOperationException) { }
-                  </ul>
+                        @ShowMenuLink("Диаграмма медианы", "Index", "ChartMediana", null, "Диаграмма медианы", true, false)
 
-                  <ul class="nav navbar-nav navbar-right">
+                    </ul>
+                </li>
 
-                      <li class="dropdown">
-                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Продукция<span class="caret"></span></a>
-                          <ul class="dropdown-menu" role="menu">
-                              <li>@Html.ActionLink("Редактировать продукцию", "Index", "Products")</li>
+
+
+                @try
+                {
+                    @Html.Partial("_Menu")
+                }
+                catch (InvalidOperationException) { }
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Продукция<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>@Html.ActionLink("Редактировать подукцию", "Index", "Products")</li>
+
+                             
+
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink("География станций", "Stations", "Map")</li>
                               
-                              <li class="divider"></li>
-                              <li>@Html.ActionLink("География станций", "Stations", "Map")</li>
-                              <!--
-                              <li>@Html.ActionLink("Месячный прогноз ионосферной магнитной возмущенности", "EditForecastMonthIonosphera", "Products")</li>
-                              <li>@Html.ActionLink("Пятидневный прогноз медианы", "EditForecastDaysFives", "Products")</li>
-                              <li>@Html.ActionLink("Месячный обзор гелеогеофизической обстановки", "EditReviewGeoEnvMonth", "Products")</li>
-                              <li class="divider"></li>
-                              <li>@Html.ActionLink("Сводная таблица по разделам: солнце, магнитное поле Земли, ионосфера", "DownloadTableSun", "Products")</li>
-                              <li>@Html.ActionLink("Таблица нарушения радиосвязи", "DownloadDisturbanceRadio", "Products")</li>
-                              -->
-                          </ul>
-                      </li>
 
-                      <li class="dropdown">
-                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Справочники<span class="caret"></span></a>
-                          <ul class="dropdown-menu" role="menu">
-                              <li>@Html.ActionLink("Станции", "Index", "Stations")</li>
-                              <li>@Html.ActionLink("Список Ошибок", "ErrorList", "Dropout")</li>
-                              <!--                          <li>@Html.ActionLink("Группы абонентов", "Index", "Group")</li>
-                    <li class="divider"></li>
-                    <li>@Html.ActionLink("Территория", "Index", "Territory")</li>
-                    <li>@Html.ActionLink("Административные районы и населённые пункты", "Index", "Region")</li>
-                    <li class="divider"></li>
-                    <li>@Html.ActionLink("Облачность", "Index", "CloudinessTemplate")</li>
-                    <li>@Html.ActionLink("Осадки", "Index", "PrecipitationTemplate")</li>
-                    <li>@Html.ActionLink("Ветер", "Index", "WindTemplate")</li>
-                    <li>@Html.ActionLink("Явления", "Index", "ConditionTemplate")</li>
-                    <li class="divider"></li>
-                    <li>@Html.ActionLink("Уточнения", "Index", "ClarificationTemplate")</li>
-                        -->
-                          </ul>
-                      </li>
-                      <!--
-            <li>@Html.ActionLink("Настройки", "Index", "Settings")</li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Администрирование<span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                    <li>@Html.ActionLink("Обновить схему", "Update", "Schema")</li>
-                </ul>
-            </li>
-                -->
-                  </ul>
-</div><!-- /.navbar-collapse -->
-</div><!-- /.container-fluid -->
-</nav>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Справочники<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>@Html.ActionLink("Станции", "Index", "Stations")</li>
+                                <li>@Html.ActionLink("Список Ошибок", "ErrorList", "Dropout")/li>
+                              
+                                </ul>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
