@@ -19,7 +19,7 @@
             "Ionka",
             new
             {                                                     // routeValues
-                station = Model.StationCode,
+                stationCode = Model.StationCode,
                 start = Model.Start.AddDays(-Model.Limit).ToString("yyyyMMdd"),
                 limit = Model.Limit,
                 step = Model.Step
@@ -36,7 +36,7 @@
             "Ionka",
             new
             {                                                     // routeValues
-                station = Model.StationCode,
+                stationCode = Model.StationCode,
                 start = Model.End.ToString("yyyyMMdd"),
                 limit = Model.Limit,
                 step = Model.Step
