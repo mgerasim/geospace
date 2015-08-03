@@ -153,6 +153,7 @@
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\StationsController.cs" />
     <Compile Include="Controllers\DropoutController.cs" />
+    <Compile Include="Controllers\TelegramController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -307,6 +308,9 @@
     <Content Include="Views\Products\EditDescription.cshtml" />
     <Content Include="Views\Map\Stations.cshtml" />
     <Content Include="Views\Dropout\ErrorList.cshtml" />
+    <Content Include="Views\Telegram\FiveDay.cshtml" />
+    <Content Include="Views\Telegram\Index.cshtml" />
+    <Content Include="Views\Telegram\_Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -343,8 +347,6 @@
           <DevelopmentServerPort>1858</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:8778/</IISUrl>
-          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
-          <IISAppRootUrl>http://localhost:2000/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

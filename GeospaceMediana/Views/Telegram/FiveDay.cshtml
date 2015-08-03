@@ -1,0 +1,124 @@
+﻿@using GeospaceEntity.Models;
+@using GeospaceMediana.Models;
+@{
+   
+    ViewBag.Title = "Пятидневный прогноз";
+}
+
+<h2>Пятидневный прогноз на @Html.Raw(ViewBag.Date.ToString("MMMM yyyy") + " " + ViewBag.range.Header)</h2>
+<style type="text/css">
+ p{
+     align-content: center;
+     font-family:'Times New Roman';
+     font-size: 18px;
+ }
+    .page{
+        float:left;
+        width:100%;
+    }
+    .print {
+        min-width:600px;
+        height:700px;
+        background-color: rgb(238, 238, 238);
+        float:left;
+    }
+    .forma-station {
+        min-width: 500px;
+        border-color: red;
+        border-radius: 3px;
+        background-color: rgb(226, 247, 244);
+        float: left;
+        height: 700px;
+    }
+
+    .station { font-family: 'Times New Roman'; font-size: 18px; height: 100px;  }
+    
+    .form-control{
+        float:left;
+        margin-right:0px;
+        width:80px;
+    }
+    .prognoz {
+        float:left;
+    }
+    .prognoz-div {
+        margin-top: 4px;
+        margin-bottom: 6px;
+    }
+    .String{
+        font-family: 'Times New Roman';
+        font-size:17px;
+        text-align:left;
+    }
+</style>
+<body>
+    <div class="pager">
+        <div id="edit-1" class="print">
+            <p>
+                МОСКВА ИПГ ДИНИСОВОЙ<br />
+                НОВОСИБИРСК ГИМЕТ ШУСТЕР<br />
+                ПЯТИДНЕВНЫЙ ПРОГНОЗ<br />
+
+            </p>
+            <div>
+
+@foreach (var numStation in ViewBag.NumStation)
+{
+    string pushStr = ("FFF");
+    IList<Mediana> vMedian = Mediana.GetByRangeNumber(Station.GetByCode(numStation), ViewBag.Date.Year, ViewBag.Date.Month, ViewBag.number);
+    <div class="String">
+        MEDIAN  @numStation  @Html.Raw(ViewBag.range.Min.ToString("D2") + "" + ViewBag.range.Max.ToString("D2") + "" + ViewBag.Date.Month%10)
+    </div>
+    <div class="String 2">
+        @foreach (var item in vMedian)//формирование строки для разбиения
+        {
+            pushStr += item.f0F2.ToString("D3");
+        }
+        @foreach( string str5 in new List<string> (System.Text.RegularExpressions.Regex.Split(pushStr, @"(?<=\G.{5})", System.Text.RegularExpressions.RegexOptions.Singleline)))
+        {
+                @Html.Raw(str5 + "  ");
+        }
+</div>
+    <div class="String">
+        
+    </div>
+    <div class="String">
+        MM  @numStation  @Html.Raw(ViewBag.range.Min.ToString("D2") + "" + ViewBag.range.Max.ToString("D2") + "" + ViewBag.Date.Month%10)
+    </div>
+    <div class="String">
+        FORECAST  @numStation  @Html.Raw(ViewBag.range.Min.ToString("D2") + "" + ViewBag.range.Max.ToString("D2") + "" + ViewBag.Date.Month%10)
+    </div>
+    <div class="String">
+        IONFO  @numStation  @Html.Raw(ViewBag.range.Min.ToString("D2") + "" + ViewBag.range.Max.ToString("D2") + "" + ViewBag.Date.Month%10)
+    </div>
+    
+    
+}
+            </div>
+        </div>
+
+        <div class="forma-station">
+            @foreach (var item in ViewBag.NumStation)
+{
+    Station st = Station.GetByCode(item);
+    string[] namePrognoz = { "IONFO", "IONES", "MAGPO" };
+    <div class="station " id="@st.Code">
+        <div style="float:left; padding:10px 10px;">@st.Name - @st.Code</div>
+        <div style="clear: both;margin-left:10px;">
+            @foreach (var name in namePrognoz)
+            {
+                <div class="prognoz form-group">
+                    <div style="float:left; padding:5px 4px">@name:</div><input type="number" class="form-control @name" placeholder="XXXXX">
+                </div>
+            }
+        </div>
+    </div>
+
+
+}
+            <a href="#" class="btn btn-default btn-lg" >Печать</a>  
+            <a href="#" class="btn btn-default btn-lg" >Сохранить</a>        
+        </div>
+    </div>
+
+</body>
