@@ -837,7 +837,8 @@ namespace GeospaceMediana.Controllers
 
             return View(theProduct);
         }
-        [HttpPost]
+        [AcceptVerbs(HttpVerbs.Post)]
+        [ValidateInput(false)]  
         public ActionResult EditDescription(FormCollection collection)
         {
             GeospaceEntity.Models.Product theProduct = null;
