@@ -13,6 +13,8 @@
      font-size: 18px;
  }
     .page{
+        padding-top:10px;
+        margin-bottom:20px;
         float:left;
         width:100%;
     }
@@ -45,17 +47,87 @@
         margin-top: 4px;
         margin-bottom: 6px;
     }
-    .String{
+    .String {
+        width:600px;
+        align-content: center;
+        margin-left: 25px;
         font-family: 'Times New Roman';
-        font-size:17px;
-        text-align:left;
+        font-size: 17px;
+        text-align: left;
+    }
+    .numberHab {
+        text-align: center;
+        font-family: 'Times New Roman';
+        font-size: 17px;
     }
 </style>
+<style type="text/css" media="print">
+
+    .forma-station, h2 {
+        visibility: hidden;
+        display:none;
+    }
+    .print{
+        align-content:center;
+        padding-left:50px;
+    }
+    body {
+        padding-top:20px;
+        padding-left:20px;
+    }
+</style>
+<script type="text/javascript">
+    function addEmpty(number)
+    {
+        var str = "";
+        for(var i = 0; i < number; i++)
+        {
+            str += "/";
+        }
+        return str;
+    }
+    function divisionString(item)
+    {
+        if(item.length > 5 )
+            {
+                return item.substr(0,5) + "  " + item.slice(5, item.length) + addEmpty(10 - item.length);
+            }
+            if (item.length < 5) {
+                console.log(item.length);
+                return item.slice(0, item.length) + addEmpty(5 - item.length);
+            }
+            return item;
+    }
+    function saveForecast() {
+        var arrFor = [
+        @foreach (var item in ViewBag.NameForecast)
+        {
+            @Html.Raw('"' + item+'"'+",");
+        }
+        ];
+        var arrNum = [@foreach (var item in ViewBag.NumStation)
+        {
+            @Html.Raw(item+",");
+        }]
+        $.each(arrNum,function( i,item)
+        {
+            $.each(arrFor, function (index, element) {
+                var forecast_F = $("#F_" + item + element).val();//значение забитые в input
+                console.log(forecast_F);
+                if (forecast_F)
+                    document.getElementById(item + element).innerHTML = element + "   " + divisionString(forecast_F);
+                else
+                    document.getElementById(item + element).innerHTML = "";
+
+            });
+        });
+    }
+</script>
 <body>
     <div class="pager">
-        <div id="edit-1" class="print">
+        <div class="print">
             <p>
-                МОСКВА ИПГ ДИНИСОВОЙ<br />
+                МОСКВА ИПГ ДЕНИСОВОЙ<br />
                 НОВОСИБИРСК ГИМЕТ ШУСТЕР<br />
                 ПЯТИДНЕВНЫЙ ПРОГНОЗ<br />
 
@@ -64,51 +136,58 @@
 
 @foreach (var numStation in ViewBag.NumStation)
 {
-    string pushStr = ("FFF");
+    string strFFF = ("FFF");
+    string strMM = ("MM");
     IList<Mediana> vMedian = Mediana.GetByRangeNumber(Station.GetByCode(numStation), ViewBag.Date.Year, ViewBag.Date.Month, ViewBag.number);
-    <div class="String">
-        MEDIAN  @numStation  @Html.Raw(ViewBag.range.Min.ToString("D2") + "" + ViewBag.range.Max.ToString("D2") + "" + ViewBag.Date.Month%10)
+    foreach (var item in vMedian)//формирование строки для разбиения по 5 символов
+    {
+        strFFF += item.f0F2.ToString("D3");
+        strMM += item.M3000F2.ToString("D2");
+    }
+    <div style="margin-bottom:20px">
+        <div class="String">
+            MEDIAN  @numStation  @Html.Raw(ViewBag.range.Min.ToString("D2") + "" + ViewBag.range.Max.ToString("D2") + "" + ViewBag.Date.Month % 10)
+        </div>
+        <div class="String FFF">
+            @foreach (string str5 in new List<string>(System.Text.RegularExpressions.Regex.Split(strFFF, @"(?<=\G.{5})", System.Text.RegularExpressions.RegexOptions.Singleline)))
+            {
+               <span style="margin-right:10px;">@str5</span>
+            }
+        </div>
+        <div class="String MM">
+            @foreach (string str5 in new List<string>(System.Text.RegularExpressions.Regex.Split(strMM, @"(?<=\G.{5})", System.Text.RegularExpressions.RegexOptions.Singleline)))
+            {
+                <span style="margin-right:10px;">@str5</span>
+            }
+        </div>
+        <div class="String">
+            FORECAST  @numStation  @Html.Raw(ViewBag.range.Min.ToString("D2") + "" + ViewBag.range.Max.ToString("D2") + "" + ViewBag.Date.Month % 10)
+        </div>
+        <div class="String">
+           @foreach(var forecast in ViewBag.NameForecast)
+           {
+               <span id="@numStation@forecast"></span>
+           }
+        </div>
+       
     </div>
-    <div class="String 2">
-        @foreach (var item in vMedian)//формирование строки для разбиения
-        {
-            pushStr += item.f0F2.ToString("D3");
-        }
-        @foreach( string str5 in new List<string> (System.Text.RegularExpressions.Regex.Split(pushStr, @"(?<=\G.{5})", System.Text.RegularExpressions.RegexOptions.Singleline)))
-        {
-                @Html.Raw(str5 + "  ");
-        }
-</div>
-    <div class="String">
-        
-    </div>
-    <div class="String">
-        MM  @numStation  @Html.Raw(ViewBag.range.Min.ToString("D2") + "" + ViewBag.range.Max.ToString("D2") + "" + ViewBag.Date.Month%10)
-    </div>
-    <div class="String">
-        FORECAST  @numStation  @Html.Raw(ViewBag.range.Min.ToString("D2") + "" + ViewBag.range.Max.ToString("D2") + "" + ViewBag.Date.Month%10)
-    </div>
-    <div class="String">
-        IONFO  @numStation  @Html.Raw(ViewBag.range.Min.ToString("D2") + "" + ViewBag.range.Max.ToString("D2") + "" + ViewBag.Date.Month%10)
-    </div>
-    
-    
 }
             </div>
+            <div class="numberHab">27122</div>
         </div>
 
         <div class="forma-station">
             @foreach (var item in ViewBag.NumStation)
 {
     Station st = Station.GetByCode(item);
-    string[] namePrognoz = { "IONFO", "IONES", "MAGPO" };
+   
     <div class="station " id="@st.Code">
         <div style="float:left; padding:10px 10px;">@st.Name - @st.Code</div>
         <div style="clear: both;margin-left:10px;">
-            @foreach (var name in namePrognoz)
+            @foreach (var name in @ViewBag.NameForecast)
             {
                 <div class="prognoz form-group">
-                    <div style="float:left; padding:5px 4px">@name:</div><input type="number" class="form-control @name" placeholder="XXXXX">
+                    <div style="float:left; padding:5px 4px">@name:</div><input type="number" class="form-control" id="F_@item@name" placeholder="XXXXX" value="1234567">
                 </div>
             }
         </div>
@@ -116,9 +195,10 @@
 
 
 }
-            <a href="#" class="btn btn-default btn-lg" >Печать</a>  
-            <a href="#" class="btn btn-default btn-lg" >Сохранить</a>        
+            <input type="button" value="Сохранить" onclick="saveForecast();" class="btn btn-default btn-lg" > 
+            <input type="button" value="Печать" onclick="window.print();" class="btn btn-default btn-lg"> 
         </div>
     </div>
 
 </body>
+

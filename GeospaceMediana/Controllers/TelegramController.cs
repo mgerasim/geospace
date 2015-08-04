@@ -54,7 +54,9 @@ namespace GeospaceMediana.Controllers
                 nowDateTime = nowDateTime.AddMonths(1);
             ViewBag.Date = nowDateTime;
             //получен информации Медианнапо заданным станциям
-           int[] station = new int[]{45601,43501,46501};
+           int[] station = new int[]{45601,43501,46501};//страница не тяница если добавить больше станцый нужно переделать верстку!!!!
+           string[] namePrognoz = { "IONFO", "IONES", "MAGPO" };
+           ViewBag.NameForecast = namePrognoz;
            ViewBag.NumStation = station;
            return View();
         }
