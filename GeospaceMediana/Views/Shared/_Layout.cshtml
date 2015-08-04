@@ -10,11 +10,13 @@
 </head>
 <body>
     @Html.Partial("_Header")
-    @Html.Partial("_Footer")
+    
 
     <div class="container-fluid">
         @RenderBody()
     </div>
+
+    @Html.Partial("_Footer")
 
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
