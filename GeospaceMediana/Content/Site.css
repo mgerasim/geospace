@@ -91,7 +91,7 @@ textarea {
     vertical-align: middle !important;
 }
 
-br {
-   display: block;
-   margin: -10px 0;
+/*nav bar fixed top*/
+body {
+    padding-top:70px;
 }
