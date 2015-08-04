@@ -55,10 +55,15 @@
         font-size: 17px;
         text-align: left;
     }
-    .numberHab {
+    #SNumber
+    {
+       margin-top:8px;
+    } 
+    #numberHab {
         text-align: center;
         font-family: 'Times New Roman';
         font-size: 17px;
+        margin-left: 30px;
     }
 </style>
 <style type="text/css" media="print">
@@ -121,6 +126,8 @@
 
             });
         });
+        var snum = $("#SNumber").val();
+        document.getElementById("numberHab").innerHTML =snum;
     }
 </script>
 <body>
@@ -173,7 +180,7 @@
     </div>
 }
             </div>
-            <div class="numberHab">27122</div>
+            <div id="numberHab"></div>
         </div>
 
         <div class="forma-station">
@@ -187,7 +194,7 @@
             @foreach (var name in @ViewBag.NameForecast)
             {
                 <div class="prognoz form-group">
-                    <div style="float:left; padding:5px 4px">@name:</div><input type="number" class="form-control" id="F_@item@name" placeholder="XXXXX" value="1234567">
+                    <div style="float:left; padding:5px 4px">@name:</div><input type="number" class="form-control" id="F_@item@name" placeholder="XXXXX" value="">
                 </div>
             }
         </div>
@@ -195,6 +202,9 @@
 
 
 }
+
+            <div style="float: left; font-family: 'Times New Roman'; font-size: 18px; margin:9px 1px"> Номер телеграммы</div>
+            <input type="number" class="form-control" id="SNumber" placeholder="XXXXX" value="27">
             <input type="button" value="Сохранить" onclick="saveForecast();" class="btn btn-default btn-lg" > 
             <input type="button" value="Печать" onclick="window.print();" class="btn btn-default btn-lg"> 
         </div>
