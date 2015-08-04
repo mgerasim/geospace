@@ -5,6 +5,7 @@ using System.Text;
 using GeospaceEntity.Common;
 using NHibernate;
 using NHibernate.Criterion;
+using GeospaceEntity.Models;
 
 namespace GeospaceEntity.Repositories
 {
@@ -63,6 +64,35 @@ namespace GeospaceEntity.Repositories
                 criteria.AddOrder(Order.Asc("ID"));
                 return criteria.List<GeospaceEntity.Models.Average>();
             }
+        }
+
+        public IList<GeospaceEntity.Models.Average> GetByDate(Station station, int YYYY, int MM, int DD)
+        {
+            using (ISession session = NHibernateHelper.OpenSession())
+            {
+                var list = session.CreateCriteria<GeospaceEntity.Models.Average>()
+                    .Add(Restrictions.Eq("Station", station))
+                    .Add(Restrictions.Eq("YYYY", YYYY))
+                    .Add(Restrictions.Eq("MM", MM))
+                    .Add(Restrictions.Eq("DD", DD))
+                    .AddOrder(Order.Asc("HH"))
+                    .List<GeospaceEntity.Models.Average>();
+
+                return list;
+            }
+        }
+
+        public GeospaceEntity.Models.Average GetByDateUTC(Station station, int YYYY, int MM, int DD, int HH)
+        {
+            using (ISession session = NHibernateHelper.OpenSession())
+
+                return session.CreateCriteria<GeospaceEntity.Models.Average>()
+                    .Add(Restrictions.Eq("Station", station))
+                    .Add(Restrictions.Eq("YYYY", YYYY))
+                    .Add(Restrictions.Eq("MM", MM))
+                    .Add(Restrictions.Eq("DD", DD))
+                    .Add(Restrictions.Eq("HH", HH))
+                    .UniqueResult<GeospaceEntity.Models.Average>();
         }
 
         #endregion
