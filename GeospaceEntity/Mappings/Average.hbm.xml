@@ -20,13 +20,7 @@
       <column name="DD" check="(DD &gt;= 1 AND DD &lt;= 31)" unique-key="date" not-null="true"  />
     </property>
 
-    <property name="YYYY">
-      <column name="YYYY" check="(YYYY &gt;= 1899 AND YYYY &lt;= 2999)" unique-key="date" not-null="true"  />
-    </property>
-
-    <property name="MI">    
-      <column name="MI" check="(MI &gt;= 0 AND MI &lt;= 59)" unique-key="date" not-null="true"  />
-    </property>
+    <property name="YYYY" not-null="true" unique-key="date" />
 
     <many-to-one name="Station" not-null="true" column="Station_ID" lazy="false" unique-key="date"/>
     <property name="F2_05" />
@@ -36,12 +30,26 @@
     <property name="F2_27" />
     <property name="F2_30" />
 
+    <property name="F2_05_skip" />
+    <property name="F2_07_skip" />
+    <property name="F2_10_skip" />
+    <property name="F2_20_skip" />
+    <property name="F2_27_skip" />
+    <property name="F2_30_skip" />
+
     <property name="M3000_05" />
     <property name="M3000_07" />
     <property name="M3000_10" />
     <property name="M3000_20" />
     <property name="M3000_27" />
     <property name="M3000_30" />
+
+    <property name="M3000_05_skip" />
+    <property name="M3000_07_skip" />
+    <property name="M3000_10_skip" />
+    <property name="M3000_20_skip" />
+    <property name="M3000_27_skip" />
+    <property name="M3000_30_skip" />
     
 
   </class>
