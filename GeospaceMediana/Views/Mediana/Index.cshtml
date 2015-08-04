@@ -38,7 +38,7 @@
                     if (data == "") {
                         window.location.href = "@Html.Raw(Url.Action("Index","Mediana", new
                                                         {
-                                                            station = ViewBag.Station.Code,
+                                                            stationCode = ViewBag.Station.Code,
                                                             year = ViewBag.Year,
                                                             month = ViewBag.Month,
                                                             type = ViewBag.Type
@@ -110,7 +110,7 @@
         .sticky-wrap .sticky-intersect {
             opacity: 0;
             position: absolute;
-            top: 0;
+            top: 0px;
             left: 0;
             transition: all .125s ease-in-out;
             z-index: 50;
@@ -196,7 +196,7 @@
                                     "Mediana",
                                     new
                                     {
-                                        station = Model.StationCode,
+                                        stationCode = Model.StationCode,
                                         year = ViewBag.Year,
                                         month = ViewBag.Month,
                                         type = ViewBag.Type

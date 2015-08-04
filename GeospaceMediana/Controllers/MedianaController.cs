@@ -64,11 +64,11 @@ namespace GeospaceMediana.Controllers
             return View(Model);
         }
 
-        public ActionResult Calc(int year, int month, int station, string type)
+        public ActionResult Calc(int year, int month, int stationCode, string type)
         {
             try
             {
-                var objStation = Station.GetByCode(station);
+                var objStation = Station.GetByCode(stationCode);
 
                 MedianaCalculator.Calc(objStation, year, month, type);
 
