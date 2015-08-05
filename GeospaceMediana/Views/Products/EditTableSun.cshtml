@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "Сводная таблица по Солнцу, Магнитному полю Земли и Ионосфера";
+}
+
+<h2>Сводная таблица по Солнцу, Магнитному полю Земли и Ионосфера</h2>
+
+<script src="~/Scripts/ckeditor.js"></script>
+
+@using (Html.BeginForm("EditTableSun", "Products", null, FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <div class="form-group">
+        <label for="table_sun" class="col-sm-2 control-label">Сводная таблица по Солнцу, Магнитному полю Земли и Ионосфера:</label>
+        <div class="col-sm-10">
+            <textarea class="form-control" name="table_sun" id="table_sun" rows=35 placeholder="">@Model.table_sun</textarea>
+
+            <script>
+                CKEDITOR.replace("table_sun",
+                {
+                    enterMode: CKEDITOR.ENTER_BR
+                });
+            </script>
+
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">Сохранить</button>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <div>
+                @Html.ActionLink("Назад", "Index")
+            </div>
+        </div>
+    </div>
+}

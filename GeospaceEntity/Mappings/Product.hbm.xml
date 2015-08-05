@@ -12,7 +12,7 @@
     <property name="review_geoenv" type="string" length="10000"/>
     <property name="review_geoenv_month" type="string" length="10000"/>
     <property name="disturbance_radio" />
-    <property name="table_sun" />
+    <property name="table_sun"  type="string" length="10000"/>
     <property name="subday_forecast"  type="string" length="10000"/>
     <property name="description"  type="string" length="10000"/>
     

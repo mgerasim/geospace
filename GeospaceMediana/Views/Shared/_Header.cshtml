@@ -98,7 +98,18 @@
                           <ul class="dropdown-menu" role="menu">
                               <li>@Html.ActionLink("Редактировать продукцию", "Index", "Products")</li>
                               <li class="divider"></li>
+                              <li>@Html.ActionLink("Суточный обзор гелио-геофизической обстановки", "EditReviewGeoEnv", "Products")</li>
+                              <li>@Html.ActionLink("Месячный обзор гелио-геофизической обстановки", "EditReviewGeoEnvMonth", "Products")</li>
+                              <li>@Html.ActionLink("Полусуточный прогноз Ионосферы и Магнитного поля Земли", "EditSubdayForecast", "Products")</li>
+                              <li>@Html.ActionLink("Пятидневный прогноз ионосферной и магнитной возмущенности Земли", "EditForecastDaysFives", "Products")</li>
+                              <li>@Html.ActionLink("Месячный прогноз Ионосферы и Магнитного поля Земли", "EditForecastMonthIonosphera", "Products")</li>
+                              <li>@Html.ActionLink("Сводная таблица по Солнцу, Магнитному полю Земли и Ионосферы", "EditTableSun", "Products")</li>
+                              <li>@Html.ActionLink("Примечания к графикам и таблицам", "EditDescription", "Products")</li>
+                              <li class="divider"></li>
                               <li>@Html.ActionLink("Пятидневный прогноз", "FiveDay", "Telegram")</li>
+                              <li class="divider"></li>
+                              <li><a href="http://www.khabmeteo.ru/geo" target="_blank">Геофизика на Хабаровск Погода Центр</a></li>
+
                           </ul>
                       </li>
 
@@ -106,6 +117,7 @@
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Справочники<span class="caret"></span></a>
                           <ul class="dropdown-menu" role="menu">
                               <li>@Html.ActionLink("Станции", "Index", "Stations")</li>
+
                               <li>@Html.ActionLink("География станций", "Stations", "Map")</li>
                               <li class="divider"></li>
                               <li>@Html.ActionLink("Список Ошибок", "ErrorList", "Dropout")</li>

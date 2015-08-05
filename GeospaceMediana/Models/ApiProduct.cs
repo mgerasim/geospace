@@ -19,6 +19,7 @@ namespace GeospaceMediana.Models
             review_geoenv_month = product.review_geoenv_month ;
             subday_forecast = product.subday_forecast;
             description = product.description;
+            table_sun = product.table_sun;
         }
 
        
@@ -37,6 +38,10 @@ namespace GeospaceMediana.Models
 
         [JsonProperty("subday_forecast")]
         public virtual string subday_forecast { get; set; }
+
+
+        [JsonProperty("table_sun")]
+        public virtual string table_sun { get; set; }   
 
         [JsonProperty("description")]
         public virtual string description { get; set; }     

@@ -667,6 +667,7 @@ namespace GeospaceMediana.Controllers
                     theProduct.review_geoenv += ss + "\r\n";
 
                 }
+                theProduct.review_geoenv.Replace("\r\n\r\n\r\n", "");
                 theProduct.Update();
             }
             catch (Exception ex)
@@ -733,6 +734,7 @@ namespace GeospaceMediana.Controllers
                     theProduct.review_geoenv_month += ss + "\r\n";
 
                 }
+                theProduct.review_geoenv_month.Replace("\r\n\r\n\r\n", "");
                 theProduct.Update();
             }
             catch (Exception ex)
@@ -798,6 +800,7 @@ namespace GeospaceMediana.Controllers
                     theProduct.subday_forecast += ss + "\r\n";
 
                 }
+                theProduct.subday_forecast.Replace("\r\n\r\n\r\n", "");
                 theProduct.Update();
             }
             catch (Exception ex)
@@ -859,6 +862,68 @@ namespace GeospaceMediana.Controllers
                 }
                 theProduct.description = collection.Get("description");
                 
+                theProduct.Update();
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        //
+
+        public ActionResult EditTableSun()
+        {
+            GeospaceEntity.Models.Product theProduct = null;
+
+            try
+            {
+
+                List<GeospaceEntity.Models.Product> theList = (new GeospaceEntity.Models.Product()).GetAll();
+
+                if (theList.Count == 0)
+                {
+                    theProduct = new GeospaceEntity.Models.Product();
+                    theProduct.Save();
+                }
+                else
+                {
+                    theProduct = theList[0];
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+            }
+
+
+
+            return View(theProduct);
+        }
+        [AcceptVerbs(HttpVerbs.Post)]
+        [ValidateInput(false)]
+        public ActionResult EditTableSun(FormCollection collection)
+        {
+            GeospaceEntity.Models.Product theProduct = null;
+
+            try
+            {
+
+                List<GeospaceEntity.Models.Product> theList = (new GeospaceEntity.Models.Product()).GetAll();
+
+                if (theList.Count == 0)
+                {
+                    theProduct = new GeospaceEntity.Models.Product();
+                    theProduct.Save();
+                }
+                else
+                {
+                    theProduct = theList[0];
+                }
+                theProduct.table_sun = collection.Get("table_sun");
+
                 theProduct.Update();
             }
             catch (Exception ex)

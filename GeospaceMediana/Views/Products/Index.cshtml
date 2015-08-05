@@ -76,6 +76,18 @@
 
 
 
+<h2>Сводная таблица по Солнцу, Магнитному полю Земли и Ионосферы</h2>
+<p>
+    <a class="btn btn-default" href="~/Products/EditTableSun" role="button">Изменить</a>
+<p>
+    <div id="div-tablesun" class="forecast">
+
+<p>
+    @Html.Raw("<pre class=\"description_product\">" + Model.table_sun + "</pre>")
+</p>
+</div>
+
+
 <h2>Примечание к таблицам и графикам</h2>
 <p>
     <a class="btn btn-default" href="~/Products/EditDescription" role="button">Изменить</a>
