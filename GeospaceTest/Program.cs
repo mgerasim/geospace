@@ -53,9 +53,9 @@ namespace GeospaceTest
         static void Support04()
         {
             List<Station> listStation = Station.GetAll();
-            for (int j = 0; j <= 31; j++)
+            for (int j = 0; j <= 0; j++)
             {
-                DateTime dt = new DateTime(2015, 7, 1);
+                DateTime dt = new DateTime(2015, 8, 4);
                 dt = dt.AddDays(j);
                 foreach (Station item in listStation)
                 {
