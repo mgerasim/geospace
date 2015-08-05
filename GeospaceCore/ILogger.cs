@@ -11,5 +11,6 @@ namespace GeospaceCore
         void LogIonka(string msg);
         void LogUmagf(string msg);
         void LogError(string msg);
+        void LogCalc(string msg);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using GeospaseCore;
 using NLog;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,8 +14,7 @@ namespace GeospaceCalculation
 {
     public partial class GeospaceCalculation : ServiceBase
     {
-        Logger logger;
-        Logger error;
+        ICalculation theCalc;
         public GeospaceCalculation()
         {
             InitializeComponent();

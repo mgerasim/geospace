@@ -21,5 +21,9 @@ namespace GeospaceCore
         {
             Console.WriteLine(msg);
         }
+        void ILogger.LogCalc(string msg)
+        {
+            Console.WriteLine(msg);
+        }
     }
 }

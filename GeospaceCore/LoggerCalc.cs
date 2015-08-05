@@ -7,34 +7,31 @@ using System.Threading.Tasks;
 
 namespace GeospaceCore
 {
-
-    public class LoggerNLog : ILogger
+    public class LoggerCalc:ILogger
     {
-
         Logger logger;
         Logger error;
-        Logger logumagf;
-        public LoggerNLog()
+        public LoggerCalc(string logName, string errorName)
         {
-            logger = LogManager.GetLogger("log");
-            error = LogManager.GetLogger("error");
-            logumagf = LogManager.GetLogger("logumagf");
-        }
-        void ILogger.LogIonka(string msg)
-        {
-            logger.Debug(msg);
+            logger = LogManager.GetLogger(logName);
+            error = LogManager.GetLogger(errorName);
         }
         void ILogger.LogCalc(string msg)
         {
             logger.Debug(msg);
         }
-        void ILogger.LogUmagf(string msg)
+        void ILogger.LogIonka(string msg)
         {
-            logumagf.Debug(msg);
+            error.Debug(msg);
         }
         void ILogger.LogError(string msg)
         {
             error.Debug(msg);
         }
+        void ILogger.LogUmagf(string msg)
+        {
+            logger.Debug(msg);
+        }
     }
 }
+
