@@ -8,8 +8,9 @@
     @Scripts.Render("~/Scripts/jquery.stickyheader.js")
 }
 
+<!--
 <h2 style="float: left">Характеристика возмущений ионосферы в баллах (@ViewBag.Date)</h2><h2 style="float: right">@ViewBag.ViewType</h2>
-
+-->
 <style>
     table td, th {
         text-align: center;
@@ -92,9 +93,9 @@
                     @for (int day = ViewBag.DayStart; day <= ViewBag.DayEnd; day++)
                     {
 
-                        <th class="thick-line">Значения</th>
-                        <th class="thick-line">Δf0F2</th>
-                        <th class="thick-line">Баллы</th>
+                        <th class="thick-line">@ViewBag.Type</th>
+                        <th class="thick-line">Δ</th>
+                        <th class="thick-line">Балл</th>
                     }
                 </tr>
 
@@ -136,7 +137,7 @@
 
                 <tr>
                     <td class="top-thick-line left-thick-line right-thick-line" style="height: 29px;" colspan="17">
-                        <h4>Характеристика возмущений по Δf0F2</h4>
+                        <h4>Характеристика возмущений по Δ@(ViewBag.Type)</h4>
                     </td>
 
                 </tr>
