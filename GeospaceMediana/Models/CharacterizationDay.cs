@@ -219,10 +219,10 @@ namespace GeospaceMediana.Models
 
                     }
 
-                    if (viewF2 == "C" || viewF2 == "G")
+                    if ((viewF2 == "C" || viewF2 == "G") && type == "f0F2")
                     {
-                        characterizationDayValue.f0 = valueF1;
-                        characterizationDayValue.viewf0 = "/" + viewF1;
+                            characterizationDayValue.f0 = valueF1;
+                            characterizationDayValue.viewf0 = "/" + viewF1;                        
                     }
                     else
                     {
