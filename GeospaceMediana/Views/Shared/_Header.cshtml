@@ -75,6 +75,7 @@
 
                         @ShowMenuLink("Диаграмма медианы", "Index", "ChartMediana", null, "Диаграмма медианы", true, false)
 
+                        <li class="divider"></li>
                           @ShowMenuLink("Средние значения <b>f0F2</b>", "Index", "Average", new { type = "f0F2" }, "Средние значения f0F2")
                           @ShowMenuLink("Средние значения <b>M3000</b>", "Index", "Average", new { type = "M3000F2" }, "Средние значения M3000")
 
@@ -98,7 +99,6 @@
                               <li>@Html.ActionLink("Редактировать продукцию", "Index", "Products")</li>
                               <li class="divider"></li>
                               <li>@Html.ActionLink("Пятидневный прогноз", "FiveDay", "Telegram")</li>
-                              <li>@Html.ActionLink("География станций", "Stations", "Map")</li>
                           </ul>
                       </li>
 
@@ -106,6 +106,7 @@
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Справочники<span class="caret"></span></a>
                           <ul class="dropdown-menu" role="menu">
                               <li>@Html.ActionLink("Станции", "Index", "Stations")</li>
+                              <li>@Html.ActionLink("География станций", "Stations", "Map")</li>
                               <li class="divider"></li>
                               <li>@Html.ActionLink("Список Ошибок", "ErrorList", "Dropout")</li>
                               
