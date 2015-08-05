@@ -6,15 +6,17 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/bootstrap")
     @Styles.Render("~/Content/css")
-    @RenderSection("styles", required: false)
+        @RenderSection("styles", required: false)
 </head>
 <body>
     @Html.Partial("_Header")
-   
+    
 
     <div class="container-fluid">
         @RenderBody()
     </div>
+
+    @Html.Partial("_Footer")
 
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")

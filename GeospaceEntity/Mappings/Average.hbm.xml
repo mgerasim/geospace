@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="GeospaceEntity.Models" assembly="GeospaceEntity">
+  <class name="Average" table="Geospace_Average">
+    <id name="ID" unsaved-value="0">
+      <column name="ID" not-null="true" />
+      <generator class="identity"/>
+    </id>
+    <property name="created_at" />
+    <property name="updated_at" />
+
+    <property name="HH" >
+      <column name="HH" check="(HH &gt;= 0 AND HH &lt;= 23)" unique-key="date" not-null="true" />
+    </property>
+
+    <property name="MM">
+      <column name="MM" check="(MM &gt;= 1 AND MM &lt;= 12)" unique-key="date" not-null="true"  />
+    </property>
+
+    <property name="DD">
+      <column name="DD" check="(DD &gt;= 1 AND DD &lt;= 31)" unique-key="date" not-null="true"  />
+    </property>
+
+    <property name="YYYY" not-null="true" unique-key="date" />
+
+    <many-to-one name="Station" not-null="true" column="Station_ID" lazy="false" unique-key="date"/>
+    <property name="F2_05" />
+    <property name="F2_07" />
+    <property name="F2_10" />
+    <property name="F2_20" />
+    <property name="F2_27" />
+    <property name="F2_30" />
+
+    <property name="F2_05_skip" />
+    <property name="F2_07_skip" />
+    <property name="F2_10_skip" />
+    <property name="F2_20_skip" />
+    <property name="F2_27_skip" />
+    <property name="F2_30_skip" />
+
+    <property name="M3000_05" />
+    <property name="M3000_07" />
+    <property name="M3000_10" />
+    <property name="M3000_20" />
+    <property name="M3000_27" />
+    <property name="M3000_30" />
+
+    <property name="M3000_05_skip" />
+    <property name="M3000_07_skip" />
+    <property name="M3000_10_skip" />
+    <property name="M3000_20_skip" />
+    <property name="M3000_27_skip" />
+    <property name="M3000_30_skip" />
+    
+
+  </class>
+</hibernate-mapping>

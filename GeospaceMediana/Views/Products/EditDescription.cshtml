@@ -2,7 +2,9 @@
     ViewBag.Title = "Редактировать примечание к графикам и таблицам";
 }
 
-<h2>Редактировать примечание к графикам и таблицам</h2>
+<h2>Редактировать примечание к графикам и таблицам.</h2>
+
+<script src="~/Scripts/ckeditor.js"></script>
 
 @using (Html.BeginForm("EditDescription", "Products", null, FormMethod.Post, new { @class = "form-horizontal" }))
 {
@@ -10,6 +12,16 @@
         <label for="description" class="col-sm-2 control-label">Введите примечание к графикам и таблицам:</label>
         <div class="col-sm-10">
             <textarea class="form-control" name="description" id="description" rows=35 placeholder="">@Model.description</textarea>
+
+            <script>
+                // Replace the <textarea id="editor1"> with a CKEditor
+                // instance, using default configuration.
+                CKEDITOR.replace("description",
+                {
+	                enterMode: CKEDITOR.ENTER_BR
+                });
+            </script>
+
         </div>
     </div>
 

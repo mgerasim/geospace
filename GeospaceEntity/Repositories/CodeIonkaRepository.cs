@@ -76,7 +76,7 @@ namespace GeospaceEntity.Repositories
                 using (ISession session = NHibernateHelper.OpenSession())
                 {
                     ICriteria criteria = session.CreateCriteria(typeof(GeospaceEntity.Models.Codes.CodeIonka));
-                    criteria.AddOrder(Order.Desc("ID"));
+                    //criteria.AddOrder(Order.Desc("ID"));
                     criteria.Add(Restrictions.Eq("Station", station));
 
                     System.DateTime startDate = new DateTime(startYYYY, startMM, startDD);
@@ -96,7 +96,46 @@ namespace GeospaceEntity.Repositories
 
                     criteria.Add(Restrictions.Between(projDate, startDate, endDate));
 
-                    criteria.AddOrder(Order.Asc("MI"));
+                    //сортировку не менять, она важна для Average
+                    criteria.AddOrder(Order.Asc("YYYY"));
+                    criteria.AddOrder(Order.Asc("MM"));
+                    criteria.AddOrder(Order.Asc("DD"));
+                    criteria.AddOrder(Order.Asc("HH"));
+                    //criteria.AddOrder(Order.Asc("MI"));
+
+                    return criteria.List<GeospaceEntity.Models.Codes.CodeIonka>();
+                }
+            }
+
+            public IList<GeospaceEntity.Models.Codes.CodeIonka> GetByPeriod_StaticHH(Station station, DateTime startDate, DateTime endDate, int HH)
+            {
+                using (ISession session = NHibernateHelper.OpenSession())
+                {
+                    ICriteria criteria = session.CreateCriteria(typeof(GeospaceEntity.Models.Codes.CodeIonka));
+                    //criteria.AddOrder(Order.Desc("ID"));
+                    criteria.Add(Restrictions.Eq("Station", station));
+                    criteria.Add(Restrictions.Eq("HH", HH));
+
+                    var strYYYY = Projections.Cast(NHibernateUtil.String, Projections.Property("YYYY"));
+                    var strMM = Projections.Cast(NHibernateUtil.String, Projections.Property("MM"));
+                    var strDD = Projections.Cast(NHibernateUtil.String, Projections.Property("DD"));
+
+                    var sl = Projections.Cast(NHibernateUtil.String, Projections.Constant("/"));
+
+                    var projDate = Projections.SqlFunction("concat", NHibernateUtil.String, strDD, sl,
+                        strMM, sl,
+                        strYYYY);
+
+                    projDate = Projections.Cast(NHibernateUtil.DateTime, projDate);
+
+                    criteria.Add(Restrictions.Between(projDate, startDate, endDate));
+
+                    //сортировку не менять, она важна для Average
+                    criteria.AddOrder(Order.Asc("YYYY"));
+                    criteria.AddOrder(Order.Asc("MM"));
+                    criteria.AddOrder(Order.Asc("DD"));
+                    criteria.AddOrder(Order.Asc("HH"));
+                    //criteria.AddOrder(Order.Asc("MI"));
 
                     return criteria.List<GeospaceEntity.Models.Codes.CodeIonka>();
                 }
@@ -136,6 +175,24 @@ namespace GeospaceEntity.Repositories
 
                     return null;
 
+                }
+            }
+
+            public List<GeospaceEntity.Models.Codes.CodeIonka> GetByDate(Station station, int YYYY, int MM, int DD)
+            {
+                using (ISession session = NHibernateHelper.OpenSession())
+                {
+                    var list = session.CreateCriteria<GeospaceEntity.Models.Codes.CodeIonka>()
+                        .Add(Restrictions.Eq("Station", station))
+                        .Add(Restrictions.Eq("YYYY", YYYY))
+                        .Add(Restrictions.Eq("MM", MM))
+                        .Add(Restrictions.Eq("DD", DD))
+                        .AddOrder(Order.Asc("HH"))
+                        .AddOrder(Order.Asc("MI"))
+                        .List<GeospaceEntity.Models.Codes.CodeIonka>();
+
+
+                    return (List<GeospaceEntity.Models.Codes.CodeIonka>)list;
                 }
             }
 

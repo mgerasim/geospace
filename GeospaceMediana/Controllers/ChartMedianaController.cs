@@ -1,4 +1,5 @@
 ﻿using GeospaceEntity.Models;
+using GeospaceMediana.Common;
 using GeospaceMediana.Models;
 using System;
 using System.Collections.Generic;
@@ -15,19 +16,26 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Index(int year = -1, int month = -1, int stationCode = 43501)
         {
-            ViewBag.NameMenu = "Диаграмма";
+            ViewBag.NameMenu = "Диаграмма медианы";
 
-            DateTime nowDateTime = DateTime.Now;
-
-            if (month == -1)
+            DateTime nowDateTime = DateTimeKhabarovsk.Now;
+            
+            if (month == -1 || year == -1)
             {
                 month = nowDateTime.Month;
+                year = nowDateTime.Year;
+
+                DateTime calcDate = MedianaCalculator.GetCalcDateBySeq(new DateTime(nowDateTime.Year, nowDateTime.Month, 1), 5);
+
+                if (nowDateTime >= calcDate)
+                {
+                    DateTime _nextDate = nowDateTime.AddMonths(1);
+                    
+                    year = _nextDate.Year;
+                    month = _nextDate.Month;
+                }
             }
 
-            if (year == -1)
-            {
-                year = nowDateTime.Year;
-            }
 
             DateTime curDate = new DateTime(year, month, 1);
             DateTime prevDate = curDate.AddMonths(-1);

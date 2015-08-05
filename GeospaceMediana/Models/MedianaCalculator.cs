@@ -1,5 +1,6 @@
 ﻿using GeospaceEntity.Models;
 using GeospaceEntity.Models.Codes;
+using GeospaceMediana.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,11 +57,8 @@ namespace GeospaceMediana.Models
                     curMax += 5;
                 }
             }
-
-            int countDays = DateTime.DaysInMonth(date.Year, date.Month);
-            ranges[5].Max = countDays;
+            ranges[5].Max = DateTime.DaysInMonth(date.Year, date.Month);
             return new Range( ranges[number] );
-
         }
         public static int GetRangeFromDate(DateTime date)
         {
@@ -100,6 +98,50 @@ namespace GeospaceMediana.Models
                 return 0;
             }
         }
+
+        private static int[] _calcDays = null; 
+
+        public static DateTime GetCalcDateBySeq(DateTime month, int seqNumber)
+        {
+            if(_calcDays == null)
+            {
+                _calcDays = new int[6];
+
+                for(int i=0;i<6;i++)
+                {
+                    _calcDays[i] = 5 * i + 4;
+                }
+            }
+
+            int countDays = DateTime.DaysInMonth(month.Year, month.Month);
+
+            int day = _calcDays[seqNumber];
+
+            if (countDays == 31)
+            {
+                if (seqNumber == 5)
+                {
+                    day = 30;
+                }
+            }
+
+            if (month.Month == 2)
+            {
+                if (seqNumber == 5)
+                {
+                    if (countDays == 28)
+                    {
+                        day = 27;
+                    }
+                    else
+                    {
+                        day = 28;
+                    }
+                }
+            }
+
+            return new DateTime(month.Year, month.Month, day);
+        }
         // Вывод медианнцы для представления в пятидневной телеграмме FFF
         public static List<string> WriteHTML_FFF(int NumberStation,int Year, int Month, int range)
         {
@@ -117,17 +159,19 @@ namespace GeospaceMediana.Models
             DateTime prevMonth = new DateTime(tmpPrevMonth.Year, tmpPrevMonth.Month, 1);
             DateTime nextMonth = prevMonth.AddMonths(2);
 
+            DateTime nowDateTime = DateTimeKhabarovsk.Now;
+
             var codesIonka = CodeIonka.GetByPeriod(station, prevMonth, curMonth);
 
             int countDays = DateTime.DaysInMonth(year, month);
             
-            DateTime calcDate = new DateTime(year, month, 4);
-
             for (int i = 1; i < 7; i++)
             {
+                DateTime calcDate = GetCalcDateBySeq(curMonth, i - 1);
+
                 int[] medians = Enumerable.Repeat(-1, 24).ToArray();
-                
-                if(calcDate <= DateTime.Now)
+
+                if (calcDate <= nowDateTime)
                 {
                     for (int hour = 0; hour < 24; hour++)
                     {
@@ -199,31 +243,6 @@ namespace GeospaceMediana.Models
                         mediana.Save();
                     else
                         mediana.Update();
-                }
-
-                calcDate = calcDate.AddDays(5);
-
-                if(countDays == 31)
-                {
-                    if (calcDate.Day == 29)
-                    {
-                        calcDate = calcDate.AddDays(1);
-                    }
-                }
-                
-                if(calcDate.Month == 2)
-                {
-                    if (i == 5)
-                    {
-                        if (countDays == 28)
-                        {
-                            calcDate = new DateTime(year, month, 27);
-                        }
-                        else
-                        {
-                            calcDate = new DateTime(year, month, 28);
-                        }
-                    }
                 }
             }
         }

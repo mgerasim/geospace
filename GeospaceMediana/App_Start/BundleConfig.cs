@@ -28,6 +28,9 @@ namespace GeospaceMediana
             bundles.Add(new ScriptBundle("~/bundles/mediana-edit").Include(
                         "~/Scripts/mediana-edit.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/ckeditor").Include(
+                        "~/Scripts/ckeditor.js"));
+
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
@@ -40,7 +43,7 @@ namespace GeospaceMediana
                          "~/Content/bootstrap.css",
                          "~/Content/bootstrap-theme.css")
                          );
-
+            
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",
                         "~/Content/themes/base/jquery.ui.resizable.css",

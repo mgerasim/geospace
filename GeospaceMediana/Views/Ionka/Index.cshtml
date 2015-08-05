@@ -28,7 +28,7 @@
 
 <style>
     html, body, table, .row, .col-md-12 {
-        height: 100%;
+        height: auto;
     }
 
     .container-fluid {
@@ -63,6 +63,8 @@
         height: 30px;
     }
 </style>
+
+<div align="center"><h3>Данные ионосферы</h3></div>
 
 <div class="row">
     <div class="col-md-12">
@@ -136,7 +138,7 @@
                             string editable = "editable-ionka";
                             string editableWithLowDensityIonization = theCode._f0F2.IsEmpty() || (isLowDensityIonization == false && isStationError == false) ? "" : "editable-ionka";
 
-                            <td class="left-thick-line @editable" data-day="@subitem.DD" data-hour="@item.HH" data-type="f0F2" data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">
+                            <td class="left-thick-line @editable" align="center" data-day="@subitem.DD" data-hour="@item.HH" data-type="f0F2" data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">
                                 @theCode._f0F2
                             </td>
                             <td class="@editable" data-day="@subitem.DD" data-hour="@item.HH" data-type="M3000F2" data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">
@@ -199,6 +201,11 @@
 
                 }
                 <tr>
+                    <td colspan="36" align="center">
+                        <h4>Характеристика возмущения геомагнитного поля</h4>
+                    </td>
+                </tr>
+                <tr>
 
                     @functions {
                         string convertToTwoNumbers(string val)
@@ -216,23 +223,23 @@
 
                     <td rowspan="3"></td>
                     @foreach (var item in Model.GetHeader())
-                    {
+{
 
-                        CodeUmagf theCode = Model.GetValueUmagf(item.YYYY, item.MM, item.DD);
+    CodeUmagf theCode = Model.GetValueUmagf(item.YYYY, item.MM, item.DD);
 
-                        string editable = "editable-umagf";
+    string editable = "editable-umagf";
 
-                        <td class="right-thick-line left-thick-line @editable umagf-data" data-day="@item.DD" data-type="ak" colspan="7">
-                            Ak=@convertToTwoNumbers(theCode._ak)
-                        </td>
-                    }
+    <td class="right-thick-line left-thick-line @editable umagf-data" data-day="@item.DD" data-type="ak" align="center" colspan="7">
+        Ak (суточная) = @convertToTwoNumbers(theCode._ak)
+    </td>
+}
                 </tr>
-
+                
                 <tr>
                     @foreach (var item in Model.GetHeader())
                     {
-                        <td class="right-thick-line left-thick-line umagf-data" colspan="7">
-                            K-индексы
+                        <td class="right-thick-line left-thick-line umagf-data" align="center" colspan="7">
+                            K-индексы (3-х часовые)
                         </td>
                     }
                 </tr>
@@ -267,9 +274,9 @@
                 <tr>
                     <td rowspan="2"></td>
                     @foreach (var item in Model.GetHeader())
-                    {
-                        <td class="right-thick-line left-thick-line umagf-data" colspan="7">Явления</td>
-                    }
+{
+    <td class="right-thick-line left-thick-line umagf-data" align="center" colspan="7">Явления (хар-ка.время)</td>
+}
                 </tr>
 
                 <tr>

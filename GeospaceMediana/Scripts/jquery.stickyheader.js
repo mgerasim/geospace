@@ -11,7 +11,7 @@ $(function(){
 			$t
 			.addClass('sticky-enabled')
 			.css({
-				margin: 0,
+			    margin: 0,
 				width: '100%'
 			}).wrap('<div class="sticky-wrap" />');
 
@@ -58,6 +58,9 @@ $(function(){
 					$stickyHead.width($t.width());
 					//$stickyHead.;
 					$stickyHead.css("left", "1px");
+
+					$stickyHead.css("margin-top", "70px");
+
 					// Set width of sticky table col
 					$stickyCol.find('th').add($stickyInsct.find('th')).width($t.find('thead th').width())
 				},
