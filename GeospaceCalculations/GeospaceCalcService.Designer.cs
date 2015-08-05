@@ -1,6 +1,6 @@
-﻿namespace GeospaceCalculation
+﻿namespace GeospaceCalculations
 {
-    partial class GeospaceCalculation
+    partial class GeospaceCalcService
     {
         /// <summary> 
         /// Required designer variable.
@@ -32,7 +32,7 @@
             this.ServiceName = "GeospaceCalculationService";
             this.eventLog1 = new System.Diagnostics.EventLog();
             this.timer1 = new System.Timers.Timer();
-           // this.timer1.Interval = 1000 * 60 * 60;            // 24 часа
+            this.timer1.Interval = 1000 * 60 * 30;            // 30 мин
             this.timer1.Start();
             ((System.ComponentModel.ISupportInitialize)(this.eventLog1)).BeginInit();
 
@@ -40,9 +40,9 @@
             this.eventLog1.Log = "Application";
             this.eventLog1.Source = "GeospaceCalculetionService";
             this.eventLog1.EntryWritten += new System.Diagnostics.EntryWrittenEventHandler(this.eventLog1_EntryWritten);
-           
+
             this.timer1.Elapsed += new System.Timers.ElapsedEventHandler(this.timer1_Tick_1);
-            this.ServiceName = "GeospaceCalculetionService";
+            this.ServiceName = "GeospaceCalculationService";
             ((System.ComponentModel.ISupportInitialize)(this.eventLog1)).EndInit();
 
         }

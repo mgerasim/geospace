@@ -17,11 +17,11 @@ namespace GeospaceTest
         {
            // Support01();
            // Support02();
-            Support03();
-            Support04();
+           Support03();
+            //Support04();
            // Support05(); 
 
-           // Support06();
+           Support06();
            // Support07();
             Console.WriteLine("Ok");
             Console.ReadKey();
@@ -39,6 +39,15 @@ namespace GeospaceTest
 
         static void Support06()
         {
+            ILogger theLogA = new LoggerCalc("logAverage", "errorAverage");
+            ICalculation theCalcA = new Calculation(theLogA);
+            theCalcA.AverageCalc_Run();
+
+            ILogger theLogM = new LoggerCalc("logMediana", "errorMediana");
+            ICalculation theCalcM = new Calculation(theLogM);
+            theCalcM.MedianaCalc_Run();
+
+
         }
 
         static void Support04()

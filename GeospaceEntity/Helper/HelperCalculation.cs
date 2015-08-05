@@ -93,7 +93,7 @@ namespace GeospaceEntity.Helper
             }
             catch(Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                throw new Exception("Неизвестная ошибка при подсчете среднего", ex);
             }
         }
     }
