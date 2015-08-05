@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "Пятидневный прогноз";
+}
+
+<h2>Пятидневный прогноз</h2>
+<style type="text/css">
+    .print , pre {
+        width: 500px;
+        font-family:'Times New Roman', Times, serif;
+        color: black;
+    }
+    .forma-station {
+
+    }
+</style>
+<script type="text/javascript">
+    
+</script>
+<body>
+    <div class="row">
+            <div class ="col-xs-12 col-sm-6">
+                @Html.Raw("<pre>" + Html.Encode(Model.forecast_days_fives) + "</pre>")
+            </div>
+        <div class="col-xs-6 col-md-4">
+
+            <select id="diapazon" class="form-control" style="width: 120px;">
+                @for (int inumberRange = 1; inumberRange < 6; inumberRange++)
+                {
+                    DateTime medianaDate = DateTime.Now;
+                    int numberRange = inumberRange;
+                    <option>@GeospaceMediana.Models.MedianaCalculator.GetRangeFromNumber(medianaDate, numberRange).Header</option>
+                }
+            </select> 
+</div>
+    </div>
+</body>

@@ -1,0 +1,31 @@
+﻿<li>
+    @Html.ActionLink("Пред.",
+            "FiveDay",
+            "Telegram",
+            new
+            {                                                     // routeValues
+                date = (ViewBag.number == 0) ? ViewBag.Date.AddMonths(-1).ToString("yyyyMM") : ViewBag.Date.ToString("yyyyMM"),
+                rangeNumber = (ViewBag.number - 1 < 0) ? 5 : ViewBag.number-1
+            },
+                                new
+                                {
+                                    @class = "btn btn-default btn-lg"
+                                }
+)
+</li>
+
+<li>
+    @Html.ActionLink("След.",
+                     "FiveDay",
+                    "Telegram",
+                    new
+                    {                                                     // routeValues
+                        date = (ViewBag.number == 5) ? ViewBag.Date.AddMonths(+1).ToString("yyyyMM") : ViewBag.Date.ToString("yyyyMM"),
+                        rangeNumber = (ViewBag.number + 1 > 5) ? 0 : ViewBag.number + 1
+                    },
+                                new
+                                {
+                                    @class = "btn btn-default btn-lg"
+                                }
+)
+</li>

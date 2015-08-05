@@ -4,6 +4,7 @@ using GeospaceMediana.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace GeospaceMediana.Models
@@ -56,11 +57,46 @@ namespace GeospaceMediana.Models
                     curMax += 5;
                 }
             }
-            
             ranges[5].Max = DateTime.DaysInMonth(date.Year, date.Month);
-
             return new Range( ranges[number] );
+        }
+        public static int GetRangeFromDate(DateTime date)
+        {
+            if (ranges == null)
+            {
+                ranges = new Range[6];
 
+                int curMin = 1;
+                int curMax = 5;
+
+                for (int i = 0; i < 6; i++)
+                {
+                    ranges[i] = new Range { Min = curMin, Max = curMax };
+                    curMin += 5;
+                    curMax += 5;
+                }
+            }
+
+            int countDays = DateTime.DaysInMonth(date.Year, date.Month);
+            ranges[5].Max = countDays;
+            int number = 0;
+            bool key = false;
+            foreach(var item in ranges)
+            {
+                if(item.Min > date.Day)
+                {
+                    key = true;
+                    break;
+                }
+                number++;
+            }
+            if (key)
+                return number;
+            else
+            {
+                date = date.AddMonths(1);
+                return 0;
+            }
         }
 
         private static int[] _calcDays = null; 
@@ -106,7 +142,16 @@ namespace GeospaceMediana.Models
 
             return new DateTime(month.Year, month.Month, day);
         }
-
+        // Вывод медианнцы для представления в пятидневной телеграмме FFF
+        public static List<string> WriteHTML_FFF(int NumberStation,int Year, int Month, int range)
+        {
+            string pushStr = ("FFF");
+            foreach(var item in Mediana.GetByRangeNumber(Station.GetByCode(NumberStation), Year, Month, range))
+            {
+                pushStr += item.f0F2.ToString("D3");
+            }
+            return new List<string>(Regex.Split(pushStr, @"(?<=\G.{5})", RegexOptions.Singleline));
+        }
         public static void Calc(Station station, int year, int month, string type)
         {
             DateTime curMonth = new DateTime(year, month, DateTime.DaysInMonth(year, month));

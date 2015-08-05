@@ -160,6 +160,7 @@
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\StationsController.cs" />
     <Compile Include="Controllers\DropoutController.cs" />
+    <Compile Include="Controllers\TelegramController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -574,6 +575,9 @@
     <Content Include="Scripts\skins\moono\readme.md" />
     <Content Include="Views\Average\Index.cshtml" />
     <Content Include="Views\Average\_Menu.cshtml" />
+    <Content Include="Views\Telegram\FiveDay.cshtml" />
+    <Content Include="Views\Telegram\Index.cshtml" />
+    <Content Include="Views\Telegram\_Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
