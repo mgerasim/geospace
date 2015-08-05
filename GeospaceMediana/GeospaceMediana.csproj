@@ -151,6 +151,7 @@
     <Content Include="Content\css-loadtriangles.css" />
     <Compile Include="Common\DateTimeKhabarovsk.cs" />
     <Compile Include="Controllers\ApiController.cs" />
+    <Compile Include="Controllers\AverageController.cs" />
     <Compile Include="Controllers\CharacterizationDayController.cs" />
     <Compile Include="Controllers\ChartMedianaController.cs" />
     <Compile Include="Controllers\IonkaController.cs" />
@@ -159,15 +160,18 @@
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\StationsController.cs" />
     <Compile Include="Controllers\DropoutController.cs" />
+    <Compile Include="Controllers\TelegramController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ApiAverage.cs" />
     <Compile Include="Models\ApiIonka.cs" />
     <Compile Include="Models\ApiMediana.cs" />
     <Compile Include="Models\ApiProduct.cs" />
     <Compile Include="Models\ApiUmagf.cs" />
     <Compile Include="Models\CharacterizationDay.cs" />
     <Compile Include="Models\MedianaCalculator.cs" />
+    <Compile Include="Models\ViewAverage.cs" />
     <Compile Include="Models\ViewIonka.cs" />
     <Compile Include="Models\ViewMediana.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -265,7 +269,6 @@
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\skins\moono\readme.md" />
     <None Include="Properties\PublishProfiles\GeoSpace.pubxml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Images\popup.png" />
@@ -570,6 +573,11 @@
     <Content Include="Views\Map\Stations.cshtml" />
     <Content Include="Views\Dropout\ErrorList.cshtml" />
     <Content Include="Scripts\skins\moono\readme.md" />
+    <Content Include="Views\Average\Index.cshtml" />
+    <Content Include="Views\Average\_Menu.cshtml" />
+    <Content Include="Views\Telegram\FiveDay.cshtml" />
+    <Content Include="Views\Telegram\Index.cshtml" />
+    <Content Include="Views\Telegram\_Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

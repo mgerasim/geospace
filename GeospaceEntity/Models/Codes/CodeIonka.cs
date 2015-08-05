@@ -210,10 +210,22 @@ namespace GeospaceEntity.Models.Codes
             Repositories.CodeIonkaRepository repo = new Repositories.CodeIonkaRepository();
             return repo.GetByDate(station, YYYY, MM, DD, HH);
         }
+        public static List<Codes.CodeIonka> GetByDate(Station station, int YYYY, int MM, int DD)
+        {
+            Repositories.CodeIonkaRepository repo = new Repositories.CodeIonkaRepository();
+            return repo.GetByDate(station, YYYY, MM, DD);
+        }
+
         public static IList<Codes.CodeIonka> GetByPeriod(Station station, int startYYYY, int startMM, int startDD, int endYYYY, int endMM, int endDD)
         {
             Repositories.CodeIonkaRepository repo = new Repositories.CodeIonkaRepository();
             return repo.GetByPeriod(station, startYYYY, startMM, startDD, endYYYY, endMM, endDD);
+        }
+
+        public static IList<Codes.CodeIonka> GetByPeriod_StaticHH(Station station, DateTime startDate, DateTime endDate, int HH)
+        {
+            Repositories.CodeIonkaRepository repo = new Repositories.CodeIonkaRepository();
+            return repo.GetByPeriod_StaticHH(station, startDate, endDate, HH);
         }
 
         public static IList<Codes.CodeIonka> GetByPeriod(Station station, DateTime startDate, DateTime endDate)
@@ -227,6 +239,7 @@ namespace GeospaceEntity.Models.Codes
             GeospaceEntity.Common.IRepository<CodeIonka> repo = new Repositories.CodeIonkaRepository();
             return repo.GetAll();
         }
+
         public virtual void PrintToConsole()
         {
             Console.WriteLine("HH:{0} DD:{1} f0F2:{2} hF2:{3} M3000F2:{4} fmin:{5} f0Es:{6} hEs:{7} f0F1:{8} hF1:{9} M3000F1:{10} hMF2:{11} f0E:{12} hE:{13} fbEs:{14} Es:{15} fx1:{16}",

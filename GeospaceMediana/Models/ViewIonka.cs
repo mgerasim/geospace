@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using GeospaceEntity.Models;
 
 namespace GeospaceMediana.Models
 {
@@ -26,7 +27,7 @@ namespace GeospaceMediana.Models
         public int Limit;
         public int Step;
 
-        protected List<GeospaceEntity.Models.Codes.CodeIonka> theIonkaValues;
+        public List<GeospaceEntity.Models.Codes.CodeIonka> theIonkaValues;
         protected List<GeospaceEntity.Models.Codes.CodeUmagf> theUmagfValues;
 
         public List<GeospaceEntity.Models.Station> Stations
@@ -55,6 +56,13 @@ namespace GeospaceMediana.Models
         {
             return dt.ToString("yyyyMMdd");
         }
+        public ViewIonka(int station, int year, int month, int day)
+        {
+            StationCode = station;
+
+            theIonkaValues = GeospaceEntity.Models.Codes.CodeIonka.GetByDate(Station.GetByCode(StationCode), year, month, day);
+        }
+
         public ViewIonka(int station, string start, int limit, int step)
         {
             StationCode = station;
