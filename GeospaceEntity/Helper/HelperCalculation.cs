@@ -14,7 +14,13 @@ namespace GeospaceEntity.Helper
         {
             try
             {
-                Average average = new Average();
+                Average average = Average.GetByDateUTC(stat, end.Year, end.Month, end.Day, hour);
+                if (average == null)
+                {
+                    average = new Average();
+                    average.Save();
+                }
+
                 average.YYYY = end.Year;
                 average.MM = end.Month;
                 average.DD = end.Day;
@@ -83,10 +89,7 @@ namespace GeospaceEntity.Helper
                     }
                 }
 
-
-                if (Average.GetByDateUTC(average.Station, average.YYYY, average.MM, average.DD, average.HH) == null)
-                    average.Save();
-                //else Console.WriteLine(hour);
+                average.Update();
             }
             catch(Exception ex)
             {

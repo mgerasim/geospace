@@ -3,21 +3,36 @@
     ViewBag.Title = @ViewBag.Title;
 }
 
-<h3>@ViewBag.Station.Name - @ViewBag.Station.Code.ToString(). @ViewBag.Date.ToShortDateString()</h3>
+<h3>@ViewBag.Station.Name - @ViewBag.Station.Code.ToString() за @ViewBag.Date.ToShortDateString()</h3>
 
-<div id="container" style="width:100%; height:400px;"></div>
+<div id="container_05" style="width:100%; height:500px;"></div>
+<div id="container_07" style="width:100%; height:500px;"></div>
+<div id="container_10" style="width:100%; height:500px;"></div>
+<div id="container_20" style="width:100%; height:500px;"></div>
+<div id="container_27" style="width:100%; height:500px;"></div>
+<div id="container_30" style="width:100%; height:500px;"></div>
 
 @section Scripts
 {
     @Scripts.Render("~/Scripts/highcharts.js")
     @Scripts.Render("~/Scripts/draggable-points.js")     
 
-<script>
+    @DrawAverage("container_05", "Скользящие средние частоты слоя " + @ViewBag.Type + " за 5 дней", @ViewBag.value_05, @ViewBag.value_05_skip, @ViewBag.value);
+    @DrawAverage("container_07", "Скользящие средние частоты слоя " + @ViewBag.Type + " за 7 дней", @ViewBag.value_07, @ViewBag.value_07_skip, @ViewBag.value);
+    @DrawAverage("container_10", "Скользящие средние частоты слоя " + @ViewBag.Type + " за 10 дней", @ViewBag.value_10, @ViewBag.value_10_skip, @ViewBag.value);
+    @DrawAverage("container_20", "Скользящие средние частоты слоя " + @ViewBag.Type + " за 20 дней", @ViewBag.value_20, @ViewBag.value_20_skip, @ViewBag.value);
+    @DrawAverage("container_27", "Скользящие средние частоты слоя " + @ViewBag.Type + " за 27 дней", @ViewBag.value_27, @ViewBag.value_27_skip, @ViewBag.value);
+    @DrawAverage("container_30", "Скользящие средние частоты слоя " + @ViewBag.Type + " за 30 дней", @ViewBag.value_30, @ViewBag.value_30_skip, @ViewBag.value);
+ }
+
+@helper DrawAverage( string nameDiv, string title, string valueAverage, string valueSkip, string value)
+{
+    <script>
 
     $(function () {
-    $('#container').highcharts({
+    $('#@(nameDiv)').highcharts({
         title: {
-            text: 'Скользящие средние частоты слоя @ViewBag.Type за 5 дней'
+            text: '@title'
         },
         xAxis :{
                 title: {
@@ -45,13 +60,13 @@
                 style: {
                     color: Highcharts.getOptions().colors[1]
                 }
-            },
+            },            
             title: {
                 text: 'Критическая частота МГц ⋅ 10',
                 style: {
                     color: Highcharts.getOptions().colors[1]
                 }
-            }
+            },
         }, { // Secondary yAxis
             title: {
                 text: 'Количество пропущенных значений',
@@ -75,21 +90,21 @@
             name: 'Пропущенные значения',
             type: 'column',
             yAxis: 1,
-            data: @ViewBag.value_05_skip
+            data: @valueSkip
 
         }, {
             name: 'Средняя частота слоя @ViewBag.Type',
             type: 'spline',
-            data: @ViewBag.value_05
+            data: @valueAverage
             }
         , {
             name: 'Фактическая частота слоя @ViewBag.Type',
             type: 'spline',
-            data: @ViewBag.value
+            data: @value
         }]
     });
 });
 
 
 </script>
-    }
+}
