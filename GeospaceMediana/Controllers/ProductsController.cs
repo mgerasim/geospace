@@ -488,6 +488,7 @@ namespace GeospaceMediana.Controllers
             return View(theProduct);
         }
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult EditForecastDaysFives(FormCollection collection)
         {
             GeospaceEntity.Models.Product theProduct = null;
@@ -560,6 +561,7 @@ namespace GeospaceMediana.Controllers
             return View(theProduct);
         }
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult EditForecastMonthIonosphera(FormCollection collection)
         {
             GeospaceEntity.Models.Product theProduct = null;
@@ -640,6 +642,7 @@ namespace GeospaceMediana.Controllers
             return View(theProduct);
         }
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult EditReviewGeoEnv(FormCollection collection)
         {
             GeospaceEntity.Models.Product theProduct = null;
@@ -707,6 +710,7 @@ namespace GeospaceMediana.Controllers
             return View(theProduct);
         }
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult EditReviewGeoEnvMonth(FormCollection collection)
         {
             GeospaceEntity.Models.Product theProduct = null;
@@ -772,7 +776,9 @@ namespace GeospaceMediana.Controllers
 
             return View(theProduct);
         }
+        
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult EditSubdayForecast(FormCollection collection)
         {
             GeospaceEntity.Models.Product theProduct = null;
