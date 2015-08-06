@@ -18,14 +18,13 @@ namespace GeospaceEntity.Helper
                 if (average == null)
                 {
                     average = new Average();
-                    average.Save();
-                }
-
-                average.YYYY = end.Year;
-                average.MM = end.Month;
-                average.DD = end.Day;
-                average.HH = hour;
-                average.Station = stat;
+                    average.YYYY = end.Year;
+                    average.MM = end.Month;
+                    average.DD = end.Day;
+                    average.HH = hour;
+                    average.Station = stat;
+                    average.Save();                    
+                }                
 
                 end = end.AddDays(-1);
                 DateTime start = end.AddDays(-29);
@@ -93,7 +92,7 @@ namespace GeospaceEntity.Helper
             }
             catch(Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                throw new Exception(stat.Name + stat.Code.ToString() + "Неизвестная ошибка при подсчете среднего", ex);
             }
         }
     }

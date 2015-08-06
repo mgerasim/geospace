@@ -30,11 +30,11 @@
     <script>
 
     $(function () {
-    $('#@(nameDiv)').highcharts({
-        title: {
-            text: '@title'
-        },
-        xAxis :{
+        $('#@(nameDiv)').highcharts({
+            title: {
+                text: '@title'
+            },
+            xAxis :{
                 title: {
                     text: 'Часы'
                 },
@@ -42,7 +42,7 @@
                 @for(int i=0;i<24;i++)
                 {
                     @Html.Raw("'"+i.ToString("00")+"'")
-                    
+
                     if(i!=23)
                     {
                         @:,
@@ -60,13 +60,16 @@
                 style: {
                     color: Highcharts.getOptions().colors[1]
                 }
-            },            
+            },
             title: {
                 text: 'Критическая частота МГц ⋅ 10',
                 style: {
                     color: Highcharts.getOptions().colors[1]
                 }
             },
+            min: 0,
+            max: 100,
+            tickInterval: 10,
         }, { // Secondary yAxis
             title: {
                 text: 'Количество пропущенных значений',
@@ -92,18 +95,18 @@
             yAxis: 1,
             data: @valueSkip
 
-        }, {
-            name: 'Средняя частота слоя @ViewBag.Type',
-            type: 'spline',
-            data: @valueAverage
-            }
-        , {
-            name: 'Фактическая частота слоя @ViewBag.Type',
-            type: 'spline',
-            data: @value
-        }]
+                }, {
+                    name: 'Средняя частота слоя @ViewBag.Type',
+                    type: 'spline',
+                    data: @valueAverage
+                    }
+            , {
+                name: 'Фактическая частота слоя @ViewBag.Type',
+                type: 'spline',
+                data: @value
+                }]
+        });
     });
-});
 
 
 </script>

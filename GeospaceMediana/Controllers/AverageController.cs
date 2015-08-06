@@ -34,9 +34,9 @@ namespace GeospaceMediana.Controllers
                 nowDateTime = nowDateTime.AddDays(-1);
             }
             else nowDateTime = new DateTime(year, month, day);
-            nowDateTime = nowDateTime.AddDays(-1);
+            DateTime nextDate = nowDateTime.AddDays(1);
             DateTime prevDate = nowDateTime.AddDays(-1);
-            DateTime nextDate = nowDateTime.AddDays(1);            
+                        
 
             ViewBag.PrevDate = prevDate;
             ViewBag.NextDate = nextDate;

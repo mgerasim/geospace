@@ -14,9 +14,14 @@ namespace GeospaceMediana.Controllers
         //
         // GET: /ChartMediana/
 
-        public ActionResult Index(int year = -1, int month = -1, int stationCode = 43501)
+        public ActionResult Index(int year = -1, int month = -1, int stationCode = 43501, string type = "f0F2")
         {
             ViewBag.NameMenu = "Диаграмма медианы";
+
+            if (type == "M3000F2")
+                ViewBag.ViewType = "M3000";
+            else
+                ViewBag.ViewType = type;
 
             DateTime nowDateTime = DateTimeKhabarovsk.Now;
             

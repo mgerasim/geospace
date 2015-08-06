@@ -17,11 +17,6 @@ namespace GeospaceDecodeService
 {
     public partial class GeospaceDecodeService : ServiceBase
     {
-        
-        Logger logger;
-        Logger error;
-        Logger logumagf;
-        
 
         IDecode theDecode;
         GeospaceCore.ILogger theLogger;

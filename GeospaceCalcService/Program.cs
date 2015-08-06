@@ -5,7 +5,7 @@ using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GeospaceCalculation
+namespace GeospaceCalcService
 {
     static class Program
     {
@@ -17,7 +17,7 @@ namespace GeospaceCalculation
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[] 
             { 
-                new GeospaceCalculation() 
+                new GeospaceCalcService() 
             };
             ServiceBase.Run(ServicesToRun);
         }
