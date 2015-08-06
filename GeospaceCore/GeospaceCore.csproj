@@ -64,6 +64,10 @@
       <Project>{66cd59c8-2326-4b9f-b15f-663b8576d893}</Project>
       <Name>GeospaceEntity</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProfileSource\Profile.csproj">
+      <Project>{f8de8838-3350-4f1c-9b43-50dfe42db6a8}</Project>
+      <Name>Profile</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

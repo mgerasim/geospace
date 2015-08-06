@@ -18,10 +18,10 @@ namespace GeospaceTest
            // Support01();
            // Support02();
            Support03();
-            //Support04();
+            Support04();
            // Support05(); 
 
-           Support06();
+           //Support06();
            // Support07();
             Console.WriteLine("Ok");
             Console.ReadKey();
@@ -52,19 +52,13 @@ namespace GeospaceTest
 
         static void Support04()
         {
-            List<Station> listStation = Station.GetAll();
-            for (int j = 0; j <= 0; j++)
-            {
-                DateTime dt = new DateTime(2015, 8, 4);
-                dt = dt.AddDays(j);
-                foreach (Station item in listStation)
-                {
-                    for (int i = 0; i < 24; i++)
-                    {
-                        GeospaceEntity.Helper.HelperCalculation.Start_Calc_Average(dt, item, i);
-                    }
-                }
-            }
+            ILogger theLoggerAverage = new LoggerCalc("logAverage", "errorAverage");
+
+            ICalculation theCalcAverage = new Calculation(theLoggerAverage);
+            theCalcAverage.AverageCalc_Run();
+
+
+
         }   
         
         
