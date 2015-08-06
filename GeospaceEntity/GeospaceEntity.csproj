@@ -63,6 +63,7 @@
     <Compile Include="Helper\Other.cs" />
     <Compile Include="Models\Average.cs" />
     <Compile Include="Models\Codes\CodeIonka.cs" />
+    <Compile Include="Models\Codes\CodeMagma.cs" />
     <Compile Include="Models\Codes\CodeUmagf.cs" />
     <Compile Include="Models\Begin.cs" />
     <Compile Include="Models\Error.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Models\Station.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AverageRepository.cs" />
+    <Compile Include="Repositories\CodeMagmaRepository.cs" />
     <Compile Include="Repositories\CodeUmagfRepository.cs" />
     <Compile Include="Repositories\ErrorRepository.cs" />
     <Compile Include="Repositories\BeginRepository.cs" />
@@ -111,6 +113,7 @@
     <EmbeddedResource Include="Mappings\Average.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <Content Include="Mappings\CodeMagma.hbm.xml" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.9.1-vsdoc.js" />

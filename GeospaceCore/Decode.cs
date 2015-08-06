@@ -57,6 +57,36 @@ namespace GeospaceCore
                                 bool existStatFromBD = true;
                                 if (code.Length > 6)
                                 {
+                                    if (code.Substring(0).ToUpper().IndexOf("MAGMA") >= 0)
+                                    {
+                                        try
+                                        {
+                                            int StationCode = Convert.ToInt32(code.Substring(6, 5));
+                                            Station theStation = Station.GetByCode(StationCode);
+                                            if (theStation != null)
+                                            {                                                
+                                                CodeMagma theCodeMagma = new CodeMagma();
+                                                theCodeMagma.Station = theStation;
+                                                DateTime dateCreate;
+                                                string token = code.Substring(12, 5);                                                
+                                                int month = Convert.ToInt32(token.Substring(1, 2));
+                                                int day = Convert.ToInt32(token.Substring(3, 2));
+                                                int year = DateTime.Now.Year;
+                                                dateCreate = new DateTime(year, month, day);
+                                                theCodeMagma.YYYY = dateCreate.Year;
+                                                theCodeMagma.MM = dateCreate.Month;
+                                                theCodeMagma.DD = dateCreate.Day;
+                                                theCodeMagma.HH = Convert.ToInt32(code.Substring(18, 2));
+                                                theCodeMagma.MI = 0;
+
+                                            }
+                                        }
+                                        catch(Exception ex)
+                                        {
+
+                                        }
+                                    }
+                                    else
                                     if (code.Substring(0).ToUpper().IndexOf("UMAGF") >= 0)
                                     {
                                         try
