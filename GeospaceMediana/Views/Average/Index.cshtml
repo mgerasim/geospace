@@ -17,15 +17,15 @@
     @Scripts.Render("~/Scripts/highcharts.js")
     @Scripts.Render("~/Scripts/draggable-points.js")     
 
-    @DrawAverage("container_05", "Скользящие средние частоты слоя " + @ViewBag.Type + " за 5 дней", @ViewBag.value_05, @ViewBag.value_05_skip, @ViewBag.value);
-    @DrawAverage("container_07", "Скользящие средние частоты слоя " + @ViewBag.Type + " за 7 дней", @ViewBag.value_07, @ViewBag.value_07_skip, @ViewBag.value);
-    @DrawAverage("container_10", "Скользящие средние частоты слоя " + @ViewBag.Type + " за 10 дней", @ViewBag.value_10, @ViewBag.value_10_skip, @ViewBag.value);
-    @DrawAverage("container_20", "Скользящие средние частоты слоя " + @ViewBag.Type + " за 20 дней", @ViewBag.value_20, @ViewBag.value_20_skip, @ViewBag.value);
-    @DrawAverage("container_27", "Скользящие средние частоты слоя " + @ViewBag.Type + " за 27 дней", @ViewBag.value_27, @ViewBag.value_27_skip, @ViewBag.value);
-    @DrawAverage("container_30", "Скользящие средние частоты слоя " + @ViewBag.Type + " за 30 дней", @ViewBag.value_30, @ViewBag.value_30_skip, @ViewBag.value);
+    @DrawAverage("container_05", "Скользящие средние частоты слоя " + @ViewBag.Type + " за 5 дней", @ViewBag.value_05, @ViewBag.value_05_skip, @ViewBag.value, "5");
+    @DrawAverage("container_07", "Скользящие средние частоты слоя " + @ViewBag.Type + " за 7 дней", @ViewBag.value_07, @ViewBag.value_07_skip, @ViewBag.value, "7");
+    @DrawAverage("container_10", "Скользящие средние частоты слоя " + @ViewBag.Type + " за 10 дней", @ViewBag.value_10, @ViewBag.value_10_skip, @ViewBag.value, "10");
+    @DrawAverage("container_20", "Скользящие средние частоты слоя " + @ViewBag.Type + " за 20 дней", @ViewBag.value_20, @ViewBag.value_20_skip, @ViewBag.value, "20");
+    @DrawAverage("container_27", "Скользящие средние частоты слоя " + @ViewBag.Type + " за 27 дней", @ViewBag.value_27, @ViewBag.value_27_skip, @ViewBag.value, "27");
+    @DrawAverage("container_30", "Скользящие средние частоты слоя " + @ViewBag.Type + " за 30 дней", @ViewBag.value_30, @ViewBag.value_30_skip, @ViewBag.value, "30");
  }
 
-@helper DrawAverage( string nameDiv, string title, string valueAverage, string valueSkip, string value)
+@helper DrawAverage( string nameDiv, string title, string valueAverage, string valueSkip, string value, string quantity)
 {
     <script>
 
@@ -83,7 +83,10 @@
                     color: Highcharts.getOptions().colors[0]
                 }
             },
-            opposite: true
+            opposite: true,
+            min: 0,
+            max: '@quantity',
+            tickInterval: 1,
         }],
         tooltip: {
             shared: true

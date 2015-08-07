@@ -1,6 +1,7 @@
 ﻿using GeospaceEntity.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,7 +40,7 @@ namespace GeospaceCore
             {
                 List<Station> listStation = Station.GetAll();                
 
-                for (int day = minusDay; day > 0; day--)
+                for (int day = minusDay; day >= 0; day--)
                 {
                     dt = globalNow;
                     dt = dt.AddDays(-day);
@@ -64,21 +65,32 @@ namespace GeospaceCore
             }
         }
 
-        void ICalculation.AverageCalc_Run(DateTime dt)
+        void ICalculation.AverageCalc_Run(DateTime start, DateTime end)
         {
             theLog.LogCalc("Run logger AverageCacl");
+            DateTime dt = start;
+            int count = 0;
 
             try
             {
                 List<Station> listStation = Station.GetAll();
-                foreach (Station item in listStation)                    
-                {
-                    for (int h = 0; h < dt.Hour; h++)
+                while(true)
+                {                    
+                    dt = start.AddDays(count);
+                    foreach (Station item in listStation)
                     {
-                        GeospaceEntity.Helper.HelperCalculation.Start_Calc_Average(dt, item, h);
+                        for (int h = start.Hour; h <= end.Hour; h++)
+                        {
+                            GeospaceEntity.Helper.HelperCalculation.Start_Calc_Average(dt, item, h);
+                            theLog.LogCalc(item.Name + " - " + item.Code.ToString() + " "
+                                + dt.ToShortDateString() + " " + h.ToString() + " час успешно");
+                        }
                     }
+                    Console.WriteLine(dt.ToShortDateString());
+
+                    if (dt.Year >= end.Year && dt.Month >= end.Month && dt.Day >= end.Day ) break;
+                    count++;
                 }
-                theLog.LogCalc(dt.ToShortDateString() + " " + dt.ToShortTimeString() + " успешно");
             }
             catch (Exception ex)
             {
