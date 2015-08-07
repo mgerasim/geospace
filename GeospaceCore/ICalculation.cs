@@ -10,6 +10,6 @@ namespace GeospaceCore
     {
         void MedianaCalc_Run();
         void AverageCalc_Run();
-        void AverageCalc_Run(DateTime dt);
+        void AverageCalc_Run(DateTime start, DateTime end);
     }
 }

@@ -60,8 +60,6 @@ namespace GeospaceTest
             ILogger theLogM = new LoggerCalc("logMediana", "errorMediana");
             ICalculation theCalcM = new Calculation(theLogM);
             theCalcM.MedianaCalc_Run();
-
-
         }
 
         static void Support04()
@@ -69,10 +67,8 @@ namespace GeospaceTest
             ILogger theLoggerAverage = new LoggerCalc("logAverage", "errorAverage");
 
             ICalculation theCalcAverage = new Calculation(theLoggerAverage);
-            theCalcAverage.AverageCalc_Run();
-
-
-
+            //theCalcAverage.AverageCalc_Run();
+            theCalcAverage.AverageCalc_Run(new DateTime(2015,8,1,0,0,0), new DateTime(2015, 8, 6, 23, 0, 0));
         }   
         
         

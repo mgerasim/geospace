@@ -20,9 +20,9 @@ namespace GeospaceMediana.Controllers
             @ViewBag.Title = "Средние значения";
 
             if (type == "M3000F2")
-                ViewBag.ViewType = "M3000";
-            else
-                ViewBag.ViewType = type;
+                ViewBag.Type = "M3000";
+            if (type == "f0F2")
+                ViewBag.Type = "f0";
 
             ViewBag.NameMenu = "Средние значения " + ViewBag.ViewType;
 
@@ -42,7 +42,6 @@ namespace GeospaceMediana.Controllers
             ViewBag.NextDate = nextDate;
 
             ViewBag.Date = nowDateTime;
-            ViewBag.Type = type;
             ViewBag.Station = Station.GetByCode(stationCode);
             ViewBag.Stations = Station.GetAll();
 
