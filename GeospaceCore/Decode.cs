@@ -61,29 +61,62 @@ namespace GeospaceCore
                                     {
                                         try
                                         {
+                                            logger.LogMagma("MAGMA: " + code);
                                             int StationCode = Convert.ToInt32(code.Substring(6, 5));
                                             Station theStation = Station.GetByCode(StationCode);
                                             if (theStation != null)
-                                            {                                                
-                                                CodeMagma theCodeMagma = new CodeMagma();
-                                                theCodeMagma.Station = theStation;
+                                            {
                                                 DateTime dateCreate;
-                                                string token = code.Substring(12, 5);                                                
+                                                string token = code.Substring(12, 5);
                                                 int month = Convert.ToInt32(token.Substring(1, 2));
                                                 int day = Convert.ToInt32(token.Substring(3, 2));
                                                 int year = DateTime.Now.Year;
-                                                dateCreate = new DateTime(year, month, day);
-                                                theCodeMagma.YYYY = dateCreate.Year;
-                                                theCodeMagma.MM = dateCreate.Month;
-                                                theCodeMagma.DD = dateCreate.Day;
-                                                theCodeMagma.HH = Convert.ToInt32(code.Substring(18, 2));
-                                                theCodeMagma.MI = 0;
+                                                int HH = Convert.ToInt32(code.Substring(18, 2));
 
+                                                if (CodeMagma.GetByDateUTC(theStation, year, month, day, HH, 0) == null)
+                                                {
+                                                    CodeMagma theCodeMagma = new CodeMagma();
+                                                    theCodeMagma.Station = theStation;
+                                                    dateCreate = new DateTime(year, month, day);
+                                                    theCodeMagma.YYYY = dateCreate.Year;
+                                                    theCodeMagma.MM = dateCreate.Month;
+                                                    theCodeMagma.DD = dateCreate.Day;
+                                                    theCodeMagma.HH = Convert.ToInt32(code.Substring(18, 2));
+                                                    theCodeMagma.MI = 0;
+                                                    theCodeMagma.value = Convert.ToInt32(code.Substring(22, 1));
+                                                    theCodeMagma.Raw = code;
+                                                    theCodeMagma.Save();
+
+                                                    logger.LogMagma("MAGMA: Station: " + theCodeMagma.Station);
+                                                    logger.LogMagma("MAGMA: YYYY: " + theCodeMagma.YYYY);
+                                                    logger.LogMagma("MAGMA: MM: " + theCodeMagma.MM);
+                                                    logger.LogMagma("MAGMA: DD: " + theCodeMagma.DD);
+                                                    logger.LogMagma("MAGMA: HH: " + theCodeMagma.HH);
+                                                    logger.LogMagma("MAGMA: MI: " + theCodeMagma.MI);
+                                                    logger.LogMagma("MAGMA: value: " + theCodeMagma.value);
+                                                }
                                             }
                                         }
                                         catch(Exception ex)
                                         {
+                                            logger.LogError("\r\n\r\n ----------------MAGMA------------------");
+                                            logger.LogError(ex.Message);
+                                            logger.LogError(ex.Source);
+                                            logger.LogError("\ncode_source:");
+                                            logger.LogError(code_source);
+                                            logger.LogError(ex.StackTrace);
+                                            if (ex.InnerException != null)
+                                            {
+                                                logger.LogError("----Inner Exc------");
+                                                logger.LogError(ex.InnerException.Message);                                                                                                    
+                                            }
+                                            logger.LogError("---------END MAGMA---------------------");
 
+                                            Error theCodeError = new Error();
+                                            theCodeError.Raw = item;
+                                            theCodeError.Description = ex.Message + "\n" + ex.InnerException + "\n" + ex.Source + "\n" + ex.StackTrace;
+
+                                            if (theCodeError.GetByRaw(item) == null) theCodeError.Save();
                                         }
                                     }
                                     else

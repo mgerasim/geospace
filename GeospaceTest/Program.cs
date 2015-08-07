@@ -18,21 +18,35 @@ namespace GeospaceTest
            // Support01();
            // Support02();
            Support03();
-            Support04();
+           // Support04();
            // Support05(); 
 
            //Support06();
            // Support07();
+           Support08();
             Console.WriteLine("Ok");
             Console.ReadKey();
         }
+        static void Support08()
+        {
+            CodeMagma theMagma = new CodeMagma();
+            theMagma.Station = Station.GetByCode(38701);
+            theMagma.YYYY = DateTime.Now.Year;
+            theMagma.MM = DateTime.Now.Month;
+            theMagma.DD = DateTime.Now.Day;
+            theMagma.HH = DateTime.Now.Hour;
+            theMagma.Raw = "test";
+            theMagma.Save();
+        }
         static void Support07()
         {
-            Begin.Save_From_File("C:\\Users\\distomin\\Projects\\GeoSpace\\documents\\All_Begin_Telegramm.txt");
+            //Begin.Save_From_File("C:\\Users\\distomin\\Projects\\GeoSpace\\documents\\All_Begin_Telegramm.txt");
             string s1 = @"\\10.8.5.123\obmen\armgf1dan.txt";
             string s2 = "C:\\Users\\distomin\\Projects\\GeoSpace\\documents\\test.txt";
-            ILogger theLogFile = new LoggerNLog();            
-            IDecode theDecode = new Decode(theLogFile, s1);
+            string s3 =  "D:\\Мои документы\\visual studio 2013\\Projects\\GeoSpace\\documents\\armgf1dan.txt";
+            ILogger theLogFile = new LoggerNLog();
+            ILogger theConsoleLog = new LoggerConsole();
+            IDecode theDecode = new Decode(theLogFile, s3);
 
             theDecode.Run();            
         }

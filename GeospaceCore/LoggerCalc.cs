@@ -32,6 +32,11 @@ namespace GeospaceCore
         {
             logger.Debug(msg);
         }
+        void ILogger.LogMagma(string msg)
+        {
+
+            logger.Debug(msg);
+        }
     }
 }
 

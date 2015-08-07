@@ -26,20 +26,7 @@
     
     <many-to-one name="Station" not-null="true" column="Station_ID" lazy="false" unique-key="date"/>
     
-    <property name="k1" />
-    <property name="k2" />
-    <property name="k3" />
-    <property name="k4" />
-    <property name="k5" />
-    <property name="k6" />
-    <property name="k7" />
-    <property name="k8" />
-
-    <property name="ak" />
-    
-
-    <property name="events" type="string" length="100" />
-    
+    <property name="value" />
     <property name="Raw" type="string" length="10000"/>
     <property name="ErrorMessage" type="string" length="10000"/>
 

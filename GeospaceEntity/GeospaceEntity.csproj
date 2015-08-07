@@ -113,7 +113,9 @@
     <EmbeddedResource Include="Mappings\Average.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <Content Include="Mappings\CodeMagma.hbm.xml" />
+    <EmbeddedResource Include="Mappings\CodeMagma.hbm.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.9.1-vsdoc.js" />

@@ -25,5 +25,10 @@ namespace GeospaceCore
         {
             Console.WriteLine(msg);
         }
+
+        void ILogger.LogMagma(string msg)
+        {
+            Console.WriteLine(msg);
+        }
     }
 }

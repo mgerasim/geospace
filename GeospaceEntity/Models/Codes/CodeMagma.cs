@@ -20,20 +20,8 @@ namespace GeospaceEntity.Models.Codes
         public virtual int MI { get; set; }
 
         //K-индексы
-        public virtual int k1 { get; set; }
-        public virtual int k2 { get; set; }
-        public virtual int k3 { get; set; }
-        public virtual int k4 { get; set; }
-        public virtual int k5 { get; set; }
-        public virtual int k6 { get; set; }
-        public virtual int k7 { get; set; }
-        public virtual int k8 { get; set; }
+        public virtual int value { get; set; }      
 
-        //AK
-        public virtual int ak { get; set; }
-
-        //строка с явлениями вида:  явление1.ЧЧ:ММ, явление2.ЧЧ:ММ, ...
-        public virtual string events { get; set; }
 
         public virtual string Raw { get; set; }
         public virtual string ErrorMessage { get; set; }
@@ -43,149 +31,13 @@ namespace GeospaceEntity.Models.Codes
             created_at = DateTime.Now;
             updated_at = DateTime.Now;
             MI = 0;
-            k1 = 1000;
-            k2 = 1000;
-            k3 = 1000;
-            k4 = 1000;
-            k5 = 1000;
-            k6 = 1000;
-            k7 = 1000;
-            k8 = 1000;
-
-            ak = 1000;
-            events = "";            
+            value = 0;    
 
             Raw = "";
             ErrorMessage = "";
         }
 
-        public virtual string DisplayValue(int Value)
-        {
-            switch (Value)
-            {
-                case 1000: return "/";
-                case 1001: return "A";
-                case 1002: return "B";
-                case 1003: return "C";
-                case 1004: return "D";
-                case 1005: return "E";
-                case 1006: return "F";
-                case 1007: return "G";
-                case 1008: return "N";
-                case 1009: return "R";
-                //default: Value.ToString();
-            }
-            return Value.ToString();
-        }
-        // Display For Web Form
-        public virtual string _ak
-        {
-            get
-            {
-                if (this.ID < 0)
-                    return "";
-                else
-                    return DisplayValue(this.ak);
-            }
-        }
-
-        public virtual string _k1
-        {
-            get
-            {
-                if (this.ID < 0)
-                    return "//";
-                else
-                    return DisplayValue(this.k1);
-            }
-        }
-        public virtual string _k2
-        {
-            get
-            {
-                if (this.ID < 0)
-                    return "";
-                else
-                    return DisplayValue(this.k2);
-            }
-        }
-
-        public virtual string _k3
-        {
-            get
-            {
-                if (this.ID < 0)
-                    return "";
-                else
-                    return DisplayValue(this.k3);
-            }
-        }
-
-        public virtual string _k4
-        {
-            get
-            {
-                if (this.ID < 0)
-                    return "";
-                else
-                    return DisplayValue(this.k4);
-            }
-        }
-
-        public virtual string _k5
-        {
-            get
-            {
-                if (this.ID < 0)
-                    return "";
-                else
-                    return DisplayValue(this.k5);
-            }
-        }
-
-        public virtual string _k6
-        {
-            get
-            {
-                if (this.ID < 0)
-                    return "";
-                else
-                    return DisplayValue(this.k6);
-            }
-        }
-
-        public virtual string _k7
-        {
-            get
-            {
-                if (this.ID < 0)
-                    return "";
-                else
-                    return DisplayValue(this.k7);
-            }
-        }
-
-        public virtual string _k8
-        {
-            get
-            {
-                if (this.ID < 0)
-                    return "";
-                else
-                    return DisplayValue(this.k8);
-            }
-        }
-
-        public virtual string _events
-        {
-            get
-            {
-                if (this.ID < 0)
-                    return "";
-                else
-                    return this.events;
-            }
-        }
+        
         
         public static Codes.CodeMagma GetByDateUTC(Station station, int YYYY, int MM, int DD, int HH, int MI)
         {
@@ -226,12 +78,6 @@ namespace GeospaceEntity.Models.Codes
             Repositories.CodeMagmaRepository repo = new Repositories.CodeMagmaRepository();
             return repo.GetById(id);
         }
-        public virtual void PrintToFile(StreamWriter sw)
-        {
-            sw.WriteLine(Raw);
-            sw.WriteLine("Hour:{0} Min:{1} Day:{2} Month:{12} Year:{13} K:{3}{4}{5}{6} {7}{8}{9}{10} Ak:{11} Events:{14}", 
-                HH, MI, DD,_k1,_k2,_k3,_k4,_k5,_k6,_k7,_k8, _ak, MM, YYYY, events);
-            sw.WriteLine("_______________________________________________________________");
-        }
+       
     }
 }
