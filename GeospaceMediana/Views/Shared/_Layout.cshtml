@@ -7,6 +7,12 @@
     @Styles.Render("~/Content/bootstrap")
     @Styles.Render("~/Content/css")
         @RenderSection("styles", required: false)
+
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
 </head>
 <body>
     @Html.Partial("_Header")
@@ -18,9 +24,5 @@
 
     @Html.Partial("_Footer")
 
-    @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
 </body>
 </html>

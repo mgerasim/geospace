@@ -155,6 +155,7 @@
     <Compile Include="Controllers\CharacterizationDayController.cs" />
     <Compile Include="Controllers\ChartMedianaController.cs" />
     <Compile Include="Controllers\IonkaController.cs" />
+    <Compile Include="Controllers\MagmaController.cs" />
     <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\MedianaController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
@@ -173,6 +174,7 @@
     <Compile Include="Models\MedianaCalculator.cs" />
     <Compile Include="Models\ViewAverage.cs" />
     <Compile Include="Models\ViewIonka.cs" />
+    <Compile Include="Models\ViewMagma.cs" />
     <Compile Include="Models\ViewMediana.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -280,6 +282,9 @@
     <Content Include="Scripts\config.js" />
     <Content Include="Scripts\contents.css" />
     <Content Include="Scripts\draggable-points.js" />
+    <Content Include="Scripts\flot\jquery.flot.categories.js" />
+    <Content Include="Scripts\flot\jquery.flot.js" />
+    <Content Include="Scripts\flot\jquery.flot.time.js" />
     <Content Include="Scripts\highcharts.js" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
@@ -579,6 +584,8 @@
     <Content Include="Views\Telegram\Index.cshtml" />
     <Content Include="Views\Telegram\_Menu.cshtml" />
     <Content Include="Views\Products\EditTableSun.cshtml" />
+    <Content Include="Views\Magma\Index.cshtml" />
+    <Content Include="Views\Magma\_Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

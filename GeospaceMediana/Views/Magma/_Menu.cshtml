@@ -1,0 +1,35 @@
+﻿
+<li>
+    @Html.ActionLink("Пред.",
+            "Index",
+            "Magma",
+            new
+            {                                                     // routeValues
+                station = ViewBag.Station.Code,
+                YYYY = ViewBag.prevDate.Year,
+                MM = ViewBag.prevDate.Month,
+                DD = ViewBag.prevDate.Day
+            },
+                                new
+                                {
+                                    @class = "btn btn-default btn-lg"
+                                }
+)
+</li>
+<li>
+    @Html.ActionLink("След.",
+            "Index",
+            "Magma",
+            new
+                    {                                                              // routeValues
+                        station = ViewBag.Station.Code,
+                        YYYY = ViewBag.nextDate.Year,
+                        MM = ViewBag.nextDate.Month,
+                        DD = ViewBag.nextDate.Day
+            },
+                                new
+                                {
+                                    @class = "btn btn-default btn-lg"
+                                }
+)
+</li>

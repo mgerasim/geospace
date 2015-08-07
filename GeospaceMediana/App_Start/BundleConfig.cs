@@ -31,6 +31,11 @@ namespace GeospaceMediana
             bundles.Add(new ScriptBundle("~/bundles/ckeditor").Include(
                         "~/Scripts/ckeditor.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/flot").Include(
+                        "~/Scripts/flot/jquery.flot.js",
+                        "~/Scripts/flot/jquery.flot.categories.js",
+                        "~/Scripts/flot.jquery.flot.time.js"));
+
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
