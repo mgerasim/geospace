@@ -104,12 +104,17 @@
         });
     }
 
-    $('td.editable-umagf').dblclick(editEvent);
+    $(document).ready(function () {
+        $('td.editable-umagf').dblclick(editEvent);
 
-    $(window).keydown(function (event) {
-        if (event.keyCode == 13) {
-            $('#edit').blur();
-        }
+        $(window).keydown(function (event) {
+            if (event.keyCode == 13) {
+                $('#edit').blur();
+            }
+        });
+
     });
+    
+
 
 })();

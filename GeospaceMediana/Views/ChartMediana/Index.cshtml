@@ -10,206 +10,209 @@
 
 <script>
 
-    var monthNumber = {
-        "Январь": "01",
-        "Февраль": "02",
-        "Март": "03",
-        "Апрель": "04",
-        "Май": "05",
-        "Июнь": "06",
-        "Июль": "07",
-        "Август": "08",
-        "Сентябрь": "09",
-        "Октябрь": "10",
-        "Ноябрь": "11",
-        "Декабрь": "12"
-    }
+    $(document).ready(function()
+    {
 
-    var chart = new Highcharts.Chart({
-
-        chart: {
-            renderTo: 'container',
-            animation: false,
-            type: "spline"
-        },
-
-        title: {
-            text: 'Медианный прогноз @ViewBag.ViewType для спокойной ионосферы на 5 дней (@ViewBag.PrevDate.ToString("MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture)-@ViewBag.CurDate.ToString("MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture))'
-        },
-
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Критическая частота МГц ⋅ 10'
-            },
-            lineWidth: 2,
-            max: 120
-        },
-
-        tooltip: {
-            animation: false,
-            yDecimals: 2,
-            useHTML: true,
-            formatter: function() {
-                var date = this.point.series.name.split(" ");
-
-                var numMonth = monthNumber[date[1]];
-                var range = date[2];
-
-                return '' + range + '.'+ numMonth +'<br/><center><b>' + this.y + '</b></center>';
-            },
-
-            positioner: function (labelWidth, labelHeight, point) {
-                var tooltipX, tooltipY;
-                tooltipX = point.plotX + chart.plotLeft - labelWidth / 2;
-                tooltipY = point.plotY + chart.plotTop + 20;
-                return {
-                    x: tooltipX,
-                    y: tooltipY
-                };
-            }
-        },
-
-        xAxis :{
-            title: {
-                text: 'Часы'
-            },
-            categories: [
-                @for(int i=0;i<24;i++)
-                {
-                    @Html.Raw("'"+i.ToString("00")+"'")
-                    
-                    if(i!=23)
-                    {
-                        @:,
+                    var monthNumber = {
+                        "Январь": "01",
+                        "Февраль": "02",
+                        "Март": "03",
+                        "Апрель": "04",
+                        "Май": "05",
+                        "Июнь": "06",
+                        "Июль": "07",
+                        "Август": "08",
+                        "Сентябрь": "09",
+                        "Октябрь": "10",
+                        "Ноябрь": "11",
+                        "Декабрь": "12"
                     }
-                }
-            ],
-            lineWidth: 2,
-            gridLineWidth: 1,
-            tickInterval:1,
-            tickmarkPlacement: 'on',
-        },
 
-        plotOptions: {
-            series: {
-                point: {
-                    events: {
+                    var chart = new Highcharts.Chart({
 
-                        drag: function (e) {
-                            this.y = parseInt(e.newY, 10);
+                        chart: {
+                            renderTo: 'container',
+                            animation: false,
+                            type: "spline"
                         },
 
-                        drop: function () {
-                            this.y = parseInt(this.y, 10);
+                        title: {
+                            text: 'Медианный прогноз @ViewBag.ViewType для спокойной ионосферы на 5 дней (@ViewBag.PrevDate.ToString("MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture)-@ViewBag.CurDate.ToString("MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture))'
+                        },
 
-                            var dateRange = this.series.name.split(" ");
-                            var hour = this.category;
-                            var newValue = this.y;
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: 'Критическая частота МГц ⋅ 10'
+                            },
+                            lineWidth: 2,
+                            max: 120
+                        },
 
-                            var date = dateRange[0] + " " + dateRange[1];
-                            var startRange = dateRange[2].split("-")[0];
+                        tooltip: {
+                            animation: false,
+                            yDecimals: 2,
+                            useHTML: true,
+                            formatter: function() {
+                                var date = this.point.series.name.split(" ");
 
-                            var resUrl = "@Url.Action("Submit", "ChartMediana")" +
-                                "?stationCode=" + @ViewBag.Station.Code +
-                                "&hour=" + hour +
-                                "&startRange=" + startRange +
-                                "&date=" + date +
-                                "&newValue=" + newValue;
-                            
-                            $.ajax({
-                                url: resUrl,
-                                success: function (data) {
-                                    if(data!="")
+                                var numMonth = monthNumber[date[1]];
+                                var range = date[2];
+
+                                return '' + range + '.'+ numMonth +'<br/><center><b>' + this.y + '</b></center>';
+                            },
+
+                            positioner: function (labelWidth, labelHeight, point) {
+                                var tooltipX, tooltipY;
+                                tooltipX = point.plotX + chart.plotLeft - labelWidth / 2;
+                                tooltipY = point.plotY + chart.plotTop + 20;
+                                return {
+                                    x: tooltipX,
+                                    y: tooltipY
+                                };
+                            }
+                        },
+
+                        xAxis :{
+                            title: {
+                                text: 'Часы'
+                            },
+                            categories: [
+                                @for(int i=0;i<24;i++)
+                                {
+                                    @Html.Raw("'"+i.ToString("00")+"'")
+                    
+                                    if(i!=23)
                                     {
-                                        alert(data);
-                                        chart.redraw();
+                                        @:,
                                     }
                                 }
-                            });
+                            ],
+                            lineWidth: 2,
+                            gridLineWidth: 1,
+                            tickInterval:1,
+                            tickmarkPlacement: 'on',
+                        },
+
+                        plotOptions: {
+                            series: {
+                                point: {
+                                    events: {
+
+                                        drag: function (e) {
+                                            this.y = parseInt(e.newY, 10);
+                                        },
+
+                                        drop: function () {
+                                            this.y = parseInt(this.y, 10);
+
+                                            var dateRange = this.series.name.split(" ");
+                                            var hour = this.category;
+                                            var newValue = this.y;
+
+                                            var date = dateRange[0] + " " + dateRange[1];
+                                            var startRange = dateRange[2].split("-")[0];
+
+                                            var resUrl = "@Url.Action("Submit", "ChartMediana")" +
+                                                "?stationCode=" + @ViewBag.Station.Code +
+                                                "&hour=" + hour +
+                                                "&startRange=" + startRange +
+                                                "&date=" + date +
+                                                "&newValue=" + newValue;
+                            
+                                            $.ajax({
+                                                url: resUrl,
+                                                success: function (data) {
+                                                    if(data!="")
+                                                    {
+                                                        alert(data);
+                                                        chart.redraw();
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    }
+                                },
+                                stickyTracking: true
+                            },
+                            column: {
+                                stacking: 'normal'
+                            },
+                            line: {
+                                cursor: 'ns-resize'
+                            }
+                        },
+
+                        @{
+                            Page.needComma = false;
                         }
-                    }
-                },
-                stickyTracking: true
-            },
-            column: {
-                stacking: 'normal'
-            },
-            line: {
-                cursor: 'ns-resize'
-            }
-        },
 
-        @{
-            Page.needComma = false;
-        }
-
-        @helper DrawSeries(DateTime date, int range)
-        {
-            string name = date.ToString("yyyy MMMM", System.Globalization.CultureInfo.CurrentCulture) + " " +
-                              GeospaceMediana.Models.MedianaCalculator.GetRangeFromNumber(date, range).Header;
+                        @helper DrawSeries(DateTime date, int range)
+                        {
+                            string name = date.ToString("yyyy MMMM", System.Globalization.CultureInfo.CurrentCulture) + " " +
+                                              GeospaceMediana.Models.MedianaCalculator.GetRangeFromNumber(date, range).Header;
                 
-                var values = new List<int>();
+                                var values = new List<int>();
 
-                for(int hour=0; hour<24; hour++)
-                {
-                    var mediana = ViewBag.ViewMediana.GetValue(date.Year, date.Month, hour, range);
+                                for(int hour=0; hour<24; hour++)
+                                {
+                                    var mediana = ViewBag.ViewMediana.GetValue(date.Year, date.Month, hour, range);
 
-                    if (mediana.f0F2 == 0)
-                    {
-                        break;
-                    }
+                                    if (mediana.f0F2 == 0)
+                                    {
+                                        break;
+                                    }
                         
-                    values.Add(mediana.f0F2);
-                }
+                                    values.Add(mediana.f0F2);
+                                }
                 
-                if(values.Count != 24)
-                {
-                    return;
-                }
+                                if(values.Count != 24)
+                                {
+                                    return;
+                                }
 
-                if (Page.needComma)
-                {
-                    @:,
-                }
+                                if (Page.needComma)
+                                {
+                                    @:,
+                                }
                 
-                @: { data: [
+                                @: { data: [
                 
-                for(int hour=0; hour<24; hour++)
-                {
-                    @values[hour]
+                                for(int hour=0; hour<24; hour++)
+                                {
+                                    @values[hour]
             
-                    if(hour != 23)
-                    {
-                        @:,
-                    }
-                }
+                                    if(hour != 23)
+                                    {
+                                        @:,
+                                    }
+                                }
             
             
-                @: ],
+                                @: ],
 
-                @Html.Raw("name: \""+name+"\"")
+                                @Html.Raw("name: \""+name+"\"")
 
-                @: ,dragMinY: 0, draggableY: true}
+                                @: ,dragMinY: 0, draggableY: true}
 
-                Page.needComma = true;
-        }
+                                Page.needComma = true;
+                        }
 
-        series: [ 
-            @{
-                GeospaceMediana.Models.ViewMediana viewMedaiana = ViewBag.ViewMediana;
+                        series: [ 
+                            @{
+                                GeospaceMediana.Models.ViewMediana viewMedaiana = ViewBag.ViewMediana;
 
-                @DrawSeries(ViewBag.PrevDate, 5)
+                                @DrawSeries(ViewBag.PrevDate, 5)
 
-                for (int range = 0; range < 6; range++)
-                {
-                    @DrawSeries(ViewBag.CurDate, range)
-                }
-            }
-        ]
+                                for (int range = 0; range < 6; range++)
+                                {
+                                    @DrawSeries(ViewBag.CurDate, range)
+                                }
+                            }
+                        ]
 
+                    });
     });
-
 </script>
 }
 

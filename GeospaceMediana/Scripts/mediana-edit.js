@@ -116,12 +116,16 @@
         });
     }
 
-    $('td.editable-mediana').dblclick(editEvent);
 
-    $(window).keydown(function (event) {
-        if (event.keyCode == 13) {
-            $('#edit').blur();
-        }
+    $(document).ready(function () {
+         $('td.editable-mediana').dblclick(editEvent);
+
+         $(window).keydown(function (event) {
+            if (event.keyCode == 13) {
+                $('#edit').blur();
+            }
+        });
     });
+    
 
 })();

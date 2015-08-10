@@ -213,7 +213,6 @@
                             "&type=" + type +
                             "&hour=" + hour +
                             "&newvalue=" + newValue;
-
                 $.ajax({
                     url: resUrl,
                     success: function (data) {
@@ -236,12 +235,16 @@
         });
     }
 
-    $('td.editable-ionka').dblclick(editEvent);
-
-    $(window).keydown(function (event) {
-        if (event.keyCode == 13) {
-            $('#edit').blur();
-        }
+    $(document).ready(function () {
+        $('td.editable-ionka').dblclick(editEvent);
+        $(window).keydown(function (event) {
+                if (event.keyCode == 13) {
+                    $('#edit').blur();
+                }
+            });
     });
+    
+
+    
 
 })();
