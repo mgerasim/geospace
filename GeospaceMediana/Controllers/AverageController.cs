@@ -36,7 +36,15 @@ namespace GeospaceMediana.Controllers
             else nowDateTime = new DateTime(year, month, day);
             DateTime nextDate = nowDateTime.AddDays(1);
             DateTime prevDate = nowDateTime.AddDays(-1);
-                        
+
+            int rangeNumber = 1;
+
+            if (1 <= nowDateTime.Day && nowDateTime.Day <= 5) rangeNumber = 1;
+            if (6 <= nowDateTime.Day && nowDateTime.Day <= 10) rangeNumber = 2;
+            if (11 <= nowDateTime.Day && nowDateTime.Day <= 15) rangeNumber = 3;
+            if (16 <= nowDateTime.Day && nowDateTime.Day <= 20) rangeNumber = 4;
+            if (21 <= nowDateTime.Day && nowDateTime.Day <= 25) rangeNumber = 5;
+            if (26 <= nowDateTime.Day && nowDateTime.Day <= 31) rangeNumber = 6;
 
             ViewBag.PrevDate = prevDate;
             ViewBag.NextDate = nextDate;
@@ -47,8 +55,10 @@ namespace GeospaceMediana.Controllers
 
             ViewAverage viewAverage = new ViewAverage(stationCode, nowDateTime.Year, nowDateTime.Month, nowDateTime.Day);
             ViewIonka viewIonka = new ViewIonka(stationCode, nowDateTime.Year, nowDateTime.Month, nowDateTime.Day);
+            
 
             string value = "[";
+            string medianaValues = "[";
             string value_05 = "[";
             string value_05_skip = "[";
             string value_07 = "[";
@@ -67,6 +77,12 @@ namespace GeospaceMediana.Controllers
             {
                 for (int i = 0; i < viewAverage.theAverageValues.Count; i++)
                 {
+                    Mediana mediana = Mediana.GetByDate(Station.GetByCode(stationCode),
+                        nowDateTime.Year, nowDateTime.Month, i, rangeNumber);
+
+                    if (mediana != null)
+                        medianaValues += mediana.f0F2.ToString() + ",";
+
                     value_05 += (viewAverage.theAverageValues[i].F2_05.ToString()).Replace(",", ".") + ",";
                     value_05_skip += viewAverage.theAverageValues[i].F2_05_skip.ToString() + ",";
 
@@ -88,7 +104,7 @@ namespace GeospaceMediana.Controllers
                         if (viewIonka.theIonkaValues[i].f0F2 < 1000)
                             value += viewIonka.theIonkaValues[i].f0F2.ToString() + ",";
                         else
-                            value += "-0,";
+                            value += "0,";
                 }
                 
             }
@@ -97,6 +113,12 @@ namespace GeospaceMediana.Controllers
             {
                 for (int i = 0; i < viewAverage.theAverageValues.Count; i++)
                 {
+                    Mediana mediana = Mediana.GetByDate(Station.GetByCode(stationCode),
+                        nowDateTime.Year, nowDateTime.Month, i, rangeNumber);
+
+                    if (mediana != null)
+                        medianaValues += mediana.M3000F2.ToString() + ",";
+
                     value_05 += (viewAverage.theAverageValues[i].M3000_05.ToString()).Replace(",", ".") + ",";
                     value_05_skip += viewAverage.theAverageValues[i].M3000_05_skip.ToString() + ",";
 
@@ -118,7 +140,7 @@ namespace GeospaceMediana.Controllers
                         if (viewIonka.theIonkaValues[i].M3000F2 < 1000)
                             value += viewIonka.theIonkaValues[i].M3000F2.ToString() + ",";
                         else
-                            value += "-1,";
+                            value += "0,";
                 }
             }
 
@@ -135,6 +157,7 @@ namespace GeospaceMediana.Controllers
             value_27_skip += "]";
             value_30 += "]";
             value_30_skip += "]";
+            medianaValues += "]";
 
             ViewBag.value = value;
             ViewBag.value_05 = value_05;
@@ -149,6 +172,7 @@ namespace GeospaceMediana.Controllers
             ViewBag.value_27_skip = value_27_skip;
             ViewBag.value_30 = value_30;
             ViewBag.value_30_skip = value_30_skip;
+            ViewBag.mediana = medianaValues;
             
 
             return View();
