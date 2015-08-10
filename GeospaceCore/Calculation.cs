@@ -21,8 +21,28 @@ namespace GeospaceCore
         void ICalculation.MedianaCalc_Run()
         {
             theLog.LogCalc("Run logger MedianaCacl");
-
-            
+            DateTime dt = DateTime.Now;
+            try
+            {
+                List<Station> listStation = Station.GetAll();
+                foreach (Station item in listStation)
+                {
+                    GeospaceEntity.Helper.HelperCalculation.Calc_Mediana(item, dt.Year, dt.Month, "f0F2");
+                    theLog.LogCalc(item.Name + " - " + item.Code.ToString() + " "
+                        + dt.ToShortDateString() + " f0F2 успешно");
+                    GeospaceEntity.Helper.HelperCalculation.Calc_Mediana(item, dt.Year, dt.Month, "M3000F2");
+                    theLog.LogCalc(item.Name + " - " + item.Code.ToString() + " "
+                        + dt.ToShortDateString() + " M3000F2 успешно");
+                }
+            }
+            catch (Exception ex)
+            {
+                theLog.LogError("Ошибка за " + dt.ToShortDateString()
+                    + " " + dt.ToShortTimeString()
+                    + "\n" + ex.Message
+                    + "'n" + ex.Source
+                    + "\n" + ex.StackTrace);
+            }
         }
 
         void ICalculation.AverageCalc_Run()
@@ -57,7 +77,7 @@ namespace GeospaceCore
             }
             catch (Exception ex)
             {
-                theLog.LogError("Ошибка за " + dt.ToShortDateString()
+                theLog.LogError(dt.ToShortDateString()
                     + " " + dt.ToShortTimeString()
                     + "\n" + ex.Message
                     + "'n" + ex.Source
@@ -82,7 +102,7 @@ namespace GeospaceCore
                         for (int h = start.Hour; h <= end.Hour; h++)
                         {
                             GeospaceEntity.Helper.HelperCalculation.Start_Calc_Average(dt, item, h);
-                            theLog.LogCalc(item.Name + " - " + item.Code.ToString() + " "
+                            theLog.LogCalc("Average " + item.Name + " - " + item.Code.ToString() + " "
                                 + dt.ToShortDateString() + " " + h.ToString() + " час успешно");
                         }
                     }
@@ -94,7 +114,7 @@ namespace GeospaceCore
             }
             catch (Exception ex)
             {
-                theLog.LogError("Ошибка за " + dt.ToShortDateString()
+                theLog.LogError("Average Ошибка за " + dt.ToShortDateString()
                     + " " + dt.ToShortTimeString()
                     + "\n" + ex.Message
                     + "'n" + ex.Source
