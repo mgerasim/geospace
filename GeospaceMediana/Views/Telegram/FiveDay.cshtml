@@ -179,31 +179,18 @@
                         </div>
                     </div>
 
-                    <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="headingTelegramNumber">
-                            <h4 class="panel-title">
-                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTelegramNumber" aria-expanded="true" aria-controls="collapseTelegramNumber">
-                                    Номер телеграммы
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapseTelegramNumber" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTelegramNumber">
-                            <div class="panel-body">
-                                <form class="form-horizontal">
-                                    <div class="form-group">
-                                        <label for="inputTelegramNumber" class="col-sm-2 control-label"></label>
-                                        <div class="col-sm-5">
-                                            <input type="text" class="form-control" id="TelegramNumber" placeholder="">
-                                        </div>
-                                    </div>                                  
+                </div>
 
-                                </form>
-                            </div>
+
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="inputTelegramNumber" class="col-sm-5 control-label">Номер телеграммы</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" id="TelegramNumber" placeholder="">
                         </div>
                     </div>
 
-                </div>
-
+                </form>
 
                 <p>
                     <input class="btn btn-default" type="button" value="Печать">
@@ -223,18 +210,18 @@
      font-family:'Times New Roman';
      font-size: 18px;
  }
-    .page{
-        padding-top:10px;
-        margin-bottom:20px;
-        float:left;
-        width:100%;
+    .page {
+        padding-top: 10px;
+        margin-bottom: 20px;
+        float: left;
+        width: 100%;
     }
     .print {
-        min-width:600px;
-        height:700px;
+        height: 700px;
         background-color: rgb(238, 238, 238);
-        float:left;
+        float: left;
         width: 100%;
+        overflow: scroll;
     }
     .forma-station {
         min-width: 500px;
