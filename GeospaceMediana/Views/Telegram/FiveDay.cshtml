@@ -5,7 +5,218 @@
     ViewBag.Title = "Пятидневный прогноз";
 }
 
+<div class="row">
+    <div class="col-md-7">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                
+
+                <div class="pager">
+                    <div class="print">
+                        <p>
+                            МОСКВА ИПГ ДЕНИСОВОЙ<br />
+                            НОВОСИБИРСК ГИМЕТ ШУСТЕР<br />
+                            ПЯТИДНЕВНЫЙ ПРОГНОЗ<br />
+
+                        </p>
+                        <div>
+
+                            @foreach (var numStation in ViewBag.NumStation)
+                            {
+                                string strFFF = ("FFF");
+                                string strMM = ("MM");
+                                IList<Mediana> vMedian = Mediana.GetByRangeNumber(Station.GetByCode(numStation), ViewBag.Date.Year, ViewBag.Date.Month, ViewBag.number);
+                                foreach (var item in vMedian)//формирование строки для разбиения по 5 символов
+                                {
+                                    strFFF += item.f0F2.ToString("D3");
+                                    strMM += item.M3000F2.ToString("D2");
+                                }
+                                <div style="margin-bottom:20px">
+                                    <div class="String">
+                                        MEDIAN  @numStation  @Html.Raw(ViewBag.range.Min.ToString("D2") + "" + ViewBag.range.Max.ToString("D2") + "" + ViewBag.Date.Month % 10)
+                                    </div>
+                                    <div class="String FFF">
+                                        @foreach (string str5 in new List<string>(System.Text.RegularExpressions.Regex.Split(strFFF, @"(?<=\G.{5})", System.Text.RegularExpressions.RegexOptions.Singleline)))
+                                        {
+                                            <span style="margin-right:10px;">@str5</span>
+                                        }
+                                    </div>
+                                    <div class="String MM">
+                                        @foreach (string str5 in new List<string>(System.Text.RegularExpressions.Regex.Split(strMM, @"(?<=\G.{5})", System.Text.RegularExpressions.RegexOptions.Singleline)))
+                                        {
+                                            <span style="margin-right:10px;">@str5</span>
+                                        }
+                                    </div>
+                                    <div class="String">
+                                        FORECAST  @numStation  @Html.Raw(ViewBag.range.Min.ToString("D2") + "" + ViewBag.range.Max.ToString("D2") + "" + ViewBag.Date.Month % 10)
+                                    </div>
+                                    <div class="String">
+                                        @foreach (var forecast in ViewBag.NameForecast)
+                                        {
+                                            <span id="@numStation@forecast"></span>
+                                        }
+                                    </div>
+
+                                </div>
+                            }
+                        </div>
+                        <div id="numberHab"></div>
+                    </div>
+                        
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Магадан - 45601
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="panel-body">
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <label for="inputIONFO_Magadan" class="col-sm-2 control-label">IONFO</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="inputIONFO_Magadan" placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputIONES_Magadan" class="col-sm-2 control-label">IONES</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="inputIONES_Magadan" placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputMAGPO_Magadan" class="col-sm-2 control-label">MAGPO</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="inputMAGPO_Magadan" placeholder="">
+                                            </div>
+                                        </div>
+
+                                    </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingTwo">
+                            <h4 class="panel-title">
+                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    Хабаровск - 43501
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                            <div class="panel-body">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="inputIONFO_Khabarovsk" class="col-sm-2 control-label">IONFO</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="inputIONFO_Khabarovsk" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputIONES_Khabarovsk" class="col-sm-2 control-label">IONES</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="inputIONES_Khabarovsk" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputMAGPO_Khabarovsk" class="col-sm-2 control-label">MAGPO</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="inputMAGPO_Khabarovsk" placeholder="">
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingThree">
+                            <h4 class="panel-title">
+                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    Паратунка - 46501
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                            <div class="panel-body">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="inputIONFO_Paratunka" class="col-sm-2 control-label">IONFO</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="inputIONFO_Paratunka" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputIONES_Paratunka" class="col-sm-2 control-label">IONES</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="inputIONES_Paratunka" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputMAGPO_Paratunka" class="col-sm-2 control-label">MAGPO</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="inputMAGPO_Paratunka" placeholder="">
+                                        </div>
+                                    </div>
+
+                                </form>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingTelegramNumber">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTelegramNumber" aria-expanded="true" aria-controls="collapseTelegramNumber">
+                                    Номер телеграммы
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseTelegramNumber" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTelegramNumber">
+                            <div class="panel-body">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="inputTelegramNumber" class="col-sm-2 control-label"></label>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control" id="TelegramNumber" placeholder="">
+                                        </div>
+                                    </div>                                  
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <p>
+                    <input class="btn btn-default" type="button" value="Печать">
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@*
 <h2>Пятидневный прогноз на @Html.Raw(ViewBag.Date.ToString("MMMM yyyy") + " " + ViewBag.range.Header)</h2>
+    *@
 <style type="text/css">
  p{
      align-content: center;
@@ -23,6 +234,7 @@
         height:700px;
         background-color: rgb(238, 238, 238);
         float:left;
+        width: 100%;
     }
     .forma-station {
         min-width: 500px;
@@ -34,12 +246,13 @@
     }
 
     .station { font-family: 'Times New Roman'; font-size: 18px; height: 100px;  }
-    
+    /*
     .form-control{
         float:left;
         margin-right:0px;
         width:80px;
     }
+    */
     .prognoz {
         float:left;
     }
@@ -130,6 +343,7 @@
         document.getElementById("numberHab").innerHTML =snum;
     }
 </script>
+@*
 <body>
     <div class="pager">
         <div class="print">
@@ -212,3 +426,4 @@
 
 </body>
 
+*@
