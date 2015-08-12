@@ -161,17 +161,19 @@ body > .container {
     cursor: pointer;
 }
 
- @media print {
-        .tlg-container {
-            width: 90%;
-            float: left;
-            height: 100%;
-        }
+@media print {
+    .tlg-container {
+        width: 100%;
+        float: left;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
 
-        .input-container {
-            width: 10%;
-            float: right;
-            height: 100%;
-        }
-
-        
+    .input-container {
+        width: 0;
+        float: right;
+        height: 100%;
+    }
+    
+}
