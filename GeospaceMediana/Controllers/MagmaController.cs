@@ -14,8 +14,27 @@ namespace GeospaceMediana.Controllers
         //
         // GET: /Magma/
 
-        public ActionResult Index(int station = -1, int YYYY=-1, int MM=-1, int DD=-1)
+        public ActionResult Index(int station = 43501, string type = "f0F2", int YYYY=-1, int MM=-1, int DD=-1)
         {
+            if (type == "M3000F2")
+            {
+                ViewBag.Type = "M3000";
+            }
+            if (type == "f0F2")
+            {
+                ViewBag.Type = "f0";
+            }
+
+            DateTime nowDateTime;
+            if (YYYY < 0 && MM < 0 && DD < 0)
+            {
+                nowDateTime = DateTime.Now;
+            }
+            else nowDateTime = new DateTime(YYYY, MM, DD);
+            ViewBag.Date = nowDateTime;
+
+            ViewBag.Station = Station.GetByCode(station);
+
             if (station < -1)
             {
                 station = 43501;

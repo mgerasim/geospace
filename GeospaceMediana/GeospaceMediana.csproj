@@ -159,6 +159,7 @@
     <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\MedianaController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\StationsController.cs" />
     <Compile Include="Controllers\DropoutController.cs" />
     <Compile Include="Controllers\TelegramController.cs" />
@@ -584,6 +585,9 @@
     <Content Include="Views\Products\EditTableSun.cshtml" />
     <Content Include="Views\Magma\Index.cshtml" />
     <Content Include="Views\Magma\_Menu.cshtml" />
+    <Content Include="Views\Post\Delete.cshtml" />
+    <Content Include="Views\Post\Edit.cshtml" />
+    <Content Include="Views\Post\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

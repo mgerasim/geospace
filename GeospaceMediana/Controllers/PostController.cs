@@ -8,10 +8,10 @@ using System.Web.Mvc;
 
 namespace GeospaceMediana.Controllers
 {
-    public class StationsController : Controller
+    public class PostController : Controller
     {
         //
-        // GET: /Stations/
+        // GET: /Posts/
 
         public ActionResult Index(int stationCode = 43501, string type = "f0F2", int year = -1, int month = -1, int day = -1)
         {
@@ -33,12 +33,12 @@ namespace GeospaceMediana.Controllers
             ViewBag.Date = nowDateTime;
 
             ViewBag.Station = Station.GetByCode(stationCode);
-            return View(GeospaceEntity.Models.Station.GetAll());
+            return View(GeospaceEntity.Models.Post.GetAll());
         }
 
         public ActionResult Edit(int id)
         {
-            return View(GeospaceEntity.Models.Station.GetById(id));
+            return View(GeospaceEntity.Models.Post.GetById(id));
         }
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
@@ -46,7 +46,7 @@ namespace GeospaceMediana.Controllers
             
             try
             {   
-                Station model = Station.GetById(id);
+                Post model = Post.GetById(id);
                 model.Name = collection.Get("Name");
                 model.Latitude = Convert.ToDouble(collection.Get("Latitude"));
                 model.Longitude = Convert.ToDouble(collection.Get("Longitude"));
@@ -61,7 +61,7 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Delete(int id)
         {
-            Station model = Station.GetById(id);
+            Post model = Post.GetById(id);
 
             return View(model);
         }
@@ -71,7 +71,7 @@ namespace GeospaceMediana.Controllers
         {
             try
             {
-                Station model = Station.GetById(id);
+                Post model = Post.GetById(id);
 
                 model.Delete();
 

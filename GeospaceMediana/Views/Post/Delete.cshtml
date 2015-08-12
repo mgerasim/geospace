@@ -1,0 +1,38 @@
+﻿@model GeospaceEntity.Models.Station
+
+@if(ViewBag.error != null)
+{
+    @ViewBag.error
+}
+    
+    
+    
+<h2>Вы уверены, что хотите удалить станцию?</h2>
+
+<div class="form-group">
+    <label style="text-align: right;" for="code" class="col-sm-2 control-label">Код:</label>
+    <div style="height: 30px; display: table;" class="col-sm-10" id="code">
+        <div style="display: table-cell;">@Html.DisplayFor(model => model.Code)</div>
+    </div>
+
+    <label style="text-align: right;" for="name" class="col-sm-2 control-label">Имя:</label>
+    <div style ="height: 30px; display: table;" class="col-sm-10 cols" id="name">
+        <div style="display: table-cell;">@Html.DisplayFor(model => model.Name)</div>
+    </div>
+</div>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">Удалить</button>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            @Html.ActionLink("Назад", "Index")
+        </div>
+    </div>
+}

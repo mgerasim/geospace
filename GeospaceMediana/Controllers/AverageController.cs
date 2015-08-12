@@ -20,9 +20,15 @@ namespace GeospaceMediana.Controllers
             @ViewBag.Title = "Средние значения";
 
             if (type == "M3000F2")
+            {
                 ViewBag.Type = "M3000";
+                ViewBag.textY = "Коэффициент M3000 ⋅ 10";
+            }
             if (type == "f0F2")
+            {
                 ViewBag.Type = "f0";
+                ViewBag.textY = "Критическая частота МГц ⋅ 10";
+            }
 
             ViewBag.NameMenu = "Средние значения " + ViewBag.ViewType;
 
@@ -30,8 +36,7 @@ namespace GeospaceMediana.Controllers
 
             if (year < 0 && month < 0 && day < 0)
             {
-                nowDateTime = DateTimeKhabarovsk.Now;
-                nowDateTime = nowDateTime.AddDays(-1);
+                nowDateTime = DateTime.Now.AddDays(-1);
             }
             else nowDateTime = new DateTime(year, month, day);
             DateTime nextDate = nowDateTime.AddDays(1);
@@ -39,12 +44,12 @@ namespace GeospaceMediana.Controllers
 
             int rangeNumber = 1;
 
-            if (1 <= nowDateTime.Day && nowDateTime.Day <= 5) rangeNumber = 1;
-            if (6 <= nowDateTime.Day && nowDateTime.Day <= 10) rangeNumber = 2;
-            if (11 <= nowDateTime.Day && nowDateTime.Day <= 15) rangeNumber = 3;
-            if (16 <= nowDateTime.Day && nowDateTime.Day <= 20) rangeNumber = 4;
-            if (21 <= nowDateTime.Day && nowDateTime.Day <= 25) rangeNumber = 5;
-            if (26 <= nowDateTime.Day && nowDateTime.Day <= 31) rangeNumber = 6;
+            if (1 <= nowDateTime.Day && nowDateTime.Day <= 5) rangeNumber = 0;
+            if (6 <= nowDateTime.Day && nowDateTime.Day <= 10) rangeNumber = 1;
+            if (11 <= nowDateTime.Day && nowDateTime.Day <= 15) rangeNumber = 2;
+            if (16 <= nowDateTime.Day && nowDateTime.Day <= 20) rangeNumber = 3;
+            if (21 <= nowDateTime.Day && nowDateTime.Day <= 25) rangeNumber = 4;
+            if (26 <= nowDateTime.Day && nowDateTime.Day <= 31) rangeNumber = 5;
 
             ViewBag.PrevDate = prevDate;
             ViewBag.NextDate = nextDate;
@@ -80,7 +85,7 @@ namespace GeospaceMediana.Controllers
                     Mediana mediana = Mediana.GetByDate(Station.GetByCode(stationCode),
                         nowDateTime.Year, nowDateTime.Month, i, rangeNumber);
 
-                    if (mediana != null)
+                    if (mediana != null && mediana.ID > 0)
                         medianaValues += mediana.f0F2.ToString() + ",";
 
                     value_05 += (viewAverage.theAverageValues[i].F2_05.ToString()).Replace(",", ".") + ",";

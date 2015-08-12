@@ -14,7 +14,7 @@ namespace GeospaceMediana.Controllers
         //
         // GET: /ChartMediana/
 
-        public ActionResult Index(int year = -1, int month = -1, int stationCode = 43501, string type = "f0F2")
+        public ActionResult Index(int year = -1, int month = -1, int stationCode = 43501, string type = "f0F2", int day = 1)
         {
             ViewBag.NameMenu = "Диаграмма медианы";
 
@@ -54,6 +54,7 @@ namespace GeospaceMediana.Controllers
             ViewMediana viewMediana = new ViewMediana(listMediana);
 
             ViewBag.CurDate = curDate;
+            ViewBag.Date = curDate;
             ViewBag.PrevDate = prevDate;
             ViewBag.NextDate = nextDate;
 

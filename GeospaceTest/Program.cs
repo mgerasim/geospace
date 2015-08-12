@@ -18,15 +18,43 @@ namespace GeospaceTest
            // Support01();
            // Support02();
            Support03();
-           // Support04();
+            Support04();
            // Support05(); 
 
-           Support06();
+           //Support06();
            // Support07();
-           Support08();
+           //Support08();
+
+           //Support09();
+
             Console.WriteLine("Ok");
             Console.ReadKey();
         }
+
+        static void Support09()
+        {
+            Post a = new Post();
+            Post b = new Post();
+
+            a.Longitude = 135;
+            a.Latitude = 48.5;
+
+            b.Longitude = 137;
+            b.Latitude = 50.6;
+
+            List<Post> listPost = new List<Post>();
+            double angle = 0.0, lenght = 0.0;
+
+            GeospaceEntity.Helper.Track.Calc_Track(a, b, listPost, ref lenght, ref angle);
+
+            Console.WriteLine("a = ({0}, {1}) - {2} -  b = ({3}, {4})\nlenght = {5}, angle = {6}", a.Longitude, a.Latitude, listPost.Count,
+                b.Longitude, b.Latitude,
+                lenght, angle );
+
+            foreach (Post item in listPost)
+                Console.WriteLine("({0}, {1})", item.Longitude, item.Latitude);
+        }
+
         static void Support08()
         {
             CodeMagma theMagma = new CodeMagma();
@@ -68,7 +96,7 @@ namespace GeospaceTest
 
             ICalculation theCalcAverage = new Calculation(theLoggerAverage);
             //theCalcAverage.AverageCalc_Run();
-            theCalcAverage.AverageCalc_Run(new DateTime(2015,8,1,0,0,0), new DateTime(2015, 8, 6, 23, 0, 0));
+            theCalcAverage.AverageCalc_Run(new DateTime(2015,7,1,0,0,0), new DateTime(2015, 8, 11, 23, 0, 0));
         }   
         
         
