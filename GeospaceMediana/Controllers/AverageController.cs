@@ -19,12 +19,12 @@ namespace GeospaceMediana.Controllers
         {
             @ViewBag.Title = "Средние значения";
 
-            if (type == "M3000F2")
+            if (type == "M3000F2" || type == "M3000")
             {
                 ViewBag.Type = "M3000";
                 ViewBag.textY = "Коэффициент M3000 ⋅ 10";
             }
-            if (type == "f0F2")
+            if (type == "f0F2" || type == "f0")
             {
                 ViewBag.Type = "f0";
                 ViewBag.textY = "Критическая частота МГц ⋅ 10";
@@ -76,9 +76,9 @@ namespace GeospaceMediana.Controllers
             string value_27_skip = "[";
             string value_30 = "[";
             string value_30_skip = "[";
-            
 
-            if (type == "f0F2")
+
+            if (type == "f0F2" || type == "f0")
             {
                 for (int i = 0; i < viewAverage.theAverageValues.Count; i++)
                 {
@@ -114,7 +114,7 @@ namespace GeospaceMediana.Controllers
                 
             }
 
-            if (type == "M3000F2")
+            if (type == "M3000F2" || type == "M3000")
             {
                 for (int i = 0; i < viewAverage.theAverageValues.Count; i++)
                 {
