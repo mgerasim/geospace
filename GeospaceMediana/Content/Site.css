@@ -155,3 +155,23 @@ body > .container {
 	-moz-box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 	-webkit-box-shadow: 0 3px 10px rgba(0,0,0,0.1);
         }
+
+
+.panel-heading {
+    cursor: pointer;
+}
+
+ @media print {
+        .tlg-container {
+            width: 90%;
+            float: left;
+            height: 100%;
+        }
+
+        .input-container {
+            width: 10%;
+            float: right;
+            height: 100%;
+        }
+
+        

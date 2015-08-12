@@ -4,9 +4,47 @@
    
     ViewBag.Title = "Пятидневный прогноз";
 }
+<script>
+
+
+    $(document).ready(function () {
+
+        $("#inputLine1").keyup(handleChangeHeader);
+        $("#inputLine2").keyup(handleChangeHeader);
+        $("#inputLine3").keyup(handleChangeHeader);
+
+        $("#F_45601IONFO").keyup(handleChangeCodes);
+        $("#F_45601IONES").keyup(handleChangeCodes);
+        $("#F_45601MAGPO").keyup(handleChangeCodes);
+
+        $("#F_43501IONFO").keyup(handleChangeCodes);
+        $("#F_43501IONES").keyup(handleChangeCodes);
+        $("#F_43501MAGPO").keyup(handleChangeCodes);
+
+        $("#F_46501IONFO").keyup(handleChangeCodes);
+        $("#F_46501IONES").keyup(handleChangeCodes);
+        $("#F_46501MAGPO").keyup(handleChangeCodes);
+
+        $("#SNumber").keyup(handleChangeCodes);
+
+        handleChangeHeader();
+        handleChangeCodes();
+
+    });
+
+    function handleChangeHeader() {
+        $(".pager .print p").html($("#inputLine1").val() + "<br>" + $("#inputLine2").val() + "<br>" + $("#inputLine3").val());
+    }
+
+    function handleChangeCodes() {
+        saveForecast();
+    }
+
+</script>
+
 
 <div class="row">
-    <div class="col-md-7">
+    <div class="col-md-8 tlg-container">
         <div class="panel panel-default">
             <div class="panel-body">
                 
@@ -71,71 +109,38 @@
             </div>
         </div>
     </div>
-    <div class="col-md-5">
+    <div class="col-md-4 input-container hidden-print">
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                    <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="headingOne">
-                            <h4 class="panel-title">
-                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                    Магадан - 45601
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                            <div class="panel-body">
-                                    <form class="form-horizontal">
-                                        <div class="form-group">
-                                            <label for="inputIONFO_Magadan" class="col-sm-2 control-label">IONFO</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="inputIONFO_Magadan" placeholder="">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="inputIONES_Magadan" class="col-sm-2 control-label">IONES</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="inputIONES_Magadan" placeholder="">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="inputMAGPO_Magadan" class="col-sm-2 control-label">MAGPO</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="inputMAGPO_Magadan" placeholder="">
-                                            </div>
-                                        </div>
 
-                                    </form>
-                            </div>
-                        </div>
-                    </div>
                     <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="headingTwo">
+                        <div class="panel-heading" role="tab" id="headingLine" data-toggle="collapse" data-parent="#accordion" data-target="#collapseLine">
                             <h4 class="panel-title">
-                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                    Хабаровск - 43501
+                                <a class="collapsed" role="button" aria-expanded="false" aria-controls="collapseLine">
+                                    Заголовок
                                 </a>
                             </h4>
                         </div>
-                        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                        <div id="collapseLine" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingLine">
                             <div class="panel-body">
                                 <form class="form-horizontal">
                                     <div class="form-group">
-                                        <label for="inputIONFO_Khabarovsk" class="col-sm-2 control-label">IONFO</label>
+                                        <label for="inputLine1" class="col-sm-2 control-label">1:</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="inputIONFO_Khabarovsk" placeholder="">
+                                            <input type="text" class="form-control" id="inputLine1" placeholder="" value="МОСКВА ИПГ ДЕНИСОВОЙ">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="inputIONES_Khabarovsk" class="col-sm-2 control-label">IONES</label>
+                                        <label for="inputLine2" class="col-sm-2 control-label">2:</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="inputIONES_Khabarovsk" placeholder="">
+                                            <input type="text" class="form-control" id="inputLine2" placeholder="" value="НОВОСИБИРСК ГИМЕТ ШУСТЕР">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="inputMAGPO_Khabarovsk" class="col-sm-2 control-label">MAGPO</label>
+                                        <label for="inputLine3" class="col-sm-2 control-label">3:</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="inputMAGPO_Khabarovsk" placeholder="">
+                                            <input type="text" class="form-control" id="inputLine3" placeholder="" value="ПЯТИДНЕВНЫЙ ПРОГНОЗ">
                                         </div>
                                     </div>
 
@@ -144,9 +149,77 @@
                         </div>
                     </div>
                     <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="headingThree">
+                        <div class="panel-heading" role="tab" data-toggle="collapse" data-parent="#accordion" data-target="#collapseOne" id="headingOne">
                             <h4 class="panel-title">
-                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                <a role="button" aria-expanded="true" aria-controls="collapseOne">
+                                    Магадан - 45601
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="panel-body">
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <label for="F_45601IONFO" class="col-sm-2 control-label">IONFO</label>
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control" id="F_45601IONFO" placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="F_45601IONES" class="col-sm-2 control-label">IONES</label>
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control" id="F_45601IONES" placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="F_45601MAGPO" class="col-sm-2 control-label">MAGPO</label>
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control" id="F_45601MAGPO" placeholder="">
+                                            </div>
+                                        </div>
+
+                                    </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" data-toggle="collapse" data-parent="#accordion" data-target="#collapseTwo" id="headingTwo">
+                            <h4 class="panel-title">
+                                <a class="collapsed" role="button" aria-expanded="false" aria-controls="collapseTwo">
+                                    Хабаровск - 43501
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                            <div class="panel-body">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="F_43501IONFO" class="col-sm-2 control-label">IONFO</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control" id="F_43501IONFO" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="F_43501IONES" class="col-sm-2 control-label">IONES</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control" id="F_43501IONES" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="F_43501MAGPO" class="col-sm-2 control-label">MAGPO</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control" id="F_43501MAGPO" placeholder="">
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" data-toggle="collapse" data-parent="#accordion" data-target="#collapseThree" id="headingThree">
+                            <h4 class="panel-title">
+                                <a class="collapsed" role="button" aria-expanded="false" aria-controls="collapseThree">
                                     Паратунка - 46501
                                 </a>
                             </h4>
@@ -155,21 +228,21 @@
                             <div class="panel-body">
                                 <form class="form-horizontal">
                                     <div class="form-group">
-                                        <label for="inputIONFO_Paratunka" class="col-sm-2 control-label">IONFO</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="inputIONFO_Paratunka" placeholder="">
+                                        <label for="F_46501IONFO" class="col-sm-2 control-label">IONFO</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control" id="F_46501IONFO" placeholder="">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="inputIONES_Paratunka" class="col-sm-2 control-label">IONES</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="inputIONES_Paratunka" placeholder="">
+                                        <label for="F_46501IONES" class="col-sm-2 control-label">IONES</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control" id="F_46501IONES" placeholder="">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="inputMAGPO_Paratunka" class="col-sm-2 control-label">MAGPO</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="inputMAGPO_Paratunka" placeholder="">
+                                        <label for="F_46501MAGPO" class="col-sm-2 control-label">MAGPO</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control" id="F_46501MAGPO" placeholder="">
                                         </div>
                                     </div>
 
@@ -184,16 +257,17 @@
 
                 <form class="form-horizontal">
                     <div class="form-group">
-                        <label for="inputTelegramNumber" class="col-sm-5 control-label">Номер телеграммы</label>
+                        <label for="SNumber" class="col-sm-5 control-label">Номер телеграммы</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" id="TelegramNumber" placeholder="">
+                            <input type="text" class="form-control" id="SNumber" placeholder="">
                         </div>
                     </div>
 
                 </form>
 
                 <p>
-                    <input class="btn btn-default" type="button" value="Печать">
+                    
+                    <input type="button" value="Печать" onclick="window.print();" class="btn btn-default btn-lg"> 
                 </p>
             </div>
         </div>
@@ -210,14 +284,10 @@
      font-family:'Times New Roman';
      font-size: 18px;
  }
-    .page {
-        padding-top: 10px;
-        margin-bottom: 20px;
-        float: left;
-        width: 100%;
+    .pager {
+        margin: 0;
     }
     .print {
-        height: 700px;
         background-color: rgb(238, 238, 238);
         float: left;
         width: 100%;
@@ -282,6 +352,7 @@
     }
 </style>
 <script type="text/javascript">
+
     function addEmpty(number)
     {
         var str = "";
