@@ -1,6 +1,4 @@
 ﻿body {
-    font-size: .85em;
-    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
     color: #232323;
     background-color: #fff;
 }
@@ -157,3 +155,25 @@ body > .container {
 	-moz-box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 	-webkit-box-shadow: 0 3px 10px rgba(0,0,0,0.1);
         }
+
+
+.panel-heading {
+    cursor: pointer;
+}
+
+@media print {
+    .tlg-container {
+        width: 100%;
+        float: left;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .input-container {
+        width: 0;
+        float: right;
+        height: 100%;
+    }
+    
+}

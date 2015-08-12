@@ -4,25 +4,294 @@
    
     ViewBag.Title = "Пятидневный прогноз";
 }
+<script>
 
+
+    $(document).ready(function () {
+
+        $("#inputLine1").keyup(handleChangeHeader);
+        $("#inputLine2").keyup(handleChangeHeader);
+        $("#inputLine3").keyup(handleChangeHeader);
+
+        $("#F_45601IONFO").keyup(handleChangeCodes);
+        $("#F_45601IONES").keyup(handleChangeCodes);
+        $("#F_45601MAGPO").keyup(handleChangeCodes);
+
+        $("#F_43501IONFO").keyup(handleChangeCodes);
+        $("#F_43501IONES").keyup(handleChangeCodes);
+        $("#F_43501MAGPO").keyup(handleChangeCodes);
+
+        $("#F_46501IONFO").keyup(handleChangeCodes);
+        $("#F_46501IONES").keyup(handleChangeCodes);
+        $("#F_46501MAGPO").keyup(handleChangeCodes);
+
+        $("#SNumber").keyup(handleChangeCodes);
+
+        handleChangeHeader();
+        handleChangeCodes();
+
+    });
+
+    function handleChangeHeader() {
+        $(".pager .print p").html($("#inputLine1").val() + "<br>" + $("#inputLine2").val() + "<br>" + $("#inputLine3").val());
+    }
+
+    function handleChangeCodes() {
+        saveForecast();
+    }
+
+</script>
+
+
+<div class="row">
+    <div class="col-md-8 tlg-container">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                
+
+                <div class="pager">
+                    <div class="print">
+                        <p>
+                            МОСКВА ИПГ ДЕНИСОВОЙ<br />
+                            НОВОСИБИРСК ГИМЕТ ШУСТЕР<br />
+                            ПЯТИДНЕВНЫЙ ПРОГНОЗ<br />
+
+                        </p>
+                        <div>
+
+                            @foreach (var numStation in ViewBag.NumStation)
+                            {
+                                string strFFF = ("FFF");
+                                string strMM = ("MM");
+                                IList<Mediana> vMedian = Mediana.GetByRangeNumber(Station.GetByCode(numStation), ViewBag.Date.Year, ViewBag.Date.Month, ViewBag.number);
+                                foreach (var item in vMedian)//формирование строки для разбиения по 5 символов
+                                {
+                                    strFFF += item.f0F2.ToString("D3");
+                                    strMM += item.M3000F2.ToString("D2");
+                                }
+                                <div style="margin-bottom:20px">
+                                    <div class="String">
+                                        MEDIAN  @numStation  @Html.Raw(ViewBag.range.Min.ToString("D2") + "" + ViewBag.range.Max.ToString("D2") + "" + ViewBag.Date.Month % 10)
+                                    </div>
+                                    <div class="String FFF">
+                                        @foreach (string str5 in new List<string>(System.Text.RegularExpressions.Regex.Split(strFFF, @"(?<=\G.{5})", System.Text.RegularExpressions.RegexOptions.Singleline)))
+                                        {
+                                            <span style="margin-right:10px;">@str5</span>
+                                        }
+                                    </div>
+                                    <div class="String MM">
+                                        @foreach (string str5 in new List<string>(System.Text.RegularExpressions.Regex.Split(strMM, @"(?<=\G.{5})", System.Text.RegularExpressions.RegexOptions.Singleline)))
+                                        {
+                                            <span style="margin-right:10px;">@str5</span>
+                                        }
+                                    </div>
+                                    <div class="String">
+                                        FORECAST  @numStation  @Html.Raw(ViewBag.range.Min.ToString("D2") + "" + ViewBag.range.Max.ToString("D2") + "" + ViewBag.Date.Month % 10)
+                                    </div>
+                                    <div class="String">
+                                        @foreach (var forecast in ViewBag.NameForecast)
+                                        {
+                                            <span id="@numStation@forecast"></span>
+                                        }
+                                    </div>
+
+                                </div>
+                            }
+                        </div>
+                        <div id="numberHab"></div>
+                    </div>
+                        
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 input-container hidden-print">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingLine" data-toggle="collapse" data-parent="#accordion" data-target="#collapseLine">
+                            <h4 class="panel-title">
+                                <a class="collapsed" role="button" aria-expanded="false" aria-controls="collapseLine">
+                                    Заголовок
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseLine" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingLine">
+                            <div class="panel-body">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="inputLine1" class="col-sm-2 control-label">1:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="inputLine1" placeholder="" value="МОСКВА ИПГ ДЕНИСОВОЙ">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputLine2" class="col-sm-2 control-label">2:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="inputLine2" placeholder="" value="НОВОСИБИРСК ГИМЕТ ШУСТЕР">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputLine3" class="col-sm-2 control-label">3:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="inputLine3" placeholder="" value="ПЯТИДНЕВНЫЙ ПРОГНОЗ">
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" data-toggle="collapse" data-parent="#accordion" data-target="#collapseOne" id="headingOne">
+                            <h4 class="panel-title">
+                                <a role="button" aria-expanded="true" aria-controls="collapseOne">
+                                    Магадан - 45601
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="panel-body">
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <label for="F_45601IONFO" class="col-sm-2 control-label">IONFO</label>
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control" id="F_45601IONFO" placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="F_45601IONES" class="col-sm-2 control-label">IONES</label>
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control" id="F_45601IONES" placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="F_45601MAGPO" class="col-sm-2 control-label">MAGPO</label>
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control" id="F_45601MAGPO" placeholder="">
+                                            </div>
+                                        </div>
+
+                                    </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" data-toggle="collapse" data-parent="#accordion" data-target="#collapseTwo" id="headingTwo">
+                            <h4 class="panel-title">
+                                <a class="collapsed" role="button" aria-expanded="false" aria-controls="collapseTwo">
+                                    Хабаровск - 43501
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                            <div class="panel-body">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="F_43501IONFO" class="col-sm-2 control-label">IONFO</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control" id="F_43501IONFO" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="F_43501IONES" class="col-sm-2 control-label">IONES</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control" id="F_43501IONES" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="F_43501MAGPO" class="col-sm-2 control-label">MAGPO</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control" id="F_43501MAGPO" placeholder="">
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" data-toggle="collapse" data-parent="#accordion" data-target="#collapseThree" id="headingThree">
+                            <h4 class="panel-title">
+                                <a class="collapsed" role="button" aria-expanded="false" aria-controls="collapseThree">
+                                    Паратунка - 46501
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                            <div class="panel-body">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="F_46501IONFO" class="col-sm-2 control-label">IONFO</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control" id="F_46501IONFO" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="F_46501IONES" class="col-sm-2 control-label">IONES</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control" id="F_46501IONES" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="F_46501MAGPO" class="col-sm-2 control-label">MAGPO</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control" id="F_46501MAGPO" placeholder="">
+                                        </div>
+                                    </div>
+
+                                </form>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="SNumber" class="col-sm-5 control-label">Номер телеграммы</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" id="SNumber" placeholder="">
+                        </div>
+                    </div>
+
+                </form>
+
+                <p>
+                    
+                    <input type="button" value="Печать" onclick="window.print();" class="btn btn-default btn-lg"> 
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@*
 <h2>Пятидневный прогноз на @Html.Raw(ViewBag.Date.ToString("MMMM yyyy") + " " + ViewBag.range.Header)</h2>
+    *@
 <style type="text/css">
  p{
      align-content: center;
      font-family:'Times New Roman';
      font-size: 18px;
  }
-    .page{
-        padding-top:10px;
-        margin-bottom:20px;
-        float:left;
-        width:100%;
+    .pager {
+        margin: 0;
     }
     .print {
-        min-width:600px;
-        height:700px;
         background-color: rgb(238, 238, 238);
-        float:left;
+        float: left;
+        width: 100%;
+        overflow: scroll;
     }
     .forma-station {
         min-width: 500px;
@@ -34,12 +303,13 @@
     }
 
     .station { font-family: 'Times New Roman'; font-size: 18px; height: 100px;  }
-    
+    /*
     .form-control{
         float:left;
         margin-right:0px;
         width:80px;
     }
+    */
     .prognoz {
         float:left;
     }
@@ -74,7 +344,6 @@
     }
     .print{
         align-content:center;
-        padding-left:50px;
     }
     body {
         padding-top:20px;
@@ -82,6 +351,7 @@
     }
 </style>
 <script type="text/javascript">
+
     function addEmpty(number)
     {
         var str = "";
@@ -130,6 +400,7 @@
         document.getElementById("numberHab").innerHTML =snum;
     }
 </script>
+@*
 <body>
     <div class="pager">
         <div class="print">
@@ -212,3 +483,4 @@
 
 </body>
 
+*@

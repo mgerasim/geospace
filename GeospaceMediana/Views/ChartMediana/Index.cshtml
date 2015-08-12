@@ -31,9 +31,10 @@
                     var chart = new Highcharts.Chart({
 
                         chart: {
-                            renderTo: 'container',
+                            renderTo: 'container_chart',
                             animation: false,
-                            type: "spline"
+                            type: "spline",
+                            height: 700
                         },
 
                         title: {
@@ -46,7 +47,9 @@
                                 text: 'Критическая частота МГц ⋅ 10'
                             },
                             lineWidth: 2,
-                            max: 120
+                            max: 120,
+                            tickPixelInterval: 10,
+                            tickInterval: 10
                         },
 
                         tooltip: {
@@ -216,20 +219,10 @@
 </script>
 }
 
-<style>
-    html, body {
-        height: 100%;
-        
-    }
 
-    body {
-        overflow: auto; /* добавить полосу прокрутки */
-    }
-</style>
-
-<div class="row" style="height: 100%">
-    <div class="col-md-12" style="height: 100%">
-        <div id="container" style="height: 100%"></div>
+<div class="row">
+    <div class="col-md-12">
+        <div id="container_chart"></div>
 
     </div>
 
