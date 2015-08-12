@@ -75,10 +75,7 @@
 
                         @ShowMenuLink("Диаграмма медианы", "Index", "ChartMediana", null, "Диаграмма медианы", true, false)
 
-                        <li class="divider"></li>
-                          @ShowMenuLink("Средние значения <b>f0F2</b>", "Index", "Average", new { type = "f0F2" }, "Средние значения f0F2")
-                          @ShowMenuLink("Средние значения <b>M3000</b>", "Index", "Average", new { type = "M3000F2" }, "Средние значения M3000")
-
+                        
                     </ul>
                 </li>
 
@@ -93,6 +90,24 @@
 
             <ul class="nav navbar-nav navbar-right">
 
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Анализ<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">                        
+                        <li>@Html.ActionLink("Геомагнитные данные по ст.Диксон", "Index", "Magma", new { station = 38701 }, null)</li>
+                        <li class="divider"></li>
+                        @ShowMenuLink("Средние значения <b>f0F2</b>", "Index", "Average", new { type = "f0F2" }, "Средние значения f0F2")
+                        @ShowMenuLink("Средние значения <b>M3000</b>", "Index", "Average", new { type = "M3000F2" }, "Средние значения M3000")
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Телеграмма<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>@Html.ActionLink("Пятидневный прогноз", "FiveDay", "Telegram")</li>
+
+                    </ul>
+                </li>
+
                       <li class="dropdown">
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Продукция<span class="caret"></span></a>
                           <ul class="dropdown-menu" role="menu">
@@ -105,10 +120,6 @@
                               <li>@Html.ActionLink("Месячный прогноз Ионосферы и Магнитного поля Земли", "EditForecastMonthIonosphera", "Products")</li>
                               <li>@Html.ActionLink("Сводная таблица по Солнцу, Магнитному полю Земли и Ионосферы", "EditTableSun", "Products")</li>
                               <li>@Html.ActionLink("Примечания к графикам и таблицам", "EditDescription", "Products")</li>
-                              <li class="divider"></li>
-                              <li>@Html.ActionLink("Пятидневный прогноз", "FiveDay", "Telegram")</li>
-                              <li class="divider"></li>
-                              <li>@Html.ActionLink("Геомагнитные данные по ст.Диксон", "Index", "Magma", new { station=38701 }, null)</li>
                               <li class="divider"></li>
                               <li><a href="http://www.khabmeteo.ru/geo" target="_blank">Геофизика на Хабаровск Погода Центр</a></li>
 
@@ -126,6 +137,16 @@
                               
                           </ul>
                       </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Помощь<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>@Html.ActionLink("Справка", "Index", "About")</li>
+                        <li class="divider"></li>
+                        <li><a href="http://www.khabmeteo.ru/geo" target="_blank">Геофизика на Хабаровск Погода Центр</a></li>
+
+                    </ul>
+                </li>
                       <!--
             <li>@Html.ActionLink("Настройки", "Index", "Settings")</li>
             <li class="dropdown">

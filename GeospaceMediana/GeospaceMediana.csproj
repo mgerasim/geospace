@@ -150,6 +150,7 @@
     <Content Include="Content\ionka.css" />
     <Content Include="Content\css-loadtriangles.css" />
     <Compile Include="Common\DateTimeKhabarovsk.cs" />
+    <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="Controllers\AverageController.cs" />
     <Compile Include="Controllers\CharacterizationDayController.cs" />
@@ -584,6 +585,7 @@
     <Content Include="Views\Products\EditTableSun.cshtml" />
     <Content Include="Views\Magma\Index.cshtml" />
     <Content Include="Views\Magma\_Menu.cshtml" />
+    <Content Include="Views\About\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
