@@ -64,17 +64,30 @@
         }
     }
 }
+                        @if(ViewBag.Date != null && ViewBag.Station != null)
+                        { 
+                            @ShowMenuLink("Данные ионосферы", "Index", "Ionka", new { year = ViewBag.Date.Year, month = ViewBag.Date.Month, stationCode = ViewBag.Station.Code, type = "f0F2", day = ViewBag.Date.Day }, "Состояние ионосферы", false, true)
 
-                        @ShowMenuLink("Данные ионосферы", "Index", "Ionka", new { year = ViewBag.Date.Year, month = ViewBag.Date.Month, stationCode = ViewBag.Station.Code, type = "f0F2", day = ViewBag.Date.Day }, "Состояние ионосферы", false, true)
+                            @ShowMenuLink("Прогноз медианы <b>f0F2</b>", "Index", "Mediana", new { year = ViewBag.Date.Year, month = ViewBag.Date.Month, stationCode = ViewBag.Station.Code, type = "f0F2", day = ViewBag.Date.Day }, "Прогноз медианы f0F2")
+                            @ShowMenuLink("Прогноз медианы <b>M3000</b>", "Index", "Mediana", new { stationCode = ViewBag.Station.Code, type = "f0F2", year = ViewBag.Date.Year, month = ViewBag.Date.Month, day = ViewBag.Date.Day }, "Прогноз медианы M3000")
+                            <li class="divider"></li>
+                            @ShowMenuLink("Суточные отклонения <b>f0F2</b>", "Index", "CharacterizationDay", new { stationCode = ViewBag.Station.Code, type = "f0F2", year = ViewBag.Date.Year, month = ViewBag.Date.Month, day = ViewBag.Date.Day }, "Суточные отклонения f0F2")
+                            @ShowMenuLink("Суточные отклонения <b>M3000</b>", "Index", "CharacterizationDay", new { stationCode = ViewBag.Station.Code, type = "f0F2", year = ViewBag.Date.Year, month = ViewBag.Date.Month, day = ViewBag.Date.Day }, "Суточные отклонения M3000")
 
-                        @ShowMenuLink("Прогноз медианы <b>f0F2</b>", "Index", "Mediana", new { year = ViewBag.Date.Year, month = ViewBag.Date.Month, stationCode = ViewBag.Station.Code, type = "f0F2", day = ViewBag.Date.Day }, "Прогноз медианы f0F2")
-                        @ShowMenuLink("Прогноз медианы <b>M3000</b>", "Index", "Mediana", new { stationCode = ViewBag.Station.Code, type = "f0F2", year = ViewBag.Date.Year, month = ViewBag.Date.Month, day = ViewBag.Date.Day }, "Прогноз медианы M3000")
-                        <li class="divider"></li>
-                        @ShowMenuLink("Суточные отклонения <b>f0F2</b>", "Index", "CharacterizationDay", new { stationCode = ViewBag.Station.Code, type = "f0F2", year = ViewBag.Date.Year, month = ViewBag.Date.Month, day = ViewBag.Date.Day }, "Суточные отклонения f0F2")
-                        @ShowMenuLink("Суточные отклонения <b>M3000</b>", "Index", "CharacterizationDay", new { stationCode = ViewBag.Station.Code, type = "f0F2", year = ViewBag.Date.Year, month = ViewBag.Date.Month, day = ViewBag.Date.Day }, "Суточные отклонения M3000")
+                            @ShowMenuLink("Диаграмма медианы", "Index", "ChartMediana", new { stationCode = ViewBag.Station.Code, type = "f0F2", year = ViewBag.Date.Year, month = ViewBag.Date.Month, day = ViewBag.Date.Day }, "Диаграмма медианы", true, false)
+                        }
+                        else
+                        {
+                            @ShowMenuLink("Данные ионосферы", "Index", "Ionka", null, "Состояние ионосферы", false, true)
 
-                        @ShowMenuLink("Диаграмма медианы", "Index", "ChartMediana", new { stationCode = ViewBag.Station.Code, type = "f0F2", year = ViewBag.Date.Year, month = ViewBag.Date.Month, day = ViewBag.Date.Day }, "Диаграмма медианы", true, false)
+                            @ShowMenuLink("Прогноз медианы <b>f0F2</b>", "Index", "Mediana", new { type = "f0F2" }, "Прогноз медианы f0F2")
+                            @ShowMenuLink("Прогноз медианы <b>M3000</b>", "Index", "Mediana", new { type = "M3000F2" }, "Прогноз медианы M3000")
+                            <li class="divider"></li>
+                            @ShowMenuLink("Суточные отклонения <b>f0F2</b>", "Index", "CharacterizationDay", new { type = "f0F2" }, "Суточные отклонения f0F2")
+                            @ShowMenuLink("Суточные отклонения <b>M3000</b>", "Index", "CharacterizationDay", new { type = "M3000F2" }, "Суточные отклонения M3000")
 
+                            @ShowMenuLink("Диаграмма медианы", "Index", "ChartMediana", null, "Диаграмма медианы", true, false)
+                        }
                     </ul>
                 </li>
 
@@ -92,8 +105,16 @@
                     <ul class="dropdown-menu" role="menu">                        
                         <li>@Html.ActionLink("Геомагнитные данные по ст.Диксон", "Index", "Magma", new { station = 38701 }, null)</li>
                         <li class="divider"></li>
-                        @ShowMenuLink("Средние значения <b>f0F2</b>", "Index", "Average", new { stationCode = ViewBag.Station.Code, type = "f0F2", year = ViewBag.Date.Year, month = ViewBag.Date.Month, day = ViewBag.Date.Day }, "Средние значения f0F2")
-                        @ShowMenuLink("Средние значения <b>M3000</b>", "Index", "Average", new { stationCode = ViewBag.Station.Code, type = "M3000F2", year = ViewBag.Date.Year, month = ViewBag.Date.Month, day = ViewBag.Date.Day }, "Средние значения M3000")
+                        @if (ViewBag.Date != null && ViewBag.Station != null)
+                        { 
+                            @ShowMenuLink("Средние значения <b>f0F2</b>", "Index", "Average", new { type = "f0F2" }, "Средние значения f0F2")
+                            @ShowMenuLink("Средние значения <b>M3000</b>", "Index", "Average", new { type = "M3000F2" }, "Средние значения M3000")
+                        }
+                        else
+                        {
+                            @ShowMenuLink("Средние значения <b>f0F2</b>", "Index", "Average", new { type = "f0F2" }, "Средние значения f0F2")
+                            @ShowMenuLink("Средние значения <b>M3000</b>", "Index", "Average", new { type = "M3000F2" }, "Средние значения M3000")
+                        }
                     </ul>
                 </li>
 

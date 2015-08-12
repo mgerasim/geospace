@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GeospaceEntity.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,8 +12,10 @@ namespace GeospaceMediana.Controllers
         //
         // GET: /About/
 
-        public ActionResult Index()
+        public ActionResult Index(int stationCode=43501)
         {
+            ViewBag.Station = Station.GetByCode(stationCode);
+            ViewBag.Date = DateTime.Now;
             return View();
         }
 

@@ -48,7 +48,7 @@ namespace GeospaceMediana.Controllers
 
             return View(theProduct);
         }
-       public ActionResult FiveDay( string date = "", int rangeNumber = -1)
+        public ActionResult FiveDay(int stationCode = 43501, string date = "", int rangeNumber = -1)
        {
             DateTime nowDateTime;
             bool def = false;
@@ -76,6 +76,7 @@ namespace GeospaceMediana.Controllers
            string[] namePrognoz = { "IONFO", "IONES", "MAGPO" };
            ViewBag.NameForecast = namePrognoz;
            ViewBag.NumStation = station;
+           ViewBag.Station = Station.GetByCode(stationCode);
            return View();
         }
     }
