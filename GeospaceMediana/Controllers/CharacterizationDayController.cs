@@ -14,35 +14,42 @@ namespace GeospaceMediana.Controllers
         //
         // GET: /CharacterizationDay/
 
-        public ActionResult Index(int stationCode = 43501, int year = -1, int month = -1, int rangeNumber = -1, string type = "f0F2")
+        public ActionResult Index(int stationCode = 43501, int year = -1, int month = -1, int rangeNumber = -1, string type = "f0F2", int day = -1)
         {
             if (type == "M3000F2")
-                ViewBag.ViewType = "M3000";
-            else
-                ViewBag.ViewType = type;
+            {
+                ViewBag.Type = "M3000";
+            }
+            if (type == "f0F2")
+            {
+                ViewBag.Type = "f0";
+            }
+
+            DateTime nowDateTime;
+            if (year < 0 && month < 0 && day < 0)
+            {
+                nowDateTime = DateTime.Now.AddDays(-1);
+            }
+            else nowDateTime = new DateTime(year, month, day);
+            ViewBag.Date = nowDateTime;
 
             ViewBag.NameMenu = "Суточные отклонения " + ViewBag.ViewType;
 
-            if(year == -1)
+            var curDay = DateTime.Now.Day;
+
+            for (int i = 0; i < 6;i++ )
             {
-                var curDay = DateTime.Now.Day;
+                var range = MedianaCalculator.GetRangeFromNumber(DateTime.Now, i);
 
-                for (int i = 0; i < 6;i++ )
+                if(curDay >= range.Min && curDay <= range.Max)
                 {
-                    var range = MedianaCalculator.GetRangeFromNumber(DateTime.Now, i);
-
-                    if(curDay >= range.Min && curDay <= range.Max)
-                    {
-                        rangeNumber = i;
-                        break;
-                    }
+                    rangeNumber = i;
+                    break;
                 }
-
-                DateTime nowDateTime = DateTimeKhabarovsk.Now;
-
-                year = nowDateTime.Year;
-                month = nowDateTime.Month;
             }
+
+            year = nowDateTime.Year;
+            month = nowDateTime.Month;
 
             Station station = Station.GetByCode(stationCode);
 
@@ -90,7 +97,7 @@ namespace GeospaceMediana.Controllers
 
             ViewBag.Type = type;
 
-            ViewBag.Date = currStartDay.ToString("MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture);
+            ViewBag.DateString = currStartDay.ToString("MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture);
 
             return View();
         }

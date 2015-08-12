@@ -16,9 +16,10 @@
                                 new
                                 {
                                     stationCode = item.Code,
-                                    year = ViewBag.Year,
-                                    month = ViewBag.Month,
-                                    type = ViewBag.Type
+                                    type = ViewBag.Type,
+                                    year = ViewBag.Date.Year,
+                                    month = ViewBag.Date.Month,
+                                    day = ViewBag.Date.Day,
                                 }, null)
                 </li>
             }
@@ -33,9 +34,10 @@
             new
             {
                 stationCode = ViewBag.Station.Code,
+                type = ViewBag.Type,
                 year = ViewBag.PrevDate.Year,
                 month = ViewBag.PrevDate.Month,
-                day = ViewBag.PrevDate.Day
+                day = ViewBag.PrevDate.Day,
             },
                                 new
                                 {
@@ -50,9 +52,10 @@
             new
             {                                                     // routeValues
                 stationCode = ViewBag.Station.Code,
+                type = ViewBag.Type,
                 year = ViewBag.NextDate.Year,
                 month = ViewBag.NextDate.Month,
-                day = ViewBag.NextDate.Day
+                day = ViewBag.NextDate.Day,
             },
                                 new
                                 {

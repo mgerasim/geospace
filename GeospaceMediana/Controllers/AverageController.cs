@@ -19,10 +19,16 @@ namespace GeospaceMediana.Controllers
         {
             @ViewBag.Title = "Средние значения";
 
-            if (type == "M3000F2")
+            if (type == "M3000F2" || type == "M3000")
+            {
                 ViewBag.Type = "M3000";
-            if (type == "f0F2")
+                ViewBag.textY = "Коэффициент M3000 ⋅ 10";
+            }
+            if (type == "f0F2" || type == "f0")
+            {
                 ViewBag.Type = "f0";
+                ViewBag.textY = "Критическая частота МГц ⋅ 10";
+            }
 
             ViewBag.NameMenu = "Средние значения " + ViewBag.ViewType;
 
@@ -30,8 +36,7 @@ namespace GeospaceMediana.Controllers
 
             if (year < 0 && month < 0 && day < 0)
             {
-                nowDateTime = DateTimeKhabarovsk.Now;
-                nowDateTime = nowDateTime.AddDays(-1);
+                nowDateTime = DateTime.Now.AddDays(-1);
             }
             else nowDateTime = new DateTime(year, month, day);
             DateTime nextDate = nowDateTime.AddDays(1);
@@ -39,12 +44,12 @@ namespace GeospaceMediana.Controllers
 
             int rangeNumber = 1;
 
-            if (1 <= nowDateTime.Day && nowDateTime.Day <= 5) rangeNumber = 1;
-            if (6 <= nowDateTime.Day && nowDateTime.Day <= 10) rangeNumber = 2;
-            if (11 <= nowDateTime.Day && nowDateTime.Day <= 15) rangeNumber = 3;
-            if (16 <= nowDateTime.Day && nowDateTime.Day <= 20) rangeNumber = 4;
-            if (21 <= nowDateTime.Day && nowDateTime.Day <= 25) rangeNumber = 5;
-            if (26 <= nowDateTime.Day && nowDateTime.Day <= 31) rangeNumber = 6;
+            if (1 <= nowDateTime.Day && nowDateTime.Day <= 5) rangeNumber = 0;
+            if (6 <= nowDateTime.Day && nowDateTime.Day <= 10) rangeNumber = 1;
+            if (11 <= nowDateTime.Day && nowDateTime.Day <= 15) rangeNumber = 2;
+            if (16 <= nowDateTime.Day && nowDateTime.Day <= 20) rangeNumber = 3;
+            if (21 <= nowDateTime.Day && nowDateTime.Day <= 25) rangeNumber = 4;
+            if (26 <= nowDateTime.Day && nowDateTime.Day <= 31) rangeNumber = 5;
 
             ViewBag.PrevDate = prevDate;
             ViewBag.NextDate = nextDate;
@@ -71,35 +76,107 @@ namespace GeospaceMediana.Controllers
             string value_27_skip = "[";
             string value_30 = "[";
             string value_30_skip = "[";
-            
 
-            if (type == "f0F2")
+            int [,] marks_05 = new int[3, 24];
+            int[,] marks_07 = new int[3, 24];
+            int[,] marks_10 = new int[3, 24];
+            int[,] marks_20 = new int[3, 24];
+            int[,] marks_27 = new int[3, 24];
+            int[,] marks_30 = new int[3, 24];
+
+            if (type == "f0F2" || type == "f0")
             {
                 for (int i = 0; i < viewAverage.theAverageValues.Count; i++)
                 {
                     Mediana mediana = Mediana.GetByDate(Station.GetByCode(stationCode),
                         nowDateTime.Year, nowDateTime.Month, i, rangeNumber);
 
-                    if (mediana != null)
+                    if (mediana != null && mediana.ID > 0)
                         medianaValues += mediana.f0F2.ToString() + ",";
 
                     value_05 += (viewAverage.theAverageValues[i].F2_05.ToString()).Replace(",", ".") + ",";
                     value_05_skip += viewAverage.theAverageValues[i].F2_05_skip.ToString() + ",";
+                    marks_05[0, i] = Math.Abs(viewAverage.theAverageValues[i].F2_05 - mediana.f0F2);
+                    if (i < viewIonka.theIonkaValues.Count && viewIonka.theIonkaValues[i].f0F2 < 1000)
+                    {
+                        marks_05[1, i] = Math.Abs(viewAverage.theAverageValues[i].F2_05 - viewIonka.theIonkaValues[i].f0F2);
+                        marks_05[2, i] = Math.Abs(mediana.f0F2 - viewIonka.theIonkaValues[i].f0F2);
+                    }
+                    else
+                    {
+                        marks_05[1, i] = -1;
+                        marks_05[2, i] = -1;
+                    }                   
 
                     value_07 += (viewAverage.theAverageValues[i].F2_07.ToString()).Replace(",", ".") + ",";
                     value_07_skip += viewAverage.theAverageValues[i].F2_07_skip.ToString() + ",";
+                    marks_07[0, i] = Math.Abs(viewAverage.theAverageValues[i].F2_07 - mediana.f0F2);
+                    if (i < viewIonka.theIonkaValues.Count && viewIonka.theIonkaValues[i].f0F2 < 1000)
+                    {
+                        marks_07[1, i] = Math.Abs(viewAverage.theAverageValues[i].F2_07 - viewIonka.theIonkaValues[i].f0F2);
+                        marks_07[2, i] = Math.Abs(mediana.f0F2 - viewIonka.theIonkaValues[i].f0F2);
+                    }
+                    else
+                    {
+                        marks_07[1, i] = -1;
+                        marks_07[2, i] = -1;
+                    }
 
                     value_10 += (viewAverage.theAverageValues[i].F2_10.ToString()).Replace(",", ".") + ",";
                     value_10_skip += viewAverage.theAverageValues[i].F2_10_skip.ToString() + ",";
+                    marks_10[0, i] = Math.Abs(viewAverage.theAverageValues[i].F2_10 - mediana.f0F2);
+                    if (i < viewIonka.theIonkaValues.Count && viewIonka.theIonkaValues[i].f0F2 < 1000)
+                    {
+                        marks_10[1, i] = Math.Abs(viewAverage.theAverageValues[i].F2_10 - viewIonka.theIonkaValues[i].f0F2);
+                        marks_10[2, i] = Math.Abs(mediana.f0F2 - viewIonka.theIonkaValues[i].f0F2);
+                    }
+                    else
+                    {
+                        marks_10[1, i] = -1;
+                        marks_10[2, i] = -1;
+                    }
 
                     value_20 += (viewAverage.theAverageValues[i].F2_20.ToString()).Replace(",", ".") + ",";
                     value_20_skip += viewAverage.theAverageValues[i].F2_20_skip.ToString() + ",";
+                    marks_20[0, i] = Math.Abs(viewAverage.theAverageValues[i].F2_20 - mediana.f0F2);
+                    if (i < viewIonka.theIonkaValues.Count && viewIonka.theIonkaValues[i].f0F2 < 1000)
+                    {
+                        marks_20[1, i] = Math.Abs(viewAverage.theAverageValues[i].F2_20 - viewIonka.theIonkaValues[i].f0F2);
+                        marks_20[2, i] = Math.Abs(mediana.f0F2 - viewIonka.theIonkaValues[i].f0F2);
+                    }
+                    else
+                    {
+                        marks_20[1, i] = -1;
+                        marks_20[2, i] = -1;
+                    }
 
                     value_27 += (viewAverage.theAverageValues[i].F2_27.ToString()).Replace(",", ".") + ",";
                     value_27_skip += viewAverage.theAverageValues[i].F2_27_skip.ToString() + ",";
+                    marks_27[0, i] = Math.Abs(viewAverage.theAverageValues[i].F2_27 - mediana.f0F2);
+                    if (i < viewIonka.theIonkaValues.Count && viewIonka.theIonkaValues[i].f0F2 < 1000)
+                    {
+                        marks_27[1, i] = Math.Abs(viewAverage.theAverageValues[i].F2_27 - viewIonka.theIonkaValues[i].f0F2);
+                        marks_27[2, i] = Math.Abs(mediana.f0F2 - viewIonka.theIonkaValues[i].f0F2);
+                    }
+                    else
+                    {
+                        marks_27[1, i] = -1;
+                        marks_27[2, i] = -1;
+                    }
 
                     value_30 += (viewAverage.theAverageValues[i].F2_30.ToString()).Replace(",", ".") + ",";
                     value_30_skip += viewAverage.theAverageValues[i].F2_30_skip.ToString() + ",";
+                    marks_30[0, i] = Math.Abs(viewAverage.theAverageValues[i].F2_30 - mediana.f0F2);
+                    if (i < viewIonka.theIonkaValues.Count && viewIonka.theIonkaValues[i].f0F2 < 1000)
+                    {
+                        marks_30[1, i] = Math.Abs(viewAverage.theAverageValues[i].F2_30 - viewIonka.theIonkaValues[i].f0F2);
+                        marks_30[2, i] = Math.Abs(mediana.f0F2 - viewIonka.theIonkaValues[i].f0F2);
+                    }
+                    else
+                    {
+                        marks_30[1, i] = -1;
+                        marks_30[2, i] = -1;
+                    }
                     if (i < viewIonka.theIonkaValues.Count)
                         if (viewIonka.theIonkaValues[i].f0F2 < 1000)
                             value += viewIonka.theIonkaValues[i].f0F2.ToString() + ",";
@@ -109,7 +186,7 @@ namespace GeospaceMediana.Controllers
                 
             }
 
-            if (type == "M3000F2")
+            if (type == "M3000F2" || type == "M3000")
             {
                 for (int i = 0; i < viewAverage.theAverageValues.Count; i++)
                 {
@@ -121,21 +198,87 @@ namespace GeospaceMediana.Controllers
 
                     value_05 += (viewAverage.theAverageValues[i].M3000_05.ToString()).Replace(",", ".") + ",";
                     value_05_skip += viewAverage.theAverageValues[i].M3000_05_skip.ToString() + ",";
+                    marks_05[0, i] = Math.Abs(viewAverage.theAverageValues[i].M3000_05 - mediana.f0F2);
+                    if (i < viewIonka.theIonkaValues.Count && viewIonka.theIonkaValues[i].f0F2 < 1000)
+                    {
+                        marks_05[1, i] = Math.Abs(viewAverage.theAverageValues[i].M3000_05 - viewIonka.theIonkaValues[i].f0F2);
+                        marks_05[2, i] = Math.Abs(mediana.f0F2 - viewIonka.theIonkaValues[i].f0F2);
+                    }
+                    else
+                    {
+                        marks_05[1, i] = -1;
+                        marks_05[2, i] = -1;
+                    }
 
                     value_07 += (viewAverage.theAverageValues[i].M3000_07.ToString()).Replace(",", ".") + ",";
                     value_07_skip += viewAverage.theAverageValues[i].M3000_07_skip.ToString() + ",";
+                    marks_07[0, i] = Math.Abs(viewAverage.theAverageValues[i].M3000_07 - mediana.f0F2);
+                    if (i < viewIonka.theIonkaValues.Count && viewIonka.theIonkaValues[i].f0F2 < 1000)
+                    {
+                        marks_07[1, i] = Math.Abs(viewAverage.theAverageValues[i].M3000_07 - viewIonka.theIonkaValues[i].f0F2);
+                        marks_07[2, i] = Math.Abs(mediana.f0F2 - viewIonka.theIonkaValues[i].f0F2);
+                    }
+                    else
+                    {
+                        marks_07[1, i] = -1;
+                        marks_07[2, i] = -1;
+                    }
 
                     value_10 += (viewAverage.theAverageValues[i].M3000_10.ToString()).Replace(",", ".") + ",";
                     value_10_skip += viewAverage.theAverageValues[i].M3000_10_skip.ToString() + ",";
+                    marks_10[0, i] = Math.Abs(viewAverage.theAverageValues[i].M3000_10 - mediana.f0F2);
+                    if (i < viewIonka.theIonkaValues.Count && viewIonka.theIonkaValues[i].f0F2 < 1000)
+                    {
+                        marks_10[1, i] = Math.Abs(viewAverage.theAverageValues[i].M3000_10 - viewIonka.theIonkaValues[i].f0F2);
+                        marks_10[2, i] = Math.Abs(mediana.f0F2 - viewIonka.theIonkaValues[i].f0F2);
+                    }
+                    else
+                    {
+                        marks_10[1, i] = -1;
+                        marks_10[2, i] = -1;
+                    }
 
                     value_20 += (viewAverage.theAverageValues[i].M3000_20.ToString()).Replace(",", ".") + ",";
                     value_20_skip += viewAverage.theAverageValues[i].M3000_20_skip.ToString() + ",";
+                    marks_20[0, i] = Math.Abs(viewAverage.theAverageValues[i].M3000_20 - mediana.f0F2);
+                    if (i < viewIonka.theIonkaValues.Count && viewIonka.theIonkaValues[i].f0F2 < 1000)
+                    {
+                        marks_20[1, i] = Math.Abs(viewAverage.theAverageValues[i].M3000_20 - viewIonka.theIonkaValues[i].f0F2);
+                        marks_20[2, i] = Math.Abs(mediana.f0F2 - viewIonka.theIonkaValues[i].f0F2);
+                    }
+                    else
+                    {
+                        marks_20[1, i] = -1;
+                        marks_20[2, i] = -1;
+                    }
 
                     value_27 += (viewAverage.theAverageValues[i].M3000_27.ToString()).Replace(",", ".") + ",";
                     value_27_skip += viewAverage.theAverageValues[i].M3000_27_skip.ToString() + ",";
+                    marks_27[0, i] = Math.Abs(viewAverage.theAverageValues[i].M3000_27 - mediana.f0F2);
+                    if (i < viewIonka.theIonkaValues.Count && viewIonka.theIonkaValues[i].f0F2 < 1000)
+                    {
+                        marks_27[1, i] = Math.Abs(viewAverage.theAverageValues[i].M3000_27 - viewIonka.theIonkaValues[i].f0F2);
+                        marks_27[2, i] = Math.Abs(mediana.f0F2 - viewIonka.theIonkaValues[i].f0F2);
+                    }
+                    else
+                    {
+                        marks_27[1, i] = -1;
+                        marks_27[2, i] = -1;
+                    }
 
                     value_30 += (viewAverage.theAverageValues[i].M3000_30.ToString()).Replace(",", ".") + ",";
                     value_30_skip += viewAverage.theAverageValues[i].M3000_30_skip.ToString() + ",";
+                    marks_30[0, i] = Math.Abs(viewAverage.theAverageValues[i].M3000_30 - mediana.f0F2);
+                    if (i < viewIonka.theIonkaValues.Count && viewIonka.theIonkaValues[i].f0F2 < 1000)
+                    {
+                        marks_30[1, i] = Math.Abs(viewAverage.theAverageValues[i].M3000_30 - viewIonka.theIonkaValues[i].f0F2);
+                        marks_30[2, i] = Math.Abs(mediana.f0F2 - viewIonka.theIonkaValues[i].f0F2);
+                    }
+                    else
+                    {
+                        marks_30[1, i] = -1;
+                        marks_30[2, i] = -1;
+                    }
                     if (i < viewIonka.theIonkaValues.Count)
                         if (viewIonka.theIonkaValues[i].M3000F2 < 1000)
                             value += viewIonka.theIonkaValues[i].M3000F2.ToString() + ",";
@@ -173,8 +316,14 @@ namespace GeospaceMediana.Controllers
             ViewBag.value_30 = value_30;
             ViewBag.value_30_skip = value_30_skip;
             ViewBag.mediana = medianaValues;
-            
 
+            ViewBag.marks_05 = marks_05;
+            ViewBag.marks_07 = marks_07;
+            ViewBag.marks_10 = marks_10;
+            ViewBag.marks_20 = marks_20;
+            ViewBag.marks_27 = marks_27;
+            ViewBag.marks_30 = marks_30;
+            
             return View();
         }
     }

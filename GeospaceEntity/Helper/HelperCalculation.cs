@@ -259,7 +259,7 @@ namespace GeospaceEntity.Helper
 
                 
 
-                //end = end.AddDays(-1);
+                end = end.AddDays(-1);
                 DateTime start = end.AddDays(-29);
                 List<CodeIonka> listIonka = (List<CodeIonka>)CodeIonka.GetByPeriod_StaticHH(stat, start, end, hour);
                 listIonka.Reverse();
@@ -321,23 +321,23 @@ namespace GeospaceEntity.Helper
                     }
                 }
 
-                if( average.F2_05 != 0 ) average.F2_05 /= (5.0 - average.F2_05_skip);
-                if( average.M3000_05 != 0 ) average.M3000_05 /= (5.0 - average.M3000_05_skip);
+                if( average.F2_05 != 0 ) average.F2_05 /= (int)Math.Round( (5.0 - average.F2_05_skip), 0 );
+                if (average.M3000_05 != 0) average.M3000_05 /= (int)Math.Round((5.0 - average.M3000_05_skip), 0);
 
-                if( average.F2_07 != 0 ) average.F2_07 /= (7.0-average.F2_07_skip);
-                if( average.M3000_07 != 0 ) average.M3000_07 /= (7.0-average.M3000_07_skip);
+                if (average.F2_07 != 0) average.F2_07 /= (int)Math.Round((7.0 - average.F2_07_skip), 0);
+                if (average.M3000_07 != 0) average.M3000_07 /= (int)Math.Round((7.0 - average.M3000_07_skip), 0);
 
-                if( average.F2_10 != 0 ) average.F2_10 /= (10.0-average.F2_10_skip);
-                if( average.M3000_10 != 0 ) average.M3000_10 /= (10.0-average.M3000_10_skip);
+                if (average.F2_10 != 0) average.F2_10 /= (int)Math.Round((10.0 - average.F2_10_skip), 0);
+                if (average.M3000_10 != 0) average.M3000_10 /= (int)Math.Round((10.0 - average.M3000_10_skip), 0);
 
-                if( average.F2_20 != 0 ) average.F2_20 /= (20.0-average.F2_20_skip);
-                if( average.M3000_20 != 0 ) average.M3000_20 /= (20.0-average.M3000_20_skip);
+                if (average.F2_20 != 0) average.F2_20 /= (int)Math.Round((20.0 - average.F2_20_skip), 0);
+                if (average.M3000_20 != 0) average.M3000_20 /= (int)Math.Round((20.0 - average.M3000_20_skip), 0);
 
-                if( average.F2_27 != 0 ) average.F2_27 /= (27.0-average.F2_27_skip);
-                if( average.M3000_27 != 0 ) average.M3000_27 /= (27.0-average.M3000_27_skip);
+                if (average.F2_27 != 0) average.F2_27 /= (int)Math.Round((27.0 - average.F2_27_skip), 0);
+                if (average.M3000_27 != 0) average.M3000_27 /= (int)Math.Round((27.0 - average.M3000_27_skip), 0);
 
-                if( average.F2_30 != 0 ) average.F2_30 /= (30.0-average.F2_30_skip);
-                if (average.M3000_30 != 0) average.M3000_30 /= (30.0 - average.M3000_30_skip);
+                if (average.F2_30 != 0) average.F2_30 /= (int)Math.Round((30.0 - average.F2_30_skip), 0);
+                if (average.M3000_30 != 0) average.M3000_30 /= (int)Math.Round((30.0 - average.M3000_30_skip), 0);
 
                 average.Update();
             }

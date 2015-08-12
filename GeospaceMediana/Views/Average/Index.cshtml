@@ -1,31 +1,83 @@
 ﻿@using GeospaceMediana.Models;
 @{
     ViewBag.Title = @ViewBag.Title;
+    
 }
 
 <h3>@ViewBag.Station.Name - @ViewBag.Station.Code.ToString() за @ViewBag.Date.ToShortDateString()</h3>
 
+
+@DrawTable(ViewBag.marks_05)
 <div id="container_05" style="width:100%; height:500px;"></div>
+<hr />
+@DrawTable(ViewBag.marks_07)
 <div id="container_07" style="width:100%; height:500px;"></div>
+<hr />
+@DrawTable(ViewBag.marks_10)
 <div id="container_10" style="width:100%; height:500px;"></div>
+<hr />
+@DrawTable(ViewBag.marks_20)
 <div id="container_20" style="width:100%; height:500px;"></div>
+<hr />
+@DrawTable(ViewBag.marks_27)
 <div id="container_27" style="width:100%; height:500px;"></div>
+<hr />
+@DrawTable(ViewBag.marks_30)
 <div id="container_30" style="width:100%; height:500px;"></div>
+<hr />
 
 @section Scripts
 {
     @Scripts.Render("~/Scripts/highcharts.js")
-    @Scripts.Render("~/Scripts/draggable-points.js")     
+    @Scripts.Render("~/Scripts/draggable-points.js")
 
-    @DrawAverage("container_05", "Скользящие средние " + @ViewBag.Type + " для слоя F2 за 5 дней", @ViewBag.value_05, @ViewBag.value_05_skip, @ViewBag.value, "5", @ViewBag.mediana);
-    @DrawAverage("container_07", "Скользящие средние " + @ViewBag.Type + " для слоя F2 за 7 дней", @ViewBag.value_07, @ViewBag.value_07_skip, @ViewBag.value, "7", @ViewBag.mediana);
-    @DrawAverage("container_10", "Скользящие средние " + @ViewBag.Type + " для слоя F2 за 10 дней", @ViewBag.value_10, @ViewBag.value_10_skip, @ViewBag.value, "10", @ViewBag.mediana);
-    @DrawAverage("container_20", "Скользящие средние " + @ViewBag.Type + " для слоя F2 за 20 дней", @ViewBag.value_20, @ViewBag.value_20_skip, @ViewBag.value, "20", @ViewBag.mediana);
-    @DrawAverage("container_27", "Скользящие средние " + @ViewBag.Type + " для слоя F2 за 27 дней", @ViewBag.value_27, @ViewBag.value_27_skip, @ViewBag.value, "27", @ViewBag.mediana);
-    @DrawAverage("container_30", "Скользящие средние " + @ViewBag.Type + " для слоя F2 за 30 дней", @ViewBag.value_30, @ViewBag.value_30_skip, @ViewBag.value, "30", @ViewBag.mediana);
+    @DrawAverage("container_05", "Скользящие средние " + @ViewBag.Type + " для слоя F2 за 5 дней", @ViewBag.value_05, @ViewBag.value_05_skip, @ViewBag.value, "5", @ViewBag.mediana,  @ViewBag.textY)
+    @DrawAverage("container_07", "Скользящие средние " + @ViewBag.Type + " для слоя F2 за 7 дней", @ViewBag.value_07, @ViewBag.value_07_skip, @ViewBag.value, "7", @ViewBag.mediana, @ViewBag.textY)
+    @DrawAverage("container_10", "Скользящие средние " + @ViewBag.Type + " для слоя F2 за 10 дней", @ViewBag.value_10, @ViewBag.value_10_skip, @ViewBag.value, "10", @ViewBag.mediana, @ViewBag.textY)
+    @DrawAverage("container_20", "Скользящие средние " + @ViewBag.Type + " для слоя F2 за 20 дней", @ViewBag.value_20, @ViewBag.value_20_skip, @ViewBag.value, "20", @ViewBag.mediana, @ViewBag.textY)
+    @DrawAverage("container_27", "Скользящие средние " + @ViewBag.Type + " для слоя F2 за 27 дней", @ViewBag.value_27, @ViewBag.value_27_skip, @ViewBag.value, "27", @ViewBag.mediana, @ViewBag.textY)
+    @DrawAverage("container_30", "Скользящие средние " + @ViewBag.Type + " для слоя F2 за 30 дней", @ViewBag.value_30, @ViewBag.value_30_skip, @ViewBag.value, "30", @ViewBag.mediana, @ViewBag.textY)
  }
 
-@helper DrawAverage( string nameDiv, string title, string valueAverage, string valueSkip, string value, string quantity, string mediana)
+@helper DrawTable( int [,] marks )
+{
+    <table style="table-layout: fixed" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <td>Оценка</td>
+            @for (int i = 0; i < 24; i++)
+            {
+                <td>@i</td>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Δс/м</td>
+            @for (int j = 0; j < 24; j++)
+            {
+                <td>@marks[0,j]</td>
+            }
+        </tr>
+        <tr>
+            <td>Δс/ф</td>
+            @for (int j = 0; j < 24; j++)
+            {
+                <td>@marks[1, j]</td>
+            }
+        </tr>
+        <tr>
+            <td>Δм/ф</td>
+            @for (int j = 0; j < 24; j++)
+            {
+                <td>@marks[2, j]</td>
+            }
+        </tr>
+    </tbody>
+</table>
+}
+
+@helper DrawAverage( string nameDiv, string title, string valueAverage, string valueSkip, string value, string quantity, string mediana, string textY)
 {
     <script>
 
@@ -36,7 +88,7 @@
             },
             xAxis :{
                 title: {
-                    text: 'Часы'
+                    text: 'Часы (UT)'
                 },
                 categories: [
                 @for(int i=0;i<24;i++)
@@ -62,7 +114,7 @@
                 }
             },
             title: {
-                text: 'Критическая частота МГц ⋅ 10',
+                text:'@textY',
                 style: {
                     color: Highcharts.getOptions().colors[1]
                 }
@@ -115,7 +167,6 @@
             }]
         });
     });
-
 
 </script>
 }

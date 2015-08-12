@@ -16,15 +16,32 @@ namespace GeospaceMediana.Controllers
         //
         // GET: /Home/
 
-        public ActionResult Index(int stationCode = 43501, string start = "", int limit = 5, int step = 5 )
+        public ActionResult Index(int stationCode = 43501, string start = "", int limit = 5, int step = 5, string type = "f0F2", int year = -1, int month = -1, int day = -1)
         {
             @ViewBag.Title = "Геофизические данные";
 
             ViewBag.NameMenu = "Данные ионосферы";
 
+            if (type == "M3000F2")
+            {
+                ViewBag.Type = "M3000";
+            }
+            if (type == "f0F2")
+            {
+                ViewBag.Type = "f0";
+            }
+
+            DateTime nowDateTime;
+            if (year < 0 && month < 0 && day < 0)
+            {
+                nowDateTime = DateTime.Now.AddDays(-1);
+            }
+            else nowDateTime = new DateTime(year, month, day);
+            ViewBag.Date = nowDateTime;
+
             if (start == "")
             {
-                start = String.Format("{0:yyyyMMdd}", DateTimeKhabarovsk.Now.AddDays(-1));
+                start = String.Format("{0:yyyyMMdd}", nowDateTime);
             }
             ViewIonka Model = new ViewIonka(stationCode, start, limit, step);
             
