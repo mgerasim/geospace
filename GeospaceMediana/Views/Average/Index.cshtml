@@ -6,7 +6,7 @@
 
 <h3>@ViewBag.Station.Name - @ViewBag.Station.Code.ToString() за @ViewBag.Date.ToShortDateString()</h3>
 
-
+<div id="container" style="width:100%; height:500px;"></div>
 
 <div id="container_05" style="width:100%; height:500px;"></div>
 <div id="container_07" style="width:100%; height:500px;"></div>
@@ -29,12 +29,12 @@
     @Scripts.Render("~/Scripts/highcharts.js")
     @Scripts.Render("~/Scripts/draggable-points.js")
 
-    @DrawAverage("container_05", "Скользящие средние " + @ViewBag.Type + " для слоя F2 за 5 дней", @ViewBag.value_05, @ViewBag.value_05_skip, @ViewBag.value, "5", @ViewBag.mediana,  @ViewBag.textY)
-    @DrawAverage("container_07", "Скользящие средние " + @ViewBag.Type + " для слоя F2 за 7 дней", @ViewBag.value_07, @ViewBag.value_07_skip, @ViewBag.value, "7", @ViewBag.mediana, @ViewBag.textY)
-    @DrawAverage("container_10", "Скользящие средние " + @ViewBag.Type + " для слоя F2 за 10 дней", @ViewBag.value_10, @ViewBag.value_10_skip, @ViewBag.value, "10", @ViewBag.mediana, @ViewBag.textY)
-    @DrawAverage("container_20", "Скользящие средние " + @ViewBag.Type + " для слоя F2 за 20 дней", @ViewBag.value_20, @ViewBag.value_20_skip, @ViewBag.value, "20", @ViewBag.mediana, @ViewBag.textY)
-    @DrawAverage("container_27", "Скользящие средние " + @ViewBag.Type + " для слоя F2 за 27 дней", @ViewBag.value_27, @ViewBag.value_27_skip, @ViewBag.value, "27", @ViewBag.mediana, @ViewBag.textY)
-    @DrawAverage("container_30", "Скользящие средние " + @ViewBag.Type + " для слоя F2 за 30 дней", @ViewBag.value_30, @ViewBag.value_30_skip, @ViewBag.value, "30", @ViewBag.mediana, @ViewBag.textY)
+    @DrawAverage("container_05", "Скользящие средние " + @ViewBag.Type + " для слоя F2 за 5 дней", @ViewBag.value_05, @ViewBag.value_05_skip, @ViewBag.value, "5", @ViewBag.mediana,  @ViewBag.textY, @ViewBag.max, @ViewBag.step)
+    @DrawAverage("container_07", "Скользящие средние " + @ViewBag.Type + " для слоя F2 за 7 дней", @ViewBag.value_07, @ViewBag.value_07_skip, @ViewBag.value, "7", @ViewBag.mediana, @ViewBag.textY, @ViewBag.max, @ViewBag.step)
+    @DrawAverage("container_10", "Скользящие средние " + @ViewBag.Type + " для слоя F2 за 10 дней", @ViewBag.value_10, @ViewBag.value_10_skip, @ViewBag.value, "10", @ViewBag.mediana, @ViewBag.textY, @ViewBag.max, @ViewBag.step)
+    @DrawAverage("container_20", "Скользящие средние " + @ViewBag.Type + " для слоя F2 за 20 дней", @ViewBag.value_20, @ViewBag.value_20_skip, @ViewBag.value, "20", @ViewBag.mediana, @ViewBag.textY, @ViewBag.max, @ViewBag.step)
+    @DrawAverage("container_27", "Скользящие средние " + @ViewBag.Type + " для слоя F2 за 27 дней", @ViewBag.value_27, @ViewBag.value_27_skip, @ViewBag.value, "27", @ViewBag.mediana, @ViewBag.textY, @ViewBag.max, @ViewBag.step)
+    @DrawAverage("container_30", "Скользящие средние " + @ViewBag.Type + " для слоя F2 за 30 дней", @ViewBag.value_30, @ViewBag.value_30_skip, @ViewBag.value, "30", @ViewBag.mediana, @ViewBag.textY, @ViewBag.max, @ViewBag.step)
  }
 
 @helper DrawTable( int [,] marks, string header )
@@ -100,7 +100,7 @@
     </table>
 }
 
-@helper DrawAverage( string nameDiv, string title, string valueAverage, string valueSkip, string value, string quantity, string mediana, string textY)
+@helper DrawAverage( string nameDiv, string title, string valueAverage, string valueSkip, string value, string quantity, string mediana, string textY, string max, string step)
 {
     <script>
 
@@ -143,8 +143,8 @@
                 }
             },
             min: 0,
-            max: 100,
-            tickInterval: 10,
+            max: @max,
+            tickInterval: @step,
         }, { // Secondary yAxis
             title: {
                 text: 'Количество пропущенных значений',
@@ -181,11 +181,13 @@
             , {
                 name: 'Фактическая частота @ViewBag.Type',
                 type: 'spline',
+                color: 'green',
                 data: @value
                 }
             , {
                 name: 'Медиана @ViewBag.Type',
                 type: 'spline',
+                color: 'orange',
                 data: @mediana
             }]
         });
@@ -193,3 +195,115 @@
 
 </script>
 }
+
+<script>
+
+    $(function () {
+        $('#container').highcharts({
+            title: {
+                text: 'Анализ: средних значений (5, 7, 10, 20, 27, 30 дней), медианых и фактических значений'
+            },
+            xAxis :{
+                title: {
+                    text: 'Часы (UT)'
+                },
+                categories: [
+                @for(int i=0;i<24;i++)
+                {
+                    @Html.Raw("'"+i.ToString("00")+"'")
+
+                    if(i!=23)
+                    {
+                        @:,
+                    }
+                }
+                ],
+                lineWidth: 2,
+                gridLineWidth: 1,
+                tickInterval:1,
+                tickmarkPlacement: 'on',
+            },
+            yAxis: [{ // Primary yAxis
+                labels: {
+                    format: '{value}',
+                    style: {
+                        color: Highcharts.getOptions().colors[1]
+                    }
+                },
+                title: {
+                    text:'@ViewBag.textY',
+                    style: {
+                        color: Highcharts.getOptions().colors[1]
+                    }
+                },
+                min: 0,
+                max: @ViewBag.max,
+                tickInterval: @ViewBag.step,
+            }, { // Secondary yAxis
+                title: {
+                    text: 'Количество пропущенных значений',
+                    style: {
+                        color: Highcharts.getOptions().colors[0]
+                    }
+                },
+                labels: {
+                    format: '{value}',
+                    style: {
+                        color: Highcharts.getOptions().colors[0]
+                    }
+                },
+                opposite: true,
+                min: 0,
+                max: '@ViewBag.quantity',
+                tickInterval: 1,
+            }],
+            tooltip: {
+                shared: true
+            },
+
+            series: [{
+                name: '5 дней',
+                type: 'spline',
+                data:  @ViewBag.value_05,
+            }
+            , {
+                name: '7 дней',
+                type: 'spline',
+                data:  @ViewBag.value_07,
+            }
+            , {
+                name: '10 дней',
+                type: 'spline',
+                data:  @ViewBag.value_10,
+            }
+            , {
+                name: '20 дней',
+                type: 'spline',
+                data:  @ViewBag.value_20,
+            }
+            , {
+                name: '27 дней',
+                type: 'spline',
+                data:  @ViewBag.value_27,
+            }
+            , {
+                name: '30 дней',
+                type: 'spline',
+                data:  @ViewBag.value_30,
+            }
+            , {
+                name: 'Фактическая частота',
+                type: 'spline',
+                color: 'green',
+                data:  @ViewBag.value,
+            }
+            , {
+                name: 'Медиана',
+                type: 'spline',
+                color: 'orange',
+                data:  @ViewBag.mediana,
+            }
+            , ]
+        });
+    });
+</script>

@@ -23,12 +23,16 @@ namespace GeospaceMediana.Controllers
             {
                 ViewBag.Type = "M3000";
                 ViewBag.textY = "Коэффициент M3000 ⋅ 10";
+                ViewBag.max = "60";
             }
             if (type == "f0F2" || type == "f0")
             {
                 ViewBag.Type = "f0";
                 ViewBag.textY = "Критическая частота МГц ⋅ 10";
+                ViewBag.max = "100";
             }
+
+            ViewBag.step = "10";
 
             ViewBag.NameMenu = "Средние значения " + ViewBag.ViewType;
 
