@@ -30,7 +30,13 @@ namespace GeospaceMediana.Controllers
             {
                 nowDateTime = DateTime.Now.AddDays(-1);
             }
-            else nowDateTime = new DateTime(year, month, day);
+            else
+            {
+                if(year < 0) year = DateTime.Now.Year;
+                if(month < 0) month = DateTime.Now.Month;
+                if(day < 0) day = DateTime.Now.Day;
+                nowDateTime = new DateTime(year, month, day);
+            }
             ViewBag.Date = nowDateTime;
 
             ViewBag.NameMenu = "Суточные отклонения " + ViewBag.ViewType;
