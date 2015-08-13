@@ -10,15 +10,11 @@
 
     <script>
 
-        $(document).ready(function () {
-            var buttonCalc = $(".btn-calc");
-            var statusCalc = $("#status-calc");
-
-            buttonCalc.click(sendCalcRequest);
-        });
-
+        
         function showCalc()
         {
+            var buttonCalc = $(".btn-calc");
+            var statusCalc = $("#status-calc");
             buttonCalc.attr("disabled", "true");
             statusCalc.css("display", "inline-block");
             buttonCalc.unbind("click");
@@ -26,6 +22,8 @@
 
         function hideCalc()
         {
+            var buttonCalc = $(".btn-calc");
+            var statusCalc = $("#status-calc");
             buttonCalc.removeAttr("disabled");
             statusCalc.css("display", "none");
             buttonCalc.click(sendCalcRequest);
@@ -40,7 +38,7 @@
             showCalc();
 
             $.ajax({
-                url: buttonCalc.attr("href"),
+                url: $(".btn-calc").attr("href"),
                 success: function (data) {
                     if (data == "") {
                         window.location.href = "@Html.Raw(Url.Action("Index","Mediana", new
@@ -64,6 +62,11 @@
         }
 
 
+
+        $(document).ready(function () {
+
+            $(".btn-calc").click(sendCalcRequest);
+        });
 
     </script>
 }

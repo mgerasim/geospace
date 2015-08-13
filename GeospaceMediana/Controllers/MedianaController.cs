@@ -37,7 +37,7 @@ namespace GeospaceMediana.Controllers
             ViewBag.Date = nowDateTime;
 
 
-            ViewBag.NameMenu = "Прогноз медианы " + ViewBag.ViewType;
+            ViewBag.NameMenu = "Прогноз медианы " + type;
 
 
             if(month == -1)
