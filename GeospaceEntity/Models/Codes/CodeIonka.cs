@@ -316,10 +316,10 @@ namespace GeospaceEntity.Models.Codes
         {
             switch (code.ToUpper())
             {
-                case "0":
+                case "0": return 1000;
                 case "00": return 1000;
                 case "A": return 1001;
-                case "B": return  1002;
+                case "B": return 1002;
                 case "C": return 1003;
                 case "D": return 1004;
                 case "E": return 1005;
@@ -336,7 +336,7 @@ namespace GeospaceEntity.Models.Codes
         {
             switch (Value)
             {
-                case 1000: return "0";
+                case 1000: return "S";
                 case 1001: return "A";
                 case 1002: return "B";
                 case 1003: return "C";
