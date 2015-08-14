@@ -71,6 +71,7 @@ namespace GeospaceMediana.Controllers
             {   
                 Station model = Station.GetById(id);
                 model.Name = collection.Get("Name");
+                model.Code = Convert.ToInt32(collection.Get("Code"));
                 model.Latitude = Convert.ToDouble(collection.Get("Latitude"));
                 model.Longitude = Convert.ToDouble(collection.Get("Longitude"));
                 model.Update();
