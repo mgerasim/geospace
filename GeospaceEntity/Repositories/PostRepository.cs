@@ -54,18 +54,13 @@ namespace GeospaceEntity.Repositories
                 return session.CreateCriteria<GeospaceEntity.Models.Post>().Add(Restrictions.Eq("ID", id)).UniqueResult<GeospaceEntity.Models.Post>();
         }
 
-        public GeospaceEntity.Models.Post GetByCode(int code)
-        {
-            using (ISession session = NHibernateHelper.OpenSession())
-                return session.CreateCriteria<GeospaceEntity.Models.Post>().Add(Restrictions.Eq("Code", code)).UniqueResult<GeospaceEntity.Models.Post>();
-        }
 
         IList<GeospaceEntity.Models.Post> IRepository<GeospaceEntity.Models.Post>.GetAll()
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
                 ICriteria criteria = session.CreateCriteria(typeof(GeospaceEntity.Models.Post));
-                criteria.AddOrder(Order.Asc("Code"));
+                criteria.AddOrder(Order.Asc("ID"));
                 return criteria.List<GeospaceEntity.Models.Post>();
             }
         }

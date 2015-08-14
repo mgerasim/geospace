@@ -1,12 +1,15 @@
 ﻿@{
-    ViewBag.Title = "Посты";
+    ViewBag.Title = "Пункт";
 }
 
-<h2>Станции</h2>
+<h2>Пункты</h2>
+
+<p>
+    @Html.ActionLink("Добавить", "Create", null, new { @class = "btn btn-primary" })
+</p>
 
 <table class="table table-bordered table-hover">
     <tr>
-        <th>Индекс</th>
         <th>Наименование</th>
         <th>Долгота</th>
         <th>Ширина</th>
@@ -15,9 +18,6 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
-                @Html.Encode(item.Code)
-            </td>
             <td>
                 @Html.Encode(item.Name)
             </td>
@@ -29,8 +29,7 @@
             </td>
             <td>
                 @Html.ActionLink("Редактировать", "Edit", new { id = item.ID})
-            </td>
-        </tr>
-        
+            </td>            
+        </tr>       
     }
 </table>

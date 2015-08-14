@@ -1,45 +1,42 @@
 ﻿@{
-    ViewBag.Title = "Пункт";
+    ViewBag.Title = "Станция";
 }
 
-<h2>Редактировать станцию</h2>
+<h2>Добавить станцию</h2>
 
-@using (Html.BeginForm("Edit", "Post", new {id = @Model.ID}, 
-    FormMethod.Post, new {@class = "form-horizontal"}))
+@using (Html.BeginForm("Create", "Stations", null,
+    FormMethod.Post, new { @class = "form-horizontal" }))
 {
     <div class="form-group">
         <label for="Name" class="col-sm-2 control-label">Имя:</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" name="Name" id="Name" placeholder="Имя" value="@Model.Name" />
+            <input type="text" class="form-control" name="Name" id="Name" placeholder="Имя" value="" />
         </div>
     </div>
-        
+
     <div class="form-group">
         <label for="Longitude" class="col-sm-2 control-label">Географическая долгота:</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" name="Longitude" id="Longitude" placeholder="Географическая долгота" value="@Model.Longitude">
+            <input type="text" class="form-control" name="Longitude" id="Longitude" placeholder="Географическая долгота" value="">
         </div>
-    </div>    
-    
+    </div>
+
     <div class="form-group">
         <label for="Latitude" class="col-sm-2 control-label">Географическая широта:</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" name="Latitude" id="Latitude " placeholder="Географическая широта" value="@Model.Latitude">
+            <input type="text" class="form-control" name="Latitude" id="Latitude " placeholder="Географическая широта" value="">
         </div>
     </div>
-    
+
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
             <button type="submit" class="btn btn-default">Сохранить</button>
         </div>
     </div>
-    
+
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
             @Html.ActionLink("Назад", "Index")
         </div>
     </div>
 }
-
-
-

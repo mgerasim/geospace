@@ -4,6 +4,11 @@
 
 <h2>Станции</h2>
 
+<p>
+    @Html.ActionLink("Добавить", "Create", null, new { @class = "btn btn-primary" })
+</p>
+
+
 <table class="table table-bordered table-hover">
     <tr>
         <th>Индекс</th>
@@ -28,13 +33,11 @@
                 @Html.Encode(item.Latitude)
             </td>
             <td>
-                @Html.ActionLink("Редактировать", "Edit", new { id = item.ID})
-            </td>
+                @Html.ActionLink("Редактировать", "Edit", new { id = item.ID, newObj = 0})
+            </td>            
         </tr>
         
     }
 </table>
-
-
 
 @Html.ActionLink("География станций", "Stations", "Map")

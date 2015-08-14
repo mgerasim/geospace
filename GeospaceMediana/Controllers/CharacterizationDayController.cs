@@ -34,7 +34,7 @@ namespace GeospaceMediana.Controllers
             {
                 if(year < 0) year = DateTime.Now.Year;
                 if(month < 0) month = DateTime.Now.Month;
-                if(day < 0) day = DateTime.Now.Day;
+                if(day < 0) day = (DateTime.Now.AddDays(-1)).Day;
                 nowDateTime = new DateTime(year, month, day);
             }
             ViewBag.Date = nowDateTime;

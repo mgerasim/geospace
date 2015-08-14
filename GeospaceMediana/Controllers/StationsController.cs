@@ -36,6 +36,29 @@ namespace GeospaceMediana.Controllers
             return View(GeospaceEntity.Models.Station.GetAll());
         }
 
+        public ActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Create(FormCollection collection)
+        {
+
+            try
+            {
+                Station model = new GeospaceEntity.Models.Station(); ;
+                model.Name = collection.Get("Name");
+                model.Latitude = Convert.ToDouble(collection.Get("Latitude"));
+                model.Longitude = Convert.ToDouble(collection.Get("Longitude"));
+                model.Save();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return this.Create();
+            }
+        }
+
         public ActionResult Edit(int id)
         {
             return View(GeospaceEntity.Models.Station.GetById(id));

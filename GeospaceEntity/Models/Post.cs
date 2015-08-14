@@ -13,8 +13,7 @@ namespace GeospaceEntity.Models
         public virtual int ID { get; set; }
         public virtual DateTime created_at { get; set; }
         public virtual DateTime updated_at { get; set; }
-        public virtual string Name { get; set; }
-        public virtual int Code { get; set; }        
+        public virtual string Name { get; set; }   
         public virtual double Longitude { get; set; }
         public virtual double Latitude { get; set; }
 
@@ -24,19 +23,11 @@ namespace GeospaceEntity.Models
             created_at = DateTime.Now;
             updated_at = DateTime.Now;
 
-            Code = 0;
             Name = "";
             Longitude = 0;
             Latitude = 0;
         }
        
-
-        public static GeospaceEntity.Models.Post GetByCode(int code)
-        {
-            Repositories.PostRepository repo = new Repositories.PostRepository();
-            return repo.GetByCode(code);
-        }
-
         public static GeospaceEntity.Models.Post GetById(int id)
         {
             IRepository<Post> repo = new Repositories.PostRepository();

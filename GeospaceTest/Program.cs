@@ -18,7 +18,7 @@ namespace GeospaceTest
            // Support01();
            // Support02();
            Support03();
-            Support04();
+            //Support04();
            // Support05(); 
 
            //Support06();
@@ -102,7 +102,14 @@ namespace GeospaceTest
         
         static void Support03()
         {
-            GeospaceEntity.Common.NHibernateHelper.UpdateSchema();
+            try
+            {
+                GeospaceEntity.Common.NHibernateHelper.UpdateSchema();
+            }
+            catch( Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
        /* static void Support02()
         {
