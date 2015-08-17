@@ -5,7 +5,16 @@
     ViewBag.Title = "Пятидневный прогноз";
 }
 <script>
+        var submitUrl = "@Url.Action("SubmitFiveDay", "Telegram")";
+        var currentYear = "@ViewBag.Date.Year";
+        var currentMonth = "@ViewBag.Date.Month";
+        var currentRangeNaumber = "@ViewBag.number"; 
+        var currentStationCode = "@ViewBag.Station";
 
+
+</script>
+<script>
+    
 
     $(document).ready(function () {
 
@@ -16,14 +25,26 @@
         $("#F_45601IONFO").keyup(handleChangeCodes);
         $("#F_45601IONES").keyup(handleChangeCodes);
         $("#F_45601MAGPO").keyup(handleChangeCodes);
-
+                                                   
         $("#F_43501IONFO").keyup(handleChangeCodes);
         $("#F_43501IONES").keyup(handleChangeCodes);
         $("#F_43501MAGPO").keyup(handleChangeCodes);
-
+                                                   
         $("#F_46501IONFO").keyup(handleChangeCodes);
         $("#F_46501IONES").keyup(handleChangeCodes);
         $("#F_46501MAGPO").keyup(handleChangeCodes);
+        //----------------------------------------
+        $("#F_45601IONFO").click(handleChangeSubmit("45601IONFO"));
+        $("#F_45601IONES").click(handleChangeSubmit("45601IONES"));
+        $("#F_45601MAGPO").click(handleChangeSubmit("45601MAGPO"));
+
+        $("#F_43501IONFO").click(handleChangeSubmit("43501IONFO"));
+        $("#F_43501IONES").click(handleChangeSubmit("43501IONES"));
+        $("#F_43501MAGPO").click(handleChangeSubmit("43501MAGPO"));
+
+        $("#F_46501IONFO").click(handleChangeSubmit("46501IONFO"));
+        $("#F_46501IONES").click(handleChangeSubmit("46501IONES"));
+        $("#F_46501MAGPO").click(handleChangeSubmit("46501MAGPO"));
 
         $("#SNumber").keyup(handleChangeCodes);
 
@@ -31,11 +52,30 @@
         handleChangeCodes();
 
     });
-
+    function handleChangeSubmit(str) {
+        $('#F_'+ str).focus();
+        $('#F_' + str).select();
+        $('#F_' + str).blur(function () {
+            var forecast_F = $("#F_" + str);//значение забитые в input
+            if (forecast_F.val()) {
+                var resUrl = window.submitUrl +
+                        "?stationcode=" + str.slice(0, 5) +
+                        "&year=" + window.currentYear +
+                        "&month=" + window.currentMonth +
+                        "&range_number=" + currentRangeNaumber +
+                        "&type=" + str.substr(5, 5) +
+                        "&newvalue=" + forecast_F.val();
+                $.ajax({
+                    url: resUrl
+                });
+            }
+        });
+    }
     function handleChangeHeader() {
         $(".pager .print p").html($("#inputLine1").val() + "<br>" + $("#inputLine2").val() + "<br>" + $("#inputLine3").val());
-    }
 
+    }
+    
     function handleChangeCodes() {
         saveForecast();
     }
@@ -69,6 +109,7 @@
                                     strFFF += item.f0F2.ToString("D3");
                                     strMM += item.M3000F2.ToString("D2");
                                 }
+                                GeospaceEntity.Models.Telegram.ForecastFiveDay forecastData = GeospaceEntity.Models.Telegram.ForecastFiveDay.GetByDateUTC(Station.GetByCode(numStation), ViewBag.Date.Year, ViewBag.Date.Month, ViewBag.number);
                                 <div style="margin-bottom:20px">
                                     <div class="String">
                                         MEDIAN  @numStation  @Html.Raw(ViewBag.range.Min.ToString("D2") + "" + ViewBag.range.Max.ToString("D2") + "" + ViewBag.Date.Month % 10)
@@ -89,9 +130,28 @@
                                         FORECAST  @numStation  @Html.Raw(ViewBag.range.Min.ToString("D2") + "" + ViewBag.range.Max.ToString("D2") + "" + ViewBag.Date.Month % 10)
                                     </div>
                                     <div class="String">
-                                        @foreach (var forecast in ViewBag.NameForecast)
+                                        @foreach (string forecast in ViewBag.NameForecast)
                                         {
-                                            <span id="@numStation@forecast"></span>
+                                            <span id="@numStation@forecast">
+                                                @if(forecastData != null){
+                                                    string cast = "";
+                                                    switch (forecast)
+                                                    {
+                                                        case "IONES":
+                                                            cast = forecastData.IONES;
+                                                            break;
+                                                        case "IONFO":
+                                                            cast = forecastData.IONFO;
+                                                            break;
+
+                                                        case "MAGPO":
+                                                            cast = forecastData.MAGPO;
+                                                            break;
+                                                    }
+                                                    
+                                                }
+                                                @Html.Raw(@forecast+ "    ");
+                                            </span>
                                         }
                                     </div>
 
@@ -368,7 +428,6 @@
                 return item.substr(0,5) + "  " + item.slice(5, item.length) + addEmpty(10 - item.length);
             }
             if (item.length < 5) {
-                console.log(item.length);
                 return item.slice(0, item.length) + addEmpty(5 - item.length);
             }
             return item;
@@ -388,7 +447,6 @@
         {
             $.each(arrFor, function (index, element) {
                 var forecast_F = $("#F_" + item + element).val();//значение забитые в input
-                console.log(forecast_F);
                 if (forecast_F)
                     document.getElementById(item + element).innerHTML = element + "   " + divisionString(forecast_F);
                 else

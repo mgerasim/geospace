@@ -79,5 +79,41 @@ namespace GeospaceMediana.Controllers
            ViewBag.Station = Station.GetByCode(stationCode);
            return View();
         }
+
+        public ActionResult SubmitFiveDay(int stationcode, int year, int month, int range_number, string type, string newValue)
+        {
+            try
+            {
+                Station station = Station.GetByCode(stationcode);
+
+                GeospaceEntity.Models.Telegram.ForecastFiveDay forecastFiveDay = GeospaceEntity.Models.Telegram.ForecastFiveDay.GetByDateUTC(station, year, month, range_number);
+
+                if (forecastFiveDay == null)
+                {
+                    forecastFiveDay = new GeospaceEntity.Models.Telegram.ForecastFiveDay();
+
+                    forecastFiveDay.Station = station;
+                    forecastFiveDay.YYYY = year;
+                    forecastFiveDay.MM = month;
+                    forecastFiveDay.RangeNumber = range_number;
+                    forecastFiveDay.SetValueByType(type, newValue);
+
+                    forecastFiveDay.Save();
+                }
+                else
+                {
+                    forecastFiveDay.SetValueByType(type, newValue);
+                    forecastFiveDay.Update();
+                }
+
+                return Content("");
+            }
+            catch (Exception)
+            {
+                // return Content(e.ToString());
+                return Content("Ошибка применения изменения! Проверьте корректность вводимых данных.");
+            }
+
+        }
     }
 }
