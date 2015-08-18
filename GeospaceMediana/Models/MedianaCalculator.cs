@@ -83,8 +83,9 @@ namespace GeospaceMediana.Models
             bool key = false;
             foreach(var item in ranges)
             {
-                if(item.Min > date.Day)
+                if(date.Day < (item.Min)-2)
                 {
+                    number--;
                     key = true;
                     break;
                 }
