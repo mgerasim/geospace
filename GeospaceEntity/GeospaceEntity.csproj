@@ -73,6 +73,7 @@
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\Station.cs" />
     <Compile Include="Models\Consumer.cs" />
+    <Compile Include="Models\Telegram\ForecastFiveDay.cs" />
     <Compile Include="Models\Track.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AverageRepository.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Repositories\BeginRepository.cs" />
     <Compile Include="Repositories\CodeIonkaRepository.cs" />
     <Compile Include="Repositories\ConsumerRepository.cs" />
+    <Compile Include="Repositories\ForecastFiveDayRepository.cs" />
     <Compile Include="Repositories\TrackRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Repositories\MedianaRepository.cs" />
@@ -129,6 +131,9 @@
     <EmbeddedResource Include="Mappings\Track.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mappings\ForecastFiveDay.hbm.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Mappings\Consumer.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

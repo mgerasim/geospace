@@ -637,9 +637,9 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>1858</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:1858/</IISUrl>
+          <IISUrl>http://localhost:2222/</IISUrl>
           <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
-          <IISAppRootUrl>http://localhost:1858/</IISAppRootUrl>
+          <IISAppRootUrl>http://localhost:2222/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
