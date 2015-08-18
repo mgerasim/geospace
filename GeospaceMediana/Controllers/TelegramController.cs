@@ -76,7 +76,6 @@ namespace GeospaceMediana.Controllers
            string[] namePrognoz = { "IONFO", "IONES", "MAGPO" };
            ViewBag.NameForecast = namePrognoz;
            ViewBag.NumStation = station;
-           ViewBag.Station = Station.GetByCode(stationCode);
            return View();
         }
 

@@ -5,13 +5,11 @@
     ViewBag.Title = "Пятидневный прогноз";
 }
 <script>
-        var submitUrl = "@Url.Action("SubmitFiveDay", "Telegram")";
+    var submitUrl = "@Url.Action("SubmitFiveDay", "Telegram")";
         var currentYear = "@ViewBag.Date.Year";
         var currentMonth = "@ViewBag.Date.Month";
         var currentRangeNaumber = "@ViewBag.number"; 
         var currentStationCode = "@ViewBag.Station";
-
-
 </script>
 <script>
     
@@ -109,7 +107,7 @@
                                     strFFF += item.f0F2.ToString("D3");
                                     strMM += item.M3000F2.ToString("D2");
                                 }
-                                GeospaceEntity.Models.Telegram.ForecastFiveDay forecastData = GeospaceEntity.Models.Telegram.ForecastFiveDay.GetByDateUTC(Station.GetByCode(numStation), ViewBag.Date.Year, ViewBag.Date.Month, ViewBag.number);
+                                //GeospaceEntity.Models.Telegram.ForecastFiveDay forecastData = GeospaceEntity.Models.Telegram.ForecastFiveDay.GetByDateUTC(Station.GetByCode(numStation), ViewBag.Date.Year, ViewBag.Date.Month, ViewBag.number);
                                 <div style="margin-bottom:20px">
                                     <div class="String">
                                         MEDIAN  @numStation  @Html.Raw(ViewBag.range.Min.ToString("D2") + "" + ViewBag.range.Max.ToString("D2") + "" + ViewBag.Date.Month % 10)
@@ -133,24 +131,7 @@
                                         @foreach (string forecast in ViewBag.NameForecast)
                                         {
                                             <span id="@numStation@forecast">
-                                                @if(forecastData != null){
-                                                    string cast = "";
-                                                    switch (forecast)
-                                                    {
-                                                        case "IONES":
-                                                            cast = forecastData.IONES;
-                                                            break;
-                                                        case "IONFO":
-                                                            cast = forecastData.IONFO;
-                                                            break;
-
-                                                        case "MAGPO":
-                                                            cast = forecastData.MAGPO;
-                                                            break;
-                                                    }
-                                                    
-                                                }
-                                                @Html.Raw(@forecast+ "    ");
+                                                
                                             </span>
                                         }
                                     </div>
@@ -216,25 +197,38 @@
                                 </a>
                             </h4>
                         </div>
+                        @{
+                            GeospaceEntity.Models.Telegram.ForecastFiveDay forecastData1 = GeospaceEntity.Models.Telegram.ForecastFiveDay.GetByDateUTC(Station.GetByCode(45601), ViewBag.Date.Year, ViewBag.Date.Month, ViewBag.number);
+                                
+                        }
                         <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                             <div class="panel-body">
                                     <form class="form-horizontal">
                                         <div class="form-group">
                                             <label for="F_45601IONFO" class="col-sm-2 control-label">IONFO</label>
                                             <div class="col-sm-5">
-                                                <input type="text" class="form-control" id="F_45601IONFO" placeholder="">
+                                                <input type="text" class="form-control" id="F_45601IONFO" placeholder="" value="@{if (forecastData1 != null)
+                                                                                                                                  {
+                                                                                                                                      @Html.Raw(forecastData1.IONFO)
+                                                                                                                                  }}">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="F_45601IONES" class="col-sm-2 control-label">IONES</label>
                                             <div class="col-sm-5">
-                                                <input type="text" class="form-control" id="F_45601IONES" placeholder="">
+                                                <input type="text" class="form-control" id="F_45601IONES" placeholder="" value="@{if (forecastData1 != null)
+                                                                                                                                  {
+                                                                                                                                      @Html.Raw(forecastData1.IONES)
+                                                                                                                                  }}">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="F_45601MAGPO" class="col-sm-2 control-label">MAGPO</label>
                                             <div class="col-sm-5">
-                                                <input type="text" class="form-control" id="F_45601MAGPO" placeholder="">
+                                                <input type="text" class="form-control" id="F_45601MAGPO" placeholder="" value="@{if (forecastData1 != null)
+                                                                                                                                  {
+                                                                                                                                      @Html.Raw(forecastData1.MAGPO)
+                                                                                                                                  }}">
                                             </div>
                                         </div>
 
@@ -243,6 +237,10 @@
                         </div>
                     </div>
                     <div class="panel panel-default">
+                        @{
+                            GeospaceEntity.Models.Telegram.ForecastFiveDay forecastData2 = GeospaceEntity.Models.Telegram.ForecastFiveDay.GetByDateUTC(Station.GetByCode(43501), ViewBag.Date.Year, ViewBag.Date.Month, ViewBag.number);
+
+                        }
                         <div class="panel-heading" role="tab" data-toggle="collapse" data-parent="#accordion" data-target="#collapseTwo" id="headingTwo">
                             <h4 class="panel-title">
                                 <a class="collapsed" role="button" aria-expanded="false" aria-controls="collapseTwo">
@@ -256,19 +254,28 @@
                                     <div class="form-group">
                                         <label for="F_43501IONFO" class="col-sm-2 control-label">IONFO</label>
                                         <div class="col-sm-5">
-                                            <input type="text" class="form-control" id="F_43501IONFO" placeholder="">
+                                            <input type="text" class="form-control" id="F_43501IONFO" placeholder="" value="@{if (forecastData2 != null)
+                                                                                                                                  {
+                                                                                                                                      @Html.Raw(forecastData2.IONFO)
+                                                                                                                                  }}">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="F_43501IONES" class="col-sm-2 control-label">IONES</label>
                                         <div class="col-sm-5">
-                                            <input type="text" class="form-control" id="F_43501IONES" placeholder="">
+                                            <input type="text" class="form-control" id="F_43501IONES" placeholder="" value="@{if (forecastData2 != null)
+                                                                                                                                  {
+                                                                                                                                      @Html.Raw(forecastData2.IONFO)
+                                                                                                                                  }}">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="F_43501MAGPO" class="col-sm-2 control-label">MAGPO</label>
                                         <div class="col-sm-5">
-                                            <input type="text" class="form-control" id="F_43501MAGPO" placeholder="">
+                                            <input type="text" class="form-control" id="F_43501MAGPO" placeholder="" value="@{if (forecastData2 != null)
+                                                                                                                                  {
+                                                                                                                                      @Html.Raw(forecastData2.IONFO)
+                                                                                                                                  }}">
                                         </div>
                                     </div>
 
@@ -277,6 +284,10 @@
                         </div>
                     </div>
                     <div class="panel panel-default">
+                        @{
+                            GeospaceEntity.Models.Telegram.ForecastFiveDay forecastData3 = GeospaceEntity.Models.Telegram.ForecastFiveDay.GetByDateUTC(Station.GetByCode(46501), ViewBag.Date.Year, ViewBag.Date.Month, ViewBag.number);
+
+                        }
                         <div class="panel-heading" role="tab" data-toggle="collapse" data-parent="#accordion" data-target="#collapseThree" id="headingThree">
                             <h4 class="panel-title">
                                 <a class="collapsed" role="button" aria-expanded="false" aria-controls="collapseThree">
@@ -290,19 +301,28 @@
                                     <div class="form-group">
                                         <label for="F_46501IONFO" class="col-sm-2 control-label">IONFO</label>
                                         <div class="col-sm-5">
-                                            <input type="text" class="form-control" id="F_46501IONFO" placeholder="">
+                                            <input type="text" class="form-control" id="F_46501IONFO" placeholder="" value="@{if (forecastData3 != null)
+                                                                                                                                  {
+                                                                                                                                      @Html.Raw(forecastData3.IONFO)
+                                                                                                                                  }}">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="F_46501IONES" class="col-sm-2 control-label">IONES</label>
                                         <div class="col-sm-5">
-                                            <input type="text" class="form-control" id="F_46501IONES" placeholder="">
+                                            <input type="text" class="form-control" id="F_46501IONES" placeholder="" value="@{if (forecastData3 != null)
+                                                                                                                                  {
+                                                                                                                                      @Html.Raw(forecastData3.IONFO)
+                                                                                                                                  }}">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="F_46501MAGPO" class="col-sm-2 control-label">MAGPO</label>
                                         <div class="col-sm-5">
-                                            <input type="text" class="form-control" id="F_46501MAGPO" placeholder="">
+                                            <input type="text" class="form-control" id="F_46501MAGPO" placeholder="" value="@{if (forecastData3 != null)
+                                                                                                                                  {
+                                                                                                                                      @Html.Raw(forecastData2.IONFO)
+                                                                                                                                  }}">
                                         </div>
                                     </div>
 
