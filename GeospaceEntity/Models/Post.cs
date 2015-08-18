@@ -17,6 +17,7 @@ namespace GeospaceEntity.Models
         public virtual double Longitude { get; set; }
         public virtual double Latitude { get; set; }
 
+
         public Post()
         {
             ID = -1;
@@ -33,7 +34,6 @@ namespace GeospaceEntity.Models
             IRepository<Post> repo = new Repositories.PostRepository();
             return repo.GetById(id);
         }
-
 
         public virtual void Save()
         {

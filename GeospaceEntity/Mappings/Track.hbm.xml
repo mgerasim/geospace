@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="GeospaceEntity.Models" assembly="GeospaceEntity">
+  <class name="Track" table="Geospace_Track">
+    <id name="ID" unsaved-value="0">
+      <column name="ID" not-null="true" />
+      <generator class="identity"/>
+    </id>
+    <property name="created_at" />
+    <property name="updated_at" />
+    <property name="Name" unique="true" not-null="true" />
+    
+    <property name="lon1" />
+    <property name="lat1" />
+    <property name="lon2" />
+    <property name="lat2" />
+    <property name="lon3" />
+    <property name="lat3" />
+    <property name="lon4" />
+    <property name="lat4" />
+    <property name="lon5" />
+    <property name="lat5" />
+    <property name="lon6" />
+    <property name="lat6" />
+
+    <many-to-one name="PointA" not-null="true" column="PostA_ID" lazy="false"/>
+    <many-to-one name="PointB" not-null="true" column="PostB_ID" lazy="false"/>
+
+    <set name="Consumers" table="ConsumersTracks" generic="true"  lazy="false">
+      <key>
+        <column name="Track_ID" not-null="true" sql-type="INTEGER" />
+      </key>
+      <many-to-many class="Consumer" fetch="join">
+        <column name="Consumer_ID" not-null="true" sql-type="INTEGER" />
+      </many-to-many>
+    </set>
+    
+  </class>
+</hibernate-mapping>

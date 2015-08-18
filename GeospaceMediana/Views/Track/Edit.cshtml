@@ -1,0 +1,92 @@
+﻿@{
+    ViewBag.Title = "Трасса";
+}
+
+<h2>Редактирование трассы</h2>
+
+@using (Html.BeginForm("Edit", "Track", new {id = @Model.ID}, 
+    FormMethod.Post, new {@class = "form-horizontal"}))
+{            
+    <div class="form-group">
+        <label for="Name" class="col-sm-2 control-label">Выберете пункт А</label>
+        <div class="col-sm-10">
+            <select name="PostA" class="form-control" onchange="PointOnChange(1, this);">
+
+                @foreach (var item in ViewBag.Posts)
+                {
+                    if (item.ID == Model.PointA.ID)
+                    {
+                        <option selected value="@item.ID">@item.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@item.ID">@item.Name</option>
+                    }
+                }
+            </select>
+         </div>
+    </div>
+
+    <div class="form-group">
+        <label for="Name" class="col-sm-2 control-label">Выберете пункт Б</label>
+        <div class="col-sm-10">
+            <select name="PostB" class="form-control" onchange="PointOnChange(2, this);">
+                @foreach (var item in ViewBag.Posts)
+                {
+                    if (item.ID == Model.PointB.ID)
+                    {
+                        <option selected value="@item.ID">@item.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@item.ID" >@item.Name</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">Сохранить</button>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="Name" class="col-sm-2 control-label">Имя:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="Name" id="Name" placeholder="Имя" value="@Model.Name" />
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            @Html.ActionLink("Назад", "Index")
+        </div>
+    </div>
+    
+<script>
+    function PointOnChange(point, select) {
+        var str = $('#Name').val();
+        if (str.indexOf('-') >= 0) {
+            if (point == 1) {
+                $('#Name').val(select.children[select.selectedIndex].text + '-' + str.split('-')[1]);
+            }
+            if (point == 2) {
+                $('#Name').val(str.split('-')[0] + '-' + select.children[select.selectedIndex].text);
+            }
+        }
+        else {
+            if (point == 1) {
+                $('#Name').val(select.children[select.selectedIndex].text + '-');
+            }
+            if (point == 2) {
+                $('#Name').val('-' + select.children[select.selectedIndex].text);
+            }
+        }
+    }
+</script>
+}
+
+
+
