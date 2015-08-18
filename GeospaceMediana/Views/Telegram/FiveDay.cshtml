@@ -205,7 +205,7 @@
                             <div class="panel-body">
                                     <form class="form-horizontal">
                                         <div class="form-group">
-                                            <label for="F_45601IONFO" class="col-sm-2 control-label">IONFO</label>
+                                            <label for="F_45601IONFO" class="col-sm-3 control-label">IONFO</label>
                                             <div class="col-sm-5">
                                                 <input type="text" class="form-control" id="F_45601IONFO" placeholder="" value="@{if (forecastData1 != null)
                                                                                                                                   {
@@ -214,7 +214,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="F_45601IONES" class="col-sm-2 control-label">IONES</label>
+                                            <label for="F_45601IONES" class="col-sm-3 control-label">IONES</label>
                                             <div class="col-sm-5">
                                                 <input type="text" class="form-control" id="F_45601IONES" placeholder="" value="@{if (forecastData1 != null)
                                                                                                                                   {
@@ -223,7 +223,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="F_45601MAGPO" class="col-sm-2 control-label">MAGPO</label>
+                                            <label for="F_45601MAGPO" class="col-sm-3 control-label">MAGPO</label>
                                             <div class="col-sm-5">
                                                 <input type="text" class="form-control" id="F_45601MAGPO" placeholder="" value="@{if (forecastData1 != null)
                                                                                                                                   {
@@ -252,7 +252,7 @@
                             <div class="panel-body">
                                 <form class="form-horizontal">
                                     <div class="form-group">
-                                        <label for="F_43501IONFO" class="col-sm-2 control-label">IONFO</label>
+                                        <label for="F_43501IONFO" class="col-sm-3 control-label">IONFO</label>
                                         <div class="col-sm-5">
                                             <input type="text" class="form-control" id="F_43501IONFO" placeholder="" value="@{if (forecastData2 != null)
                                                                                                                                   {
@@ -261,7 +261,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="F_43501IONES" class="col-sm-2 control-label">IONES</label>
+                                        <label for="F_43501IONES" class="col-sm-3 control-label">IONES</label>
                                         <div class="col-sm-5">
                                             <input type="text" class="form-control" id="F_43501IONES" placeholder="" value="@{if (forecastData2 != null)
                                                                                                                                   {
@@ -270,7 +270,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="F_43501MAGPO" class="col-sm-2 control-label">MAGPO</label>
+                                        <label for="F_43501MAGPO" class="col-sm-3 control-label">MAGPO</label>
                                         <div class="col-sm-5">
                                             <input type="text" class="form-control" id="F_43501MAGPO" placeholder="" value="@{if (forecastData2 != null)
                                                                                                                                   {
@@ -299,7 +299,7 @@
                             <div class="panel-body">
                                 <form class="form-horizontal">
                                     <div class="form-group">
-                                        <label for="F_46501IONFO" class="col-sm-2 control-label">IONFO</label>
+                                        <label for="F_46501IONFO" class="col-sm-3 control-label">IONFO</label>
                                         <div class="col-sm-5">
                                             <input type="text" class="form-control" id="F_46501IONFO" placeholder="" value="@{if (forecastData3 != null)
                                                                                                                                   {
@@ -308,7 +308,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="F_46501IONES" class="col-sm-2 control-label">IONES</label>
+                                        <label for="F_46501IONES" class="col-sm-3 control-label">IONES</label>
                                         <div class="col-sm-5">
                                             <input type="text" class="form-control" id="F_46501IONES" placeholder="" value="@{if (forecastData3 != null)
                                                                                                                                   {
@@ -317,7 +317,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="F_46501MAGPO" class="col-sm-2 control-label">MAGPO</label>
+                                        <label for="F_46501MAGPO" class="col-sm-3 control-label">MAGPO</label>
                                         <div class="col-sm-5">
                                             <input type="text" class="form-control" id="F_46501MAGPO" placeholder="" value="@{if (forecastData3 != null)
                                                                                                                                   {
@@ -420,10 +420,14 @@
 
     .forma-station, h2 {
         visibility: hidden;
-        display:none;
+        display: none;
     }
-    .print{
-        align-content:center;   
+    .panel-default{
+        border-color:white;
+    } 
+    .print {
+        overflow: auto;
+        align-content: center;
     }
     body {
         padding-top:20px;
