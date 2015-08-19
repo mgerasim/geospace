@@ -39,11 +39,11 @@ namespace GeospaceMediana.Controllers
             }
             ViewBag.Date = nowDateTime;
 
-            ViewBag.NameMenu = "Суточные отклонения " + type;
+            ViewBag.NameMenu = "Суточные отклонения " + ViewBag.Type;
 
             var curDay = DateTime.Now.Day;
 
-            if (rangeNumber < 0)
+            if (rangeNumber == -1)
             {
                 for (int i = 0; i < 6; i++)
                 {
