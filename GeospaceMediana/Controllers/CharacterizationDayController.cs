@@ -39,18 +39,21 @@ namespace GeospaceMediana.Controllers
             }
             ViewBag.Date = nowDateTime;
 
-            ViewBag.NameMenu = "Суточные отклонения " + ViewBag.ViewType;
+            ViewBag.NameMenu = "Суточные отклонения " + type;
 
             var curDay = DateTime.Now.Day;
 
-            for (int i = 0; i < 6;i++ )
+            if (rangeNumber < 0)
             {
-                var range = MedianaCalculator.GetRangeFromNumber(DateTime.Now, i);
-
-                if(curDay >= range.Min && curDay <= range.Max)
+                for (int i = 0; i < 6; i++)
                 {
-                    rangeNumber = i;
-                    break;
+                    var range = MedianaCalculator.GetRangeFromNumber(DateTime.Now, i);
+
+                    if (curDay >= range.Min && curDay <= range.Max)
+                    {
+                        rangeNumber = i;
+                        break;
+                    }
                 }
             }
 
