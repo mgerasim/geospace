@@ -147,7 +147,7 @@
                     @for (int day = ViewBag.DayStart; day <= ViewBag.DayEnd; day++)
 {
                         <td class="left-thick-line"></td>
-                        <td></td>
+                        <td>@charDay.GetDeltaDayFirst(day).ToString()</td>
                         <td class="right-thick-line">@charDay.GetFirstHalfDayValue(day)</td>
                     }
                 </tr>
@@ -157,7 +157,7 @@
                     @for (int day = ViewBag.DayStart; day <= ViewBag.DayEnd; day++)
 {
                         <td class="left-thick-line"></td>
-                        <td></td>
+                        <td>@charDay.GetDeltaDaySecond(day).ToString()</td>
                         <td class="right-thick-line">@charDay.GetSecondHalfDayValue(day)</td>
                     }
                 </tr>
@@ -167,7 +167,7 @@
                     @for (int day = ViewBag.DayStart; day <= ViewBag.DayEnd; day++)
 {
                         <td class="left-thick-line bottom-thick-line"></td>
-                        <td class="bottom-thick-line"></td>
+                        <td class="bottom-thick-line">@charDay.GetDeltaDayFull(day).ToString()</td>
                         <td class="right-thick-line bottom-thick-line">@charDay.GetFullDayValue(day)</td>
                     }
                 </tr>

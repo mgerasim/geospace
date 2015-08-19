@@ -334,5 +334,44 @@ namespace GeospaceMediana.Models
             return rating;
         }
 
+        public int GetDeltaDayFirst(int Day)
+        {
+            int res = 0;
+            foreach (var delta in this._listValues.Where(x => x.Day == Day).Where(x => x.Hour > 0 && x.Hour < 12).Select(x => x.PrevRating))
+            {
+                if (Math.Abs(delta) > Math.Abs(res) && delta != int.MaxValue) 
+                {
+                    res = delta;
+                }
+            }
+            return res;
+        }
+
+        public int GetDeltaDaySecond(int Day)
+        {
+            int res = 0;
+            foreach (var delta in this._listValues.Where(x => x.Day == Day).Where(x => x.Hour > 11 && x.Hour < 24).Select(x => x.PrevRating))
+            {
+                if (Math.Abs(delta) > Math.Abs(res) && delta != int.MaxValue) 
+                {
+                    res = delta;
+                }
+            }
+            return res;
+        }
+
+        public int GetDeltaDayFull(int Day)
+        {
+            int res = 0;
+            foreach (var delta in this._listValues.Where(x => x.Day == Day).Select(x => x.PrevRating))
+            {
+                if (Math.Abs(delta) > Math.Abs(res) && delta != int.MaxValue) 
+                {
+                    res = delta;
+                }
+            }
+            return res;
+        }
+
     }
 }
