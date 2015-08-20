@@ -53,6 +53,8 @@
   <ItemGroup>
     <Compile Include="Common\IRepository.cs" />
     <Compile Include="Common\NHibernateHelper.cs" />
+    <Compile Include="Helper\CharacterizationDay.cs" />
+    <Compile Include="Helper\DateTimeKhabarovsk.cs" />
     <Compile Include="Helper\HelperCalculation.cs" />
     <Compile Include="Helper\HelperIonka.cs" />
     <Compile Include="Helper\HelperTimeForIonka.cs" />
@@ -60,6 +62,7 @@
     <EmbeddedResource Include="Mappings\Product.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <Compile Include="Helper\MedianaCalculator.cs" />
     <Compile Include="Helper\Other.cs" />
     <Compile Include="Helper\Track.cs" />
     <Compile Include="Models\Average.cs" />

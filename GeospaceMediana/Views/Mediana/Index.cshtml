@@ -168,21 +168,26 @@
                     <tr>
                         <td class="right-thick-line">@day</td>
                         @for (int hour = 0; hour < 24; hour++)
-                        {
-                            CodeIonka theCode = Model.GetValue(ViewBag.Year, ViewBag.Month, day, hour);
+{
+    CodeIonka theCode = Model.GetValue(ViewBag.Year, ViewBag.Month, day, hour);
 
-                            string editable = theCode._f0F2.IsEmpty() ? "" : "editable-mediana";
+    string editable = theCode._f0F2.IsEmpty() ? "" : "editable-mediana";
 
-                            <td data-day="@day" data-hour="@hour" data-type="@ViewBag.Type" class="editable-mediana">
-                                @if (ViewBag.Type == "f0F2")
-                                {
-                                    @theCode._f0F2
+    if (ViewBag.Type == "f0F2")
+    {
+
+
+        <td data-day="@(day)" data-hour="@hour" data-type="@ViewBag.Type" class="editable-mediana" data-toggle="tooltip" data-placement="left" title="Δ: @(theCode._delta)">
+            @theCode._f0F2
+        </td>
+    }
+    else
+    {
+                        <td data-day="@day" data-hour="@hour" data-type="@ViewBag.Type" class="editable-mediana">
+                            @theCode._M3000F2
+                        </td>
                                 }
-                                else
-                                {
-                                    @theCode._M3000F2
-                                }
-                            </td>
+                            
                         }
                     </tr>
                 }
@@ -255,7 +260,7 @@
                     }
                     
                     <tr>
-                        <td class="right-thick-line" style="white-space: nowrap; width: 45px">@GeospaceMediana.Models.MedianaCalculator.GetRangeFromNumber(medianaDate, numberRange).Header</td>
+                        <td class="right-thick-line" style="white-space: nowrap; width: 45px">@GeospaceEntity.Helper.MedianaCalculator.GetRangeFromNumber(medianaDate, numberRange).Header</td>
                             @for (int hour = 0; hour < 24; hour++)
                             {
                                 GeospaceEntity.Models.Mediana mediana = viewMediana.GetValue(medianaDate.Year, medianaDate.Month, hour, numberRange);
