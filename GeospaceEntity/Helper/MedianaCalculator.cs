@@ -270,13 +270,26 @@ namespace GeospaceEntity.Helper
 
             for (var date = startDate; date <= endDate; date = date.AddDays(1))
             {
-                CodeIonka codeIonka;
+                CodeIonka codeIonka = null;
 
                 try
                 {
-                    codeIonka = codesIonka.Where(x => x.YYYY == date.Year && x.MM == date.Month && x.DD == date.Day && x.HH == hour).Where(x => Math.Abs(x.delta) < 33 )
-                        .OrderBy(x => x.MI)
-                        .ToList()[0];
+                    switch (type)
+                    {
+                        case "f0F2":
+                            codeIonka = codesIonka.Where(x => x.YYYY == date.Year && x.MM == date.Month && x.DD == date.Day && x.HH == hour).Where(x => Math.Abs(x.delta_f0F2) < 33)
+                                .OrderBy(x => x.MI)
+                                .ToList()[0];
+                            break;
+                        case "M3000F2":
+                            codeIonka = codesIonka.Where(x => x.YYYY == date.Year && x.MM == date.Month && x.DD == date.Day && x.HH == hour).Where(x => Math.Abs(x.delta_M3000) < 33)
+                                    .OrderBy(x => x.MI)
+                                    .ToList()[0];
+                            break;
+                        default:
+                            continue;
+                    }
+
                 }
                 catch(Exception)
                 {

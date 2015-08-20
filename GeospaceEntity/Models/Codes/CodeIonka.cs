@@ -31,12 +31,12 @@ namespace GeospaceEntity.Models.Codes
             fbEs = -1;
             Es = -1;
             fx1 = -1;
-            delta = int.MaxValue;
-            rating = double.MaxValue;
+            delta_f0F2 = int.MaxValue;
+            rating_f0F2 = double.MaxValue;
+            delta_M3000 = int.MaxValue;
+            rating_M3000 = double.MaxValue;
             Raw = "";
 
-            created_at = DateTime.Now;
-            updated_at = DateTime.Now;
         }
                 
         public virtual void Decode(List<string> sessionGroup)
@@ -122,30 +122,52 @@ namespace GeospaceEntity.Models.Codes
         public virtual int Es { get; set; }
         public virtual int fx1 { get; set; }
         public virtual int Diffusio { get; set; }
-        public virtual int delta { get; set; }
-        public virtual double rating { get; set; }
+        public virtual int delta_f0F2 { get; set; }
+        public virtual double rating_f0F2 { get; set; }
+        public virtual int delta_M3000 { get; set; }
+        public virtual double rating_M3000 { get; set; }
         public virtual string Raw { get; set; }
         public virtual string ErrorMessage { get; set; }
 
         // Display For Web Form
-        public virtual string _rating
+        public virtual string _rating_f0F2
         {
             get
             {
-                if (this.rating == double.MaxValue)
+                if (this.rating_f0F2 == double.MaxValue)
                     return "";
                 else
-                    return this.rating.ToString();
+                    return this.rating_f0F2.ToString();
             }
         }
-        public virtual string _delta
+        public virtual string _delta_f0F2
         {
             get
             {
-                if (this.delta == int.MaxValue)
+                if (this.delta_f0F2 == int.MaxValue)
                     return "";
                 else
-                    return this.delta.ToString();
+                    return this.delta_f0F2.ToString();
+            }
+        }
+        public virtual string _rating_M3000
+        {
+            get
+            {
+                if (this.rating_M3000 == double.MaxValue)
+                    return "";
+                else
+                    return this.rating_M3000.ToString();
+            }
+        }
+        public virtual string _delta_M3000
+        {
+            get
+            {
+                if (this.delta_M3000 == int.MaxValue)
+                    return "";
+                else
+                    return this.delta_M3000.ToString();
             }
         }
         public virtual string _f0F1 
