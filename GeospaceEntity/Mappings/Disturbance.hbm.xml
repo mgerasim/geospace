@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="GeospaceEntity.Models" assembly="GeospaceEntity">
+  <class name="Disturbance" table="Geospace_Disturbance">
+    <id name="ID" unsaved-value="0">
+      <column name="ID" not-null="true" />
+      <generator class="identity"/>
+    </id>
+
+    <property name="created_at" />
+    <property name="updated_at" />
+
+    <property name="YYYY" not-null="true" unique-key="date" />
+
+    <property name="MM">
+      <column name="MM" check="(MM &gt;= 1 AND MM &lt;= 12)" unique-key="date" not-null="true"  />
+    </property>
+
+    <property name="HH" >
+      <column name="HH" check="(HH &gt;= 0 AND HH &lt;= 23)" unique-key="date" not-null="true" />
+    </property>
+
+    <many-to-one name="Station" not-null="true" column="Station_ID" lazy="false" unique-key="date"/>
+
+  </class>
+</hibernate-mapping>
