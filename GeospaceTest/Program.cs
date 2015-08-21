@@ -18,7 +18,7 @@ namespace GeospaceTest
            // Support01();
            // Support02();
            Support03();
-            //Support04();
+           Support04();
            // Support05(); 
 
            //Support06();
@@ -96,7 +96,7 @@ namespace GeospaceTest
 
             ICalculation theCalcAverage = new Calculation(theLoggerAverage);
             //theCalcAverage.AverageCalc_Run();
-            theCalcAverage.AverageCalc_Run(new DateTime(2015,7,1,0,0,0), new DateTime(2015, 8, 13, 23, 0, 0));
+            theCalcAverage.AverageCalc_Run(new DateTime(2015,7,1,0,0,0), new DateTime(2015, 8, 20, 23, 0, 0));
         }   
         
         
