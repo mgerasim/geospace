@@ -31,37 +31,14 @@ namespace GeospaceEntity.Models.Codes
             fbEs = -1;
             Es = -1;
             fx1 = -1;
+            delta_f0F2 = int.MaxValue;
+            rating_f0F2 = double.MaxValue;
+            delta_M3000 = int.MaxValue;
+            rating_M3000 = double.MaxValue;
             Raw = "";
 
-            created_at = DateTime.Now;
-            updated_at = DateTime.Now;
         }
-
-        //public void SetCodeIonka( int val)
-        //{
-        //    ID = -1;
-
-        //    Diffusio = val;
-        //    f0F2 = val;
-        //    hF2 = val;
-        //    M3000F2 = val;
-        //    fmin = val;
-        //    f0Es = val;
-        //    hEs = val;
-        //    f0F1 = val;
-        //    hF1 = val;
-        //    M3000F1 = val;
-        //    hMF2 = val;
-        //    f0E = val;
-        //    hE = val;
-        //    fbEs = val;
-        //    Es = val;
-        //    fx1 = val;
-
-        //    created_at = DateTime.Now;
-        //    updated_at = DateTime.Now;
-        //}
-        
+                
         public virtual void Decode(List<string> sessionGroup)
         {
             // TODO: Complete member initialization
@@ -71,18 +48,6 @@ namespace GeospaceEntity.Models.Codes
             MI = GeospaceEntity.Helper.HelperIonka.Ionka_Group05_MI(sessionGroup[0]);
             if (sessionGroup.Count >= 2)
             {
-                //bool flag = false;
-
-                //for (int k = 0; k < sessionGroup[0].Length; k++)
-                //{
-                //    if (sessionGroup[0][k] > 61)
-                //        flag = true;
-                //}
-                //if (flag)
-                //{
-                //    this.SetCodeIonka(1003);
-                //    return;
-                //}
 
 
                 f0F2 = GeospaceEntity.Helper.HelperIonka.Ionka_Group06_f0F2(sessionGroup[1], this);
@@ -157,10 +122,54 @@ namespace GeospaceEntity.Models.Codes
         public virtual int Es { get; set; }
         public virtual int fx1 { get; set; }
         public virtual int Diffusio { get; set; }
+        public virtual int delta_f0F2 { get; set; }
+        public virtual double rating_f0F2 { get; set; }
+        public virtual int delta_M3000 { get; set; }
+        public virtual double rating_M3000 { get; set; }
         public virtual string Raw { get; set; }
         public virtual string ErrorMessage { get; set; }
 
         // Display For Web Form
+        public virtual string _rating_f0F2
+        {
+            get
+            {
+                if (this.rating_f0F2 == double.MaxValue)
+                    return "";
+                else
+                    return this.rating_f0F2.ToString();
+            }
+        }
+        public virtual string _delta_f0F2
+        {
+            get
+            {
+                if (this.delta_f0F2 == int.MaxValue)
+                    return "";
+                else
+                    return this.delta_f0F2.ToString();
+            }
+        }
+        public virtual string _rating_M3000
+        {
+            get
+            {
+                if (this.rating_M3000 == double.MaxValue)
+                    return "";
+                else
+                    return this.rating_M3000.ToString();
+            }
+        }
+        public virtual string _delta_M3000
+        {
+            get
+            {
+                if (this.delta_M3000 == int.MaxValue)
+                    return "";
+                else
+                    return this.delta_M3000.ToString();
+            }
+        }
         public virtual string _f0F1 
         { 
             get 

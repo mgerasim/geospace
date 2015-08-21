@@ -26,11 +26,18 @@ namespace GeospaceTest
            //Support08();
 
            //Support09();
+           Support10();
 
             Console.WriteLine("Ok");
             Console.ReadKey();
         }
 
+        static void Support10()
+        {
+            ILogger theLog = new LoggerConsole();
+            ICalculation  theCalc = new Calculation(theLog);
+            theCalc.CharacterizationCalc(DateTime.Now.AddMonths(-3), DateTime.Now.AddDays(1));
+        }
         static void Support09()
         {
             Post a = new Post();

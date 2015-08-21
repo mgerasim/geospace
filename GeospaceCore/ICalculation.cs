@@ -11,5 +11,7 @@ namespace GeospaceCore
         void MedianaCalc_Run();
         void AverageCalc_Run();
         void AverageCalc_Run(DateTime start, DateTime end);
+        void CharacterizationCalc();
+        void CharacterizationCalc(DateTime bgnDate, DateTime endDate);
     }
 }

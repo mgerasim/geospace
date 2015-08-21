@@ -1,4 +1,5 @@
-﻿using GeospaceEntity.Models;
+﻿using GeospaceEntity.Helper;
+using GeospaceEntity.Models;
 using GeospaceEntity.Models.Codes;
 using GeospaceMediana.Common;
 using GeospaceMediana.Models;

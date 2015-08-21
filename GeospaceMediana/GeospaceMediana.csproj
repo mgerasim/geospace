@@ -162,12 +162,12 @@
     <Content Include="Content\contents.css" />
     <Content Include="Content\ionka.css" />
     <Content Include="Content\css-loadtriangles.css" />
-    <Compile Include="Common\DateTimeKhabarovsk.cs" />
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="Controllers\AverageController.cs" />
     <Compile Include="Controllers\CharacterizationDayController.cs" />
     <Compile Include="Controllers\ChartMedianaController.cs" />
+    <Compile Include="Controllers\DisturbanceController.cs" />
     <Compile Include="Controllers\IonkaController.cs" />
     <Compile Include="Controllers\MagmaController.cs" />
     <Compile Include="Controllers\MapController.cs" />
@@ -187,8 +187,6 @@
     <Compile Include="Models\ApiMediana.cs" />
     <Compile Include="Models\ApiProduct.cs" />
     <Compile Include="Models\ApiUmagf.cs" />
-    <Compile Include="Models\CharacterizationDay.cs" />
-    <Compile Include="Models\MedianaCalculator.cs" />
     <Compile Include="Models\ViewAverage.cs" />
     <Compile Include="Models\ViewIonka.cs" />
     <Compile Include="Models\ViewMagma.cs" />
@@ -458,6 +456,7 @@
     <Content Include="Views\Consumer\Delete.cshtml" />
     <Content Include="Views\Consumer\Edit.cshtml" />
     <Content Include="Views\Consumer\Index.cshtml" />
+    <Content Include="Views\Disturbance\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

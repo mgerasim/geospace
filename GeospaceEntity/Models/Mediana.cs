@@ -35,6 +35,7 @@ namespace GeospaceEntity.Models
         public virtual string _f0F2 { get { if (ID < 0) return ""; return f0F2.ToString(); } }
         public virtual string _M3000F2 { get { if (ID < 0) return ""; return M3000F2.ToString(); } }
 
+
         public virtual void Save()
         {
             this.created_at = DateTime.Now;

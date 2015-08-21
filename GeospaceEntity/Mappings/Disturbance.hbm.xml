@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="GeospaceEntity.Models" assembly="GeospaceEntity">
-  <class name="Mediana" table="Geospace_Mediana">
+  <class name="Disturbance" table="Geospace_Disturbance">
     <id name="ID" unsaved-value="0">
       <column name="ID" not-null="true" />
       <generator class="identity"/>
@@ -20,16 +20,6 @@
     </property>
 
     <many-to-one name="Station" not-null="true" column="Station_ID" lazy="false" unique-key="date"/>
-
-    <property name="RangeNumber" >
-      <column name="RangeNumber" check="(RangeNumber &gt;= 0 AND RangeNumber &lt;= 5)" unique-key="date" not-null="true" />
-    </property>
-
-    <property name="f0F2" not-null="true" />
-    <property name="M3000F2" not-null="true" />
-    
-    <property name="IsFixed" not-null="true" />
-      
 
   </class>
 </hibernate-mapping>
