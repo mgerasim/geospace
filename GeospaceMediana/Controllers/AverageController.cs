@@ -180,12 +180,18 @@ namespace GeospaceMediana.Controllers
                     {
                         marks_30[1, i] = 1000;
                         marks_30[2, i] = 1000;
-                    }
-                    if (i < viewIonka.theIonkaValues.Count)
-                        if (viewIonka.theIonkaValues[i].f0F2 < 1000)
+                    }                      
+                }
+
+                for (int i = 0; i < viewIonka.theIonkaValues.Count; i++)
+                {
+                    if (viewIonka.theIonkaValues[i].f0F2 < 1000)
+                    {
+                        if (viewIonka.theIonkaValues[i].MI == 0)
                             value += viewIonka.theIonkaValues[i].f0F2.ToString() + ",";
-                        else
-                            value += "0,";
+                    }
+                    else
+                        value += "0,";
                 }
                 
             }
@@ -283,11 +289,17 @@ namespace GeospaceMediana.Controllers
                         marks_30[1, i] = 1000;
                         marks_30[2, i] = 1000;
                     }
-                    if (i < viewIonka.theIonkaValues.Count)
-                        if (viewIonka.theIonkaValues[i].M3000F2 < 1000)
+                    
+                }
+                for (int i = 0; i < viewIonka.theIonkaValues.Count; i++)
+                {
+                    if (viewIonka.theIonkaValues[i].M3000F2 < 1000)
+                    {
+                        if (viewIonka.theIonkaValues[i].MI == 0)
                             value += viewIonka.theIonkaValues[i].M3000F2.ToString() + ",";
-                        else
-                            value += "0,";
+                    }
+                    else
+                        value += "0,";
                 }
             }
 

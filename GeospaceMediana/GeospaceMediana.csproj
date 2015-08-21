@@ -39,33 +39,48 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Antlr3.Runtime">
+      <HintPath>..\packages\XActDependency.Antlr3.StringTemplate.0.0.9\lib\net35\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime.Debug">
+      <HintPath>..\packages\XActDependency.Antlr3.StringTemplate.0.0.9\lib\net35\Antlr3.Runtime.Debug.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.StringTemplate">
+      <HintPath>..\packages\XActDependency.Antlr3.StringTemplate.0.0.9\lib\net35\Antlr3.StringTemplate.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Data.Edm, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Data.Edm.5.6.0\lib\net40\Microsoft.Data.Edm.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Data.Edm, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Data.Edm.5.6.4\lib\net40\Microsoft.Data.Edm.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Data.OData, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Data.OData.5.6.0\lib\net40\Microsoft.Data.OData.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Data.OData, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Data.OData.5.6.4\lib\net40\Microsoft.Data.OData.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Web.Mvc">
+      <HintPath>..\packages\Mvc2Futures.2.0.50217.0\lib\Microsoft.Web.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.0.0\lib\net45\NLog.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.4.0.1\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.2\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Spatial, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Spatial.5.6.0\lib\net40\System.Spatial.dll</HintPath>
+      <HintPath>..\packages\System.Spatial.5.6.4\lib\net40\System.Spatial.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
@@ -87,9 +102,6 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -135,16 +147,17 @@
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.3.0\lib\WebGrease.dll</HintPath>
     </Reference>
-    <Reference Include="Antlr3.Runtime">
-      <Private>True</Private>
-      <HintPath>..\packages\WebGrease.1.3.0\lib\Antlr3.Runtime.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Content Include="Content\bootstrapmap.css" />
     <Content Include="Content\contents.css" />
     <Content Include="Content\ionka.css" />
@@ -275,6 +288,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Properties\PublishProfiles\GeoSpace.pubxml" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Images\popup.png" />
     <Content Include="Scripts\adapters\jquery.js" />
@@ -371,166 +388,6 @@
     <Content Include="Scripts\lang\zh.js" />
     <Content Include="Scripts\mediana-edit.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\a11yhelp.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\af.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\ar.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\bg.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\ca.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\cs.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\cy.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\da.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\de.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\el.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\en-gb.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\en.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\eo.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\es.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\et.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\fa.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\fi.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\fo.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\fr-ca.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\fr.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\gl.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\gu.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\he.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\hi.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\hr.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\hu.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\id.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\it.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\ja.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\km.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\ko.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\ku.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\lt.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\lv.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\mk.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\mn.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\nb.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\nl.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\no.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\pl.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\pt-br.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\pt.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\ro.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\ru.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\si.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\sk.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\sl.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\sq.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\sr-latn.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\sr.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\sv.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\th.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\tr.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\tt.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\ug.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\uk.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\vi.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\zh-cn.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\zh.js" />
-    <Content Include="Scripts\plugins\a11yhelp\dialogs\lang\_translationstatus.txt" />
-    <Content Include="Scripts\plugins\about\dialogs\about.js" />
-    <Content Include="Scripts\plugins\about\dialogs\hidpi\logo_ckeditor.png" />
-    <Content Include="Scripts\plugins\about\dialogs\logo_ckeditor.png" />
-    <Content Include="Scripts\plugins\clipboard\dialogs\paste.js" />
-    <Content Include="Scripts\plugins\dialog\dialogDefinition.js" />
-    <Content Include="Scripts\plugins\icons.png" />
-    <Content Include="Scripts\plugins\icons_hidpi.png" />
-    <Content Include="Scripts\plugins\image\dialogs\image.js" />
-    <Content Include="Scripts\plugins\image\images\noimage.png" />
-    <Content Include="Scripts\plugins\link\dialogs\anchor.js" />
-    <Content Include="Scripts\plugins\link\dialogs\link.js" />
-    <Content Include="Scripts\plugins\link\images\anchor.png" />
-    <Content Include="Scripts\plugins\link\images\hidpi\anchor.png" />
-    <Content Include="Scripts\plugins\magicline\images\hidpi\icon-rtl.png" />
-    <Content Include="Scripts\plugins\magicline\images\hidpi\icon.png" />
-    <Content Include="Scripts\plugins\magicline\images\icon-rtl.png" />
-    <Content Include="Scripts\plugins\magicline\images\icon.png" />
-    <Content Include="Scripts\plugins\pastefromword\filter\default.js" />
-    <Content Include="Scripts\plugins\scayt\dialogs\options.js" />
-    <Content Include="Scripts\plugins\scayt\dialogs\toolbar.css" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\af.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\ar.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\bg.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\ca.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\cs.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\cy.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\da.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\de.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\el.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\en-gb.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\en.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\eo.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\es.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\et.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\fa.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\fi.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\fr-ca.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\fr.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\gl.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\he.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\hr.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\hu.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\id.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\it.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\ja.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\km.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\ko.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\ku.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\lt.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\lv.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\nb.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\nl.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\no.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\pl.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\pt-br.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\pt.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\ru.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\si.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\sk.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\sl.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\sq.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\sv.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\th.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\tr.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\tt.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\ug.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\uk.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\vi.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\zh-cn.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\zh.js" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\lang\_translationstatus.txt" />
-    <Content Include="Scripts\plugins\specialchar\dialogs\specialchar.js" />
-    <Content Include="Scripts\plugins\tabletools\dialogs\tableCell.js" />
-    <Content Include="Scripts\plugins\table\dialogs\table.js" />
-    <Content Include="Scripts\plugins\wsc\dialogs\wsc.css" />
-    <Content Include="Scripts\plugins\wsc\dialogs\wsc.js" />
-    <Content Include="Scripts\plugins\wsc\dialogs\wsc_ie.js" />
-    <Content Include="Scripts\skins\moono\dialog.css" />
-    <Content Include="Scripts\skins\moono\dialog_ie.css" />
-    <Content Include="Scripts\skins\moono\dialog_ie7.css" />
-    <Content Include="Scripts\skins\moono\dialog_ie8.css" />
-    <Content Include="Scripts\skins\moono\dialog_iequirks.css" />
-    <Content Include="Scripts\skins\moono\editor.css" />
-    <Content Include="Scripts\skins\moono\editor_gecko.css" />
-    <Content Include="Scripts\skins\moono\editor_ie.css" />
-    <Content Include="Scripts\skins\moono\editor_ie7.css" />
-    <Content Include="Scripts\skins\moono\editor_ie8.css" />
-    <Content Include="Scripts\skins\moono\editor_iequirks.css" />
-    <Content Include="Scripts\skins\moono\icons.png" />
-    <Content Include="Scripts\skins\moono\icons_hidpi.png" />
-    <Content Include="Scripts\skins\moono\images\arrow.png" />
-    <Content Include="Scripts\skins\moono\images\close.png" />
-    <Content Include="Scripts\skins\moono\images\hidpi\close.png" />
-    <Content Include="Scripts\skins\moono\images\hidpi\lock-open.png" />
-    <Content Include="Scripts\skins\moono\images\hidpi\lock.png" />
-    <Content Include="Scripts\skins\moono\images\hidpi\refresh.png" />
-    <Content Include="Scripts\skins\moono\images\lock-open.png" />
-    <Content Include="Scripts\skins\moono\images\lock.png" />
-    <Content Include="Scripts\skins\moono\images\refresh.png" />
-    <Content Include="Scripts\skins\moono\images\spinner.gif" />
     <Content Include="Scripts\styles.js" />
     <Content Include="Scripts\umagf-edit.js" />
     <Content Include="Scripts\_references.js" />
@@ -578,7 +435,6 @@
     <Content Include="Views\Products\EditDescription.cshtml" />
     <Content Include="Views\Map\Stations.cshtml" />
     <Content Include="Views\Dropout\ErrorList.cshtml" />
-    <Content Include="Scripts\skins\moono\readme.md" />
     <Content Include="Views\Average\Index.cshtml" />
     <Content Include="Views\Average\_Menu.cshtml" />
     <Content Include="Views\Telegram\FiveDay.cshtml" />
@@ -637,9 +493,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>1858</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:2222/</IISUrl>
-          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
-          <IISAppRootUrl>http://localhost:2222/</IISAppRootUrl>
+          <IISUrl>http://localhost:1234/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
