@@ -15,8 +15,19 @@
       <column name="MM" check="(MM &gt;= 1 AND MM &lt;= 12)" unique-key="date" not-null="true"  />
     </property>
 
+    
+    
+    <property name="DD" >
+      <column name="DD" check="(DD &gt;= 0 AND DD &lt;= 31)" unique-key="date" not-null="true" />
+    </property>
+    
     <property name="HH" >
       <column name="HH" check="(HH &gt;= 0 AND HH &lt;= 23)" unique-key="date" not-null="true" />
+    </property>
+
+
+    <property name="MI" >
+      <column name="MI" check="(MI &gt;= 0 AND MI &lt;= 59)" unique-key="date" not-null="true" />
     </property>
 
     <many-to-one name="Station" not-null="true" column="Station_ID" lazy="false" unique-key="date"/>

@@ -46,6 +46,39 @@ namespace GeospaceCore
             }
         }
 
+        void ICalculation.DisturbanceCalc()
+        {
+            DateTime currDate = DateTime.Now;
+            foreach (var station in Station.GetAll())
+            {
+                try
+                {
+                    HelperCalculation.DisturbanceCalc(station, currDate);
+                }
+                catch (Exception ex)
+                {
+                    theLog.LogError(ex.Message);
+                }
+            }
+        }
+        void ICalculation.DisturbanceCalc(DateTime bgnDate, DateTime endDate)
+        {
+            foreach (var station in Station.GetAll())
+            {
+                for (DateTime currDate = bgnDate; currDate < endDate.AddDays(1); currDate = currDate.AddDays(1))
+                {
+
+                    try
+                    {
+                        HelperCalculation.DisturbanceCalc(station, currDate);
+                    }
+                    catch (Exception ex)
+                    {
+                        theLog.LogError(ex.Message);
+                    }
+                }
+            }
+        }
         void ICalculation.CharacterizationCalc()
         {
             DateTime currDate = DateTime.Now;

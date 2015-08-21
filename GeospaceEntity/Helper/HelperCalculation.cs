@@ -232,6 +232,41 @@ namespace GeospaceEntity.Helper
                 }
             }
         }
+        public static void DisturbanceCalc(Station station, DateTime currDate)
+        {
+            List<CodeIonka> theCodeList = CodeIonka.GetByDate(station, currDate.Year, currDate.Day, currDate.Day);
+            foreach (var theCode in theCodeList)
+            {
+                if(     
+                    theCode.f0F2 == 1002            // B - неотклоняющее поглащение
+                        || theCode.f0F2 == 1006     // F - рассеяный след (диффузность)
+                    ||theCode.delta_f0F2 > 30       // суточное отклонение
+                )
+                {
+                    Disturbance theDisturbance = null;
+                    theDisturbance = Disturbance.GetByDate(station, currDate.Year, currDate.Month, currDate.Day, currDate.Hour);
+                    if (theDisturbance == null)
+                    {
+                        theDisturbance = new Disturbance();
+                    }
+                    theDisturbance.Station = station;
+                    theDisturbance.YYYY = currDate.Year;
+                    theDisturbance.MM = currDate.Month;
+                    theDisturbance.DD = currDate.Day;
+                    theDisturbance.HH = theCode.HH;
+                    theDisturbance.MI = theCode.MI;
+                    if (theDisturbance.ID < 0)
+                    {
+                        theDisturbance.Save();
+                    }
+                    else
+                    {
+                        theDisturbance.Update();
+                    }
+                    
+                }
+            }
+        }
         public static void CharacterizationCalc(Station station, DateTime currDate)
         {
             int rangeNumber = MedianaCalculator.GetRangeFromDateReal(currDate);
