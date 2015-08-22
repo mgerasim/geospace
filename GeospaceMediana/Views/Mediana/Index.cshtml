@@ -146,6 +146,10 @@
         .sticky-wrap th {
             box-sizing: border-box;
         }
+
+        .delta_out {
+            color: gray;
+        }
 </style>
 
 <div class="row">
@@ -168,22 +172,48 @@
                     <tr>
                         <td class="right-thick-line">@day</td>
                         @for (int hour = 0; hour < 24; hour++)
-                        {
-                            CodeIonka theCode = Model.GetValue(ViewBag.Year, ViewBag.Month, day, hour);
+{
+    CodeIonka theCode = Model.GetValue(ViewBag.Year, ViewBag.Month, day, hour);
 
-                            string editable = theCode._f0F2.IsEmpty() ? "" : "editable-mediana";
+    string editable = theCode._f0F2.IsEmpty() ? "" : "editable-mediana";
 
-                            <td data-day="@day" data-hour="@hour" data-type="@ViewBag.Type" class="editable-mediana">
-                                @if (ViewBag.Type == "f0F2")
-                                {
-                                    @theCode._f0F2
-                                }
-                                else
-                                {
-                                    @theCode._M3000F2
-                                }
-                            </td>
-                        }
+    if (ViewBag.Type == "f0F2")
+    {
+        if (Math.Abs(@theCode.delta_f0F2) >= 33 && @theCode.delta_f0F2 != int.MaxValue && @theCode.f0F2 < 1000)
+        {
+            
+            <td data-day="@(day)" data-hour="@hour" data-type="@ViewBag.Type" class="editable-mediana danger" data-toggle="tooltip" data-placement="left" title="Δ: @(theCode._delta_f0F2)">
+                @theCode._f0F2
+            </td>    
+        }
+        else
+        {
+            
+            <td data-day="@(day)" data-hour="@hour" data-type="@ViewBag.Type" class="editable-mediana" data-toggle="tooltip" data-placement="left" title="Δ: @(theCode._delta_f0F2)">
+                @theCode._f0F2
+            </td>
+        }
+
+    }
+    else
+    {
+        if (Math.Abs(@theCode.delta_M3000) >= 33 && @theCode.delta_M3000 != int.MaxValue && @theCode.M3000F2 < 1000)
+        {
+            
+            <td data-day="@day" data-hour="@hour" data-type="@ViewBag.Type" class="editable-mediana delta_out" data-toggle="tooltip" data-placement="left" title="Δ: @(theCode._delta_M3000)">
+                @theCode._M3000F2
+            </td>
+        }
+        else
+        {
+            
+            <td data-day="@day" data-hour="@hour" data-type="@ViewBag.Type" class="editable-mediana" data-toggle="tooltip" data-placement="left" title="Δ: @(theCode._delta_M3000)">
+                @theCode._M3000F2
+            </td>
+        }
+    }
+
+}
                     </tr>
                 }
             </tbody>
@@ -255,28 +285,39 @@
                     }
                     
                     <tr>
-                        <td class="right-thick-line" style="white-space: nowrap; width: 45px">@GeospaceMediana.Models.MedianaCalculator.GetRangeFromNumber(medianaDate, numberRange).Header</td>
+                        <td class="right-thick-line" style="white-space: nowrap; width: 45px">@GeospaceEntity.Helper.MedianaCalculator.GetRangeFromNumber(medianaDate, numberRange).Header</td>
                             @for (int hour = 0; hour < 24; hour++)
                             {
                                 GeospaceEntity.Models.Mediana mediana = viewMediana.GetValue(medianaDate.Year, medianaDate.Month, hour, numberRange);
                                 
-                                <td>
-                                    @if(ViewBag.Type == "f0F2")
-                                    {
+                                
+                                    if (ViewBag.Type == "f0F2")
+                                        {
                                         if (mediana.f0F2 != 0)
                                         {
-                                            @mediana._f0F2
+                                            
+                                            string className = "";
+                                            if (mediana.IsFixed)
+                                            {
+                                                className = "info";
+                                            }
+                                            
+                                            <td class="@(className)">
+                                                @mediana._f0F2
+                                            </td>
                                         }
                                     }
                                     else
                                     {
                                         if (mediana.M3000F2 != 0)
                                         {
-                                            @mediana._M3000F2
+                                            <td> 
+                                                @mediana._M3000F2
+                                            </td>
                                         }
                                     }
                                     
-                                </td>
+                                
                             }
                     </tr>
                 }

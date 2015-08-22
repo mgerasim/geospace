@@ -40,6 +40,10 @@
     <property name="fbEs" />
     <property name="Es" />
     <property name="fx1" />
+    <property name ="delta_f0F2" />
+    <property name ="rating_f0F2" />
+    <property name ="delta_M3000" />
+    <property name ="rating_M3000" />
     <property name="Diffusio">
       <column name="Diffusio" default="-1" not-null="true"/>
     </property>

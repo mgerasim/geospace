@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace GeospaceMediana.Models
+namespace GeospaceEntity.Helper
 {
     public class CharacterizationDay
     {
@@ -134,6 +134,11 @@ namespace GeospaceMediana.Models
 
 
         private List<CharacterizationDayValue> _listValues = new List<CharacterizationDayValue>();
+
+        public List<CharacterizationDayValue> GetValues()
+        {
+            return _listValues;
+        }
 
         private List<DayRating> _listFirstHalfDay = new List<DayRating>();
         private List<DayRating> _listSecondHalfDay = new List<DayRating>();

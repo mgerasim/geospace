@@ -1,4 +1,5 @@
-﻿using GeospaceEntity.Models;
+﻿using GeospaceEntity.Helper;
+using GeospaceEntity.Models;
 using GeospaceMediana.Models;
 using System;
 using System.Collections.Generic;
@@ -63,7 +64,7 @@ namespace GeospaceMediana.Controllers
             }
             if (rangeNumber == -1)
             {
-                rangeNumber = GeospaceMediana.Models.MedianaCalculator.GetRangeFromDate(nowDateTime);
+                rangeNumber = MedianaCalculator.GetRangeFromDate(nowDateTime);
                 def = true;
             }
             ViewBag.number = rangeNumber;

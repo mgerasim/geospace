@@ -27,7 +27,7 @@
 
     <property name="f0F2" not-null="true" />
     <property name="M3000F2" not-null="true" />
-
+    
     <property name="IsFixed" not-null="true" />
       
 

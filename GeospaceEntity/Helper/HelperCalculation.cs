@@ -232,7 +232,67 @@ namespace GeospaceEntity.Helper
                 }
             }
         }
+        public static void CharacterizationCalc(Station station, DateTime currDate)
+        {
+            int rangeNumber = MedianaCalculator.GetRangeFromDateReal(currDate);
+            CharacterizationDay theCharacterizationDay_f0F2 = new CharacterizationDay(station, rangeNumber, currDate.Year, currDate.Month, "f0F2");
+            CharacterizationDay theCharacterizationDay_M3000 = new CharacterizationDay(station, rangeNumber, currDate.Year, currDate.Month, "M3000");
+            
+            List<CodeIonka> theCodeList = CodeIonka.GetByDate(station, currDate.Year, currDate.Month, currDate.Day);
+            foreach (var theCode in theCodeList)
+            {
+                try
+                {
+                    var value = theCharacterizationDay_f0F2.GetValues().Where(x => x.Day == theCode.DD && x.Hour == theCode.HH).Select(x => x.PrevRating).First();
+                    if (value != null)
+                    {
+                        theCode.delta_f0F2 = (int)value;                        
+                    }
+                }
+                catch{
 
+                }
+
+                try {
+                    var value2 = theCharacterizationDay_f0F2.GetValues().Where(x => x.Day == theCode.DD && x.Hour == theCode.HH).Select(x => x._Rating).First();
+                    if (value2 != null)
+                    {
+                        theCode.rating_f0F2 = Convert.ToDouble(value2);
+
+                    }
+
+                }
+                catch{}
+
+                
+                try {
+                    var value = theCharacterizationDay_M3000.GetValues().Where(x => x.Day == theCode.DD && x.Hour == theCode.HH).Select(x => x.PrevRating).First();
+                    if (value != null)
+                    {
+                        theCode.delta_M3000 = value;
+
+                    }
+
+                }
+                catch{}
+                    
+
+                
+                try {
+                    var value = theCharacterizationDay_M3000.GetValues().Where(x => x.Day == theCode.DD && x.Hour == theCode.HH).Select(x => x._Rating).First();
+                    if (value != null)
+                    {
+                        theCode.rating_M3000 = Convert.ToDouble(value);
+
+                    }
+
+                }
+                catch{}
+
+               theCode.Update();
+                
+            }
+        }
         //расчет средних значений f0F2 и M3000
         public static void Start_Calc_Average(DateTime end, Station stat, int hour)
         {

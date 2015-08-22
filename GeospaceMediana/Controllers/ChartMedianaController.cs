@@ -1,4 +1,5 @@
-﻿using GeospaceEntity.Models;
+﻿using GeospaceEntity.Helper;
+using GeospaceEntity.Models;
 using GeospaceMediana.Common;
 using GeospaceMediana.Models;
 using System;
@@ -23,7 +24,7 @@ namespace GeospaceMediana.Controllers
             else
                 ViewBag.ViewType = type;
 
-            DateTime nowDateTime = DateTimeKhabarovsk.Now;
+            DateTime nowDateTime = GeospaceEntity.Helper.DateTimeKhabarovsk.Now;
             
             if (month == -1 || year == -1)
             {

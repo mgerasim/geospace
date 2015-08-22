@@ -1,4 +1,5 @@
-﻿using GeospaceEntity.Models;
+﻿using GeospaceEntity.Helper;
+using GeospaceEntity.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -45,6 +46,41 @@ namespace GeospaceCore
             }
         }
 
+        void ICalculation.CharacterizationCalc()
+        {
+            DateTime currDate = DateTime.Now;
+            foreach (var station in Station.GetAll())
+            {
+                try
+                {
+                    HelperCalculation.CharacterizationCalc(station, currDate);
+                }
+                catch (Exception ex)
+                {
+                    theLog.LogError(ex.Message);
+                }
+            }
+        }
+        void ICalculation.CharacterizationCalc(DateTime bgnDate, DateTime endDate)
+        {
+            foreach (var station in Station.GetAll())
+            {
+                for (DateTime currDate = bgnDate; currDate < endDate.AddDays(1); currDate = currDate.AddDays(1))
+                {
+
+                    try
+                    {
+                        HelperCalculation.CharacterizationCalc(station, currDate);
+                    }
+                    catch (Exception ex)
+                    {
+                        theLog.LogError(ex.Message);
+                    }
+                }
+            }
+               
+            
+        }
         void ICalculation.AverageCalc_Run()
         {
             theLog.LogCalc("Run logger AverageCacl");
