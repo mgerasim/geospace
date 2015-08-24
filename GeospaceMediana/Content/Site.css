@@ -61,11 +61,16 @@ textarea {
 .right-thick-line {
     border-right-width: 2px !important; 
     border-right-color: #888 !important;
+    padding: 0px !important;
 }
 
 .left-thick-line {
     border-left-width: 2px !important; 
     border-left-color: #888 !important;
+
+    padding: 0px !important;
+    
+
 }
 
 .bottom-thick-line {
