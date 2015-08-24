@@ -27,28 +27,6 @@ namespace GeospaceEntity.Helper
         }
     }
 
-    public class Range
-    {
-        public Range()
-        { }
-
-        public Range(Range range)
-        {
-            Min = range.Min;
-            Max = range.Max;
-        }
-
-        public string Header
-        {
-            get
-            {
-                return Min.ToString() + "-" + Max.ToString();
-            }
-        }
-
-        public int Min;
-        public int Max;
-    }
 
     public static class HelperCalculation
     {

@@ -1,4 +1,5 @@
-﻿using GeospaceEntity.Models;
+﻿using GeospaceEntity.Helper;
+using GeospaceEntity.Models;
 using GeospaceEntity.Models.Codes;
 using GeospaceMediana.Models;
 using System;
@@ -84,6 +85,75 @@ namespace GeospaceMediana.Controllers
             ApiProduct apiProduct = new ApiProduct(product.GetAll()[0]);
 
             return Json(apiProduct, "application/json", Encoding.GetEncoding("windows-1251"), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetCharacterizations(int stationCode = 43501, string type = "f0F2")
+        {
+            DateTime currDate = DateTime.Now;
+            
+            int rangeNumber = -1;
+            if (rangeNumber == -1)
+            {
+                for (int i = 0; i < 6; i++)
+                {
+                    var range = MedianaCalculator.GetRangeFromNumber(DateTime.Now, i);
+
+                    if (currDate.Day >= range.Min && currDate.Day <= range.Max)
+                    {
+                        rangeNumber = i;
+                        break;
+                    }
+                }
+            }
+
+            Station station = Station.GetByCode(stationCode);
+            CharacterizationDay theEntityCharacterization = new CharacterizationDay(station, 
+                rangeNumber, 
+                currDate.Year, 
+                currDate.Month, 
+                type);
+
+
+            ApiCharacterization theApiCharacterization = new ApiCharacterization();
+
+            var range1 = MedianaCalculator.GetRangeFromNumber(currDate, rangeNumber);
+            for (int day = range1.Min; day <= range1.Max; day++)
+            {
+                ApiCharacterization.ApiCharacterizationDay theApiDay = new ApiCharacterization.ApiCharacterizationDay();
+                theApiDay.YYYY = currDate.Year;
+                theApiDay.MM = currDate.Month;
+                theApiDay.DD = day;
+
+                theApiDay.day_rating_subfirst = theEntityCharacterization.GetFirstHalfDayValue(day).ToString();
+                theApiDay.day_rating_subsecond = theEntityCharacterization.GetSecondHalfDayValue(day).ToString();
+                theApiDay.day_rating = theEntityCharacterization.GetFullDayValue(day).ToString();
+
+                theApiCharacterization.theApiCharacterizationDay.Add(theApiDay);
+                for (int hour = 0; hour < 24; hour++)
+                {
+                    ApiCharacterization.ApiCharacterizationDay.ApiCharacterizationData data 
+                    = new ApiCharacterization.ApiCharacterizationDay.ApiCharacterizationData();
+
+                    data.day = day;
+                    data.hour = hour;
+
+                    var result_list = theEntityCharacterization.GetValues().Where(x => x.Day == day).Where(x => x.Hour == hour);
+                    
+                    if (result_list.Count() > 0)
+                    {
+                        var result = result_list.Single();
+                        data.value = result._f0;
+                        data.delta = result._PrevRating;
+                        data.rating = result._Rating;                        
+                    }
+
+                    theApiDay.theApiCharacterizationData.Add(data);
+
+    
+                }
+                
+            }
+            return Json(theApiCharacterization, JsonRequestBehavior.AllowGet);
         }
     }
 }

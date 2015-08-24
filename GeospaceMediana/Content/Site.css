@@ -162,7 +162,7 @@ body > .container {
         }
 
 
-.panel-heading {
+.panel-group .panel .panel-heading {
     cursor: pointer;
 }
 

@@ -133,6 +133,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Models\ApiCharacterization.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -438,6 +439,7 @@
     <Content Include="Views\Consumer\Edit.cshtml" />
     <Content Include="Views\Consumer\Index.cshtml" />
     <Content Include="Views\Disturbance\Index.cshtml" />
+    <Content Include="Views\About\Api.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
