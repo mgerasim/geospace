@@ -231,7 +231,7 @@
 
     string editable = "editable-umagf";
 
-    <td class="right-thick-line left-thick-line @editable umagf-data" data-day="@item.DD" data-type="ak" align="center" colspan="7">
+    <td class="right-thick-line left-thick-line @editable umagf-data" data-day="@item.DD" data-type="ak" align="center" colspan="7" data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">
         Ak (суточная) = @convertToTwoNumbers(theCode._ak)
     </td>
 }
@@ -239,11 +239,11 @@
                 
                 <tr>
                     @foreach (var item in Model.GetHeader())
-                    {
-                        <td class="right-thick-line left-thick-line umagf-data" align="center" colspan="7">
-                            K-индексы (3-х часовые)
-                        </td>
-                    }
+                        {
+                            <td class="right-thick-line left-thick-line umagf-data" align="center" colspan="7" >
+                                K-индексы (3-х часовые)
+                            </td>
+                        }
                 </tr>
 
                 <tr>
@@ -283,13 +283,13 @@
 
                 <tr>
                     @foreach (var item in Model.GetHeader())
-                    {
-                        CodeUmagf theCode = Model.GetValueUmagf(item.YYYY, item.MM, item.DD);
+{
+    CodeUmagf theCode = Model.GetValueUmagf(item.YYYY, item.MM, item.DD);
 
-                        string editable = theCode._k1.IsEmpty() ? "" : "editable-umagf";
+    string editable = theCode._k1.IsEmpty() ? "" : "editable-umagf";
 
-                        <td class="right-thick-line left-thick-line @editable umagf-data" data-day="@item.DD" data-type="events" colspan="7" style="height: 27px">@theCode._events</td>
-                    }
+    <td class="right-thick-line left-thick-line @editable umagf-data" data-day="@item.DD" data-type="events" colspan="7" style="height: 27px" data-toggle="tooltip" data-placement="left" title="@(theCode.Raw)">@theCode._events</td>
+}
                 </tr>
 
             </tbody>
