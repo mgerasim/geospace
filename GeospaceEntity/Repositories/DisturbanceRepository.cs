@@ -55,17 +55,6 @@ namespace GeospaceEntity.Repositories
                 return session.CreateCriteria<GeospaceEntity.Models.Disturbance>().Add(Restrictions.Eq("ID", id)).UniqueResult<GeospaceEntity.Models.Disturbance>();
         }
 
-        public IList<GeospaceEntity.Models.Disturbance> GetByRangeNumber(Station station, int YYYY, int MM, int rangeNumber)
-        {
-            using (ISession session = NHibernateHelper.OpenSession())
-                return session.CreateCriteria<GeospaceEntity.Models.Disturbance>()
-                        .Add(Restrictions.Eq("Station", station))
-                        .Add(Restrictions.Eq("YYYY", YYYY))
-                        .Add(Restrictions.Eq("MM", MM))
-                        .Add(Restrictions.Eq("RangeNumber", rangeNumber))
-                        .List<GeospaceEntity.Models.Disturbance>();
-        }
-
         public IList<GeospaceEntity.Models.Disturbance> GetByMonth(Station station, int YYYY, int MM)
         {
             using (ISession session = NHibernateHelper.OpenSession())
@@ -76,7 +65,7 @@ namespace GeospaceEntity.Repositories
                         .List<GeospaceEntity.Models.Disturbance>();
         }
 
-        public GeospaceEntity.Models.Disturbance GetByDate(Station station, int YYYY, int MM, int HH, int rangeNumber)
+        public GeospaceEntity.Models.Disturbance GetByDate(Station station, int YYYY, int MM, int DD, int HH, int MI = 0)
         {
             GeospaceEntity.Models.Disturbance Disturbance = null;
             
@@ -88,8 +77,9 @@ namespace GeospaceEntity.Repositories
                         .Add(Restrictions.Eq("Station", station))
                         .Add(Restrictions.Eq("YYYY", YYYY))
                         .Add(Restrictions.Eq("MM", MM))
+                        .Add(Restrictions.Eq("DD", DD))
                         .Add(Restrictions.Eq("HH", HH))
-                        .Add(Restrictions.Eq("RangeNumber", rangeNumber))
+                        .Add(Restrictions.Eq("MI", MI))
                         .UniqueResult<GeospaceEntity.Models.Disturbance>();
                 }
                 catch(Exception)
@@ -97,10 +87,7 @@ namespace GeospaceEntity.Repositories
                     Disturbance = null;
                 }
             }
-
-            if (Disturbance == null)
-                Disturbance = new Disturbance();
-
+            
             return Disturbance;
         }
 
@@ -108,7 +95,7 @@ namespace GeospaceEntity.Repositories
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
-                ICriteria criteria = session.CreateCriteria(typeof(GeospaceEntity.Models.Station));
+                ICriteria criteria = session.CreateCriteria(typeof(GeospaceEntity.Models.Disturbance));
                 return criteria.List<GeospaceEntity.Models.Disturbance>();
             }
         }

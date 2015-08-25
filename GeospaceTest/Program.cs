@@ -18,7 +18,7 @@ namespace GeospaceTest
            // Support01();
            // Support02();
            Support03();
-           Support04();
+         //  Support04();
            // Support05(); 
 
            //Support06();
@@ -26,12 +26,20 @@ namespace GeospaceTest
            //Support08();
 
            //Support09();
-           //Support10();
+
+         //  Support10();
+           Support11();
 
             Console.WriteLine("Ok");
             Console.ReadKey();
         }
 
+        static void Support11()
+        {
+            ILogger theLog = new LoggerConsole();
+            ICalculation theCalc = new Calculation(theLog);
+            theCalc.DisturbanceCalc(DateTime.Now.AddMonths(-3), DateTime.Now.AddDays(1));
+        }
         static void Support10()
         {
             ILogger theLog = new LoggerConsole();

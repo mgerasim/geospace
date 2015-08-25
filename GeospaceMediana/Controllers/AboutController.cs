@@ -19,5 +19,10 @@ namespace GeospaceMediana.Controllers
             return View();
         }
 
+        public ActionResult Api()
+        {
+            return View();
+        }
+
     }
 }

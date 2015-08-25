@@ -18,11 +18,12 @@ namespace GeospaceEntity.Models
         public virtual int MM { get; set; }
         public virtual int DD { get; set; }
         public virtual int HH { get; set; }
-        
+        public virtual int MI { get; set; }
+
 
         public Disturbance()
         {
-
+            this.ID = -1;
         }
 
         public virtual void Save()
@@ -45,6 +46,17 @@ namespace GeospaceEntity.Models
             IRepository<Disturbance> repo = new DisturbanceRepository();
             repo.GetAll();
             return (List<Disturbance>)repo.GetAll();
+        }
+        static public Disturbance GetByDate(Station station, int YYYY, int MM, int DD, int HH, int MI = 0)
+        {
+            DisturbanceRepository repo = new DisturbanceRepository();
+            return repo.GetByDate(station, YYYY, MM, DD, HH, MI);
+        }
+
+        static public List<Disturbance> GetByMonth(Station station, int YYYY, int MM)
+        {
+            DisturbanceRepository repo = new DisturbanceRepository();
+            return (List<Disturbance>)repo.GetByMonth(station, YYYY, MM);
         }
     }
 }

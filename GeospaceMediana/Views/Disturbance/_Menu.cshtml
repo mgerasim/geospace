@@ -1,0 +1,32 @@
+﻿@model GeospaceMediana.Models.ViewDisturbanceList
+
+<li>
+    @Html.ActionLink("Пред.",
+            "Index",
+            "Disturbance",
+            new
+            {                                   
+                YYYY = Model.CurrDate.AddMonths(-1).Year,
+                MM = Model.CurrDate.AddMonths(-1).Month
+            },
+                                new
+                                {
+                                    @class = "btn btn-default btn-lg"
+                                }
+)
+</li>
+<li>
+    @Html.ActionLink("След.",
+            "Index",
+                    "Disturbance",
+                    new
+                    {
+                        YYYY = Model.CurrDate.AddMonths(1).Year,
+                        MM = Model.CurrDate.AddMonths(1).Month
+                    },
+                                new
+                                {
+                                    @class = "btn btn-default btn-lg"
+                                }
+)
+</li>

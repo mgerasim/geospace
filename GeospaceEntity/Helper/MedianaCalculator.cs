@@ -99,9 +99,8 @@ namespace GeospaceEntity.Helper
             bool key = false;
             foreach(var item in ranges)
             {
-                if(date.Day < (item.Min)-2)
+                if(date.Day <= (item.Max)-2)
                 {
-                    number--;
                     key = true;
                     break;
                 }

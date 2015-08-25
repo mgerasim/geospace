@@ -13,5 +13,7 @@ namespace GeospaceCore
         void AverageCalc_Run(DateTime start, DateTime end);
         void CharacterizationCalc();
         void CharacterizationCalc(DateTime bgnDate, DateTime endDate);
+        void DisturbanceCalc();
+        void DisturbanceCalc(DateTime bgnDate, DateTime endDate);
     }
 }

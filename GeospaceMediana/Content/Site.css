@@ -61,11 +61,16 @@ textarea {
 .right-thick-line {
     border-right-width: 2px !important; 
     border-right-color: #888 !important;
+    padding: 0px !important;
 }
 
 .left-thick-line {
     border-left-width: 2px !important; 
     border-left-color: #888 !important;
+
+    padding: 0px !important;
+    
+
 }
 
 .bottom-thick-line {
@@ -157,7 +162,7 @@ body > .container {
         }
 
 
-.panel-heading {
+.panel-group .panel .panel-heading {
     cursor: pointer;
 }
 
@@ -176,4 +181,11 @@ body > .container {
         height: 100%;
     }
     
+}
+
+.navbar .nav > li > a {
+    float: none;
+    line-height: 19px;
+    text-decoration: none;
+    color:  #000000;
 }

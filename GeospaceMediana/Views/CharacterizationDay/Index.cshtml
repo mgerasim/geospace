@@ -72,6 +72,13 @@
         .sticky-wrap th {
             box-sizing: border-box;
         }
+
+    tr.ionka-data td {
+        padding: 0px !important;
+        text-align: center;
+        vertical-align: middle !important;
+    }
+
 </style>
 
 <div class="row">
@@ -105,38 +112,38 @@
                 CharacterizationDay charDay = ViewBag.CharacterizationDay;
             }
             <tbody>
-                @for(int hour = 0; hour < 24; hour++)
-                {
-                   GeospaceEntity.Models.Mediana mediana = ViewBag.ViewMediana.GetValue(hour, ViewBag.RangeNumber);
-                    
-                    
-                    <tr>
-                        <td class="left-thick-line right-thick-line">
-                            @if(ViewBag.Type == "f0F2")
-                            {
-                                @mediana._f0F2
-                            }
-                            else
-                            {
-                                @mediana._M3000F2
-                            }
-                        
-                        </td>
-                        <td class="left-thick-line right-thick-line">@hour.ToString("D2")</td>
+                @for (int hour = 0; hour < 24; hour++)
+{
+    GeospaceEntity.Models.Mediana mediana = ViewBag.ViewMediana.GetValue(hour, ViewBag.RangeNumber);
 
-                        @for (int day = ViewBag.DayStart; day <= ViewBag.DayEnd; day++)
-                        {
-                            var value = charDay.GetValue(day, hour);
-                            
-                            <td class="left-thick-line">@value._f0</td>
-                            <td>@value._PrevRating</td>
-                            <td class="right-thick-line">@value._Rating</td>
-                        }
-                    </tr>
-                }
+
+    <tr class="ionka-data">
+        <td class="left-thick-line right-thick-line">
+            @if (ViewBag.Type == "f0F2")
+            {
+                @mediana._f0F2
+            }
+            else
+            {
+                @mediana._M3000F2
+            }
+
+        </td>
+        <td class="left-thick-line right-thick-line">@hour.ToString("D2")</td>
+
+        @for (int day = ViewBag.DayStart; day <= ViewBag.DayEnd; day++)
+        {
+            var value = charDay.GetValue(day, hour);
+
+            <td class="left-thick-line">@value._f0</td>
+            <td>@value._PrevRating</td>
+            <td class="right-thick-line">@value._Rating</td>
+        }
+    </tr>
+}
 
                 <tr>
-                    <td class="top-thick-line left-thick-line right-thick-line" style="height: 29px;" colspan="17">
+                    <td class="top-thick-line left-thick-line right-thick-line" colspan="17">
                         <h4>Характеристика возмущений по Δ@(ViewBag.Type)</h4>
                     </td>
 

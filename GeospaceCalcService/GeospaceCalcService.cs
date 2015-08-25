@@ -45,6 +45,7 @@ namespace GeospaceCalcService
             theCalcAverage.AverageCalc_Run();
             theCalcMediana.MedianaCalc_Run();
             theCalcMediana.CharacterizationCalc();
+            theCalcMediana.DisturbanceCalc();
         }
         private void eventLog1_EntryWritten(object sender, EntryWrittenEventArgs e)
         {
