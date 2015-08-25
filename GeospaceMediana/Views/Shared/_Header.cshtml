@@ -141,6 +141,10 @@
                           <ul class="dropdown-menu">
                               <li>@Html.ActionLink("Редактировать продукцию", "Index", "Products")</li>
                               <li class="divider"></li>
+                              <li>@Html.ActionLink("Телеграммы Месячный прогноз", "FiveDay", "Telegram")</li>
+                              <li>@Html.ActionLink("Телеграммы Пятидневный прогноз", "FiveDay", "Telegram")</li>
+                              <li>@Html.ActionLink("Телеграммы Полусуточный прогноз", "FiveDay", "Telegram")</li>
+                              <li class="divider"></li>
                               <li>@Html.ActionLink("Суточный обзор гелио-геофизической обстановки", "EditReviewGeoEnv", "Products")</li>
                               <li>@Html.ActionLink("Месячный обзор гелио-геофизической обстановки", "EditReviewGeoEnvMonth", "Products")</li>
                               <li>@Html.ActionLink("Полусуточный прогноз Ионосферы и Магнитного поля Земли", "EditSubdayForecast", "Products")</li>
@@ -149,14 +153,6 @@
                               <li>@Html.ActionLink("Сводная таблица по Солнцу, Магнитному полю Земли и Ионосферы", "EditTableSun", "Products")</li>
                               <li>@Html.ActionLink("Примечания к графикам и таблицам", "EditDescription", "Products")</li>
                               <li class="divider"></li>
-                              <li class="dropdown dropdown-submenu">
-                                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Телеграммы<b class="caret"></b></a>
-                                  <ul class="dropdown-menu">
-                                      <li>@Html.ActionLink("Месячный прогноз", "FiveDay", "Telegram")</li>
-                                      <li>@Html.ActionLink("Пятидневный прогноз", "FiveDay", "Telegram")</li>
-                                      <li>@Html.ActionLink("Полусуточный прогноз", "FiveDay", "Telegram")</li>
-                                  </ul>
-                              </li>
                               <li class="dropdown dropdown-submenu">
                                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Анализ<b class="caret"></b></a>
                                   <ul class="dropdown-menu">

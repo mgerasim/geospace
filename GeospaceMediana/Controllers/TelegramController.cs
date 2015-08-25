@@ -81,7 +81,6 @@ namespace GeospaceMediana.Controllers
             }
             catch (Exception)
             {
-                // return Content(e.ToString());
                 return Content("Ошибка при отправлении данных! Проверьте корректность вводимых данных.");
             }
 
