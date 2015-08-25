@@ -440,6 +440,7 @@
     <Content Include="Views\Consumer\Index.cshtml" />
     <Content Include="Views\Disturbance\Index.cshtml" />
     <Content Include="Views\About\Api.cshtml" />
+    <Content Include="Views\Disturbance\_Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -24,7 +24,7 @@ namespace GeospaceMediana.Controllers
                 MM = DateTime.Now.Month;
             }
 
-            ViewDisturbanceList theViewData = new ViewDisturbanceList();
+            ViewDisturbanceList theViewData = new ViewDisturbanceList(YYYY, MM);            
             List<ViewDisturbance> theDisturbanceList = new List<ViewDisturbance>();
             ViewBag.YYYY = YYYY;
             ViewBag.MM = MM;

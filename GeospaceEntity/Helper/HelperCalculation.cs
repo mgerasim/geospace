@@ -212,37 +212,73 @@ namespace GeospaceEntity.Helper
         }
         public static void DisturbanceCalc(Station station, DateTime currDate)
         {
-            List<CodeIonka> theCodeList = CodeIonka.GetByDate(station, currDate.Year, currDate.Day, currDate.Day);
+            List<CodeIonka> theCodeList = CodeIonka.GetByDate(station, currDate.Year, currDate.Month, currDate.Day);
             foreach (var theCode in theCodeList)
             {
-                if(     
-                    theCode.f0F2 == 1002            // B - неотклоняющее поглащение
-                        || theCode.f0F2 == 1006     // F - рассеяный след (диффузность)
-                    ||theCode.delta_f0F2 > 30       // суточное отклонение
-                )
+                try
                 {
-                    Disturbance theDisturbance = null;
-                    theDisturbance = Disturbance.GetByDate(station, currDate.Year, currDate.Month, currDate.Day, currDate.Hour);
-                    if (theDisturbance == null)
+
+
+                    if (
+                        theCode.MI == 0 && (
+                        theCode.f0F2 == 1002            // B - неотклоняющее поглащение
+                            || theCode.f0F2 == 1006     // F - рассеяный след (диффузность)
+                           ||theCode.delta_f0F2 > 30       // суточное отклонение
+                        )
+                    )
                     {
-                        theDisturbance = new Disturbance();
+                        Disturbance theDisturbance = null;
+                        theDisturbance = Disturbance.GetByDate(station, currDate.Year, currDate.Month, currDate.Day, theCode.HH);
+                        if (theDisturbance == null)
+                        {
+                            theDisturbance = new Disturbance();
+                        }
+                        theDisturbance.Station = station;
+                        theDisturbance.YYYY = currDate.Year;
+                        theDisturbance.MM = currDate.Month;
+                        theDisturbance.DD = currDate.Day;
+                        theDisturbance.HH = theCode.HH;
+                        theDisturbance.MI = theCode.MI;
+                        if (theDisturbance.ID < 0)
+                        {
+
+                            //string log = String.Format("Save: ID:{0} Station:{1} Year:{2} Month:{3} Day:{4} Hour:{5} Minute:{6}",
+                            //    theDisturbance.ID,
+                            //    theDisturbance.Station.Name,
+                            //    theDisturbance.YYYY,
+                            //    theDisturbance.MM,
+                            //    theDisturbance.DD,
+                            //    theDisturbance.HH,
+                            //    theDisturbance.MI);
+                            //Console.WriteLine(log);
+
+                            theDisturbance.Save();
+                        }
+                        else
+                        {
+
+                            //string log = String.Format("Update: ID:{0} Station:{1} Year:{2} Month:{3} Day:{4} Hour:{5} Minute:{6}",
+                            //    theDisturbance.ID,
+                            //    theDisturbance.Station.Name,
+                            //    theDisturbance.YYYY,
+                            //    theDisturbance.MM,
+                            //    theDisturbance.DD,
+                            //    theDisturbance.HH,
+                            //    theDisturbance.MI);
+                            //Console.WriteLine(log);
+
+                            theDisturbance.Update();
+                        }
+
                     }
-                    theDisturbance.Station = station;
-                    theDisturbance.YYYY = currDate.Year;
-                    theDisturbance.MM = currDate.Month;
-                    theDisturbance.DD = currDate.Day;
-                    theDisturbance.HH = theCode.HH;
-                    theDisturbance.MI = theCode.MI;
-                    if (theDisturbance.ID < 0)
-                    {
-                        theDisturbance.Save();
+                   
+                } 
+                catch (Exception ex){
+                        //Console.WriteLine(ex.Message);
+                        //if (ex.InnerException != null) {
+                        //    Console.WriteLine(ex.InnerException.Message);
+                        //}
                     }
-                    else
-                    {
-                        theDisturbance.Update();
-                    }
-                    
-                }
             }
         }
         public static void CharacterizationCalc(Station station, DateTime currDate)

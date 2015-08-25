@@ -6,9 +6,14 @@
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
+            <th colspan="@(Model.theStationList.Count + 1)">
+                @Model.Title
+            </th>
+        </tr>
+        <tr>
             <th rowspan="2">День</th>
-            <th colspan="@Model.theStationList.Count">Станция</th>    
-                     
+            <th colspan="@Model.theStationList.Count">Станция</th>
+
         </tr>
 
         <tr>
@@ -19,14 +24,14 @@
         </tr>
     </thead>
     <tbody>
-        @for(int i=1; i<=DateTime.DaysInMonth(ViewBag.YYYY, ViewBag.MM); i++)
-        { 
-            
+        @for (int i = 1; i <= DateTime.DaysInMonth(ViewBag.YYYY, ViewBag.MM); i++)
+        {
+
             <tr>
                 <td>@i</td>
                 @foreach (var item in Model.theStationList)
                 {
-                    <td>@Model.GetCountHH(item.Code, ViewBag.YYYY, ViewBag.MM, i)</td>
+                         <td>@Model.Display(item.Code, ViewBag.YYYY, ViewBag.MM, i)</td>
                 }
             </tr>
         }
