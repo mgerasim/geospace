@@ -91,6 +91,12 @@ namespace GeospaceEntity.Models
             return (List<Average>)repo.GetByDate(station, YYYY, MM, DD);
         }
 
+        public static Average GetByHour(Station station, int YYYY, int MM, int DD, int HH)
+        {
+            Repositories.AverageRepository repo = new Repositories.AverageRepository();
+            return repo.GetByHour(station, YYYY, MM, DD, HH);
+        }
+
         //сохранить новую запись в БД
         public virtual void Save()
         {

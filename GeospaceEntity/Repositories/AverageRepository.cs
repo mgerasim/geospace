@@ -82,6 +82,20 @@ namespace GeospaceEntity.Repositories
             }
         }
 
+        public GeospaceEntity.Models.Average GetByHour(Station station, int YYYY, int MM, int DD, int HH)
+        {
+            using (ISession session = NHibernateHelper.OpenSession())
+            {
+                return session.CreateCriteria<GeospaceEntity.Models.Average>()
+                    .Add(Restrictions.Eq("Station", station))
+                    .Add(Restrictions.Eq("YYYY", YYYY))
+                    .Add(Restrictions.Eq("MM", MM))
+                    .Add(Restrictions.Eq("DD", DD))
+                    .Add(Restrictions.Eq("HH", HH))
+                    .UniqueResult<GeospaceEntity.Models.Average>();
+            }
+        }
+
         public GeospaceEntity.Models.Average GetByDateUTC(Station station, int YYYY, int MM, int DD, int HH)
         {
             using (ISession session = NHibernateHelper.OpenSession())

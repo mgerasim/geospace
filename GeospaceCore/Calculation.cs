@@ -140,7 +140,8 @@ namespace GeospaceCore
                             GeospaceEntity.Helper.HelperCalculation.Start_Calc_Average(dt, item, i);
                             theLog.LogCalc(item.Name + " - " + item.Code.ToString() + " "
                                 + dt.ToShortDateString() + " " + i.ToString() + " час успешно");
-                        }                        
+                        }
+                        GeospaceEntity.Helper.HelperCalculation.interpolation( dt, item);
                     }
                 }
             }
@@ -174,6 +175,7 @@ namespace GeospaceCore
                             theLog.LogCalc("Average " + item.Name + " - " + item.Code.ToString() + " "
                                 + dt.ToShortDateString() + " " + h.ToString() + " час успешно");
                         }
+                        GeospaceEntity.Helper.HelperCalculation.interpolation(dt, item);
                     }
                     Console.WriteLine(dt.ToShortDateString());
 
@@ -183,7 +185,7 @@ namespace GeospaceCore
             }
             catch (Exception ex)
             {
-                theLog.LogError("Average Ошибка за " + dt.ToShortDateString()
+                Console.WriteLine("Average Ошибка за " + dt.ToShortDateString()
                     + " " + dt.ToShortTimeString()
                     + "\n" + ex.Message
                     + "'n" + ex.Source
