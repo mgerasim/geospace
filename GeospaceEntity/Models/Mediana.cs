@@ -68,5 +68,11 @@ namespace GeospaceEntity.Models
             MedianaRepository medianaRepository = new MedianaRepository();
             return medianaRepository.GetByDate(station, YYYY, MM, HH, rangeNumber);
         }
+
+        public static IList<Mediana> GetByDate2(Station station, int YYYY, int MM, int rangeNumber)
+        {
+            MedianaRepository medianaRepository = new MedianaRepository();
+            return medianaRepository.GetByDate2(station, YYYY, MM, rangeNumber);
+        }
     }
 }

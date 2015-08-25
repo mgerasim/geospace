@@ -42,7 +42,7 @@
     <table style="table-layout: fixed" class="table table-bordered table-striped">
         <thead style="width: 100%">
             <tr>
-                <th colspan="25">
+                <th colspan="26">
                     @header
                 </th>
             <tr>
@@ -51,6 +51,7 @@
                 {
                     <td>@i</td>
                 }
+                <td>Δср</td>
             </tr>
         </thead>
         <tbody>
@@ -67,6 +68,14 @@
                         <td>-</td>
                     }
                 }
+                @if(marks[0,24] < 1000)
+                {
+                    <td>@marks[0, 24]</td>
+                }
+                else
+                {
+                    <td>-</td>
+                }
             </tr>
             <tr>
                 <td>Δс/ф</td>
@@ -81,6 +90,7 @@
                         <td>-</td>
                     }
                 }
+                <td></td>
             </tr>
             <tr>
                 <td>Δм/ф</td>
@@ -95,6 +105,7 @@
                         <td>-</td>
                     }
                 }
+                <td></td>
             </tr>
         </tbody>
     </table>
@@ -201,7 +212,7 @@
     $(function () {
         $('#container').highcharts({
             title: {
-                text: 'Анализ: средних значений (5, 7, 10, 20, 27, 30 дней), медианых и фактических значений'
+                text: 'Анализ: средних (за 5, 7, 10, 20, 27, 30 дней), медианых и фактических значений'
             },
             xAxis :{
                 title: {

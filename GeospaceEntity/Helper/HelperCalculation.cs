@@ -440,11 +440,97 @@ namespace GeospaceEntity.Helper
                 if (average.F2_30 != 0) average.F2_30 /= (int)Math.Round((30.0 - average.F2_30_skip), 0);
                 if (average.M3000_30 != 0) average.M3000_30 /= (int)Math.Round((30.0 - average.M3000_30_skip), 0);
 
+                //Если за 5 дней меньше 60% данных => нет данных
+                //Для всех остальных порог равен 70%
+                if (average.F2_05_skip > (5 * 60) / 100) average.F2_05 = 1000;
+                if (average.F2_07_skip > (7 * 70) / 100) average.F2_07 = 1000;
+                if (average.F2_10_skip > (10 * 70) / 100) average.F2_10 = 1000;
+                if (average.F2_20_skip > (20 * 70) / 100) average.F2_20 = 1000;
+                if (average.F2_27_skip > (27 * 70) / 100) average.F2_27 = 1000;
+                if (average.F2_30_skip > (30 * 70) / 100) average.F2_30 = 1000;
+
+                if (average.M3000_05_skip > (5 * 60) / 100) average.M3000_05 = 1000;
+                if (average.M3000_07_skip > (7 * 70) / 100) average.M3000_07 = 1000;
+                if (average.M3000_10_skip > (10 * 70) / 100) average.M3000_10 = 1000;
+                if (average.M3000_20_skip > (20 * 70) / 100) average.M3000_20 = 1000;
+                if (average.M3000_27_skip > (27 * 70) / 100) average.M3000_27 = 1000;
+                if (average.M3000_30_skip > (30 * 70) / 100) average.M3000_30 = 1000;
+                
                 average.Update();
             }
             catch(Exception ex)
             {
                 throw new Exception(stat.Name + stat.Code.ToString() + "Неизвестная ошибка при подсчете среднего", ex);
+            }
+        }
+
+        public static int interpolation2( List<int> values )
+        {
+            //индекс [1] интерполируется
+            //структура массива:
+            //             0                        1                     2                                       3
+            //[ (prevValue or prevDayValue), >>>currValue<<<, (nextValue0 or nextDayValue0), (nextValue1 or nextDayValue0 or nextDayValue1) ]
+            if (values[0] != 1000 && values[1] == 1000)
+            {
+                double del = 2.0;
+                int next = values[2];
+                if (next == 1000)
+                {
+                    del++;
+                    next = values[3];             
+                }
+                if (next == 1000) return 1000;
+                return (int)Math.Round(values[0] + (next - values[0]) / del, 0);
+            }
+            return values[1];
+        }
+
+        public static void interpolation(DateTime end, Station stat)
+        {
+            DateTime prevDT = end.AddDays(-1);
+            DateTime nextDT = end.AddDays(1);
+            List<Average> averageGlobalPrev = Average.GetByDate(stat, prevDT.Year, prevDT.Month, prevDT.Day);
+            List<Average> averageGlobalCurr = Average.GetByDate(stat, end.Year, end.Month, end.Day);
+            List<Average> averageGlobalNext = Average.GetByDate(stat, nextDT.Year, nextDT.Month, nextDT.Day);
+
+            if (averageGlobalNext == null || averageGlobalNext.Count < 2
+                || averageGlobalPrev == null || averageGlobalPrev.Count < 2 ) return;
+
+            for (int h = 0; h < averageGlobalCurr.Count; h++ )
+            {   
+                Average prev = null;
+                List<Average> next = new List<Average>();
+                if (h == 0) prev = averageGlobalPrev[23];
+                else prev = averageGlobalCurr[h-1];
+
+                if (h == 23)
+                {
+                    next.Add(averageGlobalNext[0]);
+                    next.Add(averageGlobalNext[1]);
+                }
+                else
+                {
+                    next.Add(averageGlobalCurr[h + 1]);
+                    if (h < 22)
+                        next.Add(averageGlobalCurr[h + 2]);
+                    else next.Add(averageGlobalNext[0]);
+                }
+
+                averageGlobalCurr[h].F2_05 = interpolation2(new List<int>() { prev.F2_05, averageGlobalCurr[h].F2_05, next[0].F2_05, next[1].F2_05 });
+                averageGlobalCurr[h].F2_07 = interpolation2(new List<int>() { prev.F2_07, averageGlobalCurr[h].F2_07, next[0].F2_07, next[1].F2_07 });
+                averageGlobalCurr[h].F2_10 = interpolation2(new List<int>() { prev.F2_10, averageGlobalCurr[h].F2_10, next[0].F2_10, next[1].F2_10 });
+                averageGlobalCurr[h].F2_20 = interpolation2(new List<int>() { prev.F2_20, averageGlobalCurr[h].F2_20, next[0].F2_20, next[1].F2_20 });
+                averageGlobalCurr[h].F2_27 = interpolation2(new List<int>() { prev.F2_27, averageGlobalCurr[h].F2_27, next[0].F2_27, next[1].F2_27 });
+                averageGlobalCurr[h].F2_30 = interpolation2(new List<int>() { prev.F2_30, averageGlobalCurr[h].F2_30, next[0].F2_30, next[1].F2_30 });
+
+                averageGlobalCurr[h].M3000_05 = interpolation2(new List<int>() { prev.M3000_05, averageGlobalCurr[h].M3000_05, next[0].M3000_05, next[1].M3000_05 });
+                averageGlobalCurr[h].M3000_07 = interpolation2(new List<int>() { prev.M3000_07, averageGlobalCurr[h].M3000_07, next[0].M3000_07, next[1].M3000_07 });
+                averageGlobalCurr[h].M3000_10 = interpolation2(new List<int>() { prev.M3000_10, averageGlobalCurr[h].M3000_10, next[0].M3000_10, next[1].M3000_10 });
+                averageGlobalCurr[h].M3000_20 = interpolation2(new List<int>() { prev.M3000_20, averageGlobalCurr[h].M3000_20, next[0].M3000_20, next[1].M3000_20 });
+                averageGlobalCurr[h].M3000_27 = interpolation2(new List<int>() { prev.M3000_27, averageGlobalCurr[h].M3000_27, next[0].M3000_27, next[1].M3000_27 });
+                averageGlobalCurr[h].M3000_30 = interpolation2(new List<int>() { prev.M3000_30, averageGlobalCurr[h].M3000_30, next[0].M3000_30, next[1].M3000_30 });               
+
+                averageGlobalCurr[h].Update();
             }
         }
     }

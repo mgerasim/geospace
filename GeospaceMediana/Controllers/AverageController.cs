@@ -15,6 +15,39 @@ namespace GeospaceMediana.Controllers
         //
         // GET: /Average/
 
+        public void Pre_Index( List<int> values, List<int> valuesSkip, List<int> mediana, List<int> ionka, ref string strValues, ref string strValuesSkip, ref int[,] marks)
+        {
+            int sum = 0, del = 0;
+            for (int i = 0; i < values.Count; i++)
+            {
+                if (values[i] < 1000)
+                {
+                    strValues += (values[i].ToString()).Replace(",", ".") + ",";
+                    sum += values[i];
+                }
+                else
+                {
+                    strValues += "0,";
+                    del++;
+                }
+                strValuesSkip += valuesSkip[i].ToString() + ",";
+                marks[0, i] = values[i] - mediana[i];
+                if (i < ionka.Count && ionka[i] < 1000)
+                {
+                    marks[1, i] = values[i] - ionka[i];
+                    marks[2, i] = mediana[i] - ionka[i];
+                }
+                else
+                {
+                    marks[1, i] = 1000;
+                    marks[2, i] = 1000;
+                }
+            }
+            if (24 - del != 0) marks[0, 24] = (int)Math.Round(1.0 * sum / (24 - del), 0);
+            else marks[0, 24] = 1000;
+
+        }
+
         public ActionResult Index(int stationCode = 43501, string type = "f0F2", int year=-1, int month=-1, int day=-1)
         {
             @ViewBag.Title = "Средние значения";
@@ -62,10 +95,6 @@ namespace GeospaceMediana.Controllers
             ViewBag.Station = Station.GetByCode(stationCode);
             ViewBag.Stations = Station.GetAll();
 
-            ViewAverage viewAverage = new ViewAverage(stationCode, nowDateTime.Year, nowDateTime.Month, nowDateTime.Day);
-            ViewIonka viewIonka = new ViewIonka(stationCode, nowDateTime.Year, nowDateTime.Month, nowDateTime.Day);
-            
-
             string value = "[";
             string medianaValues = "[";
             string value_05 = "[";
@@ -81,226 +110,110 @@ namespace GeospaceMediana.Controllers
             string value_30 = "[";
             string value_30_skip = "[";
 
-            int [,] marks_05 = new int[3, 24];
-            int[,] marks_07 = new int[3, 24];
-            int[,] marks_10 = new int[3, 24];
-            int[,] marks_20 = new int[3, 24];
-            int[,] marks_27 = new int[3, 24];
-            int[,] marks_30 = new int[3, 24];
+            const int N = 25;
+            const int M = 3;
 
-            if (type == "f0F2" || type == "f0")
+            int[,] marks_05 = new int[M, N];
+            int[,] marks_07 = new int[M, N];
+            int[,] marks_10 = new int[M, N];
+            int[,] marks_20 = new int[M, N];
+            int[,] marks_27 = new int[M, N];
+            int[,] marks_30 = new int[M, N];
+
+            try
             {
-                for (int i = 0; i < viewAverage.theAverageValues.Count; i++)
+                if (type == "f0F2" || type == "f0")
                 {
-                    Mediana mediana = Mediana.GetByDate(Station.GetByCode(stationCode),
-                        nowDateTime.Year, nowDateTime.Month, i, rangeNumber);
+                    List<int> ionka = CodeIonka.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Where(x => x.MI == 0).Select(x => x.f0F2).ToList();
+                    List<int> mediana = Mediana.GetByDate2(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, rangeNumber).Select(x => x.f0F2).ToList();
 
-                    if (mediana != null && mediana.ID > 0)
-                        medianaValues += mediana.f0F2.ToString() + ",";
-
-                    value_05 += (viewAverage.theAverageValues[i].F2_05.ToString()).Replace(",", ".") + ",";
-                    value_05_skip += viewAverage.theAverageValues[i].F2_05_skip.ToString() + ",";
-                    marks_05[0, i] = viewAverage.theAverageValues[i].F2_05 - mediana.f0F2;
-                    if (i < viewIonka.theIonkaValues.Count && viewIonka.theIonkaValues[i].f0F2 < 1000)
+                    for (int i = 0; i < ionka.Count; i++)
                     {
-                        marks_05[1, i] = viewAverage.theAverageValues[i].F2_05 - viewIonka.theIonkaValues[i].f0F2;
-                        marks_05[2, i] = mediana.f0F2 - viewIonka.theIonkaValues[i].f0F2;
+                        if (ionka[i] < 1000) value += ionka[i].ToString() + ",";
+                        else value += "0,";
                     }
-                    else
-                    {
-                        marks_05[1, i] =1000;
-                        marks_05[2, i] = 1000;
-                    }                   
-
-                    value_07 += (viewAverage.theAverageValues[i].F2_07.ToString()).Replace(",", ".") + ",";
-                    value_07_skip += viewAverage.theAverageValues[i].F2_07_skip.ToString() + ",";
-                    marks_07[0, i] = viewAverage.theAverageValues[i].F2_07 - mediana.f0F2;
-                    if (i < viewIonka.theIonkaValues.Count && viewIonka.theIonkaValues[i].f0F2 < 1000)
-                    {
-                        marks_07[1, i] = viewAverage.theAverageValues[i].F2_07 - viewIonka.theIonkaValues[i].f0F2;
-                        marks_07[2, i] = mediana.f0F2 - viewIonka.theIonkaValues[i].f0F2;
-                    }
-                    else
-                    {
-                        marks_07[1, i] = 1000;
-                        marks_07[2, i] = 1000;
-                    }
-
-                    value_10 += (viewAverage.theAverageValues[i].F2_10.ToString()).Replace(",", ".") + ",";
-                    value_10_skip += viewAverage.theAverageValues[i].F2_10_skip.ToString() + ",";
-                    marks_10[0, i] = viewAverage.theAverageValues[i].F2_10 - mediana.f0F2;
-                    if (i < viewIonka.theIonkaValues.Count && viewIonka.theIonkaValues[i].f0F2 < 1000)
-                    {
-                        marks_10[1, i] = viewAverage.theAverageValues[i].F2_10 - viewIonka.theIonkaValues[i].f0F2;
-                        marks_10[2, i] = mediana.f0F2 - viewIonka.theIonkaValues[i].f0F2;
-                    }
-                    else
-                    {
-                        marks_10[1, i] = 1000;
-                        marks_10[2, i] = 1000;
-                    }
-
-                    value_20 += (viewAverage.theAverageValues[i].F2_20.ToString()).Replace(",", ".") + ",";
-                    value_20_skip += viewAverage.theAverageValues[i].F2_20_skip.ToString() + ",";
-                    marks_20[0, i] = viewAverage.theAverageValues[i].F2_20 - mediana.f0F2;
-                    if (i < viewIonka.theIonkaValues.Count && viewIonka.theIonkaValues[i].f0F2 < 1000)
-                    {
-                        marks_20[1, i] = viewAverage.theAverageValues[i].F2_20 - viewIonka.theIonkaValues[i].f0F2;
-                        marks_20[2, i] = mediana.f0F2 - viewIonka.theIonkaValues[i].f0F2;
-                    }
-                    else
-                    {
-                        marks_20[1, i] = 1000;
-                        marks_20[2, i] = 1000;
-                    }
-
-                    value_27 += (viewAverage.theAverageValues[i].F2_27.ToString()).Replace(",", ".") + ",";
-                    value_27_skip += viewAverage.theAverageValues[i].F2_27_skip.ToString() + ",";
-                    marks_27[0, i] = viewAverage.theAverageValues[i].F2_27 - mediana.f0F2;
-                    if (i < viewIonka.theIonkaValues.Count && viewIonka.theIonkaValues[i].f0F2 < 1000)
-                    {
-                        marks_27[1, i] = viewAverage.theAverageValues[i].F2_27 - viewIonka.theIonkaValues[i].f0F2;
-                        marks_27[2, i] = mediana.f0F2 - viewIonka.theIonkaValues[i].f0F2;
-                    }
-                    else
-                    {
-                        marks_27[1, i] = 1000;
-                        marks_27[2, i] = 1000;
-                    }
-
-                    value_30 += (viewAverage.theAverageValues[i].F2_30.ToString()).Replace(",", ".") + ",";
-                    value_30_skip += viewAverage.theAverageValues[i].F2_30_skip.ToString() + ",";
-                    marks_30[0, i] = viewAverage.theAverageValues[i].F2_30 - mediana.f0F2;
-                    if (i < viewIonka.theIonkaValues.Count && viewIonka.theIonkaValues[i].f0F2 < 1000)
-                    {
-                        marks_30[1, i] = viewAverage.theAverageValues[i].F2_30 - viewIonka.theIonkaValues[i].f0F2;
-                        marks_30[2, i] = mediana.f0F2 - viewIonka.theIonkaValues[i].f0F2;
-                    }
-                    else
-                    {
-                        marks_30[1, i] = 1000;
-                        marks_30[2, i] = 1000;
-                    }                      
-                }
-
-                for (int i = 0; i < viewIonka.theIonkaValues.Count; i++)
-                {
-                    if (viewIonka.theIonkaValues[i].f0F2 < 1000)
-                    {
-                        if (viewIonka.theIonkaValues[i].MI == 0)
-                            value += viewIonka.theIonkaValues[i].f0F2.ToString() + ",";
-                    }
-                    else
-                        value += "0,";
-                }
-                
-            }
-
-            if (type == "M3000F2" || type == "M3000")
-            {
-                for (int i = 0; i < viewAverage.theAverageValues.Count; i++)
-                {
-                    Mediana mediana = Mediana.GetByDate(Station.GetByCode(stationCode),
-                        nowDateTime.Year, nowDateTime.Month, i, rangeNumber);
 
                     if (mediana != null)
-                        medianaValues += mediana.M3000F2.ToString() + ",";
-
-                    value_05 += (viewAverage.theAverageValues[i].M3000_05.ToString()).Replace(",", ".") + ",";
-                    value_05_skip += viewAverage.theAverageValues[i].M3000_05_skip.ToString() + ",";
-                    marks_05[0, i] = viewAverage.theAverageValues[i].M3000_05 - mediana.M3000F2;
-                    if (i < viewIonka.theIonkaValues.Count && viewIonka.theIonkaValues[i].M3000F2 < 1000)
                     {
-                        marks_05[1, i] = viewAverage.theAverageValues[i].M3000_05 - viewIonka.theIonkaValues[i].M3000F2;
-                        marks_05[2, i] = mediana.M3000F2 - viewIonka.theIonkaValues[i].M3000F2;
-                    }
-                    else
-                    {
-                        marks_05[1, i] = 1000;
-                        marks_05[2, i] = 1000;
+                        for (int i = 0; i < mediana.Count; i++)
+                        {
+                            medianaValues += mediana[i].ToString() + ",";
+                        }
                     }
 
-                    value_07 += (viewAverage.theAverageValues[i].M3000_07.ToString()).Replace(",", ".") + ",";
-                    value_07_skip += viewAverage.theAverageValues[i].M3000_07_skip.ToString() + ",";
-                    marks_07[0, i] = viewAverage.theAverageValues[i].M3000_07 - mediana.M3000F2;
-                    if (i < viewIonka.theIonkaValues.Count && viewIonka.theIonkaValues[i].M3000F2 < 1000)
-                    {
-                        marks_07[1, i] = viewAverage.theAverageValues[i].M3000_07 - viewIonka.theIonkaValues[i].M3000F2;
-                        marks_07[2, i] = mediana.M3000F2 - viewIonka.theIonkaValues[i].M3000F2;
-                    }
-                    else
-                    {
-                        marks_07[1, i] = 1000;
-                        marks_07[2, i] = 1000;
-                    }
+                    Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.F2_05).ToList(),
+                        Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.F2_05_skip).ToList(),
+                        mediana, ionka, ref value_05, ref value_05_skip, ref marks_05);
 
-                    value_10 += (viewAverage.theAverageValues[i].M3000_10.ToString()).Replace(",", ".") + ",";
-                    value_10_skip += viewAverage.theAverageValues[i].M3000_10_skip.ToString() + ",";
-                    marks_10[0, i] = viewAverage.theAverageValues[i].M3000_10 - mediana.M3000F2;
-                    if (i < viewIonka.theIonkaValues.Count && viewIonka.theIonkaValues[i].M3000F2 < 1000)
-                    {
-                        marks_10[1, i] = viewAverage.theAverageValues[i].M3000_10 - viewIonka.theIonkaValues[i].M3000F2;
-                        marks_10[2, i] = mediana.M3000F2 - viewIonka.theIonkaValues[i].M3000F2;
-                    }
-                    else
-                    {
-                        marks_10[1, i] = 1000;
-                        marks_10[2, i] = 1000;
-                    }
+                    Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.F2_07).ToList(),
+                        Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.F2_07_skip).ToList(),
+                        mediana, ionka, ref value_07, ref value_07_skip, ref marks_07);
 
-                    value_20 += (viewAverage.theAverageValues[i].M3000_20.ToString()).Replace(",", ".") + ",";
-                    value_20_skip += viewAverage.theAverageValues[i].M3000_20_skip.ToString() + ",";
-                    marks_20[0, i] = viewAverage.theAverageValues[i].M3000_20 - mediana.M3000F2;
-                    if (i < viewIonka.theIonkaValues.Count && viewIonka.theIonkaValues[i].M3000F2 < 1000)
-                    {
-                        marks_20[1, i] = viewAverage.theAverageValues[i].M3000_20 - viewIonka.theIonkaValues[i].M3000F2;
-                        marks_20[2, i] = mediana.M3000F2 - viewIonka.theIonkaValues[i].M3000F2;
-                    }
-                    else
-                    {
-                        marks_20[1, i] = 1000;
-                        marks_20[2, i] = 1000;
-                    }
+                    Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.F2_10).ToList(),
+                        Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.F2_10_skip).ToList(),
+                        mediana, ionka, ref value_10, ref value_10_skip, ref marks_10);
 
-                    value_27 += (viewAverage.theAverageValues[i].M3000_27.ToString()).Replace(",", ".") + ",";
-                    value_27_skip += viewAverage.theAverageValues[i].M3000_27_skip.ToString() + ",";
-                    marks_27[0, i] = viewAverage.theAverageValues[i].M3000_27 - mediana.M3000F2;
-                    if (i < viewIonka.theIonkaValues.Count && viewIonka.theIonkaValues[i].M3000F2 < 1000)
-                    {
-                        marks_27[1, i] = viewAverage.theAverageValues[i].M3000_27 - viewIonka.theIonkaValues[i].M3000F2;
-                        marks_27[2, i] = mediana.M3000F2 - viewIonka.theIonkaValues[i].M3000F2;
-                    }
-                    else
-                    {
-                        marks_27[1, i] = 1000;
-                        marks_27[2, i] = 1000;
-                    }
+                    Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.F2_20).ToList(),
+                        Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.F2_20_skip).ToList(),
+                        mediana, ionka, ref value_20, ref value_20_skip, ref marks_20);
 
-                    value_30 += (viewAverage.theAverageValues[i].M3000_30.ToString()).Replace(",", ".") + ",";
-                    value_30_skip += viewAverage.theAverageValues[i].M3000_30_skip.ToString() + ",";
-                    marks_30[0, i] = viewAverage.theAverageValues[i].M3000_30 - mediana.M3000F2;
-                    if (i < viewIonka.theIonkaValues.Count && viewIonka.theIonkaValues[i].M3000F2 < 1000)
-                    {
-                        marks_30[1, i] = viewAverage.theAverageValues[i].M3000_30 - viewIonka.theIonkaValues[i].M3000F2;
-                        marks_30[2, i] = mediana.M3000F2 - viewIonka.theIonkaValues[i].M3000F2;
-                    }
-                    else
-                    {
-                        marks_30[1, i] = 1000;
-                        marks_30[2, i] = 1000;
-                    }
-                    
+                    Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.F2_27).ToList(),
+                        Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.F2_27_skip).ToList(),
+                        mediana, ionka, ref value_27, ref value_27_skip, ref marks_27);
+
+                    Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.F2_30).ToList(),
+                        Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.F2_30_skip).ToList(),
+                        mediana, ionka, ref value_30, ref value_30_skip, ref marks_30);
+
                 }
-                for (int i = 0; i < viewIonka.theIonkaValues.Count; i++)
+
+                if (type == "M3000F2" || type == "M3000")
                 {
-                    if (viewIonka.theIonkaValues[i].M3000F2 < 1000)
+                    List<int> ionka = CodeIonka.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Where(x => x.MI == 0).Select(x => x.M3000F2).ToList();
+                    List<int> mediana = Mediana.GetByDate2(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, rangeNumber).Select(x => x.M3000F2).ToList();
+
+                    for (int i = 0; i < ionka.Count; i++)
                     {
-                        if (viewIonka.theIonkaValues[i].MI == 0)
-                            value += viewIonka.theIonkaValues[i].M3000F2.ToString() + ",";
+                        if (ionka[i] < 1000) value += ionka[i].ToString() + ",";
+                        else value += "0,";
                     }
-                    else
-                        value += "0,";
+
+                    if (mediana != null)
+                    {
+                        for (int i = 0; i < mediana.Count; i++)
+                        {
+                            medianaValues += mediana.ToString() + ",";
+                        }
+                    }
+
+                    Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.M3000_05).ToList(),
+                        Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.M3000_05_skip).ToList(),
+                        mediana, ionka, ref value_05, ref value_05_skip, ref marks_05);
+
+                    Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.M3000_07).ToList(),
+                        Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.M3000_07_skip).ToList(),
+                        mediana, ionka, ref value_07, ref value_07_skip, ref marks_07);
+
+                    Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.M3000_10).ToList(),
+                        Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.M3000_10_skip).ToList(),
+                        mediana, ionka, ref value_10, ref value_10_skip, ref marks_10);
+
+                    Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.M3000_20).ToList(),
+                        Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.M3000_20_skip).ToList(),
+                        mediana, ionka, ref value_20, ref value_20_skip, ref marks_20);
+
+                    Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.M3000_27).ToList(),
+                        Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.M3000_27_skip).ToList(),
+                        mediana, ionka, ref value_27, ref value_27_skip, ref marks_27);
+
+                    Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.M3000_30).ToList(),
+                        Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.M3000_30_skip).ToList(),
+                        mediana, ionka, ref value_30, ref value_30_skip, ref marks_30);
                 }
+            }
+            catch( System.Exception ex)
+            {
+                return Content("Ошибка построения");
             }
 
             value += "]";

@@ -187,7 +187,6 @@
     <Compile Include="Models\ApiMediana.cs" />
     <Compile Include="Models\ApiProduct.cs" />
     <Compile Include="Models\ApiUmagf.cs" />
-    <Compile Include="Models\ViewAverage.cs" />
     <Compile Include="Models\ViewIonka.cs" />
     <Compile Include="Models\ViewMagma.cs" />
     <Compile Include="Models\ViewMediana.cs" />

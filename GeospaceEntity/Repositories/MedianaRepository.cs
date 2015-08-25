@@ -104,6 +104,19 @@ namespace GeospaceEntity.Repositories
             return mediana;
         }
 
+        public IList<GeospaceEntity.Models.Mediana> GetByDate2(Station station, int YYYY, int MM, int rangeNumber)
+        {
+            using (ISession session = NHibernateHelper.OpenSession())
+            {
+                return session.CreateCriteria<GeospaceEntity.Models.Mediana>()
+                    .Add(Restrictions.Eq("Station", station))
+                    .Add(Restrictions.Eq("YYYY", YYYY))
+                    .Add(Restrictions.Eq("MM", MM))
+                    .Add(Restrictions.Eq("RangeNumber", rangeNumber))
+                    .List<GeospaceEntity.Models.Mediana>();
+            }
+        }
+
         IList<GeospaceEntity.Models.Mediana> IRepository<GeospaceEntity.Models.Mediana>.GetAll()
         {
             using (ISession session = NHibernateHelper.OpenSession())
