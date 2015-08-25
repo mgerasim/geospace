@@ -6,10 +6,11 @@
 }
 <script>
     var submitUrl = "@Url.Action("SubmitFiveDay", "Telegram")";
+    var submitUrl2 = "@Url.Action("SubmitFiveDayTelegram", "Telegram")";
         var currentYear = "@ViewBag.Date.Year";
         var currentMonth = "@ViewBag.Date.Month";
-        var currentRangeNaumber = "@ViewBag.number"; 
-        var currentStationCode = "@ViewBag.Station";
+        var currentRangeNaumber = "@ViewBag.number";
+
 </script>
 <script>
     
@@ -45,24 +46,26 @@
         $("#F_46501MAGPO").click(handleChangeSubmit("46501MAGPO"));
 
         $("#SNumber").keyup(handleChangeCodes);
-
         handleChangeHeader();
         handleChangeCodes();
 
     });
     function handleChangeSubmit(str) {
-        $('#F_'+ str).focus();
+        $('#F_' + str).focus();
         $('#F_' + str).select();
         $('#F_' + str).blur(function () {
             var forecast_F = $("#F_" + str);//значение забитые в input
-            if (forecast_F.val()) {
+            if (forecast_F) {
+                
+                var strVal = "";
+                if (forecast_F.val()) strVal = forecast_F.val();
                 var resUrl = window.submitUrl +
-                        "?stationcode=" + str.slice(0, 5) +
+                        "?stationcode=" + str.substr(0, 5) +
                         "&year=" + window.currentYear +
                         "&month=" + window.currentMonth +
                         "&range_number=" + currentRangeNaumber +
                         "&type=" + str.substr(5, 5) +
-                        "&newvalue=" + forecast_F.val();
+                        "&newvalue=" + strVal;
                 $.ajax({
                     url: resUrl
                 });
@@ -77,15 +80,24 @@
     function handleChangeCodes() {
         saveForecast();
     }
+    function saveForecastTelegramBD()
+    {
+        var resUrl = window.submitUrl2 +
+                        "?year=" + window.currentYear +
+                        "&month=" + window.currentMonth +
+                        "&range_number=" + currentRangeNaumber;
+        $.ajax({
+            url: resUrl
+        });
+    }
 
 </script>
-
 
 <div class="row">
     <div class="col-md-8 tlg-container">
         <div class="panel panel-default">
             <div class="panel-body">
-                
+
 
                 <div class="pager">
                     <div class="print">
@@ -131,7 +143,7 @@
                                         @foreach (string forecast in ViewBag.NameForecast)
                                         {
                                             <span id="@numStation@forecast">
-                                                
+
                                             </span>
                                         }
                                     </div>
@@ -141,7 +153,7 @@
                         </div>
                         <div id="numberHab"></div>
                     </div>
-                        
+
                 </div>
 
 
@@ -199,40 +211,40 @@
                         </div>
                         @{
                             GeospaceEntity.Models.Telegram.ForecastFiveDay forecastData1 = GeospaceEntity.Models.Telegram.ForecastFiveDay.GetByDateUTC(Station.GetByCode(45601), ViewBag.Date.Year, ViewBag.Date.Month, ViewBag.number);
-                                
+
                         }
                         <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                             <div class="panel-body">
-                                    <form class="form-horizontal">
-                                        <div class="form-group">
-                                            <label for="F_45601IONFO" class="col-sm-3 control-label">IONFO</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="F_45601IONFO" placeholder="" value="@{if (forecastData1 != null)
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="F_45601IONFO" class="col-sm-3 control-label">IONFO</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control" id="F_45601IONFO" placeholder="" value="@{if (forecastData1 != null)
                                                                                                                                   {
                                                                                                                                       @Html.Raw(forecastData1.IONFO)
                                                                                                                                   }}">
-                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="F_45601IONES" class="col-sm-3 control-label">IONES</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="F_45601IONES" placeholder="" value="@{if (forecastData1 != null)
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="F_45601IONES" class="col-sm-3 control-label">IONES</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control" id="F_45601IONES" placeholder="" value="@{if (forecastData1 != null)
                                                                                                                                   {
                                                                                                                                       @Html.Raw(forecastData1.IONES)
                                                                                                                                   }}">
-                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="F_45601MAGPO" class="col-sm-3 control-label">MAGPO</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="F_45601MAGPO" placeholder="" value="@{if (forecastData1 != null)
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="F_45601MAGPO" class="col-sm-3 control-label">MAGPO</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control" id="F_45601MAGPO" placeholder="" value="@{if (forecastData1 != null)
                                                                                                                                   {
                                                                                                                                       @Html.Raw(forecastData1.MAGPO)
                                                                                                                                   }}">
-                                            </div>
                                         </div>
+                                    </div>
 
-                                    </form>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -253,7 +265,7 @@
                                 <form class="form-horizontal">
                                     <div class="form-group">
                                         <label for="F_43501IONFO" class="col-sm-3 control-label">IONFO</label>
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-5">
                                             <input type="text" class="form-control" id="F_43501IONFO" placeholder="" value="@{if (forecastData2 != null)
                                                                                                                                   {
                                                                                                                                       @Html.Raw(forecastData2.IONFO)
@@ -262,19 +274,19 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="F_43501IONES" class="col-sm-3 control-label">IONES</label>
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-5">
                                             <input type="text" class="form-control" id="F_43501IONES" placeholder="" value="@{if (forecastData2 != null)
                                                                                                                                   {
-                                                                                                                                      @Html.Raw(forecastData2.IONFO)
+                                                                                                                                      @Html.Raw(forecastData2.IONES)
                                                                                                                                   }}">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="F_43501MAGPO" class="col-sm-3 control-label">MAGPO</label>
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-5">
                                             <input type="text" class="form-control" id="F_43501MAGPO" placeholder="" value="@{if (forecastData2 != null)
                                                                                                                                   {
-                                                                                                                                      @Html.Raw(forecastData2.IONFO)
+                                                                                                                                      @Html.Raw(forecastData2.MAGPO)
                                                                                                                                   }}">
                                         </div>
                                     </div>
@@ -300,7 +312,7 @@
                                 <form class="form-horizontal">
                                     <div class="form-group">
                                         <label for="F_46501IONFO" class="col-sm-3 control-label">IONFO</label>
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-5">
                                             <input type="text" class="form-control" id="F_46501IONFO" placeholder="" value="@{if (forecastData3 != null)
                                                                                                                                   {
                                                                                                                                       @Html.Raw(forecastData3.IONFO)
@@ -309,25 +321,25 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="F_46501IONES" class="col-sm-3 control-label">IONES</label>
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-5">
                                             <input type="text" class="form-control" id="F_46501IONES" placeholder="" value="@{if (forecastData3 != null)
                                                                                                                                   {
-                                                                                                                                      @Html.Raw(forecastData3.IONFO)
+                                                                                                                                      @Html.Raw(forecastData3.IONES)
                                                                                                                                   }}">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="F_46501MAGPO" class="col-sm-3 control-label">MAGPO</label>
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-5">
                                             <input type="text" class="form-control" id="F_46501MAGPO" placeholder="" value="@{if (forecastData3 != null)
                                                                                                                                   {
-                                                                                                                                      @Html.Raw(forecastData2.IONFO)
+                                                                                                                                      @Html.Raw(forecastData3.MAGPO)
                                                                                                                                   }}">
                                         </div>
                                     </div>
 
                                 </form>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -346,8 +358,24 @@
                 </form>
 
                 <p>
-                    
-                    <input type="button" value="Печать" onclick="window.print();" class="btn btn-default btn-lg"> 
+
+                    <input type="button" value="Печать" onclick="window.print();" class="btn btn-default btn-lg">
+                    <input type="button" value="Сохранить" onclick="saveForecastTelegramBD();" class="btn btn-default btn-lg">                
+    @*@Html.ActionLink("Сохранить",
+                     "SubmitFiveDayTelegram",
+            "Telegram",
+            new
+            {
+                year = ViewBag.Year,
+                month = ViewBag.Month,
+                range_number = ViewBag.number
+
+            },
+                                new
+                                {
+                                    @class = "btn btn-default btn-lg"
+                                }
+)*@
                 </p>
             </div>
         </div>
@@ -356,23 +384,26 @@
 </div>
 
 @*
-<h2>Пятидневный прогноз на @Html.Raw(ViewBag.Date.ToString("MMMM yyyy") + " " + ViewBag.range.Header)</h2>
-    *@
+    <h2>Пятидневный прогноз на @Html.Raw(ViewBag.Date.ToString("MMMM yyyy") + " " + ViewBag.range.Header)</h2>
+*@
 <style type="text/css">
- p{
-     align-content: center;
-     font-family:'Times New Roman';
-     font-size: 18px;
- }
+    p {
+        align-content: center;
+        font-family: 'Times New Roman';
+        font-size: 18px;
+    }
+
     .pager {
         margin: 0;
     }
+
     .print {
         background-color: rgb(238, 238, 238);
         float: left;
         width: 100%;
         overflow: scroll;
     }
+
     .forma-station {
         min-width: 500px;
         border-color: red;
@@ -382,7 +413,11 @@
         height: 700px;
     }
 
-    .station { font-family: 'Times New Roman'; font-size: 18px; height: 100px;  }
+    .station {
+        font-family: 'Times New Roman';
+        font-size: 18px;
+        height: 100px;
+    }
     /*
     .form-control{
         float:left;
@@ -391,24 +426,27 @@
     }
     */
     .prognoz {
-        float:left;
+        float: left;
     }
+
     .prognoz-div {
         margin-top: 4px;
         margin-bottom: 6px;
     }
+
     .String {
-        width:600px;
+        width: 600px;
         align-content: center;
         margin-left: 25px;
         font-family: 'Times New Roman';
         font-size: 17px;
         text-align: left;
     }
-    #SNumber
-    {
-       margin-top:8px;
-    } 
+
+    #SNumber {
+        margin-top: 8px;
+    }
+
     #numberHab {
         text-align: center;
         font-family: 'Times New Roman';
@@ -417,21 +455,23 @@
     }
 </style>
 <style type="text/css" media="print">
-
     .forma-station, h2 {
         visibility: hidden;
         display: none;
     }
-    .panel-default{
-        border-color:white;
-    } 
+
+    .panel-default {
+        border-color: white;
+    }
+
     .print {
         overflow: auto;
         align-content: center;
     }
+
     body {
-        padding-top:20px;
-        padding-left:20px;
+        padding-top: 20px;
+        padding-left: 10px;
     }
 </style>
 <script type="text/javascript">
@@ -483,86 +523,86 @@
     }
 </script>
 @*
-<body>
-    <div class="pager">
-        <div class="print">
-            <p>
-                МОСКВА ИПГ ДЕНИСОВОЙ<br />
-                НОВОСИБИРСК ГИМЕТ ШУСТЕР<br />
-                ПЯТИДНЕВНЫЙ ПРОГНОЗ<br />
+    <body>
+        <div class="pager">
+            <div class="print">
+                <p>
+                    МОСКВА ИПГ ДЕНИСОВОЙ<br />
+                    НОВОСИБИРСК ГИМЕТ ШУСТЕР<br />
+                    ПЯТИДНЕВНЫЙ ПРОГНОЗ<br />
 
-            </p>
-            <div>
+                </p>
+                <div>
 
-@foreach (var numStation in ViewBag.NumStation)
-{
-    string strFFF = ("FFF");
-    string strMM = ("MM");
-    IList<Mediana> vMedian = Mediana.GetByRangeNumber(Station.GetByCode(numStation), ViewBag.Date.Year, ViewBag.Date.Month, ViewBag.number);
-    foreach (var item in vMedian)//формирование строки для разбиения по 5 символов
+    @foreach (var numStation in ViewBag.NumStation)
     {
-        strFFF += item.f0F2.ToString("D3");
-        strMM += item.M3000F2.ToString("D2");
-    }
-    <div style="margin-bottom:20px">
-        <div class="String">
-            MEDIAN  @numStation  @Html.Raw(ViewBag.range.Min.ToString("D2") + "" + ViewBag.range.Max.ToString("D2") + "" + ViewBag.Date.Month % 10)
-        </div>
-        <div class="String FFF">
-            @foreach (string str5 in new List<string>(System.Text.RegularExpressions.Regex.Split(strFFF, @"(?<=\G.{5})", System.Text.RegularExpressions.RegexOptions.Singleline)))
-            {
-               <span style="margin-right:10px;">@str5</span>
-            }
-        </div>
-        <div class="String MM">
-            @foreach (string str5 in new List<string>(System.Text.RegularExpressions.Regex.Split(strMM, @"(?<=\G.{5})", System.Text.RegularExpressions.RegexOptions.Singleline)))
-            {
-                <span style="margin-right:10px;">@str5</span>
-            }
-        </div>
-        <div class="String">
-            FORECAST  @numStation  @Html.Raw(ViewBag.range.Min.ToString("D2") + "" + ViewBag.range.Max.ToString("D2") + "" + ViewBag.Date.Month % 10)
-        </div>
-        <div class="String">
-           @foreach(var forecast in ViewBag.NameForecast)
-           {
-               <span id="@numStation@forecast"></span>
-           }
-        </div>
-       
-    </div>
-}
+        string strFFF = ("FFF");
+        string strMM = ("MM");
+        IList<Mediana> vMedian = Mediana.GetByRangeNumber(Station.GetByCode(numStation), ViewBag.Date.Year, ViewBag.Date.Month, ViewBag.number);
+        foreach (var item in vMedian)//формирование строки для разбиения по 5 символов
+        {
+            strFFF += item.f0F2.ToString("D3");
+            strMM += item.M3000F2.ToString("D2");
+        }
+        <div style="margin-bottom:20px">
+            <div class="String">
+                MEDIAN  @numStation  @Html.Raw(ViewBag.range.Min.ToString("D2") + "" + ViewBag.range.Max.ToString("D2") + "" + ViewBag.Date.Month % 10)
             </div>
-            <div id="numberHab"></div>
-        </div>
+            <div class="String FFF">
+                @foreach (string str5 in new List<string>(System.Text.RegularExpressions.Regex.Split(strFFF, @"(?<=\G.{5})", System.Text.RegularExpressions.RegexOptions.Singleline)))
+                {
+                   <span style="margin-right:10px;">@str5</span>
+                }
+            </div>
+            <div class="String MM">
+                @foreach (string str5 in new List<string>(System.Text.RegularExpressions.Regex.Split(strMM, @"(?<=\G.{5})", System.Text.RegularExpressions.RegexOptions.Singleline)))
+                {
+                    <span style="margin-right:10px;">@str5</span>
+                }
+            </div>
+            <div class="String">
+                FORECAST  @numStation  @Html.Raw(ViewBag.range.Min.ToString("D2") + "" + ViewBag.range.Max.ToString("D2") + "" + ViewBag.Date.Month % 10)
+            </div>
+            <div class="String">
+               @foreach(var forecast in ViewBag.NameForecast)
+               {
+                   <span id="@numStation@forecast"></span>
+               }
+            </div>
 
-        <div class="forma-station">
-            @foreach (var item in ViewBag.NumStation)
-{
-    Station st = Station.GetByCode(item);
-   
-    <div class="station " id="@st.Code">
-        <div style="float:left; padding:10px 10px;">@st.Name - @st.Code</div>
-        <div style="clear: both;margin-left:10px;">
-            @foreach (var name in @ViewBag.NameForecast)
-            {
-                <div class="prognoz form-group">
-                    <div style="float:left; padding:5px 4px">@name:</div><input type="number" class="form-control" id="F_@item@name" placeholder="XXXXX" value="">
+        </div>
+    }
                 </div>
-            }
+                <div id="numberHab"></div>
+            </div>
+
+            <div class="forma-station">
+                @foreach (var item in ViewBag.NumStation)
+    {
+        Station st = Station.GetByCode(item);
+
+        <div class="station " id="@st.Code">
+            <div style="float:left; padding:10px 10px;">@st.Name - @st.Code</div>
+            <div style="clear: both;margin-left:10px;">
+                @foreach (var name in @ViewBag.NameForecast)
+                {
+                    <div class="prognoz form-group">
+                        <div style="float:left; padding:5px 4px">@name:</div><input type="number" class="form-control" id="F_@item@name" placeholder="XXXXX" value="">
+                    </div>
+                }
+            </div>
         </div>
-    </div>
 
 
-}
+    }
 
-            <div style="float: left; font-family: 'Times New Roman'; font-size: 18px; margin:9px 1px"> Номер телеграммы</div>
-            <input type="number" class="form-control" id="SNumber" placeholder="XXXXX" value="27">
-            <input type="button" value="Сохранить" onclick="saveForecast();" class="btn btn-default btn-lg" > 
-            <input type="button" value="Печать" onclick="window.print();" class="btn btn-default btn-lg"> 
+                <div style="float: left; font-family: 'Times New Roman'; font-size: 18px; margin:9px 1px"> Номер телеграммы</div>
+                <input type="number" class="form-control" id="SNumber" placeholder="XXXXX" value="27">
+                <input type="button" value="Сохранить" onclick="saveForecast();" class="btn btn-default btn-lg" >
+                <input type="button" value="Печать" onclick="window.print();" class="btn btn-default btn-lg">
+            </div>
         </div>
-    </div>
 
-</body>
+    </body>
 
 *@
