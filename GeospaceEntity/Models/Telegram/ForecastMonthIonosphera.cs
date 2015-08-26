@@ -14,8 +14,8 @@ namespace GeospaceEntity.Models.Telegram
         public virtual DateTime created_at { get; set; }
         public virtual DateTime updated_at { get; set; }
         public virtual Station Station { get; set; }
+        public virtual int MM { get; set; }
         public virtual int YYYY { get; set; }
-        public virtual int RangeNumber { get; set; }
         public virtual string IONFO { get; set; }
         public virtual string IONES { get; set; }
         public virtual string IONDP { get; set; }

@@ -138,6 +138,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Mappings\ForecastFiveDay.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Mappings\Consumer.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
