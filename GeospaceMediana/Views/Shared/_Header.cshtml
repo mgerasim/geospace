@@ -1,4 +1,39 @@
-﻿<nav class="navbar navbar-default navbar-fixed-top">
+﻿<script type="text/javascript">
+    //$(document).ready(function () {
+    //    $('.Menu1').mouseover(function () {
+    //        $('.menu2').hide();
+    //        var k = $(this).parent().children('.menu2');
+    //        k.show();
+    //        console.log(k);
+    //    });
+    //    $('.Menu1').mouseout(function () {
+    //        t = setTimeout(function () {
+    //            $(this).parent().children('.menu2').hide();
+    //        },500);
+    //        $(this).parent().children('.menu2').on('mouseenter', function () {
+    //            $(this).show();
+    //            clearTimeout(t);
+    //        }).on('mouseleave', function () {
+    //            $(this).hide();
+    //        })
+    //    })
+    //})
+    (function ($) {
+        $(document).ready(function () {
+            $('ul.dropdown-menu [data-toggle=dropdown]').on('click', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                $(this).parent().siblings().removeClass('open');
+                $(this).parent().toggleClass('open');
+            });
+        });
+    })(jQuery);
+</script>
+<style type="text/css">
+
+
+</style>
+<nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -100,40 +135,18 @@
 
             <ul class="nav navbar-nav navbar-right">
 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Анализ<span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">                        
-                        <li>@Html.ActionLink("Геомагнитные данные по ст.Диксон", "Index", "Magma", new { station = 38701 }, null)</li>
-                        <li class="divider"></li>
-                        @if (ViewBag.Date != null && ViewBag.Station != null)
-                        { 
-                            @ShowMenuLink("Средние значения <b>f0F2</b>", "Index", "Average", new { type = "f0F2" }, "Средние значения f0F2")
-                            @ShowMenuLink("Средние значения <b>M3000</b>", "Index", "Average", new { type = "M3000F2" }, "Средние значения M3000")
-                        }
-                        else
-                        {
-                            @ShowMenuLink("Средние значения <b>f0F2</b>", "Index", "Average", new { type = "f0F2" }, "Средние значения f0F2")
-                            @ShowMenuLink("Средние значения <b>M3000</b>", "Index", "Average", new { type = "M3000F2" }, "Средние значения M3000")
-                        }
-                    </ul>
-                </li>
-
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Телеграмма<span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li>@Html.ActionLink("Пятидневный прогноз", "FiveDay", "Telegram")</li>
-
-                    </ul>
-                </li>
-
+                      
                       <li class="dropdown">
+
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Продукция<span class="caret"></span></a>
                           <ul class="dropdown-menu" role="menu">
-
                               <li>@Html.ActionLink("Нарушение радиосвязи", "Index", "Disturbance")</li>
                               <li class="divider"></li>
-                              
                               <li>@Html.ActionLink("Редактировать продукцию", "Index", "Products")</li>
+                              <li class="divider"></li>
+                              <li>@Html.ActionLink("Телеграммы Месячный прогноз", "FiveDay", "Telegram")</li>
+                              <li>@Html.ActionLink("Телеграммы Пятидневный прогноз", "FiveDay", "Telegram")</li>
+                              <li>@Html.ActionLink("Телеграммы Полусуточный прогноз", "FiveDay", "Telegram")</li>
                               <li class="divider"></li>
                               <li>@Html.ActionLink("Суточный обзор гелио-геофизической обстановки", "EditReviewGeoEnv", "Products")</li>
                               <li>@Html.ActionLink("Месячный обзор гелио-геофизической обстановки", "EditReviewGeoEnvMonth", "Products")</li>
@@ -142,6 +155,25 @@
                               <li>@Html.ActionLink("Месячный прогноз Ионосферы и Магнитного поля Земли", "EditForecastMonthIonosphera", "Products")</li>
                               <li>@Html.ActionLink("Сводная таблица по Солнцу, Магнитному полю Земли и Ионосферы", "EditTableSun", "Products")</li>
                               <li>@Html.ActionLink("Примечания к графикам и таблицам", "EditDescription", "Products")</li>
+                              <li class="divider"></li>
+                              <li class="dropdown dropdown-submenu">
+                                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Анализ<b class="caret"></b></a>
+                                  <ul class="dropdown-menu">
+                                      <li>@Html.ActionLink("Геомагнитные данные по ст.Диксон", "Index", "Magma", new { station = 38701 }, null)</li>
+                                      <li class="divider"></li>
+                                      @if (ViewBag.Date != null && ViewBag.Station != null)
+                                      {
+                                          @ShowMenuLink("Средние значения <b>f0F2</b>", "Index", "Average", new { type = "f0F2" }, "Средние значения f0F2")
+                                          @ShowMenuLink("Средние значения <b>M3000</b>", "Index", "Average", new { type = "M3000F2" }, "Средние значения M3000")
+                                      }
+                                      else
+                                      {
+                                          @ShowMenuLink("Средние значения <b>f0F2</b>", "Index", "Average", new { type = "f0F2" }, "Средние значения f0F2")
+                                          @ShowMenuLink("Средние значения <b>M3000</b>", "Index", "Average", new { type = "M3000F2" }, "Средние значения M3000")
+                                      }
+                                  </ul>
+                              </li>
+
                               <li class="divider"></li>
                               <li><a href="http://www.khabmeteo.ru/geo" target="_blank">Геофизика на Хабаровск Погода Центр</a></li>
 
