@@ -4,7 +4,7 @@ public :: smod
 
 contains
 subroutine smod()
-	print *, "Hello, World!"
+	print *, "DEBUG Hello, World!"
 end subroutine smod
 
 end module testmod

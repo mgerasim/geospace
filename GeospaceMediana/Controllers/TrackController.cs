@@ -32,8 +32,38 @@ namespace GeospaceMediana.Controllers
             else nowDateTime = new DateTime(year, month, day);
             ViewBag.Date = nowDateTime;
 
+            ViewBag.debug = "";
+            ViewBag.error = "";
+
             ViewBag.Station = Station.GetByCode(stationCode);
             return View(GeospaceEntity.Models.Track.GetAll());
+        }
+
+        public ActionResult Calc(int id)
+        {
+            try
+            {                
+                List<string> output = new List<string>();
+                output.Add("");
+                output.Add("");
+
+                Track track = Track.GetById(id);
+                string param = track.PointA.Longitude + " "
+                    + track.PointA.Latitude + " "
+                    + track.PointB.Longitude + " "
+                    + track.PointB.Latitude;
+                
+                GeospaceEntity.Helper.HelperTrack.Start(output, param);
+
+                ViewBag.debug = output[0] + "\n";
+                ViewBag.error = output[1];
+
+                return View("Index", GeospaceEntity.Models.Track.GetAll());
+            }
+            catch (System.Exception ex)
+            {
+                return Content("ошибка " + ex.Message);
+            }       
         }
 
         public ActionResult Edit(int id)
@@ -110,6 +140,5 @@ namespace GeospaceMediana.Controllers
                 return View();
             }
         }
-
     }
 }

@@ -2,7 +2,16 @@
     ViewBag.Title = "Трассы";
 }
 
+<script>
+    var submitUrl = "@Url.Action("Index", "Track")";
+
+</script>
+
 <h2>Трассы</h2>
+
+<p>Вывод расчета трассы (временный)</p>
+<label style="width:840px; height:300px" >DEBUG: @ViewBag.debug ERROR: @ViewBag.Error</label>
+
 
 <p>
     @Html.ActionLink("Добавить", "Create", null, new { @class = "btn btn-primary" })
@@ -11,6 +20,7 @@
 <table class="table table-bordered table-hover">
     <tr>
         <th>Наименование</th>
+        <th></th>
         <th></th>
     </tr>
     @foreach (var item in Model)
@@ -21,6 +31,9 @@
             </td>
             <td>
                 @Html.ActionLink("Редактировать", "Edit", new { id = item.ID})
+            </td>   
+            <td>
+                @Html.ActionLink("Расчитать трассу", "Calc", new { id = item.ID})
             </td>            
         </tr>       
     }

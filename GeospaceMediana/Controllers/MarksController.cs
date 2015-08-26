@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace GeospaceMediana.Controllers
 {
-    public class MarksController : Controller
+    public class AverageController : Controller
     {
         //
         // GET: /Average/
@@ -50,7 +50,7 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Index(int stationCode = 43501, string type = "f0F2", int year=-1, int month=-1, int day=-1)
         {
-            @ViewBag.Title = "Средние значения";
+            @ViewBag.Title = "Оценки";
 
             if (type == "M3000F2" || type == "M3000")
             {
@@ -67,7 +67,7 @@ namespace GeospaceMediana.Controllers
 
             ViewBag.step = "10";
 
-            ViewBag.NameMenu = "Средние значения " + ViewBag.Type;
+            ViewBag.NameMenu = "Оценки " + ViewBag.Type;
 
             DateTime nowDateTime;
 

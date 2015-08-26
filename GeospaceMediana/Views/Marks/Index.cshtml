@@ -1,0 +1,207 @@
+﻿@using GeospaceEntity.Helper;
+@{
+    ViewBag.Title = @ViewBag.Title;
+    
+}
+
+<h3>@ViewBag.Station.Name - @ViewBag.Station.Code.ToString() за @ViewBag.Date.ToShortDateString()</h3>
+
+@DrawTable(ViewBag.marks_05, "Оценка скользящих средних " + @ViewBag.Type + " для слоя F2 за 5 дней")
+@DrawTable(ViewBag.marks_07, "Оценка скользящих средних " + @ViewBag.Type + " для слоя F2 за 7 дней")
+@DrawTable(ViewBag.marks_10, "Оценка скользящих средних " + @ViewBag.Type + " для слоя F2 за 10 дней")
+@DrawTable(ViewBag.marks_20, "Оценка скользящих средних " + @ViewBag.Type + " для слоя F2 за 20 дней")
+@DrawTable(ViewBag.marks_27, "Оценка скользящих средних " + @ViewBag.Type + " для слоя F2 за 27 дней")
+@DrawTable(ViewBag.marks_30, "Оценка скользящих средних " + @ViewBag.Type + " для слоя F2 за 30 дней")
+
+@helper DrawTable(int[,] marks, string header)
+{
+    <table style="table-layout: fixed" class="table table-bordered table-striped">
+        <thead style="width: 100%">
+            <tr>
+                <th colspan="26" align="center">
+                    @header
+                </th>
+            <tr>
+                <th style="width: 100%">Оценка</th>
+                @for (int i = 0; i < 24; i++)
+                {
+                    <td>@i</td>
+                }
+                <td>Δср</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="26">
+                    Арифметическая: Еар = 
+                </td>
+            </tr>
+            <tr>
+                <td>Δс/м</td>
+                @for (int j = 0; j < 24; j++)
+                {
+                    if (marks[0, j] < 1000)
+                    {
+                        <td>@marks[0, j]</td>
+                    }
+                    else
+                    {
+                        <td>-</td>
+                    }
+                }
+                @if (marks[0, 24] < 1000)
+                {
+                    <td>@marks[0, 24]</td>
+                }
+                else
+                {
+                    <td>-</td>
+                }
+            </tr>
+            <tr>
+                <td>Δс/ф</td>
+                @for (int j = 0; j < 24; j++)
+                {
+                    if (marks[1, j] < 1000)
+                    {
+                        <td>@marks[1, j]</td>
+                    }
+                    else
+                    {
+                        <td>-</td>
+                    }
+                }
+                <td></td>
+            </tr>
+            <tr>
+                <td>Δм/ф</td>
+                @for (int j = 0; j < 24; j++)
+                {
+                    if (marks[2, j] < 1000)
+                    {
+                        <td>@marks[2, j]</td>
+                    }
+                    else
+                    {
+                        <td>-</td>
+                    }
+                }
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="26">
+                    Абсолютнаяная: Еабс =
+                </td>
+            </tr>
+            <tr>
+                <td>Δс/м</td>
+                @for (int j = 0; j < 24; j++)
+                {
+                    if (marks[0, j] < 1000)
+                    {
+                        <td>@marks[0, j]</td>
+                    }
+                    else
+                    {
+                        <td>-</td>
+                    }
+                }
+                @if (marks[0, 24] < 1000)
+                {
+                    <td>@marks[0, 24]</td>
+                }
+                else
+                {
+                    <td>-</td>
+                }
+            </tr>
+            <tr>
+                <td>Δс/ф</td>
+                @for (int j = 0; j < 24; j++)
+                {
+                    if (marks[1, j] < 1000)
+                    {
+                        <td>@marks[1, j]</td>
+                    }
+                    else
+                    {
+                        <td>-</td>
+                    }
+                }
+                <td></td>
+            </tr>
+            <tr>
+                <td>Δм/ф</td>
+                @for (int j = 0; j < 24; j++)
+                {
+                    if (marks[2, j] < 1000)
+                    {
+                        <td>@marks[2, j]</td>
+                    }
+                    else
+                    {
+                        <td>-</td>
+                    }
+                }
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="26">
+                    Относительная: Еотн =
+                </td>
+            </tr>
+            <tr>
+                <td>Δс/м</td>
+                @for (int j = 0; j < 24; j++)
+                {
+                    if (marks[0, j] < 1000)
+                    {
+                        <td>@marks[0, j]</td>
+                    }
+                    else
+                    {
+                        <td>-</td>
+                    }
+                }
+                @if (marks[0, 24] < 1000)
+                {
+                    <td>@marks[0, 24]</td>
+                }
+                else
+                {
+                    <td>-</td>
+                }
+            </tr>
+            <tr>
+                <td>Δс/ф</td>
+                @for (int j = 0; j < 24; j++)
+                {
+                    if (marks[1, j] < 1000)
+                    {
+                        <td>@marks[1, j]</td>
+                    }
+                    else
+                    {
+                        <td>-</td>
+                    }
+                }
+                <td></td>
+            </tr>
+            <tr>
+                <td>Δм/ф</td>
+                @for (int j = 0; j < 24; j++)
+                {
+                    if (marks[2, j] < 1000)
+                    {
+                        <td>@marks[2, j]</td>
+                    }
+                    else
+                    {
+                        <td>-</td>
+                    }
+                }
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+}
