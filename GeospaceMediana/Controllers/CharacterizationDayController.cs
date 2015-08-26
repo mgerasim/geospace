@@ -42,6 +42,8 @@ namespace GeospaceMediana.Controllers
 
             ViewBag.NameMenu = "Суточные отклонения " + ViewBag.Type;
 
+            @ViewBag.Title = ViewBag.NameMenu;
+
             var curDay = DateTime.Now.Day;
 
             if (rangeNumber == -1)
