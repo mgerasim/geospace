@@ -1,0 +1,29 @@
+﻿<li>
+    @Html.ActionLink("Пред.",
+                    "Index",
+                    "ForecastMonthIonosphera",
+            new
+            {                                                     // routeValues
+                date = ViewBag.Date.AddMonths(-1).ToString("yyyyMM")
+            },
+                                new
+                                {
+                                    @class = "btn btn-default btn-lg"
+                                }
+)
+</li>
+
+<li>
+    @Html.ActionLink("След.",
+                     "Index",
+                    "ForecastMonthIonosphera",
+                    new
+                    {                                                     // routeValues
+                        date = ViewBag.Date.AddMonths(+1).ToString("yyyyMM")
+                    },
+                                new
+                                {
+                                    @class = "btn btn-default btn-lg"
+                                }
+)
+</li>

@@ -75,6 +75,7 @@
     <Compile Include="Models\Station.cs" />
     <Compile Include="Models\Consumer.cs" />
     <Compile Include="Models\Telegram\ForecastFiveDay.cs" />
+    <Compile Include="Models\Telegram\ForecastMonthIonosphera.cs" />
     <Compile Include="Models\Track.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AverageRepository.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Repositories\ConsumerRepository.cs" />
     <Compile Include="Repositories\ForecastFiveDayRepository.cs" />
     <Compile Include="Repositories\DisturbanceRepository.cs" />
+    <Compile Include="Repositories\ForecastMonthIonospheraRepository.cs" />
     <Compile Include="Repositories\TrackRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Repositories\MedianaRepository.cs" />
@@ -142,6 +144,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Mappings\Disturbance.hbm.xml">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mappings\ForecastMonthIonosphera.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <Content Include="Scripts\bootstrap.js" />
