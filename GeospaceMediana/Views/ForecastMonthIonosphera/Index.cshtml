@@ -1,4 +1,4 @@
-﻿@*@using GeospaceEntity.Models;
+﻿@using GeospaceEntity.Models;
 @using GeospaceEntity.Helper;
 @{
 
@@ -105,50 +105,18 @@
                             МОСКВА ИПГ ДЕНИСОВОЙ<br />
                             НОВОСИБИРСК ГИМЕТ ШУСТЕР<br />
                             ПЯТИДНЕВНЫЙ ПРОГНОЗ<br />
-
+                            ВОЗМУЩЕНИЯ НА @ViewBag.Date.ToString("MMMM YY"+"г."); 
                         </p>
                         <div>
 
                             @foreach (var numStation in ViewBag.NumStation)
                             {
-                                string strFFF = ("FFF");
-                                string strMM = ("MM");
-                                IList<Mediana> vMedian = Mediana.GetByRangeNumber(Station.GetByCode(numStation), ViewBag.Date.Year, ViewBag.Date.Month, ViewBag.number);
-                                foreach (var item in vMedian)//формирование строки для разбиения по 5 символов
-                                {
-                                    strFFF += item.f0F2.ToString("D3");
-                                    strMM += item.M3000F2.ToString("D2");
-                                }
-                                //GeospaceEntity.Models.Telegram.ForecastFiveDay forecastData = GeospaceEntity.Models.Telegram.ForecastFiveDay.GetByDateUTC(Station.GetByCode(numStation), ViewBag.Date.Year, ViewBag.Date.Month, ViewBag.number);
                                 <div style="margin-bottom:20px">
                                     <div class="String">
-                                        MEDIAN  @numStation  @Html.Raw(ViewBag.range.Min.ToString("D2") + "" + ViewBag.range.Max.ToString("D2") + "" + ViewBag.Date.Month % 10)
+                                        ПРОГНОЗ @Html.Raw(numStation + " 01" + DateTime.DaysInMonth(ViewBag.Date.Year, ViewBag.Date.Month))
                                     </div>
-                                    <div class="String FFF">
-                                        @foreach (string str5 in new List<string>(System.Text.RegularExpressions.Regex.Split(strFFF, @"(?<=\G.{5})", System.Text.RegularExpressions.RegexOptions.Singleline)))
-                                        {
-                                            <span style="margin-right:10px;">@str5</span>
-                                        }
-                                    </div>
-                                    <div class="String MM">
-                                        @foreach (string str5 in new List<string>(System.Text.RegularExpressions.Regex.Split(strMM, @"(?<=\G.{5})", System.Text.RegularExpressions.RegexOptions.Singleline)))
-                                        {
-                                            <span style="margin-right:10px;">@str5</span>
-                                        }
-                                    </div>
-                                    <div class="String">
-                                        FORECAST  @numStation  @Html.Raw(ViewBag.range.Min.ToString("D2") + "" + ViewBag.range.Max.ToString("D2") + "" + ViewBag.Date.Month % 10)
-                                    </div>
-                                    <div class="String">
-                                        @foreach (string forecast in ViewBag.NameForecast)
-                                        {
-                                            <span id="@numStation@forecast">
-
-                                            </span>
-                                        }
-                                    </div>
-
                                 </div>
+
                             }
                         </div>
                         <div id="numberHab"></div>
@@ -497,4 +465,4 @@
         var snum = $("#SNumber").val();
         document.getElementById("numberHab").innerHTML =snum;
     }
-</script>*@
+</script>

@@ -23,10 +23,12 @@ namespace GeospaceMediana.Controllers
                 nowDateTime = DateTime.ParseExact(date, "yyyyMM",
                                         System.Globalization.CultureInfo.InvariantCulture);
             }
+            
             ViewBag.Date = nowDateTime;
             //получен информации Медианнапо заданным станциям
             int[] station = new int[] { 37701, 45601, 43501, 46501 };//страница не тяница если добавить больше станцый нужно переделать верстку!!!!
             string[] namePrognoz = { "IONFO", "IONES", "IONDP", "IONFF", "MAGPO" };
+            string[] namePrognozRU = { "ИОНФО", "ИОНЕС", "ИОНДП", "ИНОФФ", "МАГПО" };
             ViewBag.NameForecast = namePrognoz;
             ViewBag.NumStation = station;
             IList<GeospaceEntity.Models.Telegram.ForecastMonthIonosphera> telegrams = GeospaceEntity.Models.Telegram.ForecastMonthIonosphera.GetAllByDateUTC(nowDateTime.Year, nowDateTime.Month);
