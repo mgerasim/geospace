@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GeospaceEntity.Repositories;
+using System.IO;
 
 namespace GeospaceEntity.Models
 {
@@ -89,6 +90,26 @@ namespace GeospaceEntity.Models
             IRepository<Consumer> repo = new ConsumerRepository();
 
             repo.Delete(this);
+        }
+
+        public static void Print_All( string path )
+        {
+            StreamWriter sw = new StreamWriter(path);
+
+            List<Consumer> consumers = Consumer.GetAll();
+
+
+            foreach( Consumer cons in consumers)
+            {
+                sw.WriteLine(cons.Name);
+                foreach (Track item in cons.Tracks)
+                {
+                    sw.WriteLine(item.Name + ": " + item.PointA.Name + " " + item.PointA.Latitude + " " + item.PointA.Longitude + " " + item.PointB.Name + " " + item.PointB.Latitude + " " + item.PointB.Longitude);
+                }
+                sw.WriteLine("\n");
+            }
+
+            sw.Close();
         }
     }
 }

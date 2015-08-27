@@ -15,8 +15,11 @@ namespace GeospaceTest
     {
         static void Main(string[] args)
         {
+            Consumer.Print_All("Consumers.txt");
+
+
            // Support01();
-           // Support02();
+            //Support02();
            Support03();
          //  Support04();
            // Support05(); 
@@ -28,7 +31,7 @@ namespace GeospaceTest
            //Support09();
 
          //  Support10();
-           Support11();
+           //Support11();
 
             Console.WriteLine("Ok");
             Console.ReadKey();
@@ -60,7 +63,7 @@ namespace GeospaceTest
             List<Post> listPost = new List<Post>();
             double angle = 0.0, lenght = 0.0;
 
-            GeospaceEntity.Helper.Track.Calc_Track(a, b, listPost, ref lenght, ref angle);
+            GeospaceEntity.Helper.HelperTrack.Calc_Track(a, b, listPost, ref lenght, ref angle);
 
             Console.WriteLine("a = ({0}, {1}) - {2} -  b = ({3}, {4})\nlenght = {5}, angle = {6}", a.Longitude, a.Latitude, listPost.Count,
                 b.Longitude, b.Latitude,
@@ -126,77 +129,22 @@ namespace GeospaceTest
                 Console.WriteLine(ex.Message);
             }
         }
-       /* static void Support02()
+        static void Support02()
         {
-            string strFile = Environment.CurrentDirectory;
-            strFile = "D:\\мои документы\\visual studio 2013\\Projects\\GeoSpace\\documents\\armgf1dan.txt";
-
-            if (File.Exists(strFile))
-            {
-                Console.WriteLine("Файл существует:");
-                Console.WriteLine(strFile);
-            }
-            else 
-            {
-                Console.WriteLine("Файл не существует:");
-                Console.WriteLine(strFile);
-            }
-
+            
             try
             {
-                using (StreamReader sr = new StreamReader(strFile))
-                {
-                    String line = sr.ReadToEnd();
-                    string[] delimiters = new string[] { "[ETX]" };
-                    foreach (var item in line.Split(new char[] { '\u0002', '\u0003' },
-                                 StringSplitOptions.RemoveEmptyEntries)) {
-                                    
-                        Console.WriteLine("item");
-                        Console.WriteLine(item);
-                        string theCode = GeospaceEntity.Helper.HelperIonka.Normalize(item);
+                List<string> s = new List<string>();
+                s.Add("");
 
-                        Console.WriteLine(theCode);
-
-                        foreach (var code in theCode.Split(new string[] {"\r\n"}, StringSplitOptions.RemoveEmptyEntries))
-                        {
-                            if (code.Length > 6)
-                            {
-                                if (code.Substring(0, 5).ToUpper() == "IONKA")
-                                {
-                                    Console.WriteLine("theCode");
-                                    Console.WriteLine(code);
-                                    Station theStation = new Station();
-                                    try 
-                                    {
-                                        theStation.TryParser(code);
-                                        
-                                    }
-                                    catch (Exception ex)
-                                    {   
-                                        Console.WriteLine("E R R O R");
-                                        Console.WriteLine(code);
-                                        Console.WriteLine(ex.Message);
-                                        Console.WriteLine(ex.Source);
-                                        Console.WriteLine(ex.StackTrace);
-                                        
-                                    }
-                                    
-                                }
-                           
-                            }
-
-                        }
-                    }
-                    
-                }
+                GeospaceEntity.Helper.HelperTrack.Start(s);
             }
-            catch (Exception e)
+            catch( System.Exception ex)
             {
-                Console.WriteLine("The file could not be read:");
-                Console.WriteLine(e.Message);
+                Console.WriteLine(ex.Message);
             }
             
-        }*/
+        }
         static void Support01()
         {
             string strIonka = "\"IONKA 46501 50331 7/3/7 /0000 01025 32/19 04225 04520 38284 //100 0343/ //7// /0100 01024 32319 04217 //722 /7285 //102 0383/ //7// /0200 09824 32319 04010 //720 /7290 //100 0373/ //7// \"";

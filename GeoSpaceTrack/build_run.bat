@@ -13,9 +13,9 @@ gfortran -static %projectDir%\*.f95 -o %exeDir%\%exeName%
 call :sleep 3
 
 cd %currDir%
-del %projectDir%\*.mod
+rem del %projectDir%\*.mod
 
-%exeDir%\%exeName%
+%exeDir%\%exeName% 1 2 3 4
 
 
 pause

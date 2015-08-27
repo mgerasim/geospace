@@ -133,6 +133,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\MarksController.cs" />
     <Compile Include="Models\ApiCharacterization.cs" />
     <Compile Include="Models\ApiDisturbance.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -441,6 +442,8 @@
     <Content Include="Views\Disturbance\Index.cshtml" />
     <Content Include="Views\About\Api.cshtml" />
     <Content Include="Views\Disturbance\_Menu.cshtml" />
+    <Content Include="Views\Marks\_Menu.cshtml" />
+    <Content Include="Views\Marks\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

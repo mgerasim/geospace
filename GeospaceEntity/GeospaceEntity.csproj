@@ -61,7 +61,7 @@
     </EmbeddedResource>
     <Compile Include="Helper\MedianaCalculator.cs" />
     <Compile Include="Helper\Other.cs" />
-    <Compile Include="Helper\Track.cs" />
+    <Compile Include="Helper\HelperTrack.cs" />
     <Compile Include="Models\Average.cs" />
     <Compile Include="Models\Codes\CodeIonka.cs" />
     <Compile Include="Models\Codes\CodeMagma.cs" />
