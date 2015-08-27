@@ -11,7 +11,7 @@ namespace GeospaceEntity.Helper
 {
     public static class HelperTrack
     {
-        public static void Start( List<string> output, string param )
+        public static void Start( List<string> output, string param, bool flag = true )
         {
             string sourcesPath = "D:\\Projects\\GeoSpace\\GeoSpaceTrack\\Sources";
             string exePath = "D:\\Projects\\GeoSpace\\GeoSpaceTrack\\Build\\track.exe";
@@ -29,17 +29,21 @@ namespace GeospaceEntity.Helper
             cmd.BeginOutputReadLine();
 
             Build_Sources(cmd, sourcesPath, exePath);
-            Run(cmd, exePath, param);
+            if(flag) Run(cmd, exePath, param);
 
             cmd.StandardInput.WriteLine(@"exit");
+            
             cmd.WaitForExit();
             cmd.Close();
         }
 
         public static void Build_Sources(Process cmd, string sourcesPath, string exePath)
         {            
-            string commands = "gfortran -static " + sourcesPath + "\\*.f95 -o " + exePath + "\n";            
-            cmd.StandardInput.WriteLine(@commands);
+            string commands1 = "gfortran -c " + sourcesPath + "\\*.f95";
+            string commands2 = "gfortran -static " + sourcesPath + "\\*.f95 -o " + exePath + "\n";     
+            cmd.StandardInput.WriteLine(@"cd " + sourcesPath);
+            cmd.StandardInput.WriteLine(@commands1);
+            cmd.StandardInput.WriteLine(@commands2);
             //cmd.WaitForExit();
         }
 
@@ -55,12 +59,13 @@ namespace GeospaceEntity.Helper
             if (sender == null || e.Data == null) return;
 
             if (e.Data.IndexOf("DEBUG") >= 0)
+
             {
-                output[0] += e.Data.Replace("DEBUG ", "");
+                output[0] += e.Data.Replace("DEBUG ", "") + "\n";
             }
             if (e.Data.IndexOf("ERROR") >= 0)
             {
-                output[1] += e.Data.Replace("ERROR ", "");
+                output[0] += e.Data + "\n";
             }
                 //Console.WriteLine(e.Data);
 
