@@ -18,6 +18,7 @@ namespace GeospaceMediana.Controllers
         public ActionResult Index(int year = -1, int month = -1, int stationCode = 43501, string type = "f0F2", int day = 1)
         {
             ViewBag.NameMenu = "Диаграмма медианы";
+            ViewBag.Title = "Диаграмма медиана";
 
             if (type == "M3000F2")
                 ViewBag.ViewType = "M3000";

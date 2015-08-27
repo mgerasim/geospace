@@ -107,6 +107,7 @@ namespace GeospaceMediana.Controllers
                     codeUmagf.YYYY = year;
                     codeUmagf.MM = month;
                     codeUmagf.DD = day;
+                    codeUmagf.Raw = "Данные внесены оператором";
 
                     isUpdate = false;
                 }
@@ -146,9 +147,14 @@ namespace GeospaceMediana.Controllers
                 }
 
                 if (isUpdate)
+                {
                     codeUmagf.Update();
+                }
                 else
+                {
+                    codeUmagf.Raw = "Данные изменены оператором";
                     codeUmagf.Save();
+                }
 
                 return Content("");
             } 

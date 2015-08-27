@@ -3,7 +3,7 @@
     ViewBag.Title = "Нарушение радиосвязи";
 }
 
-<table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped table-disturbance">
     <thead>
         <tr>
             <th colspan="@(Model.theStationList.Count + 1)">
@@ -31,9 +31,10 @@
                 <td>@i</td>
                 @foreach (var item in Model.theStationList)
                 {
-                         <td>@Model.Display(item.Code, ViewBag.YYYY, ViewBag.MM, i)</td>
+                    <td class="col-md-3">@Model.Display(item.Code, ViewBag.YYYY, ViewBag.MM, i)</td>
                 }
             </tr>
         }
     </tbody>
 </table>
+
