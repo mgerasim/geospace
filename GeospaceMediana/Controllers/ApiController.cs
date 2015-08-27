@@ -89,7 +89,7 @@ namespace GeospaceMediana.Controllers
 
         public JsonResult GetCharacterizations(int stationCode = 43501, string type = "f0F2")
         {
-            DateTime currDate = DateTime.Now;
+            DateTime currDate = DateTime.Now.AddDays(-3);
             
             int rangeNumber = -1;
             if (rangeNumber == -1)
@@ -154,6 +154,89 @@ namespace GeospaceMediana.Controllers
                 
             }
             return Json(theApiCharacterization, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetDisturbances(int YYYY = -1, int MM = -1)
+        {
+            ApiDisturbance theApi = new ApiDisturbance();
+            if (YYYY == -1)
+            {
+                YYYY = DateTime.Now.Year;
+            }
+            if (MM == -1)
+            {
+                MM = DateTime.Now.Month;
+            }
+
+            ViewDisturbanceList theViewData = new ViewDisturbanceList(YYYY, MM);
+            List<ViewDisturbance> theDisturbanceList = new List<ViewDisturbance>();
+            Station stationKhabarovsk = Station.GetByCode(43501);
+            theViewData.theStationList.Add(stationKhabarovsk);
+            foreach (var item in Disturbance.GetByMonth(stationKhabarovsk, YYYY, MM))
+            {
+                ViewDisturbance theDisturbance = new ViewDisturbance(item);
+                theDisturbanceList.Add(theDisturbance);
+            }
+
+            Station stationMagadan = Station.GetByCode(45601);
+            theViewData.theStationList.Add(stationMagadan);
+            foreach (var item in Disturbance.GetByMonth(stationMagadan, YYYY, MM))
+            {
+                ViewDisturbance theDisturbance = new ViewDisturbance(item);
+                theDisturbanceList.Add(theDisturbance);
+            }
+
+
+            Station stationSalekhard = Station.GetByCode(37701);
+            theViewData.theStationList.Add(stationSalekhard);
+            foreach (var item in Disturbance.GetByMonth(stationSalekhard, YYYY, MM))
+            {
+                ViewDisturbance theDisturbance = new ViewDisturbance(item);
+                theDisturbanceList.Add(theDisturbance);
+            }
+
+
+            Station stationParatunka = Station.GetByCode(46501);
+            theViewData.theStationList.Add(stationParatunka);
+            foreach (var item in Disturbance.GetByMonth(stationParatunka, YYYY, MM))
+            {
+                ViewDisturbance theDisturbance = new ViewDisturbance(item);
+                theDisturbanceList.Add(theDisturbance);
+            }
+
+            theViewData.theDisturbanceList = theDisturbanceList;
+
+            theApi.theItems.Add(this.HelperDisturbance_Item(stationKhabarovsk, theViewData, YYYY, MM));
+            theApi.theItems.Add(this.HelperDisturbance_Item(stationMagadan, theViewData, YYYY, MM));
+            theApi.theItems.Add(this.HelperDisturbance_Item(stationParatunka, theViewData, YYYY, MM));
+            theApi.theItems.Add(this.HelperDisturbance_Item(stationSalekhard, theViewData, YYYY, MM));
+            
+
+            theApi.Title = theViewData.Title;
+
+            return Json(theApi, JsonRequestBehavior.AllowGet);
+        }
+
+        protected ApiDisturbance.ApiDisturbanceItem HelperDisturbance_Item(Station station, ViewDisturbanceList theViewData, int YYYY, int MM)
+        {
+            ApiDisturbance.ApiDisturbanceItem theItem = new ApiDisturbance.ApiDisturbanceItem();
+
+            List<ApiDisturbance.ApiDisturbanceItem.ApiDisturbanceEntity> theEntityList = new List<ApiDisturbance.ApiDisturbanceItem.ApiDisturbanceEntity>();
+            for (int i = 1; i <= DateTime.DaysInMonth(YYYY, MM); i++)
+            {
+                ApiDisturbance.ApiDisturbanceItem.ApiDisturbanceEntity theEntity = new ApiDisturbance.ApiDisturbanceItem.ApiDisturbanceEntity();
+                theEntity.YYYY = YYYY;
+                theEntity.MM = MM;
+                theEntity.DD = i;
+                theEntity.Display = theViewData.Display(station.Code, YYYY, MM, i);
+                theEntity.HourCount = theViewData.GetCountHH(station.Code, YYYY, MM, i);
+                theEntityList.Add(theEntity);
+            }
+            theItem.theData = theEntityList;
+            theItem.StationCode = station.Code;
+            theItem.StationName = station.Name;
+
+            return theItem;
         }
     }
 }
