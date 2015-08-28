@@ -67,7 +67,30 @@ namespace GeospaceEntity.Models.Telegram
             Repositories.ForecastMonthIonospheraRepository repo = new Repositories.ForecastMonthIonospheraRepository();
             return repo.GetAllByDateUTC(YYYY, MM);
         }
-
+        public virtual string setStringFiveIteration(string str)
+        {
+            string new_str = "";
+            try
+            {
+                foreach (string str5 in new List<string>(System.Text.RegularExpressions.Regex.Split(str, @"(?<=\G.{5})", System.Text.RegularExpressions.RegexOptions.Singleline)))
+                {
+                    if (str5.Length < 5)
+                    {
+                        new_str += str5;
+                        for (int i = 0; i < 5-str5.Length; i++)
+                        {
+                            new_str += "X";
+                        }
+                    }
+                    else new_str += str5 + " ";
+                }
+            }
+            catch (Exception)
+            {
+                new_str = str;
+            }
+            return new_str;
+        }
         public virtual void SetValueByType(string type, string value)
         {
             switch (type)

@@ -74,5 +74,92 @@ namespace GeospaceMediana.Controllers
                 return Content("Ошибка при отправлении данных! Проверьте корректность вводимых данных.");
             }
         }
+        public ActionResult SubmitTelegram(int year, int month, string title)
+        {
+
+            try
+            {
+                string telegram = title;
+                DateTime Date = new DateTime(year,month,1);
+                telegram += "\nВОЗМУЩЕНИЯ НА " + Date.ToString("MMMM yyyy") + " г.\n";
+                List<GeospaceEntity.Models.Telegram.ForecastMonthIonosphera> forecast = GeospaceEntity.Models.Telegram.ForecastMonthIonosphera.GetAllByDateUTC(year, month);
+                foreach (var item in forecast)
+                {
+                    telegram += "ПРОГНОЗ " + item.Station.Code + " 01" + DateTime.DaysInMonth(Date.Year, Date.Month) + Date.Month % 10;
+                    bool keyFloat = false;
+                    if (item.IONFO != "")
+                    {
+                        
+                        telegram += "ИОНФО" + item.setStringFiveIteration(item.IONFO) + "\n";
+                        keyFloat = true;
+                    }
+                    if (item.IONES != "")
+                    {
+                        if (keyFloat)
+                            telegram += "                    ";//отступ
+                        telegram += "ИОНЕС" + item.setStringFiveIteration(item.IONES) + "\n";
+                        keyFloat = true;
+                    }
+                    if (item.IONDP != "")
+                    {
+                        if (keyFloat)
+                            telegram += "                    ";//отступ
+                        telegram += "ИОНДП" + item.setStringFiveIteration(item.IONDP) + "\n";
+                        keyFloat = true;
+                    }
+                    if (item.IONFF != "")
+                    {
+                        if (keyFloat)
+                            telegram += "                    ";//отступ
+                        telegram += "ИНОФФ" + item.setStringFiveIteration(item.IONFF) + "\n";
+                        keyFloat = true;
+                    }
+                    if (item.MAGPO != "")
+                    {
+                        if (keyFloat)
+                            telegram += "                    ";//отступ
+                        telegram += "МАГПО" + item.setStringFiveIteration(item.MAGPO) + "\n";
+                        keyFloat = true;
+                    }
+                    if (item.IONFO != "" && item.IONES != "" && item.IONDP != "" && item.IONFF != "" && item.MAGPO != "")
+                        telegram += "\n";
+                }
+                DateTime OldMonths = Date.AddMonths(-2);
+                telegram += "ОПРАВДЫВАЕМОСТЬ ИОНОСФЕРНОГО ПРОГНОЗА ЗА " + OldMonths.ToString("MMMM yyyy") + " г.\n";
+                List<GeospaceEntity.Models.Telegram.ForecastMonthIonosphera> forecastOld = GeospaceEntity.Models.Telegram.ForecastMonthIonosphera.GetAllByDateUTC(OldMonths.Year, OldMonths.Month);
+                foreach (var item in forecastOld)
+                {
+                    telegram += "СТ." + item.Station.Code + " - " + item.iFORECAST + "% ";
+                }
+                telegram += "\n"
+                telegram += "ОПРАВДЫВАЕМОСТЬ МАГНИТНОГО ПРОГНОЗА ЗА " + OldMonths.ToString("MMMM yyyy") + " г.\n";
+                foreach (var item in forecastOld)
+                {
+                    telegram += "СТ." + item.Station.Code + " - " + item.mFORECAST + "% ";
+                }
+                telegram += "\n";
+                List<GeospaceEntity.Models.Product> theList = (new GeospaceEntity.Models.Product()).GetAll();
+                GeospaceEntity.Models.Product theProduct = null;
+
+                if (theList.Count == 0)
+                {
+                    theProduct = new GeospaceEntity.Models.Product();
+                    theProduct.forecast_month_ionosphera = telegram;
+                    theProduct.Save();
+                }
+                else
+                {
+                    theProduct = theList[0];
+                    theProduct.forecast_month_ionosphera = telegram;
+                    theProduct.Update();
+                }
+
+                return Content("");
+            }
+            catch (Exception)
+            {
+                return Content("Ошибка при отправлении данных! Проверьте корректность вводимых данных.");
+            }
+        }
     }
 }

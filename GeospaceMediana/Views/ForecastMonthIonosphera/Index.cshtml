@@ -6,6 +6,7 @@
 }
 <script>
     var submitUrl = "@Url.Action("Submit", "ForecastMonthIonosphera")";
+    var submitUrl2 = "@Url.Action("SubmitTelegram", "ForecastMonthIonosphera")";
     var currentYear = "@ViewBag.Date.Year";
     var currentMonth = "@ViewBag.Date.Month";
 
@@ -36,13 +37,9 @@
         submitForecastOld("37701");
         submitForecastOld("46501");
         //----------------------------------------
-        clickForecastOld("45601");
-        clickForecastOld("43501");
-        clickForecastOld("37701");
-        clickForecastOld("46501");
-        //----------------------------------------
         handleChangeHeader();
         handleChangeCodes();
+        submitCodeInTelegram()
 
     });
     function submitCodeInTelegram()
@@ -127,6 +124,7 @@
         var resUrl = window.submitUrl2 +
                         "?year=" + window.currentYear +
                         "&month=" + window.currentMonth;
+                        "&title=" + $("#inputLine1").val() + "\n" + $("#inputLine2").val() + "\n" + $("#inputLine3").val();
         $.ajax({
             url: resUrl
         });
@@ -150,7 +148,6 @@
                                     МОСКВА ИПГ ДЕНИСОВОЙ<br />
                                     НОВОСИБИРСК ГИМЕТ ШАКИРОВОЙ<br />
                                     ПРЕДВАРИТЕЛЬНЫЙ ПРОГНОЗ ИОНОСФЕРНОЙ И МАГНИТНОЙ<br />
-                                    ВОЗМУЩЕНИЯ НА
                                 </div>
                                 <div>ВОЗМУЩЕНИЯ НА @ViewBag.Date.ToString("MMMM yyyy").ToUpper() г.<br /></div>
                             </div>
@@ -525,8 +522,11 @@
                                         <label for="F_37701_I" class="col-sm-3 control-label">СТ.37701:</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control" id="F_37701_I" placeholder="" value="@{if (forecast37701_old != null)
-                                                                                                                                  {
-                                                                                                                                      @Html.Raw(forecast37701_old.iFORECAST)
+                                                                                                                           {
+                                                                                                                               if (forecast37701_old.iFORECAST != -1)
+                                                                                                                                       {
+                                                                                                                                              @Html.Raw(forecast37701_old.iFORECAST)
+                                                                                                                                        }
                                                                                                                                   }}">
                                         </div>
                                     </div>
@@ -534,8 +534,12 @@
                                         <label for="F_Line45601_I" class="col-sm-3 control-label">СТ.45601:</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control" id="F_45601_I" placeholder="" value="@{if (forecast45601_old != null)
-                                                                                                                                  {
+                                                                                                                           {
+                                                                                                                               if (forecast45601_old.iFORECAST != -1)
+                                                                                                                                       {
                                                                                                                                       @Html.Raw(forecast45601_old.iFORECAST)
+                                                                                                                                        }
+                                                
                                                                                                                                   }}">
                                         </div>
                                     </div>
@@ -543,8 +547,10 @@
                                         <label for="F_43501_I" class="col-sm-3 control-label">СТ.43501:</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control" id="F_43501_I" placeholder="" value="@{if (forecast43501_old != null)
-                                                                                                                                  {
-                                                                                                                                      @Html.Raw(forecast43501_old.iFORECAST)
+                                                                                                                           {
+                                                                                                                               if (forecast43501_old.iFORECAST != -1)
+                                                                                                                                       {
+                                                                                                                                      @Html.Raw(forecast43501_old.iFORECAST)}
                                                                                                                                   }}">
                                         </div>
                                     </div>
@@ -552,8 +558,10 @@
                                         <label for="F_46501_I" class="col-sm-3 control-label">СТ.46501:</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control" id="F_46501_I" placeholder="" value="@{if (forecast46501_old != null)
-                                                                                                                                  {
-                                                                                                                                      @Html.Raw(forecast46501_old.iFORECAST)
+                                                                                                                           {
+                                                                                                                               if (forecast46501_old.iFORECAST != -1)
+                                                                                                                                       {
+                                                                                                                                      @Html.Raw(forecast46501_old.iFORECAST)}
                                                                                                                                   }}">
                                         </div>
                                     </div>
@@ -579,8 +587,9 @@
                                         <div class="col-sm-9">
 
                                             <input type="text" class="form-control" id="F_37701_M" placeholder="" value="@{if (forecast37701_old != null)
-                                                                                                                                  {
-                                                                                                                                      @Html.Raw(forecast37701_old.mFORECAST)
+                                                                                                                                  {if (forecast37701_old.mFORECAST != -1)
+                                                                                                                                       {
+                                                                                                                                      @Html.Raw(forecast37701_old.mFORECAST)}
                                                                                                                                   }}">
                                         </div>
                                     </div>
@@ -588,8 +597,10 @@
                                         <label for="F_45601_M" class="col-sm-3 control-label">СТ.45601:</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control" id="F_45601_M" placeholder="" value="@{if (forecast45601_old != null)
-                                                                                                                                  {
-                                                                                                                                      @Html.Raw(forecast45601_old.mFORECAST)
+                                                                                                                           {
+                                                                                                                               if (forecast45601_old.mFORECAST != -1)
+                                                                                                                                       {
+                                                                                                                                      @Html.Raw(forecast45601_old.mFORECAST)}
                                                                                                                                   }}">
                                         </div>
                                     </div>
@@ -597,8 +608,10 @@
                                         <label for="F_43501_M" class="col-sm-3 control-label">СТ.43501:</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control" id="F_43501_M" placeholder="" value="@{if (forecast43501_old != null)
-                                                                                                                                  {
-                                                                                                                                      @Html.Raw(forecast43501_old.mFORECAST)
+                                                                                                                           {
+                                                                                                                               if (forecast43501_old.mFORECAST != -1)
+                                                                                                                                       {
+                                                                                                                                      @Html.Raw(forecast43501_old.mFORECAST)}
                                                                                                                                   }}">
                                         </div>
                                     </div>
@@ -606,8 +619,10 @@
                                         <label for="F_46501_M" class="col-sm-3 control-label">СТ.46501:</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control" id="F_46501_M" placeholder="" value="@{if (forecast46501_old != null)
-                                                                                                                                  {
-                                                                                                                                      @Html.Raw(forecast46501_old.mFORECAST)
+                                                                                                                           {
+                                                                                                                               if (forecast46501_old.mFORECAST != -1)
+                                                                                                                                       {
+                                                                                                                                      @Html.Raw(forecast46501_old.mFORECAST)}
                                                                                                                                   }}">
                                         </div>
                                     </div>
@@ -766,6 +781,7 @@
         return element;
     }
     function saveForecast() {
+        console.log("gggg");
         var arrFor = [
         @foreach (var item in ViewBag.NameForecast)
         {
