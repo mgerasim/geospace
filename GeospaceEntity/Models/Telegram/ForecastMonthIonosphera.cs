@@ -62,7 +62,7 @@ namespace GeospaceEntity.Models.Telegram
             GeospaceEntity.Common.IRepository<ForecastMonthIonosphera> repo = new Repositories.ForecastMonthIonospheraRepository();
             return repo.GetAll();
         }
-        public static IList<Telegram.ForecastMonthIonosphera> GetAllByDateUTC(int YYYY, int MM)
+        public static List<Telegram.ForecastMonthIonosphera> GetAllByDateUTC(int YYYY, int MM)
         {
             Repositories.ForecastMonthIonospheraRepository repo = new Repositories.ForecastMonthIonospheraRepository();
             return repo.GetAllByDateUTC(YYYY, MM);

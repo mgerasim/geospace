@@ -76,7 +76,7 @@ namespace GeospaceEntity.Repositories
         }
         #endregion
 
-        internal IList<Models.Telegram.ForecastMonthIonosphera> GetAllByDateUTC(int YYYY, int MM)
+        internal List<Models.Telegram.ForecastMonthIonosphera> GetAllByDateUTC(int YYYY, int MM)
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {

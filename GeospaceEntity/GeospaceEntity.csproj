@@ -115,6 +115,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Mappings\CodeUmagf.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Mappings\Mediana.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -149,6 +150,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Mappings\ForecastMonthIonosphera.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
