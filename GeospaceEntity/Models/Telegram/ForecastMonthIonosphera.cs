@@ -87,11 +87,11 @@ namespace GeospaceEntity.Models.Telegram
                 case "MAGPO":
                     MAGPO = value;
                     break;
-                case "iFORECAST":
+                case "_I":
                     iFORECAST = Convert.ToInt32(value);
                     break;
-                case "mFORECAST":
-                    iFORECAST = Convert.ToInt32(value);
+                case "_M":
+                    mFORECAST = Convert.ToInt32(value);
                     break;
             }
         }
