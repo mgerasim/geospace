@@ -20,6 +20,12 @@ namespace GeospaceMediana.Controllers
             if (date == "")
             {
                 nowDateTime = GeospaceEntity.Helper.DateTimeKhabarovsk.Now;
+                int current = (DateTime.DaysInMonth(nowDateTime.Year, nowDateTime.Month));
+                if (nowDateTime.Day >= current-5)
+                {  
+                    nowDateTime = nowDateTime.AddMonths(2);
+                }
+                else
                 nowDateTime = nowDateTime.AddMonths(1);
             }
             else
@@ -131,7 +137,7 @@ namespace GeospaceMediana.Controllers
                 {
                     telegram += "СТ." + item.Station.Code + " - " + item.iFORECAST + "% ";
                 }
-                telegram += "\n"
+                telegram += "\n";
                 telegram += "ОПРАВДЫВАЕМОСТЬ МАГНИТНОГО ПРОГНОЗА ЗА " + OldMonths.ToString("MMMM yyyy") + " г.\n";
                 foreach (var item in forecastOld)
                 {
