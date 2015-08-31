@@ -30,7 +30,7 @@ namespace GeospaceMediana.Controllers
             }
 
             DateTime nowDateTime;
-            if (year < 0 && month < 0 && day < 0)
+            if (year < 0 && month < 0 )
             {
                 nowDateTime = DateTime.Now.AddDays(-1);
             }

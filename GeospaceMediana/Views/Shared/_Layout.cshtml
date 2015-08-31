@@ -15,11 +15,10 @@
     <link rel="shortcut icon" href="~/Content/favicon.ico" type="image/x-icon" />
 </head>
 <body>
-   <h1>@HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString()</h1>
     <div class="container-fluid">
         @RenderBody()
     </div>
-
+    @Html.Partial("_Header")
     @Html.Partial("_Footer")
 
 </body>
