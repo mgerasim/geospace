@@ -16,7 +16,7 @@ namespace GeospaceMediana.Controllers
         //
         // GET: /Mediana/
 
-        public ActionResult Index(int year = -1, int month = -1, int stationCode = 43501, string type = "f0F2", int day = 1)
+        public ActionResult Index(int year = -1, int month = -1, int stationCode = 43501, string type = "f0F2", int day =   1)
         {
             @ViewBag.Title = "Прогноз медианы";
 
