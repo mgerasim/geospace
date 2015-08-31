@@ -19,7 +19,7 @@ namespace GeospaceTest
 
 
            // Support01();
-            //Support02();
+            Support02();
            Support03();
            //Support04();
            // Support05(); 
@@ -136,8 +136,17 @@ namespace GeospaceTest
             {
                 List<string> s = new List<string>();
                 s.Add("");
+                s.Add("");
+                s.Add("");
 
-                GeospaceEntity.Helper.HelperTrack.Start(s, "");
+                Track track = Track.GetById(1);
+                string param = track.PointA.Longitude + " "
+                    + track.PointA.Latitude + " "
+                    + track.PointB.Longitude + " "
+                    + track.PointB.Latitude;
+
+                GeospaceEntity.Helper.HelperTrack.Start(s, param);
+                Console.WriteLine(s[0]);
             }
             catch( System.Exception ex)
             {

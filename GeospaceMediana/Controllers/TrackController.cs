@@ -33,7 +33,6 @@ namespace GeospaceMediana.Controllers
             ViewBag.Date = nowDateTime;
 
             ViewBag.debug = "";
-            ViewBag.error = "";
 
             ViewBag.Station = Station.GetByCode(stationCode);
             return View(GeospaceEntity.Models.Track.GetAll());
@@ -45,18 +44,16 @@ namespace GeospaceMediana.Controllers
             {                
                 List<string> output = new List<string>();
                 output.Add("");
-                output.Add("");
 
                 Track track = Track.GetById(id);
-                string param = track.PointA.Longitude + " "
-                    + track.PointA.Latitude + " "
-                    + track.PointB.Longitude + " "
-                    + track.PointB.Latitude;
+                string param = track.PointA.Longitude.ToString().Replace( ",", "." ) + " "
+                    + track.PointA.Latitude.ToString().Replace(",", ".") + " "
+                    + track.PointB.Longitude.ToString().Replace(",", ".") + " "
+                    + track.PointB.Latitude.ToString().Replace(",", ".");
                 
                 GeospaceEntity.Helper.HelperTrack.Start(output, param);
 
-                ViewBag.debug = output[0] + "\n";
-                ViewBag.error = output[1];
+                ViewBag.debug = output[0];
 
                 return View("Index", GeospaceEntity.Models.Track.GetAll());
             }
