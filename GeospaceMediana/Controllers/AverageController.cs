@@ -55,7 +55,7 @@ namespace GeospaceMediana.Controllers
             if (type == "M3000F2" || type == "M3000")
             {
                 ViewBag.Type = "M3000";
-                ViewBag.textY = "Коэффициент M3000 ⋅ 10";
+                ViewBag.textY = "Коэффициент1 M3000 ⋅ 10";
                 ViewBag.max = "60";
             }
             if (type == "f0F2" || type == "f0")

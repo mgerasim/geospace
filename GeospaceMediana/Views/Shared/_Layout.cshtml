@@ -15,9 +15,7 @@
     <link rel="shortcut icon" href="~/Content/favicon.ico" type="image/x-icon" />
 </head>
 <body>
-    @Html.Partial("_Header")
-    
-
+   <h1>@HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString()</h1>
     <div class="container-fluid">
         @RenderBody()
     </div>

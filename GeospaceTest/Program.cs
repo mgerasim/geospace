@@ -137,7 +137,7 @@ namespace GeospaceTest
                 List<string> s = new List<string>();
                 s.Add("");
 
-                GeospaceEntity.Helper.HelperTrack.Start(s);
+                GeospaceEntity.Helper.HelperTrack.Start(s, "");
             }
             catch( System.Exception ex)
             {
