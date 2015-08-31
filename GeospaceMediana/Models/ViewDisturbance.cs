@@ -26,11 +26,34 @@ namespace GeospaceMediana.Models
         public string Display(int StationCode, int YYYY, int MM, int DD)
         {
             string res="";
-                        
+            List<int> arrTimeHH = new List<int>();          
             foreach (var item in this.theDisturbanceList.Where(x => x.StationCode == StationCode && x.YYYY == YYYY && x.MM == MM && x.DD == DD).OrderBy(x => x.HH))
             {
-                string time = String.Format("{0:D2}:00-{1:D2}:00; ", item.HH, item.HH + 1);
-                res += time;
+                arrTimeHH.Add(item.HH);
+                arrTimeHH.Add(item.HH+1);
+            }
+            List<int> TimeHH = new List<int>();
+            for (int i = 0; i < arrTimeHH.Count; i++)
+            {
+                if (i + 1 < arrTimeHH.Count)
+                {
+                    if (arrTimeHH[i] != arrTimeHH[i + 1])
+                    {
+                        TimeHH.Add(arrTimeHH[i]);
+                    }
+                    else
+                    {
+                        i++;
+                    }
+                }
+                else TimeHH.Add(arrTimeHH[i]);
+
+            }
+ 
+            for (int i = 0; i < TimeHH.Count; i++)
+            {
+                res += String.Format("{0:D2}:00-{1:D2}:00; ", TimeHH[i], TimeHH[i+1]);
+                i++;
             }
             return res;
         }
