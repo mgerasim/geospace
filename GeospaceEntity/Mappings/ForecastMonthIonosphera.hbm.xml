@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="GeospaceEntity.Models.Telegram" assembly="GeospaceEntity">
+  <class name="ForecastMonthIonosphera" table="Geospace_ForecastMonthIonosphera">
+    <id name="ID" unsaved-value="0">
+      <column name="ID" not-null="true" />
+      <generator class="identity"/>
+    </id>
+    <property name="created_at" />
+    <property name="updated_at" />
+    <many-to-one name="Station" not-null="true" column="Station_ID" lazy="false" unique-key="date"/>
+    <property name="MM">
+      <column name="MM" check="(MM &gt;= 1 AND MM &lt;= 12)" unique-key="date" not-null="true"  />
+    </property>
+    <property name="YYYY" not-null="true" unique-key="date" />
+    <property name="IONFO" type="string" length="1000"/>
+    <property name="IONES" type="string" length="1000"/>
+    <property name="IONDP" type="string" length="1000"/>
+    <property name="IONFF" type="string" length="1000"/>
+    <property name="MAGPO" type="string" length="1000"/>
+    <property name="iFORECAST"/>
+    <property name="mFORECAST"/>
+  </class>
+</hibernate-mapping>

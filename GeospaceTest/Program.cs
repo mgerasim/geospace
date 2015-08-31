@@ -21,7 +21,7 @@ namespace GeospaceTest
            // Support01();
             //Support02();
            Support03();
-         //  Support04();
+           //Support04();
            // Support05(); 
 
            //Support06();
@@ -29,8 +29,8 @@ namespace GeospaceTest
            //Support08();
 
            //Support09();
-
-         //  Support10();
+           //Support10();
+           //Support11();
            //Support11();
 
             Console.WriteLine("Ok");
