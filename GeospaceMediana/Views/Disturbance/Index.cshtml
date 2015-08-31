@@ -31,7 +31,7 @@
                 <td>@i</td>
                 @foreach (var item in Model.theStationList)
                 {
-                    <td class="col-md-3">@Model.Display(item.Code, ViewBag.YYYY, ViewBag.MM, i)</td>
+                    <td class="col-md-3">@Html.Raw( Model.Display(item.Code, ViewBag.YYYY, ViewBag.MM, i))</td>
                 }
             </tr>
         }

@@ -49,11 +49,27 @@ namespace GeospaceMediana.Models
                 else TimeHH.Add(arrTimeHH[i]);
 
             }
- 
+            int countLine = 22;
+            int line = 0;
             for (int i = 0; i < TimeHH.Count; i++)
             {
-                res += String.Format("{0:D2}:00-{1:D2}:00; ", TimeHH[i], TimeHH[i+1]);
+                string time = "";
+                if (TimeHH[i] + 1 != TimeHH[i + 1])
+                {
+                    time = String.Format("{0:D2}00-{1:D2}00; ", TimeHH[i], TimeHH[i + 1]);
+                }
+                else
+                {
+                    time = String.Format("{0:D2}00; ", TimeHH[i]);
+                }
+                if (time.Length + (res.Length - (countLine + 4) * line) > countLine)
+                {
+                    line++;
+                    res += "<br>";
+                }
+                res += time;
                 i++;
+
             }
             return res;
         }
