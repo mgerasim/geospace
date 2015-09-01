@@ -23,10 +23,8 @@ namespace GeospaceMediana.Controllers
                 int current = (DateTime.DaysInMonth(nowDateTime.Year, nowDateTime.Month));
                 if (nowDateTime.Day >= current-5)
                 {  
-                    nowDateTime = nowDateTime.AddMonths(2);
+                    nowDateTime = nowDateTime.AddMonths(1);
                 }
-                else
-                nowDateTime = nowDateTime.AddMonths(1);
             }
             else
             {
