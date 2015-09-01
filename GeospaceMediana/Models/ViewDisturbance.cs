@@ -49,7 +49,8 @@ namespace GeospaceMediana.Models
                 else TimeHH.Add(arrTimeHH[i]);
 
             }
-            int countLine = 22;
+            int countLine = 25;
+            int lineRec = 0;
             int line = 0;
             for (int i = 0; i < TimeHH.Count; i++)
             {
@@ -62,10 +63,11 @@ namespace GeospaceMediana.Models
                 {
                     time = String.Format("{0:D2}00; ", TimeHH[i]);
                 }
-                if (time.Length + (res.Length - (countLine + 4) * line) > countLine)
+                if (time.Length + res.Length >= lineRec + countLine)
                 {
                     line++;
                     res += "<br>";
+                    lineRec = res.Length;
                 }
                 res += time;
                 i++;
