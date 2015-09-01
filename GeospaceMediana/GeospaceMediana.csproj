@@ -134,6 +134,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\MarksController.cs" />
+    <Compile Include="Controllers\ForecastMonthIonospheraController.cs" />
     <Compile Include="Models\ApiCharacterization.cs" />
     <Compile Include="Models\ApiDisturbance.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -443,6 +444,8 @@
     <Content Include="Views\About\Api.cshtml" />
     <Content Include="Views\Disturbance\_Menu.cshtml" />
     <Content Include="Views\Marks\_Menu.cshtml" />
+    <Content Include="Views\ForecastMonthIonosphera\_Menu.cshtml" />
+    <Content Include="Views\ForecastMonthIonosphera\Index.cshtml" />
     <Content Include="Views\Marks\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

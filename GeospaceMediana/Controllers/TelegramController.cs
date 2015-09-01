@@ -18,6 +18,7 @@ namespace GeospaceMediana.Controllers
         {
            return View();
         }
+
         public ActionResult FiveDay(int stationCode = 43501, string date = "", int rangeNumber = -1)
        {
             DateTime nowDateTime;

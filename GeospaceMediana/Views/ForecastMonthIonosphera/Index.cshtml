@@ -1,0 +1,811 @@
+﻿@using GeospaceEntity.Models;
+@using GeospaceEntity.Helper;
+@{
+
+    ViewBag.Title = "Телеграмма месячного прогноз";
+}
+<script>
+    var submitUrl = "@Url.Action("Submit", "ForecastMonthIonosphera")";
+    var submitUrl2 = "@Url.Action("SubmitTelegram", "ForecastMonthIonosphera")";
+    var currentYear = "@ViewBag.Date.Year";
+    var currentMonth = "@ViewBag.Date.Month";
+
+    var currentYear2 = "@ViewBag.Date.AddMonths(-1).Year";
+    var currentMonth2 = "@ViewBag.Date.AddMonths(-1).Month";
+</script>
+<script>
+
+
+    $(document).ready(function () {
+
+        $("#inputLine1").keyup(handleChangeHeader);
+        $("#inputLine2").keyup(handleChangeHeader);
+        $("#inputLine3").keyup(handleChangeHeader);
+
+        keyupFunction("45601");
+        keyupFunction("43501");
+        keyupFunction("37701");
+        keyupFunction("46501");
+        //----------------------------------------
+        clickFunction("45601");
+        clickFunction("43501");
+        clickFunction("37701");
+        clickFunction("46501");
+        //----------------------------------------
+        submitForecastOld("45601");
+        submitForecastOld("43501");
+        submitForecastOld("37701");
+        submitForecastOld("46501");
+        //----------------------------------------
+        handleChangeHeader();
+        handleChangeCodes();
+        submitCodeInTelegram()
+
+    });
+    function submitCodeInTelegram()
+    {
+        var arrFor = ["_I","_M"];
+        var arrNum = [@foreach (var item in ViewBag.NumStation)
+        {
+            @Html.Raw(item+",");
+        }]
+        $.each(arrNum, function (i, item) {
+            $.each(arrFor, function (index, element) {
+                var forecast_F = $("#F_" + item + element).val();//значение забитые в input
+                if (forecast_F)
+                    document.getElementById(item + element).innerHTML = "СТ." + item + " - " + forecast_F + "%";
+                else
+                    document.getElementById(item + element).innerHTML = "";
+            });
+        });
+    }
+    function submitForecastOld(str)
+    {
+        $("#F_" + str + "_I").keyup(submitCodeInTelegram);
+        $("#F_" + str + "_M").keyup(submitCodeInTelegram);
+
+    }
+    function keyupFunction(str)
+    {
+        $("#F_" + str + "IONFO").keyup(handleChangeCodes);
+        $("#F_" + str + "IONES").keyup(handleChangeCodes);
+        $("#F_" + str + "IONDP").keyup(handleChangeCodes);
+        $("#F_" + str + "IONFF").keyup(handleChangeCodes);
+        $("#F_" + str + "MAGPO").keyup(handleChangeCodes);
+    }
+    function clickFunction(str)
+    {
+        $("#F_" + str + "IONFO").click(handleChangeSubmit( str + "IONFO"));
+        $("#F_" + str + "IONES").click(handleChangeSubmit( str + "IONES"));
+        $("#F_" + str + "IONFO").click(handleChangeSubmit( str + "IONFO"));
+        $("#F_" + str + "IONDP").click(handleChangeSubmit( str + "IONDP"));
+        $("#F_" + str + "IONFF").click(handleChangeSubmit( str + "IONFF"));
+        $("#F_" + str + "MAGPO").click(handleChangeSubmit(str + "MAGPO"));
+        $("#F_" + str + "_I").click(handleChangeSubmit(str + "_I"));
+        $("#F_" + str + "_M").click(handleChangeSubmit(str + "_M"));
+    }
+    function handleChangeSubmit(str) {
+        $('#F_' + str).focus();
+        $('#F_' + str).select();
+        $('#F_' + str).blur(function () {
+            var forecast_F = $("#F_" + str);//значение забитые в input
+            if (forecast_F) {
+
+                var strVal = "";
+                if (forecast_F.val()) strVal = forecast_F.val();
+                var year = window.currentYear;
+                var month = window.currentMonth;
+                if (str.substr(5, 2) == "_I" || str.substr(5, 2) == "_M")
+                {
+                    year = window.currentYear2;
+                    month = window.currentMonth2;
+                }
+                var resUrl = window.submitUrl +
+                        "?station=" + str.substr(0, 5) +
+                        "&year=" + year +
+                        "&month=" + month +
+                        "&type=" + str.substr(5, 2) +
+                        "&value=" + strVal;
+                $.ajax({
+                    url: resUrl
+                });
+            }
+        });
+    }
+    function handleChangeHeader() {
+        $(".pager .print .hed").html($("#inputLine1").val() + "<br>" + $("#inputLine2").val() + "<br>" + $("#inputLine3").val());
+
+    }
+
+    function handleChangeCodes() {
+        saveForecast();
+    }
+    function saveForecastTelegramBD() {
+        var resUrl = window.submitUrl2 +
+                        "?year=" + window.currentYear +
+                        "&month=" + window.currentMonth;
+                        "&title=" + $("#inputLine1").val() + "\n" + $("#inputLine2").val() + "\n" + $("#inputLine3").val();
+        $.ajax({
+            url: resUrl
+        });
+    }
+
+</script>
+
+
+
+<div class="row">
+    <div class="col-md-8 tlg-container">
+        <div class="panel panel-default">
+            <div class="panel-body">
+
+
+                <div class="pager">
+                    <div class="print ">
+                        <div class="container hed-print">
+                            <div class=" row">
+                                <div class="hed">
+                                    МОСКВА ИПГ ДЕНИСОВОЙ<br />
+                                    НОВОСИБИРСК ГИМЕТ ШАКИРОВОЙ<br />
+                                    ПРЕДВАРИТЕЛЬНЫЙ ПРОГНОЗ ИОНОСФЕРНОЙ И МАГНИТНОЙ<br />
+                                </div>
+                                <div>ВОЗМУЩЕНИЯ НА @ViewBag.Date.ToString("MMMM yyyy").ToUpper() г.<br /></div>
+                            </div>
+                            <div class="row">
+                                @foreach (var station in ViewBag.NumStation)
+                                {
+                                    <div class="row">
+                                        <div class="station-title">
+                                            ПРОГНОЗ @Html.Raw(station + " 01" + DateTime.DaysInMonth(ViewBag.Date.Year, ViewBag.Date.Month) + ViewBag.Date.Month % 10)
+                                        </div>
+                                        <div class="station-info">
+                                            @foreach (var item in ViewBag.NameForecast)
+                                            {
+
+                                                <div id="@station@item" style="text-align:left">
+
+                                                </div>
+                                            }
+                                        </div>
+
+                                    </div>
+                                }
+                            </div>
+                            <div class="row">ОПРАВДЫВАЕМОСТЬ ИОНОСФЕРНОГО ПРОГНОЗА ЗА @ViewBag.Date.AddMonths(-2).ToString("MMMM yyyy").ToUpper() г.<br /></div>
+                            <div class="row">
+                                @foreach (var item in ViewBag.NumStation)
+                                {
+                                    <div id="@{@item}_I" style="float: left; width: 120px; margin-right:4px;">
+
+                                    </div>
+                                }
+                            </div>
+                            <div class="row">ОПРАВДЫВАЕМОСТЬ МАГНИТНОГО ПРОГНОЗА ЗА @ViewBag.Date.AddMonths(-2).ToString("MMMM yyyy").ToUpper() г.<br /></div>
+                            <div class="row">
+                                @foreach (var item in ViewBag.NumStation)
+                                {
+                                    <div id="@{@item}_M"  style="float: left; width: 120px; margin-right: 4px;">
+
+                                    </div>
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 input-container hidden-print">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingLine" data-toggle="collapse" data-parent="#accordion" data-target="#collapseLine">
+                            <h4 class="panel-title">
+                                <a class="collapsed" role="button" aria-expanded="false" aria-controls="collapseLine">
+                                    Заголовок
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseLine" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingLine">
+                            <div class="panel-body">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="inputLine1" class="col-sm-2 control-label">1:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="inputLine1" placeholder="" value="МОСКВА ИПГ ДЕНИСОВОЙ">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputLine2" class="col-sm-2 control-label">2:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="inputLine2" placeholder="" value="НОВОСИБИРСК ГИМЕТ ШАКИРОВОЙ">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputLine3" class="col-sm-2 control-label">3:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="inputLine3" placeholder="" value="ПРЕДВАРИТЕЛЬНЫЙ ПРОГНОЗ ИОНОСФЕРНОЙ И МАГНИТНОЙ">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    @{
+                        GeospaceEntity.Models.Telegram.ForecastMonthIonosphera forecast37701 = GeospaceEntity.Models.Telegram.ForecastMonthIonosphera.GetByDateUTC(Station.GetByCode(37701), ViewBag.Date.Year, ViewBag.Date.Month);
+                    }
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" data-toggle="collapse" data-parent="#accordion" data-target="#collapse37701" id="heading37701">
+                            <h4 class="panel-title">
+                                <a role="button" aria-expanded="true" aria-controls="collapse37701">
+                                    Салехард - 37701
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse37701" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading37701">
+                            <div class="panel-body">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="F_37701IONFO" class="col-sm-3 control-label">ИОНФО</label>
+                                        <div class="col-sm-9 col-lg-9">
+                                            <input type="text" class="form-control" id="F_37701IONFO" placeholder="" value="@{if (forecast37701 != null)
+                                                                                                                                  {
+                                                                                                                                      @Html.Raw(forecast37701.IONFO)
+                                                                                                                                  }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="F_37701IONES" class="col-sm-3 control-label">ИОНЕС</label>
+                                        <div class="col-sm-9 col-lg-9">
+                                            <input type="text" class="form-control" id="F_37701IONES" placeholder="" value="@{if (forecast37701 != null)
+                                                                                                                                  {
+                                                                                                                                      @Html.Raw(forecast37701.IONES)
+                                                                                                                                  }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="F_37701IONDP" class="col-sm-3 control-label">ИОНДП</label>
+                                        <div class="col-sm-9 col-lg-9">
+                                            <input type="text" class="form-control" id="F_37701IONDP" placeholder="" value="@{if (forecast37701 != null)
+                                                                                                                                  {
+                                                                                                                                      @Html.Raw(forecast37701.IONDP)
+                                                                                                                                  }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="F_37701IONFF" class="col-sm-3 control-label">ИНОФФ</label>
+                                        <div class="col-sm-9 col-lg-9">
+                                            <input type="text" class="form-control" id="F_37701IONFF" placeholder="" value="@{if (forecast37701 != null)
+                                                                                                                                  {
+                                                                                                                                      @Html.Raw(forecast37701.IONFF)
+                                                                                                                                  }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="F_37701MAGPO" class="col-sm-3 control-label">МАГПО</label>
+                                        <div class="col-sm-9 col-lg-9">
+                                            <input type="text" class="form-control" id="F_37701MAGPO" placeholder="" value="@{if (forecast37701 != null)
+                                                                                                                                  {
+                                                                                                                                      @Html.Raw(forecast37701.MAGPO)
+                                                                                                                                  }}">
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    @{
+                        GeospaceEntity.Models.Telegram.ForecastMonthIonosphera forecast45601 = GeospaceEntity.Models.Telegram.ForecastMonthIonosphera.GetByDateUTC(Station.GetByCode(45601), ViewBag.Date.Year, ViewBag.Date.Month);
+                    }
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" data-toggle="collapse" data-parent="#accordion" data-target="#collapse45601" id="heading45601">
+                            <h4 class="panel-title">
+                                <a role="button" aria-expanded="true" aria-controls="collapse45601">
+                                    Магадан - 45601
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse45601" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading45601">
+                            <div class="panel-body">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="F_45601IONFO" class="col-sm-3 control-label">ИОНФО</label>
+                                        <div class="col-sm-9 col-lg-9">
+                                            <input type="text" class="form-control" id="F_45601IONFO" placeholder="" value="@{if (forecast45601 != null)
+                                                                                                                                  {
+                                                                                                                                      @Html.Raw(forecast45601.IONFO)
+                                                                                                                                  }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="F_45601IONES" class="col-sm-3 control-label">ИОНЕС</label>
+                                        <div class="col-sm-9 col-lg-9">
+                                            <input type="text" class="form-control" id="F_45601IONES" placeholder="" value="@{if (forecast45601 != null)
+                                                                                                                                  {
+                                                                                                                                      @Html.Raw(forecast45601.IONES)
+                                                                                                                                  }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="F_45601IONDP" class="col-sm-3 control-label">ИОНДП</label>
+                                        <div class="col-sm-9 col-lg-9">
+                                            <input type="text" class="form-control" id="F_45601IONDP" placeholder="" value="@{if (forecast45601 != null)
+                                                                                                                                  {
+                                                                                                                                      @Html.Raw(forecast45601.IONDP)
+                                                                                                                                  }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="F_45601IONFF" class="col-sm-3 control-label">ИНОФФ</label>
+                                        <div class="col-sm-9 col-lg-9">
+                                            <input type="text" class="form-control" id="F_45601IONFF" placeholder="" value="@{if (forecast45601 != null)
+                                                                                                                                  {
+                                                                                                                                      @Html.Raw(forecast45601.IONFF)
+                                                                                                                                  }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="F_45601MAGPO" class="col-sm-3 control-label">МАГПО</label>
+                                        <div class="col-sm-9 col-lg-9">
+                                            <input type="text" class="form-control" id="F_45601MAGPO" placeholder="" value="@{if (forecast45601 != null)
+                                                                                                                                  {
+                                                                                                                                      @Html.Raw(forecast45601.MAGPO)
+                                                                                                                                  }}">
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    @{
+                        GeospaceEntity.Models.Telegram.ForecastMonthIonosphera forecast43501 = GeospaceEntity.Models.Telegram.ForecastMonthIonosphera.GetByDateUTC(Station.GetByCode(43501), ViewBag.Date.Year, ViewBag.Date.Month);
+                    }
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" data-toggle="collapse" data-parent="#accordion" data-target="#collapse43501" id="heading43501">
+                            <h4 class="panel-title">
+                                <a role="button" aria-expanded="true" aria-controls="collapse43501">
+                                    Хабаровск - 43501
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse43501" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading43501">
+                            <div class="panel-body">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="F_43501IONFO" class="col-sm-3 control-label">ИОНФО</label>
+                                        <div class="col-sm-9 col-lg-9">
+                                            <input type="text" class="form-control" id="F_43501IONFO" placeholder="" value="@{if (forecast43501 != null)
+                                                                                                                                  {
+                                                                                                                                      @Html.Raw(forecast43501.IONFO)
+                                                                                                                                  }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="F_43501IONES" class="col-sm-3 control-label">ИОНЕС</label>
+                                        <div class="col-sm-9 col-lg-9">
+                                            <input type="text" class="form-control" id="F_43501IONES" placeholder="" value="@{if (forecast43501 != null)
+                                                                                                                                  {
+                                                                                                                                      @Html.Raw(forecast43501.IONES)
+                                                                                                                                  }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="F_43501IONDP" class="col-sm-3 control-label">ИОНДП</label>
+                                        <div class="col-sm-9 col-lg-9">
+                                            <input type="text" class="form-control" id="F_43501IONDP" placeholder="" value="@{if (forecast43501 != null)
+                                                                                                                                  {
+                                                                                                                                      @Html.Raw(forecast43501.IONDP)
+                                                                                                                                  }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="F_43501IONFF" class="col-sm-3 control-label">ИНОФФ</label>
+                                        <div class="col-sm-9 col-lg-9">
+                                            <input type="text" class="form-control" id="F_43501IONFF" placeholder="" value="@{if (forecast43501 != null)
+                                                                                                                                  {
+                                                                                                                                      @Html.Raw(forecast43501.IONFF)
+                                                                                                                                  }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="F_43501MAGPO" class="col-sm-3 control-label">МАГПО</label>
+                                        <div class="col-sm-9 col-lg-9">
+                                            <input type="text" class="form-control" id="F_43501MAGPO" placeholder="" value="@{if (forecast43501 != null)
+                                                                                                                                  {
+                                                                                                                                      @Html.Raw(forecast43501.MAGPO)
+                                                                                                                                  }}">
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    @{
+                        GeospaceEntity.Models.Telegram.ForecastMonthIonosphera forecast46501 = GeospaceEntity.Models.Telegram.ForecastMonthIonosphera.GetByDateUTC(Station.GetByCode(46501), ViewBag.Date.Year, ViewBag.Date.Month);
+                    }
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" data-toggle="collapse" data-parent="#accordion" data-target="#collapse46501" id="heading46501">
+                            <h4 class="panel-title">
+                                <a role="button" aria-expanded="true" aria-controls="collapse46501">
+                                    Паратунка - 46501
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse46501" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading46501">
+                            <div class="panel-body">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="F_46501IONFO" class="col-sm-3 control-label">ИОНФО</label>
+                                        <div class="col-sm-9 col-lg-9">
+                                            <input type="text" class="form-control" id="F_46501IONFO" placeholder="" value="@{if (forecast46501 != null)
+                                                                                                                                  {
+                                                                                                                                      @Html.Raw(forecast46501.IONFO)
+                                                                                                                                  }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="F_46501IONES" class="col-sm-3 control-label">ИОНЕС</label>
+                                        <div class="col-sm-9 col-lg-9">
+                                            <input type="text" class="form-control" id="F_46501IONES" placeholder="" value="@{if (forecast46501 != null)
+                                                                                                                                  {
+                                                                                                                                      @Html.Raw(forecast46501.IONES)
+                                                                                                                                  }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="F_46501IONDP" class="col-sm-3 control-label">ИОНДП</label>
+                                        <div class="col-sm-9 col-lg-9">
+                                            <input type="text" class="form-control" id="F_46501IONDP" placeholder="" value="@{if (forecast46501 != null)
+                                                                                                                                  {
+                                                                                                                                      @Html.Raw(forecast46501.IONDP)
+                                                                                                                                  }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="F_46501IONFF" class="col-sm-3 control-label">ИНОФФ</label>
+                                        <div class="col-sm-9 col-lg-9">
+                                            <input type="text" class="form-control" id="F_46501IONFF" placeholder="" value="@{if (forecast46501 != null)
+                                                                                                                                  {
+                                                                                                                                      @Html.Raw(forecast46501.IONFF)
+                                                                                                                                  }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="F_46501MAGPO" class="col-sm-3 control-label">МАГПО</label>
+                                        <div class="col-sm-9 col-lg-9">
+                                            <input type="text" class="form-control" id="F_46501MAGPO" placeholder="" value="@{if (forecast46501 != null)
+                                                                                                                                  {
+                                                                                                                                      @Html.Raw(forecast46501.MAGPO)
+                                                                                                                                  }}">
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="label-danger container-fluid panel" style="color:black;">ОПРАВДЫВАЕМОСТЬ ПРОГНОЗА ЗА @ViewBag.Date.AddMonths(-2).ToString("MMMM yyyy").ToUpper() г.</div>
+                    @{
+                        //запрос данных о прогнозе за месяц -1 от текущего
+                        GeospaceEntity.Models.Telegram.ForecastMonthIonosphera forecast43501_old = GeospaceEntity.Models.Telegram.ForecastMonthIonosphera.GetByDateUTC(Station.GetByCode(43501), ViewBag.Date.Year, ViewBag.Date.Month - 2);
+                        GeospaceEntity.Models.Telegram.ForecastMonthIonosphera forecast46501_old = GeospaceEntity.Models.Telegram.ForecastMonthIonosphera.GetByDateUTC(Station.GetByCode(46501), ViewBag.Date.Year, ViewBag.Date.Month - 2);
+                        GeospaceEntity.Models.Telegram.ForecastMonthIonosphera forecast45601_old = GeospaceEntity.Models.Telegram.ForecastMonthIonosphera.GetByDateUTC(Station.GetByCode(45601), ViewBag.Date.Year, ViewBag.Date.Month - 2);
+                        GeospaceEntity.Models.Telegram.ForecastMonthIonosphera forecast37701_old = GeospaceEntity.Models.Telegram.ForecastMonthIonosphera.GetByDateUTC(Station.GetByCode(37701), ViewBag.Date.Year, ViewBag.Date.Month - 2);
+                    }
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingForecast_I" data-toggle="collapse" data-parent="#accordion" data-target="#collapseForecast_I">
+                            <h4 class="panel-title">
+                                <a class="collapsed" role="button" aria-expanded="false" aria-controls="collapseForecast_I">
+                                    Ионосферный прогноз
+                                </a>
+                            </h4>
+                        </div>
+
+                        <div id="collapseForecast_I" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingForecast_I">
+                            <div class="panel-body">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="F_37701_I" class="col-sm-3 control-label">СТ.37701:</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="F_37701_I" placeholder="" value="@{if (forecast37701_old != null)
+                                                                                                                           {
+                                                                                                                               if (forecast37701_old.iFORECAST != -1)
+                                                                                                                                       {
+                                                                                                                                              @Html.Raw(forecast37701_old.iFORECAST)
+                                                                                                                                        }
+                                                                                                                                  }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="F_Line45601_I" class="col-sm-3 control-label">СТ.45601:</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="F_45601_I" placeholder="" value="@{if (forecast45601_old != null)
+                                                                                                                           {
+                                                                                                                               if (forecast45601_old.iFORECAST != -1)
+                                                                                                                                       {
+                                                                                                                                      @Html.Raw(forecast45601_old.iFORECAST)
+                                                                                                                                        }
+                                                
+                                                                                                                                  }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="F_43501_I" class="col-sm-3 control-label">СТ.43501:</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="F_43501_I" placeholder="" value="@{if (forecast43501_old != null)
+                                                                                                                           {
+                                                                                                                               if (forecast43501_old.iFORECAST != -1)
+                                                                                                                                       {
+                                                                                                                                      @Html.Raw(forecast43501_old.iFORECAST)}
+                                                                                                                                  }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="F_46501_I" class="col-sm-3 control-label">СТ.46501:</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="F_46501_I" placeholder="" value="@{if (forecast46501_old != null)
+                                                                                                                           {
+                                                                                                                               if (forecast46501_old.iFORECAST != -1)
+                                                                                                                                       {
+                                                                                                                                      @Html.Raw(forecast46501_old.iFORECAST)}
+                                                                                                                                  }}">
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingForecast_M" data-toggle="collapse" data-parent="#accordion" data-target="#collapseForecast_M">
+                            <h4 class="panel-title">
+                                <a class="collapsed" role="button" aria-expanded="false" aria-controls="collapseForecast_M">
+                                    Магнитный прогноз
+                                </a>
+                            </h4>
+                        </div>
+
+                        <div id="collapseForecast_M" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingForecast_M">
+                            <div class="panel-body">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="F_37701_M" class="col-sm-3 control-label">СТ.37701:</label>
+                                        <div class="col-sm-9">
+
+                                            <input type="text" class="form-control" id="F_37701_M" placeholder="" value="@{if (forecast37701_old != null)
+                                                                                                                                  {if (forecast37701_old.mFORECAST != -1)
+                                                                                                                                       {
+                                                                                                                                      @Html.Raw(forecast37701_old.mFORECAST)}
+                                                                                                                                  }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="F_45601_M" class="col-sm-3 control-label">СТ.45601:</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="F_45601_M" placeholder="" value="@{if (forecast45601_old != null)
+                                                                                                                           {
+                                                                                                                               if (forecast45601_old.mFORECAST != -1)
+                                                                                                                                       {
+                                                                                                                                      @Html.Raw(forecast45601_old.mFORECAST)}
+                                                                                                                                  }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="F_43501_M" class="col-sm-3 control-label">СТ.43501:</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="F_43501_M" placeholder="" value="@{if (forecast43501_old != null)
+                                                                                                                           {
+                                                                                                                               if (forecast43501_old.mFORECAST != -1)
+                                                                                                                                       {
+                                                                                                                                      @Html.Raw(forecast43501_old.mFORECAST)}
+                                                                                                                                  }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="F_46501_M" class="col-sm-3 control-label">СТ.46501:</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="F_46501_M" placeholder="" value="@{if (forecast46501_old != null)
+                                                                                                                           {
+                                                                                                                               if (forecast46501_old.mFORECAST != -1)
+                                                                                                                                       {
+                                                                                                                                      @Html.Raw(forecast46501_old.mFORECAST)}
+                                                                                                                                  }}">
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <p>
+
+                        <input type="button" value="Печать" onclick="window.print();" class="btn btn-default btn-lg">
+                        <input type="button" value="Сохранить" onclick="saveForecastTelegramBD();" class="btn btn-default btn-lg">
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+    .station-title{
+        display:block;
+        width:175px;
+        padding-left:15px;
+        float:left;
+    }
+    .station-info {
+        width: 400px;
+        float:left;
+    }
+    .div{
+        text-align:left
+    }
+    .hed-print {
+        width:575px;
+        text-align: left;
+        font-family:'Courier New';
+        margin-left: 5px;
+    }
+   
+    .pager  {
+        margin: 0;
+    }
+
+    .print {
+        background-color: rgb(238, 238, 238);
+        float: left;
+        width: 100%;
+        overflow: scroll;
+    }
+
+    .forma-station {
+        min-width: 500px;
+        border-color: red;
+        border-radius: 3px;
+        background-color: rgb(226, 247, 244);
+        float: left;
+        height: 700px;
+    }
+
+    .station {
+        font-family: 'Times New Roman';
+        font-size: 18px;
+        height: 100px;
+    }
+
+    .prognoz {
+        float: left;
+    }
+
+    .prognoz-div {
+        margin-top: 4px;
+        margin-bottom: 6px;
+    }
+
+    .String {
+        width: 600px;
+        align-content: center;
+        margin-left: 25px;
+        font-family: 'Times New Roman';
+        font-size: 17px;
+        text-align: left;
+    }
+
+    #SNumber {
+        margin-top: 8px;
+    }
+
+    #numberHab {
+        text-align: center;
+        font-family: 'Times New Roman';
+        font-size: 17px;
+        margin-left: 30px;
+    }
+</style>
+<style type="text/css" media="print">
+    .forma-station, h2 {
+        visibility: hidden;
+        display: none;
+    }
+
+    .panel-default {
+        border-color: white;
+    }
+
+    .print {
+        overflow: auto;
+        align-content: center;
+    }
+
+    body {
+        padding-top: 20px;
+        padding-left: 10px;
+    }
+</style>
+<script type="text/javascript">
+
+    function addEmpty(number) {
+        var str = "";
+        for (var i = 0; i < number; i++) {
+            str += "X";
+        }
+        return str;
+    }
+    function divisionString(item) {
+        var length = item.length;
+        var str = "";
+        var length5 = parseInt(length / 5);
+        for(var i = 0; i < length5 ; i++)
+        {
+            var start= i*5;
+            str +=item.substr(start, 5) + "  ";
+        }
+        if (length - (length5) * 5 > 0)
+        {
+            str += item.slice((length5) * 5, length) + addEmpty(5-(length - ((length5) * 5)));
+        }
+ 
+        return str;
+    }
+    function itemRuElementForecast(item)
+    {
+        var element = "";
+        switch (item) {
+            case "IONFO": element = "ИОНФО";
+                break;
+            case "IONES": element = "ИОНЕС";
+                break;
+            case "IONDP": element = "ИОНДП";
+                break;
+            case "IONFF": element = "ИНОФФ";
+                break;
+            case "MAGPO": element = "МАГПО";
+                break;
+            default:
+        }
+        return element;
+    }
+    function saveForecast() {
+        console.log("gggg");
+        var arrFor = [
+        @foreach (var item in ViewBag.NameForecast)
+        {
+            @Html.Raw('"' + item+'"'+",");
+        }
+        ];
+        var arrNum = [@foreach (var item in ViewBag.NumStation)
+        {
+            @Html.Raw(item+",");
+        }]
+        var arrForRU = [@foreach (var item in ViewBag.NameForecastRU)
+        {
+                        @Html.Raw('"' + item+'"'+",");
+        }]
+        $.each(arrNum, function (i, item) {
+            $.each(arrFor, function (index, element) {
+                var forecast_F = $("#F_" + item + element).val();//значение забитые в input
+                if (forecast_F)
+                    document.getElementById(item + element).innerHTML = itemRuElementForecast(element) +" "+ divisionString(forecast_F);
+                else
+                    document.getElementById(item + element).innerHTML = "";
+
+            });
+        });
+
+    }
+</script>
