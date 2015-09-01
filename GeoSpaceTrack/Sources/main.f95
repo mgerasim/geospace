@@ -17,17 +17,24 @@ PROGRAM CalcTrack
 
 use calculation
 
-CHARACTER(10)            :: slon1, slat1, slon2, slat2
+CHARACTER(10)            :: slon1, slat1, slon2, slat2, sW, sMonth
 real                     :: lon1, lat1, lon2, lat2 
-real                     :: x1, y1, x2, y2
+real                     :: x1, y1, x2, y2, W, month
 integer                  :: quantityPoints
+real, dimension ( SIZE ) :: XO, YO
 
 quantityPoints = 0
+do i = 1, SIZE, 1
+	XO(i) = 0.0 
+	YO(i) = 0.0
+end do
 
 CALL GETARG(1, slon1)
 CALL GETARG(2, slat1)
 CALL GETARG(3, slon2)
 CALL GETARG(4, slat2)
+CALL GETARG(5, sW)
+CALL GETARG(6, sMonth)
 
 print *, "DEBUG start programm..."
 
@@ -35,20 +42,23 @@ read (slon1, *) lon1
 read (slat1, *) lat1
 read (slon2, *) lon2
 read (slat2, *) lat2
-
-print *, "DEBUG ", lat1
+read (sW, *) W
+read (sMonth, *) month
 
 print *, "DEBUG PostA: " // slon1 // "  " // slat1 // "PostB: " // slon2 // "  " // slat2
+print *, "DEBUG W: " // sW // "Month: " // smonth
 
 call convert_to_rad(lat1, x1)
 call convert_to_rad(lon1, y1)
 call convert_to_rad(lat2, x2)
 call convert_to_rad(lon2, y2)
+print*, "DEBUG", DM(month)
 
-
-call calc_coord( x1, y1, x2, y2, quantityPoints )
+call calc_coord( x1, y1, x2, y2, quantityPoints, XO, YO, lat1, lat2 )
 
 print *, "DEBUG KTO = ", quantityPoints
-
+do i = 1, quantityPoints, 1
+	print *, "DEBUG XO[",i,"] = ", XO(i), "YO[",i,"] = ", YO(i)
+end do
 print *, "DEBUG ...finish programm"
 END

@@ -161,7 +161,7 @@
                                   <ul class="dropdown-menu">
                                       <li>@Html.ActionLink("Геомагнитные данные по ст.Диксон", "Index", "Magma", new { station = 38701 }, null)</li>
                                       <li class="divider"></li>
-                                      @if (ViewBag.Date != null && ViewBag.Station != null)
+                                      @if (ViewBag.Date != null && ViewBag.Station != null && ViewBag.Station != null)
                                       {
                                           @ShowMenuLink("Средние значения <b>f0F2</b>", "Index", "Average", new { type = "f0F2" }, "Средние значения f0F2")
                                           @ShowMenuLink("Средние значения <b>M3000</b>", "Index", "Average", new { type = "M3000F2" }, "Средние значения M3000")
@@ -172,7 +172,7 @@
                                           @ShowMenuLink("Средние значения <b>M3000</b>", "Index", "Average", new { type = "M3000F2" }, "Средние значения M3000")
                                       }
                                       <li class="divider"></li>
-                                      @if (ViewBag.Date != null && ViewBag.Station != null)
+                                      @if (ViewBag.Date != null && ViewBag.Station != null && ViewBag.Station != null)
                                       {
                                           @ShowMenuLink("Оценки <b>f0F2</b>", "Index", "Marks", new { type = "f0F2" }, "Оценки f0F2")
                                           @ShowMenuLink("Оценки <b>M3000</b>", "Index", "Marks", new { type = "M3000F2" }, "Оценки M3000")

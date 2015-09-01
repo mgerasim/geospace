@@ -43,13 +43,16 @@ namespace GeospaceMediana.Controllers
             try
             {                
                 List<string> output = new List<string>();
+                int W = 60;
                 output.Add("");
 
                 Track track = Track.GetById(id);
                 string param = track.PointA.Longitude.ToString().Replace( ",", "." ) + " "
                     + track.PointA.Latitude.ToString().Replace(",", ".") + " "
                     + track.PointB.Longitude.ToString().Replace(",", ".") + " "
-                    + track.PointB.Latitude.ToString().Replace(",", ".");
+                    + track.PointB.Latitude.ToString().Replace(",", ".") + " "
+                    + W.ToString() + " "
+                    + DateTime.Now.AddMonths(1).Month.ToString();
                 
                 GeospaceEntity.Helper.HelperTrack.Start(output, param);
 

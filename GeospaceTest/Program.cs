@@ -21,7 +21,7 @@ namespace GeospaceTest
            // Support01();
             Support02();
            Support03();
-         //  Support04();
+           //Support04();
            // Support05(); 
 
            //Support06();
@@ -114,7 +114,7 @@ namespace GeospaceTest
 
             ICalculation theCalcAverage = new Calculation(theLoggerAverage);
             //theCalcAverage.AverageCalc_Run();
-            theCalcAverage.AverageCalc_Run(new DateTime(2015,7,1,0,0,0), new DateTime(2015, 8, 25, 23, 0, 0));
+            theCalcAverage.AverageCalc_Run(new DateTime(2015,8,27,0,0,0), new DateTime(2015, 8, 27, 23, 0, 0));
         }   
         
         
@@ -131,10 +131,10 @@ namespace GeospaceTest
         }
         static void Support02()
         {
-            
             try
             {
                 List<string> s = new List<string>();
+                int W = 60;
                 s.Add("");
                 s.Add("");
                 s.Add("");
@@ -143,7 +143,9 @@ namespace GeospaceTest
                 string param = track.PointA.Longitude + " "
                     + track.PointA.Latitude + " "
                     + track.PointB.Longitude + " "
-                    + track.PointB.Latitude;
+                    + track.PointB.Latitude + " "
+                    + W.ToString() + " "
+                    + DateTime.Now.AddMonths(1).Month.ToString(); 
 
                 GeospaceEntity.Helper.HelperTrack.Start(s, param);
                 Console.WriteLine(s[0]);

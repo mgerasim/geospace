@@ -12,14 +12,13 @@
                 <li>
                     @Html.ActionLink(name,
                                 "Index",
-                                 "Average",
+                                 "Marks",
                                 new
                                 {
                                     stationCode = item.Code,
                                     type = ViewBag.Type,
                                     year = ViewBag.Date.Year,
                                     month = ViewBag.Date.Month,
-                                    day = ViewBag.Date.Day,
                                 }, null)
                 </li>
             }
@@ -30,14 +29,13 @@
 <li>
     @Html.ActionLink("Пред.",
             "Index",
-            "Average",
+            "Marks",
             new
             {
                 stationCode = ViewBag.Station.Code,
                 type = ViewBag.Type,
                 year = ViewBag.PrevDate.Year,
                 month = ViewBag.PrevDate.Month,
-                day = ViewBag.PrevDate.Day,
             },
                                 new
                                 {
@@ -48,14 +46,13 @@
 <li>
     @Html.ActionLink("След.",
             "Index",
-            "Average",
+            "Marks",
             new
             {                                                     // routeValues
                 stationCode = ViewBag.Station.Code,
                 type = ViewBag.Type,
                 year = ViewBag.NextDate.Year,
                 month = ViewBag.NextDate.Month,
-                day = ViewBag.NextDate.Day,
             },
                                 new
                                 {

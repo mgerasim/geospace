@@ -37,7 +37,7 @@
     @DrawAverage("container_30", "Скользящие средние " + @ViewBag.Type + " для слоя F2 за 30 дней", @ViewBag.value_30, @ViewBag.value_30_skip, @ViewBag.value, "30", @ViewBag.mediana, @ViewBag.textY, @ViewBag.max, @ViewBag.step)
  }
 
-@helper DrawTable( int [,] marks, string header )
+@helper DrawTable( double [,] marks, string header )
 {
     <table style="table-layout: fixed" class="table table-bordered table-striped">
         <thead style="width: 100%">
@@ -90,7 +90,14 @@
                         <td>-</td>
                     }
                 }
-                <td></td>
+                @if (marks[1, 24] < 1000)
+                {
+                    <td>@marks[1, 24]</td>
+                }
+                else
+                {
+                    <td>-</td>
+                }
             </tr>
             <tr>
                 <td>Δм/ф</td>
@@ -105,7 +112,14 @@
                         <td>-</td>
                     }
                 }
-                <td></td>
+                @if (marks[2, 24] < 1000)
+                {
+                    <td>@marks[2, 24]</td>
+                }
+                else
+                {
+                    <td>-</td>
+                }
             </tr>
         </tbody>
     </table>

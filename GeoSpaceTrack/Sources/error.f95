@@ -11,6 +11,8 @@ contains
 				print *, "   ERROR: |cos| > 1 " // str
 			case(1)
 				print *, "   ERROR: incorrect value " // str
+			case(2)
+				print *, "   ERROR: |sin| > 1 " // str
 		end select
 
 		call exit(1)

@@ -10,53 +10,61 @@ using System.Web.Mvc;
 
 namespace GeospaceMediana.Controllers
 {
-    public class AverageController : Controller
+    public class MarksController : Controller
     {
-        //
-        // GET: /Average/
-
-        public void Pre_Index( List<int> values, List<int> valuesSkip, List<int> mediana, List<int> ionka, ref string strValues, ref string strValuesSkip, ref int[,] marks)
+        public void Pre_Index(List<int> values, List<int> valuesSkip, List<int> mediana, List<int> ionka, ref double[,] marks)
         {
-            int sum = 0, del = 0;
+            int sum1 = 0, sum2 = 0, sum3 = 0;
+            double del1 = 0.0, del2 = 0.0, del3 = 0.0;
             for (int i = 0; i < values.Count; i++)
             {
                 if (values[i] < 1000)
                 {
-                    strValues += (values[i].ToString()).Replace(",", ".") + ",";
-                    sum += values[i];
+                    marks[0, i] = values[i] - mediana[i];
+                    sum1 += values[i] - mediana[i];
                 }
                 else
                 {
-                    strValues += "0,";
-                    del++;
+                    marks[0, i] = 1000;
+                    del1++;
                 }
-                strValuesSkip += valuesSkip[i].ToString() + ",";
-                marks[0, i] = values[i] - mediana[i];
-                if (i < ionka.Count && ionka[i] < 1000)
+                if (i < ionka.Count && ionka[i] < 1000 && values[i] < 1000)
                 {
                     marks[1, i] = values[i] - ionka[i];
                     marks[2, i] = mediana[i] - ionka[i];
+
+                    sum2 += values[i] - ionka[i];
+                    sum3 += mediana[i] - ionka[i];
                 }
                 else
                 {
                     marks[1, i] = 1000;
                     marks[2, i] = 1000;
+
+                    del2++;
+                    del3++;
                 }
             }
-            if (24 - del != 0) marks[0, 24] = (int)Math.Round(1.0 * sum / (24 - del), 0);
+
+            if (24 - del1 != 0) marks[0, 24] = Math.Round(sum1 / (24 - del1), 3);
             else marks[0, 24] = 1000;
 
+            if (24 - del2 != 0) marks[1, 24] = Math.Round(sum2 / (24 - del2), 3);
+            else marks[1, 24] = 1000;
+
+            if (24 - del3 != 0) marks[2, 24] = Math.Round(sum3 / (24 - del3), 3);
+            else marks[2, 24] = 1000;
         }
 
-        public ActionResult Index(int stationCode = 43501, string type = "f0F2", int year=-1, int month=-1, int day=-1)
+        public ActionResult Index(int stationCode = 43501, string type = "f0F2", int year = -1, int month = -1)
         {
             @ViewBag.Title = "Оценки";
 
             if (type == "M3000F2" || type == "M3000")
             {
                 ViewBag.Type = "M3000";
-                ViewBag.textY = "Коэффициент M3000 ⋅ 10";
-                ViewBag.max = "60";
+                ViewBag.textY = "Коэффициент F2 ⋅ 10";
+                ViewBag.max = "80";
             }
             if (type == "f0F2" || type == "f0")
             {
@@ -67,17 +75,14 @@ namespace GeospaceMediana.Controllers
 
             ViewBag.step = "10";
 
-            ViewBag.NameMenu = "Оценки " + ViewBag.Type;
+            ViewBag.NameMenu = "Оценка " + ViewBag.Type;
 
             DateTime nowDateTime;
 
-            if (year < 0 && month < 0 && day < 0)
-            {
-                nowDateTime = DateTime.Now.AddDays(-1);
-            }
-            else nowDateTime = new DateTime(year, month, day);
-            DateTime nextDate = nowDateTime.AddDays(1);
-            DateTime prevDate = nowDateTime.AddDays(-1);
+            if (year < 0 && month < 0) nowDateTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            else nowDateTime = new DateTime(year, month, 1);
+            DateTime nextDate = nowDateTime.AddMonths(1);
+            DateTime prevDate = nowDateTime.AddMonths(-1);
 
             int rangeNumber = 1;
 
@@ -95,164 +100,467 @@ namespace GeospaceMediana.Controllers
             ViewBag.Station = Station.GetByCode(stationCode);
             ViewBag.Stations = Station.GetAll();
 
-            string value = "[";
-            string medianaValues = "[";
-            string value_05 = "[";
-            string value_05_skip = "[";
-            string value_07 = "[";
-            string value_07_skip = "[";
-            string value_10 = "[";
-            string value_10_skip = "[";
-            string value_20 = "[";
-            string value_20_skip = "[";
-            string value_27 = "[";
-            string value_27_skip = "[";
-            string value_30 = "[";
-            string value_30_skip = "[";
-
             const int N = 25;
             const int M = 3;
+            const int P = 3;
 
-            int[,] marks_05 = new int[M, N];
-            int[,] marks_07 = new int[M, N];
-            int[,] marks_10 = new int[M, N];
-            int[,] marks_20 = new int[M, N];
-            int[,] marks_27 = new int[M, N];
-            int[,] marks_30 = new int[M, N];
+            double[] F = new double[N-1];
+            double[] delF = new double[N-1];
+
+            double[,] marks_05 = new double[M, N];
+            double[,] marks_07 = new double[M, N];
+            double[,] marks_10 = new double[M, N];
+            double[,] marks_20 = new double[M, N];
+            double[,] marks_27 = new double[M, N];
+            double[,] marks_30 = new double[M, N];
+
+            double[,] del_05 = new double[M, N];
+            double[,] del_07 = new double[M, N];
+            double[,] del_10 = new double[M, N];
+            double[,] del_20 = new double[M, N];
+            double[,] del_27 = new double[M, N];
+            double[,] del_30 = new double[M, N];
+
+            double[, ,] Marks_05 = new double[P, M, N];
+            double[, ,] Marks_07 = new double[P, M, N];
+            double[, ,] Marks_10 = new double[P, M, N];
+            double[, ,] Marks_20 = new double[P, M, N];
+            double[, ,] Marks_27 = new double[P, M, N];
+            double[, ,] Marks_30 = new double[P, M, N];
 
             try
             {
+                List<CodeIonka> modelIonka = null;
+
+                List<int> ionka = null;
+                List<int> mediana = null;
+
                 if (type == "f0F2" || type == "f0")
                 {
-                    List<int> ionka = CodeIonka.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Where(x => x.MI == 0).Select(x => x.f0F2).ToList();
-                    List<int> mediana = Mediana.GetByDate2(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, rangeNumber).Select(x => x.f0F2).ToList();
+                    DateTime dt;
+                    int dayInMonth = DateTime.DaysInMonth(nowDateTime.Year, nowDateTime.Month);
 
-                    for (int i = 0; i < ionka.Count; i++)
+                    for (int day = 0; day < dayInMonth; day++)
                     {
-                        if (ionka[i] < 1000) value += ionka[i].ToString() + ",";
-                        else value += "0,";
-                    }
+                        dt = nowDateTime.AddDays(day);
 
-                    if (mediana != null)
-                    {
-                        for (int i = 0; i < mediana.Count; i++)
+                        ionka = CodeIonka.GetByDate(Station.GetByCode(stationCode), dt.Year, dt.Month, dt.Day).Where(x => x.MI == 0).Select(x => x.f0F2).ToList();
+                        if( ionka == null ) break;
+                        for( int h = 0; h < ionka.Count; h++ )
                         {
-                            medianaValues += mediana[i].ToString() + ",";
+                            if (ionka[h] < 1000) F[h] += ionka[h];
+                            else delF[h]++;
                         }
                     }
 
-                    Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.F2_05).ToList(),
-                        Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.F2_05_skip).ToList(),
-                        mediana, ionka, ref value_05, ref value_05_skip, ref marks_05);
+                    for (int h = 0; h < ionka.Count; h++)
+                    {
+                        if (24 - delF[h] > 0) F[h] = F[h] / delF[h];
+                        else F[h] = 1000;
+                    }
 
-                    Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.F2_07).ToList(),
-                        Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.F2_07_skip).ToList(),
-                        mediana, ionka, ref value_07, ref value_07_skip, ref marks_07);
+                    for (int day = 0; day < dayInMonth; day++)
+                    {
+                        dt = nowDateTime.AddDays(day);
 
-                    Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.F2_10).ToList(),
-                        Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.F2_10_skip).ToList(),
-                        mediana, ionka, ref value_10, ref value_10_skip, ref marks_10);
+                        modelIonka = CodeIonka.GetByDate(Station.GetByCode(stationCode), dt.Year, dt.Month, dt.Day);
+                        ionka = CodeIonka.GetByDate(Station.GetByCode(stationCode), dt.Year, dt.Month, dt.Day).Where(x => x.MI == 0).Select(x => x.f0F2).ToList();
+                        mediana = Mediana.GetByDate2(Station.GetByCode(stationCode), dt.Year, dt.Month, rangeNumber).Select(x => x.f0F2).ToList();
 
-                    Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.F2_20).ToList(),
-                        Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.F2_20_skip).ToList(),
-                        mediana, ionka, ref value_20, ref value_20_skip, ref marks_20);
+                        for (int i = 0; i < 24; i++)
+                        {
+                            if (ionka.Count == i)
+                            {
+                                ionka.Add(0);
+                                continue;
+                            }
+                            else
+                            {
+                                if (i < modelIonka.Count)
+                                {
+                                    if (modelIonka[i].HH != i) ionka.Insert(i, 0);
+                                }
+                                else ionka.Insert(i, 0);
+                            }
+                        }
 
-                    Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.F2_27).ToList(),
-                        Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.F2_27_skip).ToList(),
-                        mediana, ionka, ref value_27, ref value_27_skip, ref marks_27);
+                        Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), dt.Year, dt.Month, dt.Day).Select(x => x.F2_05).ToList(),
+                        Average.GetByDate(Station.GetByCode(stationCode), dt.Year, dt.Month, dt.Day).Select(x => x.F2_05_skip).ToList(),
+                        mediana, ionka, ref marks_05);
 
-                    Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.F2_30).ToList(),
-                        Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.F2_30_skip).ToList(),
-                        mediana, ionka, ref value_30, ref value_30_skip, ref marks_30);
+                        Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), dt.Year, dt.Month, dt.Day).Select(x => x.F2_07).ToList(),
+                            Average.GetByDate(Station.GetByCode(stationCode), dt.Year, dt.Month, dt.Day).Select(x => x.F2_07_skip).ToList(),
+                            mediana, ionka, ref marks_07);
 
+                        Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), dt.Year, dt.Month, dt.Day).Select(x => x.F2_10).ToList(),
+                            Average.GetByDate(Station.GetByCode(stationCode), dt.Year, dt.Month, dt.Day).Select(x => x.F2_10_skip).ToList(),
+                            mediana, ionka, ref marks_10);
+
+                        Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), dt.Year, dt.Month, dt.Day).Select(x => x.F2_20).ToList(),
+                            Average.GetByDate(Station.GetByCode(stationCode), dt.Year, dt.Month, dt.Day).Select(x => x.F2_20_skip).ToList(),
+                            mediana, ionka, ref marks_20);
+
+                        Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), dt.Year, dt.Month, dt.Day).Select(x => x.F2_27).ToList(),
+                            Average.GetByDate(Station.GetByCode(stationCode), dt.Year, dt.Month, dt.Day).Select(x => x.F2_27_skip).ToList(),
+                            mediana, ionka, ref marks_27);
+
+                        Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), dt.Year, dt.Month, dt.Day).Select(x => x.F2_30).ToList(),
+                            Average.GetByDate(Station.GetByCode(stationCode), dt.Year, dt.Month, dt.Day).Select(x => x.F2_30_skip).ToList(),
+                            mediana, ionka, ref marks_30);
+
+                        for( int i = 0; i < M; i++ )
+                        {
+                            for( int j = 0; j < N; j++ )
+                            {
+                                if (marks_05[i, j] < 1000)
+                                {
+                                    Marks_05[0, i, j] += marks_05[i, j];
+                                    Marks_05[1, i, j] += Math.Abs( marks_05[i, j] );
+                                }
+                                else del_05[i, j]++;
+
+                                if (marks_07[i, j] < 1000)
+                                {
+                                    Marks_07[0, i, j] += marks_07[i, j];
+                                    Marks_07[1, i, j] += Math.Abs(marks_07[i, j]);
+                                }
+                                else del_07[i, j]++;
+
+                                if (marks_10[i, j] < 1000)
+                                {
+                                    Marks_10[0, i, j] += marks_10[i, j];
+                                    Marks_10[1, i, j] += Math.Abs(marks_10[i, j]);
+                                }
+                                else del_10[i, j]++;
+
+                                if (marks_20[i, j] < 1000)
+                                {
+                                    Marks_20[0, i, j] += marks_20[i, j];
+                                    Marks_20[1, i, j] += Math.Abs(marks_20[i, j]);
+                                }
+                                else del_20[i, j]++;
+
+                                if (marks_27[i, j] < 1000)
+                                {
+                                    Marks_27[0, i, j] += marks_27[i, j];
+                                    Marks_27[1, i, j] += Math.Abs(marks_27[i, j]);
+                                }
+                                else del_27[i, j]++;
+
+                                if (marks_30[i, j] < 1000)
+                                {
+                                    Marks_30[0, i, j] += marks_30[i, j];
+                                    Marks_30[1, i, j] += Math.Abs(marks_30[i, j]);
+                                }
+                                else del_30[i, j]++;
+                            }
+                        }
+                    }
+
+                    for (int i = 0; i < M; i++)
+                    {
+                        for (int j = 0; j < N; j++)
+                        {
+                            if (dayInMonth - del_05[i, j] != 0)
+                            {
+                                Marks_05[0, i, j] = Math.Round(Marks_05[0, i, j] / (dayInMonth - del_05[i, j]), 3);
+                                Marks_05[1, i, j] = Math.Round(Marks_05[1, i, j] / (dayInMonth - del_05[i, j]), 3);
+                                if (i < 24 && F[i] != 1000) Marks_05[2, i, j] = Math.Round(Marks_05[1, i, j] / F[i], 3);
+                            }
+                            else
+                            {
+                                Marks_05[0, i, j] = 1000;
+                                Marks_05[1, i, j] = 1000;
+                                Marks_05[2, i, j] = 1000;
+                            }
+
+                            if (dayInMonth - del_07[i, j] != 0)
+                            {
+                                Marks_07[0, i, j] = Math.Round(Marks_07[0, i, j] / (dayInMonth - del_07[i, j]), 3);
+                                Marks_07[1, i, j] = Math.Round(Marks_07[1, i, j] / (dayInMonth - del_07[i, j]), 3);
+                                if (i < 24 && F[i] != 1000) Marks_07[2, i, j] = Math.Round(Marks_07[1, i, j] / F[i], 3);
+                            }
+                            else
+                            {
+                                Marks_07[0, i, j] = 1000;
+                                Marks_07[1, i, j] = 1000;
+                                Marks_07[2, i, j] = 1000;
+                            }
+                            
+                            if (dayInMonth - del_10[i, j] != 0)
+                            {
+                                Marks_10[0, i, j] = Math.Round(Marks_10[0, i, j] / (dayInMonth - del_10[i, j]), 3);
+                                Marks_10[1, i, j] = Math.Round(Marks_10[1, i, j] / (dayInMonth - del_10[i, j]), 3);
+                                if (i < 24 && F[i] != 1000) Marks_10[2, i, j] = Math.Round(Marks_10[1, i, j] / F[i], 3);
+                            }
+                            else
+                            {
+                                Marks_10[0, i, j] = 1000;
+                                Marks_10[1, i, j] = 1000;
+                                Marks_10[2, i, j] = 1000;
+                            }
+                            
+                            if (dayInMonth - del_20[i, j] != 0)
+                            {
+                                Marks_20[0, i, j] = Math.Round(Marks_20[0, i, j] / (dayInMonth - del_20[i, j]), 3);
+                                Marks_20[1, i, j] = Math.Round(Marks_20[1, i, j] / (dayInMonth - del_20[i, j]), 3);
+                                if (i < 24 && F[i] != 1000) Marks_20[2, i, j] = Math.Round(Marks_20[1, i, j] / F[i], 3);
+                            }
+                            else
+                            {
+                                Marks_20[0, i, j] = 1000;
+                                Marks_20[1, i, j] = 1000;
+                                Marks_20[2, i, j] = 1000;
+                            }
+                            
+                            if (dayInMonth - del_27[i, j] != 0)
+                            {
+                                Marks_27[0, i, j] = Math.Round(Marks_27[0, i, j] / (dayInMonth - del_27[i, j]), 3);
+                                Marks_27[1, i, j] = Math.Round(Marks_27[1, i, j] / (dayInMonth - del_27[i, j]), 3);
+                                if (i < 24 && F[i] != 1000) Marks_27[2, i, j] = Math.Round(Marks_27[1, i, j] / F[i], 3);
+                            }
+                            else
+                            {
+                                Marks_27[0, i, j] = 1000;
+                                Marks_27[1, i, j] = 1000;
+                                Marks_27[2, i, j] = 1000;
+                            }
+                            
+                            if (dayInMonth - del_30[i, j] != 0)
+                            {
+                                Marks_30[0, i, j] = Math.Round(Marks_30[0, i, j] / (dayInMonth - del_30[i, j]), 3);
+                                Marks_30[1, i, j] = Math.Round(Marks_30[1, i, j] / (dayInMonth - del_30[i, j]), 3);
+                                if (i < 24 && F[i] != 1000) Marks_30[2, i, j] = Math.Round(Marks_30[1, i, j] / F[i], 3);
+                            }
+                            else
+                            {
+                                Marks_30[0, i, j] = 1000;
+                                Marks_30[1, i, j] = 1000;
+                                Marks_30[2, i, j] = 1000;
+                            }
+                        }
+                    }
                 }
 
                 if (type == "M3000F2" || type == "M3000")
                 {
-                    List<int> ionka = CodeIonka.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Where(x => x.MI == 0).Select(x => x.M3000F2).ToList();
-                    List<int> mediana = Mediana.GetByDate2(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, rangeNumber).Select(x => x.M3000F2).ToList();
+                    DateTime dt;
+                    int dayInMonth = DateTime.DaysInMonth(nowDateTime.Year, nowDateTime.Month);
 
-                    for (int i = 0; i < ionka.Count; i++)
+                    for (int day = 0; day < dayInMonth; day++)
                     {
-                        if (ionka[i] < 1000) value += ionka[i].ToString() + ",";
-                        else value += "0,";
-                    }
+                        dt = nowDateTime.AddDays(day);
 
-                    if (mediana != null)
-                    {
-                        for (int i = 0; i < mediana.Count; i++)
+                        ionka = CodeIonka.GetByDate(Station.GetByCode(stationCode), dt.Year, dt.Month, dt.Day).Where(x => x.MI == 0).Select(x => x.M3000F2).ToList();
+                        if (ionka == null) break;
+                        for (int h = 0; h < ionka.Count; h++)
                         {
-                            medianaValues += mediana.ToString() + ",";
+                            if (ionka[h] < 1000) F[h] += ionka[h];
+                            else delF[h]++;
                         }
                     }
 
-                    Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.M3000_05).ToList(),
-                        Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.M3000_05_skip).ToList(),
-                        mediana, ionka, ref value_05, ref value_05_skip, ref marks_05);
+                    for (int h = 0; h < ionka.Count; h++)
+                    {
+                        if (24 - delF[h] > 0) F[h] = F[h] / delF[h];
+                        else F[h] = 1000;
+                    }
 
-                    Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.M3000_07).ToList(),
-                        Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.M3000_07_skip).ToList(),
-                        mediana, ionka, ref value_07, ref value_07_skip, ref marks_07);
+                    for (int day = 0; day < dayInMonth; day++)
+                    {
+                        dt = nowDateTime.AddDays(day);
 
-                    Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.M3000_10).ToList(),
-                        Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.M3000_10_skip).ToList(),
-                        mediana, ionka, ref value_10, ref value_10_skip, ref marks_10);
+                        modelIonka = CodeIonka.GetByDate(Station.GetByCode(stationCode), dt.Year, dt.Month, dt.Day);
+                        ionka = CodeIonka.GetByDate(Station.GetByCode(stationCode), dt.Year, dt.Month, dt.Day).Where(x => x.MI == 0).Select(x => x.M3000F2).ToList();
+                        mediana = Mediana.GetByDate2(Station.GetByCode(stationCode), dt.Year, dt.Month, rangeNumber).Select(x => x.M3000F2).ToList();
 
-                    Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.M3000_20).ToList(),
-                        Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.M3000_20_skip).ToList(),
-                        mediana, ionka, ref value_20, ref value_20_skip, ref marks_20);
+                        for (int i = 0; i < 24; i++)
+                        {
+                            if (ionka.Count == i)
+                            {
+                                ionka.Add(0);
+                                continue;
+                            }
+                            else
+                            {
+                                if (i < modelIonka.Count)
+                                {
+                                    if (modelIonka[i].HH != i) ionka.Insert(i, 0);
+                                }
+                                else ionka.Insert(i, 0);
+                            }
+                        }
 
-                    Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.M3000_27).ToList(),
-                        Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.M3000_27_skip).ToList(),
-                        mediana, ionka, ref value_27, ref value_27_skip, ref marks_27);
+                        Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), dt.Year, dt.Month, dt.Day).Select(x => x.M3000_05).ToList(),
+                        Average.GetByDate(Station.GetByCode(stationCode), dt.Year, dt.Month, dt.Day).Select(x => x.M3000_05_skip).ToList(),
+                        mediana, ionka, ref marks_05);
 
-                    Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.M3000_30).ToList(),
-                        Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.M3000_30_skip).ToList(),
-                        mediana, ionka, ref value_30, ref value_30_skip, ref marks_30);
+                        Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), dt.Year, dt.Month, dt.Day).Select(x => x.M3000_07).ToList(),
+                            Average.GetByDate(Station.GetByCode(stationCode), dt.Year, dt.Month, dt.Day).Select(x => x.M3000_07_skip).ToList(),
+                            mediana, ionka, ref marks_07);
+
+                        Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), dt.Year, dt.Month, dt.Day).Select(x => x.M3000_10).ToList(),
+                            Average.GetByDate(Station.GetByCode(stationCode), dt.Year, dt.Month, dt.Day).Select(x => x.M3000_10_skip).ToList(),
+                            mediana, ionka, ref marks_10);
+
+                        Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), dt.Year, dt.Month, dt.Day).Select(x => x.M3000_20).ToList(),
+                            Average.GetByDate(Station.GetByCode(stationCode), dt.Year, dt.Month, dt.Day).Select(x => x.M3000_20_skip).ToList(),
+                            mediana, ionka, ref marks_20);
+
+                        Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), dt.Year, dt.Month, dt.Day).Select(x => x.M3000_27).ToList(),
+                            Average.GetByDate(Station.GetByCode(stationCode), dt.Year, dt.Month, dt.Day).Select(x => x.M3000_27_skip).ToList(),
+                            mediana, ionka, ref marks_27);
+
+                        Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), dt.Year, dt.Month, dt.Day).Select(x => x.M3000_30).ToList(),
+                            Average.GetByDate(Station.GetByCode(stationCode), dt.Year, dt.Month, dt.Day).Select(x => x.M3000_30_skip).ToList(),
+                            mediana, ionka, ref marks_30);
+
+                        for (int i = 0; i < M; i++)
+                        {
+                            for (int j = 0; j < N; j++)
+                            {
+                                if (marks_05[i, j] < 1000)
+                                {
+                                    Marks_05[0, i, j] += marks_05[i, j];
+                                    Marks_05[1, i, j] += Math.Abs(marks_05[i, j]);
+                                }
+                                else del_05[i, j]++;
+
+                                if (marks_07[i, j] < 1000)
+                                {
+                                    Marks_07[0, i, j] += marks_07[i, j];
+                                    Marks_07[1, i, j] += Math.Abs(marks_07[i, j]);
+                                }
+                                else del_07[i, j]++;
+
+                                if (marks_10[i, j] < 1000)
+                                {
+                                    Marks_10[0, i, j] += marks_10[i, j];
+                                    Marks_10[1, i, j] += Math.Abs(marks_10[i, j]);
+                                }
+                                else del_10[i, j]++;
+
+                                if (marks_20[i, j] < 1000)
+                                {
+                                    Marks_20[0, i, j] += marks_20[i, j];
+                                    Marks_20[1, i, j] += Math.Abs(marks_20[i, j]);
+                                }
+                                else del_20[i, j]++;
+
+                                if (marks_27[i, j] < 1000)
+                                {
+                                    Marks_27[0, i, j] += marks_27[i, j];
+                                    Marks_27[1, i, j] += Math.Abs(marks_27[i, j]);
+                                }
+                                else del_27[i, j]++;
+
+                                if (marks_30[i, j] < 1000)
+                                {
+                                    Marks_30[0, i, j] += marks_30[i, j];
+                                    Marks_30[1, i, j] += Math.Abs(marks_30[i, j]);
+                                }
+                                else del_30[i, j]++;
+                            }
+                        }
+                    }
+
+                    for (int i = 0; i < M; i++)
+                    {
+                        for (int j = 0; j < N; j++)
+                        {
+                            if (dayInMonth - del_05[i, j] != 0)
+                            {
+                                Marks_05[0, i, j] = Math.Round(Marks_05[0, i, j] / (dayInMonth - del_05[i, j]), 3);
+                                Marks_05[1, i, j] = Math.Round(Marks_05[1, i, j] / (dayInMonth - del_05[i, j]), 3);
+                                if (i < 24 && F[i] != 1000) Marks_05[2, i, j] = Math.Round(Marks_05[1, i, j] / F[i], 3);
+                            }
+                            else
+                            {
+                                Marks_05[0, i, j] = 1000;
+                                Marks_05[1, i, j] = 1000;
+                                Marks_05[2, i, j] = 1000;
+                            }
+
+                            if (dayInMonth - del_07[i, j] != 0)
+                            {
+                                Marks_07[0, i, j] = Math.Round(Marks_07[0, i, j] / (dayInMonth - del_07[i, j]), 3);
+                                Marks_07[1, i, j] = Math.Round(Marks_07[1, i, j] / (dayInMonth - del_07[i, j]), 3);
+                                if (i < 24 && F[i] != 1000) Marks_07[2, i, j] = Math.Round(Marks_07[1, i, j] / F[i], 3);
+                            }
+                            else
+                            {
+                                Marks_07[0, i, j] = 1000;
+                                Marks_07[1, i, j] = 1000;
+                                Marks_07[2, i, j] = 1000;
+                            }
+
+                            if (dayInMonth - del_10[i, j] != 0)
+                            {
+                                Marks_10[0, i, j] = Math.Round(Marks_10[0, i, j] / (dayInMonth - del_10[i, j]), 3);
+                                Marks_10[1, i, j] = Math.Round(Marks_10[1, i, j] / (dayInMonth - del_10[i, j]), 3);
+                                if (i < 24 && F[i] != 1000) Marks_10[2, i, j] = Math.Round(Marks_10[1, i, j] / F[i], 3);
+                            }
+                            else
+                            {
+                                Marks_10[0, i, j] = 1000;
+                                Marks_10[1, i, j] = 1000;
+                                Marks_10[2, i, j] = 1000;
+                            }
+
+                            if (dayInMonth - del_20[i, j] != 0)
+                            {
+                                Marks_20[0, i, j] = Math.Round(Marks_20[0, i, j] / (dayInMonth - del_20[i, j]), 3);
+                                Marks_20[1, i, j] = Math.Round(Marks_20[1, i, j] / (dayInMonth - del_20[i, j]), 3);
+                                if (i < 24 && F[i] != 1000) Marks_20[2, i, j] = Math.Round(Marks_20[1, i, j] / F[i], 3);
+                            }
+                            else
+                            {
+                                Marks_20[0, i, j] = 1000;
+                                Marks_20[1, i, j] = 1000;
+                                Marks_20[2, i, j] = 1000;
+                            }
+
+                            if (dayInMonth - del_27[i, j] != 0)
+                            {
+                                Marks_27[0, i, j] = Math.Round(Marks_27[0, i, j] / (dayInMonth - del_27[i, j]), 3);
+                                Marks_27[1, i, j] = Math.Round(Marks_27[1, i, j] / (dayInMonth - del_27[i, j]), 3);
+                                if (i < 24 && F[i] != 1000) Marks_27[2, i, j] = Math.Round(Marks_27[1, i, j] / F[i], 3);
+                            }
+                            else
+                            {
+                                Marks_27[0, i, j] = 1000;
+                                Marks_27[1, i, j] = 1000;
+                                Marks_27[2, i, j] = 1000;
+                            }
+
+                            if (dayInMonth - del_30[i, j] != 0)
+                            {
+                                Marks_30[0, i, j] = Math.Round(Marks_30[0, i, j] / (dayInMonth - del_30[i, j]), 3);
+                                Marks_30[1, i, j] = Math.Round(Marks_30[1, i, j] / (dayInMonth - del_30[i, j]), 3);
+                                if (i < 24 && F[i] != 1000) Marks_30[2, i, j] = Math.Round(Marks_30[1, i, j] / F[i], 3);
+                            }
+                            else
+                            {
+                                Marks_30[0, i, j] = 1000;
+                                Marks_30[1, i, j] = 1000;
+                                Marks_30[2, i, j] = 1000;
+                            }
+                        }
+                    }
                 }
             }
-            catch( System.Exception ex)
+            catch (System.Exception ex)
             {
                 return Content("Ошибка построения");
             }
 
-            value += "]";
-            value_05 += "]";
-            value_05_skip += "]";
-            value_07 += "]";
-            value_07_skip += "]";
-            value_10 += "]";
-            value_10_skip += "]";
-            value_20 += "]";
-            value_20_skip += "]";
-            value_27 += "]";
-            value_27_skip += "]";
-            value_30 += "]";
-            value_30_skip += "]";
-            medianaValues += "]";
+            ViewBag.marks_05 = Marks_05;
+            ViewBag.marks_07 = Marks_07;
+            ViewBag.marks_10 = Marks_10;
+            ViewBag.marks_20 = Marks_20;
+            ViewBag.marks_27 = Marks_27;
+            ViewBag.marks_30 = Marks_30;
 
-            ViewBag.value = value;
-            ViewBag.value_05 = value_05;
-            ViewBag.value_05_skip = value_05_skip;
-            ViewBag.value_07 = value_07;
-            ViewBag.value_07_skip = value_07_skip;
-            ViewBag.value_10 = value_10;
-            ViewBag.value_10_skip = value_10_skip;
-            ViewBag.value_20 = value_20;
-            ViewBag.value_20_skip = value_20_skip;
-            ViewBag.value_27 = value_27;
-            ViewBag.value_27_skip = value_27_skip;
-            ViewBag.value_30 = value_30;
-            ViewBag.value_30_skip = value_30_skip;
-            ViewBag.mediana = medianaValues;
-
-            ViewBag.marks_05 = marks_05;
-            ViewBag.marks_07 = marks_07;
-            ViewBag.marks_10 = marks_10;
-            ViewBag.marks_20 = marks_20;
-            ViewBag.marks_27 = marks_27;
-            ViewBag.marks_30 = marks_30;
-            
             return View();
         }
     }
