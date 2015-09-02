@@ -83,9 +83,9 @@ namespace GeospaceMediana.Controllers
 
             try
             {
-                string telegram = title;
+                string telegram = "ПРЕДВАРИТЕЛЬНЫЙ ПРОГНОЗ ИОНОСФЕРНОЙ И МАГНИТНОЙ";
                 DateTime Date = new DateTime(year,month,1);
-                telegram += "\nВОЗМУЩЕНИЯ НА " + Date.ToString("MMMM yyyy") + " г.\n";
+                telegram += "\nВОЗМУЩЕННОСТИ НА " + Date.ToString("MMMM yyyy") + " г.\n";
                 List<GeospaceEntity.Models.Telegram.ForecastMonthIonosphera> forecast = GeospaceEntity.Models.Telegram.ForecastMonthIonosphera.GetAllByDateUTC(year, month);
                 foreach (var item in forecast)
                 {
@@ -115,7 +115,7 @@ namespace GeospaceMediana.Controllers
                     {
                         if (keyFloat)
                             telegram += "                    ";//отступ
-                        telegram += "ИНОФФ" + item.setStringFiveIteration(item.IONFF) + "\n";
+                        telegram += "ИОНФФ" + item.setStringFiveIteration(item.IONFF) + "\n";
                         keyFloat = true;
                     }
                     if (item.MAGPO != "")
