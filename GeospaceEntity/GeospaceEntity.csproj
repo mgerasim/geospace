@@ -70,6 +70,7 @@
     <Compile Include="Models\Error.cs" />
     <Compile Include="Models\Mediana.cs" />
     <Compile Include="Models\Disturbance.cs" />
+    <Compile Include="Models\Settings.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\Station.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Repositories\ForecastFiveDayRepository.cs" />
     <Compile Include="Repositories\DisturbanceRepository.cs" />
     <Compile Include="Repositories\ForecastMonthIonospheraRepository.cs" />
+    <Compile Include="Repositories\SettingsRepository.cs" />
     <Compile Include="Repositories\TrackRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Repositories\MedianaRepository.cs" />
@@ -151,6 +153,9 @@
     <EmbeddedResource Include="Mappings\ForecastMonthIonosphera.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mappings\Settings.hbm.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
