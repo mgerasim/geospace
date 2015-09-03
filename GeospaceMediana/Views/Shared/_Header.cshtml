@@ -106,8 +106,8 @@
                             @ShowMenuLink("Прогноз медианы <b>f0F2</b>", "Index", "Mediana", new { year = ViewBag.Date.Year, month = ViewBag.Date.Month, stationCode = ViewBag.Station.Code, type = "f0F2", day = ViewBag.Date.Day }, "Прогноз медианы f0F2")
                             @ShowMenuLink("Прогноз медианы <b>M3000</b>", "Index", "Mediana", new { stationCode = ViewBag.Station.Code, type = "M3000F2", year = ViewBag.Date.Year, month = ViewBag.Date.Month, day = ViewBag.Date.Day }, "Прогноз медианы M3000")
                             <li class="divider"></li>
-                            @ShowMenuLink("Суточные отклонения <b>f0F2</b>", "Index", "CharacterizationDay", new { stationCode = ViewBag.Station.Code, type = "f0F2", year = ViewBag.Date.Year, month = ViewBag.Date.Month, day = ViewBag.Date.Day }, "Суточные отклонения f0F2")
-                            @ShowMenuLink("Суточные отклонения <b>M3000</b>", "Index", "CharacterizationDay", new { stationCode = ViewBag.Station.Code, type = "M3000F2", year = ViewBag.Date.Year, month = ViewBag.Date.Month, day = ViewBag.Date.Day }, "Суточные отклонения M3000")
+                            @ShowMenuLink("Суточные отклонения <b>f0F2</b>", "Index", "CharacterizationDay", new { type = "f0F2" }, "Суточные отклонения f0F2")
+                            @ShowMenuLink("Суточные отклонения <b>M3000</b>", "Index", "CharacterizationDay", new { type = "M3000F2" }, "Суточные отклонения M3000")
 
                             @ShowMenuLink("Диаграмма медианы", "Index", "ChartMediana", new { stationCode = ViewBag.Station.Code, type = "f0F2", year = ViewBag.Date.Year, month = ViewBag.Date.Month, day = ViewBag.Date.Day }, "Диаграмма медианы", true, false)
                         }
@@ -140,27 +140,26 @@
 
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Продукция<span class="caret"></span></a>
                           <ul class="dropdown-menu" role="menu">
-                              <li>@Html.ActionLink("Нарушение радиосвязи", "Index", "Disturbance")</li>
+                              <li>@Html.ActionLink("Нарушение радиосвязи", "Index", "Disturbance")</li>                              
                               <li class="divider"></li>
-                              <li>@Html.ActionLink("Редактировать продукцию", "Index", "Products")</li>
+                              <li>@Html.ActionLink("Сводная таблица по Солнцу, магнитному полю Земли и ионосфере", "Index", "Tablesun")</li>
                               <li class="divider"></li>
                               <li>@Html.ActionLink("Телеграмма месячного прогноза", "Index", "ForecastMonthIonosphera")</li>
                               <li>@Html.ActionLink("Телеграмма пятидневного прогноза", "FiveDay", "Telegram")</li>
-                              <li>@Html.ActionLink("Телеграмма полусуточного прогноза", "FiveDay", "Telegram")</li>
+                              <li>@Html.ActionLink("Телеграмма полусуточного прогноза", "Index", "Telegramsub")</li>
+                              <li class="divider"></li>                              
+                              <li>@Html.ActionLink("Обзор гелиогеофизической обстановки за сутки", "EditReviewGeoEnv", "Products")</li>
+                              <li>@Html.ActionLink("Обзор гелиогеофизической обстановки за месяц", "EditReviewGeoEnvMonth", "Products")</li>
+                              <li class="divider"></li>                             
+                              <li>@Html.ActionLink("Геомагнитные данные по ст.Диксон", "Index", "Magma", new { station = 38701 }, null)</li>
                               <li class="divider"></li>
-                              <li>@Html.ActionLink("Суточный обзор гелиогеофизической обстановки", "EditReviewGeoEnv", "Products")</li>
-                              <li>@Html.ActionLink("Месячный обзор гелиогеофизической обстановки", "EditReviewGeoEnvMonth", "Products")</li>
-                              <li>@Html.ActionLink("Полусуточный прогноз Ионосферы и Магнитного поля Земли", "EditSubdayForecast", "Products")</li>
-                              <li>@Html.ActionLink("Пятидневный прогноз ионосферной и магнитной возмущенности Земли", "EditForecastDaysFives", "Products")</li>
-                              <li>@Html.ActionLink("Месячный прогноз Ионосферы и Магнитного поля Земли", "EditForecastMonthIonosphera", "Products")</li>
-                              <li>@Html.ActionLink("Сводная таблица по Солнцу, Магнитному полю Земли и Ионосферы", "EditTableSun", "Products")</li>
-                              <li>@Html.ActionLink("Примечания к графикам и таблицам", "EditDescription", "Products")</li>
+                              <li>@Html.ActionLink("Полусуточный прогноз Ионосферы и Магнитного поля Земли", "EditSubdayForecast", "Products")</li>                              
+                              <li>@Html.ActionLink("Месячный прогноз Ионосферы и Магнитного поля Земли", "EditForecastMonthIonosphera", "Products")</li>                              
                               <li class="divider"></li>
                               <li class="dropdown dropdown-submenu">
                                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Анализ<b class="caret"></b></a>
                                   <ul class="dropdown-menu">
-                                      <li>@Html.ActionLink("Геомагнитные данные по ст.Диксон", "Index", "Magma", new { station = 38701 }, null)</li>
-                                      <li class="divider"></li>
+                                      
                                       @if (ViewBag.Date != null && ViewBag.Station != null && ViewBag.Station != null)
                                       {
                                           @ShowMenuLink("Средние значения <b>f0F2</b>", "Index", "Average", new { type = "f0F2" }, "Средние значения f0F2")
@@ -194,8 +193,6 @@
                                   </ul>
                               </li>
 
-                              <li class="divider"></li>
-                              <li><a href="http://www.khabmeteo.ru/geo" target="_blank">Геофизика на Хабаровск Погода Центр</a></li>
 
                           </ul>
                       </li>
@@ -222,9 +219,14 @@
                     <ul class="dropdown-menu" role="menu">
                         <li>@Html.ActionLink("Справка", "Index", "About")</li>
                         <li class="divider"></li>
+                        <li>@Html.ActionLink("Настройки", "Index", "Settings")</li>
+                        <li>@Html.ActionLink("Обновить схему", "Update", "Schema")</li>
+                        <li class="divider"></li>
                         <li>
                             <a href="~/about/api">API <br/><code>Интерфейс получения данных в JSON формате</code> </a>
                         </li>
+                        <li class="divider"></li>
+                        <li>@Html.ActionLink("Примечания к графикам и таблицам", "EditDescription", "Products")</li>
                         <li class="divider"></li>
                         <li><a href="http://www.khabmeteo.ru/geo" target="_blank">Геофизика на Хабаровск Погода Центр </a></li>
 

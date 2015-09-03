@@ -149,7 +149,7 @@
                                     НОВОСИБИРСК ГИМЕТ ШАКИРОВОЙ<br />
                                     ПРЕДВАРИТЕЛЬНЫЙ ПРОГНОЗ ИОНОСФЕРНОЙ И МАГНИТНОЙ<br />
                                 </div>
-                                <div>ВОЗМУЩЕНИЯ НА @ViewBag.Date.ToString("MMMM yyyy").ToUpper() г.<br /></div>
+                                <div style="text-align:center;">ВОЗМУЩЕНИЯ НА @ViewBag.Date.ToString("MMMM yyyy").ToUpper() г.<br /></div>
                             </div>
                             <div class="row">
                                 @foreach (var station in ViewBag.NumStation)
@@ -175,7 +175,7 @@
                             <div class="row">
                                 @foreach (var item in ViewBag.NumStation)
                                 {
-                                    <div id="@{@item}_I" style="float: left; width: 120px; margin-right:4px;">
+                                    <div id="@{@item}_I" class="rowForecast">
 
                                     </div>
                                 }
@@ -183,11 +183,11 @@
                             <div class="row">ОПРАВДЫВАЕМОСТЬ МАГНИТНОГО ПРОГНОЗА ЗА @ViewBag.Date.AddMonths(-2).ToString("MMMM yyyy").ToUpper() г.<br /></div>
                             <div class="row">
                                 @foreach (var item in ViewBag.NumStation)
-                                {
-                                    <div id="@{@item}_M"  style="float: left; width: 120px; margin-right: 4px;">
+                                    {
+                                        <div id="@{@item}_M" class="rowForecast">
 
-                                    </div>
-                                }
+                                        </div>
+                                    }
                             </div>
                         </div>
 
@@ -498,7 +498,7 @@
 
 
 
-                    <div class="label-danger container-fluid panel" style="color:black;">ОПРАВДЫВАЕМОСТЬ ПРОГНОЗА ЗА @ViewBag.Date.AddMonths(-2).ToString("MMMM yyyy").ToUpper() г.</div>
+                    @*<div class="label-danger container-fluid panel" style="color:black;">ОПРАВДЫВАЕМОСТЬ ПРОГНОЗА ЗА @ViewBag.Date.AddMonths(-2).ToString("MMMM yyyy").ToUpper() г.</div>*@
                     @{
                         //запрос данных о прогнозе за месяц -1 от текущего
                         GeospaceEntity.Models.Telegram.ForecastMonthIonosphera forecast43501_old = GeospaceEntity.Models.Telegram.ForecastMonthIonosphera.GetByDateUTC(Station.GetByCode(43501), ViewBag.Date.Year, ViewBag.Date.Month - 2);
@@ -510,7 +510,7 @@
                         <div class="panel-heading" role="tab" id="headingForecast_I" data-toggle="collapse" data-parent="#accordion" data-target="#collapseForecast_I">
                             <h4 class="panel-title">
                                 <a class="collapsed" role="button" aria-expanded="false" aria-controls="collapseForecast_I">
-                                    Ионосферный прогноз
+                                    Оправдываемость ионосферного прогноза за @ViewBag.Date.AddMonths(-2).ToString("MMMM yyyy").ToUpper() г.
                                 </a>
                             </h4>
                         </div>
@@ -574,7 +574,7 @@
                         <div class="panel-heading" role="tab" id="headingForecast_M" data-toggle="collapse" data-parent="#accordion" data-target="#collapseForecast_M">
                             <h4 class="panel-title">
                                 <a class="collapsed" role="button" aria-expanded="false" aria-controls="collapseForecast_M">
-                                    Магнитный прогноз
+                                    Оправдываемость магнитного прогноза за @ViewBag.Date.AddMonths(-2).ToString("MMMM yyyy").ToUpper() г.
                                 </a>
                             </h4>
                         </div>
@@ -642,24 +642,33 @@
     </div>
 </div>
 <style type="text/css">
+    .rowForecast {
+        float: left;
+        width: 152px;
+        margin-right: 4px;
+    }
     .station-title{
         display:block;
-        width:175px;
+        width:205px;
         padding-left:15px;
         float:left;
     }
     .station-info {
-        width: 400px;
+        width: 450px;
         float:left;
     }
     .div{
         text-align:left
     }
     .hed-print {
-        width:575px;
+        width: 680px;
         text-align: left;
-        font-family:'Courier New';
+        font-family: 'Courier New';
+        font-size: 16px;
         margin-left: 5px;
+    }
+    .hed{
+        text-align:center;
     }
    
     .pager  {
@@ -697,32 +706,23 @@
         margin-bottom: 6px;
     }
 
-    .String {
-        width: 600px;
-        align-content: center;
-        margin-left: 25px;
-        font-family: 'Times New Roman';
-        font-size: 17px;
-        text-align: left;
-    }
-
-    #SNumber {
-        margin-top: 8px;
-    }
-
-    #numberHab {
-        text-align: center;
-        font-family: 'Times New Roman';
-        font-size: 17px;
-        margin-left: 30px;
-    }
 </style>
 <style type="text/css" media="print">
     .forma-station, h2 {
         visibility: hidden;
         display: none;
     }
-
+    .station-title {
+        display: block;
+        width: 180px;
+        padding-left: 15px;
+        float: left;
+    }
+    .rowForecast {
+        float: left;
+        width: 120px;
+        margin-right: 4px;
+    }
     .panel-default {
         border-color: white;
     }
@@ -731,7 +731,11 @@
         overflow: auto;
         align-content: center;
     }
-
+    .hed-print {
+        width: 600px;
+        font-family: 'Courier New';
+        font-size: 14px;
+    }
     body {
         padding-top: 20px;
         padding-left: 10px;

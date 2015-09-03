@@ -39,8 +39,8 @@ namespace GeospaceMediana.Controllers
             }
             ViewBag.number = rangeNumber;
             ViewBag.range = MedianaCalculator.GetRangeFromNumber(nowDateTime, rangeNumber);
-           if (def == true && rangeNumber == 0)
-                nowDateTime = nowDateTime.AddMonths(1);
+           //if (def == true && rangeNumber == 0)
+           //     nowDateTime = nowDateTime.AddMonths(1);
             ViewBag.Date = nowDateTime;
             ViewBag.Year = nowDateTime.Year;
             ViewBag.Month = nowDateTime.Month;

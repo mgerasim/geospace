@@ -138,6 +138,10 @@
     <Compile Include="Controllers\MarksController.cs" />
     <Compile Include="Controllers\ForecastMonthIonospheraController.cs" />
     <Compile Include="Controllers\ForecastMonthTrackController.cs" />
+    <Compile Include="Controllers\SchemaController.cs" />
+    <Compile Include="Controllers\SettingsController.cs" />
+    <Compile Include="Controllers\TablesunController.cs" />
+    <Compile Include="Controllers\TelegramsubController.cs" />
     <Compile Include="Models\ApiCharacterization.cs" />
     <Compile Include="Models\ApiDisturbance.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -453,6 +457,10 @@
     <Content Include="Views\ForecastMonthTrack\Index.cshtml" />
     <Content Include="Views\ForecastFiveDaysTrack\Index.cshtml" />
     <Content Include="Views\ForecastTrack\Index.cshtml" />
+    <Content Include="Views\Telegramsub\Index.cshtml" />
+    <Content Include="Views\Tablesun\Index.cshtml" />
+    <Content Include="Views\Settings\Details.cshtml" />
+    <Content Include="Views\Settings\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
