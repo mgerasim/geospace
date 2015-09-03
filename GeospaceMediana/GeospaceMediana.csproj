@@ -133,8 +133,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ForecastFiveDayTrackController.cs" />
+    <Compile Include="Controllers\ForecastTrackController.cs" />
     <Compile Include="Controllers\MarksController.cs" />
     <Compile Include="Controllers\ForecastMonthIonospheraController.cs" />
+    <Compile Include="Controllers\ForecastMonthTrackController.cs" />
     <Compile Include="Models\ApiCharacterization.cs" />
     <Compile Include="Models\ApiDisturbance.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -447,6 +450,9 @@
     <Content Include="Views\ForecastMonthIonosphera\_Menu.cshtml" />
     <Content Include="Views\ForecastMonthIonosphera\Index.cshtml" />
     <Content Include="Views\Marks\Index.cshtml" />
+    <Content Include="Views\ForecastMonthTrack\Index.cshtml" />
+    <Content Include="Views\ForecastFiveDaysTrack\Index.cshtml" />
+    <Content Include="Views\ForecastTrack\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -20,13 +20,16 @@ namespace GeospaceEntity.Helper
             cmd.StartInfo.FileName = "cmd.exe";
             cmd.StartInfo.RedirectStandardInput = true;
             cmd.StartInfo.RedirectStandardOutput = true;
+            cmd.StartInfo.RedirectStandardError = true;
             cmd.StartInfo.UseShellExecute = false;
             cmd.EnableRaisingEvents = true;
             //cmd.OutputDataReceived += new DataReceivedEventHandler(Output_Data_Received);           
             cmd.OutputDataReceived += (sender, e) => { Output_Data_Received(sender, e, output ); };
+            cmd.ErrorDataReceived += (sender, e) => { Error_Data_Received(sender, e, output); };
             
             cmd.Start();
             cmd.BeginOutputReadLine();
+            cmd.BeginErrorReadLine();
 
             Build_Sources(cmd, sourcesPath, exePath);
             if(flag) Run(cmd, exePath, param);
@@ -59,17 +62,21 @@ namespace GeospaceEntity.Helper
             if (sender == null || e.Data == null) return;
 
             if (e.Data.IndexOf("DEBUG") >= 0)
-
             {
                 output[0] += e.Data.Replace("DEBUG ", "") + "\n";
             }
+
             if (e.Data.IndexOf("ERROR") >= 0)
             {
                 output[0] += e.Data + "\n";
             }
-                //Console.WriteLine(e.Data);
+        }
 
-            //if (e.Data.IndexOf("RETURN") >= 0 )
+        static void Error_Data_Received(object sender, DataReceivedEventArgs e, List<string> output)
+        {
+            if (sender == null || e.Data == null) return;
+
+            output[0] += "Error:\n" + e.Data + "\n\n";
         }
 
         public static double DegreeToRadian(double angle)
