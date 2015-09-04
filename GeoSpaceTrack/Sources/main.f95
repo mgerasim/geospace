@@ -11,19 +11,20 @@ PROGRAM CalcTrack
 !				т. В - приемник:   lat2(Х2) - широта, lat2(У2) - долгота (в градусах).
 
 !Выходные данные:
-!				quantityPoints - количество точек отражения
+!				KTO - количество точек отражения
 !				ХО(6) - массив широт точек отражения
 !				УO(6) - массив долгот точек отражения
 
 use calculation
+use forecast
 
 CHARACTER(10)            :: slon1, slat1, slon2, slat2, sW, sMonth
 real                     :: lon1, lat1, lon2, lat2 
-real                     :: x1, y1, x2, y2, W, month
-integer                  :: quantityPoints
+real                     :: x1, y1, x2, y2, D
+integer                  :: KTO, month, W
 real, dimension ( SIZE ) :: XO, YO
 
-quantityPoints = 0
+KTO = 0
 do i = 1, SIZE, 1
 	XO(i) = 0.0 
 	YO(i) = 0.0
@@ -48,17 +49,19 @@ read (sMonth, *) month
 print *, "DEBUG PostA: " // slon1 // "  " // slat1 // "PostB: " // slon2 // "  " // slat2
 print *, "DEBUG W: " // sW // "Month: " // smonth
 
-call convert_to_rad(lat1, x1)
-call convert_to_rad(lon1, y1)
-call convert_to_rad(lat2, x2)
-call convert_to_rad(lon2, y2)
-print*, "DEBUG", DM(month)
+call degree_to_rad(lat1, x1)
+call degree_to_rad(lon1, y1)
+call degree_to_rad(lat2, x2)
+call degree_to_rad(lon2, y2)
+call calc_coord( x1, y1, x2, y2, KTO, XO, YO, lat1, lat2, D )
 
-call calc_coord( x1, y1, x2, y2, quantityPoints, XO, YO, lat1, lat2 )
-
-print *, "DEBUG KTO = ", quantityPoints
-do i = 1, quantityPoints, 1
+print *, "DEBUG KTO = ", KTO
+do i = 1, KTO, 1
 	print *, "DEBUG XO[",i,"] = ", XO(i), "YO[",i,"] = ", YO(i)
 end do
+
+
+call forecast_MUF( W, month, KTO, XO, YO, D )
+
 print *, "DEBUG ...finish programm"
 END

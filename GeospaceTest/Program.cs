@@ -134,7 +134,7 @@ namespace GeospaceTest
             try
             {
                 List<string> s = new List<string>();
-                int W = 60;
+                int W = 60; 
                 s.Add("");
                 s.Add("");
                 s.Add("");
@@ -147,7 +147,8 @@ namespace GeospaceTest
                     + W.ToString() + " "
                     + DateTime.Now.AddMonths(1).Month.ToString(); 
 
-                GeospaceEntity.Helper.HelperTrack.Start(s, param);
+                GeospaceEntity.Helper.HelperTrack.Start(s, param
+                    );
                 Console.WriteLine(s[0]);
             }
             catch( System.Exception ex)

@@ -183,6 +183,15 @@
                                       }
                                   </ul>
                               </li>
+                              <li class="divider"></li>
+                              <li class="dropdown dropdown-submenu">
+                                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Прогноз радиотрасс<b class="caret"></b></a>
+                                  <ul class="dropdown-menu">
+                                      <li>@Html.ActionLink("Месячный прогноз радиотрасс", "Index", "ForecastMonthTrack")</li>
+                                      <li>@Html.ActionLink("Пятидневный прогноз радиотрасс", "Index", "ForecastFiveDaysTrack")</li>
+                                      <li>@Html.ActionLink("Фактический прогноз радиотрасс", "Index", "ForecastTrack")</li>                                      
+                                  </ul>
+                              </li>
 
 
                           </ul>

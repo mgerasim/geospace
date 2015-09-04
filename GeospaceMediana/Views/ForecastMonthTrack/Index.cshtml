@@ -1,0 +1,33 @@
+﻿@using GeospaceEntity.Helper;
+@{
+    ViewBag.Title = @ViewBag.Title;
+    
+}
+@using (Html.BeginForm("Calc", "ForecastMonthtrack", null, FormMethod.Post, new {@class = "form-horizontal"}))
+{
+<div class="form-group">
+    <label for="Name" class="col-sm-2 control-label">Потребители</label>
+    <div class="col-sm-10">
+        <select name="Consumer" class="form-control">
+            @foreach (var item in Model)
+            {
+                <option value="@item.ID">@item.Name</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="W" class="col-sm-2 control-label">W:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="W" id="W " value="60">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">Расчитать трассы</button>
+        </div>
+    </div>
+
+</div>
+}

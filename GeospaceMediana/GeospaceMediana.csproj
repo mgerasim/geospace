@@ -133,8 +133,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ForecastFiveDayTrackController.cs" />
+    <Compile Include="Controllers\ForecastTrackController.cs" />
     <Compile Include="Controllers\MarksController.cs" />
     <Compile Include="Controllers\ForecastMonthIonospheraController.cs" />
+    <Compile Include="Controllers\ForecastMonthTrackController.cs" />
     <Compile Include="Controllers\SchemaController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\TablesunController.cs" />
@@ -451,6 +454,9 @@
     <Content Include="Views\ForecastMonthIonosphera\_Menu.cshtml" />
     <Content Include="Views\ForecastMonthIonosphera\Index.cshtml" />
     <Content Include="Views\Marks\Index.cshtml" />
+    <Content Include="Views\ForecastMonthTrack\Index.cshtml" />
+    <Content Include="Views\ForecastFiveDaysTrack\Index.cshtml" />
+    <Content Include="Views\ForecastTrack\Index.cshtml" />
     <Content Include="Views\Telegramsub\Index.cshtml" />
     <Content Include="Views\Tablesun\Index.cshtml" />
     <Content Include="Views\Settings\Details.cshtml" />

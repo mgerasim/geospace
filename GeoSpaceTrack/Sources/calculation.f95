@@ -7,17 +7,22 @@ public
 
 contains
 
-	subroutine convert_to_rad( angle, x )
+	subroutine degree_to_rad( angle, x )
 		x =  PI * angle / 180.0
 		return
-	end subroutine convert_to_rad
+	end subroutine degree_to_rad
 
-	subroutine calc_coord( X1, Y1, X2, Y2, quantityPoints, XO ,YO, lat1, lat2 )
+	subroutine rad_to_degree( rad, x )
+		x = 180.0 * rad / PI
+		return
+	end subroutine rad_to_degree
+
+	subroutine calc_coord( X1, Y1, X2, Y2, KTO, XO ,YO, lat1, lat2, D )
 		real        :: X1, Y1, X2, Y2
 		real        :: lat1, lat2
-		integer     :: quantityPoints
+		integer     :: KTO
 		logical     :: flag
-		real        :: cosDR, DR, D
+		real        :: cosDR, DR
 		real        :: cosXOI
 		CHARACTER(50) error, error1
 		real, dimension ( SIZE )	 :: DO, XO, YO
@@ -73,25 +78,25 @@ contains
 		end if
 
 		if( 0 <= D .AND. D < 4000 ) then
-			quantityPoints = 1
+			KTO = 1
 			DO(1) = D / 2
 		end if
 
 		if( 4000 <= D .AND. D < 8000 ) then
-			quantityPoints = 2
+			KTO = 2
 			DO(1) = 2000
 			DO(2) = D - DO(1)
 		end if
 
 		if( 8000 <= D .AND. D < 12000 ) then
-			quantityPoints = 3
+			KTO = 3
 			DO(1) = 2000
 			DO(2) = D / 2
 			DO(3) = D - DO(1)
 		end if
 
 		if( 12000 <= D .AND. D < 16000 ) then
-			quantityPoints = 4
+			KTO = 4
 			DO(1) = 2000
 			DO(4) = D - DO(1)
 			DO(2) = DO(1) + (D - 2*DO(1)) / 3
@@ -99,7 +104,7 @@ contains
 		end if
 
 		if( 16000 <= D .AND. D < 20000 ) then
-			quantityPoints = 5
+			KTO = 5
 			DO(1) = 2000
 			DO(3) = D / 2
 			DO(2) = ( ( DO(3) - DO(1) ) / 2 ) + DO(1)
@@ -108,7 +113,7 @@ contains
 		end if
 
 		if( 20000 <= D ) then
-			quantityPoints = 6
+			KTO = 6
 			DO(1) = 2000
 			DO(5) = D - DO(2)
 			DO(3) = DO(2) + (DO(5) - DO(2)) / 3
@@ -117,7 +122,7 @@ contains
 			D06 = D - DO(1)
 		end if
 
-		print *, "DEBUG KTO = ", quantityPoints	
+		!print *, "DEBUG KTO = ", KTO	
 
 		flag=.true.	
 
@@ -131,7 +136,7 @@ contains
 			YO(i) = Y1
 		end if
 
- 		do i = 1, quantityPoints , 1
+ 		do i = 1, KTO , 1
  			print *, "   DEBUG Point:", i
  			DO(i) = DO(i) / R
  			XO (i) = cos( DO(i) )*SX1 + (SX2-SX1*cos(DR)) * sin( DO(i) ) / sin(DR)

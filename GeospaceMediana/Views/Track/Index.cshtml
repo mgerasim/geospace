@@ -2,11 +2,6 @@
     ViewBag.Title = "Трассы";
 }
 
-<script>
-    var submitUrl = "@Url.Action("Index", "Track")";
-
-</script>
-
 <h2>Трассы</h2>
 
 <p>Вывод расчета трассы (временный)</p>
@@ -33,7 +28,7 @@
                 @Html.ActionLink("Редактировать", "Edit", new { id = item.ID})
             </td>   
             <td>
-                @Html.ActionLink("Расчитать трассу", "Calc", new { id = item.ID})
+                @Html.ActionLink("Расчитать трассу", "Calc", new {id = item.ID})
             </td>            
         </tr>       
     }
