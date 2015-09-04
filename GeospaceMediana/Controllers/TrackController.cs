@@ -41,10 +41,15 @@ namespace GeospaceMediana.Controllers
         public ActionResult Calc(int id)
         {
             try
-            {                
+            {
                 List<string> output = new List<string>();
+                List<string> log = new List<string>();
+                log.Add("");
+
+                output.Add("[");   //MUF
+                output.Add("[");   //OPF
+                output.Add("");    //параметры: D
                 int W = 60;
-                output.Add("");
 
                 Track track = Track.GetById(id);
                 string param = track.PointA.Longitude.ToString().Replace( ",", "." ) + " "
@@ -54,9 +59,9 @@ namespace GeospaceMediana.Controllers
                     + W.ToString() + " "
                     + DateTime.Now.AddMonths(1).Month.ToString();
                 
-                GeospaceEntity.Helper.HelperTrack.Start(output, param);
+                GeospaceEntity.Helper.HelperTrack.Start(log, output, param);
 
-                ViewBag.debug = output[0];
+                ViewBag.debug = log[0];
 
                 return View("Index", GeospaceEntity.Models.Track.GetAll());
             }

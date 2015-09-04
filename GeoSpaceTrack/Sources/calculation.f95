@@ -184,6 +184,7 @@ contains
  			print *, "DEBUG       DO(", i, ") =", DO(i) 
  		end do
 
+ 		print *, "OUTPUT D", NINT(D)
 
 		print *, "DEBUG    ...finish calc_coord"
 		return

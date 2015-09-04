@@ -24,10 +24,13 @@ subroutine forecast_MUF( W, month, KTO, XO, YO, D )
 		call calc_layerF2_for_MUF_OPF( W, month, KTO, XO, YO, D, MUF, OPF )
 	end if
 
-	print *, "DEBUG MUF:"
+	print *, "DEBUG           HH             MUF(h)            OPF(h)"
 	do h = 1, HOURS, 1
-		print *, "DEBUG", h, "-", MUF(h), "-", OPF(h)
+		print *, "DEBUG", h - 1, "-", MUF(h), "-", OPF(h)
+		print *, "OUTPUT MUF ", MUF(h)
+		print *, "OUTPUT OPF ", OPF(h)
 	end do
+
 
     return
 end subroutine forecast_MUF
@@ -44,12 +47,14 @@ subroutine calc_layer_E_F1_F2_for_MUF_OPF( W, month, KTO, XO, YO, D, MUF, OPF )
 	call rad_to_degree( XO(1), obj )
 	Zm = 90 - obj + DS(month)
 	DF = (0.0006 + 0.00009*Zm) * W
-	call  rad_to_degree( (Zm + 27)/1.3, obj )
+	call  degree_to_rad( (Zm + 27)/1.3, obj )
 	A = 2.8*sin(obj) + DF
 	B = (1/(-6-Zm)**2) * log( A / 0.8 )
 
 	FF = D / (2*R)
 	F = 3000 / (2*R)
+
+	print *, "DEBUG A = ", A, "B = ", B, "Zm = ", Zm, "DF = ", DF
 
 	if( D < 2000 ) then
 		obj = cos( atan( sin(FF) / (1.017915968 - cos(FF)) ) )
@@ -71,6 +76,9 @@ subroutine calc_layer_E_F1_F2_for_MUF_OPF( W, month, KTO, XO, YO, D, MUF, OPF )
 		MDF1 = 3.8
 	end if
 
+	print *, "DEBUG MDE = ", MDE, "MDf1 = "	, MDf1
+
+	print *, "DEBUG           HH             foE(h)            foF1(h)       Z(h)"
 	do h = 1, HOURS, 1
 		call rad_to_degree( YO(1), obj )
 		call degree_to_rad( 15*((h-1) + obj/15), obj)
@@ -84,6 +92,7 @@ subroutine calc_layer_E_F1_F2_for_MUF_OPF( W, month, KTO, XO, YO, D, MUF, OPF )
 		end if
 
 		Z(h) = asin( Z(h) )
+		obj = Z(h)
 		foF1(h) = cos( (PI/2) - Z(h) )
 		if( foF1(h) < 0 ) then
 			foF1(h) = 0
@@ -92,6 +101,9 @@ subroutine calc_layer_E_F1_F2_for_MUF_OPF( W, month, KTO, XO, YO, D, MUF, OPF )
 
 		call rad_to_degree( Z(h), Z(h) )
 		foE(h) = 0.6 + A*exp( -B*(Z(h)-Zm)**2 )
+
+
+		print *, "DEBUG ", h - 1, foE(h), foF1(h), obj
 		
 		!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		MPF2(h) = 0.0
@@ -140,6 +152,11 @@ subroutine calc_layerF2_for_MUF_OPF( W, month, KTO, XO, YO, D, MUF, OPF )
 	real, dimension ( HOURS ) :: foE, Z, MUF, OPF
 	real :: A, B, Zm, MDE, FF, F, obj, obj1, DF
 	CHARACTER(50) error
+
+	do h = 1, HOURS, 1
+		MUF(h) = 1000.0
+		OPF(h) = 1000.0
+	end do
 
 
 	print *, "DEBUG NoNe"

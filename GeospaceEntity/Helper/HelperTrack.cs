@@ -11,7 +11,7 @@ namespace GeospaceEntity.Helper
 {
     public static class HelperTrack
     {
-        public static void Start( List<string> output, string param, bool flag = true )
+        public static void Start( List<string> log, List<string> output, string param, bool flag = true )
         {
             string sourcesPath = "D:\\Projects\\GeoSpace\\GeoSpaceTrack\\Sources";
             string exePath = "D:\\Projects\\GeoSpace\\GeoSpaceTrack\\Build\\track.exe";
@@ -24,8 +24,8 @@ namespace GeospaceEntity.Helper
             cmd.StartInfo.UseShellExecute = false;
             cmd.EnableRaisingEvents = true;
             //cmd.OutputDataReceived += new DataReceivedEventHandler(Output_Data_Received);           
-            cmd.OutputDataReceived += (sender, e) => { Output_Data_Received(sender, e, output ); };
-            cmd.ErrorDataReceived += (sender, e) => { Error_Data_Received(sender, e, output); };
+            cmd.OutputDataReceived += (sender, e) => { Output_Data_Received(sender, e, log, output ); };
+            cmd.ErrorDataReceived += (sender, e) => { Error_Data_Received(sender, e, log); };
             
             cmd.Start();
             cmd.BeginOutputReadLine();
@@ -56,19 +56,25 @@ namespace GeospaceEntity.Helper
             
             //string s = cmd.StandardOutput.ReadToEnd();
         }
- 
-        static void Output_Data_Received(object sender, DataReceivedEventArgs e, List<string> output )
+
+        static void Output_Data_Received(object sender, DataReceivedEventArgs e, List<string> log, List<string> output)
         {
             if (sender == null || e.Data == null) return;
 
             if (e.Data.IndexOf("DEBUG") >= 0)
             {
-                output[0] += e.Data.Replace("DEBUG ", "") + "\n";
+                log[0] += e.Data.Replace("DEBUG ", "") + "\n";
             }
 
-            if (e.Data.IndexOf("ERROR") >= 0)
+            if (e.Data.IndexOf("OUTPUT") >= 0)
             {
-                output[0] += e.Data + "\n";
+                string str = e.Data.Replace("OUTPUT ", "");
+                if (str.IndexOf("MUF") >= 0)
+                    output[0] += str.Replace("MUF", "").Trim() + ", ";
+                if (str.IndexOf("OPF") >= 0)
+                    output[1] += str.Replace("OPF", "").Trim() + ", ";
+                if (str.IndexOf("D") >= 0)
+                    output[2] += str.Replace("D", "").Trim() + " ";
             }
         }
 

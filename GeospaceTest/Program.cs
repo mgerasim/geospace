@@ -133,11 +133,14 @@ namespace GeospaceTest
         {
             try
             {
-                List<string> s = new List<string>();
+                List<string> output = new List<string>();
+                List<string> log = new List<string>();
+                log.Add("");
+
+                output.Add("");   //MUF
+                output.Add("");   //OPF
                 int W = 60; 
-                s.Add("");
-                s.Add("");
-                s.Add("");
+
 
                 Track track = Track.GetById(1);
                 string param = track.PointA.Longitude + " "
@@ -147,7 +150,7 @@ namespace GeospaceTest
                     + W.ToString() + " "
                     + DateTime.Now.AddMonths(1).Month.ToString(); 
 
-                GeospaceEntity.Helper.HelperTrack.Start(s, param
+                GeospaceEntity.Helper.HelperTrack.Start(log, output, param
                     );
                 Console.WriteLine(s[0]);
             }
