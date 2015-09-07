@@ -2,7 +2,36 @@
 @{
     ViewBag.Title = "Нарушение радиосвязи";
 }
-
+<script>
+    var submitUrl = "@Url.Action("Submit", "Disturbance")";
+    var currentYear = "@ViewBag.YYYY";
+    var currentMonth = "@ViewBag.MM";
+</script>
+<style type="text/css">
+    .col-md-3:hover {
+        background-color:RGB(238,238,238);
+        cursor: pointer;
+    }
+</style>
+<script type="text/javascript">
+    function handleSaveTime(station, day) {
+        $("#stationNum").val(station);
+        $("#dayInMonths").val(day);
+    }
+    function Submit() {
+        var resUrl = window.submitUrl +
+                        "?station=" + $("#stationNum").val() +
+                        "&year=" + window.currentYear +
+                        "&month=" + window.currentMonth +
+                        "&day=" + $("#dayInMonths").val() +
+                        "&hour=" + $("#startTimePeriod").val() +
+                        "&duration=" + $("#durationTimePeriod").val();
+        $.ajax({
+            url: resUrl,
+            success: function () { location.reload(); }
+        });
+    }
+</script>
 <table class="table table-bordered table-striped table-disturbance">
     <thead>
         <tr>
@@ -25,16 +54,56 @@
     </thead>
     <tbody>
         @for (int i = 1; i <= DateTime.DaysInMonth(ViewBag.YYYY, ViewBag.MM); i++)
-        {
+{
 
-            <tr>
-                <td>@i</td>
-                @foreach (var item in Model.theStationList)
-                {
-                    <td class="col-md-3">@Html.Raw( Model.Display(item.Code, ViewBag.YYYY, ViewBag.MM, i))</td>
-                }
-            </tr>
-        }
+    <tr>
+        <td>@i</td>
+        @foreach (var item in Model.theStationList)
+{
+    <td id="@item.Code@i" data-whatever="@item.Code@i" data-toggle="modal" data-target="#myModal" class="col-md-3" onclick="handleSaveTime(@item.Code,@i)">@Html.Raw(Model.Display(item.Code, ViewBag.YYYY, ViewBag.MM, i))</td>
+}
+    </tr>
+}
     </tbody>
 </table>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModelLable">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabele">Нарушение радиосвязи</h4>
+            </div>
+            <a id="stationNum"></a>
+            <a id="dayInMonths"></a>
+            <div class="modal-body">
+                <div id="cloudiness-panel1" class="panel panel-success">
+                    <div id="cloudiness-panel-heading" class="panel-heading ms">Начало</div>
+                    <div class="panel-body">
+                        <select id="startTimePeriod" class="btn dropdown-toggle btn-default">
+                            @for (int i = 0; i < 24; i++)
+                            {
+                                <option>@i</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div id="cloudiness-panel2" class="panel panel-success">
+                    <div id="cloudiness-panel2-heading" class="panel-heading ms">Продолжительность</div>
+                    <div class="panel-body">
+                        <select id="durationTimePeriod" class="btn dropdown-toggle btn-default">
+                            @for (int i = 1; i < 24; i++)
+                            {
+                                <option>@i</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                <button type="button" onclick="Submit()" class="btn btn-primary">Сохранить</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
