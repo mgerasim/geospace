@@ -10,7 +10,7 @@ namespace GeospaceEntity.Models
     public class Settings
     {
         public virtual int ID { get; set; }
-       public virtual string path_exe {get; set;}
+       public virtual string GeospaceTrackExe {get; set;}
         public Settings()
         {
 

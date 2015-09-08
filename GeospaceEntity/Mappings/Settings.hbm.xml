@@ -5,7 +5,7 @@
       <column name="ID" not-null="true" />
       <generator class="identity"/>
     </id>
-    <property name="path_exe" type="string" length="10000"/>
+    <property name="GeospaceTrackExe" type="string" length="10000"/>
     
   </class>
 </hibernate-mapping>

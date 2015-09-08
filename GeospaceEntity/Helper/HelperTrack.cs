@@ -14,7 +14,7 @@ namespace GeospaceEntity.Helper
         public static void Start( List<string> log, List<string> output, string param, bool flag = true )
         {
             string sourcesPath = "D:\\Projects\\GeoSpace\\GeoSpaceTrack\\Sources";
-            string exePath = "D:\\Projects\\GeoSpace\\GeoSpaceTrack\\Build\\track.exe";
+            string exePath = "D:\\Projects\\GeoSpace\\GeoSpaceTrack\\Build\\GeospaceTrack.exe";
 
             Process cmd = new Process();
             cmd.StartInfo.FileName = "cmd.exe";
@@ -42,18 +42,16 @@ namespace GeospaceEntity.Helper
 
         public static void Build_Sources(Process cmd, string sourcesPath, string exePath)
         {            
-            string commands1 = "gfortran -c " + sourcesPath + "\\*.f95";
-            string commands2 = "gfortran -static " + sourcesPath + "\\*.f95 -o " + exePath + "\n";     
+            string commands2 = "ifort " + sourcesPath + "\\*.f90 /exe:" + exePath;   
             cmd.StandardInput.WriteLine(@"cd " + sourcesPath);
-            cmd.StandardInput.WriteLine(@commands1);
+            cmd.StandardInput.WriteLine(@"""C:\\Program Files (x86)\Intel\\Composer XE 2015\\bin\\compilervars.bat"" intel64");
             cmd.StandardInput.WriteLine(@commands2);
             //cmd.WaitForExit();
         }
 
         public static void Run(Process cmd, string exePath, string param)
         {
-            cmd.StandardInput.WriteLine(@exePath + " " + param);
-            
+            cmd.StandardInput.WriteLine(@exePath + " " + param);            
             //string s = cmd.StandardOutput.ReadToEnd();
         }
 

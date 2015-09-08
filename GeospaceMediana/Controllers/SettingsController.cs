@@ -58,11 +58,11 @@ namespace GeospaceMediana.Controllers
             try
             {
                 // TODO: Add update logic here
-                string path_exe = collection.Get("path_exe");
+                string GeospaceTrackExe = collection.Get("GeospaceTrackExe");
                 Settings settings = new Settings()
                 {
                     ID = id,
-                    path_exe = path_exe
+                    GeospaceTrackExe = GeospaceTrackExe
                 };
 
                 IRepository<Settings> repo = new SettingsRepository();
