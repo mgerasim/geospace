@@ -64,6 +64,44 @@ namespace GeospaceMediana.Controllers
             theViewData.theDisturbanceList = theDisturbanceList;
             return View(theViewData);
         }
+        public ActionResult Submit(int station, int year, int month, int day, int hour,int duration)
+        {
+            try
+            {
+                Station stationCode = Station.GetByCode(station);
+                for (int i = hour; i < hour + duration; ++i)
+                {
+                    GeospaceEntity.Models.Disturbance disturbanceSave = GeospaceEntity.Models.Disturbance.GetByDate(stationCode, year, month, day, i, 0);
 
+                    if (disturbanceSave == null)
+                    {
+                        disturbanceSave = new GeospaceEntity.Models.Disturbance();
+
+                        disturbanceSave.Station = stationCode;
+                        disturbanceSave.YYYY = year;
+                        disturbanceSave.MM = month;
+                        disturbanceSave.DD = day;
+                        disturbanceSave.HH = i;
+                        disturbanceSave.MI = 0;
+
+                        disturbanceSave.Save();
+                    }
+                    else
+                    {
+                        disturbanceSave.HH = i;
+                        disturbanceSave.MI = 0;
+                        disturbanceSave.Update();
+                    }
+                }
+               
+
+                return Content("");
+            }
+            catch (Exception)
+            {
+                return Content("Ошибка при отправлении данных! Проверьте корректность вводимых данных.");
+            }
+        }
     }
+
 }
