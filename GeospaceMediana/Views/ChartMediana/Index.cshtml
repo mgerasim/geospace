@@ -217,7 +217,7 @@
                                 }
                                 else
                                 {
-                                    if (ViewBag.RangeNumber == 0)
+                                    if (ViewBag.RangeNumber == 1)
                                     {
                                         @DrawSeries(ViewBag.PrevDate, 5, "true")                                        
                                     }
@@ -227,7 +227,7 @@
                                     }
                                      
 
-                                    for (int range = 0; range < 6; range++)
+                                    for (int range = 1; range < 6; range++)
                                     {
                                         if (ViewBag.RangeNumber == range || ViewBag.RangeNumber - 1 == range)
                                         {
