@@ -80,11 +80,10 @@ namespace GeospaceMediana.Controllers
 
                 return Content("");
             }
-            catch (Exception)
+            catch (Exception x )
             {
-                return Content("Ошибка при отправлении данных! Проверьте корректность вводимых данных.");
+                return View( x);
             }
-
         }
         public ActionResult SubmitFiveDayTelegram(int year, int month, int range_number)
         {
@@ -128,9 +127,9 @@ namespace GeospaceMediana.Controllers
                     telegram += "\r\n";
                     GeospaceEntity.Models.Telegram.ForecastFiveDay forecastData = GeospaceEntity.Models.Telegram.ForecastFiveDay.GetByDateUTC(stat, day.Year, day.Month, range_number);
                     if(forecastData != null){
-                        if (forecastData.IONFO != "") { telegram += "IONFO " + forecastData.IONFO + "   "; }
-                        if (forecastData.IONES != "") { telegram += "IONES " + forecastData.IONES + "   "; }
-                        if (forecastData.MAGPO != "") { telegram += "MAGPO " + forecastData.MAGPO + "   "; }
+                        if (forecastData.IONFO != "") { telegram += "IONFO " + forecastData.IONFO + "  "; }
+                        if (forecastData.IONES != "") { telegram += "IONES " + forecastData.IONES + "  "; }
+                        if (forecastData.MAGPO != "") { telegram += "MAGPO " + forecastData.MAGPO + "  "; }
                     }
                     telegram += "\r\n\r\n";
                 }
