@@ -72,7 +72,7 @@ namespace GeospaceMediana.Controllers
                 RangeNumber = MedianaCalculator.GetRangeFromDate(GeospaceEntity.Helper.DateTimeKhabarovsk.Now);
             }
 
-            ViewBag.RangeNumber = RangeNumber;
+            ViewBag.RangeNumber = RangeNumber+1;
 
             return View();
         }
