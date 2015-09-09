@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using GeospaceEntity.Models;
 using System.Diagnostics;
 using System.IO;
+using GeospaceEntity.Common;
+using GeospaceEntity.Repositories;
 
 namespace GeospaceEntity.Helper
 {
@@ -13,8 +15,9 @@ namespace GeospaceEntity.Helper
     {
         public static void Start( List<string> log, List<string> output, string param, bool flag = true )
         {
+            IRepository<Settings> repo = new SettingsRepository();
             string sourcesPath = "D:\\Projects\\GeoSpace\\GeoSpaceTrack\\Sources";
-            string exePath = "D:\\Projects\\GeoSpace\\GeoSpaceTrack\\Build\\GeospaceTrack.exe";
+            string exePath = repo.GetAll().Select(x => x.GeospaceTrackExe).ToList()[0];
 
             Process cmd = new Process();
             cmd.StartInfo.FileName = "cmd.exe";

@@ -11,6 +11,9 @@
     <property name="Code" unique="true" not-null="true "/>
     <property name="Longitude" />
     <property name="Latitude" />
+    <property name="addition">
+      <column name="addition" default="1000" not-null="true "/>
+    </property>
 
     <set name="IonkaValues" cascade="all" >
       <key column="Station_ID"/>

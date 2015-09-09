@@ -15,11 +15,8 @@ namespace GeospaceTest
     {
         static void Main(string[] args)
         {
-            Consumer.Print_All("Consumers.txt");
-
-
            // Support01();
-            Support02();
+           Support02();
            Support03();
            //Support04();
            // Support05(); 
@@ -131,6 +128,13 @@ namespace GeospaceTest
         }
         static void Support02()
         {
+            foreach( Station item in Station.GetAll() )
+            {
+                item.Calc_Addition();
+            }
+
+
+            return;
             try
             {
                 List<string> output = new List<string>();

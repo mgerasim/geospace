@@ -17,9 +17,11 @@ namespace GeospaceEntity.Models
         public virtual int Code { get; set; }        
         public virtual double Longitude { get; set; }
         public virtual double Latitude { get; set; }
+        public virtual double addition { get; set; }          //добавка для расчета радиотрасс
         public Station()
         {
             this._IonkaValues = new System.Collections.Generic.HashSet<Codes.CodeIonka>();
+            addition = 1000;
         }
         private ICollection<Codes.CodeIonka> _IonkaValues;
         public virtual ICollection<Codes.CodeIonka> IonkaValues
@@ -32,6 +34,35 @@ namespace GeospaceEntity.Models
             {
                 this._IonkaValues = value;
             }
+        }
+
+        public virtual void Calc_Addition()
+        {
+            //80	70	 60	   50	40	 30	  20	10	 0	 -10   -20	 -30  -40	-50	   -60	 -70
+            //0.7	0.7	 0.7   0.6	0.6	 0.5  0.5	0.4	 0.5  0.5   0.6	 0.6   0.7	 0.7   0.8	 0.8
+            //0.8	0.8	 0.8   0.7	0.7	 0.6  0.5	0.5	 0.5  0.5   0.6	 0.6   0.7	 0.7   0.8	 0.8	  
+                           //             {   0,  10, 20, 30,   40,   50,  60,  70,  80, -10, -20, -30, -40, -50, -60, -70 }
+            double[] east = new double [] { 0.5, 0.4, 0.5, 0.5, 0.6, 0.6, 0.7, 0.7, 0.7, 0.5, 0.6, 0.6, 0.7, 0.7, 0.8, 0.8 };
+            double[] west = new double [] { 0.5, 0.5, 0.5, 0.6, 0.7, 0.7, 0.8, 0.8, 0.8, 0.5, 0.6, 0.6, 0.7, 0.7, 0.8, 0.8 };
+            double[] arrAdd = null;
+
+            int prev = 0, next = 0, sign = 0;
+
+            if (Longitude < 180) arrAdd = east;
+            if (Longitude >= 180) arrAdd = west;
+
+            if (arrAdd == null) return;
+
+            if (Latitude < 0) sign = 8;
+
+            prev = (int)(Latitude/10.0) + sign;
+            next = prev + 1;
+
+            if (next >= arrAdd.Length || prev >= arrAdd.Length) return;
+
+            addition = Math.Round( arrAdd[prev] + ((arrAdd[next] - arrAdd[prev]) * (Latitude - prev*10)) / 10.0, 1 );
+
+            this.Update();
         }
 
         private ICollection<Codes.CodeUmagf> _UmagfValues;

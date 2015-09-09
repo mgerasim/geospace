@@ -1,0 +1,34 @@
+﻿<li>
+    @Html.ActionLink("Пред.",
+            "Index",
+            "ForecastTrack",
+            new
+            {                                                     // routeValues
+                year = ViewBag.prevDate.Year,
+                month = ViewBag.prevDate.Month,
+                day = ViewBag.prevDate.Day,
+            },
+                                new
+                                {
+                                    @class = "btn btn-default btn-lg"
+                                }
+)
+</li>
+<li>
+    @Html.ActionLink("След.",
+            "Index",
+            "ForecastTrack",
+            new
+            {           
+                                                          // routeValues
+                year = ViewBag.nextDate.Year,
+                month = ViewBag.nextDate.Month,
+                day = ViewBag.nextDate.Day,
+            },
+                                new
+                                {
+                                    @class = "btn btn-default btn-lg"
+                                }
+)
+</li>
+<li class="btn btn-default btn-lg">@ViewBag.Date.ToShortDateString()</li>

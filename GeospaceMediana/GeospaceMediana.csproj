@@ -144,6 +144,7 @@
     <Compile Include="Controllers\TelegramsubController.cs" />
     <Compile Include="Models\ApiCharacterization.cs" />
     <Compile Include="Models\ApiDisturbance.cs" />
+    <Compile Include="Models\ViewForecastTrack.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -461,6 +462,7 @@
     <Content Include="Views\Tablesun\Index.cshtml" />
     <Content Include="Views\Settings\Details.cshtml" />
     <Content Include="Views\Settings\Edit.cshtml" />
+    <Content Include="Views\ForecastTrack\_Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

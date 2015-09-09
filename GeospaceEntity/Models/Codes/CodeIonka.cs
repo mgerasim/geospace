@@ -341,7 +341,7 @@ namespace GeospaceEntity.Models.Codes
             }
         }
 
-        public virtual string DisplayValue(int Value)
+        public static string DisplayValue(int Value)
         {
             switch (Value)
             {

@@ -3,3 +3,180 @@
     ViewBag.Title = @ViewBag.Title;
     
 }
+
+@for (int i = 0; i < Model.quantity; i++)
+{
+    @DrawTable(Model.header[i], Model.Table1[i], Model.Table2[i]);
+    <br />
+    <br />
+}
+
+@helper DrawTable(string header, double[,] table1, double[,] table2)
+{
+    <table align="center" style="table-layout: auto;" class="table table-bordered table-striped">
+        <thead style="width: 100%">
+            <tr>
+                <th colspan="25" align="center">МПЧ 0 км. @header</th>
+            </tr>
+
+            <tr>
+                <th rowspan="2" align="center">Характеристики</th>
+                <th colspan="24" align="center" style="align-content:center">Часы UT</th>
+            </tr>
+            <tr>
+                @for (int i = 0; i < 24; i++)
+                {
+                    <td>@i</td>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>F2_0_МПЧ</td>
+                @for (int i = 0; i < 24; i++)
+                {
+                    if( table1[0,i] >= 1000)
+                    {
+                        <td>@GeospaceEntity.Models.Codes.CodeIonka.DisplayValue((int)table1[0,i])</td>
+                    }
+                    else
+                    {
+                        <td>@table1[0, i]</td>
+                    }
+                }
+            </tr>
+            <tr>
+                <td>F1_0_МПЧ</td>
+                @for (int i = 0; i < 24; i++)
+                {
+                    if( table1[1,i] >= 1000)
+                    {
+                        <td>@GeospaceEntity.Models.Codes.CodeIonka.DisplayValue((int)table1[1,i])</td>
+                    }
+                    else
+                    {
+                        <td>@table1[1, i]</td>
+                    }
+                }
+            </tr>
+            <tr>
+                <td>E_0_МПЧ</td>
+                @for (int i = 0; i < 24; i++)
+                {
+                    if( table1[2,i] >= 1000)
+                    {
+                        <td>@GeospaceEntity.Models.Codes.CodeIonka.DisplayValue((int)table1[2,i])</td>
+                    }
+                    else
+                    {
+                        <td>@table1[2, i]</td>
+                    }
+                }
+            </tr>
+            <tr>
+                <td>Es_0_МПЧ</td>
+                @for (int i = 0; i < 24; i++)
+                {
+                    if( table1[3,i] >= 1000)
+                    {
+                        <td>@GeospaceEntity.Models.Codes.CodeIonka.DisplayValue((int)table1[3,i])</td>
+                    }
+                    else
+                    {
+                        <td>@table1[3, i]</td>
+                    }
+                }
+            </tr>
+            <tr>
+                <td>МПЧ_0</td>
+                @for (int i = 0; i < 24; i++)
+                {
+                    if( table1[4,i] >= 1000)
+                    {
+                        <td>@GeospaceEntity.Models.Codes.CodeIonka.DisplayValue((int)table1[4,i])</td>
+                    }
+                    else
+                    {
+                        <td>@table1[4, i]</td>
+                    }
+                }
+            </tr>
+        </tbody>
+
+        <thead style="width: 100%">
+            <tr>
+                <th colspan="25" align="center">МПЧ скачка</th>
+            </tr>
+
+            <tr>
+                <th rowspan="2" align="center">Характеристики</th>
+                <th colspan="24" align="center" style="align-content:center">Часы UT</th>
+            </tr>
+            <tr>
+                @for (int i = 0; i < 24; i++)
+                {
+                    <td>@i</td>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>F2_4000_МПЧ</td>
+                @for (int i = 0; i < 24; i++)
+                {
+                    if( table2[0,i] >= 1000)
+                    {
+                        <td>-</td>
+                    }
+                    else
+                    {
+                        <td>@table2[0, i]</td>
+                    }
+                }
+            </tr>
+            <tr>
+                <td>F2_3000_МПЧ</td>
+                @for (int i = 0; i < 24; i++)
+                {
+                    if( table2[1,i] >= 1000)
+                    {
+                        <td>-</td>
+                    }
+                    else
+                    {
+                        <td>@table2[1, i]</td>
+                    }
+                }
+            </tr>
+            <tr>
+                <td>F2_2000_МПЧ</td>
+                @for (int i = 0; i < 24; i++)
+                {
+                    if( table2[2,i] >= 1000)
+                    {
+                        <td>-</td>
+                    }
+                    else
+                    {
+                        <td>@table2[2, i]</td>
+                    }
+                }
+            </tr>
+            <tr>
+                <td>МПЧ_4000</td>
+                @for (int i = 0; i < 24; i++)
+                {
+                    if( table2[3,i] >= 1000)
+                    {
+                        <td>-</td>
+                    }
+                    else
+                    {
+                        <td>@table2[3, i]</td>
+                    }
+                }
+            </tr>
+
+        </tbody>
+    </table>
+}
