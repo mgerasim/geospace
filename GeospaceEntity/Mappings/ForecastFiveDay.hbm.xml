@@ -12,7 +12,7 @@
       <column name="MM" check="(MM &gt;= 1 AND MM &lt;= 12)" unique-key="date" not-null="true"  />
     </property>
     <property name="YYYY" not-null="true" unique-key="date" />
-    <property name="RangeNumber" />
+    <property name="RangeNumber"  not-null="true" unique-key="date" />
     <property name="IONFO" type="string" length="1000"/>
     <property name="IONES" type="string" length="1000"/>
     <property name="MAGPO" type="string" length="1000"/>

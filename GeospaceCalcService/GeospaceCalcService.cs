@@ -37,6 +37,8 @@ namespace GeospaceCalcService
             theLoggerMediana = new LoggerCalc("logMediana", "errorMediana");
             theCalcMediana = new Calculation(theLoggerMediana);
             theCalcMediana.MedianaCalc_Run();
+            theCalcMediana.CharacterizationCalc();
+            theCalcMediana.DisturbanceCalc();
         }
 
         private void timer1_Tick_1(object sender, EventArgs e)

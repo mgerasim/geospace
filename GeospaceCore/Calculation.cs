@@ -48,16 +48,19 @@ namespace GeospaceCore
 
         void ICalculation.DisturbanceCalc()
         {
-            DateTime currDate = DateTime.Now;
             foreach (var station in Station.GetAll())
             {
-                try
+                for (DateTime currDate = DateTime.Now.AddMonths(-1); currDate < DateTime.Now.AddDays(2); currDate = currDate.AddDays(1))
                 {
-                    HelperCalculation.DisturbanceCalc(station, currDate);
-                }
-                catch (Exception ex)
-                {
-                    theLog.LogError(ex.Message);
+
+                    try
+                    {
+                        HelperCalculation.DisturbanceCalc(station, currDate);
+                    }
+                    catch (Exception ex)
+                    {
+                        theLog.LogError(ex.Message);
+                    }
                 }
             }
         }

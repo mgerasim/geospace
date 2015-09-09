@@ -19,7 +19,7 @@ namespace GeospaceTest
 
 
            // Support01();
-            Support02();
+            //Support02();
            Support03();
            //Support04();
            // Support05(); 
@@ -30,7 +30,7 @@ namespace GeospaceTest
 
            //Support09();
            //Support10();
-           //Support11();
+          // Support11();
            //Support11();
 
             Console.WriteLine("Ok");
@@ -131,33 +131,33 @@ namespace GeospaceTest
         }
         static void Support02()
         {
-            try
-            {
-                List<string> output = new List<string>();
-                List<string> log = new List<string>();
-                log.Add("");
+            //try
+            //{
+            //    List<string> output = new List<string>();
+            //    List<string> log = new List<string>();
+            //    log.Add("");
 
-                output.Add("");   //MUF
-                output.Add("");   //OPF
-                int W = 60; 
+            //    output.Add("");   //MUF
+            //    output.Add("");   //OPF
+            //    int W = 60; 
 
 
-                Track track = Track.GetById(1);
-                string param = track.PointA.Longitude + " "
-                    + track.PointA.Latitude + " "
-                    + track.PointB.Longitude + " "
-                    + track.PointB.Latitude + " "
-                    + W.ToString() + " "
-                    + DateTime.Now.AddMonths(1).Month.ToString(); 
+            //    Track track = Track.GetById(1);
+            //    string param = track.PointA.Longitude + " "
+            //        + track.PointA.Latitude + " "
+            //        + track.PointB.Longitude + " "
+            //        + track.PointB.Latitude + " "
+            //        + W.ToString() + " "
+            //        + DateTime.Now.AddMonths(1).Month.ToString(); 
 
-                GeospaceEntity.Helper.HelperTrack.Start(log, output, param
-                    );
-                Console.WriteLine(s[0]);
-            }
-            catch( System.Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            //    GeospaceEntity.Helper.HelperTrack.Start(log, output, param
+            //        );
+            //    Console.WriteLine(s[0]);
+            //}
+            //catch( System.Exception ex)
+            //{
+            //    Console.WriteLine(ex.Message);
+            //}
             
         }
         static void Support01()
