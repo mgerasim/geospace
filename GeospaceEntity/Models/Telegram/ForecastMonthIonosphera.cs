@@ -74,7 +74,7 @@ namespace GeospaceEntity.Models.Telegram
             {
                 foreach (string str5 in new List<string>(System.Text.RegularExpressions.Regex.Split(str, @"(?<=\G.{5})", System.Text.RegularExpressions.RegexOptions.Singleline)))
                 {
-                    if (str5.Length < 5)
+                    if (str5.Length < 5 && str5.Length != 0)
                     {
                         new_str += str5;
                         for (int i = 0; i < 5-str5.Length; i++)
