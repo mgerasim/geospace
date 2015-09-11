@@ -57,7 +57,7 @@ namespace GeospaceMediana.Models
                 string time = "";
                 if (TimeHH[i] + 1 != TimeHH[i + 1])
                 {
-                    time = String.Format("{0:D2}00-{1:D2}00; ", TimeHH[i], TimeHH[i + 1]);
+                    time = String.Format("{0:D2}00-{1:D2}00; ", TimeHH[i], TimeHH[i + 1]-1);
                 }
                 else
                 {

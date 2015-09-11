@@ -89,7 +89,7 @@ namespace GeospaceMediana.Controllers
                 List<GeospaceEntity.Models.Telegram.ForecastMonthIonosphera> forecast = GeospaceEntity.Models.Telegram.ForecastMonthIonosphera.GetAllByDateUTC(year, month);
                 foreach (var item in forecast)
                 {
-                    telegram += "ПРОГНОЗ " + item.Station.Code + " 01" + DateTime.DaysInMonth(Date.Year, Date.Month) + Date.Month % 10;
+                    telegram += "ПРОГНОЗ " + item.Station.Code + " 01" + DateTime.DaysInMonth(Date.Year, Date.Month) + Date.Month % 10 + " ";
                     bool keyFloat = false;
                     if (item.IONFO != "")
                     {
