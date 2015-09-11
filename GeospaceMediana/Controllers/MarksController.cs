@@ -18,7 +18,7 @@ namespace GeospaceMediana.Controllers
             double del1 = 0.0, del2 = 0.0, del3 = 0.0;
             for (int i = 0; i < values.Count; i++)
             {
-                if (values[i] < 1000)
+                if (values[i] < 1000 && mediana[i] < 1000)
                 {
                     marks[0, i] = values[i] - mediana[i];
                     sum1 += values[i] - mediana[i];
@@ -31,28 +31,33 @@ namespace GeospaceMediana.Controllers
                 if (i < ionka.Count && ionka[i] < 1000 && values[i] < 1000)
                 {
                     marks[1, i] = values[i] - ionka[i];
-                    marks[2, i] = mediana[i] - ionka[i];
-
                     sum2 += values[i] - ionka[i];
-                    sum3 += mediana[i] - ionka[i];
                 }
                 else
                 {
                     marks[1, i] = 1000;
-                    marks[2, i] = 1000;
-
                     del2++;
+                }
+
+                if (i < ionka.Count && ionka[i] < 1000 && mediana[i] < 1000)
+                {
+                    marks[2, i] = mediana[i] - ionka[i];
+                    sum3 += mediana[i] - ionka[i];
+                }
+                else
+                {
+                    marks[2, i] = 1000;
                     del3++;
                 }
             }
 
-            if (24 - del1 != 0) marks[0, 24] = Math.Round(sum1 / (24 - del1), 3);
+            if (24 - del1 != 0) marks[0, 24] = Math.Round(sum1 / (24 - del1), 1);
             else marks[0, 24] = 1000;
 
-            if (24 - del2 != 0) marks[1, 24] = Math.Round(sum2 / (24 - del2), 3);
+            if (24 - del2 != 0) marks[1, 24] = Math.Round(sum2 / (24 - del2), 1);
             else marks[1, 24] = 1000;
 
-            if (24 - del3 != 0) marks[2, 24] = Math.Round(sum3 / (24 - del3), 3);
+            if (24 - del3 != 0) marks[2, 24] = Math.Round(sum3 / (24 - del3), 2);
             else marks[2, 24] = 1000;
         }
 
@@ -76,6 +81,7 @@ namespace GeospaceMediana.Controllers
             ViewBag.step = "10";
 
             ViewBag.NameMenu = "Оценка " + ViewBag.Type;
+            Station stat = Station.GetByCode(stationCode);            
 
             DateTime nowDateTime;
 
@@ -83,6 +89,9 @@ namespace GeospaceMediana.Controllers
             else nowDateTime = new DateTime(year, month, 1);
             DateTime nextDate = nowDateTime.AddMonths(1);
             DateTime prevDate = nowDateTime.AddMonths(-1);
+
+            if (nowDateTime.Month == DateTime.Now.Month) ViewBag.Header = stat.Name + " - " + stat.Code.ToString() + ". Оценки на " + nowDateTime.ToShortDateString();
+            else ViewBag.Header = stat.Name + " - " + stat.Code.ToString() + ". Оценки за " + nowDateTime.ToString("MMM yyyy");
 
             int rangeNumber = 1;
 
@@ -97,7 +106,7 @@ namespace GeospaceMediana.Controllers
             ViewBag.NextDate = nextDate;
 
             ViewBag.Date = nowDateTime;
-            ViewBag.Station = Station.GetByCode(stationCode);
+            ViewBag.Station = stat;
             ViewBag.Stations = Station.GetAll();
 
             const int N = 25;
@@ -263,9 +272,9 @@ namespace GeospaceMediana.Controllers
                         {
                             if (dayInMonth - del_05[i, j] != 0)
                             {
-                                Marks_05[0, i, j] = Math.Round(Marks_05[0, i, j] / (dayInMonth - del_05[i, j]), 3);
-                                Marks_05[1, i, j] = Math.Round(Marks_05[1, i, j] / (dayInMonth - del_05[i, j]), 3);
-                                if (i < 24 && F[i] != 1000) Marks_05[2, i, j] = Math.Round(Marks_05[1, i, j] / F[i], 3);
+                                Marks_05[0, i, j] = Math.Round(Marks_05[0, i, j] / (dayInMonth - del_05[i, j]), 1);
+                                Marks_05[1, i, j] = Math.Round(Marks_05[1, i, j] / (dayInMonth - del_05[i, j]), 1);
+                                if (i < 24 && F[i] != 1000) Marks_05[2, i, j] = Math.Round(Marks_05[1, i, j] / F[i], 2);
                             }
                             else
                             {
@@ -276,9 +285,9 @@ namespace GeospaceMediana.Controllers
 
                             if (dayInMonth - del_07[i, j] != 0)
                             {
-                                Marks_07[0, i, j] = Math.Round(Marks_07[0, i, j] / (dayInMonth - del_07[i, j]), 3);
-                                Marks_07[1, i, j] = Math.Round(Marks_07[1, i, j] / (dayInMonth - del_07[i, j]), 3);
-                                if (i < 24 && F[i] != 1000) Marks_07[2, i, j] = Math.Round(Marks_07[1, i, j] / F[i], 3);
+                                Marks_07[0, i, j] = Math.Round(Marks_07[0, i, j] / (dayInMonth - del_07[i, j]), 1);
+                                Marks_07[1, i, j] = Math.Round(Marks_07[1, i, j] / (dayInMonth - del_07[i, j]), 1);
+                                if (i < 24 && F[i] != 1000) Marks_07[2, i, j] = Math.Round(Marks_07[1, i, j] / F[i], 2);
                             }
                             else
                             {
@@ -289,9 +298,9 @@ namespace GeospaceMediana.Controllers
                             
                             if (dayInMonth - del_10[i, j] != 0)
                             {
-                                Marks_10[0, i, j] = Math.Round(Marks_10[0, i, j] / (dayInMonth - del_10[i, j]), 3);
-                                Marks_10[1, i, j] = Math.Round(Marks_10[1, i, j] / (dayInMonth - del_10[i, j]), 3);
-                                if (i < 24 && F[i] != 1000) Marks_10[2, i, j] = Math.Round(Marks_10[1, i, j] / F[i], 3);
+                                Marks_10[0, i, j] = Math.Round(Marks_10[0, i, j] / (dayInMonth - del_10[i, j]), 1);
+                                Marks_10[1, i, j] = Math.Round(Marks_10[1, i, j] / (dayInMonth - del_10[i, j]), 1);
+                                if (i < 24 && F[i] != 1000) Marks_10[2, i, j] = Math.Round(Marks_10[1, i, j] / F[i], 2);
                             }
                             else
                             {
@@ -302,9 +311,9 @@ namespace GeospaceMediana.Controllers
                             
                             if (dayInMonth - del_20[i, j] != 0)
                             {
-                                Marks_20[0, i, j] = Math.Round(Marks_20[0, i, j] / (dayInMonth - del_20[i, j]), 3);
-                                Marks_20[1, i, j] = Math.Round(Marks_20[1, i, j] / (dayInMonth - del_20[i, j]), 3);
-                                if (i < 24 && F[i] != 1000) Marks_20[2, i, j] = Math.Round(Marks_20[1, i, j] / F[i], 3);
+                                Marks_20[0, i, j] = Math.Round(Marks_20[0, i, j] / (dayInMonth - del_20[i, j]), 1);
+                                Marks_20[1, i, j] = Math.Round(Marks_20[1, i, j] / (dayInMonth - del_20[i, j]), 1);
+                                if (i < 24 && F[i] != 1000) Marks_20[2, i, j] = Math.Round(Marks_20[1, i, j] / F[i], 2);
                             }
                             else
                             {
@@ -315,9 +324,9 @@ namespace GeospaceMediana.Controllers
                             
                             if (dayInMonth - del_27[i, j] != 0)
                             {
-                                Marks_27[0, i, j] = Math.Round(Marks_27[0, i, j] / (dayInMonth - del_27[i, j]), 3);
-                                Marks_27[1, i, j] = Math.Round(Marks_27[1, i, j] / (dayInMonth - del_27[i, j]), 3);
-                                if (i < 24 && F[i] != 1000) Marks_27[2, i, j] = Math.Round(Marks_27[1, i, j] / F[i], 3);
+                                Marks_27[0, i, j] = Math.Round(Marks_27[0, i, j] / (dayInMonth - del_27[i, j]), 1);
+                                Marks_27[1, i, j] = Math.Round(Marks_27[1, i, j] / (dayInMonth - del_27[i, j]), 1);
+                                if (i < 24 && F[i] != 1000) Marks_27[2, i, j] = Math.Round(Marks_27[1, i, j] / F[i], 2);
                             }
                             else
                             {
@@ -328,9 +337,9 @@ namespace GeospaceMediana.Controllers
                             
                             if (dayInMonth - del_30[i, j] != 0)
                             {
-                                Marks_30[0, i, j] = Math.Round(Marks_30[0, i, j] / (dayInMonth - del_30[i, j]), 3);
-                                Marks_30[1, i, j] = Math.Round(Marks_30[1, i, j] / (dayInMonth - del_30[i, j]), 3);
-                                if (i < 24 && F[i] != 1000) Marks_30[2, i, j] = Math.Round(Marks_30[1, i, j] / F[i], 3);
+                                Marks_30[0, i, j] = Math.Round(Marks_30[0, i, j] / (dayInMonth - del_30[i, j]), 1);
+                                Marks_30[1, i, j] = Math.Round(Marks_30[1, i, j] / (dayInMonth - del_30[i, j]), 1);
+                                if (i < 24 && F[i] != 1000) Marks_30[2, i, j] = Math.Round(Marks_30[1, i, j] / F[i], 2);
                             }
                             else
                             {
@@ -470,9 +479,9 @@ namespace GeospaceMediana.Controllers
                         {
                             if (dayInMonth - del_05[i, j] != 0)
                             {
-                                Marks_05[0, i, j] = Math.Round(Marks_05[0, i, j] / (dayInMonth - del_05[i, j]), 3);
-                                Marks_05[1, i, j] = Math.Round(Marks_05[1, i, j] / (dayInMonth - del_05[i, j]), 3);
-                                if (i < 24 && F[i] != 1000) Marks_05[2, i, j] = Math.Round(Marks_05[1, i, j] / F[i], 3);
+                                Marks_05[0, i, j] = Math.Round(Marks_05[0, i, j] / (dayInMonth - del_05[i, j]), 1);
+                                Marks_05[1, i, j] = Math.Round(Marks_05[1, i, j] / (dayInMonth - del_05[i, j]), 1);
+                                if (i < 24 && F[i] != 1000) Marks_05[2, i, j] = Math.Round(Marks_05[1, i, j] / F[i], 2);
                             }
                             else
                             {
@@ -483,9 +492,9 @@ namespace GeospaceMediana.Controllers
 
                             if (dayInMonth - del_07[i, j] != 0)
                             {
-                                Marks_07[0, i, j] = Math.Round(Marks_07[0, i, j] / (dayInMonth - del_07[i, j]), 3);
-                                Marks_07[1, i, j] = Math.Round(Marks_07[1, i, j] / (dayInMonth - del_07[i, j]), 3);
-                                if (i < 24 && F[i] != 1000) Marks_07[2, i, j] = Math.Round(Marks_07[1, i, j] / F[i], 3);
+                                Marks_07[0, i, j] = Math.Round(Marks_07[0, i, j] / (dayInMonth - del_07[i, j]), 1);
+                                Marks_07[1, i, j] = Math.Round(Marks_07[1, i, j] / (dayInMonth - del_07[i, j]), 1);
+                                if (i < 24 && F[i] != 1000) Marks_07[2, i, j] = Math.Round(Marks_07[1, i, j] / F[i], 2);
                             }
                             else
                             {
@@ -496,9 +505,9 @@ namespace GeospaceMediana.Controllers
 
                             if (dayInMonth - del_10[i, j] != 0)
                             {
-                                Marks_10[0, i, j] = Math.Round(Marks_10[0, i, j] / (dayInMonth - del_10[i, j]), 3);
-                                Marks_10[1, i, j] = Math.Round(Marks_10[1, i, j] / (dayInMonth - del_10[i, j]), 3);
-                                if (i < 24 && F[i] != 1000) Marks_10[2, i, j] = Math.Round(Marks_10[1, i, j] / F[i], 3);
+                                Marks_10[0, i, j] = Math.Round(Marks_10[0, i, j] / (dayInMonth - del_10[i, j]), 1);
+                                Marks_10[1, i, j] = Math.Round(Marks_10[1, i, j] / (dayInMonth - del_10[i, j]), 1);
+                                if (i < 24 && F[i] != 1000) Marks_10[2, i, j] = Math.Round(Marks_10[1, i, j] / F[i], 2);
                             }
                             else
                             {
@@ -509,9 +518,9 @@ namespace GeospaceMediana.Controllers
 
                             if (dayInMonth - del_20[i, j] != 0)
                             {
-                                Marks_20[0, i, j] = Math.Round(Marks_20[0, i, j] / (dayInMonth - del_20[i, j]), 3);
-                                Marks_20[1, i, j] = Math.Round(Marks_20[1, i, j] / (dayInMonth - del_20[i, j]), 3);
-                                if (i < 24 && F[i] != 1000) Marks_20[2, i, j] = Math.Round(Marks_20[1, i, j] / F[i], 3);
+                                Marks_20[0, i, j] = Math.Round(Marks_20[0, i, j] / (dayInMonth - del_20[i, j]), 1);
+                                Marks_20[1, i, j] = Math.Round(Marks_20[1, i, j] / (dayInMonth - del_20[i, j]), 1);
+                                if (i < 24 && F[i] != 1000) Marks_20[2, i, j] = Math.Round(Marks_20[1, i, j] / F[i], 2);
                             }
                             else
                             {
@@ -522,9 +531,9 @@ namespace GeospaceMediana.Controllers
 
                             if (dayInMonth - del_27[i, j] != 0)
                             {
-                                Marks_27[0, i, j] = Math.Round(Marks_27[0, i, j] / (dayInMonth - del_27[i, j]), 3);
-                                Marks_27[1, i, j] = Math.Round(Marks_27[1, i, j] / (dayInMonth - del_27[i, j]), 3);
-                                if (i < 24 && F[i] != 1000) Marks_27[2, i, j] = Math.Round(Marks_27[1, i, j] / F[i], 3);
+                                Marks_27[0, i, j] = Math.Round(Marks_27[0, i, j] / (dayInMonth - del_27[i, j]), 1);
+                                Marks_27[1, i, j] = Math.Round(Marks_27[1, i, j] / (dayInMonth - del_27[i, j]), 1);
+                                if (i < 24 && F[i] != 1000) Marks_27[2, i, j] = Math.Round(Marks_27[1, i, j] / F[i], 2);
                             }
                             else
                             {
@@ -535,9 +544,9 @@ namespace GeospaceMediana.Controllers
 
                             if (dayInMonth - del_30[i, j] != 0)
                             {
-                                Marks_30[0, i, j] = Math.Round(Marks_30[0, i, j] / (dayInMonth - del_30[i, j]), 3);
-                                Marks_30[1, i, j] = Math.Round(Marks_30[1, i, j] / (dayInMonth - del_30[i, j]), 3);
-                                if (i < 24 && F[i] != 1000) Marks_30[2, i, j] = Math.Round(Marks_30[1, i, j] / F[i], 3);
+                                Marks_30[0, i, j] = Math.Round(Marks_30[0, i, j] / (dayInMonth - del_30[i, j]), 1);
+                                Marks_30[1, i, j] = Math.Round(Marks_30[1, i, j] / (dayInMonth - del_30[i, j]), 1);
+                                if (i < 24 && F[i] != 1000) Marks_30[2, i, j] = Math.Round(Marks_30[1, i, j] / F[i], 2);
                             }
                             else
                             {

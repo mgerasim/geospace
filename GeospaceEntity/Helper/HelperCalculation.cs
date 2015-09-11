@@ -382,7 +382,7 @@ namespace GeospaceEntity.Helper
                             if (listIonka[i].f0F2 < 1000 && listIonka[i].f0F2 > 0) average.F2_05 += listIonka[i].f0F2;
                             else average.F2_05_skip++;
 
-                            if (listIonka[i].f0F2 < 1000 && listIonka[i].M3000F2 > 0) average.M3000_05 += listIonka[i].M3000F2;
+                            if (listIonka[i].M3000F2 < 1000 && listIonka[i].M3000F2 > 0) average.M3000_05 += listIonka[i].M3000F2;
                             else average.M3000_05_skip++;                        
                         }
 
@@ -391,7 +391,7 @@ namespace GeospaceEntity.Helper
                             if (listIonka[i].f0F2 < 1000 && listIonka[i].f0F2 > 0) average.F2_07 += listIonka[i].f0F2;
                             else average.F2_07_skip++;
 
-                            if (listIonka[i].f0F2 < 1000 && listIonka[i].M3000F2 > 0) average.M3000_07 += listIonka[i].M3000F2;
+                            if (listIonka[i].M3000F2 < 1000 && listIonka[i].M3000F2 > 0) average.M3000_07 += listIonka[i].M3000F2;
                             else average.M3000_07_skip++;
                         }
 
@@ -400,7 +400,7 @@ namespace GeospaceEntity.Helper
                             if (listIonka[i].f0F2 < 1000 && listIonka[i].f0F2 > 0) average.F2_10 += listIonka[i].f0F2;
                             else average.F2_10_skip++;
 
-                            if (listIonka[i].f0F2 < 1000 && listIonka[i].M3000F2 > 0) average.M3000_10 += listIonka[i].M3000F2;
+                            if (listIonka[i].M3000F2 < 1000 && listIonka[i].M3000F2 > 0) average.M3000_10 += listIonka[i].M3000F2;
                             else average.M3000_10_skip++;
                         }
 
@@ -409,7 +409,7 @@ namespace GeospaceEntity.Helper
                             if (listIonka[i].f0F2 < 1000 && listIonka[i].f0F2 > 0) average.F2_20 += listIonka[i].f0F2;
                             else average.F2_20_skip++;
 
-                            if (listIonka[i].f0F2 < 1000 && listIonka[i].M3000F2 > 0) average.M3000_20 += listIonka[i].M3000F2;
+                            if (listIonka[i].M3000F2 < 1000 && listIonka[i].M3000F2 > 0) average.M3000_20 += listIonka[i].M3000F2;
                             else average.M3000_20_skip++;
                         }
 
@@ -418,7 +418,7 @@ namespace GeospaceEntity.Helper
                             if (listIonka[i].f0F2 < 1000 && listIonka[i].f0F2 > 0) average.F2_27 += listIonka[i].f0F2;
                             else average.F2_27_skip++;
 
-                            if (listIonka[i].f0F2 < 1000 && listIonka[i].M3000F2 > 0) average.M3000_27 += listIonka[i].M3000F2;
+                            if (listIonka[i].M3000F2 < 1000 && listIonka[i].M3000F2 > 0) average.M3000_27 += listIonka[i].M3000F2;
                             else average.M3000_27_skip++;
                         }
 
@@ -427,7 +427,7 @@ namespace GeospaceEntity.Helper
                             if (listIonka[i].f0F2 < 1000 && listIonka[i].f0F2 > 0) average.F2_30 += listIonka[i].f0F2;
                             else average.F2_30_skip++;
 
-                            if (listIonka[i].f0F2 < 1000 && listIonka[i].M3000F2 > 0) average.M3000_30 += listIonka[i].M3000F2;
+                            if (listIonka[i].M3000F2 < 1000 && listIonka[i].M3000F2 > 0) average.M3000_30 += listIonka[i].M3000F2;
                             else average.M3000_30_skip++;
                         }
                     }

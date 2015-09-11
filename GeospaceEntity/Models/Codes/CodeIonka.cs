@@ -343,6 +343,8 @@ namespace GeospaceEntity.Models.Codes
 
         public static string DisplayValue(int Value)
         {
+            if (Value >= 1010) return "-";
+
             switch (Value)
             {
                 case 1000: return "S";

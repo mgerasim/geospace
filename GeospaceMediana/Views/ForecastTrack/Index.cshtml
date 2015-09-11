@@ -4,23 +4,34 @@
     
 }
 
-@for (int i = 0; i < Model.quantity; i++)
+@DrawTable("container_0", Model.header[3], Model.Table1[3], Model.Table2[3], Model.grafValues[3])
+@DrawTable("container_1", Model.header[4], Model.Table1[4], Model.Table2[4], Model.grafValues[4])
+@DrawTable("container_2", Model.header[5], Model.Table1[5], Model.Table2[5], Model.grafValues[5])
+@DrawTable("container_3", Model.header[0], Model.Table1[0], Model.Table2[0], Model.grafValues[0])
+@DrawTable("container_4", Model.header[1], Model.Table1[1], Model.Table2[1], Model.grafValues[1])
+@DrawTable("container_5", Model.header[2], Model.Table1[2], Model.Table2[2], Model.grafValues[2])
+
+@for (int i = 6; i < Model.quantity; i++)
 {
-    @DrawTable(Model.header[i], Model.Table1[i], Model.Table2[i]);
-    <br />
-    <br />
+    <div id="container_@i" style="width:100%;"></div>
+    @DrawTable("container_" + @i.ToString(), Model.header[i], Model.Table1[i], Model.Table2[i], Model.grafValues[i])
 }
 
-@helper DrawTable(string header, double[,] table1, double[,] table2)
+@section Scripts
+{
+    @Scripts.Render("~/Scripts/highcharts.js")
+    @Scripts.Render("~/Scripts/draggable-points.js")
+}
+
+@helper DrawTable(string divName, string header, double[,] table1, double[,] table2, List<string> graf)
 {
     <table align="center" style="table-layout: auto;" class="table table-bordered table-striped">
         <thead style="width: 100%">
             <tr>
-                <th colspan="25" align="center">МПЧ 0 км. @header</th>
+                <th colspan="25">@header</th>
             </tr>
-
             <tr>
-                <th rowspan="2" align="center">Характеристики</th>
+                <th rowspan="2" align="center">МПЧ 0 км. (МГц)</th>
                 <th colspan="24" align="center" style="align-content:center">Часы UT</th>
             </tr>
             <tr>
@@ -35,81 +46,42 @@
                 <td>F2_0_МПЧ</td>
                 @for (int i = 0; i < 24; i++)
                 {
-                    if( table1[0,i] >= 1000)
-                    {
-                        <td>@GeospaceEntity.Models.Codes.CodeIonka.DisplayValue((int)table1[0,i])</td>
-                    }
-                    else
-                    {
-                        <td>@table1[0, i]</td>
-                    }
+                    <td>@GeospaceEntity.Models.Codes.CodeIonka.DisplayValue((int)table1[0,i])</td>
                 }
             </tr>
             <tr>
                 <td>F1_0_МПЧ</td>
                 @for (int i = 0; i < 24; i++)
                 {
-                    if( table1[1,i] >= 1000)
-                    {
-                        <td>@GeospaceEntity.Models.Codes.CodeIonka.DisplayValue((int)table1[1,i])</td>
-                    }
-                    else
-                    {
-                        <td>@table1[1, i]</td>
-                    }
+                    <td>@GeospaceEntity.Models.Codes.CodeIonka.DisplayValue((int)table1[1,i])</td>
                 }
             </tr>
             <tr>
                 <td>E_0_МПЧ</td>
                 @for (int i = 0; i < 24; i++)
                 {
-                    if( table1[2,i] >= 1000)
-                    {
-                        <td>@GeospaceEntity.Models.Codes.CodeIonka.DisplayValue((int)table1[2,i])</td>
-                    }
-                    else
-                    {
-                        <td>@table1[2, i]</td>
-                    }
+                    <td>@GeospaceEntity.Models.Codes.CodeIonka.DisplayValue((int)table1[2,i])</td>
                 }
             </tr>
             <tr>
                 <td>Es_0_МПЧ</td>
                 @for (int i = 0; i < 24; i++)
                 {
-                    if( table1[3,i] >= 1000)
-                    {
-                        <td>@GeospaceEntity.Models.Codes.CodeIonka.DisplayValue((int)table1[3,i])</td>
-                    }
-                    else
-                    {
-                        <td>@table1[3, i]</td>
-                    }
+                    <td>@GeospaceEntity.Models.Codes.CodeIonka.DisplayValue((int)table1[3,i])</td>
                 }
             </tr>
             <tr>
                 <td>МПЧ_0</td>
                 @for (int i = 0; i < 24; i++)
                 {
-                    if( table1[4,i] >= 1000)
-                    {
-                        <td>@GeospaceEntity.Models.Codes.CodeIonka.DisplayValue((int)table1[4,i])</td>
-                    }
-                    else
-                    {
-                        <td>@table1[4, i]</td>
-                    }
+                    <td>@GeospaceEntity.Models.Codes.CodeIonka.DisplayValue((int)table1[4,i])</td>
                 }
             </tr>
         </tbody>
 
         <thead style="width: 100%">
             <tr>
-                <th colspan="25" align="center">МПЧ скачка</th>
-            </tr>
-
-            <tr>
-                <th rowspan="2" align="center">Характеристики</th>
+                <th rowspan="2" align="center">МПЧ скачка (МГц)</th>
                 <th colspan="24" align="center" style="align-content:center">Часы UT</th>
             </tr>
             <tr>
@@ -135,7 +107,7 @@
                 }
             </tr>
             <tr>
-                <td>F2_3000_МПЧ</td>
+                <td>F1_3000_МПЧ</td>
                 @for (int i = 0; i < 24; i++)
                 {
                     if( table2[1,i] >= 1000)
@@ -149,7 +121,7 @@
                 }
             </tr>
             <tr>
-                <td>F2_2000_МПЧ</td>
+                <td>E_2000_МПЧ</td>
                 @for (int i = 0; i < 24; i++)
                 {
                     if( table2[2,i] >= 1000)
@@ -179,4 +151,75 @@
 
         </tbody>
     </table>
+    <div id="@divName" style="width:100%;"></div>    
+    <script>
+
+        $(function () {
+            $('#@(divName)').highcharts({
+                title: {
+                    text: ''
+                },
+                xAxis :{
+                    title: {
+                        text: 'Часы (UT)'
+                    },
+                    categories: [
+                    @for(int i=0;i<24;i++)
+                    {
+                        @Html.Raw("'"+i.ToString("00")+"'")
+
+                        if(i!=23)
+                        {
+                            @:,
+                        }
+                    }
+                ],
+                lineWidth: 2,
+                gridLineWidth: 1,
+                tickInterval:1,
+                tickmarkPlacement: 'on',
+            },
+            yAxis: [{ // Primary yAxis
+                labels: {
+                    format: '{value}',
+                    style: {
+                        color: Highcharts.getOptions().colors[1]
+                    }
+                },
+                title: {
+                    text:'МГц',
+                    style: {
+                        color: Highcharts.getOptions().colors[1]
+                    }
+                },
+            },                
+            ],
+            tooltip: {
+                shared: true
+            },
+
+            series: [ {
+                        name: 'МПЧ_0',
+                        type: 'spline',
+                        color: 'blue',
+                        data: @graf[0]
+                        }
+                , {
+                    name: 'МПЧ_4000',
+                    type: 'spline',
+                    color: 'red',
+                    data: @graf[1]
+                    }
+                , {
+                    name: 'fmin',
+                    type: 'spline',
+                    color: 'orange',
+                    data: @graf[2]
+                }]
+            });
+        });
+
+</script>
+    
+    <br />
 }

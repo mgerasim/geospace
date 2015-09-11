@@ -30,7 +30,7 @@ namespace GeospaceMediana.Controllers
                 }
                 else
                 {
-                    strValues += "0,";
+                    strValues += "null,";
                     marks[0, i] = 1000;
                     del1++;
                 }
@@ -152,17 +152,17 @@ namespace GeospaceMediana.Controllers
                         if (mediana != null && i < mediana.Count)
                             medianaValues += mediana[i].ToString() + ",";
                         else
-                            medianaValues += "0,";
+                            medianaValues += "null,";
 
                         if (ionka.Count == i)
                         {
                             ionka.Add(0);
-                            value += "0,";
+                            value += "null,";
                             continue;
                         }
                         else if (modelIonka[i].HH != i) ionka.Insert(i, 0);
                         if (ionka[i] < 1000 && modelIonka[i].MI == 0) value += ionka[i].ToString() + ",";
-                        else value += "0,";
+                        else value += "null,";
                     }
 
                     Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.F2_05).ToList(),
@@ -193,49 +193,49 @@ namespace GeospaceMediana.Controllers
                 if (type == "M3000F2" || type == "M3000")
                 {
                     modelIonka = CodeIonka.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Where(x => x.MI == 0).ToList();
-                    ionka = CodeIonka.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Where(x => x.MI == 0).Select(x => x.f0F2).ToList();
-                    mediana = Mediana.GetByDate2(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, rangeNumber).Select(x => x.f0F2).ToList();
+                    ionka = CodeIonka.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Where(x => x.MI == 0).Select(x => x.M3000F2).ToList();
+                    mediana = Mediana.GetByDate2(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, rangeNumber).Select(x => x.M3000F2).ToList();
 
                     for (int i = 0; i < 24; i++)
                     {
                         if (mediana != null && i < mediana.Count)
                             medianaValues += mediana[i].ToString() + ",";
                         else
-                            medianaValues += "0,";
+                            medianaValues += "null,";
 
                         if (ionka.Count == i)
                         {
                             ionka.Add(0);
-                            value += "0,";
+                            value += "null,";
                             continue;
                         }
                         else if (modelIonka[i].HH != i) ionka.Insert(i, 0);
                         if (ionka[i] < 1000 && modelIonka[i].MI == 0) value += ionka[i].ToString() + ",";
-                        else value += "0,";
+                        else value += "null,";
                     }
 
-                    Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.F2_05).ToList(),
-                    Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.F2_05_skip).ToList(),
+                    Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.M3000_05).ToList(),
+                    Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.M3000_05_skip).ToList(),
                     mediana, ionka, ref value_05, ref value_05_skip, ref marks_05);
 
-                    Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.F2_07).ToList(),
-                        Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.F2_07_skip).ToList(),
+                    Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.M3000_07).ToList(),
+                        Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.M3000_07_skip).ToList(),
                         mediana, ionka, ref value_07, ref value_07_skip, ref marks_07);
 
-                    Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.F2_10).ToList(),
-                        Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.F2_10_skip).ToList(),
+                    Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.M3000_10).ToList(),
+                        Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.M3000_10_skip).ToList(),
                         mediana, ionka, ref value_10, ref value_10_skip, ref marks_10);
 
-                    Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.F2_20).ToList(),
-                        Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.F2_20_skip).ToList(),
+                    Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.M3000_20).ToList(),
+                        Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.M3000_20_skip).ToList(),
                         mediana, ionka, ref value_20, ref value_20_skip, ref marks_20);
 
-                    Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.F2_27).ToList(),
-                        Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.F2_27_skip).ToList(),
+                    Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.M3000_27).ToList(),
+                        Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.M3000_27_skip).ToList(),
                         mediana, ionka, ref value_27, ref value_27_skip, ref marks_27);
 
-                    Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.F2_30).ToList(),
-                        Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.F2_30_skip).ToList(),
+                    Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.M3000_30).ToList(),
+                        Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.M3000_30_skip).ToList(),
                         mediana, ionka, ref value_30, ref value_30_skip, ref marks_30);
                 }
 
