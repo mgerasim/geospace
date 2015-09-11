@@ -16,9 +16,12 @@ namespace GeospaceTest
         static void Main(string[] args)
         {
            // Support01();
-           Support02();
+
+           //Support02();
            //Support03();
-           Support04();
+           //Support04();
+           Support03();
+           //Support04();
            // Support05(); 
 
            //Support06();
@@ -27,7 +30,7 @@ namespace GeospaceTest
 
            //Support09();
            //Support10();
-           //Support11();
+          // Support11();
            //Support11();
 
             Console.WriteLine("Ok");
@@ -128,6 +131,7 @@ namespace GeospaceTest
         }
         static void Support02()
         {
+
             foreach( Station item in Station.GetAll() )
             {
                 item.Calc_Addition();
@@ -161,6 +165,7 @@ namespace GeospaceTest
             {
                 Console.WriteLine(ex.Message);
             }
+
             
         }
         static void Support01()
