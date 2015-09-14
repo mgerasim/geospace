@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="47e87f74-5b76-4efa-b630-cfda1e5e12d9"
+  name="Codes"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="ae68c61d-381c-4646-8683-df4adeb53487"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DGeospaceEntity.Models.Codes"
+      tag="ViewCode" />
+  </referencesInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <class
+        Id="d656b3a5-d8a7-4ecd-a775-a209f9658a19"
+        name="CodeIonka"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="9722969a-08c1-4433-9d88-d57569f19e26"
+            handle="viewcode://./CodeSchema_Class?Assembly%3Dfile:%2F%2F%2FC:%2Fproject%2FGeoSpace%2FGeospaceEntity%2Fbin%2FDebug%2FGeospaceEntity.dll Namespace%3DGeospaceEntity.Models.Codes Type%3DCodeIonka"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="8c50d8a5-54e7-4e74-8d1c-879183c44cb6"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="cf465288-da22-47ba-9651-259a5d76eb12">
+                <propertyInstance
+                  Id="4b806224-7450-471d-ba76-613f34b958df"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="3af354d1-d7cb-4170-8578-23e9842ef4d6">
+                <propertyInstance
+                  Id="4e2be14f-e804-46da-8390-7c23c865846f"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="09d5d5ce-9177-45bd-acf6-2d90c801551b">
+                <propertyInstance
+                  Id="82cab08e-2953-4ae3-8739-9b99d7c0dc12"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="0e358054-b030-4d8a-bcbc-667baaf13a78">
+                <propertyInstance
+                  Id="d489fa20-06ff-40a6-b1ff-ed4ae4879e5d"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="e7e04bdb-1bbe-4c83-a66b-54eb8525e895">
+                <propertyInstance
+                  Id="e8b3a3b9-1dca-408c-a9dd-c1085b86e0d4"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="f5611d07-7e54-4030-803c-12982f60194c"
+        name="CodeUmagf"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="ec12f29d-6082-476a-bdf9-1d7ac06fcac8"
+            handle="viewcode://./CodeSchema_Class?Assembly%3Dfile:%2F%2F%2FC:%2Fproject%2FGeoSpace%2FGeospaceEntity%2Fbin%2FDebug%2FGeospaceEntity.dll Namespace%3DGeospaceEntity.Models.Codes Type%3DCodeUmagf"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="7d9f128c-2c4b-436f-9ed0-11449199f70d"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="b0427de7-b08f-4fcc-8b42-969db2a5ff49">
+                <propertyInstance
+                  Id="3996014f-bb24-4cfe-a51f-e866250a8b39"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="4c80a40f-f5bd-4b41-86d9-a030a6f59536">
+                <propertyInstance
+                  Id="75eea8e6-6a33-4390-9a28-38f19c71dca2"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="9916cc35-3f0d-4bc8-9fb6-bee9d6fe595c">
+                <propertyInstance
+                  Id="f19db3b5-8943-4e73-a4fa-d3ef5785a911"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="030a5419-647b-46d3-90d6-b5b3998341aa">
+                <propertyInstance
+                  Id="672fdf6c-76d9-4805-b8c0-9144b1897154"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="4104be9c-5788-43a2-bf4d-bcc69bf5d799">
+                <propertyInstance
+                  Id="09063de9-d60d-4a5e-a81a-e8e506de4d92"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

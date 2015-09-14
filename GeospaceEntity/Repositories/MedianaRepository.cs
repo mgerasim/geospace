@@ -63,6 +63,7 @@ namespace GeospaceEntity.Repositories
                         .Add(Restrictions.Eq("YYYY", YYYY))
                         .Add(Restrictions.Eq("MM", MM))
                         .Add(Restrictions.Eq("RangeNumber", rangeNumber))
+                        .AddOrder(Order.Asc("HH"))
                         .List<GeospaceEntity.Models.Mediana>();
         }
 
