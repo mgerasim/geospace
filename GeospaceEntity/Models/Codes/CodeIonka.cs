@@ -362,5 +362,27 @@ namespace GeospaceEntity.Models.Codes
             return Value.ToString();
         }
 
+        public static string DisplayValue(double value)
+        {
+            int Value = (int)value;
+
+            if (Value >= 1010) return "-";
+
+            switch (Value)
+            {
+                case 1000: return "S";
+                case 1001: return "A";
+                case 1002: return "B";
+                case 1003: return "C";
+                case 1004: return "D";
+                case 1005: return "E";
+                case 1006: return "F";
+                case 1007: return "G";
+                case 1008: return "N";
+                case 1009: return "R";
+                //default: Value.ToString();
+            }
+            return value.ToString();
+        }
     }
 }

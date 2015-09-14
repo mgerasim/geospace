@@ -90,8 +90,10 @@ namespace GeospaceMediana.Controllers
             DateTime nextDate = nowDateTime.AddMonths(1);
             DateTime prevDate = nowDateTime.AddMonths(-1);
 
-            if (nowDateTime.Month == DateTime.Now.Month) ViewBag.Header = stat.Name + " - " + stat.Code.ToString() + ". Оценки на " + nowDateTime.ToShortDateString();
-            else ViewBag.Header = stat.Name + " - " + stat.Code.ToString() + ". Оценки за " + nowDateTime.ToString("MMM yyyy");
+            //if (nowDateTime.Month == DateTime.Now.Month) ViewBag.Header = stat.Name + " - " + stat.Code.ToString() + ". Оценки на " + nowDateTime.ToShortDateString();
+            //else ViewBag.Header = stat.Name + " - " + stat.Code.ToString() + ". Оценки за " + nowDateTime.ToString("MMM yyyy");
+
+            ViewBag.Header = stat.Name + " - " + stat.Code.ToString() + ". Оценки за " + nowDateTime.ToString("MMM. yyyy");
 
             int rangeNumber = 1;
 

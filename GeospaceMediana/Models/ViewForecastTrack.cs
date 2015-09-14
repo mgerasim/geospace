@@ -37,28 +37,28 @@ namespace GeospaceMediana.Models
 
                     if (ionka[i].f0F2 < 1000 && ionka[i].f0F2 > 0)
                     {
-                        table1[0, h] = ionka[i].f0F2 / 10.0 + item.addition;
+                        table1[0, h] = Math.Round( ionka[i].f0F2 / 10.0 + item.addition, 1 );
                         val0 = table1[0, h];
                     }
                     else table1[0, h] = ionka[i].f0F2;
 
                     if (ionka[i].f0F1 < 1000 && ionka[i].f0F1 > 0)
                     {
-                        table1[1, h] = ionka[i].f0F1 / 10.0 + item.addition;
+                        table1[1, h] = Math.Round(ionka[i].f0F1 / 10.0 + item.addition, 1);
                         val1 = table1[1, h];
                     }
                     else table1[1, h] = ionka[i].f0F1;
 
                     if (ionka[i].f0E < 1000 && ionka[i].f0E > 0)
                     {
-                        table1[2, h] = ionka[i].f0E / 10.0 + item.addition;
+                        table1[2, h] =  Math.Round( ionka[i].f0E / 10.0 + item.addition, 1);
                         val2 = table1[2, h];
                     }
                     else table1[2, h] = ionka[i].f0E;
 
                     if (ionka[i].f0Es < 1000 && ionka[i].f0Es > 0)
                     {
-                        table1[3, h] = ionka[i].f0Es / 10.0 + item.addition;
+                        table1[3, h] =  Math.Round( ionka[i].f0Es / 10.0 + item.addition, 1);
                         val3 = table1[3, h];
                     }
                     else table1[3, h] = ionka[i].f0Es;
@@ -129,7 +129,7 @@ namespace GeospaceMediana.Models
 
                     if (h < ionka.Count)
                     {
-                        if (ionka[h].fmin < 1000) graf3 += ionka[h].fmin.ToString().Replace(",", ".") + ",";
+                        if (ionka[h].fmin < 1000) graf3 += (ionka[h].fmin / 10.0).ToString().Replace(",", ".") + ",";
                         else graf3 += "null,";
                     }
                     else graf3 += "null,";
