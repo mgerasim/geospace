@@ -158,6 +158,11 @@ namespace GeospaceMediana.Controllers
                     theProduct.Update();
                 }
 
+                if (theProduct != null)
+                {
+                    theProduct.Send_MonthForecast();
+                }
+
                 return Content("");
             }
             catch (Exception)

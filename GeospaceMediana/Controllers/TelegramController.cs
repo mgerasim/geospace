@@ -152,6 +152,10 @@ namespace GeospaceMediana.Controllers
                     theProduct.forecast_days_fives = telegram;
                     theProduct.Update();
                 }
+
+                if (theProduct != null) {
+                    theProduct.Send_FivedaysForecast();
+                }
                 return Content("");
             }
             catch (Exception)

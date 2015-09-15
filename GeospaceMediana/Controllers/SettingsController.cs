@@ -53,16 +53,25 @@ namespace GeospaceMediana.Controllers
         // POST: /Settings/Edit/5
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Edit(int id, FormCollection collection)
         {
             try
             {
                 // TODO: Add update logic here
                 string GeospaceTrackExe = collection.Get("GeospaceTrackExe");
+                string SNMP_host = collection.Get("SNMP_host");
+                int SNMP_port = Convert.ToInt32(collection.Get("SNMP_port"));
+                string Email_ASPD_To = collection.Get("Email_ASPD_To");
+                string Email_ASPD_From = collection.Get("Email_ASPD_From");
                 Settings settings = new Settings()
                 {
                     ID = id,
-                    GeospaceTrackExe = GeospaceTrackExe
+                    GeospaceTrackExe = GeospaceTrackExe,
+                    SNMP_host = SNMP_host,
+                    SNMP_port = SNMP_port,
+                    Email_ASPD_To = Email_ASPD_To,
+                    Email_ASPD_From = Email_ASPD_From
                 };
 
                 IRepository<Settings> repo = new SettingsRepository();
