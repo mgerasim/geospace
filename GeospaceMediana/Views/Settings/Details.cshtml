@@ -7,9 +7,37 @@
 
 <form class="form-horizontal">
     <div class="form-group">
-        <label for="path_exe" class="col-sm-2 control-label">Путь запуска:</label>
+        <label for="GeospaceTrackExe" class="col-sm-2 control-label">Путь запуска:</label>
         <div class="col-sm-10">
             <input type="text" class="form-control" id="GeospaceTrackExe" name="GeospaceTrackExe" value="@Model.GeospaceTrackExe" disabled>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="SNMP_host" class="col-sm-2 control-label">SNMP сервер:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="SNMP_host" name="SNMP_host" value="@Model.SNMP_host" disabled>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="SNMP_port" class="col-sm-2 control-label">SNMP порт:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="SNMP_port" name="SNMP_port" value="@Model.SNMP_port" disabled>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="Email_ASPD_To" class="col-sm-2 control-label">Адрес службы АСПД:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="Email_ASPD_To" name="Email_ASPD_To" value="@Model.Email_ASPD_To" disabled>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="Email_ASPD_From" class="col-sm-2 control-label">Адрес отправителя:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="Email_ASPD_From" name="Email_ASPD_From" value="@Model.Email_ASPD_From" disabled>
         </div>
     </div>
 

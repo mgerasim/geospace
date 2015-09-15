@@ -1,4 +1,5 @@
 ﻿using GeospaceEntity.Common;
+using GeospaceEntity.Helper;
 using GeospaceEntity.Repositories;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,6 @@ namespace GeospaceEntity.Models
         public virtual string table_sun { get; set; }
         public virtual string subday_forecast { get; set; }
         public virtual string description { get; set; }
-
 
         public Product()
         {
@@ -48,6 +48,21 @@ namespace GeospaceEntity.Models
             IRepository<Product> repo = new ProductRepository();
             repo.GetAll();
             return (List<Product>)repo.GetAll();
+        }
+
+        public virtual void Send_SubdayForecast() 
+        {
+            Other.SendToAspd("Полусуточный прогноз", this.subday_forecast);
+        }
+
+        public virtual void Send_MonthForecast()
+        {
+            Other.SendToAspd("Месячный прогноз", this.forecast_month_ionosphera);
+        }
+
+        public virtual void Send_FivedaysForecast()
+        {
+            Other.SendToAspd("Пятисуточный прогноз", this.forecast_days_fives);
         }
     }
 }

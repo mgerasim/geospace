@@ -620,6 +620,7 @@ namespace GeospaceMediana.Controllers
 
                 }
                 theProduct.Update();
+                theProduct.Send_MonthForecast();
             }
             catch (Exception ex)
             {
@@ -810,6 +811,8 @@ namespace GeospaceMediana.Controllers
                 {
                     theProduct = new GeospaceEntity.Models.Product();
                     theProduct.Save();
+
+
                 }
                 else
                 {
@@ -826,6 +829,9 @@ namespace GeospaceMediana.Controllers
                 }
                 theProduct.subday_forecast.Replace("\r\n\r\n\r\n", "");
                 theProduct.Update();
+
+                theProduct.Send_SubdayForecast();
+
             }
             catch (Exception ex)
             {

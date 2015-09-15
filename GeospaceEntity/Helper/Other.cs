@@ -6,11 +6,40 @@ using System.Threading.Tasks;
 using GeospaceEntity.Models.Codes;
 using GeospaceEntity.Models;
 using System.IO;
+using System.Net.Mail;
 
 namespace GeospaceEntity.Helper
 {
+
     public static class Other
     {
+        public static void SendToAspd(string subject, string msg)
+        {
+            Settings theSetting = new Settings();
+            theSetting = theSetting.GetAll()[0];
+            MailMessage mail = new MailMessage();
+            string host = theSetting.SNMP_host;
+            int port = theSetting.SNMP_port;
+            string msg_from = theSetting.Email_ASPD_From;
+            SmtpClient SmtpServer = new SmtpClient(host);
+            mail.From = new MailAddress(msg_from);
+            foreach (var line in theSetting.Email_ASPD_To.Split(new string[] { ";" }, StringSplitOptions.None))
+            {
+                mail.To.Add(line);
+            }
+            mail.Subject = subject;
+            mail.IsBodyHtml = false;
+            mail.Body = msg;
+            SmtpServer.Port = port;
+
+
+            SmtpServer.EnableSsl = false;
+
+            SmtpServer.Send(mail);
+
+
+
+        }
         //печатает индексы всех станций
         public static void Print_All_Stations( int statIndex, List<int> listIndex, string pathFile)
         {
