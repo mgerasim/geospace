@@ -10,10 +10,9 @@
 }
 
 <script>
-    var submitUrl = "@Url.Action("Submit", "ConsolidatedTable")";
+    @*var submitUrl = "@Url.Action("Submit", "ConsolidatedTable")";*@
     var currentYear = "@ViewBag.Year";
     var currentMonth = "@ViewBag.Month";
-    var currentStationCode = "@Model.StationCode";
 </script>
 
 <h2 style="float: left">Сводная таблица за (@ViewBag.DateString)</h2>
