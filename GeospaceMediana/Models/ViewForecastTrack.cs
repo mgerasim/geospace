@@ -104,7 +104,7 @@ namespace GeospaceMediana.Models
                         && ionka[i].f0F2 > 0 && ionka[i].f0F2 < 1000
                         && ionka[i].M3000F2 > 0 && ionka[i].M3000F2 < 1000)
                     {
-                        table2[0, h] = Math.Round((17.8 * (((ionka[i].f0F2 * ionka[i].M3000F2) / 100) - table1[0, h]) / 14.75) + table1[0, h], 1);
+                        table2[0, h] = Math.Round( ((17.8 * ( ((ionka[i].f0F2 * ionka[i].M3000F2) / 100.0) - table1[0, h]) ) / 14.75 ) + table1[0, h], 1);
                         val0 = table2[0, h];
                     }
                     else table2[0, h] = 1000;
@@ -210,7 +210,7 @@ namespace GeospaceMediana.Models
             {
                 if (values[0, i] >= 1100)
                 {
-                    if (maxSum < 6 && i < int_f0F2.Count)
+                    if (maxSum <= 6 && i < int_f0F2.Count)
                     {
                         if (values[0, i] >= 1000 && int_f0F2[i] < 1000)
                         {
@@ -290,20 +290,26 @@ namespace GeospaceMediana.Models
                 h = ionkaProve[i].HH;
                 if (h > 23) continue;
 
-                if (table2[0, h] >= 1000)
+                if (table2[0, h] >= 1000 && h < int_M3000.Count && table1[0, h] < 1000)
                 {
-                    if (maxSum < 6 && i < int_M3000.Count)
+                    if (maxSum <= 6)
                     {
                         if (int_M3000[h] < 1000)
                         {
-                            table2[0, h] = Math.Round((17.8 * (((table1[0, h] - stat.addition) * (avg + ((int_M3000[h] / 10.0) - avg10))) - table1[0, h]) / 14.75) + table1[0, h], 1) * 1;
+                            double w = avg + ((int_M3000[h] / 10.0) - avg10);
+                            table2[0, h] = Math.Round(((17.8 * (((table1[0, h] - stat.addition) * (avg + ((int_M3000[h] / 10.0) - avg10))) - table1[0, h])) / 14.75) + table1[0, h], 1) * 1;
+                            colors[0, h] = 1;
                         }
                     }
                     else
                     {
-                        table2[0, h] = int_M3000[h] / 10.0;
+                        if (int_M3000[h] < 1000)
+                        {
+                            table2[0, h] = Math.Round(((17.8 * (((table1[0, h] - stat.addition) * (int_M3000[h] / 10.0)) - table1[0, h])) / 14.75) + table1[0, h], 1) * 1; ;
+                            colors[0, h] = 1;
+                        }
                     }
-                    colors[0, h] = 1;
+                    
                 }
 
                 double val0 = 0.0, val1 = 0.0, val2 = 0.0, val3 = 0.0;
