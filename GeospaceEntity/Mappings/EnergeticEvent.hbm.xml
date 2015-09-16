@@ -10,7 +10,6 @@
     <property name="Balls" type="string" length="100"/>
     <property name="Coordinates" type="string" length="100"/>
     <property name="Time" type="string" length="100"/>
-    <property name="Time" type="string" length="100"/>
     <property name="RadioBursts" type="string" length="100"/>
   </class>
 </hibernate-mapping>
