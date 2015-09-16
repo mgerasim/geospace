@@ -217,6 +217,56 @@ namespace GeospaceEntity.Helper
                                 medians[hour] = listValues[index];
                             }
                         }
+                        else
+                        {
+                            int rangeNumberPrev = i-1;
+                            int monthPrev = month;
+                            int yearPrev = year;
+
+                            if (rangeNumberPrev == 0)
+                            {
+                                DateTime datePrev = new DateTime(year, month, 1);
+                                datePrev = datePrev.AddDays(-1);
+                                yearPrev = datePrev.Year;
+                                monthPrev = datePrev.Month;
+                                rangeNumberPrev = 5;
+                            }
+
+                            Mediana theMediana = null;
+                           
+                            try
+                            {
+                                //theMediana = Mediana.GetByMonth(station, year, month).Where(x => x.HH == hour).Single();
+                                theMediana = Mediana.GetByRangeNumber(station, year, month,rangeNumberPrev).Where(x => x.HH == hour).Single();
+                            }
+                            catch
+                            {
+                                theMediana = new Mediana();
+                                theMediana.M3000F2 = 0;
+                                theMediana.f0F2 = 0;
+                            }
+                            
+                            try
+                            {
+
+                                switch (type)
+                                {
+                                    case "f0F2":
+                                        medians[hour] = theMediana.f0F2;
+                                       // medians[hour] = Convert.ToInt32(Mediana.GetByMonth(station, year, month).Where(x => x.HH == hour).Average(x => x.f0F2));
+                                        break;
+                                    case "M3000F2":
+                                        medians[hour] = theMediana.M3000F2;
+                                       // medians[hour] = Convert.ToInt32(Mediana.GetByMonth(station, year, month).Where(x => x.HH == hour).Average(x => x.M3000F2));
+                                        break;
+                                }
+                            }
+                            catch
+                            {
+                                medians[hour] = 0;
+                            }
+
+                        }
                     }
                 }
 

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<logicalClassDesignerDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 15.25, 8.5" name="UMLClassDiagram1" showWorkItemsIcon="false">
+<logicalClassDesignerDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 15.25, 8.5" name="UMLClassDiagram1">
   <logicalClassDesignerModelMoniker Id="b0dee1ff-024c-4a13-8aac-e4193d4cdd6b" />
   <nestedChildShapes>
     <classShape Id="ea7c7c22-6db4-4a56-bede-08554dbf72c5" absoluteBounds="7.375, 3.625, 1.875, 1.6683043545484537" hideQualifiedName="true" increaseHeight="0.18800345897674561" customColor="181, 193, 223">
@@ -92,7 +92,11 @@
         <OperationElementListCompartment Id="56a1bfc8-2376-4bab-b162-4ce8b6a2bd66" isExpanded="false" absoluteBounds="7.3900000000000006, 3.0429137121637666, 1.8450000000000002, 0.2011718675494194" name="OperationsCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+<<<<<<< HEAD
     <associationConnector edgePoints="[(7.375 : 2.52946465740601); (6.125 : 2.52946465740601)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110" sourceMultiplicity="*" targetMultiplicity="1">
+=======
+    <associationConnector edgePoints="[(7.375 : 2.10954278985659); (6.125 : 2.10954278985659)]" fixedFrom="NotFixed" fixedTo="NotFixed" customColor="113, 111, 110" sourceMultiplicity="*" targetMultiplicity="1">
+>>>>>>> BranchSasha
       <associationMoniker Id="3de55659-5b01-4dda-8a25-fa579f1dda53" />
       <relativeChildShapes />
       <nodes>

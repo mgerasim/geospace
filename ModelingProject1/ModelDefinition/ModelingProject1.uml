@@ -46,7 +46,11 @@
     </packageHasNamedElement>
     <packageHasNamedElement>
       <class
+<<<<<<< HEAD
         Id="d35a3b69-7018-496c-b02b-72717de7bfb1"
+=======
+        Id="8dfc8ff5-ece7-4bb7-a9d0-f53bdf2ce9c5"
+>>>>>>> BranchSasha
         name="Class2"
         isAbstract="false"
         isLeaf="false"

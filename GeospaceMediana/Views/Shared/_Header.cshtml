@@ -104,10 +104,10 @@
                             @ShowMenuLink("Данные ионосферы", "Index", "Ionka", new { year = ViewBag.Date.Year, month = ViewBag.Date.Month, stationCode = ViewBag.Station.Code, type = "f0F2", day = ViewBag.Date.Day }, "Состояние ионосферы", false, true)
 
                             @ShowMenuLink("Прогноз медианы <b>f0F2</b>", "Index", "Mediana", new { year = ViewBag.Date.Year, month = ViewBag.Date.Month, stationCode = ViewBag.Station.Code, type = "f0F2", day = ViewBag.Date.Day }, "Прогноз медианы f0F2")
-                            @ShowMenuLink("Прогноз медианы <b>M3000</b>", "Index", "Mediana", new { stationCode = ViewBag.Station.Code, type = "M3000F2", year = ViewBag.Date.Year, month = ViewBag.Date.Month, day = ViewBag.Date.Day }, "Прогноз медианы M3000")
+                            @ShowMenuLink("Прогноз медианы <b>M3000F2</b>", "Index", "Mediana", new { stationCode = ViewBag.Station.Code, type = "M3000F2", year = ViewBag.Date.Year, month = ViewBag.Date.Month, day = ViewBag.Date.Day }, "Прогноз медианы M3000F2")
                             <li class="divider"></li>
                             @ShowMenuLink("Суточные отклонения <b>f0F2</b>", "Index", "CharacterizationDay", new { type = "f0F2" }, "Суточные отклонения f0F2")
-                            @ShowMenuLink("Суточные отклонения <b>M3000</b>", "Index", "CharacterizationDay", new { type = "M3000F2" }, "Суточные отклонения M3000")
+                            @ShowMenuLink("Суточные отклонения <b>M3000F2</b>", "Index", "CharacterizationDay", new { type = "M3000F2" }, "Суточные отклонения M3000F2")
 
                             @ShowMenuLink("Диаграмма медианы", "Index", "ChartMediana", new { stationCode = ViewBag.Station.Code, type = "f0F2", year = ViewBag.Date.Year, month = ViewBag.Date.Month, day = ViewBag.Date.Day }, "Диаграмма медианы", true, false)
                         }
@@ -116,10 +116,10 @@
                             @ShowMenuLink("Данные ионосферы", "Index", "Ionka", null, "Состояние ионосферы", false, true)
 
                             @ShowMenuLink("Прогноз медианы <b>f0F2</b>", "Index", "Mediana", new { type = "f0F2" }, "Прогноз медианы f0F2")
-                            @ShowMenuLink("Прогноз медианы <b>M3000</b>", "Index", "Mediana", new { type = "M3000F2" }, "Прогноз медианы M3000")
+                            @ShowMenuLink("Прогноз медианы <b>M3000F2</b>", "Index", "Mediana", new { type = "M3000F2" }, "Прогноз медианы M3000F2")
                             <li class="divider"></li>
                             @ShowMenuLink("Суточные отклонения <b>f0F2</b>", "Index", "CharacterizationDay", new { type = "f0F2" }, "Суточные отклонения f0F2")
-                            @ShowMenuLink("Суточные отклонения <b>M3000</b>", "Index", "CharacterizationDay", new { type = "M3000F2" }, "Суточные отклонения M3000")
+                            @ShowMenuLink("Суточные отклонения <b>M3000F2</b>", "Index", "CharacterizationDay", new { type = "M3000F2" }, "Суточные отклонения M3000F2")
 
                             @ShowMenuLink("Диаграмма медианы", "Index", "ChartMediana", null, "Диаграмма медианы", true, false)
                         }
@@ -163,23 +163,23 @@
                                       @if (ViewBag.Date != null && ViewBag.Station != null && ViewBag.Station != null)
                                       {
                                           @ShowMenuLink("Средние значения <b>f0F2</b>", "Index", "Average", new { type = "f0F2" }, "Средние значения f0F2")
-                                          @ShowMenuLink("Средние значения <b>M3000</b>", "Index", "Average", new { type = "M3000F2" }, "Средние значения M3000")
+                                          @ShowMenuLink("Средние значения <b>M3000F2</b>", "Index", "Average", new { type = "M3000F2" }, "Средние значения M3000F2")
                                       }
                                       else
                                       {
                                           @ShowMenuLink("Средние значения <b>f0F2</b>", "Index", "Average", new { type = "f0F2" }, "Средние значения f0F2")
-                                          @ShowMenuLink("Средние значения <b>M3000</b>", "Index", "Average", new { type = "M3000F2" }, "Средние значения M3000")
+                                          @ShowMenuLink("Средние значения <b>M3000F2</b>", "Index", "Average", new { type = "M3000F2" }, "Средние значения M3000F2")
                                       }
                                       <li class="divider"></li>
                                       @if (ViewBag.Date != null && ViewBag.Station != null && ViewBag.Station != null)
                                       {
                                           @ShowMenuLink("Оценки <b>f0F2</b>", "Index", "Marks", new { type = "f0F2" }, "Оценки f0F2")
-                                          @ShowMenuLink("Оценки <b>M3000</b>", "Index", "Marks", new { type = "M3000F2" }, "Оценки M3000")
+                                          @ShowMenuLink("Оценки <b>M3000F2</b>", "Index", "Marks", new { type = "M3000F2" }, "Оценки M3000F2")
                                       }
                                       else
                                       {
                                           @ShowMenuLink("Оценки <b>f0F2</b>", "Index", "Marks", new { type = "f0F2" }, "Оценки f0F2")
-                                          @ShowMenuLink("Оценки <b>M3000</b>", "Index", "Marks", new { type = "M3000F2" }, "Оценки M3000")
+                                          @ShowMenuLink("Оценки <b>M3000F2</b>", "Index", "Marks", new { type = "M3000F2" }, "Оценки M3000F2")
                                       }
                                   </ul>
                               </li>

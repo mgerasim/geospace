@@ -22,11 +22,11 @@ namespace GeospaceMediana.Controllers
 
             if (type == "M3000F2")
             {
-                ViewBag.Type = "M3000";
+                ViewBag.Type = "M3000F2";
             }
             if (type == "f0F2")
             {
-                ViewBag.Type = "f0";
+                ViewBag.Type = "f0F2";
             }
 
             DateTime nowDateTime;
@@ -85,9 +85,9 @@ namespace GeospaceMediana.Controllers
 
                 return Content("");
             }
-            catch
+            catch(Exception ex)
             {
-                return Content("Во время расчета медианы произошла ошибка.");
+                return Content("Во время расчета медианы произошла ошибка.\r\n" + ex.Message + "\r\n" + ex.StackTrace);
             }
         }
 
