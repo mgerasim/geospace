@@ -12,6 +12,8 @@ namespace GeospaceMediana.Models
         public List<string> header = new List<string>();
         public List<double[,]> Table1 = new List<double[,]>();
         public List<double[,]> Table2 = new List<double[,]>();
+        public List<double[,]> Colors1 = new List<double[,]>();
+        public List<double[,]> Colors2 = new List<double[,]>();
         public int quantity;
         public List<List<string>> grafValues = new List<List<string>>();
 
@@ -24,6 +26,9 @@ namespace GeospaceMediana.Models
             {
                 double[,] table1 = new double[5, 24];
                 double[,] table2 = new double[5, 24];
+
+                double[,] colors1 = new double[5, 24];
+                double[,] colors2 = new double[5, 24];
 
                 List<CodeIonka> ionka = CodeIonka.GetByDate(item, now.Year, now.Month, now.Day);
 
@@ -69,8 +74,7 @@ namespace GeospaceMediana.Models
 
                     val0 = 0;
                     val1 = 0;
-                    val2 = 0;
-                                        
+                    val2 = 0;                                        
                 }
 
                 for (h = 0; h < 24; h++ )
@@ -85,7 +89,7 @@ namespace GeospaceMediana.Models
                 string graf1 = "[", graf2 = "[", graf3 = "[";
                 List<string> oneGraf = new List<string>();
 
-                Recovery_Data_Table1(item, table1, now);
+                Recovery_Data_Table1(item, table1, colors1, now);
 
                 for (int i = 0; i < ionka.Count; i++)
                 {
@@ -131,7 +135,7 @@ namespace GeospaceMediana.Models
                     if (table2[3, h] <= 0 || table2[3, h] > 30) table2[3, h] = 1100;
                 }
 
-                Recovery_Data_Table2(item, table2, table1, now);
+                Recovery_Data_Table2(item, table2, table1, colors2, now);
 
                 for (h = 0; h < 24; h++)
                 {
@@ -160,10 +164,13 @@ namespace GeospaceMediana.Models
 
                 Table1.Add(table1);
                 Table2.Add(table2);
+
+                Colors1.Add(colors1);
+                Colors2.Add(colors2);
             }
         }
 
-        public void Recovery_Data_Table1(Station stat, double[,] values, DateTime now)
+        public void Recovery_Data_Table1(Station stat, double[,] values, double[,] colors, DateTime now)
         {
             bool flag = false;
             int sum = 0, maxSum = 0, del = 0, del10 = 0;
@@ -201,18 +208,20 @@ namespace GeospaceMediana.Models
 
             for (int i = 0; i < 24; i++)
             {
-                if (maxSum < 6 && i < int_f0F2.Count)
+                if (values[0, i] >= 1100)
                 {
-
-                    if (values[0, i] >= 1100 && int_f0F2[i] < 1000)
+                    if (maxSum < 6 && i < int_f0F2.Count)
                     {
-                        values[0, i] = Math.Round((avg + ((int_f0F2[i] / 10.0) - avg10)) * 100, 1);
+                        if (values[0, i] >= 1000 && int_f0F2[i] < 1000)
+                        {
+                            values[0, i] = Math.Round((avg + ((int_f0F2[i] / 10.0) - avg10)) * 1, 1);                            
+                        }
                     }
-
-                }
-                else
-                {
-                    values[0, i] = int_f0F2[i] / 10.0 + stat.addition;
+                    else
+                    {
+                        values[0, i] = int_f0F2[i] / 10.0 + stat.addition;
+                    }
+                    colors[0, i] = 1;
                 }
 
                 double val0 = 0.0, val1 = 0.0, val2 = 0.0, val3 = 0.0;
@@ -224,10 +233,12 @@ namespace GeospaceMediana.Models
                 values[4, i] = Math.Max(val0, val1);
                 values[4, i] = Math.Max(values[4, i], val2);
                 values[4, i] = Math.Max(values[4, i], val3);
+
+                if (values[4, i] <= 0 || values[4, i] > 30) values[4, i] = 1100;
             }
         }
 
-        public void Recovery_Data_Table2(Station stat, double[,] table2, double[,] table1, DateTime now)
+        public void Recovery_Data_Table2(Station stat, double[,] table2, double[,] table1, double[,] colors, DateTime now)
         {
             bool flag = false;
             int sum = 0, maxSum = 0, del = 0, del10 = 0;
@@ -235,9 +246,11 @@ namespace GeospaceMediana.Models
 
             List<int> int_M3000 = Average.GetByDate(stat, now.Year, now.Month, now.Day).Select(x => x.M3000_10).ToList();
             List<int> int_M3000_Now = CodeIonka.GetByDate(stat, now.Year, now.Month, now.Day).Select(x => x.M3000F2).ToList();
+            List<CodeIonka> ionkaProve = CodeIonka.GetByDate(stat, now.Year, now.Month, now.Day);
 
             for (int i = 0; i < 24; i++)
             {
+
                 if (i < int_M3000_Now.Count)
                 {
                     if (int_M3000_Now[i] >= 1000)
@@ -271,19 +284,26 @@ namespace GeospaceMediana.Models
             if (24 - del > 0) avg = avg / ((24 - del) * 10);
             if (24 - del10 > 0) avg10 = avg10 / ((24 - del10) * 10);
 
-            for (int i = 0; i < 24; i++)
+            int h = 0;
+            for (int i = 0; i < ionkaProve.Count; i++)
             {
-                if (maxSum < 6 && i < int_M3000.Count)
-                {
+                h = ionkaProve[i].HH;
+                if (h > 23) continue;
 
-                    if (table2[0, i] >= 1000 && int_M3000[i] < 1000)
-                    {
-                        table2[0, i] = Math.Round((17.8 * (((table1[0, i] - stat.addition) * (avg + ((int_M3000[i] / 10.0) - avg10))) - table1[0, i]) / 14.75) + table1[0, i], 1) * 100;
-                    }                    
-                }
-                else
+                if (table2[0, h] >= 1000)
                 {
-                    table2[0, i] = int_M3000[i] / 10.0;
+                    if (maxSum < 6 && i < int_M3000.Count)
+                    {
+                        if (int_M3000[h] < 1000)
+                        {
+                            table2[0, h] = Math.Round((17.8 * (((table1[0, h] - stat.addition) * (avg + ((int_M3000[h] / 10.0) - avg10))) - table1[0, h]) / 14.75) + table1[0, h], 1) * 1;
+                        }
+                    }
+                    else
+                    {
+                        table2[0, h] = int_M3000[h] / 10.0;
+                    }
+                    colors[0, h] = 1;
                 }
 
                 double val0 = 0.0, val1 = 0.0, val2 = 0.0, val3 = 0.0;
@@ -294,6 +314,8 @@ namespace GeospaceMediana.Models
                 table2[3, i] = Math.Max(val0, val1);
                 table2[3, i] = Math.Max(table2[3, i], val2);
                 table2[3, i] = Math.Max(table2[3, i], val3);
+
+                if (table2[3, i] <= 0 || table2[3, i] > 30) table2[3, i] = 1100;
             }
         }
 

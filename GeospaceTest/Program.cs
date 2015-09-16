@@ -17,9 +17,7 @@ namespace GeospaceTest
         {
            // Support01();
 
-           //Support02();
-           //Support03();
-           //Support04();
+           Support02();
            Support03();
            //Support04();
            // Support05(); 
@@ -131,14 +129,6 @@ namespace GeospaceTest
         }
         static void Support02()
         {
-
-            foreach( Station item in Station.GetAll() )
-            {
-                item.Calc_Addition();
-            }
-
-
-            return;
             try
             {
                 List<string> output = new List<string>();
@@ -147,8 +137,8 @@ namespace GeospaceTest
 
                 output.Add("");   //MUF
                 output.Add("");   //OPF
+                output.Add("");   //параметры: D
                 int W = 60; 
-
 
                 Track track = Track.GetById(1);
                 string param = track.PointA.Longitude + " "
@@ -156,9 +146,9 @@ namespace GeospaceTest
                     + track.PointB.Longitude + " "
                     + track.PointB.Latitude + " "
                     + W.ToString() + " "
-                    + DateTime.Now.AddMonths(1).Month.ToString(); 
+                    + DateTime.Now.AddMonths(-1).Month.ToString(); 
 
-                GeospaceEntity.Helper.HelperTrack.Start(log, output, param, false );
+                GeospaceEntity.Helper.HelperTrack.Start(log, output, param, true, true );
                 Console.WriteLine(log[0]);
             }
             catch( System.Exception ex)

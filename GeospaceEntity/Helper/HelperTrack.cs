@@ -13,7 +13,7 @@ namespace GeospaceEntity.Helper
 {
     public static class HelperTrack
     {
-        public static void Start( List<string> log, List<string> output, string param, bool flag = true )
+        public static void Start( List<string> log, List<string> output, string param, bool run = false, bool build = false )
         {
             IRepository<Settings> repo = new SettingsRepository();
             string sourcesPath = "D:\\Projects\\GeoSpace\\GeoSpaceTrack\\Sources";
@@ -34,8 +34,8 @@ namespace GeospaceEntity.Helper
             cmd.BeginOutputReadLine();
             cmd.BeginErrorReadLine();
 
-            Build_Sources(cmd, sourcesPath, exePath);
-            if(flag) Run(cmd, exePath, param);
+            if (build) Build_Sources(cmd, sourcesPath, exePath);
+            if (run) Run(cmd, exePath, param);
 
             cmd.StandardInput.WriteLine(@"exit");
             
@@ -47,7 +47,7 @@ namespace GeospaceEntity.Helper
         {            
             string commands2 = "ifort " + sourcesPath + "\\*.f90 /exe:" + exePath;   
             cmd.StandardInput.WriteLine(@"cd " + sourcesPath);
-            cmd.StandardInput.WriteLine(@"""C:\\Program Files (x86)\Intel\\Composer XE 2015\\bin\\compilervars.bat"" intel64");
+            cmd.StandardInput.WriteLine(@"""C:\\Program Files (x86)\\Intel\\Composer XE 2015\\bin\\compilervars.bat"" intel64");
             cmd.StandardInput.WriteLine(@commands2);
             //cmd.WaitForExit();
         }

@@ -19,9 +19,11 @@
             <td>
                 @Html.Encode(item.Name)
             </td>
+
             <td>
                 @Html.ActionLink("Редактировать", "Edit", new { id = item.ID})
-            </td>            
+            </td>      
+                  
         </tr>       
     }
 </table>
