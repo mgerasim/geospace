@@ -133,6 +133,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ConsolidatedTableController.cs" />
     <Compile Include="Controllers\ForecastFiveDayTrackController.cs" />
     <Compile Include="Controllers\ForecastTrackController.cs" />
     <Compile Include="Controllers\MarksController.cs" />
@@ -463,6 +464,8 @@
     <Content Include="Views\Settings\Details.cshtml" />
     <Content Include="Views\Settings\Edit.cshtml" />
     <Content Include="Views\ForecastTrack\_Menu.cshtml" />
+    <Content Include="Views\ConsolidatedTable\Index.cshtml" />
+    <Content Include="Views\ConsolidatedTable\_Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
