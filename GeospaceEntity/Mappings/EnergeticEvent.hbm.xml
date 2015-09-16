@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="GeospaceEntity.Models" assembly="GeospaceEntity">
+  <class name="EnergeticEvent" table="Geospace_EnergeticEvent">
+    <id name="ID" unsaved-value="0">
+      <column name="ID" not-null="true" />
+      <generator class="identity"/>
+    </id>
+    <property name="created_at" />
+    <property name="updated_at" />
+    <property name="Balls" type="string" length="100"/>
+    <property name="Coordinates" type="string" length="100"/>
+    <property name="Time" type="string" length="100"/>
+    <property name="Time" type="string" length="100"/>
+    <property name="RadioBursts" type="string" length="100"/>
+  </class>
+</hibernate-mapping>
