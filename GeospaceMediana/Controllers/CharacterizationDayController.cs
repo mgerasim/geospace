@@ -19,11 +19,11 @@ namespace GeospaceMediana.Controllers
         {
             if (type == "M3000F2")
             {
-                ViewBag.Type = "M3000";
+                ViewBag.Type = "M3000F2";
             }
             if (type == "f0F2")
             {
-                ViewBag.Type = "f0";
+                ViewBag.Type = "f0F2";
             }
 
             DateTime nowDateTime;
