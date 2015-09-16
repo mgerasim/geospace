@@ -147,6 +147,7 @@ namespace GeospaceMediana.Controllers
                     ionka = CodeIonka.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Where(x => x.MI == 0).Select(x => x.f0F2).ToList();
                     mediana = Mediana.GetByDate2(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, rangeNumber).Select(x => x.f0F2).ToList();
 
+                    int k = 0;
                     for (int i = 0; i < 24; i++)
                     {
                         if (mediana != null && i < mediana.Count)
@@ -160,8 +161,22 @@ namespace GeospaceMediana.Controllers
                             value += "null,";
                             continue;
                         }
-                        else if (modelIonka[i].HH != i) ionka.Insert(i, 0);
-                        if (ionka[i] < 1000 && modelIonka[i].MI == 0) value += ionka[i].ToString() + ",";
+                        else
+                        {
+                            if (i - k >= 0)
+                            {
+                                if (modelIonka[i-k].HH != i)
+                                {
+                                    ionka.Insert(i, 0);
+                                    k++;
+                                }
+                            }
+                        }
+                        if (i < modelIonka.Count)
+                        {
+                            if (ionka[i] > 0 && ionka[i] < 1000 && modelIonka[i].MI == 0) value += ionka[i].ToString() + ",";
+                            else value += "null,";
+                        }
                         else value += "null,";
                     }
 
@@ -196,6 +211,7 @@ namespace GeospaceMediana.Controllers
                     ionka = CodeIonka.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Where(x => x.MI == 0).Select(x => x.M3000F2).ToList();
                     mediana = Mediana.GetByDate2(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, rangeNumber).Select(x => x.M3000F2).ToList();
 
+                    int k = 0;
                     for (int i = 0; i < 24; i++)
                     {
                         if (mediana != null && i < mediana.Count)
@@ -209,10 +225,26 @@ namespace GeospaceMediana.Controllers
                             value += "null,";
                             continue;
                         }
-                        else if (modelIonka[i].HH != i) ionka.Insert(i, 0);
-                        if (ionka[i] < 1000 && modelIonka[i].MI == 0) value += ionka[i].ToString() + ",";
+                        else
+                        {
+                            if (i - k >= 0)
+                            {
+                                if (modelIonka[i - k].HH != i)
+                                {
+                                    ionka.Insert(i, 0);
+                                    k++;
+                                }
+                            }
+                        }
+
+                        if (i < modelIonka.Count)
+                        {
+                            if (ionka[i] > 0 && ionka[i] < 1000 && modelIonka[i].MI == 0) value += ionka[i].ToString() + ",";
+                            else value += "null,";
+                        }
                         else value += "null,";
-                    }
+                    }                  
+                    
 
                     Pre_Index(Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.M3000_05).ToList(),
                     Average.GetByDate(Station.GetByCode(stationCode), nowDateTime.Year, nowDateTime.Month, nowDateTime.Day).Select(x => x.M3000_05_skip).ToList(),
@@ -245,7 +277,7 @@ namespace GeospaceMediana.Controllers
             }
             catch( System.Exception ex)
             {
-                return Content("Ошибка построения");
+                return Content("Ошибка построения\n" + ex.Message);
             }
 
             value += "]";

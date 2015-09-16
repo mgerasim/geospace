@@ -53,7 +53,7 @@ namespace GeospaceMediana.Controllers
                 //+ DateTime.Now.AddMonths(1).Month.ToString();
                 + month.ToString();
 
-                GeospaceEntity.Helper.HelperTrack.Start(log, output, param);
+                GeospaceEntity.Helper.HelperTrack.Start(log, output, param, true);
 
                 output[0] += "]";
                 output[1] += "]";

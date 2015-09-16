@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="GeospaceEntity.Models" assembly="GeospaceEntity">
+  <class name="ConsolidatedTable" table="Geospace_ConsolidatedTable">
+    <id name="ID" unsaved-value="0">
+      <column name="ID" not-null="true" />
+      <generator class="identity"/>
+    </id>
+    <property name="created_at" />
+    <property name="updated_at" />
+    <property name="YYYY"/>
+    <property name="MM"/>
+    <property name="DD"/>
+    <property name="Th2_W" type="string" length="100"/>
+    <property name="Th3_Sp" type="string" length="100"/>
+    <property name="Th4_F" type="string" length="100"/>
+    <property name="Th5_90M" type="string" length="100"/>
+    <property name="Th6_CountEvent" type="string" length="100"/>
+    <set name="EnergeticEvents" cascade="all" >
+      <key column="ConsolidatedTable_ID"/>
+      <one-to-many class="GeospaceEntity.Models.EnergeticEvent"/>
+    </set>
+    <property name="Th11_" type="string" length="100"/>
+    <property name="Th12_AP" type="string" length="100"/>
+    <property name="Th13_Amag" type="string" length="100"/>
+    <property name="Th14_Apar" type="string" length="100"/>
+    <property name="Th15_Akha" type="string" length="100"/>
+    <property name="Th16_K" type="string" length="100"/>
+    <property name="Th17_iSal" type="string" length="100"/>
+    <property name="Th18_iMag" type="string" length="100"/>
+    <property name="Th19_iKha" type="string" length="100"/>
+    <property name="Th20_iPar" type="string" length="100"/>
+  </class>
+</hibernate-mapping>

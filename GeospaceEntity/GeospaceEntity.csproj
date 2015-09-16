@@ -67,6 +67,8 @@
     <Compile Include="Models\Codes\CodeMagma.cs" />
     <Compile Include="Models\Codes\CodeUmagf.cs" />
     <Compile Include="Models\Begin.cs" />
+    <Compile Include="Models\ConsolidatedTable.cs" />
+    <Compile Include="Models\EnergeticEvents.cs" />
     <Compile Include="Models\Error.cs" />
     <Compile Include="Models\Mediana.cs" />
     <Compile Include="Models\Disturbance.cs" />
@@ -81,7 +83,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AverageRepository.cs" />
     <Compile Include="Repositories\CodeMagmaRepository.cs" />
+    <Compile Include="Repositories\ConsolidatedTableRepository.cs" />
     <Compile Include="Repositories\CodeUmagfRepository.cs" />
+    <Compile Include="Repositories\EnergeticEventRepository.cs" />
     <Compile Include="Repositories\ErrorRepository.cs" />
     <Compile Include="Repositories\BeginRepository.cs" />
     <Compile Include="Repositories\CodeIonkaRepository.cs" />
@@ -155,6 +159,12 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Mappings\Settings.hbm.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mappings\EnergeticEvent.hbm.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mappings\ConsolidatedTable.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <Content Include="Scripts\bootstrap.js" />

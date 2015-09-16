@@ -4,17 +4,17 @@
     
 }
 
-@DrawTable("container_0", Model.header[3], Model.Table1[3], Model.Table2[3], Model.grafValues[3])
-@DrawTable("container_1", Model.header[4], Model.Table1[4], Model.Table2[4], Model.grafValues[4])
-@DrawTable("container_2", Model.header[5], Model.Table1[5], Model.Table2[5], Model.grafValues[5])
-@DrawTable("container_3", Model.header[0], Model.Table1[0], Model.Table2[0], Model.grafValues[0])
-@DrawTable("container_4", Model.header[1], Model.Table1[1], Model.Table2[1], Model.grafValues[1])
-@DrawTable("container_5", Model.header[2], Model.Table1[2], Model.Table2[2], Model.grafValues[2])
+@DrawTable("container_0", Model.header[3], Model.Table1[3], Model.Table2[3], Model.grafValues[3], Model.Colors1[3], Model.Colors2[3])
+@DrawTable("container_1", Model.header[4], Model.Table1[4], Model.Table2[4], Model.grafValues[4], Model.Colors1[3], Model.Colors2[4])
+@DrawTable("container_2", Model.header[5], Model.Table1[5], Model.Table2[5], Model.grafValues[5], Model.Colors1[3], Model.Colors2[5])
+@DrawTable("container_3", Model.header[0], Model.Table1[0], Model.Table2[0], Model.grafValues[0], Model.Colors1[3], Model.Colors2[0])
+@DrawTable("container_4", Model.header[1], Model.Table1[1], Model.Table2[1], Model.grafValues[1], Model.Colors1[3], Model.Colors2[1])
+@DrawTable("container_5", Model.header[2], Model.Table1[2], Model.Table2[2], Model.grafValues[2], Model.Colors1[3], Model.Colors2[2])
 
 @for (int i = 6; i < Model.quantity; i++)
 {
     <div id="container_@i" style="width:100%;"></div>
-    @DrawTable("container_" + @i.ToString(), Model.header[i], Model.Table1[i], Model.Table2[i], Model.grafValues[i])
+    @DrawTable("container_" + @i.ToString(), Model.header[i], Model.Table1[i], Model.Table2[i], Model.grafValues[i], Model.Colors1[i], Model.Colors2[i])
 }
 
 @section Scripts
@@ -23,7 +23,7 @@
     @Scripts.Render("~/Scripts/draggable-points.js")
 }
 
-@helper DrawTable(string divName, string header, double[,] table1, double[,] table2, List<string> graf)
+@helper DrawTable(string divName, string header, double[,] table1, double[,] table2, List<string> graf, double[,] colors1, double[,] colors2)
 {
     <table align="center" style="table-layout: auto;" class="table table-bordered table-striped">
         <thead style="width: 100%">
@@ -46,7 +46,8 @@
                 <td>F2_0_МПЧ</td>
                 @for (int i = 0; i < 24; i++)
                 {
-                    <td>@GeospaceEntity.Models.Codes.CodeIonka.DisplayValue(table1[0,i])</td>
+                    if( colors1[0, i] == 1 ) {<td style="background-color:cornsilk;">@GeospaceEntity.Models.Codes.CodeIonka.DisplayValue(table1[0,i])</td>}
+                    else{<td>@GeospaceEntity.Models.Codes.CodeIonka.DisplayValue(table1[0,i])</td>}
                 }
             </tr>
             <tr>
@@ -102,7 +103,8 @@
                     }
                     else
                     {
-                        <td>@table2[0, i]</td>
+                        if( colors1[0, i] == 1 ) {<td style="background-color:cornsilk;">@table2[0, i]</td>}
+                        else{<td>@table2[0, i]</td>}
                     }
                 }
             </tr>
@@ -201,7 +203,7 @@
             series: [ {
                         name: 'МПЧ_0',
                         type: 'spline',
-                        color: 'blue',
+                        color: 'orange',
                         data: @graf[0]
                         }
                 , {
@@ -213,7 +215,7 @@
                 , {
                     name: 'fmin',
                     type: 'spline',
-                    color: 'orange',
+                    color: 'blue',
                     data: @graf[2]
                 }]
             });
