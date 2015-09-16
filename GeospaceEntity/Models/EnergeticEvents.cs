@@ -20,8 +20,7 @@ namespace GeospaceEntity.Models
         public EnergeticEvent()
         {
             ID = -1;
-            this.created_at = DateTime.Now;
-            this.updated_at = DateTime.Now;
+
             Balls = "";
             Coordinates = "";
             Time = "";
