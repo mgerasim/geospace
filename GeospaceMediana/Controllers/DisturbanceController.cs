@@ -28,21 +28,6 @@ namespace GeospaceMediana.Controllers
             List<ViewDisturbance> theDisturbanceList = new List<ViewDisturbance>();
             ViewBag.YYYY = YYYY;
             ViewBag.MM = MM;
-            Station stationKhabarovsk = Station.GetByCode(43501);
-            theViewData.theStationList.Add(stationKhabarovsk);
-            foreach (var item in Disturbance.GetByMonth(stationKhabarovsk, YYYY, MM))
-            {
-                ViewDisturbance theDisturbance = new ViewDisturbance(item);
-                theDisturbanceList.Add(theDisturbance);
-            }
-            
-            Station stationMagadan = Station.GetByCode(45601);
-            theViewData.theStationList.Add(stationMagadan);
-            foreach (var item in Disturbance.GetByMonth(stationMagadan, YYYY, MM))
-            {
-                ViewDisturbance theDisturbance = new ViewDisturbance(item);
-                theDisturbanceList.Add(theDisturbance);
-            }
 
 
             Station stationSalekhard = Station.GetByCode(37701);
@@ -53,6 +38,22 @@ namespace GeospaceMediana.Controllers
                 theDisturbanceList.Add(theDisturbance);
             }
 
+            Station stationMagadan = Station.GetByCode(45601);
+            theViewData.theStationList.Add(stationMagadan);
+            foreach (var item in Disturbance.GetByMonth(stationMagadan, YYYY, MM))
+            {
+                ViewDisturbance theDisturbance = new ViewDisturbance(item);
+                theDisturbanceList.Add(theDisturbance);
+            }
+
+
+            Station stationKhabarovsk = Station.GetByCode(43501);
+            theViewData.theStationList.Add(stationKhabarovsk);
+            foreach (var item in Disturbance.GetByMonth(stationKhabarovsk, YYYY, MM))
+            {
+                ViewDisturbance theDisturbance = new ViewDisturbance(item);
+                theDisturbanceList.Add(theDisturbance);
+            }          
 
             Station stationParatunka = Station.GetByCode(46501);
             theViewData.theStationList.Add(stationParatunka);
