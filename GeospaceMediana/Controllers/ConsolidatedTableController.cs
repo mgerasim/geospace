@@ -29,9 +29,9 @@ namespace GeospaceMediana.Controllers
             ViewBag.DateString = startMonth.ToString("MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture);
             ViewBag.Year = YYYY;
             ViewBag.Month = MM;
-            IList<ConsolidatedTable> tableView = ConsolidatedTable.GetByDateMM(YYYY, MM);
-            
-            return View();
+            IList<ConsolidatedTable> tableView = ConsolidatedTable.GetByDateMM(2015, 8);
+
+            return View(tableView);
         }
 
     }

@@ -82,20 +82,35 @@
         .delta_out {
             color: gray;
         }
+    .rotate {
+        -webkit-transform: rotate(-90deg);
+        -moz-transform: rotate(-90deg);
+        -ms-transform: rotate(-90deg);
+        -o-transform: rotate(-90deg);
+        transform: rotate(-90deg);
+        /* also accepts left, right, top, bottom coordinates; not required, but a good idea for styling */
+        -webkit-transform-origin: 50% 50%;
+        -moz-transform-origin: 50% 50%;
+        -ms-transform-origin: 50% 50%;
+        -o-transform-origin: 50% 50%;
+        transform-origin: 50% 50%;
+        /* Should be unset in IE9+ I think. */
+        filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+    }
 </style>
 
 <div class="row">
     <div class="col-md-12">
-        <table style="table-layout: fixed; min-width: 583px;" class="table table-bordered table-striped">
+        <table style="table-layout: fixed; min-width: 1078px;" class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <th rowspan="3" style="width: 45px">ДАТА МЕСЯЦ/@ViewBag.DateString</th>
-                    <th rowspan="3">W</th>
-                    <th rowspan="3">Sp</th>
-                    <th rowspan="3">F</th>
-                    <th rowspan="3">90-дневная медиана</th>
+                    <th rowspan="3" >ДАТА МЕСЯЦ/@ViewBag.DateString</th>
+                    <th rowspan="3" >W</th>
+                    <th rowspan="3" >Sp</th>
+                    <th rowspan="3" >F</th>
+                    <th rowspan="3" >90-дневная медиана</th>
                     <th colspan="5">Энергичные события</th>
-                    <th rowspan="3">Качесственная Характеристика</th>
+                    <th rowspan="3" >Качесственная Характеристика</th>
                     <th colspan="5">Магнитное поле Земли</th>
                     <th colspan="4">Ионосфера</th>
                 </tr>
@@ -104,24 +119,55 @@
                     <th rowspan="2">Балл</th>
                     <th rowspan="2">Координаты</th>
                     <th rowspan="2">Время</th>
-                    <th rowspan="2">Радиовсплески</th>
+                    <th rowspan="1">Радиовсплески</th>
                     <th rowspan="2">Ар</th>
-                    <th rowspan="2">Магадан Ак</th>
-                    <th rowspan="2">Паратунка Ак</th>
-                    <th rowspan="2">Хабаровск Ак</th>
-                    <th rowspan="2">К-индексы</th>
-                    <th rowspan="2">Салехард</th>
-                    <th rowspan="2">Магадан</th>
-                    <th rowspan="2">Хабаровск</th>
-                    <th rowspan="2">Паратунка</th>
+                    <th rowspan="2" >Магадан Ак</th>
+                    <th rowspan="2" >Паратунка Ак</th>
+                    <th rowspan="2" >Хабаровск Ак</th>
+                    <th rowspan="2" >К-индексы</th>
+                    <th rowspan="2" ><div>Салехард</div> </th>
+                    <th rowspan="2" class="rotate" >Магадан</th>
+                    <th rowspan="2" class="rotate" >Хабаровск</th>
+                    <th rowspan="2" class="rotate" >Паратунка</th>
                 </tr>
                 <tr>
                     <th rowspan="1">245мгц 10 см тип</th>
                 </tr>
+                <tr>
+                    @for (int i = 1; i < 21; ++i )
+                    {
+                        <th rowspan="1">@i</th>
+                    }
+                </tr>
             </thead>
 
             <tbody>
-                
+                @foreach(ConsolidatedTable item in Model)
+                {
+                    <tr id="D_@item.DD">
+                        <th class="c_1">@item.DD</th>   
+                        <th class="c_2">@item.Th2_W</th>   
+                        <th class="c_3">@item.Th3_Sp</th>   
+                        <th class="c_4">@item.Th4_F</th>   
+                        <th class="c_5">@item.Th5_90M</th> 
+                        <th class="c_7">@item.Th6_CountEvent</th>     
+                        <th class="c_8">
+                            @{List<EnergeticEvent> list = new List<EnergeticEvent>(item.EnergeticEvents);}
+                            @for (int i = 0; i < list.Count; i++)
+                            {
+                                if(list[i].Balls == "")
+                                {
+                                    @Html.Raw("\n");
+                                }
+                                else
+                                {
+                                    @list[i].Balls;
+                                }
+                                
+                            }
+                        </th>            
+                    </tr>
+                }
             </tbody>
         </table>
     </div>
