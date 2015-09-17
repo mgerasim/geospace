@@ -103,6 +103,30 @@ namespace GeospaceMediana.Controllers
                 return Content("Ошибка при отправлении данных! Проверьте корректность вводимых данных.");
             }
         }
+
+        public ActionResult Delete(int station, int year, int month, int day, int hour, int duration)
+        {
+            try
+            {
+                Station stationCode = Station.GetByCode(station);
+                for (int i = hour; i < hour + duration; ++i)
+                {
+                    GeospaceEntity.Models.Disturbance disturbanceDelete = GeospaceEntity.Models.Disturbance.GetByDate(stationCode, year, month, day, i, 0);
+
+                    if (disturbanceDelete != null)
+                    {
+                        disturbanceDelete.Delete();
+                    }
+                }
+
+
+                return Content("");
+            }
+            catch (Exception)
+            {
+                return Content("Ошибка при отправлении данных! Проверьте корректность вводимых данных.");
+            }
+        }
     }
 
 }

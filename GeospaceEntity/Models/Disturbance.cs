@@ -41,6 +41,12 @@ namespace GeospaceEntity.Models
             repo.Update(this);
         }
 
+        public virtual void Delete()
+        {
+            IRepository<Disturbance> repo = new DisturbanceRepository();
+            repo.Delete(this);
+        }
+
         public virtual List<Disturbance> GetAll()
         {
             IRepository<Disturbance> repo = new DisturbanceRepository();

@@ -4,6 +4,7 @@
 }
 <script>
     var submitUrl = "@Url.Action("Submit", "Disturbance")";
+    var deleteUrl = "@Url.Action("Delete", "Disturbance")";
     var currentYear = "@ViewBag.YYYY";
     var currentMonth = "@ViewBag.MM.ToString("D2")";
 </script>
@@ -23,7 +24,8 @@
     function handleSaveTime(station, day, Name ) {
         $("#stationNum").val(station);
         $("#dayInMonths").val(day);
-        console.log(Name, day, currentMonth);
+        $("#startTimePeriod").val(0);
+        $("#durationTimePeriod").val(1);
         $(".modal-title").html("Нарушение радиосвязи на ст. " + Name + " за " + day + "." + currentMonth + "." + currentYear);
     }
     function Submit() {
@@ -38,6 +40,22 @@
             url: resUrl,
             success: function () { location.reload(); }
         });
+    }
+
+        
+        function Delete() {
+            var resUrl = window.deleteUrl +
+                            "?station=" + $("#stationNum").val() +
+                            "&year=" + window.currentYear +
+                            "&month=" + window.currentMonth +
+                            "&day=" + $("#dayInMonths").val() +
+                            "&hour=" + $("#startTimePeriod").val() +
+                            "&duration=" + $("#durationTimePeriod").val();
+            console.log(resUrl);
+            $.ajax({
+                url: resUrl,
+                success: function () { location.reload(); }
+            });
     }
 </script>
 <table class="table table-bordered table-striped table-disturbance">
@@ -90,25 +108,26 @@
                         <select id="startTimePeriod" class="btn dropdown-toggle btn-default">
                             @for (int i = 0; i < 24; i++)
                             {
-                                <option>@i</option>
+                                <option value="@i">@i.ToString("D2") час</option>
                             }
                         </select>
                     </div>
                 </div>
                 <div id="cloudiness-panel2" class="panel panel-success">
-                    <div id="cloudiness-panel2-heading" class="panel-heading ms">Продолжительность</div>
+                    <div id="cloudiness-panel2-heading" class="panel-heading ms">Продолжительность (в часах)</div>
                     <div class="panel-body">
                         <select id="durationTimePeriod" class="btn dropdown-toggle btn-default">
                             @for (int i = 1; i <= 24; i++)
                             {
-                                <option>@i</option>
+                                <option value="@i">@i.ToString("D2")</option>
                             }
                         </select>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" onclick="Submit()" class="btn btn-primary">Сохранить</button>
+                <button type="button" onclick="Submit()" class="btn btn-primary">Добавить</button>
+                <button type="button" onclick="Delete()" class="btn btn-danger">Удалить</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
             </div>
         </div><!-- /.modal-content -->
