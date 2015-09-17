@@ -18,7 +18,59 @@ namespace GeospaceMediana.Controllers
             double del1 = 0.0, del2 = 0.0, del3 = 0.0;
             for (int i = 0; i < values.Count; i++)
             {
-                if (values[i] < 1000 && mediana[i] < 1000)
+                bool flag1 = true, flag2 = true, flag3 = true;
+
+                if (values[i] >= 1000)
+                {
+                    flag1 = false;
+                    flag2 = false;
+                }
+
+                if (mediana == null)
+                {
+                    flag1 = false;
+                    flag3 = false;
+                }
+                else
+                {
+                    if (i >= mediana.Count)
+                    {
+                        flag1 = false;
+                        flag3 = false;
+                    }
+                    else
+                    {
+                        if (mediana[i] >= 1000)
+                        {
+                            flag1 = false;
+                            flag3 = false;
+                        }
+                    }
+                }
+
+                if (ionka == null)
+                {
+                    flag2 = false;
+                    flag3 = false;
+                }
+                else
+                {
+                    if (i >= ionka.Count)
+                    {
+                        flag2 = false;
+                        flag3 = false;
+                    }
+                    else
+                    {
+                        if (ionka[i] >= 1000)
+                        {
+                            flag2 = false;
+                            flag3 = false;
+                        }
+                    }
+                }
+
+                if (flag1)
                 {
                     marks[0, i] = values[i] - mediana[i];
                     sum1 += values[i] - mediana[i];
@@ -28,7 +80,9 @@ namespace GeospaceMediana.Controllers
                     marks[0, i] = 1000;
                     del1++;
                 }
-                if (i < ionka.Count && ionka[i] < 1000 && values[i] < 1000)
+
+
+                if (flag2)
                 {
                     marks[1, i] = values[i] - ionka[i];
                     sum2 += values[i] - ionka[i];
@@ -39,7 +93,7 @@ namespace GeospaceMediana.Controllers
                     del2++;
                 }
 
-                if (i < ionka.Count && ionka[i] < 1000 && mediana[i] < 1000)
+                if (flag3)
                 {
                     marks[2, i] = mediana[i] - ionka[i];
                     sum3 += mediana[i] - ionka[i];
@@ -182,7 +236,7 @@ namespace GeospaceMediana.Controllers
                         {
                             if (ionka.Count == i)
                             {
-                                ionka.Add(0);
+                                ionka.Add(1000);
                                 continue;
                             }
                             else
@@ -191,7 +245,7 @@ namespace GeospaceMediana.Controllers
                                 {
                                     if (modelIonka[i].HH != i) ionka.Insert(i, 0);
                                 }
-                                else ionka.Insert(i, 0);
+                                else ionka.Insert(i, 1000);
                             }
                         }
 
