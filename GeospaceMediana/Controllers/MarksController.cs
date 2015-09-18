@@ -150,6 +150,7 @@ namespace GeospaceMediana.Controllers
             ViewBag.Header = stat.Name + " - " + stat.Code.ToString() + ". Оценки за " + nowDateTime.ToString("MMM. yyyy");
 
             int rangeNumber = 1;
+            int accuracy1 = 1, accuracy2 = 1, accuracy3 = 3;
 
             if (1 <= nowDateTime.Day && nowDateTime.Day <= 5) rangeNumber = 0;
             if (6 <= nowDateTime.Day && nowDateTime.Day <= 10) rangeNumber = 1;
@@ -328,9 +329,9 @@ namespace GeospaceMediana.Controllers
                         {
                             if (dayInMonth - del_05[i, j] != 0)
                             {
-                                Marks_05[0, i, j] = Math.Round(Marks_05[0, i, j] / (dayInMonth - del_05[i, j]), 1);
-                                Marks_05[1, i, j] = Math.Round(Marks_05[1, i, j] / (dayInMonth - del_05[i, j]), 1);
-                                if (i < 24 && F[i] != 1000) Marks_05[2, i, j] = Math.Round(Marks_05[1, i, j] / F[i], 2);
+                                Marks_05[0, i, j] = Math.Round(Marks_05[0, i, j] / (dayInMonth - del_05[i, j]), accuracy1);
+                                Marks_05[1, i, j] = Math.Round(Marks_05[1, i, j] / (dayInMonth - del_05[i, j]), accuracy2);
+                                if (i < 24 && F[i] != 1000 && F[i] != 0.0) Marks_05[2, i, j] = Math.Round(Marks_05[1, i, j] / F[i], accuracy3);
                             }
                             else
                             {
@@ -341,9 +342,9 @@ namespace GeospaceMediana.Controllers
 
                             if (dayInMonth - del_07[i, j] != 0)
                             {
-                                Marks_07[0, i, j] = Math.Round(Marks_07[0, i, j] / (dayInMonth - del_07[i, j]), 1);
-                                Marks_07[1, i, j] = Math.Round(Marks_07[1, i, j] / (dayInMonth - del_07[i, j]), 1);
-                                if (i < 24 && F[i] != 1000) Marks_07[2, i, j] = Math.Round(Marks_07[1, i, j] / F[i], 2);
+                                Marks_07[0, i, j] = Math.Round(Marks_07[0, i, j] / (dayInMonth - del_07[i, j]), accuracy1);
+                                Marks_07[1, i, j] = Math.Round(Marks_07[1, i, j] / (dayInMonth - del_07[i, j]), accuracy2);
+                                if (i < 24 && F[i] != 1000 && F[i] != 0.0) Marks_07[2, i, j] = Math.Round(Marks_07[1, i, j] / F[i], accuracy3);
                             }
                             else
                             {
@@ -354,9 +355,9 @@ namespace GeospaceMediana.Controllers
                             
                             if (dayInMonth - del_10[i, j] != 0)
                             {
-                                Marks_10[0, i, j] = Math.Round(Marks_10[0, i, j] / (dayInMonth - del_10[i, j]), 1);
-                                Marks_10[1, i, j] = Math.Round(Marks_10[1, i, j] / (dayInMonth - del_10[i, j]), 1);
-                                if (i < 24 && F[i] != 1000) Marks_10[2, i, j] = Math.Round(Marks_10[1, i, j] / F[i], 2);
+                                Marks_10[0, i, j] = Math.Round(Marks_10[0, i, j] / (dayInMonth - del_10[i, j]), accuracy1);
+                                Marks_10[1, i, j] = Math.Round(Marks_10[1, i, j] / (dayInMonth - del_10[i, j]), accuracy2);
+                                if (i < 24 && F[i] != 1000 && F[i] != 0.0) Marks_10[2, i, j] = Math.Round(Marks_10[1, i, j] / F[i], accuracy3);
                             }
                             else
                             {
@@ -367,9 +368,9 @@ namespace GeospaceMediana.Controllers
                             
                             if (dayInMonth - del_20[i, j] != 0)
                             {
-                                Marks_20[0, i, j] = Math.Round(Marks_20[0, i, j] / (dayInMonth - del_20[i, j]), 1);
-                                Marks_20[1, i, j] = Math.Round(Marks_20[1, i, j] / (dayInMonth - del_20[i, j]), 1);
-                                if (i < 24 && F[i] != 1000) Marks_20[2, i, j] = Math.Round(Marks_20[1, i, j] / F[i], 2);
+                                Marks_20[0, i, j] = Math.Round(Marks_20[0, i, j] / (dayInMonth - del_20[i, j]), accuracy1);
+                                Marks_20[1, i, j] = Math.Round(Marks_20[1, i, j] / (dayInMonth - del_20[i, j]), accuracy2);
+                                if (i < 24 && F[i] != 1000 && F[i] != 0.0) Marks_20[2, i, j] = Math.Round(Marks_20[1, i, j] / F[i], accuracy3);
                             }
                             else
                             {
@@ -380,9 +381,9 @@ namespace GeospaceMediana.Controllers
                             
                             if (dayInMonth - del_27[i, j] != 0)
                             {
-                                Marks_27[0, i, j] = Math.Round(Marks_27[0, i, j] / (dayInMonth - del_27[i, j]), 1);
-                                Marks_27[1, i, j] = Math.Round(Marks_27[1, i, j] / (dayInMonth - del_27[i, j]), 1);
-                                if (i < 24 && F[i] != 1000) Marks_27[2, i, j] = Math.Round(Marks_27[1, i, j] / F[i], 2);
+                                Marks_27[0, i, j] = Math.Round(Marks_27[0, i, j] / (dayInMonth - del_27[i, j]), accuracy1);
+                                Marks_27[1, i, j] = Math.Round(Marks_27[1, i, j] / (dayInMonth - del_27[i, j]), accuracy2);
+                                if (i < 24 && F[i] != 1000 && F[i] != 0.0) Marks_27[2, i, j] = Math.Round(Marks_27[1, i, j] / F[i], accuracy3);
                             }
                             else
                             {
@@ -393,9 +394,9 @@ namespace GeospaceMediana.Controllers
                             
                             if (dayInMonth - del_30[i, j] != 0)
                             {
-                                Marks_30[0, i, j] = Math.Round(Marks_30[0, i, j] / (dayInMonth - del_30[i, j]), 1);
-                                Marks_30[1, i, j] = Math.Round(Marks_30[1, i, j] / (dayInMonth - del_30[i, j]), 1);
-                                if (i < 24 && F[i] != 1000) Marks_30[2, i, j] = Math.Round(Marks_30[1, i, j] / F[i], 2);
+                                Marks_30[0, i, j] = Math.Round(Marks_30[0, i, j] / (dayInMonth - del_30[i, j]), accuracy1);
+                                Marks_30[1, i, j] = Math.Round(Marks_30[1, i, j] / (dayInMonth - del_30[i, j]), accuracy2);
+                                if (i < 24 && F[i] != 1000 && F[i] != 0.0) Marks_30[2, i, j] = Math.Round(Marks_30[1, i, j] / F[i], accuracy3);
                             }
                             else
                             {
@@ -535,9 +536,9 @@ namespace GeospaceMediana.Controllers
                         {
                             if (dayInMonth - del_05[i, j] != 0)
                             {
-                                Marks_05[0, i, j] = Math.Round(Marks_05[0, i, j] / (dayInMonth - del_05[i, j]), 1);
-                                Marks_05[1, i, j] = Math.Round(Marks_05[1, i, j] / (dayInMonth - del_05[i, j]), 1);
-                                if (i < 24 && F[i] != 1000) Marks_05[2, i, j] = Math.Round(Marks_05[1, i, j] / F[i], 2);
+                                Marks_05[0, i, j] = Math.Round(Marks_05[0, i, j] / (dayInMonth - del_05[i, j]), accuracy1);
+                                Marks_05[1, i, j] = Math.Round(Marks_05[1, i, j] / (dayInMonth - del_05[i, j]), accuracy2);
+                                if (i < 24 && F[i] != 1000 && F[i] != 0.0) Marks_05[2, i, j] = Math.Round(Marks_05[1, i, j] / F[i], accuracy3);
                             }
                             else
                             {
@@ -548,9 +549,9 @@ namespace GeospaceMediana.Controllers
 
                             if (dayInMonth - del_07[i, j] != 0)
                             {
-                                Marks_07[0, i, j] = Math.Round(Marks_07[0, i, j] / (dayInMonth - del_07[i, j]), 1);
-                                Marks_07[1, i, j] = Math.Round(Marks_07[1, i, j] / (dayInMonth - del_07[i, j]), 1);
-                                if (i < 24 && F[i] != 1000) Marks_07[2, i, j] = Math.Round(Marks_07[1, i, j] / F[i], 2);
+                                Marks_07[0, i, j] = Math.Round(Marks_07[0, i, j] / (dayInMonth - del_07[i, j]), accuracy1);
+                                Marks_07[1, i, j] = Math.Round(Marks_07[1, i, j] / (dayInMonth - del_07[i, j]), accuracy2);
+                                if (i < 24 && F[i] != 1000 && F[i] != 0.0) Marks_07[2, i, j] = Math.Round(Marks_07[1, i, j] / F[i], accuracy3);
                             }
                             else
                             {
@@ -561,9 +562,9 @@ namespace GeospaceMediana.Controllers
 
                             if (dayInMonth - del_10[i, j] != 0)
                             {
-                                Marks_10[0, i, j] = Math.Round(Marks_10[0, i, j] / (dayInMonth - del_10[i, j]), 1);
-                                Marks_10[1, i, j] = Math.Round(Marks_10[1, i, j] / (dayInMonth - del_10[i, j]), 1);
-                                if (i < 24 && F[i] != 1000) Marks_10[2, i, j] = Math.Round(Marks_10[1, i, j] / F[i], 2);
+                                Marks_10[0, i, j] = Math.Round(Marks_10[0, i, j] / (dayInMonth - del_10[i, j]), accuracy1);
+                                Marks_10[1, i, j] = Math.Round(Marks_10[1, i, j] / (dayInMonth - del_10[i, j]), accuracy2);
+                                if (i < 24 && F[i] != 1000 && F[i] != 0.0) Marks_10[2, i, j] = Math.Round(Marks_10[1, i, j] / F[i], accuracy3);
                             }
                             else
                             {
@@ -574,9 +575,9 @@ namespace GeospaceMediana.Controllers
 
                             if (dayInMonth - del_20[i, j] != 0)
                             {
-                                Marks_20[0, i, j] = Math.Round(Marks_20[0, i, j] / (dayInMonth - del_20[i, j]), 1);
-                                Marks_20[1, i, j] = Math.Round(Marks_20[1, i, j] / (dayInMonth - del_20[i, j]), 1);
-                                if (i < 24 && F[i] != 1000) Marks_20[2, i, j] = Math.Round(Marks_20[1, i, j] / F[i], 2);
+                                Marks_20[0, i, j] = Math.Round(Marks_20[0, i, j] / (dayInMonth - del_20[i, j]), accuracy1);
+                                Marks_20[1, i, j] = Math.Round(Marks_20[1, i, j] / (dayInMonth - del_20[i, j]), accuracy2);
+                                if (i < 24 && F[i] != 1000 && F[i] != 0.0) Marks_20[2, i, j] = Math.Round(Marks_20[1, i, j] / F[i], accuracy3);
                             }
                             else
                             {
@@ -587,9 +588,9 @@ namespace GeospaceMediana.Controllers
 
                             if (dayInMonth - del_27[i, j] != 0)
                             {
-                                Marks_27[0, i, j] = Math.Round(Marks_27[0, i, j] / (dayInMonth - del_27[i, j]), 1);
-                                Marks_27[1, i, j] = Math.Round(Marks_27[1, i, j] / (dayInMonth - del_27[i, j]), 1);
-                                if (i < 24 && F[i] != 1000) Marks_27[2, i, j] = Math.Round(Marks_27[1, i, j] / F[i], 2);
+                                Marks_27[0, i, j] = Math.Round(Marks_27[0, i, j] / (dayInMonth - del_27[i, j]), accuracy1);
+                                Marks_27[1, i, j] = Math.Round(Marks_27[1, i, j] / (dayInMonth - del_27[i, j]), accuracy2);
+                                if (i < 24 && F[i] != 1000 && F[i] != 0.0) Marks_27[2, i, j] = Math.Round(Marks_27[1, i, j] / F[i], accuracy3);
                             }
                             else
                             {
@@ -600,9 +601,9 @@ namespace GeospaceMediana.Controllers
 
                             if (dayInMonth - del_30[i, j] != 0)
                             {
-                                Marks_30[0, i, j] = Math.Round(Marks_30[0, i, j] / (dayInMonth - del_30[i, j]), 1);
-                                Marks_30[1, i, j] = Math.Round(Marks_30[1, i, j] / (dayInMonth - del_30[i, j]), 1);
-                                if (i < 24 && F[i] != 1000) Marks_30[2, i, j] = Math.Round(Marks_30[1, i, j] / F[i], 2);
+                                Marks_30[0, i, j] = Math.Round(Marks_30[0, i, j] / (dayInMonth - del_30[i, j]), accuracy1);
+                                Marks_30[1, i, j] = Math.Round(Marks_30[1, i, j] / (dayInMonth - del_30[i, j]), accuracy2);
+                                if (i < 24 && F[i] != 1000 && F[i] != 0.0 ) Marks_30[2, i, j] = Math.Round(Marks_30[1, i, j] / F[i], accuracy3);
                             }
                             else
                             {

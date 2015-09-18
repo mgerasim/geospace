@@ -22,7 +22,7 @@ CHARACTER(10)            :: slon1, slat1, slon2, slat2, sW, sMonth
 real                     :: lon1, lat1, lon2, lat2 
 real                     :: x1, y1, x2, y2, D
 integer                  :: KTO, month, W
-real, dimension ( SIZE ) :: XO, YO
+real, dimension ( SIZE ) :: XO, YO, GTO300, GYO
 
 KTO = 0
 do i = 1, SIZE, 1
@@ -61,7 +61,20 @@ do i = 1, KTO, 1
 end do
 
 
-call forecast_MUF( W, month, KTO, XO, YO, D )
+!call forecast_MUF( W, month, KTO, XO, YO, D )
+
+call degree_to_rad( 90.0-0.0, XO(1) )
+call degree_to_rad( 0.0, YO(1) )
+
+
+print *, "DEBUG Geomagnetic_Coord"
+do i = 1, KTO, 1
+	call Convert_Geomagnetic_Coord(XO(i), YO(i), GTO300(i), GYO(i))
+	call rad_to_degree( GTO300(i), GTO300(i) )
+	call rad_to_degree( GYO(i), GYO(i) )
+	print *, "DEBUG GTO300[",i,"] = ", GTO300(i)
+	print *, "DEBUG GYO[",i,"] = ", GYO(i)
+end do
 
 print *, "DEBUG ...finish programm"
 END

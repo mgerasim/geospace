@@ -12,6 +12,7 @@ public calc_layerF2_for_MUF_OPF
 
 contains
 
+
 subroutine forecast_MUF( W, month, KTO, XO, YO, D )
 	integer                  :: KTO, month, W, h
 	real                     :: D
