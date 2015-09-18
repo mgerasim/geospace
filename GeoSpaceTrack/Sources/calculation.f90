@@ -190,23 +190,23 @@ contains
 		return
 	end subroutine calc_coord
 
-	subroutine real Return_Polynom_I300(XTO, mI300, nI300)
+	real function Return_Polynom_I300(XTO, mI300, nI300)
 		integer  :: mI300, nI300, i, j
-		real     :: XTO, sum
+		real     :: XTO, sum, degree
 		sum = 0.0
 		i = 0
-		j = nint( XTO )
-		print "DEBUG j =", j
+		call rad_to_degree( XTO, degree )
+		j = nint( degree )
+		!print *, "DEBUG j =", j, degree
 		do m = 0, mI300, 1
 			do n = m, nI300, 1
-				!sum = sum + I300_POLYNOM( j, i )
+				sum = sum + I300_POLYNOM( j, i )
 				i = i + 1
 			end do
 		end do
 
 		Return_Polynom_I300 = sum
-
-	end subroutine Return_Polynom_I300
+	end function Return_Polynom_I300
 
 	! функция по расчету I300
 	subroutine Calc_I300(XTO, YO, I300)
@@ -224,11 +224,11 @@ contains
  	! функция перевода географических координат в геомагнитные
 	subroutine Convert_Geomagnetic_Coord(XO, YO, GTO300, GYO) 
 		real                      	 :: XO, XTO, YO, GTO300, GYO, I300, GXO, GXTO
-		real                         :: addition
+		real                         :: addition, cosFi
  		CHARACTER(50) error, error1		 		
  		
 		addition = 0.0
-		XTO = PI/2 - XO
+		XTO = PI/2.0 - XO
 		GXTO  = cos(GT0)*cos(XTO) + sin(GT0)*sin(XTO)*cos(YO-GL0)
 
 		if( abs(GXTO ) > 1 + EPS )  then  
@@ -263,13 +263,21 @@ contains
 			print *, "         DEBUG new value GXTO = |1|"
 		end if
 
-		GYO = acos( GYO )
-
-		call Calc_I300( XTO, YO, I300 )
-
-		GTO300 = GXTO 
-
+		GYO = acos( GYO ) 
+		
 		call Calc_I300(XTO, YO, I300)
+		print *, "DEBUG ", I300
+
+		call degree_to_rad( I300, I300 )
+		print *, "DEBUG ", I300, GXTO
+
+		cosFi = PI/2.0 - GXTO
+
+		if( cosFi == 0 ) then
+			cosFi = EPS
+		end if
+
+		GTO300 = I300 / cosFi
 
 	end subroutine Convert_Geomagnetic_Coord
 
