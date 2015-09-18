@@ -4,6 +4,7 @@
 }
 <script>
     var submitUrl = "@Url.Action("Submit", "Disturbance")";
+    var deleteUrl = "@Url.Action("Delete", "Disturbance")";
     var currentYear = "@ViewBag.YYYY";
     var currentMonth = "@ViewBag.MM.ToString("D2")";
 </script>
@@ -20,25 +21,55 @@
     }
 </style>
 <script type="text/javascript">
-    function handleSaveTime(station, day, Name ) {
+    function handleSaveTime(station, day, Name) {
+
+        $(".modal-body").html("<h3>Загрузка ... </h3>");
+
         $("#stationNum").val(station);
         $("#dayInMonths").val(day);
-        console.log(Name, day, currentMonth);
+        $("#startTimePeriod").val(0);
+        $("#durationTimePeriod").val(1);
         $(".modal-title").html("Нарушение радиосвязи на ст. " + Name + " за " + day + "." + currentMonth + "." + currentYear);
+
+            var param = { StationCode: station, YYYY: window.currentYear, MM: window.currentMonth, DD: day };
+            $.ajax({
+                url: '@Url.Action("GetHoursForHtmlModalBody", "Disturbance")',
+                data: param,
+                success: function (data) {
+                    console.log("data");
+                    $(".modal-body").html(data);
+                },
+                error: function (x, e) {
+                    console.log("Error");
+                }
+            });
     }
+
     function Submit() {
-        var resUrl = window.submitUrl +
-                        "?station=" + $("#stationNum").val() +
-                        "&year=" + window.currentYear +
-                        "&month=" + window.currentMonth +
-                        "&day=" + $("#dayInMonths").val() +
-                        "&hour=" + $("#startTimePeriod").val() +
-                        "&duration=" + $("#durationTimePeriod").val();
+        $('#myModal').modal('hide');
+
+        var StationCode = $("#stationNum").val();
+        var YYYY = window.currentYear;
+        var MM = window.currentMonth;
+        var DD = $("#dayInMonths").val();
+
+        var param = { StationCode: StationCode, YYYY: YYYY, MM: MM, DD: DD};
+        
         $.ajax({
-            url: resUrl,
-            success: function () { location.reload(); }
+            url: '@Url.Action("Display", "Disturbance")',
+            data: param,
+            success: function (data) {
+
+                var td = StationCode.toString() + DD.toString();
+                console.log($("#"+td.toString()));
+                $("#"+td.toString()).text(data);
+            },
+            error: function (x, e) {
+                console.log("Error");
+            }
         });
     }
+   
 </script>
 <table class="table table-bordered table-striped table-disturbance">
     <thead>
@@ -62,56 +93,40 @@
     </thead>
     <tbody>
         @for (int i = 1; i <= DateTime.DaysInMonth(ViewBag.YYYY, ViewBag.MM); i++)
-{
+        {
 
-    <tr>
-        <td>@i</td>
-        @foreach (var item in Model.theStationList)
+            <tr>
+                <td>@i</td>
+                @foreach (var item in Model.theStationList)
 {
-    <td id="@item.Code@i" data-whatever="@item.Code@i" data-toggle="modal" data-target="#myModal" class="col-md-3" onclick="handleSaveTime('@item.Code','@i.ToString("D2")', '@item.Name' )">@Html.Raw(Model.Display(item.Code, ViewBag.YYYY, ViewBag.MM, i))</td>
+    <td id="@item.Code@i" data-whatever="@item.Code@i" data-toggle="modal" data-target="#myModal" class="col-md-3" onclick="handleSaveTime('@(item.Code)','@i', '@(item.Name)' )">@Html.Raw(Model.Display(item.Code, ViewBag.YYYY, ViewBag.MM, i))</td>
 }
-    </tr>
-}
+            </tr>
+        }
     </tbody>
 </table>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModelLable">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabele"></h4>
-            </div>
-            <a id="stationNum"></a>
-            <a id="dayInMonths"></a>
-            <div class="modal-body">
-                <div id="cloudiness-panel1" class="panel panel-success">
-                    <div id="cloudiness-panel-heading" class="panel-heading ms">Начало</div>
-                    <div class="panel-body">
-                        <select id="startTimePeriod" class="btn dropdown-toggle btn-default">
-                            @for (int i = 0; i < 24; i++)
-                            {
-                                <option>@i</option>
-                            }
-                        </select>
-                    </div>
-                </div>
-                <div id="cloudiness-panel2" class="panel panel-success">
-                    <div id="cloudiness-panel2-heading" class="panel-heading ms">Продолжительность</div>
-                    <div class="panel-body">
-                        <select id="durationTimePeriod" class="btn dropdown-toggle btn-default">
-                            @for (int i = 1; i <= 24; i++)
-                            {
-                                <option>@i</option>
-                            }
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" onclick="Submit()" class="btn btn-primary">Сохранить</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
 
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModelLable">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabele"></h4>
+                    </div>
+                    <a id="stationNum"></a>
+                    <a id="dayInMonths"></a>
+                    <div class="modal-body">
+                        
+                            
+                    </div>
+                       
+                
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" onclick="Submit()">Закрыть</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        
+    

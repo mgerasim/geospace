@@ -41,16 +41,28 @@ namespace GeospaceEntity.Models
             repo.Update(this);
         }
 
+        public virtual void Delete()
+        {
+            IRepository<Disturbance> repo = new DisturbanceRepository();
+            repo.Delete(this);
+        }
+
         public virtual List<Disturbance> GetAll()
         {
             IRepository<Disturbance> repo = new DisturbanceRepository();
             repo.GetAll();
             return (List<Disturbance>)repo.GetAll();
         }
-        static public Disturbance GetByDate(Station station, int YYYY, int MM, int DD, int HH, int MI = 0)
+        static public Disturbance GetByTime(Station station, int YYYY, int MM, int DD, int HH, int MI = 0)
         {
             DisturbanceRepository repo = new DisturbanceRepository();
-            return repo.GetByDate(station, YYYY, MM, DD, HH, MI);
+            return repo.GetByTime(station, YYYY, MM, DD, HH, MI);
+        }
+
+        static public List<Disturbance> GetByDay(Station station, int YYYY, int MM, int DD)
+        {
+            DisturbanceRepository repo = new DisturbanceRepository();
+            return (List<Disturbance>)repo.GetByDay(station, YYYY, MM, DD);
         }
 
         static public List<Disturbance> GetByMonth(Station station, int YYYY, int MM)
