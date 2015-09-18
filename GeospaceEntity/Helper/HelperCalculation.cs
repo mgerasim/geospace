@@ -228,7 +228,7 @@ namespace GeospaceEntity.Helper
                     )
                     {
                         Disturbance theDisturbance = null;
-                        theDisturbance = Disturbance.GetByDate(station, currDate.Year, currDate.Month, currDate.Day, theCode.HH);
+                        theDisturbance = Disturbance.GetByTime(station, currDate.Year, currDate.Month, currDate.Day, theCode.HH);
                         if (theDisturbance == null)
                         {
                             theDisturbance = new Disturbance();

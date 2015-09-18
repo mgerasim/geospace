@@ -91,7 +91,17 @@ namespace GeospaceMediana.Models
             }
         }
 
-        
+        public bool CheckHour(int StationCode, int DD, int HH)
+        {
+            if (theDisturbanceList.Count(x => x.StationCode == StationCode && x.DD == DD && x.HH == HH) == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
             
     }
     public class ViewDisturbance

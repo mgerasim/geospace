@@ -1,0 +1,77 @@
+﻿@{
+    Layout = "";
+}
+@model List<GeospaceEntity.Models.Disturbance>
+
+@for (int i = 0; i < 6; i++)
+{
+    <div class="row">
+        @for (int j = 0; j < 4; j++)
+        {
+            string classChecked = "";
+            int hour = i + (j * 6);
+            if (Model.Count(x=>x.HH == hour) == 1)
+            {
+                classChecked = "checked";
+            
+            }
+            <div class="col-md-1">
+                <input class="change-hour" data-hour="@(hour)" type="checkbox" @classChecked>
+            </div>
+            <div class="col-md-2">
+                @(hour.ToString("D2")) ч.
+            </div>
+
+        }
+    </div>
+}
+<script>
+    function Add(StationCode, YYYY, MM, DD, HH) {
+        var param = { StationCode: StationCode, YYYY: YYYY, MM: MM, DD: DD, HH: HH };
+        $.ajax({
+            cashe: false,
+            url: '@Url.Action("Add", "Disturbance")',
+            data: param,
+            success: function (data) {
+                console.log("success add");
+            },
+            error: function () {
+                console.log("error add");
+            }
+        });
+    }
+
+
+    function Remove(StationCode, YYYY, MM, DD, HH) {
+        var param = { StationCode: StationCode, YYYY: YYYY, MM: MM, DD: DD, HH: HH };
+        $.ajax({
+            cashe: false,
+            url: '@Url.Action("Remove", "Disturbance")',
+            data: param,
+            success: function (data) {
+
+            },
+            error: function () {
+
+            }
+        });
+    }
+
+    $('.change-hour').change(function () {
+        var StationCode = @ViewBag.StationCode;
+        var YYYY = @(ViewBag.YYYY);
+        var MM = @(ViewBag.MM);
+        var DD = @(ViewBag.DD);
+        var HH = $(this).attr("data-hour");
+
+        if (this.checked) {
+            Add(StationCode, YYYY, MM, DD, HH);
+        }
+        else {
+            Remove(StationCode, YYYY, MM, DD, HH);
+        }
+
+
+    });
+
+</script>

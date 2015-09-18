@@ -65,7 +65,7 @@ namespace GeospaceEntity.Repositories
                         .List<GeospaceEntity.Models.Disturbance>();
         }
 
-        public GeospaceEntity.Models.Disturbance GetByDate(Station station, int YYYY, int MM, int DD, int HH, int MI = 0)
+        public GeospaceEntity.Models.Disturbance GetByTime(Station station, int YYYY, int MM, int DD, int HH, int MI = 0)
         {
             GeospaceEntity.Models.Disturbance Disturbance = null;
             
@@ -89,6 +89,17 @@ namespace GeospaceEntity.Repositories
             }
             
             return Disturbance;
+        }
+
+        public IList<GeospaceEntity.Models.Disturbance> GetByDay(Station station, int YYYY, int MM, int DD)
+        {
+            using (ISession session = NHibernateHelper.OpenSession())
+                return session.CreateCriteria<GeospaceEntity.Models.Disturbance>()
+                        .Add(Restrictions.Eq("Station", station))
+                        .Add(Restrictions.Eq("YYYY", YYYY))
+                        .Add(Restrictions.Eq("MM", MM))
+                        .Add(Restrictions.Eq("DD", DD))
+                        .List<GeospaceEntity.Models.Disturbance>();
         }
 
         IList<GeospaceEntity.Models.Disturbance> IRepository<GeospaceEntity.Models.Disturbance>.GetAll()
