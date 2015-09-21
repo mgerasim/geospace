@@ -30,3 +30,20 @@
                                 }
 )
 </li>
+
+<li>
+    @Html.ActionLink("Экспорт в Word",
+            "ExportToWord",
+            "Disturbance",
+            new
+                     {
+                         YYYY = Model.CurrDate.Year,
+                         MM = Model.CurrDate.Month,
+                         DD = Model.CurrDate.Day
+                     },
+                                new
+                                {
+                                    @class = "btn btn-default btn-lg"
+                                }
+)
+</li>

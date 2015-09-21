@@ -23,6 +23,10 @@ namespace GeospaceMediana.Models
         {
             return theDisturbanceList.Count(x => x.StationCode == StationCode && x.YYYY==YYYY && x.MM==MM && x.DD==DD);
         }
+        public string DisplaySafe(int StationCode, int YYYY, int MM, int DD)
+        {
+            return this.Display(StationCode, YYYY, MM, DD).Replace("<br>", "");
+        }
         public string Display(int StationCode, int YYYY, int MM, int DD)
         {
             string res="";

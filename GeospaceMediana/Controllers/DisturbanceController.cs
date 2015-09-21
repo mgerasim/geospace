@@ -1,8 +1,10 @@
 ﻿using GeospaceEntity.Models;
 using GeospaceMediana.Models;
+using Microsoft.Office.Interop.Word;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Web;
 using System.Web.Mvc;
 
@@ -230,13 +232,188 @@ namespace GeospaceMediana.Controllers
 
                 theViewData.theDisturbanceList = theDisturbanceList;
 
-                return Content(theViewData.Display(StationCode, YYYY, MM, DD));
+                return Content(theViewData.DisplaySafe(StationCode, YYYY, MM, DD));
             }
             catch (Exception)
             {
                 return Content("Ошибка при отправлении данных! Проверьте корректность вводимых данных.");
             }
         }
+
+
+        public ActionResult ExportToWord(int YYYY = -1, int MM = -1)
+        {
+            if (YYYY < 0)
+            {
+                YYYY = DateTime.Now.Year;
+            }
+            if (MM < 0)
+            {
+                MM = DateTime.Now.Month;
+            }
+
+
+            Microsoft.Office.Interop.Word.Application wApp = null;
+            try
+            {
+                wApp = new Microsoft.Office.Interop.Word.Application();
+                wApp.Visible = false;
+                var wDocument = wApp.Documents.Add();
+
+                foreach (Microsoft.Office.Interop.Word.Section section in wDocument.Sections)
+                {
+                    //Get the header range and add the header details.
+                    Microsoft.Office.Interop.Word.Range headerRange = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                    headerRange.Fields.Add(headerRange, Microsoft.Office.Interop.Word.WdFieldType.wdFieldPage);
+                    headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                    headerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdBlue;
+                    headerRange.Font.Size = 14;
+                    headerRange.Text = "Таблица нарушения радиосвязи";
+                }
+
+
+                wDocument.Content.SetRange(0, 0);
+
+                var paragraphTable = wDocument.Paragraphs.Add();
+
+                paragraphTable.Range.InsertParagraphAfter();
+
+                ViewDisturbanceList theViewData = new ViewDisturbanceList(YYYY, MM);
+                List<ViewDisturbance> theDisturbanceList = new List<ViewDisturbance>();
+                ViewBag.YYYY = YYYY;
+                ViewBag.MM = MM;
+
+
+                Station stationSalekhard = Station.GetByCode(37701);
+                theViewData.theStationList.Add(stationSalekhard);
+                foreach (var item in Disturbance.GetByMonth(stationSalekhard, YYYY, MM))
+                {
+                    ViewDisturbance theDisturbance = new ViewDisturbance(item);
+                    theDisturbanceList.Add(theDisturbance);
+                }
+
+                Station stationMagadan = Station.GetByCode(45601);
+                theViewData.theStationList.Add(stationMagadan);
+                foreach (var item in Disturbance.GetByMonth(stationMagadan, YYYY, MM))
+                {
+                    ViewDisturbance theDisturbance = new ViewDisturbance(item);
+                    theDisturbanceList.Add(theDisturbance);
+                }
+
+
+                Station stationKhabarovsk = Station.GetByCode(43501);
+                theViewData.theStationList.Add(stationKhabarovsk);
+                foreach (var item in Disturbance.GetByMonth(stationKhabarovsk, YYYY, MM))
+                {
+                    ViewDisturbance theDisturbance = new ViewDisturbance(item);
+                    theDisturbanceList.Add(theDisturbance);
+                }
+
+                Station stationParatunka = Station.GetByCode(46501);
+                theViewData.theStationList.Add(stationParatunka);
+                foreach (var item in Disturbance.GetByMonth(stationParatunka, YYYY, MM))
+                {
+                    ViewDisturbance theDisturbance = new ViewDisturbance(item);
+                    theDisturbanceList.Add(theDisturbance);
+                }
+                theViewData.theDisturbanceList = theDisturbanceList;
+
+
+                Table firstTable = wDocument.Tables.Add(paragraphTable.Range, DateTime.DaysInMonth(YYYY, MM)+1, theViewData.theStationList.Count() + 1 /*for Day Columnt*/);
+                firstTable.Borders.Enable = 1;
+                foreach (Row row in firstTable.Rows)
+                {
+                    if (row.IsFirst)
+                    {
+                        foreach(Cell cell in row.Cells)
+                        {
+                            if (cell.ColumnIndex == 1)
+                            {
+                                cell.Range.Text = "День";
+                            }
+                            else
+                            {
+                                cell.Range.Text = theViewData.theStationList[cell.ColumnIndex - 2].Name;
+                            }
+
+                        }
+                    }
+                    else
+                    {
+
+                        foreach (Cell cell in row.Cells)
+                        {
+                            if (cell.ColumnIndex == 1)
+                            {
+                                cell.Range.Text = (cell.RowIndex - 1).ToString("D2") ;
+                            }
+                            else
+                            {
+                                cell.Range.Text = theViewData.DisplaySafe(theViewData.theStationList[cell.ColumnIndex - 2].Code,
+                                    YYYY,
+                                    MM,
+                                    cell.RowIndex - 1);
+                            }
+
+                        }
+                    }
+                    /*
+                    foreach (Cell cell in row.Cells)
+                    {
+
+                        //Header row
+                        if (cell.RowIndex == 1)
+                        {
+                            cell.Range.Text = "Column " + cell.ColumnIndex.ToString();
+                            cell.Range.Font.Bold = 1;
+                            //other format properties goes here
+                            cell.Range.Font.Name = "verdana";
+                            cell.Range.Font.Size = 10;
+                            //cell.Range.Font.ColorIndex = WdColorIndex.wdGray25;                            
+                            cell.Shading.BackgroundPatternColor = WdColor.wdColorGray25;
+                            //Center alignment for the Header cells
+                            cell.VerticalAlignment = WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+                            cell.Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+
+                        }
+                        //Data row
+                        else
+                        {
+                            cell.Range.Text = (cell.RowIndex - 2 + cell.ColumnIndex).ToString();
+                        }
+                    }
+                     * */
+                }
+
+
+                string nameDoc = HttpContext.Server.MapPath("~/App_Data/");
+                string fileName = "Disturbance.doc";
+                string fileNameTemp = string.Format(@"{0}.doc", Guid.NewGuid());
+                nameDoc += fileNameTemp;
+
+                wApp.ActiveDocument.SaveAs2(nameDoc);
+                wApp.ActiveDocument.Close(true);
+
+                byte[] fileBytes = System.IO.File.ReadAllBytes(nameDoc);
+                System.IO.File.Delete(nameDoc);
+                return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message + "\n" + ex.StackTrace;
+                return View();
+            }
+
+            finally
+            {
+                if (wApp != null)
+                {
+                    wApp.Quit();
+                    Marshal.FinalReleaseComObject(wApp);
+                }
+            }
+        }
+
 
     }
 
