@@ -173,101 +173,134 @@
             </thead>
 
             <tbody>
-                                @foreach (ConsolidatedTable item in Model)
+                @for (int i = 0; i < DateTime.DaysInMonth(ViewBag.Year , ViewBag.Month); i++)
                 {
-                    <tr id="D_@item.DD">
-                        <th rowspan="2" data-day="@item.DD" data-type="DD" class="editable-mediana" data-toggle="tooltip">@item.DD</th>
-                        <th rowspan="2" data-day="@item.DD" data-type="Th2_W" class="editable-mediana" data-toggle="tooltip">@item.Th2_W</th>
-                        <th rowspan="2" class="c_3">@item.Th3_Sp</th>
-                        <th rowspan="2" class="c_4">@item.Th4_F</th>
-                        <th rowspan="2" class="c_5">@item.Th5_90M</th>
-                        <th class="c_6 ">@item.Th6_CountEvent</th>
-                        @{ List<EnergeticEvent> list = new List<EnergeticEvent>(item.EnergeticEvents);}
-                        <th class="c_7 energetic_event">
-                            @for (int i = 0; i < list.Count; i++)
-                            {
-                                if (list[i].Balls != null)
-                                {
-                                    @Html.Raw(list[i].Balls);
-                                <br />
-                                }
-                                else
-                                {
-                                    <br />
-                                }
+                    if(Model.Count > i)
+                    {
+                        ConsolidatedTable item = Model[i];
+                        <tr id="D_@item.DD">
+                            <th rowspan="2" data-day="@item.DD" data-type="DD" class="editable-mediana" data-toggle="tooltip">@item.DD</th>
+                            <th rowspan="2" data-day="@item.DD" data-type="Th2_W" class="editable-mediana" data-toggle="tooltip">@item.Th2_W</th>
+                            <th rowspan="2" class="c_3">@item.Th3_Sp</th>
+                            <th rowspan="2" class="c_4">@item.Th4_F</th>
+                            <th rowspan="2" class="c_5">@item.Th5_90M</th>
+                            <th class="c_6 ">@item.Th6_CountEvent</th>
+                            @{ List<EnergeticEvent> list = new List<EnergeticEvent>(item.EnergeticEvents);}
+                                <th class="c_7 energetic_event">
+                                    @for (int j = 0; j < list.Count; j++)
+                                    {
+                                        if (list[j].Balls != null)
+                                        {
+                                            @Html.Raw(list[j].Balls);
+                                        <br />
+                                        }
+                                        else
+                                        {
+                                            <br />
+                                        }
 
-                            }
-                        </th>
-                        <th class="c_8 energetic_event">
-                            @for (int i = 0; i < list.Count; i++)
-                            {
-                                if (list[i].Coordinates == "")
-                                {  <br />}
-                                else
-                                {
-                                    @Html.Raw(list[i].Coordinates);
-                                <br />}
+                                    }
+                                </th>
+                                <th class="c_8 energetic_event">
+                                    @for (int j = 0; j < list.Count; j++)
+                                    {
+                                        if (list[j].Coordinates == "")
+                                        {  <br />}
+                                        else
+                                        {
+                                            @Html.Raw(list[j].Coordinates);
+                                        <br />}
 
-                            }
-                        </th>
-                        <th class="c_9 energetic_event">
-                            @for (int i = 0; i < list.Count; i++)
-                            {
-                                if (list[i].Time == "")
-                                {  <br />}
-                                else
-                                {
-                                    @Html.Raw(list[i].Time);
-                                <br />}
+                                    }
+                                </th>
+                                <th class="c_9 energetic_event">
+                                    @for (int j = 0; j < list.Count; j++)
+                                    {
+                                        if (list[j].Time == "")
+                                        {  <br />}
+                                        else
+                                        {
+                                            @Html.Raw(list[j].Time);
+                                        <br />}
 
-                            }
-                        </th>
-                        <th class="c_10 energetic_event">
-                            @for (int i = 0; i < list.Count; i++)
-                            {
-                                if (list[i].RadioBursts == "")
-                                {  <br />}
-                                else
-                                {
-                                    @Html.Raw(list[i].RadioBursts);
-                                <br />}
+                                    }
+                                </th>
+                                <th class="c_10 energetic_event">
+                                    @for (int j = 0; j < list.Count; j++)
+                                    {
+                                        if (list[j].RadioBursts == "")
+                                        {  <br />}
+                                        else
+                                        {
+                                            @Html.Raw(list[j].RadioBursts);
+                                        <br />}
 
-                            }
-                        </th>
-                        <th rowspan="2" class="c_11">
-                            @item.Th11_
-                        </th>
-                        <th rowspan="2" class="c_12">
-                            @item.Th12_AP
-                        </th>
-                        <th rowspan="2" class="c_13">
-                            @item.Th13_Amag
-                        </th>
-                        <th rowspan="2" class="c_14">
-                            @item.Th14_Apar
-                        </th>
-                        <th rowspan="2" class="c_15">
-                            @item.Th15_Akha
-                        </th>
-                        <th rowspan="2" class="c_16">
-                            @item.Th16_K
-                        </th>
-                        <th rowspan="2" class="c_17">
-                            @item.Th17_iSal
-                        </th>
-                        <th rowspan="2" class="c_18">
-                            @item.Th18_iMag
-                        </th>
-                        <th rowspan="2" class="c_19">
-                            @item.Th19_iKha
-                        </th>
-                        <th rowspan="2" class="c_20">
-                            @item.Th20_iPar
-                        </th>
-                    </tr>
-                    <tr >
-                        <th colspan="5" id="addEvent" data-whatever="@item.DD" data-toggle="modal" data-target="#myModal" class=" btn btn-primary btn-lg col-lg-12" onclick="handleSaveTime('@item.DD','@ViewBag.DateString' )">Добавить</th>
-                    </tr>
+                                    }
+                                </th>
+                                <th rowspan="2" class="c_11">
+                                    @item.Th11_
+                                </th>
+                                <th rowspan="2" class="c_12">
+                                    @item.Th12_AP
+                                </th>
+                                <th rowspan="2" class="c_13">
+                                    @item.Th13_Amag
+                                </th>
+                                <th rowspan="2" class="c_14">
+                                    @item.Th14_Apar
+                                </th>
+                                <th rowspan="2" class="c_15">
+                                    @item.Th15_Akha
+                                </th>
+                                <th rowspan="2" class="c_16">
+                                    @item.Th16_K
+                                </th>
+                                <th rowspan="2" class="c_17">
+                                    @item.Th17_iSal
+                                </th>
+                                <th rowspan="2" class="c_18">
+                                    @item.Th18_iMag
+                                </th>
+                                <th rowspan="2" class="c_19">
+                                    @item.Th19_iKha
+                                </th>
+                                <th rowspan="2" class="c_20">
+                                    @item.Th20_iPar
+                                </th>
+                        </tr>
+                        <tr >
+                            <th colspan="5" style="padding: 1px 8px;" id="addEvent" data-whatever="@item.DD" data-toggle="modal" data-target="#myModal" class=" btn btn-primary btn-lg col-lg-12" onclick="handleSaveTime('@item.DD','@ViewBag.DateString' )">Добавить</th>
+                        </tr>
+                    
+                    }
+                    else
+	                {
+                        <tr id="D_@i+1">
+                            <th rowspan="2" data-day="@Html.Raw(i + 1)" data-type="DD" class="editable-mediana" data-toggle="tooltip">@Html.Raw(i + 1)</th>
+                            <th rowspan="2" data-day="@Html.Raw(i + 1)" data-type="Th2_W" class="editable-mediana" data-toggle="tooltip"></th>
+                            <th rowspan="2" class="c_3"></th>
+                            <th rowspan="2" class="c_4"></th>
+                            <th rowspan="2" class="c_5"></th>
+                            <th class="c_6 "></th>
+                            <th class="c_7 energetic_event"></th>
+                            <th class="c_8 energetic_event"></th>
+                            <th class="c_9 energetic_event"></th>
+                            <th class="c_10 energetic_event"></th>
+                            <th rowspan="2" class="c_11"></th>
+                            <th rowspan="2" class="c_12"></th>
+                            <th rowspan="2" class="c_13"></th>
+                            <th rowspan="2" class="c_14"></th>
+                            <th rowspan="2" class="c_15"></th>
+                            <th rowspan="2" class="c_16"></th>
+                            <th rowspan="2" class="c_17"></th>
+                            <th rowspan="2" class="c_18"></th>
+                            <th rowspan="2" class="c_19"></th>
+                            <th rowspan="2" class="c_20"></th>
+                        </tr>
+                        <tr >
+                            <th colspan="5" style="padding: 1px 8px;" id="addEvent" data-whatever="@Html.Raw(i + 1)" data-toggle="modal" data-target="#myModal" class=" btn btn-primary btn-lg col-lg-12" onclick="handleSaveTime('@Html.Raw(i + 1)','@ViewBag.DateString' )">Добавить</th>
+                        </tr>
+	                }
                 }
             </tbody>
         </table>
