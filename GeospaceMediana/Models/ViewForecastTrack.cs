@@ -77,14 +77,7 @@ namespace GeospaceMediana.Models
                     val2 = 0;                                        
                 }
 
-                for (h = 0; h < 24; h++ )
-                {
-                    if (table1[0, h] <= 0 || table1[0, h] > 30) table1[0, h] = 1100;
-                    if (table1[1, h] <= 0 || table1[1, h] > 30) table1[1, h] = 1100;
-                    if (table1[2, h] <= 0 || table1[2, h] > 30) table1[2, h] = 1100;
-                    if (table1[3, h] <= 0 || table1[3, h] > 30) table1[3, h] = 1100;
-                    if (table1[4, h] <= 0 || table1[4, h] > 30) table1[4, h] = 1100;                 
-                }
+                Check(table1, colors1);
 
                 string graf1 = "[", graf2 = "[", graf3 = "[";
                 List<string> oneGraf = new List<string>();
@@ -127,22 +120,15 @@ namespace GeospaceMediana.Models
                     table2[3, h] = Math.Max(table2[3, h], val2);
                 }
 
-                for (h = 0; h < 24; h++)
-                {
-                    if (table2[0, h] <= 0 || table2[0, h] > 30) table2[0, h] = 1100;
-                    if (table2[1, h] <= 0 || table2[1, h] > 30) table2[1, h] = 1100;
-                    if (table2[2, h] <= 0 || table2[2, h] > 30) table2[2, h] = 1100;
-                    if (table2[3, h] <= 0 || table2[3, h] > 30) table2[3, h] = 1100;
-                }
-
+                Check(table2, colors2);
                 Recovery_Data_Table2(item, table2, table1, colors2, now);
 
                 for (h = 0; h < 24; h++)
                 {
-                    if (table1[4, h] < 1000) graf1 += table1[4, h].ToString().Replace( ",", "." ) + ",";
+                    if (table1[4, h] > 0 && table1[4, h] < 1000) graf1 += table1[4, h].ToString().Replace( ",", "." ) + ",";
                     else graf1 += "null,";
 
-                    if (table2[3, h] < 1000) graf2 += table2[3, h].ToString().Replace(",", ".") + ",";
+                    if (table2[3, h] > 0 && table2[3, h] < 1000) graf2 += table2[3, h].ToString().Replace(",", ".") + ",";
                     else graf2 += "null,";
 
                     if (h < ionka.Count)
@@ -167,6 +153,21 @@ namespace GeospaceMediana.Models
 
                 Colors1.Add(colors1);
                 Colors2.Add(colors2);
+            }
+        }
+
+        public void Check( double[,] values, double[,] colors )
+        {
+            for( int i = 0; i < 5; i++)
+            {
+                for( int j = 0; j < 24; j++)
+                {
+                    if (values[i, j] <= 0 || values[i, j] > 30)
+                    {
+                        values[i, j] = 1100;
+                        colors[i, j] = 0;
+                    }
+                }
             }
         }
 
@@ -214,28 +215,45 @@ namespace GeospaceMediana.Models
                     {
                         if (values[0, i] >= 1000 && int_f0F2[i] < 1000)
                         {
-                            values[0, i] = Math.Round((avg + ((int_f0F2[i] / 10.0) - avg10)) * 1, 1);                            
+                            values[0, i] = Math.Round((avg + ((int_f0F2[i] / 10.0) - avg10)) * 1, 1);
+                            colors[0, i] = 1;
                         }
                     }
                     else
                     {
-                        values[0, i] = int_f0F2[i] / 10.0 + stat.addition;
-                    }
-                    colors[0, i] = 1;
-                }
+                        if (i < int_f0F2.Count)
+                        {
+                            if (int_f0F2[i] < 1000)
+                            {
+                                values[0, i] = int_f0F2[i] / 10.0 + stat.addition;
+                                colors[0, i] = 1;
+                            }
+                        }
+                    }                    
+                }                
+            }
 
+            Check(values, colors);
+            for (int i = 0; i < 24; i++)
+            {
+                if (values[0, i] >= 1000)
+                    interpolation(values, i, colors);
+            }
+            Check(values, colors);
+
+            for (int i = 0; i < 24; i++)
+            {
                 double val0 = 0.0, val1 = 0.0, val2 = 0.0, val3 = 0.0;
-                if (values[0, i] < 1000) val0 = values[0, i];
-                if (values[1, i] < 1000) val1 = values[1, i];
-                if (values[2, i] < 1000) val2 = values[2, i];
-                if (values[3, i] < 1000) val3 = values[3, i];
+                if (values[0, i] > 0 && values[0, i] < 1000) val0 = values[0, i];
+                if (values[1, i] > 0 && values[1, i] < 1000) val1 = values[1, i];
+                if (values[2, i] > 0 && values[2, i] < 1000) val2 = values[2, i];
+                if (values[3, i] > 0 && values[3, i] < 1000) val3 = values[3, i];
 
                 values[4, i] = Math.Max(val0, val1);
                 values[4, i] = Math.Max(values[4, i], val2);
-                values[4, i] = Math.Max(values[4, i], val3);
-
-                if (values[4, i] <= 0 || values[4, i] > 30) values[4, i] = 1100;
+                values[4, i] = Math.Max(values[4, i], val3);  
             }
+            Check(values, colors);
         }
 
         public void Recovery_Data_Table2(Station stat, double[,] table2, double[,] table1, double[,] colors, DateTime now)
@@ -310,71 +328,58 @@ namespace GeospaceMediana.Models
                         }
                     }
                     
-                }
+                }             
+            }
 
+            Check(table2, colors); 
+            for (int i = 0; i < 24; i++)
+            {
+                if (table2[0, i] >= 1000)
+                    interpolation(table2, i, colors);
+            }
+            Check(table2, colors);
+
+            for (int i = 0; i < 24; i++)
+            {
                 double val0 = 0.0, val1 = 0.0, val2 = 0.0, val3 = 0.0;
-                if (table2[0, i] < 1000) val0 = table2[0, i];
-                if (table2[1, i] < 1000) val1 = table2[1, i];
-                if (table2[2, i] < 1000) val2 = table2[2, i];
+                if (table2[0, i] > 0 && table2[0, i] < 1000) val0 = table2[0, i];
+                if (table2[1, i] > 0 && table2[1, i] < 1000) val1 = table2[1, i];
+                if (table2[2, i] > 0 && table2[2, i] < 1000) val2 = table2[2, i];
 
                 table2[3, i] = Math.Max(val0, val1);
                 table2[3, i] = Math.Max(table2[3, i], val2);
-                table2[3, i] = Math.Max(table2[3, i], val3);
-
-                if (table2[3, i] <= 0 || table2[3, i] > 30) table2[3, i] = 1100;
+                table2[3, i] = Math.Max(table2[3, i], val3);  
             }
+            Check(table2, colors);
         }
 
-        public void interpolation( double[,] values, int hour, int index )
+        public void interpolation( double[,] values, int hour, double[,] colors )
         {
             if( hour == 0 )
             {
-                if (values[index, hour + 1] < 1000 && values[index, hour + 2] < 1000)
-                    values[index, hour] = 2 * values[index, hour + 1] - values[index, hour + 2];
-            }
-
-            if (hour == 1)
-            {
-                if (values[index, hour - 1] < 1000 && values[index, hour + 1] < 1000)
-                    values[index, hour] = Math.Round( values[index, hour - 1] + (values[index, hour + 1] - values[index, hour - 1]) / 2, 1);
-                else
+                if (values[0, hour + 1] < 1000 && values[0, hour + 2] < 1000)
                 {
-                    if (values[index, hour + 1] < 1000 && values[index, hour + 2] < 1000)
-                        values[index, hour] = 2 * values[index, hour + 1] - values[index, hour + 2];
+                    values[0, hour] = 2 * values[0, hour + 1] - values[0, hour + 2];
+                    colors[0, hour] = 1;
                 }
             }
 
-            if( hour > 1 && hour < 22)
+            if( hour > 0 && hour < 23)
             {
-                if (values[index, hour - 1] < 1000 && values[index, hour + 1] < 1000)
-                    values[index, hour] = Math.Round( values[index, hour - 1] + (values[index, hour + 1] - values[index, hour - 1]) / 2, 1 );
-                else
+                if (values[0, hour - 1] < 1000 && values[0, hour + 1] < 1000)
                 {
-                    if (values[index, hour + 1] < 1000 && values[index, hour + 2] < 1000)
-                        values[index, hour] = 2 * values[index, hour + 1] - values[index, hour + 2];
-                    else
-                    {
-                        if (values[index, hour - 1] < 1000 && values[index, hour - 2] < 1000)
-                            values[index, hour] = 2 * values[index, hour - 1] - values[index, hour - 2];
-                    }
-                }
-            }
-
-            if ( hour == 22 )
-            {
-                if (values[index, hour - 1] < 1000 && values[index, hour + 1] < 1000)
-                    values[index, hour] = Math.Round( values[index, hour - 1] + (values[index, hour + 1] - values[index, hour - 1]) / 2, 1 );
-                else
-                {
-                    if (values[index, hour - 1] < 1000 && values[index, hour - 2] < 1000)
-                        values[index, hour] = 2 * values[index, hour - 1] - values[index, hour - 2];
+                    values[0, hour] = Math.Round(values[0, hour - 1] + (values[0, hour + 1] - values[0, hour - 1]) / 2, 1);
+                    colors[0, hour] = 1;
                 }
             }
 
             if (hour == 23)
             {
-                if (values[index, hour - 1] < 1000 && values[index, hour - 2] < 1000)
-                    values[index, hour] = 2 * values[index, hour - 1] - values[index, hour - 2];
+                if (values[0, hour - 1] < 1000 && values[0, hour - 2] < 1000)
+                {
+                    values[0, hour] = 2 * values[0, hour - 1] - values[0, hour - 2];
+                    colors[0, hour] = 1;
+                }
             }            
         }
     }

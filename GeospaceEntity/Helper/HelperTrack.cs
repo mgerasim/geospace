@@ -67,6 +67,11 @@ namespace GeospaceEntity.Helper
                 log[0] += e.Data.Replace("DEBUG ", "") + "\n";
             }
 
+            if (e.Data.IndexOf("ERROR") >= 0)
+            {
+                log[0] += e.Data + "\n";
+            }
+
             if (e.Data.IndexOf("OUTPUT") >= 0)
             {
                 string str = e.Data.Replace("OUTPUT ", "");

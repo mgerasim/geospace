@@ -63,17 +63,22 @@ end do
 
 !call forecast_MUF( W, month, KTO, XO, YO, D )
 
-call degree_to_rad( 90.0-0.0, XO(1) )
-call degree_to_rad( 0.0, YO(1) )
+do j = 1, SIZE_PROVE1, 1
+	print *, "DEBUG", j, prov1(1, j), prov1(2, j)
+
+	call degree_to_rad( 90.0-prov1(1, j), XO(1) )
+	call degree_to_rad( prov1(2, j), YO(1) )
 
 
-print *, "DEBUG Geomagnetic_Coord"
-do i = 1, KTO, 1
-	call Convert_Geomagnetic_Coord(XO(i), YO(i), GTO300(i), GYO(i))
-	call rad_to_degree( GTO300(i), GTO300(i) )
-	call rad_to_degree( GYO(i), GYO(i) )
-	print *, "DEBUG GTO300[",i,"] = ", GTO300(i)
-	print *, "DEBUG GYO[",i,"] = ", GYO(i)
+	!print *, "DEBUG Geomagnetic_Coord"
+	do i = 1, KTO, 1
+		call Convert_Geomagnetic_Coord(XO(i), YO(i), GTO300(i), GYO(i))
+		call rad_to_degree( GTO300(i), GTO300(i) )
+		call rad_to_degree( GYO(i), GYO(i) )
+		print *, "DEBUG GTO300[",i,"] = ", GTO300(i)
+		print *, "DEBUG GYO[",i,"] = ", GYO(i)
+		print *, "DEBUG "
+	end do
 end do
 
 print *, "DEBUG ...finish programm"

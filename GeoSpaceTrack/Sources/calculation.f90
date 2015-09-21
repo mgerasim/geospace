@@ -190,32 +190,42 @@ contains
 		return
 	end subroutine calc_coord
 
-	real function Return_Polynom_I300(XTO, mI300, nI300)
-		integer  :: mI300, nI300, i, j
-		real     :: XTO, sum, degree
-		sum = 0.0
+	!real function Return_Polynom_I300(XTO, mI300, nI300)
+		!integer  :: mI300, nI300, i, j
+		!real     :: XTO, sum, degree
+		!sum = 0.0
+		!i = 1
+		!call rad_to_degree( XTO, degree )
+		!j = nint( degree )
+		!print *, "DEBUG j =", j, degree
+		!do m = 0, mI300, 1
+			!do n = 0, nI300, 1
+				!sum = sum + 1    !I300_POLYNOM( j+1, i )
+				!print *, "DEBUG POLYNOM =", I300_POLYNOM( j+1, sum )
+				!i = i + 1
+			!end do
+		!end do
+
+		!print *, "DEBUG", mI300, nI300, sum
+
+		!Return_Polynom_I300 = sum
+	!end function Return_Polynom_I300
+
+	! функция по расчету I300
+	subroutine Calc_I300(XTO, YO, I300)
+		real                      	 :: XTO, YO, I300, degree
+		integer                      :: i, j		
+		
 		i = 0
 		call rad_to_degree( XTO, degree )
 		j = nint( degree )
 		!print *, "DEBUG j =", j, degree
-		do m = 0, mI300, 1
-			do n = m, nI300, 1
-				sum = sum + I300_POLYNOM( j, i )
+		do m = 0, MI300-1, 1
+			do n = m, NI300-1, 1
+				I300 = I300 + (gI300(m+1,n+1)*cos( m*YO ) + hI300(m+1,n+1)*sin( m*YO )) * I300_POLYNOM( j+1, i+1 )
+				!print *, "DEBUG", I300_POLYNOM( j+1, i+1 ), (gI300(m+1,n+1)*cos( m*YO ) + hI300(m+1,n+1)*sin( m*YO ))
+				!print *, "DEBUG", I300
 				i = i + 1
-			end do
-		end do
-
-		Return_Polynom_I300 = sum
-	end function Return_Polynom_I300
-
-	! функция по расчету I300
-	subroutine Calc_I300(XTO, YO, I300)
-		real                      	 :: XTO, YO, I300
-
-		I300 = 0.0
-		do m = 0, MI300, 1
-			do n = 0, NI300, 1
-				I300 = I300 + (gI300(n,m)*cos( m*YO ) + hI300(n,m)*sin( m*YO )) * Return_Polynom_I300(XTO, m, n)
 			end do
 		end do
 
@@ -228,6 +238,7 @@ contains
  		CHARACTER(50) error, error1		 		
  		
 		addition = 0.0
+		I300 = 0.0
 		XTO = PI/2.0 - XO
 		GXTO  = cos(GT0)*cos(XTO) + sin(GT0)*sin(XTO)*cos(YO-GL0)
 
@@ -240,44 +251,58 @@ contains
 		else
 			GXTO = -1
 		end if
-		print *, "         DEBUG new value GXTO = |1|"
+		!print *, "         DEBUG new value GXTO = |1|"
 		end if
 
+
 		GXTO  =  acos ( GXTO )
+		!print *, "DEBUG GXTO", GXTO, addition
 
 		if( abs( GXTO ) == 0 .or. abs( GXTO ) == PI) then
 			addition = EPS
+			print *, "         DEBUG addition = EPS"
 		end if
 
-		GYO = ( -1*sin(GT0)*cos(XTO + cos(GT0)*sin(XTO)*cos(YO-GL0) ) ) / sin( GXTO + addition) 
+		GYO = ( -1*sin(GT0)*cos(XTO) + cos(GT0)*sin(XTO)*cos(YO-GL0) ) / sin( GXTO + addition) 
 
-		if( abs(GYO) > 1 + EPS )  then  
-			error = "parameter with arccos | GYO | > 1" 
-			call error_func( 1, 	error )
-		else if ( abs(GYO) > 1 ) then
+		if ( abs(GYO) > 1 ) then
 			if( GYO > 0 ) then 
 			GYO = 1
 		else
 			GYO = -1
 			end if
-			print *, "         DEBUG new value GXTO = |1|"
+			print *, "         DEBUG new value GYO = |1|"
 		end if
+
+		!print *, "DEBUG DDD", ( -1.0*sin(GT0)*cos(XTO) + cos(GT0)*sin(XTO)*cos(YO-GL0) )
+		!print *, "DEBUG GYO", GYO
 
 		GYO = acos( GYO ) 
 		
 		call Calc_I300(XTO, YO, I300)
-		print *, "DEBUG ", I300
+		!print *, "DEBUG ", I300
 
 		call degree_to_rad( I300, I300 )
-		print *, "DEBUG ", I300, GXTO
+		!print *, "DEBUG ", I300, GXTO
 
-		cosFi = PI/2.0 - GXTO
+		cosFi = cos( PI/2.0 - GXTO )
+		!print *, "DEBUG cosFi =", cosFi, "I300 =", I300
 
-		if( cosFi == 0 ) then
+		if( cosFi == 0.0 ) then
 			cosFi = EPS
+			print *, "         DEBUG cosFi = EPS"
 		end if
 
-		GTO300 = I300 / cosFi
+		GTO300 = PI/2.0 - atan( I300 / cosFi )
+
+		!print *, "DEBUG", YO      
+
+		if( GYO < PI ) then 
+			GYO = 2*PI - GYO
+		end if
+
+		!GYO = 2*PI - GYO
+
 
 	end subroutine Convert_Geomagnetic_Coord
 
