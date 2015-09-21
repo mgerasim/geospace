@@ -90,7 +90,7 @@ namespace GeospaceEntity.Models
             IRepository<ConsolidatedTable> repo = new ConsolidatedTableRepository();
             repo.Delete(this);
         }
-        public virtual ConsolidatedTable GetById(int id)
+        public static ConsolidatedTable GetById(int id)
         {
             IRepository<ConsolidatedTable> repo = new ConsolidatedTableRepository();
             return repo.GetById(id);

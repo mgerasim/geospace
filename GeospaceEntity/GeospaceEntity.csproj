@@ -68,7 +68,7 @@
     <Compile Include="Models\Codes\CodeUmagf.cs" />
     <Compile Include="Models\Begin.cs" />
     <Compile Include="Models\ConsolidatedTable.cs" />
-    <Compile Include="Models\EnergeticEvents.cs" />
+    <Compile Include="Models\EnergeticEvent.cs" />
     <Compile Include="Models\Error.cs" />
     <Compile Include="Models\Mediana.cs" />
     <Compile Include="Models\Disturbance.cs" />
@@ -149,6 +149,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Mappings\Consumer.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Mappings\Disturbance.hbm.xml">
       <SubType>Designer</SubType>
