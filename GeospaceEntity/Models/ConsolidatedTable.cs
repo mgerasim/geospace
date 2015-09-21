@@ -5,6 +5,7 @@ using System.Text;
 using GeospaceEntity.Repositories;
 using GeospaceEntity.Common;
 
+
 namespace GeospaceEntity.Models
 {
     public class ConsolidatedTable
@@ -20,7 +21,9 @@ namespace GeospaceEntity.Models
         public virtual string Th4_F     { get; set; }
         public virtual string Th5_90M   { get; set; }
         public virtual string Th6_CountEvent { get; set; }
-        public virtual List<EnergeticEvent> EnergeticEvents { get; set; }
+
+        private ICollection<EnergeticEvent> _EnergeticEvents;
+
         public virtual string Th11_     { get; set; }
         public virtual string Th12_AP   { get; set; }
         public virtual string Th13_Amag { get; set; }
@@ -32,12 +35,23 @@ namespace GeospaceEntity.Models
         public virtual string Th19_iKha { get; set; }
         public virtual string Th20_iPar { get; set; }
 
+        public virtual ICollection<EnergeticEvent> EnergeticEvents
+        {
+            get
+            {
+                return this._EnergeticEvents;
+            }
+            set
+            {
+                this._EnergeticEvents = value;
+            }
+        }
         public ConsolidatedTable()
         {
             ID = -1;
             this.created_at = DateTime.Now;
             this.updated_at = DateTime.Now;
-            EnergeticEvents = new List<EnergeticEvent>();
+            _EnergeticEvents = new System.Collections.Generic.HashSet<EnergeticEvent>();
             YYYY = -1;
             MM = -1;
             DD = -1;
@@ -76,7 +90,7 @@ namespace GeospaceEntity.Models
             IRepository<ConsolidatedTable> repo = new ConsolidatedTableRepository();
             repo.Delete(this);
         }
-        public virtual ConsolidatedTable GetById(int id)
+        public static ConsolidatedTable GetById(int id)
         {
             IRepository<ConsolidatedTable> repo = new ConsolidatedTableRepository();
             return repo.GetById(id);

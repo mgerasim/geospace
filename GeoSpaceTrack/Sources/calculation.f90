@@ -190,4 +190,87 @@ contains
 		return
 	end subroutine calc_coord
 
+	subroutine real Return_Polynom_I300(XTO, mI300, nI300)
+		integer  :: mI300, nI300, i, j
+		real     :: XTO, sum
+		sum = 0.0
+		i = 0
+		j = nint( XTO )
+		print "DEBUG j =", j
+		do m = 0, mI300, 1
+			do n = m, nI300, 1
+				!sum = sum + I300_POLYNOM( j, i )
+				i = i + 1
+			end do
+		end do
+
+		Return_Polynom_I300 = sum
+
+	end subroutine Return_Polynom_I300
+
+	! функция по расчету I300
+	subroutine Calc_I300(XTO, YO, I300)
+		real                      	 :: XTO, YO, I300
+
+		I300 = 0.0
+		do m = 0, MI300, 1
+			do n = 0, NI300, 1
+				I300 = I300 + (gI300(n,m)*cos( m*YO ) + hI300(n,m)*sin( m*YO )) * Return_Polynom_I300(XTO, m, n)
+			end do
+		end do
+
+	end subroutine Calc_I300
+
+ 	! функция перевода географических координат в геомагнитные
+	subroutine Convert_Geomagnetic_Coord(XO, YO, GTO300, GYO) 
+		real                      	 :: XO, XTO, YO, GTO300, GYO, I300, GXO, GXTO
+		real                         :: addition
+ 		CHARACTER(50) error, error1		 		
+ 		
+		addition = 0.0
+		XTO = PI/2 - XO
+		GXTO  = cos(GT0)*cos(XTO) + sin(GT0)*sin(XTO)*cos(YO-GL0)
+
+		if( abs(GXTO ) > 1 + EPS )  then  
+			error = "parameter with arccos | GXTO  | > 1" 
+			call error_func( 1, 	error )
+		else if ( abs(GXTO) > 1 ) then
+			if( GXTO > 0 ) then 
+			GXTO = 1
+		else
+			GXTO = -1
+		end if
+		print *, "         DEBUG new value GXTO = |1|"
+		end if
+
+		GXTO  =  acos ( GXTO )
+
+		if( abs( GXTO ) == 0 .or. abs( GXTO ) == PI) then
+			addition = EPS
+		end if
+
+		GYO = ( -1*sin(GT0)*cos(XTO + cos(GT0)*sin(XTO)*cos(YO-GL0) ) ) / sin( GXTO + addition) 
+
+		if( abs(GYO) > 1 + EPS )  then  
+			error = "parameter with arccos | GYO | > 1" 
+			call error_func( 1, 	error )
+		else if ( abs(GYO) > 1 ) then
+			if( GYO > 0 ) then 
+			GYO = 1
+		else
+			GYO = -1
+			end if
+			print *, "         DEBUG new value GXTO = |1|"
+		end if
+
+		GYO = acos( GYO )
+
+		call Calc_I300( XTO, YO, I300 )
+
+		GTO300 = GXTO 
+
+		call Calc_I300(XTO, YO, I300)
+
+	end subroutine Convert_Geomagnetic_Coord
+
 end module calculation

@@ -10,7 +10,5 @@
     <property name="Name" unique="true" not-null="true" />
     <property name="Longitude" />
     <property name="Latitude" />
-
-  
   </class>
 </hibernate-mapping>

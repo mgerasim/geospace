@@ -80,11 +80,11 @@ namespace GeospaceEntity.Repositories
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
-              return session.CreateCriteria<GeospaceEntity.Models.ConsolidatedTable>()
-                    .Add(Restrictions.Eq("YYYY", YYYY))
-                    .Add(Restrictions.Eq("MM", MM))
-                    .AddOrder(Order.Asc("DD"))
-                    .List<GeospaceEntity.Models.ConsolidatedTable>();
+                return session.CreateCriteria<GeospaceEntity.Models.ConsolidatedTable>()
+                     .Add(Restrictions.Eq("YYYY", YYYY))
+                     .Add(Restrictions.Eq("MM", MM))
+                     .AddOrder(Order.Asc("DD"))
+                     .List<GeospaceEntity.Models.ConsolidatedTable>();
             }
 
         }
