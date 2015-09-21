@@ -1,1 +1,31 @@
-﻿
+﻿<li>
+    @Html.ActionLink("Пред.",
+                    "Index",
+                    "ConsolidatedTable",
+            new
+            {   
+                YYYY = ViewBag.Date.AddMonths(-1).Year,
+                MM =  ViewBag.Date.AddMonths(-1).Month
+            },
+                                new
+                                {
+                                    @class = "btn btn-default btn-lg"
+                                }
+)
+</li>
+
+<li>
+    @Html.ActionLink("След.",
+                             "Index",
+                            "ConsolidatedTable",
+                    new
+                    {                                                     // routeValues
+                        YYYY = ViewBag.Date.AddMonths(1).Year,
+                        MM = ViewBag.Date.AddMonths(1).Month
+                    },
+                                new
+                                {
+                                    @class = "btn btn-default btn-lg"
+                                }
+)
+</li>
