@@ -68,7 +68,7 @@ namespace GeospaceEntity.Models
                 time = "0900";
             }
             telegram += " " + TimeNow.Day + time + "\n"; 
-            Other.SendToAspd("Полусуточный прогноз", telegram + this.subday_forecast + "\nНННН");
+            Other.SendToAspd("Полусуточный прогноз", telegram + this.subday_forecast + "=\nБУРЗОВА-\nНННН");
         }
 
         public virtual void Send_MonthForecast()
@@ -80,7 +80,7 @@ namespace GeospaceEntity.Models
         {
             DateTime TimeNow = DateTime.Now;
             string telegram = "ЗЦЗЦ 025 040001/=Н288\nЗИРА40 ХБРВ " + TimeNow.ToString("ddHHmm");
-            Other.SendToAspd("Пятисуточный прогноз", telegram + this.forecast_days_fives + "\nНННН");
+            Other.SendToAspd("Пятисуточный прогноз", telegram + this.forecast_days_fives + "=\nБУРЗОВА-\nНННН");
         }
     }
 }
