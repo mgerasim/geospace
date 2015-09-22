@@ -470,6 +470,7 @@
     <Content Include="Views\ConsolidatedTable\Index.cshtml" />
     <Content Include="Views\ConsolidatedTable\_Menu.cshtml" />
     <Content Include="Views\Disturbance\GetHoursForHtmlModalBody.cshtml" />
+    <Content Include="Views\Disturbance\ExportToWord.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

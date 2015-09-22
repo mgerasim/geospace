@@ -256,28 +256,40 @@ namespace GeospaceMediana.Controllers
             Microsoft.Office.Interop.Word.Application wApp = null;
             try
             {
+
+                object oMissing = System.Reflection.Missing.Value;
+
                 wApp = new Microsoft.Office.Interop.Word.Application();
-                wApp.Visible = false;
-                var wDocument = wApp.Documents.Add();
-
-                foreach (Microsoft.Office.Interop.Word.Section section in wDocument.Sections)
+                if (wApp == null)
                 {
-                    //Get the header range and add the header details.
-                    Microsoft.Office.Interop.Word.Range headerRange = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
-                    headerRange.Fields.Add(headerRange, Microsoft.Office.Interop.Word.WdFieldType.wdFieldPage);
-                    headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
-                    headerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdBlue;
-                    headerRange.Font.Size = 14;
-                    headerRange.Text = "Таблица нарушения радиосвязи";
+                    ViewBag.Error += "wApp is null\r\n";
                 }
+                wApp.Visible = false;
+                var wDocument = wApp.Documents.Add(ref oMissing, 
+                    ref oMissing,
+                    ref oMissing, ref oMissing);
+                if (wDocument == null)
+                {
+                    ViewBag.Error += "wDocument is null\r\n";
+                }
+                ViewBag.Error += "2\r\n";
+                //foreach (Microsoft.Office.Interop.Word.Section section in wDocument.Sections)
+                //{
+                //    Microsoft.Office.Interop.Word.Range headerRange = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                //    headerRange.Fields.Add(headerRange, Microsoft.Office.Interop.Word.WdFieldType.wdFieldPage);
+                //    headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                //    headerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdBlue;
+                //    headerRange.Font.Size = 14;
+                //    headerRange.Text = "Таблица нарушения радиосвязи";
+                //}
 
-
+                ViewBag.Error += "3\r\n";
                 wDocument.Content.SetRange(0, 0);
 
                 var paragraphTable = wDocument.Paragraphs.Add();
-
+                ViewBag.Error += "4\r\n";
                 paragraphTable.Range.InsertParagraphAfter();
-
+                ViewBag.Error += "5\r\n";
                 ViewDisturbanceList theViewData = new ViewDisturbanceList(YYYY, MM);
                 List<ViewDisturbance> theDisturbanceList = new List<ViewDisturbance>();
                 ViewBag.YYYY = YYYY;
@@ -318,7 +330,7 @@ namespace GeospaceMediana.Controllers
                 }
                 theViewData.theDisturbanceList = theDisturbanceList;
 
-
+                ViewBag.Error += "7\r\n";
                 Table firstTable = wDocument.Tables.Add(paragraphTable.Range, DateTime.DaysInMonth(YYYY, MM)+1, theViewData.theStationList.Count() + 1 /*for Day Columnt*/);
                 firstTable.Borders.Enable = 1;
                 foreach (Row row in firstTable.Rows)
@@ -400,7 +412,11 @@ namespace GeospaceMediana.Controllers
             }
             catch (Exception ex)
             {
-                ViewBag.Error = ex.Message + "\n" + ex.StackTrace;
+                ViewBag.Error += ex.Message + "\n" + ex.StackTrace + "DDD";
+                if (ex.InnerException != null)
+                {
+                    ViewBag.Error += ex.InnerException.Message + "\r\n" + ex.StackTrace;
+                }
                 return View();
             }
 
