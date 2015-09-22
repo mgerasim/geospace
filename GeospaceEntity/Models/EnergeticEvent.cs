@@ -16,7 +16,7 @@ namespace GeospaceEntity.Models
         public virtual string Coordinates { get; set; }
         public virtual string Time { get; set; }
         public virtual string RadioBursts { get; set; }
-
+        public virtual ConsolidatedTable TheConsolidatedTable { get; set; }
         public EnergeticEvent()
         {
             ID = -1;
