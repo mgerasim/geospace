@@ -95,7 +95,7 @@ namespace GeospaceEntity.Models
             IRepository<ConsolidatedTable> repo = new ConsolidatedTableRepository();
             return repo.GetById(id);
         }
-        public virtual ConsolidatedTable GetByDateUTC(int YYYY, int MM, int DD)
+        public static ConsolidatedTable GetByDateUTC(int YYYY, int MM, int DD)
         {
             Repositories.ConsolidatedTableRepository repo = new Repositories.ConsolidatedTableRepository();
             return repo.GetByDateUTC( YYYY, MM, DD );
@@ -104,6 +104,90 @@ namespace GeospaceEntity.Models
         {
             Repositories.ConsolidatedTableRepository repo = new Repositories.ConsolidatedTableRepository();
             return repo.GetByDateMM(YYYY, MM);
+        }
+
+        public virtual void SetValueByType(string type, string newvalue)
+        {
+            switch (type)
+            {
+                case "Th2":
+                    {
+                        this.Th2_W = newvalue;
+                        break;
+                    }
+                case "Th3":
+                    {
+                        this.Th3_Sp = newvalue;
+                        break;
+                    }
+                case "Th4":
+                    {
+                        this.Th4_F = newvalue;
+                        break;
+                    }
+                case "Th5":
+                    {
+                        this.Th5_90M = newvalue;
+                        break;
+                    }
+                case "Th6":
+                    {
+                        this.Th6_CountEvent = newvalue;
+                        break;
+                    }
+                case "Th11":
+                    {
+                        this.Th11_ = newvalue;
+                        break;
+                    }
+                case "Th12":
+                    {
+                        this.Th12_AP = newvalue;
+                        break;
+                    }
+                case "Th13":
+                    {
+                        this.Th13_Amag = newvalue;
+                        break;
+                    }
+                case "Th14":
+                    {
+                        this.Th14_Apar = newvalue;
+                        break;
+                    }
+                case "Th15":
+                    {
+                        this.Th15_Akha = newvalue;
+                        break;
+                    }
+                case "Th16":
+                    {
+                        this.Th16_K = newvalue;
+                        break;
+                    }
+                case "Th17":
+                    {
+                        this.Th17_iSal = newvalue;
+                        break;
+                    }
+                case "Th18":
+                    {
+                        this.Th18_iMag = newvalue;
+                        break;
+                    }
+                case "Th19":
+                    {
+                        this.Th19_iKha = newvalue;
+                        break;
+                    }
+                case "Th20":
+                    {
+                        this.Th20_iPar = newvalue;
+                        break;
+                    }
+                default:
+                    break;
+            }
         }
     }
 }
