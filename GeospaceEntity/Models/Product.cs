@@ -55,9 +55,13 @@ namespace GeospaceEntity.Models
             string telegram = "ЗЦЗЦ 025 040001/=Н288\nЗИРА40 ХБРВ";
             DateTime TimeNow = DateTime.Now;
             string time = "";
-            if (TimeNow.Hour < 3)
+            if (DateTime.Now.AddHours(-3).Hour < TimeNow.Hour || TimeNow.Hour < 3)
             {
                 time = "0000";
+                if(DateTime.Now.AddHours(-3).Hour < TimeNow.Hour)
+                {
+                    TimeNow.AddDays(1);
+                }
             }
             else
             {
