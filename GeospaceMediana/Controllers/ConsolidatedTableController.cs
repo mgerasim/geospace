@@ -28,7 +28,6 @@ namespace GeospaceMediana.Controllers
             ViewBag.Month = MM;
             ViewBag.Date = startMonth;
             IList<ConsolidatedTable> tableView = ConsolidatedTable.GetByDateMM(YYYY, MM);
-            Station listA = Station.GetById(5);
             return View(tableView);
         }
         public ActionResult Submit( int YYYY = -1, int MM = -1, int DD = -1, string type = "", string newvalue = "" )
