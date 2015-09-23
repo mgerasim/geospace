@@ -65,6 +65,20 @@ namespace GeospaceEntity.Repositories
             }
         }
 
+
+
         #endregion
+
+        public IList<GeospaceEntity.Models.EnergeticEvent> GetByDate(int YYYY, int MM, int DD)
+        {
+            using (ISession session = NHibernateHelper.OpenSession())
+
+                return session.CreateCriteria<GeospaceEntity.Models.EnergeticEvent>()
+                    .Add(Restrictions.Eq("YYYY", YYYY))
+                    .Add(Restrictions.Eq("MM", MM))
+                    .Add(Restrictions.Eq("DD", DD))
+                    .AddOrder(Order.Asc("ID"))
+                    .List<GeospaceEntity.Models.EnergeticEvent>();
+        }
     }
 }

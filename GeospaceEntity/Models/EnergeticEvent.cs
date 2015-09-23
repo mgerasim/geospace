@@ -41,6 +41,12 @@ namespace GeospaceEntity.Models
             this.updated_at = DateTime.Now;
             repo.Save(this);
         }
+        public static IList<EnergeticEvent> GetByDate(int YYYY,int MM, int DD)
+        {
+            Repositories.EnergeticEventRepository repo = new EnergeticEventRepository();
+            return repo.GetByDate(YYYY, MM, DD);
+        }
+
 
         public virtual void Update()
         {

@@ -89,5 +89,6 @@ namespace GeospaceMediana.Controllers
                 return Content("Ошибка применения изменения! Проверьте корректность вводимых данных.");
             }
         }
+        
     }
 }

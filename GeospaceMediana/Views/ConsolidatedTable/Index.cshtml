@@ -12,6 +12,7 @@
 <script>
     var submitUrl = "@Url.Action("Submit", "ConsolidatedTable")";
     var submitEventUrl = "@Url.Action("SubmitEvent", "ConsolidatedTable")";
+
     var currentYear = "@ViewBag.Year";
     var currentMonth = "@ViewBag.Month";
 </script>
@@ -24,8 +25,8 @@
     }
     function editEvent(e){
         var currentCell = $(this);
-        
-        
+
+
         if (this.children["edit"] != null)
             return;
 
@@ -54,7 +55,7 @@
             currentCell.css("padding", "8px");
 
             if (newValue != oldValue) {
-                
+
                 var day = $(currentCell.parent()).data("day");;
                 var type = currentCell.data("type");
 
@@ -98,23 +99,47 @@
                     "&_Time=" + $("#exampleInputTime1").val() + " " + $("#exampleInputTime2").val() + " " + $("#exampleInputTime3").val();
                     "&_RadioBursts=" + $("#exampleInputRadioBursts").val();
 
-        console.log(resUrl);
+
+        $.ajax({
+            url: resUrl,
+            success: function (data) {
+                addTextEvent('exampleInputBall', 'c_7');
+                addTextEvent('exampleInputCoordinates', 'c_8');
+                
+                addTextEvent('exampleInputRadioBursts', 'c_10');
+                
+            }
+        });
         $("#exampleInputBall").empty();
         $("#exampleInputCoordinates").empty();
         $("#exampleInputTime").empty();
         $("#exampleInputRadioBursts").empty();
-        $.ajax({
-            url: resUrl,
-            success: function (data) {
-                
-            }
-        });
-            
+    }
+    function sumTimePeiod()
+    {
+        var elementCurrent1 = $('#' + exampleInputTime1);
+        var elementCurrent2 = $('#' + exampleInputTime2);
+        var elementCurrent3 = $('#' + exampleInputTime3);
+        var time = elementCurrent1.val() + " " + elementCurrent2.val() + " " + elementCurrent3.val();
+        
+        var ball = $('#D_' + day + ' .c_9');
+        if (elementCurrent1.val())
+            ball.append(time);
+        else
+            ball.append('<br>');
+    }
+    function addTextEvent(current,addElement)
+    {
+        var elementCurrent = $('#'+current);
+        var ball = $('#D_' + day + ' .' + addElement);
+        if (ball)
+            console.log(ball.val());
+        ball.append(elementCurrent.val());
     }
     $(document).ready(function () {
         $('.editable').dblclick(editEvent);
     });
-    
+
 </script>
 
 <style>
@@ -258,7 +283,7 @@
             <tbody>
                 @for (int i = 0; i < DateTime.DaysInMonth(ViewBag.Year, ViewBag.Month); i++)
                 {
-                    if (Model.Count > i)
+                    if (Model.Count > i)//Исправить!!!! неверно
                     {
                         ConsolidatedTable item = Model[i];
                         <tr id="D_@item.DD" data-day="@item.DD">
@@ -269,7 +294,7 @@
                             <td rowspan="2" class="editable c_5" data-type="Th5">@item.Th5_90M</td>
                             <td rowspan="2" class="c_6 editable" data-type="Th6">@item.Th6_CountEvent</td>
                             @{ List<EnergeticEvent> list = new List<EnergeticEvent>(item.EnergeticEvents);}
-                            <td class="c_7 energetic_event">
+                            <td class="c_7 energetic_event" data-type="Balls">
                                 @for (int j = 0; j < list.Count; j++)
                                 {
                                     if (list[j].Balls != null)
@@ -285,7 +310,7 @@
                                 }
                             </td>
 
-                            <td class="c_8 energetic_event">
+                            <td class="c_8 energetic_event" data-type="Coordinates">
                                 @for (int j = 0; j < list.Count; j++)
                                 {
                                     if (list[j].Coordinates == "")
@@ -298,7 +323,7 @@
                                 }
                             </td>
 
-                            <td class="c_9 energetic_event" style="white-space: nowrap;">
+                            <td class="c_9 energetic_event" style="white-space: nowrap;" data-type="Time">
                                 @for (int j = 0; j < list.Count; j++)
                                 {
                                     if (list[j].Time == "")
@@ -311,7 +336,7 @@
                                 }
                             </td>
 
-                            <td class="c_10 energetic_event">
+                            <td class="c_10 energetic_event" data-type="RadioBursts">
                                 @for (int j = 0; j < list.Count; j++)
                                 {
                                     if (list[j].RadioBursts == "")
@@ -356,7 +381,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="4" style="padding: 1px 8px;" id="addEvent" data-whatever="@item.DD" data-toggle="modal" data-target="#myModal" class=" btn btn-primary btn-lg col-lg-12" onclick="handleSaveTime('@item.DD','@ViewBag.DateString' )">Добавить</td>
+                            <td colspan="4" style="padding: 1px 8px;" id="addEvent" data-whatever="@item.DD" data-toggle="modal" data-target="#myModal" class=" btn btn-primary btn-lg col-sm-12" onclick="handleSaveTime('@item.DD','@ViewBag.DateString' )">Добавить</td>
                         </tr>
 
                     }
@@ -385,7 +410,7 @@
                             <td rowspan="2" class="c_20 editable" data-type="Th20"></td>
                         </tr>
                         <tr>
-                            <td colspan="4" style="padding: 1px 8px;" id="addEvent" data-whatever="@Html.Raw(i + 1)" data-toggle="modal" data-target="#myModal" class=" btn btn-primary btn-lg col-lg-12" onclick="handleSaveTime('@Html.Raw(i + 1)','@ViewBag.DateString' )">Добавить</td>
+                            <td colspan="4" style="padding: 1px 8px;" id="addEvent" data-whatever="@Html.Raw(i + 1)" data-toggle="modal" data-target="#myModal" class=" btn btn-primary btn-lg col-lg-6" onclick="handleSaveTime('@Html.Raw(i + 1)','@ViewBag.DateString' )">Добавить</td>
                         </tr>
                     }
                 }
@@ -440,7 +465,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" onclick="editEnergeticEventAdd()" class="btn btn-primary">Сохранить</button>
+                    <button type="button" onclick="editEnergeticEventAdd()" class="btn btn-primary" data-dismiss="modal">Сохранить</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
                 </div>
             </div>
