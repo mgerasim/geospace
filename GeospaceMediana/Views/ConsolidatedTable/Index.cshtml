@@ -49,6 +49,7 @@
         $(".modal-title").html("Энергичное событие за " + day + " " + Name);
         $("#dayModal").val(day);
         $("#dayID").val("-1");
+        $("#delete").css({ display: 'none' });
     }
     function editEvent(e){
         var currentCell = $(this);
@@ -499,7 +500,7 @@
                 <div class="modal-footer">
                     <button type="button" onclick="editEnergeticEventAdd()" class="btn btn-primary" data-dismiss="modal">Сохранить</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-                    <button type="button" onclick="deleteEnergeticEvent()" class="btn btn-danger" data-dismiss="modal">Удалить</button>
+                    <button type="button" id="delete" onclick="deleteEnergeticEvent()" class="btn btn-danger" data-dismiss="modal">Удалить</button>
                 </div>
             </div>
             </div><!-- /.modal-content -->
