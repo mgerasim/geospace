@@ -163,6 +163,11 @@ namespace GeospaceEntity.Helper
                 double firstHalf = 0;
                 double secondHalf = 0;
 
+                double firstHalf_plus = 0;
+                double firstHalf_minus = 0;
+                double secondHalf_plus = 0;
+                double secondHalf_minus = 0;
+
                 for (int hour = 0; hour < 24; hour++)
                 {
                     CodeIonka codeIonka;
@@ -251,16 +256,51 @@ namespace GeospaceEntity.Helper
 
                     if(hour >= 0 && hour < 12)
                     {
-                        firstHalf += characterizationDayValue.Rating;
+                        if (characterizationDayValue.Rating < 0)
+                        {
+                            firstHalf_minus += characterizationDayValue.Rating;
+                        }
+                        else
+                        {
+                            firstHalf_plus += characterizationDayValue.Rating;
+                        }
+                        //firstHalf += characterizationDayValue.Rating;
                     }
                     else
                     {
-                        secondHalf += characterizationDayValue.Rating;
+                        if (characterizationDayValue.Rating < 0)
+                        {
+                            secondHalf_minus += characterizationDayValue.Rating;
+                        }
+                        else
+                        {
+                            secondHalf_plus += characterizationDayValue.Rating;
+                        }
+                        //secondHalf += characterizationDayValue.Rating;
                     }
                     
                     
 
                     _listValues.Add(characterizationDayValue);
+                }
+
+                if (Math.Abs(firstHalf_minus) > Math.Abs(firstHalf_plus))
+                {
+                    firstHalf = firstHalf_minus;
+                }
+                else
+                {
+                    firstHalf = firstHalf_plus;
+                }
+
+
+                if (Math.Abs(secondHalf_minus) > Math.Abs(secondHalf_plus))
+                {
+                    secondHalf = secondHalf_minus;
+                }
+                else
+                {
+                    secondHalf = secondHalf_plus;
                 }
 
                 _listFirstHalfDay.Add(new DayRating

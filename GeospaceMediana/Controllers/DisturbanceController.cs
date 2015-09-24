@@ -273,15 +273,15 @@ namespace GeospaceMediana.Controllers
                     ViewBag.Error += "wDocument is null\r\n";
                 }
                 ViewBag.Error += "2\r\n";
-                //foreach (Microsoft.Office.Interop.Word.Section section in wDocument.Sections)
-                //{
-                //    Microsoft.Office.Interop.Word.Range headerRange = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
-                //    headerRange.Fields.Add(headerRange, Microsoft.Office.Interop.Word.WdFieldType.wdFieldPage);
-                //    headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
-                //    headerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdBlue;
-                //    headerRange.Font.Size = 14;
-                //    headerRange.Text = "Таблица нарушения радиосвязи";
-                //}
+                foreach (Microsoft.Office.Interop.Word.Section section in wDocument.Sections)
+                {
+                    Microsoft.Office.Interop.Word.Range headerRange = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                    headerRange.Fields.Add(headerRange, Microsoft.Office.Interop.Word.WdFieldType.wdFieldPage);
+                    headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                    headerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdBlue;
+                    headerRange.Font.Size = 14;
+                    headerRange.Text = "Таблица нарушения радиосвязи";
+                }
 
                 ViewBag.Error += "3\r\n";
                 wDocument.Content.SetRange(0, 0);
