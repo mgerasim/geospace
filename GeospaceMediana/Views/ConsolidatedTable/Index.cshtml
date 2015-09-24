@@ -1,4 +1,5 @@
 ﻿@using GeospaceEntity.Models;
+@using GeospaceEntity.Helper;
 @{
     ViewBag.Title = @ViewBag.Title;
 }
@@ -10,18 +11,44 @@
 }
 
 <script>
+
     var submitUrl = "@Url.Action("Submit", "ConsolidatedTable")";
     var submitEventUrl = "@Url.Action("SubmitEvent", "ConsolidatedTable")";
-
+    var delEventUrl = "@Url.Action("DeleteEvent", "ConsolidatedTable")";
     var currentYear = "@ViewBag.Year";
     var currentMonth = "@ViewBag.Month";
 </script>
 
 <h2>Сводная таблица за (@ViewBag.DateString)</h2>
 <script type="text/javascript">
+    function handleEvent(day, date, id, name) {
+        $(".modal-title").html("Энергичное событие за " + day + " " + date);
+        $("#dayModal").val(day);
+        $("#dayID").val(id);
+        var arrayType = ['Balls', 'Coordinates', 'Time', 'RadioBursts'];
+        var arrayModel = ['exampleInputBall', 'exampleInputCoordinates', 'exampleInputTime', 'exampleInputRadioBursts'];
+
+        for (var i = 0; i < 4; i++) {
+            var val = $("#" + arrayType[i] + id).text();
+            if (arrayType[i] != "Time")
+            {
+                $("#" + arrayModel[i]).val(val);
+                //отдельный код под время
+            }
+            else
+            {
+                var arrayTime = val.split(' ', 3);
+                $.each(arrayTime, function (index, element) {
+                    $("#" + arrayModel[i] + (index + 1)).val(element);
+                });
+            }
+        }
+       
+    }
     function handleSaveTime( day, Name) {
         $(".modal-title").html("Энергичное событие за " + day + " " + Name);
         $("#dayModal").val(day);
+        $("#dayID").val("-1");
     }
     function editEvent(e){
         var currentCell = $(this);
@@ -90,59 +117,73 @@
     }
     function editEnergeticEventAdd() {
         var day = $("#dayModal").val();
+        var id = $("#dayID").val();
         var resUrl = window.submitEventUrl +
                     "?YYYY=" + window.currentYear +
                     "&MM=" + window.currentMonth +
                     "&DD=" + day +
                     "&_Ball=" + $("#exampleInputBall").val() +
                     "&_Coordinate=" + $("#exampleInputCoordinates").val() +
-                    "&_Time=" + $("#exampleInputTime1").val() + " " + $("#exampleInputTime2").val() + " " + $("#exampleInputTime3").val();
-                    "&_RadioBursts=" + $("#exampleInputRadioBursts").val();
-
-
+                    "&_Time=" + $("#exampleInputTime1").val() + " " + $("#exampleInputTime2").val() + " " + $("#exampleInputTime3").val() +
+                    "&_RadioBursts=" + $("#exampleInputRadioBursts").val() +
+                    "&ID=" + id;
         $.ajax({
             url: resUrl,
             success: function (data) {
-                addTextEvent('exampleInputBall', 'c_7');
-                addTextEvent('exampleInputCoordinates', 'c_8');
-                
-                addTextEvent('exampleInputRadioBursts', 'c_10');
-                
+                location.reload();
             }
         });
         $("#exampleInputBall").empty();
         $("#exampleInputCoordinates").empty();
-        $("#exampleInputTime").empty();
+        $("#exampleInputTime1").empty();
+        $("#exampleInputTime2").empty();
+        $("#exampleInputTime3").empty();
         $("#exampleInputRadioBursts").empty();
     }
     function sumTimePeiod()
     {
-        var elementCurrent1 = $('#' + exampleInputTime1);
-        var elementCurrent2 = $('#' + exampleInputTime2);
-        var elementCurrent3 = $('#' + exampleInputTime3);
+        var day = $("#dayModal").val();
+        var elementCurrent1 = $('#exampleInputTime1');
+        var elementCurrent2 = $('#exampleInputTime2');
+        var elementCurrent3 = $('#exampleInputTime3');
         var time = elementCurrent1.val() + " " + elementCurrent2.val() + " " + elementCurrent3.val();
         
         var ball = $('#D_' + day + ' .c_9');
         if (elementCurrent1.val())
-            ball.append(time);
+            ball.append(time + '<br>');
         else
             ball.append('<br>');
     }
     function addTextEvent(current,addElement)
     {
+        var day = $("#dayModal").val();
         var elementCurrent = $('#'+current);
         var ball = $('#D_' + day + ' .' + addElement);
         if (ball)
             console.log(ball.val());
-        ball.append(elementCurrent.val());
+        ball.append(elementCurrent.val()+ '<br>') ;
     }
     $(document).ready(function () {
         $('.editable').dblclick(editEvent);
     });
-
+    function deleteEnergeticEvent() {
+        var id = $("#dayID").val();
+        var resUrl = window.delEventUrl +
+                   "?id=" + id;
+        $.ajax({
+            url: resUrl,
+            success: function (data) {
+                location.reload();
+            }
+        });
+    }
 </script>
 
 <style>
+    .hover:hover {
+        cursor: pointer;
+        background-color: rgba(216, 200, 200, 0.44);
+    }
     table td, th {
         text-align: center;
         vertical-align: middle !important;
@@ -237,6 +278,19 @@
     .c_9 {
     }
 </style>
+@helper DrawLinkEvent(int id, int day , string element , string nameElement)
+{
+    if (element != null && element != "")
+    {
+        <div id="@nameElement@id" data-whatever="@day" data-toggle="modal" data-target="#myModal" class="hover" title="Изменить"
+             onclick="handleEvent('@day','@ViewBag.DateString', '@id','@nameElement' )">@element</div>
+    }
+    else
+    {
+        <div id="@nameElement@id" data-whatever="@day" data-toggle="modal" data-target="#myModal" class="hover" title="Изменить"
+             onclick="handleEvent('@day','@ViewBag.DateString', '@id', '@nameElement' )"><br /></div>
+    }
+}
 <div class="row">
     <div class="col-sx-12 ">
         <table style="min-width: 1000px;" class="table table-bordered table-hover table-striped">
@@ -298,41 +352,21 @@
                             <td class="c_7 energetic_event" data-type="Balls">
                                 @for (int j = 0; j < list.Count; j++)
                                 {
-                                    if (list[j].Balls != null)
-                                    {
-                                        @Html.Raw(list[j].Balls);
-                                    <br />
-                                    }
-                                    else
-                                    {
-                                        <br />
-                                    }
-
+                                    @DrawLinkEvent(@list[j].ID, @item.DD, @list[j].Balls, "Balls")
                                 }
                             </td>
 
                             <td class="c_8 energetic_event" data-type="Coordinates">
                                 @for (int j = 0; j < list.Count; j++)
                                 {
-                                    if (list[j].Coordinates == "")
-                                    {  <br />}
-                                    else
-                                    {
-                                        @Html.Raw(list[j].Coordinates);
-                                    <br />}
-
+                                    @DrawLinkEvent(@list[j].ID, @item.DD, @list[j].Coordinates, "Coordinates")
                                 }
                             </td>
 
                             <td class="c_9 energetic_event" style="white-space: nowrap;" data-type="Time">
                                 @for (int j = 0; j < list.Count; j++)
                                 {
-                                    if (list[j].Time == "")
-                                    {  <br />}
-                                    else
-                                    {
-                                        @Html.Raw(list[j].Time);
-                                    <br />}
+                                   @DrawLinkEvent(@list[j].ID, @item.DD, @list[j].Time, "Time")
 
                                 }
                             </td>
@@ -340,13 +374,7 @@
                             <td class="c_10 energetic_event" data-type="RadioBursts">
                                 @for (int j = 0; j < list.Count; j++)
                                 {
-                                    if (list[j].RadioBursts == "")
-                                    {  <br />}
-                                    else
-                                    {
-                                        @Html.Raw(list[j].RadioBursts);
-                                    <br />}
-
+                                    @DrawLinkEvent(@list[j].ID, @item.DD, @list[j].RadioBursts, "RadioBursts")
                                 }
                             </td>
 
@@ -383,8 +411,7 @@
                         </tr>
                         <tr>
                             <td colspan="4" style="padding:0 0;">
-                                <a style="padding: 1px 8px;" id="addEvent" data-whatever="@item.DD" data-toggle="modal" data-target="#myModal" class=" btn btn-primary btn-ms col-xs-6" onclick="handleSaveTime('@item.DD','@ViewBag.DateString' )">Добавить</a>
-                                <a style="padding: 1px 8px;" id="EditEvent" data-whatever="@item.DD" data-toggle="modal" data-target="#myModalEdit" class=" btn btn-info btn-ms col-xs-6" onclick="handleSaveTime('@item.DD', '@ViewBag.DateString')">Редактировать</a>
+                                <a style="padding: 1px 8px;" id="addEvent" data-whatever="@item.DD" data-toggle="modal" data-target="#myModal" class=" btn btn-primary btn-ms col-xs-12" onclick="handleSaveTime('@item.DD','@ViewBag.DateString' )">Добавить</a>
                             </td>
                         </tr>
 
@@ -430,6 +457,7 @@
                 <h4 class="modal-title" id="myModalLabele"></h4>
             </div>
             <a id="dayModal"></a>
+            <a id="dayID" ></a>
             <div class="modal-body">
                 <div id="cloudiness-panel1" class="panel panel-success">
                     <div id="cloudiness-panel1-heading" class="panel-heading ms">Балл</div>
@@ -471,25 +499,9 @@
                 <div class="modal-footer">
                     <button type="button" onclick="editEnergeticEventAdd()" class="btn btn-primary" data-dismiss="modal">Сохранить</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                    <button type="button" onclick="deleteEnergeticEvent()" class="btn btn-danger" data-dismiss="modal">Удалить</button>
                 </div>
             </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
-</div>
-<div class="modal fade" id="myModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModelLable">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabele"></h4>
-            </div>
-            <div class="modal-body">
-                <h4>В разработке....</h4>
-                <div class="modal-footer">
-                    <button type="button" onclick="" class="btn btn-primary" data-dismiss="modal">Сохранить</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-                </div>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
 </div>
