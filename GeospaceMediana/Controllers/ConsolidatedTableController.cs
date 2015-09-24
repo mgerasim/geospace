@@ -59,17 +59,12 @@ namespace GeospaceMediana.Controllers
                 return Content("Ошибка применения изменения! Проверьте корректность вводимых данных.");
             }
         }
-        public ActionResult SubmitEvent ( int YYYY = -1, int MM = -1, int DD = -1, string _Ball = "", string _Coordinate = "",  string _Time = "", string _RadioBursts = "")
+        public ActionResult SubmitEvent ( int YYYY = -1, int MM = -1, int DD = -1, string _Ball = "", string _Coordinate = "",  string _Time = "", string _RadioBursts = "", int ID = -1)
         {
             try
             {
                 ConsolidatedTable codeTable = ConsolidatedTable.GetByDateUTC(YYYY, MM, DD);
 
-                EnergeticEvent newEvent = new EnergeticEvent();
-                newEvent.Balls = _Ball;
-                newEvent.Coordinates = _Coordinate;
-                newEvent.RadioBursts = _RadioBursts;
-                newEvent.Time = _Time;
                 if (codeTable == null) // Если запись отсутствует
                 {
                     codeTable = new ConsolidatedTable();
@@ -78,8 +73,22 @@ namespace GeospaceMediana.Controllers
                     codeTable.DD = DD;
                     codeTable.Save();
                 }
-                newEvent.TheConsolidatedTable = codeTable;
-                newEvent.Save();
+                EnergeticEvent newEvent;
+                if (ID != -1)
+                    newEvent = GeospaceEntity.Models.EnergeticEvent.GetById(ID);
+                else
+                {
+                    newEvent = new EnergeticEvent();
+                    newEvent.TheConsolidatedTable = codeTable;
+                }
+                newEvent.Balls = _Ball;
+                newEvent.Coordinates = _Coordinate;
+                newEvent.RadioBursts = _RadioBursts;
+                newEvent.Time = _Time;
+                if (ID != -1)
+                    newEvent.Update();
+                else
+                    newEvent.Save();
                 return Content("");
             }
             catch (Exception)
@@ -88,6 +97,23 @@ namespace GeospaceMediana.Controllers
                 return Content("Ошибка применения изменения! Проверьте корректность вводимых данных.");
             }
         }
-        
+        public ActionResult DeleteEvent(int id)
+        {
+            try
+            {
+                if (id != -1)
+                {
+                    EnergeticEvent delEvent = GeospaceEntity.Models.EnergeticEvent.GetById(id);
+                    delEvent.Delete();
+                }
+                return Content("delete");
+            }
+            catch (Exception)
+            {
+                // return Content(e.ToString());
+                return Content("Ошибка применения удалении! Проверьте корректность вводимых данных.");
+            }
+        }
+
     }
 }

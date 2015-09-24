@@ -79,7 +79,7 @@ namespace GeospaceEntity.Models
         public virtual void Send_FivedaysForecast()
         {
             DateTime TimeNow = DateTime.Now;
-            string telegram = "ЗЦЗЦ 025 040001/=Н288\nЗИРА40 ХБРВ " + TimeNow.ToString("ddHHmm");
+            string telegram = "ЗЦЗЦ 025 040001/=Н288\nЗИРА40 ХБРВ " + TimeNow.ToString("ddHHmm") + "\n";
             Other.SendToAspd("Пятисуточный прогноз", telegram + this.forecast_days_fives + "=\nБУРЗОВА-\nНННН");
         }
     }
