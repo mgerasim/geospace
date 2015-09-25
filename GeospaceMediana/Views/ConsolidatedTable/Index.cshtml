@@ -17,41 +17,48 @@
     var delEventUrl = "@Url.Action("DeleteEvent", "ConsolidatedTable")";
     var currentYear = "@ViewBag.Year";
     var currentMonth = "@ViewBag.Month";
+    var dateString = "@ViewBag.DateString";
 </script>
 
 <h2>Сводная таблица за (@ViewBag.DateString)</h2>
 <script type="text/javascript">
+    var arrayType = ['Balls', 'Coordinates', 'Time', 'RadioBursts'];
+    var arrayModel = ['exampleInputBall', 'exampleInputCoordinates', 'exampleInputTime', 'exampleInputRadioBursts'];
+
     function handleEvent(day, date, id, name) {
+        $("#delete").detach()
+        $(".modal-footer").append("<button type=\"button\" id=\"delete\" onclick=\"deleteEnergeticEvent()\" class=\"btn btn-danger\" data-dismiss=\"modal\">Удалить</button>");
         $(".modal-title").html("Энергичное событие за " + day + " " + date);
         $("#dayModal").val(day);
         $("#dayID").val(id);
-        var arrayType = ['Balls', 'Coordinates', 'Time', 'RadioBursts'];
-        var arrayModel = ['exampleInputBall', 'exampleInputCoordinates', 'exampleInputTime', 'exampleInputRadioBursts'];
-
         for (var i = 0; i < 4; i++) {
             var val = $("#" + arrayType[i] + id).text();
-            if (arrayType[i] != "Time")
-            {
+
+            if (arrayType[i] != "Time") {
                 $("#" + arrayModel[i]).val(val);
+                if (name == arrayType[i]) {
+                    $("#" + arrayModel[i]).focusin();
+                }
                 //отдельный код под время
             }
-            else
-            {
+            else {
+
                 var arrayTime = val.split(' ', 3);
                 $.each(arrayTime, function (index, element) {
                     $("#" + arrayModel[i] + (index + 1)).val(element);
                 });
             }
         }
-       
+
     }
-    function handleSaveTime( day, Name) {
+    function handleSaveTime(day, Name) {
         $(".modal-title").html("Энергичное событие за " + day + " " + Name);
         $("#dayModal").val(day);
         $("#dayID").val("-1");
-        $("#delete").css({ display: 'none' });
+        $("#delete").detach()
+        emptyEnergeticEvent();
     }
-    function editEvent(e){
+    function editEvent(e) {
         var currentCell = $(this);
 
 
@@ -119,64 +126,115 @@
     function editEnergeticEventAdd() {
         var day = $("#dayModal").val();
         var id = $("#dayID").val();
+        var timer = "";
+        if ($("#exampleInputTime1").val() != "" || $("#exampleInputTime2").val() != "" || $("#exampleInputTime3").val() != "") {
+            timer = $("#exampleInputTime1").val() + " " + $("#exampleInputTime2").val() + " " + $("#exampleInputTime3").val();
+        }
         var resUrl = window.submitEventUrl +
                     "?YYYY=" + window.currentYear +
                     "&MM=" + window.currentMonth +
                     "&DD=" + day +
                     "&_Ball=" + $("#exampleInputBall").val() +
                     "&_Coordinate=" + $("#exampleInputCoordinates").val() +
-                    "&_Time=" + $("#exampleInputTime1").val() + " " + $("#exampleInputTime2").val() + " " + $("#exampleInputTime3").val() +
+                    "&_Time=" + timer +
                     "&_RadioBursts=" + $("#exampleInputRadioBursts").val() +
                     "&ID=" + id;
         $.ajax({
             url: resUrl,
             success: function (data) {
-                location.reload();
+                if (id == -1) {
+                    for (var i = 0; i < 4; i++) {
+                        var val = "";
+                        if (arrayType[i] != "Time") {
+                            val = $("#" + arrayModel[i]).val();
+                        }
+                        else {
+                            if ($("#exampleInputTime1").val() != "" && $("#exampleInputTime2").val() != "" && $("#exampleInputTime3").val() != "") {
+                                val = $("#exampleInputTime1").val() + " " + $("#exampleInputTime2").val() + " " + $("#exampleInputTime3").val();
+                            }
+                        }
+                        val = "<br/>";
+                        addLineEvent(day, data, val, arrayType[i]);
+
+                    }
+                }
+                else EventLine(day, data);
+                emptyEnergeticEvent();
             }
         });
-        $("#exampleInputBall").empty();
-        $("#exampleInputCoordinates").empty();
-        $("#exampleInputTime1").empty();
-        $("#exampleInputTime2").empty();
-        $("#exampleInputTime3").empty();
-        $("#exampleInputRadioBursts").empty();
+
     }
-    function sumTimePeiod()
-    {
+    function sumTimePeiod() {
         var day = $("#dayModal").val();
         var elementCurrent1 = $('#exampleInputTime1');
         var elementCurrent2 = $('#exampleInputTime2');
         var elementCurrent3 = $('#exampleInputTime3');
         var time = elementCurrent1.val() + " " + elementCurrent2.val() + " " + elementCurrent3.val();
-        
+
         var ball = $('#D_' + day + ' .c_9');
         if (elementCurrent1.val())
             ball.append(time + '<br>');
         else
             ball.append('<br>');
     }
-    function addTextEvent(current,addElement)
-    {
-        var day = $("#dayModal").val();
-        var elementCurrent = $('#'+current);
-        var ball = $('#D_' + day + ' .' + addElement);
-        if (ball)
-            console.log(ball.val());
-        ball.append(elementCurrent.val()+ '<br>') ;
-    }
     $(document).ready(function () {
         $('.editable').dblclick(editEvent);
     });
     function deleteEnergeticEvent() {
+        emptyEnergeticEvent();
         var id = $("#dayID").val();
+        var day = $("#dayModal").val();
         var resUrl = window.delEventUrl +
                    "?id=" + id;
         $.ajax({
             url: resUrl,
             success: function (data) {
-                location.reload();
+                emptyEnergeticEvent();
+                ClearEvent(day, id)
             }
         });
+    }
+    function ClearEvent(day, id){
+        for (var i = 0; i < 4; i++) {
+            $("#" + arrayType[i] + id).text("");
+        }
+    }
+    function EventLine(day, id) {
+        //Добавление нового элемента
+        for (var i = 0; i < 4; i++) {
+            var val = "";
+            if (arrayType[i] != "Time") {
+                val = $("#" + arrayModel[i]).val();
+            }
+            else {
+                if ($("#exampleInputTime1").val() != "" || $("#exampleInputTime2").val() != "" || $("#exampleInputTime3").val() != "")
+                    val = $("#exampleInputTime1").val() + " " + $("#exampleInputTime2").val() + " " + $("#exampleInputTime3").val();
+            }
+            console.log(id);
+            if (val += "")
+                $("#" + arrayType[i] + id).text(val);
+            else
+                $("#" + arrayType[i] + id).html("<br/>");
+
+        }
+    }
+    function addLineEvent(day, id, value, type) {//Работает
+        var item = $('#D_' + day + " td[data-type=" + type + "]");
+        if (value == "")
+        {
+            value += "<br />";
+        }
+        var str = "<div id=\""+type + id + "\" data-whatever=\"" + day + "\" data-toggle=\"modal\" data-target=\"#myModal\" class=\"hover\" title=\"Изменить\"" +
+            "onclick=\"handleEvent(\'" + day + "\','" + dateString + "\', \'" + id + "\',\'" + type + "\' )\">" + value + "</div>";
+        item.append(str);
+    }
+    function emptyEnergeticEvent() {//Работает
+        $("#exampleInputBall").val("");
+        $("#exampleInputCoordinates").val("");
+        $("#exampleInputTime1").val("");
+        $("#exampleInputTime2").val("");
+        $("#exampleInputTime3").val("");
+        $("#exampleInputRadioBursts").val("");
     }
 </script>
 
@@ -430,10 +488,10 @@
                             <td rowspan="2" class="c_4 editable" data-type="Th4"></td>
                             <td rowspan="2" class="c_5 editable" data-type="Th5"></td>
                             <td rowspan="2" class="c_6 editable" data-type="Th6"></td>
-                            <td class="c_7 energetic_event"></td>
-                            <td class="c_8 energetic_event"></td>
-                            <td class="c_9 energetic_event"></td>
-                            <td class="c_10 energetic_event"></td>
+                            <td class="c_7 energetic_event" data-type="Balls"></td>
+                            <td class="c_8 energetic_event" data-type="Coordinates"></td>
+                            <td class="c_9 energetic_event" style="white-space: nowrap;" data-type="Time"></td>
+                            <td class="c_10 energetic_event" data-type="RadioBursts"></td>
                             <td rowspan="2" class="c_11 editable" data-type="Th11"></td>
                             <td rowspan="2" class="c_12 editable" data-type="Th12"></td>
                             <td rowspan="2" class="c_13 editable" data-type="Th13"></td>
@@ -503,8 +561,8 @@
 
                 <div class="modal-footer">
                     <button type="button" onclick="editEnergeticEventAdd()" class="btn btn-primary" data-dismiss="modal">Сохранить</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-                    <button type="button" id="delete" onclick="deleteEnergeticEvent()" class="btn btn-danger" data-dismiss="modal">Удалить</button>
+                    <button type="button" onclick="emptyEnergeticEvent()" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                   
                 </div>
             </div>
             </div><!-- /.modal-content -->

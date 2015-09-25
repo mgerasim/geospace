@@ -53,22 +53,20 @@ namespace GeospaceEntity.Models
         public virtual void Send_SubdayForecast() 
         {
             string telegram = "ЗЦЗЦ 025 040001/=Н288\nЗИРА40 ХБРВ";
-            DateTime TimeNow = DateTime.Now;
+            DateTime TimeNow = DateTimeKhabarovsk.Now;
+            DateTime Time14 = new DateTime(TimeNow.Year, TimeNow.Month,TimeNow.Day,14,0,0);
+
             string time = "";
-            if (DateTime.Now.AddHours(-3).Hour < TimeNow.Hour || TimeNow.Hour < 3)
+            if (Time14 > TimeNow)
             {
                 time = "0000";
-                if(DateTime.Now.AddHours(-3).Hour < TimeNow.Hour)
-                {
-                    TimeNow.AddDays(1);
-                }
             }
             else
             {
                 time = "0900";
             }
             telegram += " " + TimeNow.Day + time + "\n"; 
-            Other.SendToAspd("Полусуточный прогноз", telegram + this.subday_forecast + "=\nБУРЗОВА-\nНННН");
+            Other.SendToAspd("Полусуточный прогноз", telegram + this.subday_forecast + "=\nБОРЗОВА-\nНННН");
         }
 
         public virtual void Send_MonthForecast()
@@ -80,7 +78,7 @@ namespace GeospaceEntity.Models
         {
             DateTime TimeNow = DateTime.Now;
             string telegram = "ЗЦЗЦ 025 040001/=Н288\nЗИРА40 ХБРВ " + TimeNow.ToString("ddHHmm") + "\n";
-            Other.SendToAspd("Пятисуточный прогноз", telegram + this.forecast_days_fives + "=\nБУРЗОВА-\nНННН");
+            Other.SendToAspd("Пятисуточный прогноз", telegram + this.forecast_days_fives + "=\nБОРЗОВА-\nНННН");
         }
     }
 }

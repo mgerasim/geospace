@@ -89,7 +89,7 @@ namespace GeospaceMediana.Controllers
                     newEvent.Update();
                 else
                     newEvent.Save();
-                return Content("");
+                return Content(newEvent.ID.ToString());
             }
             catch (Exception)
             {
