@@ -158,7 +158,7 @@
 
                     }
                 }
-                else EventLine(day, data);
+                EventLine(day, data);
                 emptyEnergeticEvent();
             }
         });
@@ -220,12 +220,8 @@
     }
     function addLineEvent(day, id, value, type) {//Работает
         var item = $('#D_' + day + " td[data-type=" + type + "]");
-        if (value == "")
-        {
-            value += "<br />";
-        }
         var str = "<div id=\""+type + id + "\" data-whatever=\"" + day + "\" data-toggle=\"modal\" data-target=\"#myModal\" class=\"hover\" title=\"Изменить\"" +
-            "onclick=\"handleEvent(\'" + day + "\','" + dateString + "\', \'" + id + "\',\'" + type + "\' )\">" + value + "</div>";
+            "onclick=\"handleEvent(\'" + day + "\','" + dateString + "\', \'" + id + "\',\'" + type + "\' )\"></div>";
         item.append(str);
     }
     function emptyEnergeticEvent() {//Работает
