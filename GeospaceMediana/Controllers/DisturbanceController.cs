@@ -251,45 +251,10 @@ namespace GeospaceMediana.Controllers
             {
                 MM = DateTime.Now.Month;
             }
-
-
+            
             Microsoft.Office.Interop.Word.Application wApp = null;
             try
             {
-
-                object oMissing = System.Reflection.Missing.Value;
-
-                wApp = new Microsoft.Office.Interop.Word.Application();
-                if (wApp == null)
-                {
-                    ViewBag.Error += "wApp is null\r\n";
-                }
-                wApp.Visible = false;
-                var wDocument = wApp.Documents.Add(ref oMissing, 
-                    ref oMissing,
-                    ref oMissing, ref oMissing);
-                if (wDocument == null)
-                {
-                    ViewBag.Error += "wDocument is null\r\n";
-                }
-                ViewBag.Error += "2\r\n";
-                foreach (Microsoft.Office.Interop.Word.Section section in wDocument.Sections)
-                {
-                    Microsoft.Office.Interop.Word.Range headerRange = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
-                    headerRange.Fields.Add(headerRange, Microsoft.Office.Interop.Word.WdFieldType.wdFieldPage);
-                    headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
-                    headerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdBlue;
-                    headerRange.Font.Size = 14;
-                    headerRange.Text = "Таблица нарушения радиосвязи";
-                }
-
-                ViewBag.Error += "3\r\n";
-                wDocument.Content.SetRange(0, 0);
-
-                var paragraphTable = wDocument.Paragraphs.Add();
-                ViewBag.Error += "4\r\n";
-                paragraphTable.Range.InsertParagraphAfter();
-                ViewBag.Error += "5\r\n";
                 ViewDisturbanceList theViewData = new ViewDisturbanceList(YYYY, MM);
                 List<ViewDisturbance> theDisturbanceList = new List<ViewDisturbance>();
                 ViewBag.YYYY = YYYY;
@@ -330,6 +295,41 @@ namespace GeospaceMediana.Controllers
                 }
                 theViewData.theDisturbanceList = theDisturbanceList;
 
+
+                object oMissing = System.Reflection.Missing.Value;
+
+                wApp = new Microsoft.Office.Interop.Word.Application();
+                if (wApp == null)
+                {
+                    ViewBag.Error += "wApp is null\r\n";
+                }
+                wApp.Visible = false;
+                var wDocument = wApp.Documents.Add(ref oMissing, 
+                    ref oMissing,
+                    ref oMissing, ref oMissing);
+                if (wDocument == null)
+                {
+                    ViewBag.Error += "wDocument is null\r\n";
+                }
+                ViewBag.Error += "2\r\n";
+                foreach (Microsoft.Office.Interop.Word.Section section in wDocument.Sections)
+                {
+                    Microsoft.Office.Interop.Word.Range headerRange = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                    headerRange.Fields.Add(headerRange, Microsoft.Office.Interop.Word.WdFieldType.wdFieldPage);
+                    headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                    headerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdBlue;
+                    headerRange.Font.Size = 14;
+                    headerRange.Text = theViewData.Title;
+                }
+
+                ViewBag.Error += "3\r\n";
+                wDocument.Content.SetRange(0, 0);
+
+                var paragraphTable = wDocument.Paragraphs.Add();
+                ViewBag.Error += "4\r\n";
+                paragraphTable.Range.InsertParagraphAfter();
+                ViewBag.Error += "5\r\n";
+                
                 ViewBag.Error += "7\r\n";
                 Table firstTable = wDocument.Tables.Add(paragraphTable.Range, DateTime.DaysInMonth(YYYY, MM)+1, theViewData.theStationList.Count() + 1 /*for Day Columnt*/);
                 firstTable.Borders.Enable = 1;
@@ -369,37 +369,12 @@ namespace GeospaceMediana.Controllers
 
                         }
                     }
-                    /*
-                    foreach (Cell cell in row.Cells)
-                    {
-
-                        //Header row
-                        if (cell.RowIndex == 1)
-                        {
-                            cell.Range.Text = "Column " + cell.ColumnIndex.ToString();
-                            cell.Range.Font.Bold = 1;
-                            //other format properties goes here
-                            cell.Range.Font.Name = "verdana";
-                            cell.Range.Font.Size = 10;
-                            //cell.Range.Font.ColorIndex = WdColorIndex.wdGray25;                            
-                            cell.Shading.BackgroundPatternColor = WdColor.wdColorGray25;
-                            //Center alignment for the Header cells
-                            cell.VerticalAlignment = WdCellVerticalAlignment.wdCellAlignVerticalCenter;
-                            cell.Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
-
-                        }
-                        //Data row
-                        else
-                        {
-                            cell.Range.Text = (cell.RowIndex - 2 + cell.ColumnIndex).ToString();
-                        }
-                    }
-                     * */
+                  
                 }
 
 
                 string nameDoc = HttpContext.Server.MapPath("~/App_Data/");
-                string fileName = "Disturbance.doc";
+                string fileName = theViewData.Title + ".doc";
                 string fileNameTemp = string.Format(@"{0}.doc", Guid.NewGuid());
                 nameDoc += fileNameTemp;
 
