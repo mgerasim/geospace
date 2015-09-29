@@ -333,6 +333,8 @@ namespace GeospaceMediana.Controllers
                 ViewBag.Error += "7\r\n";
                 Table firstTable = wDocument.Tables.Add(paragraphTable.Range, DateTime.DaysInMonth(YYYY, MM)+1, theViewData.theStationList.Count() + 1 /*for Day Columnt*/);
                 firstTable.Borders.Enable = 1;
+                firstTable.Columns[1].PreferredWidth = 40f;
+                
                 foreach (Row row in firstTable.Rows)
                 {
                     if (row.IsFirst)
