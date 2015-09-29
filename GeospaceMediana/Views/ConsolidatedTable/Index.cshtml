@@ -245,6 +245,7 @@
         table-layout: fixed;
         padding: 0px 0px 0px 0px;
         word-wrap: normal;
+        font-size: 9px;
     }
     td:hover {
         cursor: pointer;
@@ -316,6 +317,7 @@
     }
 
     .rotate {
+        display: inline-block;
         -webkit-transform: rotate(-90deg);
         -moz-transform: rotate(-90deg);
         -ms-transform: rotate(-90deg);
@@ -331,7 +333,7 @@
         padding: 0px 0px;
         text-align: center !important;
         vertical-align: central !important;
-        /*width:150px;*/
+        width: 150px;
     }
     
     .c_9 {
@@ -352,35 +354,35 @@
 }
 <div class="row">
     <div class="col-sx-12 ">
-        <table style="min-width: 1000px;" class="table table-bordered table-hover table-striped">
+        <table style="" class=" table table-bordered table-hover table-striped">
             <thead>
-                <tr class="">
-                    <th rowspan="3" class="rotate" style="white-space: nowrap; padding: 0px 0px ; vertical-align: middle !important; ">@ViewBag.DateString</th>
-                    <th rowspan="3">W</th>
-                    <th rowspan="3">Sp</th>
-                    <th rowspan="3">F</th>
-                    <th rowspan="3" class="rotate" style="white-space: nowrap; padding: 0px 0px;">90-дневная<br>медиана</th>
-                    <th colspan="5" >Энергичные события</th>
-                    <th rowspan="3" class="rotate" style="padding: 0px 0px;">Качесственная<br> Характеристика</th>
-                    <th colspan="5" class="col-md-4">Магнитное поле Земли</th>
+                <tr>
+                    <th rowspan="3" style="padding: 0px 0px; width:3px;"><div class="rotate" style="width: 25px; text-align: center; vertical-align: middle !important;">@ViewBag.DateString </div></th>
+                    <th rowspan="3" class="col-md-1">W</th>
+                    <th rowspan="3" class="col-md-1">Sp</th>
+                    <th rowspan="3" class="col-md-1">F</th>
+                    <th rowspan="3" style="padding: 0px 0px; width: 6%;"><div class="rotate" style="white-space: nowrap; width: 20px; text-align: center; vertical-align: middle !important;">90-дневная<br>медиана</div></th>
+                    <th colspan="5">Энергичные события</th>
+                    <th rowspan="3" style="padding: 0px 0px; width:6%;"><div class="rotate" style="white-space: nowrap; width: 20px; ">Качественная<br/> Характиристика</div></th>
+                    <th colspan="5">Магнитное поле Земли</th>
                     <th colspan="4">Ионосфера</th>
                 </tr>
                 <tr class="something">
-
-                    <th rowspan="2" class="rotate" style="padding: 0px 0px;">Общее<br> количество</th>
-                    <th rowspan="2" class="rotate">Балл</th>
-                    <th rowspan="2" class="rotate" style="padding: 0px 0px;">Координаты</th>
-                    <th rowspan="2" class="rotate" style="padding: 0px 0px;">Время</th>
+                    <th rowspan="2" style="padding: 0px 0px; width:6%;"><div class="rotate" style="white-space: nowrap; width: 40px; ">Общее<br> количество</div></th>
+                    <th rowspan="2" style="padding: 0px 0px; width:6%;"><div class="rotate" style="white-space: nowrap; width: 40px; ">Балл</div></th>
+                    <th rowspan="2" style="padding: 1px 1px; width:6%;"><div class="rotate" style="white-space: nowrap; width: 40px; ">Координаты</div></th>
+                    <th rowspan="2" style=" width:12%;">Время</th>
                     <th rowspan="1" style="height:50px;">Радиовсплески</th>
-                    <th rowspan="2" class="rotate">Ар</th>
-                    <th rowspan="2" class="rotate" style="padding: 0px 0px;">Магадан Ак</th>
-                    <th rowspan="2" class="rotate" style="padding: 0px 0px;">Паратунка Ак</th>
-                    <th rowspan="2" class="rotate" style="padding: 0px 0px;">Хабаровск Ак</th>
+                    <th rowspan="2" ><div class="rotate" style="width:11px; display: inline-block;">Ар</div></th>
+                    <th rowspan="2" style="padding: 0px 0px; width:6%;"><div class="rotate" style="width:30px;">Магадан Ак</div></th>
+                    <th rowspan="2" style="padding: 0px 0px; width:6%;"><div class="rotate" style="width:30px;">Паратунка Ак</div></th>
+                    <th rowspan="2" style="padding: 0px 0px; width:6%;"><div class="rotate" style="width:30px;">Хабаровск Ак</div></th>
                     <th rowspan="2" style="white-space: nowrap;">К-индексы</th>
-                    <th rowspan="2" class="rotate" style="padding: 0px 0px;">Салехард</th>
-                    <th rowspan="2" class="rotate" style="padding: 0px 0px;">Магадан</th>
-                    <th rowspan="2" class="rotate" style="padding: 0px 0px;">Хабаровск</th>
-                    <th rowspan="2" class="rotate" style="padding: 0px 0px;">Паратунка</th>
+                    <th rowspan="2" style="padding: 0px 0px; width:6%;"><div class="rotate" style="width:20px;">Салехард</div></th>
+                    <th rowspan="2" style="padding: 0px 0px; width:6%;"><div class="rotate" style="width:20px;">Магадан</div></th>
+                    <th rowspan="2" style="padding: 0px 0px; width:6%;"><div class="rotate" style="width:20px;">Хабаровск</div></th>
+                    <th rowspan="2" style="padding: 0px 0px; width:6%;"><div class="rotate" style="width:20px;">Паратунка</div></th>
+
                 </tr>
                 <tr>
                     <th rowspan="1" style="height: 50px; white-space: nowrap;">245мгц 10 см тип</th>
@@ -396,17 +398,17 @@
             <tbody>
                 @for (int i = 0; i < DateTime.DaysInMonth(ViewBag.Year, ViewBag.Month); i++)
                 {
-                    ConsolidatedTable item = GeospaceEntity.Models.ConsolidatedTable.GetByDateUTC(ViewBag.Year, ViewBag.Month,i+1);
+                    ConsolidatedTable item = GeospaceEntity.Models.ConsolidatedTable.GetByDateUTC(ViewBag.Year, ViewBag.Month, i + 1);
                     if (item != null)//Исправить!!!! неверно
                     {
-                        
+
                         <tr id="D_@item.DD" data-day="@item.DD">
-                            <td rowspan="2" data-day="@item.DD" data-type="DD" class="editable-mediana" data-toggle="tooltip">@item.DD</td>
-                            <td rowspan="2" data-day="@item.DD" data-type="Th2" class="editable " data-toggle="tooltip">@item.Th2_W</td>
-                            <td rowspan="2" class="editable c_3" data-type="Th3">@item.Th3_Sp</td>
-                            <td rowspan="2" class="editable c_4" data-type="Th4">@item.Th4_F</td>
-                            <td rowspan="2" class="editable c_5" data-type="Th5">@item.Th5_90M</td>
-                            <td rowspan="2" class="c_6 editable" data-type="Th6">@item.Th6_CountEvent</td>
+                            <td data-day="@item.DD" data-type="DD" class="editable-mediana" data-toggle="tooltip">@item.DD</td>
+                            <td data-day="@item.DD" data-type="Th2" class="editable " data-toggle="tooltip">@item.Th2_W</td>
+                            <td class="editable c_3" data-type="Th3">@item.Th3_Sp</td>
+                            <td class="editable c_4" data-type="Th4">@item.Th4_F</td>
+                            <td class="editable c_5" data-type="Th5">@item.Th5_90M</td>
+                            <td class="c_6 editable" data-type="Th6">@item.Th6_CountEvent</td>
                             @{ List<EnergeticEvent> list = new List<EnergeticEvent>(item.EnergeticEvents);}
                             <td class="c_7 energetic_event" data-type="Balls">
                                 @for (int j = 0; j < list.Count; j++)
@@ -425,7 +427,7 @@
                             <td class="c_9 energetic_event" style="white-space: nowrap;" data-type="Time">
                                 @for (int j = 0; j < list.Count; j++)
                                 {
-                                   @DrawLinkEvent(@list[j].ID, @item.DD, @list[j].Time, "Time")
+                                    @DrawLinkEvent(@list[j].ID, @item.DD, @list[j].Time, "Time")
 
                                 }
                             </td>
@@ -437,70 +439,63 @@
                                 }
                             </td>
 
-                            <td rowspan="2" class="c_11 editable" style="white-space: nowrap;" data-type="Th11">
+                            <td class="c_11 editable" style="white-space: nowrap;" data-type="Th11">
                                 @item.Th11_
                             </td>
-                            <td rowspan="2" class="c_12 editable" data-type="Th12">
+                            <td class="c_12 editable" data-type="Th12">
                                 @item.Th12_AP
                             </td>
-                            <td rowspan="2" class="c_13 editable" data-type="Th13">
+                            <td class="c_13 editable" data-type="Th13">
                                 @item.Th13_Amag
                             </td>
-                            <td rowspan="2" class="c_14 editable" data-type="Th14">
+                            <td class="c_14 editable" data-type="Th14">
                                 @item.Th14_Apar
                             </td>
-                            <td rowspan="2" class="c_15 editable" data-type="Th15">
+                            <td class="c_15 editable" data-type="Th15">
                                 @item.Th15_Akha
                             </td>
-                            <td rowspan="2" class="c_16 editable" data-type="Th16">
+                            <td class="c_16 editable" data-type="Th16">
                                 @item.Th16_K
                             </td>
-                            <td rowspan="2" class="c_17 editable" data-type="Th17">
+                            <td class="c_17 editable" data-type="Th17">
                                 @item.Th17_iSal
                             </td>
-                            <td rowspan="2" class="c_18 editable" data-type="Th18">
+                            <td class="c_18 editable" data-type="Th18">
                                 @item.Th18_iMag
                             </td>
-                            <td rowspan="2" class="c_19 editable" data-type="Th19">
+                            <td class="c_19 editable" data-type="Th19">
                                 @item.Th19_iKha
                             </td>
-                            <td rowspan="2" class="c_20 editable" data-type="Th20">
+                            <td class="c_20 editable" data-type="Th20">
                                 @item.Th20_iPar
                             </td>
                         </tr>
-                        <tr>
-                            <td colspan="4" style="padding:0 0;">
-                                <a style="padding: 1px 8px;" id="addEvent" data-whatever="@item.DD" data-toggle="modal" data-target="#myModal" class=" btn btn-primary btn-ms col-xs-12" onclick="handleSaveTime('@item.DD','@ViewBag.DateString' )">Добавить</a>
-                            </td>
-                        </tr>
+                        
 
                     }
                     else
                     {
                         <tr id="D_@(i+1)" data-day="@(i+1)">
-                            <td rowspan="2" data-day="@Html.Raw(i + 1)" data-type="DD" class="editable-mediana" data-toggle="tooltip">@Html.Raw(i + 1)</td>
-                            <td rowspan="2" data-day="@Html.Raw(i + 1)" data-type="Th2" class="editable" data-toggle="tooltip"></td>
-                            <td rowspan="2" class="c_3 editable" data-type="Th3"></td>
-                            <td rowspan="2" class="c_4 editable" data-type="Th4"></td>
-                            <td rowspan="2" class="c_5 editable" data-type="Th5"></td>
-                            <td rowspan="2" class="c_6 editable" data-type="Th6"></td>
+                            <td data-day="@Html.Raw(i + 1)" data-type="DD" class="editable-mediana" data-toggle="tooltip">@Html.Raw(i + 1)</td>
+                            <td data-day="@Html.Raw(i + 1)" data-type="Th2" class="editable" data-toggle="tooltip"></td>
+                            <td class="c_3 editable" data-type="Th3"></td>
+                            <td class="c_4 editable" data-type="Th4"></td>
+                            <td class="c_5 editable" data-type="Th5"></td>
+                            <td class="c_6 editable" data-type="Th6"></td>
                             <td class="c_7 energetic_event" data-type="Balls"></td>
                             <td class="c_8 energetic_event" data-type="Coordinates"></td>
                             <td class="c_9 energetic_event" style="white-space: nowrap;" data-type="Time"></td>
                             <td class="c_10 energetic_event" data-type="RadioBursts"></td>
-                            <td rowspan="2" class="c_11 editable" data-type="Th11"></td>
-                            <td rowspan="2" class="c_12 editable" data-type="Th12"></td>
-                            <td rowspan="2" class="c_13 editable" data-type="Th13"></td>
-                            <td rowspan="2" class="c_14 editable" data-type="Th14"></td>
-                            <td rowspan="2" class="c_15 editable" data-type="Th15"></td>
-                            <td rowspan="2" class="c_16 editable" data-type="Th16"></td>
-                            <td rowspan="2" class="c_17 editable" data-type="Th17"></td>
-                            <td rowspan="2" class="c_18 editable" data-type="Th18"></td>
-                            <td rowspan="2" class="c_19 editable" data-type="Th19"></td>
-                            <td rowspan="2" class="c_20 editable" data-type="Th20"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" style="padding: 1px 8px;" id="addEvent" data-whatever="@Html.Raw(i + 1)" data-toggle="modal" data-target="#myModal" class=" btn btn-primary btn-ms col-ms-12" onclick="handleSaveTime('@Html.Raw(i + 1)','@ViewBag.DateString' )">Добавить</td>
+                            <td class="c_11 editable" data-type="Th11"></td>
+                            <td class="c_12 editable" data-type="Th12"></td>
+                            <td class="c_13 editable" data-type="Th13"></td>
+                            <td class="c_14 editable" data-type="Th14"></td>
+                            <td class="c_15 editable" data-type="Th15"></td>
+                            <td class="c_16 editable" data-type="Th16"></td>
+                            <td class="c_17 editable" data-type="Th17"></td>
+                            <td class="c_18 editable" data-type="Th18"></td>
+                            <td class="c_19 editable" data-type="Th19"></td>
+                            <td class="c_20 editable" data-type="Th20"></td>
                         </tr>
                     }
                 }
