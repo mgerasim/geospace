@@ -223,7 +223,7 @@ namespace GeospaceEntity.Helper
                         theCode.MI == 0 && (
                         theCode.f0F2 == 1002            // B - неотклоняющее поглащение
                             || theCode.f0F2 == 1006     // F - рассеяный след (диффузность)
-                           ||theCode.delta_f0F2 < 30       // отрицательные суточное отклонение
+                           ||theCode.delta_f0F2 < -30       // отрицательные суточное отклонение
                         )
                     )
                     {
