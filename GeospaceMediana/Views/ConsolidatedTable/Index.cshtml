@@ -58,6 +58,44 @@
         $("#delete").detach()
         emptyEnergeticEvent();
     }
+    function getCell(day,  type) {
+        return $('td')
+                .filter('[data-day="' + day + '"]')
+                .filter('[data-type="' + type + '"]');
+    }
+    function moveEdit(currentCell, keyCode) {
+        var day = currentCell.data("day");
+        var type = currentCell.data("type");
+        type = parseInt(type.slice(2, type.length));
+        
+        switch (keyCode) {
+            case 37: // left
+                type--;
+                break;
+            case 38: // up
+                day--;
+                break;
+            case 39: // right
+                type++;
+                break;
+            case 40: // down
+                day++;
+                break;
+        }
+        var newCell = getCell(day, "Th" + type);
+        console.log(day, type, newCell);
+        if (newCell.length == 0)
+            return;
+
+        if (newCell.hasClass("editable") == false) {
+            moveEdit(newCell, keyCode);
+            return;
+        }
+
+        $('#edit').blur();
+         newCell.dblclick();
+    }
+
     function editEvent(e) {
         var currentCell = $(this);
 
@@ -68,7 +106,10 @@
         var oldValue = $(currentCell).text().trim();
 
         var inputHtml = "<input type=\"text\" id=\"edit\" value=\"" + oldValue + "\" />";
-
+        if (currentCell.hasClass("energetic_event"))
+        {
+            inputHtml = "<textarea id=\"edit\">"+ oldValue +"</textarea>";
+        }
         var cellWidth = currentCell.width();
         var cellHeight = currentCell.height();
 
@@ -79,6 +120,13 @@
         $('#edit').height(cellHeight - 2 + 16);
         currentCell.width(cellWidth);
         currentCell.height(cellHeight);
+
+        $('#edit').keydown(function (event) {
+            if (event.keyCode >= 37 && event.keyCode <= 40) {
+                event.preventDefault();
+                moveEdit(currentCell, event.keyCode);
+            }
+        });
 
         $('#edit').focus();
         $('#edit').select();
@@ -117,7 +165,7 @@
                 });
             }
             else {
-                currentCell.empty().html(oldValue);
+               currentCell.empty().html(oldValue);
             }
 
 
@@ -179,6 +227,11 @@
     }
     $(document).ready(function () {
         $('.editable').dblclick(editEvent);
+        //$(window).keydown(function (event) {
+        //    if (event.keyCode == 13) {
+        //        $('#edit').blur();
+        //    }
+        //});
     });
     function deleteEnergeticEvent() {
         emptyEnergeticEvent();
@@ -405,26 +458,26 @@
                         <tr id="D_@item.DD" data-day="@item.DD">
                             <td data-day="@item.DD" data-type="DD" class="editable-mediana" data-toggle="tooltip">@item.DD</td>
                             <td data-day="@item.DD" data-type="Th2" class="editable " data-toggle="tooltip">@item.Th2_W</td>
-                            <td class="editable c_3" data-type="Th3">@item.Th3_Sp</td>
-                            <td class="editable c_4" data-type="Th4">@item.Th4_F</td>
-                            <td class="editable c_5" data-type="Th5">@item.Th5_90M</td>
-                            <td class="c_6 editable" data-type="Th6">@item.Th6_CountEvent</td>
+                            <td class="editable c_3" data-day="@item.DD" data-type="Th3">@item.Th3_Sp</td>
+                            <td class="editable c_4" data-day="@item.DD" data-type="Th4">@item.Th4_F</td>
+                            <td class="editable c_5" data-day="@item.DD" data-type="Th5">@item.Th5_90M</td>
+                            <td class="c_6 editable" data-day="@item.DD" data-type="Th6">@item.Th6_CountEvent</td>
                             @{ List<EnergeticEvent> list = new List<EnergeticEvent>(item.EnergeticEvents);}
-                            <td class="c_7 energetic_event" data-type="Balls">
+                            <td class="c_7 editable energetic_event" data-day="@item.DD" data-type="Th7">
                                 @for (int j = 0; j < list.Count; j++)
                                 {
                                     @DrawLinkEvent(@list[j].ID, @item.DD, @list[j].Balls, "Balls")
                                 }
                             </td>
 
-                            <td class="c_8 energetic_event" data-type="Coordinates">
+                            <td class="c_8 editable energetic_event" data-day="@item.DD" data-type="Th8">
                                 @for (int j = 0; j < list.Count; j++)
                                 {
                                     @DrawLinkEvent(@list[j].ID, @item.DD, @list[j].Coordinates, "Coordinates")
                                 }
                             </td>
 
-                            <td class="c_9 energetic_event" style="white-space: nowrap;" data-type="Time">
+                            <td class="c_9 editable energetic_event" data-day="@item.DD" style="white-space: nowrap;" data-type="Th9">
                                 @for (int j = 0; j < list.Count; j++)
                                 {
                                     @DrawLinkEvent(@list[j].ID, @item.DD, @list[j].Time, "Time")
@@ -432,41 +485,41 @@
                                 }
                             </td>
 
-                            <td class="c_10 energetic_event" data-type="RadioBursts">
+                            <td class="c_10 editable energetic_event" data-day="@item.DD" data-type="Th10">
                                 @for (int j = 0; j < list.Count; j++)
                                 {
                                     @DrawLinkEvent(@list[j].ID, @item.DD, @list[j].RadioBursts, "RadioBursts")
                                 }
                             </td>
 
-                            <td class="c_11 editable" style="white-space: nowrap;" data-type="Th11">
+                            <td class="c_11 editable" style="white-space: nowrap;" data-day="@item.DD" data-type="Th11">
                                 @item.Th11_
                             </td>
-                            <td class="c_12 editable" data-type="Th12">
+                            <td class="c_12 editable" data-day="@item.DD" data-type="Th12">
                                 @item.Th12_AP
                             </td>
-                            <td class="c_13 editable" data-type="Th13">
+                            <td class="c_13 editable" data-day="@item.DD" data-type="Th13">
                                 @item.Th13_Amag
                             </td>
-                            <td class="c_14 editable" data-type="Th14">
+                            <td class="c_14 editable" data-day="@item.DD" data-type="Th14">
                                 @item.Th14_Apar
                             </td>
-                            <td class="c_15 editable" data-type="Th15">
+                            <td class="c_15 editable" data-day="@item.DD" data-type="Th15">
                                 @item.Th15_Akha
                             </td>
-                            <td class="c_16 editable" data-type="Th16">
+                            <td class="c_16 editable" data-day="@item.DD" data-type="Th16">
                                 @item.Th16_K
                             </td>
-                            <td class="c_17 editable" data-type="Th17">
+                            <td class="c_17 editable" data-day="@item.DD" data-type="Th17">
                                 @item.Th17_iSal
                             </td>
-                            <td class="c_18 editable" data-type="Th18">
+                            <td class="c_18 editable" data-day="@item.DD" data-type="Th18">
                                 @item.Th18_iMag
                             </td>
-                            <td class="c_19 editable" data-type="Th19">
+                            <td class="c_19 editable" data-day="@item.DD" data-type="Th19">
                                 @item.Th19_iKha
                             </td>
-                            <td class="c_20 editable" data-type="Th20">
+                            <td class="c_20 editable" data-day="@item.DD" data-type="Th20">
                                 @item.Th20_iPar
                             </td>
                         </tr>
@@ -478,24 +531,24 @@
                         <tr id="D_@(i+1)" data-day="@(i+1)">
                             <td data-day="@Html.Raw(i + 1)" data-type="DD" class="editable-mediana" data-toggle="tooltip">@Html.Raw(i + 1)</td>
                             <td data-day="@Html.Raw(i + 1)" data-type="Th2" class="editable" data-toggle="tooltip"></td>
-                            <td class="c_3 editable" data-type="Th3"></td>
-                            <td class="c_4 editable" data-type="Th4"></td>
-                            <td class="c_5 editable" data-type="Th5"></td>
-                            <td class="c_6 editable" data-type="Th6"></td>
-                            <td class="c_7 energetic_event" data-type="Balls"></td>
-                            <td class="c_8 energetic_event" data-type="Coordinates"></td>
-                            <td class="c_9 energetic_event" style="white-space: nowrap;" data-type="Time"></td>
-                            <td class="c_10 energetic_event" data-type="RadioBursts"></td>
-                            <td class="c_11 editable" data-type="Th11"></td>
-                            <td class="c_12 editable" data-type="Th12"></td>
-                            <td class="c_13 editable" data-type="Th13"></td>
-                            <td class="c_14 editable" data-type="Th14"></td>
-                            <td class="c_15 editable" data-type="Th15"></td>
-                            <td class="c_16 editable" data-type="Th16"></td>
-                            <td class="c_17 editable" data-type="Th17"></td>
-                            <td class="c_18 editable" data-type="Th18"></td>
-                            <td class="c_19 editable" data-type="Th19"></td>
-                            <td class="c_20 editable" data-type="Th20"></td>
+                            <td class="c_3 editable" data-day="@(i+1)" data-type="Th3"></td>
+                            <td class="c_4 editable" data-day="@(i+1)" data-type="Th4"></td>
+                            <td class="c_5 editable" data-day="@(i+1)" data-type="Th5"></td>
+                            <td class="c_6 editable" data-day="@(i+1)" data-type="Th6"></td>
+                            <td class="c_7 editable energetic_event" data-day="@(i+1)" data-type="Th7"></td>
+                            <td class="c_8 editable energetic_event" data-day="@(i+1)" data-type="Th8"></td>
+                            <td class="c_9 editable energetic_event" data-day="@(i+1)" style="white-space: nowrap;" data-type="Th9"></td>
+                            <td class="c_10 editable energetic_event" data-day="@(i+1)" data-type="Th10"></td>
+                            <td class="c_11 editable" data-day="@(i+1)" data-type="Th11"></td>
+                            <td class="c_12 editable" data-day="@(i+1)" data-type="Th12"></td>
+                            <td class="c_13 editable" data-day="@(i+1)" data-type="Th13"></td>
+                            <td class="c_14 editable" data-day="@(i+1)" data-type="Th14"></td>
+                            <td class="c_15 editable" data-day="@(i+1)" data-type="Th15"></td>
+                            <td class="c_16 editable" data-day="@(i+1)" data-type="Th16"></td>
+                            <td class="c_17 editable" data-day="@(i+1)" data-type="Th17"></td>
+                            <td class="c_18 editable" data-day="@(i+1)" data-type="Th18"></td>
+                            <td class="c_19 editable" data-day="@(i+1)" data-type="Th19"></td>
+                            <td class="c_20 editable" data-day="@(i+1)" data-type="Th20"></td>
                         </tr>
                     }
                 }
