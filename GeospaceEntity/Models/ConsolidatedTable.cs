@@ -49,6 +49,10 @@ namespace GeospaceEntity.Models
             Th4_F = "";
             Th5_90M = "";
             Th6_CountEvent = "";
+            Th7_Balls = "";
+            Th8_Coordinates = "";
+            Th9_Time = "";
+            Th10_RadioBursts = "";
             Th11_ = "";
             Th12_AP  = "";
             Th13_Amag= "";
