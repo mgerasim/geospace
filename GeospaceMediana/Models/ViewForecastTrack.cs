@@ -173,6 +173,13 @@ namespace GeospaceMediana.Models
 
         public void Recovery_Data_Table1(Station stat, double[,] values, double[,] colors, DateTime now)
         {
+            for (int i = 0; i < 24; i++)
+            {
+                if (values[0, i] >= 1000)
+                    interpolation(values, i, colors);
+            }
+            Check(values, colors);
+
             bool flag = false;
             int sum = 0, maxSum = 0, del = 0, del10 = 0;
             double avg = 0.0, avg10 = 0.0;
@@ -234,12 +241,7 @@ namespace GeospaceMediana.Models
             }
 
             Check(values, colors);
-            for (int i = 0; i < 24; i++)
-            {
-                if (values[0, i] >= 1000)
-                    interpolation(values, i, colors);
-            }
-            Check(values, colors);
+            
 
             for (int i = 0; i < 24; i++)
             {

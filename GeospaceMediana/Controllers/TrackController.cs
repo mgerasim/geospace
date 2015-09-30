@@ -49,15 +49,16 @@ namespace GeospaceMediana.Controllers
                 output.Add("[");   //MUF
                 output.Add("[");   //OPF
                 output.Add("");    //параметры: D
-                int W = 60;
+                int W = 10;
 
                 Track track = Track.GetById(id);
-                string param = track.PointA.Longitude.ToString().Replace( ",", "." ) + " "
+                string param = track.PointA.Longitude.ToString().Replace(",", ".") + " "
                     + track.PointA.Latitude.ToString().Replace(",", ".") + " "
                     + track.PointB.Longitude.ToString().Replace(",", ".") + " "
                     + track.PointB.Latitude.ToString().Replace(",", ".") + " "
                     + W.ToString() + " "
-                    + DateTime.Now.AddMonths(1).Month.ToString();
+                    + "1";
+                    //+ DateTime.Now.AddMonths(1).Month.ToString();
                 
                 GeospaceEntity.Helper.HelperTrack.Start(log, output, param, true, true);
 

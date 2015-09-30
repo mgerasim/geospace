@@ -2,6 +2,7 @@
 using GeospaceEntity.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -40,6 +41,7 @@ namespace GeospaceMediana.Controllers
 
             foreach( Track track in consumer.Tracks )
             {
+                log[0] += track.Name + "\n";
                 List<string> output = new List<string>();
                 output.Add("[");   //MUF
                 output.Add("[");   //OPF
@@ -53,10 +55,11 @@ namespace GeospaceMediana.Controllers
                 //+ DateTime.Now.AddMonths(1).Month.ToString();
                 + month.ToString();
 
-                GeospaceEntity.Helper.HelperTrack.Start(log, output, param, true);
+                GeospaceEntity.Helper.HelperTrack.Start(log, output, param, true, true);
 
                 output[0] += "]";
                 output[1] += "]";
+                
 
                 string [] str = output[2].Split(' ');
                 title.Add(track.Name + "\nКоординаты: " + track.PointA.Longitude.ToString() + " "
@@ -67,7 +70,13 @@ namespace GeospaceMediana.Controllers
                     + "Прогноз на: " + dt.ToString("MMM yyyy") );                
 
                 listOutput.Add(output);
+                log[0] += "\n";
             }
+
+            StreamWriter sw = new StreamWriter("D:\\fortran_log.txt");
+            foreach (string s in log)
+                sw.WriteLine(s);
+            sw.Close();
 
             ViewBag.title = title;
             ViewBag.listOutput = listOutput;

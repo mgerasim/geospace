@@ -19,17 +19,31 @@ subroutine forecast_MUF( W, month, KTO, XO, YO, D )
 	real, dimension ( SIZE ) :: XO, YO
 	real, dimension ( HOURS ) :: MUF, OPF
 
+	do h = 1, HOURS, 1
+		MUF(h) = 1000
+		OPF(h) = 1000
+	end do
 	if( KTO == 1 ) then
 		call calc_layer_E_F1_F2_for_MUF_OPF( W, month, KTO, XO, YO, D, MUF, OPF )
 	else
-		call calc_layerF2_for_MUF_OPF( W, month, KTO, XO, YO, D, MUF, OPF )
+		call calc_layerF2_for_MUF_OPF( W, month, KTO, XO, YO, MUF, OPF )
 	end if
 
 	print *, "DEBUG           HH             MUF(h)            OPF(h)"
 	do h = 1, HOURS, 1
-		print *, "DEBUG", h - 1, "-", MUF(h), "-", OPF(h)
-		print *, "OUTPUT MUF ", MUF(h)
-		print *, "OUTPUT OPF ", OPF(h)
+		if( MUF(h) < 0.0 .or. MUF(h) > 30.0 ) then
+			print *, "OUTPUT MUF null"
+		else
+			print *, "OUTPUT MUF ", MUF(h)
+		end if
+
+		if( OPF(h) < 0.0 .or. OPF(h) > 30.0 ) then
+			print *, "OUTPUT OPF null"
+		else
+			print *, "OUTPUT OPF ", OPF(h)
+		end if
+
+		print *, "DEBUG", h - 1, "-", MUF(h), "-", OPF(h)	
 	end do
 
 
@@ -38,15 +52,15 @@ end subroutine forecast_MUF
 
 
 subroutine calc_layer_E_F1_F2_for_MUF_OPF( W, month, KTO, XO, YO, D, MUF, OPF )
-	integer                  :: KTO, month, W, h
+	integer                  :: KTO, month, W, h, correctHour, hour
 	real                     :: D
 	real, dimension ( SIZE ) :: XO, YO
 	real, dimension ( HOURS ) :: foE, Z, MUF, OPF, MPE, MPF1, MPF2, foF1
-	real :: A, B, Zm, MDE, FF, F, obj, obj1, DF, MDF1
+	real :: A, B, Zm, MDE, FF, F, obj, obj1, DF, MDF1, delta
 	CHARACTER(50) error
-
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!49 строка месяц установить
 	call rad_to_degree( XO(1), obj )
-	Zm = 90 - obj + DS(month)
+	Zm = 90 - obj + DS(9)
 	DF = (0.0006 + 0.00009*Zm) * W
 	call  degree_to_rad( (Zm + 27)/1.3, obj )
 	A = 2.8*sin(obj) + DF
@@ -54,7 +68,6 @@ subroutine calc_layer_E_F1_F2_for_MUF_OPF( W, month, KTO, XO, YO, D, MUF, OPF )
 
 	FF = D / (2*R)
 	F = 3000 / (2*R)
-
 	print *, "DEBUG A = ", A, "B = ", B, "Zm = ", Zm, "DF = ", DF
 
 	if( D < 2000 ) then
@@ -78,11 +91,17 @@ subroutine calc_layer_E_F1_F2_for_MUF_OPF( W, month, KTO, XO, YO, D, MUF, OPF )
 	end if
 
 	print *, "DEBUG MDE = ", MDE, "MDf1 = "	, MDf1
-
 	print *, "DEBUG           HH             foE(h)            foF1(h)       Z(h)"
+
+	call rad_to_degree( YO(1), obj )
+	delta = obj/15.0
+	correctHour = nint( delta )
+
+	!print *, "DEBUG ", obj, delta, correctHour
+
 	do h = 1, HOURS, 1
-		call rad_to_degree( YO(1), obj )
-		call degree_to_rad( 15*((h-1) + obj/15), obj)
+		!call rad_to_degree( YO(1), obj )
+		call degree_to_rad(15.0*(h-1), obj)
 		call degree_to_rad( 1.0*DS(month), obj1 )
 		Z(h) = sin(XO(1)) * sin(obj1) - cos(XO(1)) * cos(obj1) * cos(obj)
 
@@ -105,63 +124,111 @@ subroutine calc_layer_E_F1_F2_for_MUF_OPF( W, month, KTO, XO, YO, D, MUF, OPF )
 
 
 		print *, "DEBUG ", h - 1, foE(h), foF1(h), obj
-		
-		!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		MPF2(h) = 0.0
-		!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+		MPF2(h) = Calc_MPF2(D, W, month, h, XO(1), YO(1))
+		!print *, "DEBUG ", hour, correctHour
 
 	end do
 	
 	MPE = foE * MDE
 	MPF1 = foF1 * MDf1
 
+	print *, "DEBUG $$$$$"
 	do h = 1, HOURS, 1
-		MUF(h) = max( MPE(h), MPF1(h), MPF2(h) )
+		print *, "DEBUG ", h, MPE(h), MPF1(h), MPF2(h)
+	end do
+	print *, "DEBUG $$$$$"
+
+	do h = 1, HOURS, 1
+		hour = h - correctHour
+		!print *, "DEBUG ", hour
+		if( hour <= 0 ) then
+			hour = hour + 24
+		end if				
+
+		MUF(hour) = max( MPE(h), MPF1(h), MPF2(h) )
 
 		if( MPE(h) > MPF1(h) .and. MPE(h) > MPF2(h) ) then
-			OPF(h) = MPE(h)
+			OPF(hour) = MPE(h)
 		end if
 
 		if( MPF1(h) > MPE(h) .and. MPF1(h) > MPF2(h) ) then
-			OPF(h) = MPF1(h) * 0.95
+			OPF(hour) = MPF1(h) * 0.95
 		end if
 
 		if( MPF2(h) > MPE(h) .and. MPF2(h) > MPF1(h) ) then
-			OPF(h) = MPF2(h) * 0.85
+			OPF(hour) = MPF2(h) * 0.85
 		end if
 
 		if( MPE(h) == MPF1(h) .and. MPE(h) > MPF2(h) ) then
-			OPF(h) = MPE(h)
+			OPF(hour) = MPE(h)
 		end if
 
 		if( MPE(h) == MPF2(h) .and. MPE(h) > MPF1(h) ) then
-			OPF(h) = MPE(h)
+			OPF(hour) = MPE(h)
 		end if
 
 		if( MPF1(h) == MPF2(h) .and. MPF1(h) > MPE(h) ) then
-			OPF(h) = MPF1(h) * 0.95
+			OPF(hour) = MPF1(h) * 0.95
+		end if
+
+		if(hour == 1) then
+			MUF(25) = MUF(hour)
+			OPF(25) = OPF(hour)
 		end if
 	end do
 
 	return
 end subroutine calc_layer_E_F1_F2_for_MUF_OPF
 
-subroutine calc_layerF2_for_MUF_OPF( W, month, KTO, XO, YO, D, MUF, OPF )
-	integer                  :: KTO, month, W, h
-	real                     :: D
-	real, dimension ( SIZE ) :: XO, YO
-	real, dimension ( HOURS ) :: foE, Z, MUF, OPF
-	real :: A, B, Zm, MDE, FF, F, obj, obj1, DF
+
+subroutine calc_layerF2_for_MUF_OPF( W, month, KTO, XO, YO, MUF, OPF )
+	integer                     :: KTO, month, W, h, k, hour
+	integer, dimension ( SIZE ) :: correctHour
+	real, dimension ( SIZE )    :: XO, YO
+	real, dimension ( HOURS )   :: MUF, OPF, MPF2
+	real :: obj, delta
 	CHARACTER(50) error
 
-	do h = 1, HOURS, 1
-		MUF(h) = 1000.0
-		OPF(h) = 1000.0
+	do k = 1, KTO
+		call rad_to_degree( YO(k), obj )
+		delta = obj/15.0
+		correctHour(k) = nint( delta )		
+	end do	
+
+	do k = 1, KTO		
+		do h = 1, HOURS, 1	
+			MPF2(h) = Calc_MPF2(4000.0, W, month, h, XO(k), YO(k))
+		end do		
+
+		print *, "DEBUG $$$$$", k
+		do h = 1, HOURS, 1
+			print *, "DEBUG ", h, MPF2(h)
+		end do
+		print *, "DEBUG $$$$$"
+
+		print *, "DEBUG ", correctHour(k)
+		do h = 1, HOURS, 1
+
+			hour = h - correctHour(k)
+			if( hour <= 0 ) then
+				hour = hour + 24
+			end if
+
+			MUF(hour) = min( MUF(hour), MPF2(h) )
+			OPF(hour) = MUF(hour)*0.85
+
+			if(hour == 1) then
+				MUF(25) = MUF(hour)
+				OPF(25) = OPF(hour)
+			end if
+
+			print *, "DEBUG", h-1, hour-1, MUF(hour)
+		end do
+
 	end do
-
-
-	print *, "DEBUG NoNe"
 end subroutine calc_layerF2_for_MUF_OPF
+
 
 
 end module forecast

@@ -31,12 +31,12 @@ contains
 !       D - длина трассы по дуге большого круга
 		print *, "DEBUG    start calc_coord..."
 		
-		DO(1) = 0
-		DO(2) = 0
-		DO(3) = 0
-		DO(4) = 0
-		DO(5) = 0
-		DO(6) = 0
+		DO(1) = 0.0
+		DO(2) = 0.0
+		DO(3) = 0.0
+		DO(4) = 0.0
+		DO(5) = 0.0
+		DO(6) = 0.0
 
 		SX1 = SIN(X1)
 		SX2 = SIN(X2)
@@ -190,31 +190,10 @@ contains
 		return
 	end subroutine calc_coord
 
-	!real function Return_Polynom_I300(XTO, mI300, nI300)
-		!integer  :: mI300, nI300, i, j
-		!real     :: XTO, sum, degree
-		!sum = 0.0
-		!i = 1
-		!call rad_to_degree( XTO, degree )
-		!j = nint( degree )
-		!print *, "DEBUG j =", j, degree
-		!do m = 0, mI300, 1
-			!do n = 0, nI300, 1
-				!sum = sum + 1    !I300_POLYNOM( j+1, i )
-				!print *, "DEBUG POLYNOM =", I300_POLYNOM( j+1, sum )
-				!i = i + 1
-			!end do
-		!end do
-
-		!print *, "DEBUG", mI300, nI300, sum
-
-		!Return_Polynom_I300 = sum
-	!end function Return_Polynom_I300
-
 	! функция по расчету I300
 	subroutine Calc_I300(XTO, YO, I300)
 		real                      	 :: XTO, YO, I300, degree
-		integer                      :: i, j		
+		integer                      :: i, j, m, n	
 		
 		i = 0
 		call rad_to_degree( XTO, degree )
@@ -233,14 +212,15 @@ contains
 
  	! функция перевода географических координат в геомагнитные
 	subroutine Convert_Geomagnetic_Coord(XO, YO, GTO300, GYO) 
-		real                      	 :: XO, XTO, YO, GTO300, GYO, I300, GXO, GXTO
+		real                      	 :: XO, XTO, YO, GTO300, GYO, I300, GXO, GXTO, GYO1
 		real                         :: addition, cosFi
  		CHARACTER(50) error, error1		 		
  		
 		addition = 0.0
 		I300 = 0.0
 		XTO = PI/2.0 - XO
-		GXTO  = cos(GT0)*cos(XTO) + sin(GT0)*sin(XTO)*cos(YO-GL0)
+		!GXTO  = cos(GT0)*cos(XTO) + sin(GT0)*sin(XTO)*cos(YO-GL0)
+		GXTO  = AA*cos(XTO) + BB*sin(XTO)*cos(YO) + CC*sin(XTO)*sin(YO)
 
 		if( abs(GXTO ) > 1 + EPS )  then  
 			error = "parameter with arccos | GXTO  | > 1" 
@@ -251,27 +231,28 @@ contains
 		else
 			GXTO = -1
 		end if
-		!print *, "         DEBUG new value GXTO = |1|"
+		print *, "         DEBUG new value GXTO = |1|"
 		end if
-
 
 		GXTO  =  acos ( GXTO )
 		!print *, "DEBUG GXTO", GXTO, addition
 
 		if( abs( GXTO ) == 0 .or. abs( GXTO ) == PI) then
 			addition = EPS
-			print *, "         DEBUG addition = EPS"
+			!print *, "         DEBUG addition = EPS"
 		end if
 
-		GYO = ( -1*sin(GT0)*cos(XTO) + cos(GT0)*sin(XTO)*cos(YO-GL0) ) / sin( GXTO + addition) 
+		GYO = ( -1*sin(GT0)*cos(XTO) + cos(GT0)*sin(XTO)*cos(YO-GL0) ) / sin( GXTO + addition )
+		!GYO = DD*cos(XTO) + EE*sin(XTO)*cos(YO) + GG*sin(XTO)*sin(YO)
+		!GYO = GYO / sin( GXTO + addition )
 
 		if ( abs(GYO) > 1 ) then
 			if( GYO > 0 ) then 
-			GYO = 1
+				GYO = 1
 		else
-			GYO = -1
+				GYO = -1
 			end if
-			print *, "         DEBUG new value GYO = |1|"
+			!print *, "         DEBUG new value GYO = |1|"
 		end if
 
 		!print *, "DEBUG DDD", ( -1.0*sin(GT0)*cos(XTO) + cos(GT0)*sin(XTO)*cos(YO-GL0) )
@@ -297,13 +278,335 @@ contains
 
 		!print *, "DEBUG", YO      
 
-		if( GYO < PI ) then 
-			GYO = 2*PI - GYO
+		if(YO > PI - 69.0*PI/180.0 .and. YO < 291.0*PI/180.0) then 
+			GYO = 2.0*PI - GYO
+			!if( GYO1 < PI ) then
+			!	GYO = GYO1
+			!end if
 		end if
 
 		!GYO = 2*PI - GYO
 
 
 	end subroutine Convert_Geomagnetic_Coord
+
+	subroutine Calc_Coeff_H_G( W, coeffF0Global, coeffM3000Global, month )
+		integer                    :: W, month,wPrev, wNext, hourh, hourn
+		real, dimension ( 25, 70 ) :: coeffF0Global, coeffM3000Global
+		real, dimension ( 12, 70 ) :: coeffF0, coeffF0Prev, coeffF0Next
+		real, dimension ( 12, 70 ) :: coeffM3000, coeffM3000Prev, coeffM3000Next
+		logical                    :: flag
+
+		flag = .false.
+
+		if( W > 0 .and. W <= WOLFA(1) ) then
+			coeffF0 = COEFF_G_H_F0_W10(:12, :70, month)
+			coeffM3000 = COEFF_G_H_M3000_W10(:12, :70, month)
+			wPrev = W
+			wNext = W
+			!print *, "DEBUG 1"
+		end if
+
+		if( W == WOLFA(2) ) then
+			coeffF0 = COEFF_G_H_F0_W50(:12, :70, month)
+			coeffM3000 = COEFF_G_H_M3000_W50(:12, :70, month)
+			wPrev = W
+			wNext = W
+			!print *, "DEBUG 2"
+		end if
+
+		if( W == WOLFA(3) ) then
+			coeffF0 = COEFF_G_H_F0_W100(:12, :70, month)
+			coeffM3000 = COEFF_G_H_M3000_W100(:12, :70, month)
+			wPrev = W
+			wNext = W
+			!print *, "DEBUG 3"
+		end if
+
+		if( W >= WOLFA(4) ) then
+			coeffF0 = COEFF_G_H_F0_W150(:12, :70, month)
+			coeffF0 = COEFF_G_H_M3000_W150(:12, :70, month)
+			wPrev = W
+			wNext = W
+			!print *, "DEBUG 4"
+		end if
+
+		if( W > WOLFA(1) .and. W < WOLFA(2) ) then
+			coeffF0Prev = COEFF_G_H_F0_W10(:12, :70, month)
+			coeffM3000Prev = COEFF_G_H_M3000_W10(:12, :70, month)
+			coeffF0Next = COEFF_G_H_F0_W50(:12, :70, month)
+			coeffM3000Next = COEFF_G_H_M3000_W50(:12, :70, month)
+			wPrev = WOLFA(1)
+			wNext = WOLFA(2)
+			!print *, "DEBUG 5"
+			flag = .true.
+		end if
+
+		if( W > WOLFA(2) .and. W < WOLFA(3) ) then
+			coeffF0Prev = COEFF_G_H_F0_W50(:12, :70, month)
+			coeffM3000Prev = COEFF_G_H_M3000_W50(:12, :70, month)
+			coeffF0Next = COEFF_G_H_F0_W100(:12, :70, month)
+			coeffM3000Next = COEFF_G_H_M3000_W100(:12, :70, month)
+			wPrev = WOLFA(2)
+			wNext = WOLFA(3)
+			!print *, "DEBUG 6"
+			flag = .true.
+		end if
+
+		if( W > WOLFA(3) .and. W < WOLFA(4) ) then
+			coeffF0Prev = COEFF_G_H_F0_W100(:12, :70, month)
+			coeffM3000Prev = COEFF_G_H_M3000_W100(:12, :70, month)
+			coeffF0Next = COEFF_G_H_F0_W150(:12, :70, month)
+			coeffM3000Next = COEFF_G_H_M3000_W150(:12, :70, month)
+			wPrev = WOLFA(3)
+			wNext = WOLFA(4)
+			!print *, "DEBUG 7"
+			flag = .true.
+		end if
+
+		if( flag == .true. ) then
+			do i = 1, 70
+				do j = 1, 12
+					coeffF0(j, i) = coeffF0Prev(j, i) + (W - wPrev)*( coeffF0Next(j, i) - coeffF0Prev(j, i) ) / (wNext - wPrev)
+					coeffM3000(j, i) = coeffM3000Prev(j, i) + (W - wPrev)*( coeffM3000Next(j, i) - coeffM3000Prev(j, i) ) / (wNext - wPrev)
+				end do
+			end do
+		end if
+
+		do i = 1, 70
+			hourh = 0
+			hourn = 0
+			coeffF0Global(25, i) = coeffF0(1, i)
+			coeffM3000Global(25, i) = coeffM3000(1, i)
+			do j = 1, 12
+
+				hourh = 2*j - 1
+				hourn = 2*j
+				coeffF0Global(hourh, i) = coeffF0(j, i)
+				coeffM3000Global(hourh, i) = coeffM3000(j, i)
+				if (j /= 12) then
+					coeffF0Global(hourn, i) = coeffF0(j, i) + ( coeffF0(j+1, i) - coeffF0(j, i) ) / 2.0
+					coeffM3000Global(hourn, i) = coeffM3000(j, i) + ( coeffM3000(j+1, i) - coeffM3000(j, i) ) / 2.0
+				else
+					coeffF0Global(hourn, i) = coeffF0(j, i) + ( coeffF0(1, i) - coeffF0(j, i) ) / 2.0
+					coeffM3000Global(hourn, i) = coeffM3000(j, i) + ( coeffM3000(1, i) - coeffM3000(j, i) ) / 2.0
+				end if
+			end do
+		end do		
+	end subroutine Calc_Coeff_H_G
+
+subroutine Calc_F0_M3000(f0F2, M3000F2, month, W, XO, YO, hour)
+	real                      	 :: I300, degree, f0F2, M3000F2, GTO300, GYO, XO, YO
+	real, dimension ( 25, 70 )   :: coeffF0, coeffM3000
+	integer                      :: i, j, W, month, hour, m, n
+	
+	call Convert_Geomagnetic_Coord(XO, YO, GTO300, GYO)
+	call Calc_Coeff_H_G( W, coeffF0, coeffM3000, month )
+
+	i = 1
+	m = 0
+	n = 0
+	call rad_to_degree( GTO300, degree )
+	j = nint( degree )
+	!print *, "DEBUG j =", j, degree, hour
+	do m = 0, MFM, 1		
+		do n = m, NFM - 2*m, 1	
+			!print *, "DEBUG ", m, n
+			!print *, "DEBUG ", coeffF0(hour, 2*i)
+			f0F2 = f0F2 + (coeffF0(hour, 2*i-1)*cos( m*GYO ) + coeffF0(hour,2*i)*sin( m*GYO )) * POLYNOM( j+1, i )
+			M3000F2 = M3000F2 + (coeffM3000(hour, 2*i-1)*cos( m*GYO ) + coeffM3000(hour,2*i)*sin( m*GYO )) * POLYNOM( j+1, i )
+			i = i + 1	
+		end do
+	end do
+
+end subroutine Calc_F0_M3000
+
+real function Calc_MPF2(D, W, month, hour, XO, YO)
+	integer                    :: W, month, hour
+	real                       :: D, F, FF, MDF2, f0F2, C, M3000F2, XO, YO, cSin, cCos
+	CHARACTER(50) error	
+
+	f0F2 = 0.0
+	M3000F2 = 0.0
+	call Calc_F0_M3000(f0F2, M3000F2, month, W, XO, YO, hour)	
+
+	!print *, "DEBUG", f0F2, M3000F2, f0F2* M3000F2
+
+	FF = D / (2*R)
+	F = 3000.0 / (2*R)
+
+	if( M3000F2 == 0 ) then 
+		print *, "DEBUG new value => M3000F2 = EPS"
+		M3000F2 = EPS
+	end if
+
+	!print *, "DEBUG M3000F2", M3000F2
+	!print *, "DEBUG f0F2", f0F2
+
+	C = 1 / M3000F2
+	if( abs( C ) > 1 + EPS )  then  
+		error = "parameter with arccos | C  | > 1  + EPS" 
+		call error_func( 1, error )
+	else if ( abs(C) > 1 ) then
+		if( C > 0 ) then 
+			C = 1
+		else
+			C = -1
+		end if
+		print *, "DEBUG new value => 1 / M3000F2 = |1|"
+	end if
+
+	C = acos( C )
+
+	cSin = sin( C )
+	cCos = cos( C )
+
+	if( cSin == 0 ) then
+		print *, "DEBUG new value => cSin = EPS"
+		cSin = EPS
+	end if
+
+	C = cos(F) - cos(FF) + (sin(F)*cCos / cSin)
+
+	MDF2 = sin(FF)/C
+	MDF2 = atan(MDF2)
+	MDF2 = cos(MDF2)
+	if( MDF2 == 0 ) then
+		print *, "DEBUG new value => MDF2 = EPS"
+		MDF2 = EPS
+	end if
+	MDF2 = 1 / MDF2
+
+	Calc_MPF2 = f0F2 * MDF2
+end function Calc_MPF2
+
+subroutine Draw_Isoline()
+		integer              :: m, n, x, y, i, j, p, q, h
+		real                 :: rx, ry, gx, gy, f0F2, M3000F2
+		CHARACTER(10)        :: sh
+
+		real, allocatable :: h2(:,:), f2_4000_1(:,:), f2_4000_2(:,:)
+		allocate ( h2(361,181 ) )
+		allocate ( f2_4000_1(361,181 ) )
+		allocate ( f2_4000_2(361,181 ) )
+
+		
+
+		do h = 1, 1
+			print *, h
+			do p = 1, 181, 1
+				do q = 1, 361, 1
+					h2(q, p) = 0.0
+					f2_4000_1(q, p) = 0.0
+					f2_4000_2(q, p) = 0.0
+				end do
+			end do
+
+			open (unit = 1, file = "temp\\in\\F2_0.txt")
+			open (unit = 2, file = "temp\\in\\F2_4000_1.txt")
+			open (unit = 3, file = "temp\\in\\F2_4000_2.txt")
+
+			open (unit = 4, file = "temp\\temp.txt" )
+
+			p = 1
+			do x = 90, -90, -5
+				q = 1
+				do y = 0, 360, 10				
+
+					call degree_to_rad( 1.0*x, rx )
+					call degree_to_rad( 1.0*y, ry )
+
+					gx = rx
+					gy = ry
+
+					f0F2 = 0.0
+					M3000F2 = 0.0
+					call Convert_Geomagnetic_Coord(rx, ry, gx, gy)
+					call Calc_F0_M3000(f0F2, M3000F2, 1, 10, rx, ry, h)
+					!write (1, *), f0F2, gx, gy
+
+					h2(q,p) = 0.0
+					
+
+					call rad_to_degree( gx, degree )
+					j = nint( degree )
+					i = 0
+					do m = 0, MI300-1, 1
+						do n = m, NI300-1, 1
+							h2(q,p) = h2(q,p) + (gH2(m+1,n+1)*cos( m*gy ) + hH2(m+1,n+1)*sin( m*gy )) * I300_POLYNOM( j+1, i+1 )
+							if( h2(q,p) /= h2(q,p) ) then
+								h2(q,p) = h2(q-1,p)
+							end if
+							i = i + 1
+						end do
+					end do
+
+					h2(q,p) = h2(q,p) + f0F2
+
+					f2_4000_1(q,p) = (17.8*(f0F2*M3000F2 - h2(q,p))/14.75) + h2(q,p)
+					f2_4000_2(q,p) = Calc_MPF2(4000.0, 10, 1, h, rx, ry)
+
+					q = q + 1
+				end do
+				write (1, '(361f15.8)'), h2(:,p)
+				write (2, '(361f15.8)'), f2_4000_1(:,p)
+				write (3, '(361f15.8)'), f2_4000_2(:,p)
+				p = p + 1
+				
+			end do
+
+			
+			close(1)
+			close(2)
+			close(3)
+			close(4)
+
+			if( h - 1 < 10 ) then
+				write (sh, "(I1)") h - 1
+			else
+				write (sh, "(I2)") h - 1
+			end if
+			!call EXECUTE_COMMAND_LINE("plot_py.py temp\\in\\F2_0.txt temp\\out\\F2_0_" // sh // " 10.0 1.0")
+			!call EXECUTE_COMMAND_LINE("plot_py.py temp\\in\\F2_4000_1.txt temp\\out\\F2_4000_1_" // sh // " 50.0 5.0")
+			!call EXECUTE_COMMAND_LINE("plot_py.py temp\\in\\F2_4000_2.txt temp\\out\\F2_4000_2_" // sh // " 50.0 5.0")
+		end do
+
+		deallocate(h2)
+		deallocate(f2_4000_1)
+		deallocate(f2_4000_2)
+
+	end subroutine Draw_Isoline
+
+
+	subroutine Test_Convert_To_Geo_Coord()
+		real                               :: XO, YO, GTO300, GYO
+		real, dimension ( 2, SIZE_PROVE1 ) :: diff
+
+		open (unit = 1, file = "C:\\out.txt")
+
+		do j = 1, SIZE_PROVE1, 1
+			
+
+			call degree_to_rad( 90.0-inCoord(1, j), XO )
+			call degree_to_rad( inCoord(2, j), YO )
+
+
+			!print *, "DEBUG Geomagnetic_Coord"
+			call Convert_Geomagnetic_Coord(XO, YO, GTO300, GYO)
+			call rad_to_degree( GTO300, GTO300 )
+			call rad_to_degree( GYO, GYO )
+
+			diff(1, j) = abs( GTO300 - outCoord(1, j) )
+			diff(2, j) = abs( GYO - outCoord(2, j) )
+
+			 if(diff(1, j) > 1.0 .or. diff(2, j) > 1.0 ) then
+				write (1,*),  j, inCoord(1, j), inCoord(2, j), diff(1, j), diff(2, j)
+				write (1,*), "           ", outCoord(1, j),  outCoord(2, j), GTO300, GYO
+				write (1,*), ""
+			 end if
+		end do
+
+		close(1)
+	end subroutine Test_Convert_To_Geo_Coord
 
 end module calculation
