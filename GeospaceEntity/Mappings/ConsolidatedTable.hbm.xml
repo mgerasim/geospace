@@ -15,12 +15,10 @@
     <property name="Th4_F" type="string" length="100"/>
     <property name="Th5_90M" type="string" length="100"/>
     <property name="Th6_CountEvent" type="string" length="100"/>
-    <set name="EnergeticEvents"  table="Geospace_EnergeticEvent" generic="true" lazy="false" cascade="all"  >
-      <key>
-        <column name="ConsolidatedTable_ID" not-null="true" sql-type="INTEGER"/>
-      </key>
-      <one-to-many class="EnergeticEvent"/>
-    </set>
+    <property name="Th7_Balls" type="string" length="100"/>
+    <property name="Th8_Coordinates" type="string" length="100"/>
+    <property name="Th9_Time" type="string" length="100"/>
+    <property name="Th10_RadioBursts" type="string" length="100"/>
     <property name="Th11_" type="string" length="100"/>
     <property name="Th12_AP" type="string" length="100"/>
     <property name="Th13_Amag" type="string" length="100"/>

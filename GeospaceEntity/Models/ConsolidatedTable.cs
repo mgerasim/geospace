@@ -21,9 +21,10 @@ namespace GeospaceEntity.Models
         public virtual string Th4_F     { get; set; }
         public virtual string Th5_90M   { get; set; }
         public virtual string Th6_CountEvent { get; set; }
-
-        private ICollection<EnergeticEvent> _EnergeticEvents;
-
+        public virtual string Th7_Balls { get; set; }
+        public virtual string Th8_Coordinates { get; set; }
+        public virtual string Th9_Time { get; set; } 
+        public virtual string Th10_RadioBursts { get; set; }
         public virtual string Th11_     { get; set; }
         public virtual string Th12_AP   { get; set; }
         public virtual string Th13_Amag { get; set; }
@@ -35,23 +36,11 @@ namespace GeospaceEntity.Models
         public virtual string Th19_iKha { get; set; }
         public virtual string Th20_iPar { get; set; }
 
-        public virtual ICollection<EnergeticEvent> EnergeticEvents
-        {
-            get
-            {
-                return this._EnergeticEvents;
-            }
-            set
-            {
-                this._EnergeticEvents = value;
-            }
-        }
         public ConsolidatedTable()
         {
             ID = -1;
             this.created_at = DateTime.Now;
             this.updated_at = DateTime.Now;
-            _EnergeticEvents = new System.Collections.Generic.HashSet<EnergeticEvent>();
             YYYY = -1;
             MM = -1;
             DD = -1;
