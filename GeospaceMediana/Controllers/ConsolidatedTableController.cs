@@ -73,23 +73,12 @@ namespace GeospaceMediana.Controllers
                     codeTable.DD = DD;
                     codeTable.Save();
                 }
-                EnergeticEvent newEvent;
+                
                 if (ID != -1)
-                    newEvent = GeospaceEntity.Models.EnergeticEvent.GetById(ID);
+                    codeTable.Update();
                 else
-                {
-                    newEvent = new EnergeticEvent();
-                    newEvent.TheConsolidatedTable = codeTable;
-                }
-                newEvent.Balls = _Ball;
-                newEvent.Coordinates = _Coordinate;
-                newEvent.RadioBursts = _RadioBursts;
-                newEvent.Time = _Time;
-                if (ID != -1)
-                    newEvent.Update();
-                else
-                    newEvent.Save();
-                return Content(newEvent.ID.ToString());
+                    codeTable.Save();
+                return Content(codeTable.ID.ToString());
             }
             catch (Exception)
             {

@@ -71,7 +71,10 @@ namespace GeospaceEntity.Models
 
         public virtual void Send_MonthForecast()
         {
-            Other.SendToAspd("Месячный прогноз", this.forecast_month_ionosphera);
+            DateTime TimeNow = DateTimeKhabarovsk.Now;
+            string telegram = "ЗЦЗЦ 010 5200/=Н235\nААЩБЛГ ХБРВ " + TimeNow.ToString("ddHHmm") + "\n" +
+                "ХАБАРОВСКА " + TimeNow.ToString("dd/MM HHmm=") + "\n01 МОСКВА ИПГ ДЕНИСОВОЙ=\nМЕСЯЧНАЯ СПРАВКА\n";
+            Other.SendToAspd("Месячный прогноз", telegram + this.forecast_month_ionosphera + "=\nБОРЗОВА-\nНННН");
         }
 
         public virtual void Send_FivedaysForecast()
