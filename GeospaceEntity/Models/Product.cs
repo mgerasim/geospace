@@ -52,7 +52,21 @@ namespace GeospaceEntity.Models
 
         public virtual void Send_SubdayForecast() 
         {
-            Other.SendToAspd("Полусуточный прогноз", this.subday_forecast);
+            string telegram = "ЗЦЗЦ 025 040001/=Н288\nЗИРА40 ХБРВ";
+            DateTime TimeNow = DateTimeKhabarovsk.Now;
+            DateTime Time14 = new DateTime(TimeNow.Year, TimeNow.Month,TimeNow.Day,14,0,0);
+
+            string time = "";
+            if (Time14 > TimeNow)
+            {
+                time = "0000";
+            }
+            else
+            {
+                time = "0900";
+            }
+            telegram += " " + TimeNow.Day + time + "\n"; 
+            Other.SendToAspd("Полусуточный прогноз", telegram + this.subday_forecast + "=\nБОРЗОВА-\nНННН");
         }
 
         public virtual void Send_MonthForecast()
@@ -62,7 +76,9 @@ namespace GeospaceEntity.Models
 
         public virtual void Send_FivedaysForecast()
         {
-            Other.SendToAspd("Пятисуточный прогноз", this.forecast_days_fives);
+            DateTime TimeNow = DateTime.Now;
+            string telegram = "ЗЦЗЦ 025 040001/=Н288\nЗИРА40 ХБРВ " + TimeNow.ToString("ddHHmm") + "\n";
+            Other.SendToAspd("Пятисуточный прогноз", telegram + this.forecast_days_fives + "=\nБОРЗОВА-\nНННН");
         }
     }
 }

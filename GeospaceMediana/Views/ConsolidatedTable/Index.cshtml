@@ -1,4 +1,5 @@
 ﻿@using GeospaceEntity.Models;
+@using GeospaceEntity.Helper;
 @{
     ViewBag.Title = @ViewBag.Title;
 }
@@ -10,18 +11,303 @@
 }
 
 <script>
-    @*var submitUrl = "@Url.Action("Submit", "ConsolidatedTable")";*@
+
+    var submitUrl = "@Url.Action("Submit", "ConsolidatedTable")";
+    var submitEventUrl = "@Url.Action("SubmitEvent", "ConsolidatedTable")";
+    var delEventUrl = "@Url.Action("DeleteEvent", "ConsolidatedTable")";
     var currentYear = "@ViewBag.Year";
     var currentMonth = "@ViewBag.Month";
+    var dateString = "@ViewBag.DateString";
 </script>
 
-<h2 style="float: left">Сводная таблица за (@ViewBag.DateString)</h2>
+<h2>Сводная таблица за (@ViewBag.DateString)</h2>
+<script type="text/javascript">
+    var arrayType = ['Balls', 'Coordinates', 'Time', 'RadioBursts'];
+    var arrayModel = ['exampleInputBall', 'exampleInputCoordinates', 'exampleInputTime', 'exampleInputRadioBursts'];
 
-<style>
-    table td, th {
-        text-align: center;
+    function handleEvent(day, date, id, name) {
+        $("#delete").detach()
+        $(".modal-footer").append("<button type=\"button\" id=\"delete\" onclick=\"deleteEnergeticEvent()\" class=\"btn btn-danger\" data-dismiss=\"modal\">Удалить</button>");
+        $(".modal-title").html("Энергичное событие за " + day + " " + date);
+        $("#dayModal").val(day);
+        $("#dayID").val(id);
+        for (var i = 0; i < 4; i++) {
+            var val = $("#" + arrayType[i] + id).text();
+
+            if (arrayType[i] != "Time") {
+                $("#" + arrayModel[i]).val(val);
+                if (name == arrayType[i]) {
+                    $("#" + arrayModel[i]).focusin();
+                }
+                //отдельный код под время
+            }
+            else {
+
+                var arrayTime = val.split(' ', 3);
+                $.each(arrayTime, function (index, element) {
+                    $("#" + arrayModel[i] + (index + 1)).val(element);
+                });
+            }
+        }
+
+    }
+    function handleSaveTime(day, Name) {
+        $(".modal-title").html("Энергичное событие за " + day + " " + Name);
+        $("#dayModal").val(day);
+        $("#dayID").val("-1");
+        $("#delete").detach()
+        emptyEnergeticEvent();
+    }
+    function getCell(day,  type) {
+        return $('td')
+                .filter('[data-day="' + day + '"]')
+                .filter('[data-type="' + type + '"]');
+    }
+    function moveEdit(currentCell, keyCode) {
+        var day = currentCell.data("day");
+        var type = currentCell.data("type");
+        type = parseInt(type.slice(2, type.length));
+        
+        switch (keyCode) {
+            case 37: // left
+                type--;
+                break;
+            case 38: // up
+                day--;
+                break;
+            case 39: // right
+                type++;
+                break;
+            case 40: // down
+                day++;
+                break;
+        }
+        var newCell = getCell(day, "Th" + type);
+        console.log(day, type, newCell);
+        if (newCell.length == 0)
+            return;
+
+        if (newCell.hasClass("editable") == false) {
+            moveEdit(newCell, keyCode);
+            return;
+        }
+
+        $('#edit').blur();
+         newCell.dblclick();
     }
 
+    function editEvent(e) {
+        var currentCell = $(this);
+
+
+        if (this.children["edit"] != null)
+            return;
+
+        var oldValue = $(currentCell).text().trim();
+
+        var inputHtml = "<input type=\"text\" id=\"edit\" value=\"" + oldValue + "\" />";
+        if (currentCell.hasClass("energetic_event"))
+        {
+            inputHtml = "<textarea id=\"edit\">"+ oldValue +"</textarea>";
+        }
+        var cellWidth = currentCell.width();
+        var cellHeight = currentCell.height();
+
+        currentCell.empty().append(inputHtml);
+
+        currentCell.css("padding", "0px");
+        $('#edit').width(cellWidth - 2 + 16); // 1+1 border width
+        $('#edit').height(cellHeight - 2 + 16);
+        currentCell.width(cellWidth);
+        currentCell.height(cellHeight);
+
+        $('#edit').keydown(function (event) {
+            if (event.keyCode >= 37 && event.keyCode <= 40) {
+                event.preventDefault();
+                moveEdit(currentCell, event.keyCode);
+            }
+        });
+
+        $('#edit').focus();
+        $('#edit').select();
+        $('#edit').blur(function () {
+
+            var newValue = $(this).val().trim();
+            currentCell.width("");
+            currentCell.height("");
+            currentCell.css("padding", "8px");
+
+            if (newValue != oldValue) {
+
+                var day = $(currentCell.parent()).data("day");;
+                var type = currentCell.data("type");
+
+                currentCell.empty().html("<div id=\"facebookG\"><div id=\"blockG_1\" class=\"facebook_blockG\"></div><div id=\"blockG_2\" class=\"facebook_blockG\"></div><div id=\"blockG_3\" class=\"facebook_blockG\"></div></div>");
+
+                var resUrl = window.submitUrl +
+                            "?YYYY=" + window.currentYear +
+                            "&MM=" + window.currentMonth +
+                            "&DD=" + day +
+                            "&type=" + type +
+                            "&newvalue=" + newValue;
+
+                $.ajax({
+                    url: resUrl,
+                    success: function (data) {
+                        if (data == "") {
+                            currentCell.empty().text(newValue.toUpperCase());
+                        }
+                        else {
+                            currentCell.empty().text(oldValue);
+                            alert(data);
+                        }
+                    }
+                });
+            }
+            else {
+               currentCell.empty().html(oldValue);
+            }
+
+
+        });
+    }
+    function editEnergeticEventAdd() {
+        var day = $("#dayModal").val();
+        var id = $("#dayID").val();
+        var timer = "";
+        if ($("#exampleInputTime1").val() != "" || $("#exampleInputTime2").val() != "" || $("#exampleInputTime3").val() != "") {
+            timer = $("#exampleInputTime1").val() + " " + $("#exampleInputTime2").val() + " " + $("#exampleInputTime3").val();
+        }
+        var resUrl = window.submitEventUrl +
+                    "?YYYY=" + window.currentYear +
+                    "&MM=" + window.currentMonth +
+                    "&DD=" + day +
+                    "&_Ball=" + $("#exampleInputBall").val() +
+                    "&_Coordinate=" + $("#exampleInputCoordinates").val() +
+                    "&_Time=" + timer +
+                    "&_RadioBursts=" + $("#exampleInputRadioBursts").val() +
+                    "&ID=" + id;
+        $.ajax({
+            url: resUrl,
+            success: function (data) {
+                if (id == -1) {
+                    for (var i = 0; i < 4; i++) {
+                        var val = "";
+                        if (arrayType[i] != "Time") {
+                            val = $("#" + arrayModel[i]).val();
+                        }
+                        else {
+                            if ($("#exampleInputTime1").val() != "" && $("#exampleInputTime2").val() != "" && $("#exampleInputTime3").val() != "") {
+                                val = $("#exampleInputTime1").val() + " " + $("#exampleInputTime2").val() + " " + $("#exampleInputTime3").val();
+                            }
+                        }
+                        val = "<br/>";
+                        addLineEvent(day, data, val, arrayType[i]);
+
+                    }
+                }
+                EventLine(day, data);
+                emptyEnergeticEvent();
+            }
+        });
+
+    }
+    function sumTimePeiod() {
+        var day = $("#dayModal").val();
+        var elementCurrent1 = $('#exampleInputTime1');
+        var elementCurrent2 = $('#exampleInputTime2');
+        var elementCurrent3 = $('#exampleInputTime3');
+        var time = elementCurrent1.val() + " " + elementCurrent2.val() + " " + elementCurrent3.val();
+
+        var ball = $('#D_' + day + ' .c_9');
+        if (elementCurrent1.val())
+            ball.append(time + '<br>');
+        else
+            ball.append('<br>');
+    }
+    $(document).ready(function () {
+        $('.editable').dblclick(editEvent);
+        //$(window).keydown(function (event) {
+        //    if (event.keyCode == 13) {
+        //        $('#edit').blur();
+        //    }
+        //});
+    });
+    function deleteEnergeticEvent() {
+        emptyEnergeticEvent();
+        var id = $("#dayID").val();
+        var day = $("#dayModal").val();
+        var resUrl = window.delEventUrl +
+                   "?id=" + id;
+        $.ajax({
+            url: resUrl,
+            success: function (data) {
+                emptyEnergeticEvent();
+                ClearEvent(day, id)
+            }
+        });
+    }
+    function ClearEvent(day, id){
+        for (var i = 0; i < 4; i++) {
+            $("#" + arrayType[i] + id).text("");
+        }
+    }
+    function EventLine(day, id) {
+        //Добавление нового элемента
+        for (var i = 0; i < 4; i++) {
+            var val = "";
+            if (arrayType[i] != "Time") {
+                val = $("#" + arrayModel[i]).val();
+            }
+            else {
+                if ($("#exampleInputTime1").val() != "" || $("#exampleInputTime2").val() != "" || $("#exampleInputTime3").val() != "")
+                    val = $("#exampleInputTime1").val() + " " + $("#exampleInputTime2").val() + " " + $("#exampleInputTime3").val();
+            }
+            console.log(id);
+            if (val += "")
+                $("#" + arrayType[i] + id).text(val);
+            else
+                $("#" + arrayType[i] + id).html("<br/>");
+
+        }
+    }
+    function addLineEvent(day, id, value, type) {//Работает
+        var item = $('#D_' + day + " td[data-type=" + type + "]");
+        var str = "<div id=\""+type + id + "\" data-whatever=\"" + day + "\" data-toggle=\"modal\" data-target=\"#myModal\" class=\"hover\" title=\"Изменить\"" +
+            "onclick=\"handleEvent(\'" + day + "\','" + dateString + "\', \'" + id + "\',\'" + type + "\' )\"></div>";
+        item.append(str);
+    }
+    function emptyEnergeticEvent() {//Работает
+        $("#exampleInputBall").val("");
+        $("#exampleInputCoordinates").val("");
+        $("#exampleInputTime1").val("");
+        $("#exampleInputTime2").val("");
+        $("#exampleInputTime3").val("");
+        $("#exampleInputRadioBursts").val("");
+    }
+</script>
+
+<style>
+    .hover:hover {
+        cursor: pointer;
+        background-color: rgba(216, 200, 200, 0.44);
+    }
+    table td, th {
+        text-align: center;
+        vertical-align: middle !important;
+        table-layout: fixed;
+        padding: 0px 0px 0px 0px;
+        word-wrap: normal;
+        font-size: 9px;
+    }
+    td:hover {
+        cursor: pointer;
+        background-color: rgba(216, 200, 200, 0.44);
+    }
+    head {
+        padding: 0px 0px;
+        height: 200px;
+    }
     #edit {
         margin: 0;
         padding: 0;
@@ -79,51 +365,250 @@
             box-sizing: border-box;
         }
 
-        .delta_out {
-            color: gray;
-        }
-</style>
+    .delta_out {
+        color: gray;
+    }
 
+    .rotate {
+        display: inline-block;
+        -webkit-transform: rotate(-90deg);
+        -moz-transform: rotate(-90deg);
+        -ms-transform: rotate(-90deg);
+        -o-transform: rotate(-90deg);
+        transform: rotate(-90deg);
+        /* also accepts left, right, top, bottom coordinates; not required, but a good idea for styling */
+        -webkit-transform-origin: 50% 50%;
+        -moz-transform-origin: 50% 50%;
+        -ms-transform-origin: 50% 50%;
+        -o-transform-origin: 50% 50%;
+        transform-origin: 50% 50%;
+        /* Should be unset in IE9+ I think. */
+        padding: 0px 0px;
+        text-align: center !important;
+        vertical-align: central !important;
+        width: 150px;
+    }
+    
+    .c_9 {
+    }
+</style>
+@helper DrawLinkEvent(int id, int day , string element , string nameElement)
+{
+    if (element != null && element != "")
+    {
+        <div id="@nameElement@id" data-whatever="@day" data-toggle="modal" data-target="#myModal" class="hover" title="Изменить"
+             onclick="handleEvent('@day','@ViewBag.DateString', '@id','@nameElement' )">@element</div>
+    }
+    else
+    {
+        <div id="@nameElement@id" data-whatever="@day" data-toggle="modal" data-target="#myModal" class="hover" title="Изменить"
+             onclick="handleEvent('@day','@ViewBag.DateString', '@id', '@nameElement' )"><br /></div>
+    }
+}
 <div class="row">
-    <div class="col-md-12">
-        <table style="table-layout: fixed; min-width: 583px;" class="table table-bordered table-striped">
+    <div class="col-sx-12 ">
+        <table style="" class=" table table-bordered table-hover table-striped">
             <thead>
                 <tr>
-                    <th rowspan="3" style="width: 45px">ДАТА МЕСЯЦ/@ViewBag.DateString</th>
-                    <th rowspan="3">W</th>
-                    <th rowspan="3">Sp</th>
-                    <th rowspan="3">F</th>
-                    <th rowspan="3">90-дневная медиана</th>
+                    <th rowspan="3" style="padding: 0px 0px; width:3px;"><div class="rotate" style="width: 25px; text-align: center; vertical-align: middle !important;">@ViewBag.DateString </div></th>
+                    <th rowspan="3" class="col-md-1">W</th>
+                    <th rowspan="3" class="col-md-1">Sp</th>
+                    <th rowspan="3" class="col-md-1">F</th>
+                    <th rowspan="3" style="padding: 0px 0px; width: 6%;"><div class="rotate" style="white-space: nowrap; width: 20px; text-align: center; vertical-align: middle !important;">90-дневная<br>медиана</div></th>
                     <th colspan="5">Энергичные события</th>
-                    <th rowspan="3">Качесственная Характеристика</th>
+                    <th rowspan="3" style="padding: 0px 0px; width:6%;"><div class="rotate" style="white-space: nowrap; width: 20px; ">Качественная<br/> Характиристика</div></th>
                     <th colspan="5">Магнитное поле Земли</th>
                     <th colspan="4">Ионосфера</th>
                 </tr>
-                <tr>
-                    <th rowspan="2">Общее количество</th>
-                    <th rowspan="2">Балл</th>
-                    <th rowspan="2">Координаты</th>
-                    <th rowspan="2">Время</th>
-                    <th rowspan="2">Радиовсплески</th>
-                    <th rowspan="2">Ар</th>
-                    <th rowspan="2">Магадан Ак</th>
-                    <th rowspan="2">Паратунка Ак</th>
-                    <th rowspan="2">Хабаровск Ак</th>
-                    <th rowspan="2">К-индексы</th>
-                    <th rowspan="2">Салехард</th>
-                    <th rowspan="2">Магадан</th>
-                    <th rowspan="2">Хабаровск</th>
-                    <th rowspan="2">Паратунка</th>
+                <tr class="something">
+                    <th rowspan="2" style="padding: 0px 0px; width:6%;"><div class="rotate" style="white-space: nowrap; width: 40px; ">Общее<br> количество</div></th>
+                    <th rowspan="2" style="padding: 0px 0px; width:6%;"><div class="rotate" style="white-space: nowrap; width: 40px; ">Балл</div></th>
+                    <th rowspan="2" style="padding: 1px 1px; width:6%;"><div class="rotate" style="white-space: nowrap; width: 40px; ">Координаты</div></th>
+                    <th rowspan="2" style=" width:12%;">Время</th>
+                    <th rowspan="1" style="height:50px;">Радиовсплески</th>
+                    <th rowspan="2" ><div class="rotate" style="width:11px; display: inline-block;">Ар</div></th>
+                    <th rowspan="2" style="padding: 0px 0px; width:6%;"><div class="rotate" style="width:30px;">Магадан Ак</div></th>
+                    <th rowspan="2" style="padding: 0px 0px; width:6%;"><div class="rotate" style="width:30px;">Паратунка Ак</div></th>
+                    <th rowspan="2" style="padding: 0px 0px; width:6%;"><div class="rotate" style="width:30px;">Хабаровск Ак</div></th>
+                    <th rowspan="2" style="white-space: nowrap;">К-индексы</th>
+                    <th rowspan="2" style="padding: 0px 0px; width:6%;"><div class="rotate" style="width:20px;">Салехард</div></th>
+                    <th rowspan="2" style="padding: 0px 0px; width:6%;"><div class="rotate" style="width:20px;">Магадан</div></th>
+                    <th rowspan="2" style="padding: 0px 0px; width:6%;"><div class="rotate" style="width:20px;">Хабаровск</div></th>
+                    <th rowspan="2" style="padding: 0px 0px; width:6%;"><div class="rotate" style="width:20px;">Паратунка</div></th>
+
                 </tr>
                 <tr>
-                    <th rowspan="1">245мгц 10 см тип</th>
+                    <th rowspan="1" style="height: 50px; white-space: nowrap;">245мгц 10 см тип</th>
+                </tr>
+                <tr>
+                    @for (int i = 1; i < 21; ++i)
+                    {
+                        <th rowspan="1">@i</th>
+                    }
                 </tr>
             </thead>
 
             <tbody>
-                
+                @for (int i = 0; i < DateTime.DaysInMonth(ViewBag.Year, ViewBag.Month); i++)
+                {
+                    ConsolidatedTable item = GeospaceEntity.Models.ConsolidatedTable.GetByDateUTC(ViewBag.Year, ViewBag.Month, i + 1);
+                    if (item != null)//Исправить!!!! неверно
+                    {
+
+                        <tr id="D_@item.DD" data-day="@item.DD">
+                            <td data-day="@item.DD" data-type="DD" class="editable-mediana" data-toggle="tooltip">@item.DD</td>
+                            <td data-day="@item.DD" data-type="Th2" class="editable " data-toggle="tooltip">@item.Th2_W</td>
+                            <td class="editable c_3" data-day="@item.DD" data-type="Th3">@item.Th3_Sp</td>
+                            <td class="editable c_4" data-day="@item.DD" data-type="Th4">@item.Th4_F</td>
+                            <td class="editable c_5" data-day="@item.DD" data-type="Th5">@item.Th5_90M</td>
+                            <td class="c_6 editable" data-day="@item.DD" data-type="Th6">@item.Th6_CountEvent</td>
+                            @{ List<EnergeticEvent> list = new List<EnergeticEvent>(item.EnergeticEvents);}
+                            <td class="c_7 editable energetic_event" data-day="@item.DD" data-type="Th7">
+                                @for (int j = 0; j < list.Count; j++)
+                                {
+                                    @DrawLinkEvent(@list[j].ID, @item.DD, @list[j].Balls, "Balls")
+                                }
+                            </td>
+
+                            <td class="c_8 editable energetic_event" data-day="@item.DD" data-type="Th8">
+                                @for (int j = 0; j < list.Count; j++)
+                                {
+                                    @DrawLinkEvent(@list[j].ID, @item.DD, @list[j].Coordinates, "Coordinates")
+                                }
+                            </td>
+
+                            <td class="c_9 editable energetic_event" data-day="@item.DD" style="white-space: nowrap;" data-type="Th9">
+                                @for (int j = 0; j < list.Count; j++)
+                                {
+                                    @DrawLinkEvent(@list[j].ID, @item.DD, @list[j].Time, "Time")
+
+                                }
+                            </td>
+
+                            <td class="c_10 editable energetic_event" data-day="@item.DD" data-type="Th10">
+                                @for (int j = 0; j < list.Count; j++)
+                                {
+                                    @DrawLinkEvent(@list[j].ID, @item.DD, @list[j].RadioBursts, "RadioBursts")
+                                }
+                            </td>
+
+                            <td class="c_11 editable" style="white-space: nowrap;" data-day="@item.DD" data-type="Th11">
+                                @item.Th11_
+                            </td>
+                            <td class="c_12 editable" data-day="@item.DD" data-type="Th12">
+                                @item.Th12_AP
+                            </td>
+                            <td class="c_13 editable" data-day="@item.DD" data-type="Th13">
+                                @item.Th13_Amag
+                            </td>
+                            <td class="c_14 editable" data-day="@item.DD" data-type="Th14">
+                                @item.Th14_Apar
+                            </td>
+                            <td class="c_15 editable" data-day="@item.DD" data-type="Th15">
+                                @item.Th15_Akha
+                            </td>
+                            <td class="c_16 editable" data-day="@item.DD" data-type="Th16">
+                                @item.Th16_K
+                            </td>
+                            <td class="c_17 editable" data-day="@item.DD" data-type="Th17">
+                                @item.Th17_iSal
+                            </td>
+                            <td class="c_18 editable" data-day="@item.DD" data-type="Th18">
+                                @item.Th18_iMag
+                            </td>
+                            <td class="c_19 editable" data-day="@item.DD" data-type="Th19">
+                                @item.Th19_iKha
+                            </td>
+                            <td class="c_20 editable" data-day="@item.DD" data-type="Th20">
+                                @item.Th20_iPar
+                            </td>
+                        </tr>
+                        
+
+                    }
+                    else
+                    {
+                        <tr id="D_@(i+1)" data-day="@(i+1)">
+                            <td data-day="@Html.Raw(i + 1)" data-type="DD" class="editable-mediana" data-toggle="tooltip">@Html.Raw(i + 1)</td>
+                            <td data-day="@Html.Raw(i + 1)" data-type="Th2" class="editable" data-toggle="tooltip"></td>
+                            <td class="c_3 editable" data-day="@(i+1)" data-type="Th3"></td>
+                            <td class="c_4 editable" data-day="@(i+1)" data-type="Th4"></td>
+                            <td class="c_5 editable" data-day="@(i+1)" data-type="Th5"></td>
+                            <td class="c_6 editable" data-day="@(i+1)" data-type="Th6"></td>
+                            <td class="c_7 editable energetic_event" data-day="@(i+1)" data-type="Th7"></td>
+                            <td class="c_8 editable energetic_event" data-day="@(i+1)" data-type="Th8"></td>
+                            <td class="c_9 editable energetic_event" data-day="@(i+1)" style="white-space: nowrap;" data-type="Th9"></td>
+                            <td class="c_10 editable energetic_event" data-day="@(i+1)" data-type="Th10"></td>
+                            <td class="c_11 editable" data-day="@(i+1)" data-type="Th11"></td>
+                            <td class="c_12 editable" data-day="@(i+1)" data-type="Th12"></td>
+                            <td class="c_13 editable" data-day="@(i+1)" data-type="Th13"></td>
+                            <td class="c_14 editable" data-day="@(i+1)" data-type="Th14"></td>
+                            <td class="c_15 editable" data-day="@(i+1)" data-type="Th15"></td>
+                            <td class="c_16 editable" data-day="@(i+1)" data-type="Th16"></td>
+                            <td class="c_17 editable" data-day="@(i+1)" data-type="Th17"></td>
+                            <td class="c_18 editable" data-day="@(i+1)" data-type="Th18"></td>
+                            <td class="c_19 editable" data-day="@(i+1)" data-type="Th19"></td>
+                            <td class="c_20 editable" data-day="@(i+1)" data-type="Th20"></td>
+                        </tr>
+                    }
+                }
             </tbody>
         </table>
     </div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModelLable">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabele"></h4>
+            </div>
+            <a id="dayModal"></a>
+            <a id="dayID" ></a>
+            <div class="modal-body">
+                <div id="cloudiness-panel1" class="panel panel-success">
+                    <div id="cloudiness-panel1-heading" class="panel-heading ms">Балл</div>
+                    <div class="panel-body">
+                        <input  class="form-control" id="exampleInputBall" >
 
+                    </div>
+                </div>
+                <div id="cloudiness-panel2" class="panel panel-success">
+                    <div id="cloudiness-panel2-heading" class="panel-heading ms">Координаты</div>
+                    <div class="panel-body ">
+                        <input class="form-control" id="exampleInputCoordinates">
+                    </div>
+                </div>
+                <div id="cloudiness-panel3" class="panel panel-success">
+                    <div id="cloudiness-panel3-heading" class="panel-heading ms">Время</div>
+                    <div class="panel-body ">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <input class="form-control" id="exampleInputTime1">
+                            </div>
+                            <div class="col-xs-4">
+                                <input class="form-control" id="exampleInputTime2">
+                            </div>
+                            <div class="col-xs-4">
+                                <input class="form-control" id="exampleInputTime3">
+                            </div>
+                </div>
+                    </div>
+                </div>
+                <div id="cloudiness-panel4" class="panel panel-success">
+                    <div id="cloudiness-panel4-heading" class="panel-heading ms">Радиовсплески</div>
+                    <div class="panel-body">
+                        <input class="form-control" id="exampleInputRadioBursts">
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" onclick="editEnergeticEventAdd()" class="btn btn-primary" data-dismiss="modal">Сохранить</button>
+                    <button type="button" onclick="emptyEnergeticEvent()" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                   
+                </div>
+            </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
 </div>

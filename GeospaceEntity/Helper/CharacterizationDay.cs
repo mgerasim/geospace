@@ -160,8 +160,17 @@ namespace GeospaceEntity.Helper
 
             for (int day = range.Min; day <= range.Max; day++)
             {
+                double ballDay_minus = 0;
+                double ballDay_plus = 0;
+                double ballDay = 0;
+
                 double firstHalf = 0;
                 double secondHalf = 0;
+
+                double firstHalf_plus = 0;
+                double firstHalf_minus = 0;
+                double secondHalf_plus = 0;
+                double secondHalf_minus = 0;
 
                 for (int hour = 0; hour < 24; hour++)
                 {
@@ -251,16 +260,61 @@ namespace GeospaceEntity.Helper
 
                     if(hour >= 0 && hour < 12)
                     {
-                        firstHalf += characterizationDayValue.Rating;
+                        if (characterizationDayValue.Rating < 0)
+                        {
+                            firstHalf_minus += characterizationDayValue.Rating;
+                        }
+                        else
+                        {
+                            firstHalf_plus += characterizationDayValue.Rating;
+                        }
+                        //firstHalf += characterizationDayValue.Rating;
                     }
                     else
                     {
-                        secondHalf += characterizationDayValue.Rating;
+                        if (characterizationDayValue.Rating < 0)
+                        {
+                            secondHalf_minus += characterizationDayValue.Rating;
+                        }
+                        else
+                        {
+                            secondHalf_plus += characterizationDayValue.Rating;
+                        }
+                        //secondHalf += characterizationDayValue.Rating;
                     }
                     
-                    
-
                     _listValues.Add(characterizationDayValue);
+                }
+
+                ballDay_minus = firstHalf_minus + secondHalf_minus;
+                ballDay_plus = firstHalf_plus + secondHalf_plus;
+
+                if (Math.Abs(firstHalf_minus) > Math.Abs(firstHalf_plus))
+                {
+                    firstHalf = firstHalf_minus;
+                }
+                else
+                {
+                    firstHalf = firstHalf_plus;
+                }
+
+
+                if (Math.Abs(secondHalf_minus) > Math.Abs(secondHalf_plus))
+                {
+                    secondHalf = secondHalf_minus;
+                }
+                else
+                {
+                    secondHalf = secondHalf_plus;
+                }
+
+                if (Math.Abs(ballDay_minus) > Math.Abs(ballDay_plus))
+                {
+                    ballDay = ballDay_minus;
+                } 
+                else
+                {
+                    ballDay = ballDay_plus;
                 }
 
                 _listFirstHalfDay.Add(new DayRating
@@ -278,7 +332,7 @@ namespace GeospaceEntity.Helper
                 _listFullDay.Add(new DayRating
                 {
                     Day = day,
-                    Rating = fullDayCalc.GetValue(firstHalf + secondHalf)
+                    Rating = fullDayCalc.GetValue(ballDay)
                 });
             }
         }

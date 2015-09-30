@@ -29,7 +29,16 @@ namespace GeospaceEntity.Helper
             }
             mail.Subject = subject;
             mail.IsBodyHtml = false;
-            mail.Body = msg;
+            mail.BodyEncoding = Encoding.GetEncoding("koi8-r");
+
+            Encoding koi8 = Encoding.GetEncoding("KOI8-R");
+            Encoding utf8 = Encoding.UTF8;
+            string Message = msg;
+            byte[] utfBytes = utf8.GetBytes(Message);
+            byte[] isoBytes = Encoding.Convert(utf8, koi8, utfBytes);
+            Message = koi8.GetString(isoBytes);
+
+            mail.Body = Message;
             SmtpServer.Port = port;
 
 

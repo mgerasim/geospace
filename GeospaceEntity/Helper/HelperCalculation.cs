@@ -223,7 +223,7 @@ namespace GeospaceEntity.Helper
                         theCode.MI == 0 && (
                         theCode.f0F2 == 1002            // B - неотклоняющее поглащение
                             || theCode.f0F2 == 1006     // F - рассеяный след (диффузность)
-                           ||theCode.delta_f0F2 > 30       // суточное отклонение
+                           ||theCode.delta_f0F2 < -30       // отрицательные суточное отклонение
                         )
                     )
                     {
@@ -241,32 +241,10 @@ namespace GeospaceEntity.Helper
                         theDisturbance.MI = theCode.MI;
                         if (theDisturbance.ID < 0)
                         {
-
-                            //string log = String.Format("Save: ID:{0} Station:{1} Year:{2} Month:{3} Day:{4} Hour:{5} Minute:{6}",
-                            //    theDisturbance.ID,
-                            //    theDisturbance.Station.Name,
-                            //    theDisturbance.YYYY,
-                            //    theDisturbance.MM,
-                            //    theDisturbance.DD,
-                            //    theDisturbance.HH,
-                            //    theDisturbance.MI);
-                            //Console.WriteLine(log);
-
                             theDisturbance.Save();
                         }
                         else
                         {
-
-                            //string log = String.Format("Update: ID:{0} Station:{1} Year:{2} Month:{3} Day:{4} Hour:{5} Minute:{6}",
-                            //    theDisturbance.ID,
-                            //    theDisturbance.Station.Name,
-                            //    theDisturbance.YYYY,
-                            //    theDisturbance.MM,
-                            //    theDisturbance.DD,
-                            //    theDisturbance.HH,
-                            //    theDisturbance.MI);
-                            //Console.WriteLine(log);
-
                             theDisturbance.Update();
                         }
 
