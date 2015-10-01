@@ -253,7 +253,8 @@ namespace GeospaceCore
                                                             theCodeIonka.Decode(session);
                                                             //проверка на отказ записи в будущее))
                                                             DateTime DayNow = DateTime.Now;
-                                                            if (DayNow.Hour >= HH || theCodeIonka.DD < DayNow.Day || theCodeIonka.MM < DayNow.Day || theCodeIonka.YYYY < DayNow.Year)
+                                                            DateTime OlaDay = new DateTime(theCodeIonka.YYYY, theCodeIonka.MM, theCodeIonka.DD, HH, 0, 0);
+                                                            if (DayNow >= OlaDay)
                                                                 theCodeIonka.Save();
                                                             else
                                                             {

@@ -18,17 +18,17 @@ namespace GeospaceTest
            // Support01();
 
            //Support02();
-           Support03();
+           //Support03();
            //Support04();
            // Support05(); 
 
            //Support06();
-           // Support07();
+            Support07();
            //Support08();
 
            //Support09();
            //Support10();
-            Support11();
+           // Support11();
 
             Console.WriteLine("Ok");
             Console.ReadKey();
@@ -84,12 +84,12 @@ namespace GeospaceTest
         static void Support07()
         {
             //Begin.Save_From_File("C:\\Users\\distomin\\Projects\\GeoSpace\\documents\\All_Begin_Telegramm.txt");
-            string s1 = @"\\10.8.5.123\obmen\armgf1dan.txt";
+            string s1 = @"\\192.168.72.123\obmen\armgf1dan.txt";
             string s2 = "C:\\Users\\distomin\\Projects\\GeoSpace\\documents\\test.txt";
             string s3 =  "D:\\Мои документы\\visual studio 2013\\Projects\\GeoSpace\\documents\\armgf1dan.txt";
             ILogger theLogFile = new LoggerNLog();
             ILogger theConsoleLog = new LoggerConsole();
-            IDecode theDecode = new Decode(theLogFile, s3);
+            IDecode theDecode = new Decode(theLogFile, s1);
 
             theDecode.Run();            
         }
