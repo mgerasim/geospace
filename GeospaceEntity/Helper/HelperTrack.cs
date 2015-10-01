@@ -13,11 +13,9 @@ namespace GeospaceEntity.Helper
 {
     public static class HelperTrack
     {
-        public static void Start( List<string> log, List<string> output, string param, bool run = false, bool build = false )
+        public static void Start(List<string> log, List<string> output, string param, string addSourcesPath, string exePath, bool run = false, bool build = false)
         {
-            IRepository<Settings> repo = new SettingsRepository();
             string sourcesPath = "D:\\Projects\\GeoSpace\\GeoSpaceTrack\\Sources";
-            string exePath = repo.GetAll().Select(x => x.GeospaceTrackExe).ToList()[0];
 
             Process cmd = new Process();
             cmd.StartInfo.FileName = "cmd.exe";
@@ -34,7 +32,7 @@ namespace GeospaceEntity.Helper
             cmd.BeginOutputReadLine();
             cmd.BeginErrorReadLine();
 
-            if (build) Build_Sources(cmd, sourcesPath, exePath);
+            if (build) Build_Sources(cmd, sourcesPath, addSourcesPath, exePath);
             if (run) Run(cmd, exePath, param);
 
             cmd.StandardInput.WriteLine(@"exit");
@@ -43,9 +41,9 @@ namespace GeospaceEntity.Helper
             cmd.Close();
         }
 
-        public static void Build_Sources(Process cmd, string sourcesPath, string exePath)
+        public static void Build_Sources(Process cmd, string sourcesPath, string addSourcesPath, string exePath)
         {            
-            string commands2 = "ifort " + sourcesPath + "\\*.f90 /exe:" + exePath;   
+            string commands2 = "ifort " + sourcesPath + addSourcesPath + " " + sourcesPath + "\\*.f90 /exe:" + exePath;   
             cmd.StandardInput.WriteLine(@"cd " + sourcesPath);
             cmd.StandardInput.WriteLine(@"""C:\\Program Files (x86)\\Intel\\Composer XE 2015\\bin\\compilervars.bat"" intel64");
             cmd.StandardInput.WriteLine(@commands2);
@@ -81,6 +79,8 @@ namespace GeospaceEntity.Helper
                     output[1] += str.Replace("OPF", "").Trim() + ", ";
                 if (str.IndexOf("D") >= 0)
                     output[2] += str.Replace("D", "").Trim() + " ";
+                if (str.IndexOf("ID") >= 0)
+                    output[3] += str.Replace("ID", "").Trim() + " ";
             }
         }
 

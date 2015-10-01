@@ -1,0 +1,119 @@
+﻿@using GeospaceEntity.Helper;
+@{
+    ViewBag.Title = @ViewBag.Title;
+}
+
+@using (Html.BeginForm("Calc", "ForecastFiveDayTrack", null, FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <div class="form-group">
+        <label for="Name" class="col-sm-2 control-label">Потребители</label>
+        <div class="col-sm-10">
+            <select name="Consumer" class="form-control">
+                @foreach (var item in Model.consumers)
+                {
+                    <option value="@item.ID">@item.Name</option>
+                }
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="W" class="col-sm-2 control-label">W:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="W" id="W " value="@Model.W">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="month" class="col-sm-2 control-label">Месяц:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="month" id="month " value="@Model.month">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">Расчитать трассы</button>
+        </div>
+    </div>
+}
+
+@for (int i = 0; i < Model.quantity; i++)
+{
+    <h4 style="align-items:center"><textarea name="comment" readonly style="border: none; height: 100px; width: 500px; overflow: hidden; resize: none; ">@Model.title[i]</textarea></h4>
+    <div id="container_@i" style="width:100%; height:500px;"></div>
+
+    @DrawTrack("container_" + @i.ToString(), "Месячный прогноз для радиотрасс", Model.listOutput[i])
+}
+
+
+@section Scripts
+{
+    @Scripts.Render("~/Scripts/highcharts.js")
+    @Scripts.Render("~/Scripts/draggable-points.js")
+}
+
+@helper DrawTrack(string nameDiv, string title, List<string> value)
+{
+    <script>
+
+        $(function () {
+            $('#@(nameDiv)').highcharts({
+                title: {
+                    text: '@title'
+                },
+                xAxis :{
+                    title: {
+                        text: 'Часы (UT)'
+                    },
+                    categories: [
+                    @for(int i=0;i<25;i++)
+                {
+                    @Html.Raw("'"+i.ToString("00")+"'")
+
+                    if(i!=24)
+                    {
+                        @:,
+                        }
+                }
+                    ],
+                    lineWidth: 2,
+                    gridLineWidth: 1,
+                    tickInterval:1,
+                    tickmarkPlacement: 'on',
+                },
+                yAxis: [{ // Primary yAxis
+                    labels: {
+                        format: '{value}',
+                        style: {
+                            color: Highcharts.getOptions().colors[1]
+                        }
+                    },
+                    title: {
+                        text:'Частота МГц',
+                        style: {
+                            color: Highcharts.getOptions().colors[1]
+                        }
+                    },
+                }, ],
+                tooltip: {
+                    shared: true
+                },
+
+                series: [{
+                    name: 'МПЧ',
+                    type: 'spline',
+                    color: 'red',
+                    data:  @value[0],
+                }
+                , {
+                    name: 'ОРЧ',
+                    type: 'spline',
+                    color: 'green',
+                    data:  @value[1],
+                }
+                ]
+            });
+        });
+    </script>
+}

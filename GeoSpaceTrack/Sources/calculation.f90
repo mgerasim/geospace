@@ -25,7 +25,7 @@ contains
 		real        :: cosDR, DR
 		real        :: cosXOI
 		CHARACTER(50) error, error1
-		real, dimension ( SIZE )	 :: DO, XO, YO
+		real, dimension ( SIZE_KTO )	 :: DO, XO, YO
 
 !		DR - угловая разница между передатчиком и приемников (в радианах)
 !       D - длина трассы по дуге большого круга
@@ -211,7 +211,7 @@ contains
 	end subroutine Calc_I300
 
  	! функция перевода географических координат в геомагнитные
-	subroutine Convert_Geomagnetic_Coord(XO, YO, GTO300, GYO) 
+subroutine Convert_Geomagnetic_Coord(XO, YO, GTO300, GYO) 
 		real                      	 :: XO, XTO, YO, GTO300, GYO, I300, GXO, GXTO, GYO1
 		real                         :: addition, cosFi
  		CHARACTER(50) error, error1		 		
@@ -492,7 +492,7 @@ subroutine Draw_Isoline()
 
 		
 
-		do h = 1, 1
+		do h = 1, HOURS
 			print *, h
 			do p = 1, 181, 1
 				do q = 1, 361, 1
@@ -509,9 +509,9 @@ subroutine Draw_Isoline()
 			open (unit = 4, file = "temp\\temp.txt" )
 
 			p = 1
-			do x = 90, -90, -5
+			do x = 90, -90, -1
 				q = 1
-				do y = 0, 360, 10				
+				do y = 0, 360, 1
 
 					call degree_to_rad( 1.0*x, rx )
 					call degree_to_rad( 1.0*y, ry )
@@ -566,9 +566,9 @@ subroutine Draw_Isoline()
 			else
 				write (sh, "(I2)") h - 1
 			end if
-			!call EXECUTE_COMMAND_LINE("plot_py.py temp\\in\\F2_0.txt temp\\out\\F2_0_" // sh // " 10.0 1.0")
-			!call EXECUTE_COMMAND_LINE("plot_py.py temp\\in\\F2_4000_1.txt temp\\out\\F2_4000_1_" // sh // " 50.0 5.0")
-			!call EXECUTE_COMMAND_LINE("plot_py.py temp\\in\\F2_4000_2.txt temp\\out\\F2_4000_2_" // sh // " 50.0 5.0")
+			call EXECUTE_COMMAND_LINE("plot_py.py temp\\in\\F2_0.txt temp\\out\\F2_0\\F2_0_" // sh // " 10.0 1.0")
+			call EXECUTE_COMMAND_LINE("plot_py.py temp\\in\\F2_4000_1.txt temp\\out\\F2_4000_1\\F2_4000_1_" // sh // " 50.0 5.0")
+			call EXECUTE_COMMAND_LINE("plot_py.py temp\\in\\F2_4000_2.txt temp\\out\\F2_4000_2\\F2_4000_2_" // sh // " 50.0 5.0")
 		end do
 
 		deallocate(h2)
@@ -599,11 +599,12 @@ subroutine Draw_Isoline()
 			diff(1, j) = abs( GTO300 - outCoord(1, j) )
 			diff(2, j) = abs( GYO - outCoord(2, j) )
 
-			 if(diff(1, j) > 1.0 .or. diff(2, j) > 1.0 ) then
+			 !if(diff(1, j) > 1.0 .or. diff(2, j) > 1.0 ) then
 				write (1,*),  j, inCoord(1, j), inCoord(2, j), diff(1, j), diff(2, j)
 				write (1,*), "           ", outCoord(1, j),  outCoord(2, j), GTO300, GYO
+				write (1,*), "           ", XO, YO
 				write (1,*), ""
-			 end if
+			 !end if
 		end do
 
 		close(1)
