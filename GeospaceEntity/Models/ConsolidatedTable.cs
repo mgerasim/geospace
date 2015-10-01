@@ -128,11 +128,31 @@ namespace GeospaceEntity.Models
                         this.Th6_CountEvent = newvalue;
                         break;
                     }
-                case "Th11":
+                case "Th7":
                     {
-                        this.Th11_ = newvalue;
+                        this.Th7_Balls = newvalue;
                         break;
                     }
+                case "Th8":
+                    {
+                        this.Th8_Coordinates = newvalue;
+                        break;
+                    }
+                case "Th9":
+                    {
+                        this.Th9_Time = newvalue;
+                        break;
+                    }
+                case "Th10":
+                    {
+                       this.Th10_RadioBursts = newvalue;
+                       break;
+                    }
+                case "Th11":
+                     {
+                         this.Th11_ = newvalue;
+                         break;
+                     }
                 case "Th12":
                     {
                         this.Th12_AP = newvalue;

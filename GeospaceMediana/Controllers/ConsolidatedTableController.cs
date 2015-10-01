@@ -59,33 +59,7 @@ namespace GeospaceMediana.Controllers
                 return Content("Ошибка применения изменения! Проверьте корректность вводимых данных.");
             }
         }
-        public ActionResult SubmitEvent ( int YYYY = -1, int MM = -1, int DD = -1, string _Ball = "", string _Coordinate = "",  string _Time = "", string _RadioBursts = "", int ID = -1)
-        {
-            try
-            {
-                ConsolidatedTable codeTable = ConsolidatedTable.GetByDateUTC(YYYY, MM, DD);
-
-                if (codeTable == null) // Если запись отсутствует
-                {
-                    codeTable = new ConsolidatedTable();
-                    codeTable.YYYY = YYYY;
-                    codeTable.MM = MM;
-                    codeTable.DD = DD;
-                    codeTable.Save();
-                }
-                
-                if (ID != -1)
-                    codeTable.Update();
-                else
-                    codeTable.Save();
-                return Content(codeTable.ID.ToString());
-            }
-            catch (Exception)
-            {
-                // return Content(e.ToString());
-                return Content("Ошибка применения изменения! Проверьте корректность вводимых данных.");
-            }
-        }
+       
         public ActionResult DeleteEvent(int id)
         {
             try
