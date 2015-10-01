@@ -16,7 +16,7 @@ contains
 subroutine forecast_MUF( W, month, KTO, XO, YO, D )
 	integer                  :: KTO, month, W, h
 	real                     :: D
-	real, dimension ( SIZE ) :: XO, YO
+	real, dimension ( SIZE_KTO ) :: XO, YO
 	real, dimension ( HOURS ) :: MUF, OPF
 
 	do h = 1, HOURS, 1
@@ -54,7 +54,7 @@ end subroutine forecast_MUF
 subroutine calc_layer_E_F1_F2_for_MUF_OPF( W, month, KTO, XO, YO, D, MUF, OPF )
 	integer                  :: KTO, month, W, h, correctHour, hour
 	real                     :: D
-	real, dimension ( SIZE ) :: XO, YO
+	real, dimension ( SIZE_KTO ) :: XO, YO
 	real, dimension ( HOURS ) :: foE, Z, MUF, OPF, MPE, MPF1, MPF2, foF1
 	real :: A, B, Zm, MDE, FF, F, obj, obj1, DF, MDF1, delta
 	CHARACTER(50) error
@@ -184,8 +184,8 @@ end subroutine calc_layer_E_F1_F2_for_MUF_OPF
 
 subroutine calc_layerF2_for_MUF_OPF( W, month, KTO, XO, YO, MUF, OPF )
 	integer                     :: KTO, month, W, h, k, hour
-	integer, dimension ( SIZE ) :: correctHour
-	real, dimension ( SIZE )    :: XO, YO
+	integer, dimension ( SIZE_KTO ) :: correctHour
+	real, dimension ( SIZE_KTO )    :: XO, YO
 	real, dimension ( HOURS )   :: MUF, OPF, MPF2
 	real :: obj, delta
 	CHARACTER(50) error

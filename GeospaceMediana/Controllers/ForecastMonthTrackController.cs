@@ -1,5 +1,6 @@
 ﻿using GeospaceEntity.Common;
 using GeospaceEntity.Models;
+using GeospaceEntity.Repositories;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -37,6 +38,9 @@ namespace GeospaceMediana.Controllers
             DateTime dt = new DateTime(DateTime.Now.Year, month, 1);
             List<string> log = new List<string>();
             log.Add("");
+
+            IRepository<Settings> repo = new SettingsRepository();
+            string exePath = repo.GetAll().Select(x => x.MonthForecastTrack).ToList()[0];
             
 
             foreach( Track track in consumer.Tracks )
@@ -55,7 +59,7 @@ namespace GeospaceMediana.Controllers
                 //+ DateTime.Now.AddMonths(1).Month.ToString();
                 + month.ToString();
 
-                GeospaceEntity.Helper.HelperTrack.Start(log, output, param, true, true);
+                GeospaceEntity.Helper.HelperTrack.Start(log, output, param, "\\MonthForecast\\MonthForecast.f90", exePath, true, true);
 
                 output[0] += "]";
                 output[1] += "]";
@@ -73,7 +77,7 @@ namespace GeospaceMediana.Controllers
                 log[0] += "\n";
             }
 
-            StreamWriter sw = new StreamWriter("D:\\fortran_log.txt");
+            StreamWriter sw = new StreamWriter("C:\\inetpub\\wwwroot\\mediana\\bin2\\MonthForecast_log.txt");
             foreach (string s in log)
                 sw.WriteLine(s);
             sw.Close();

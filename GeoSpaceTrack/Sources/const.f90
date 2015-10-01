@@ -4,7 +4,7 @@ public
 
 real, parameter       :: R = 6372.795               ! Средний радиус Земли
 real*8, parameter     :: PI = 3.14159265358979323846
-integer, parameter    :: SIZE = 6
+integer, parameter    :: SIZE_KTO = 6
 real, parameter       :: EPS = 0.0001
 integer, parameter    :: HOURS = 25
 integer, parameter    :: MONTHS = 12
