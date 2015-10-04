@@ -147,7 +147,7 @@ namespace GeospaceTest
                     + W.ToString() + " "
                     + DateTime.Now.AddMonths(-1).Month.ToString(); 
 
-                GeospaceEntity.Helper.HelperTrack.Start(log, output, param, true, true );
+               // GeospaceEntity.Helper.HelperTrack.Start(log, output, param, true, true );
                 Console.WriteLine(log[0]);
             }
             catch( System.Exception ex)
