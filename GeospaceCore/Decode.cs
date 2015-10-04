@@ -55,8 +55,13 @@ namespace GeospaceCore
                                 int numDate = 1;
                                 int numIndex = 2;
                                 bool existStatFromBD = true;
+                                if (code.Substring(0).ToUpper().IndexOf("90 DAY MEAN") >= 0)
+                                    {
+                                        logger.LogMagma("MAGMA: " + code);
+                                    }
                                 if (code.Length > 6)
                                 {
+                                    
                                     if (code.Substring(0).ToUpper().IndexOf("MAGMA") >= 0)
                                     {
                                         try
