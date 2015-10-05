@@ -24,7 +24,7 @@ namespace GeospaceCore
             {
                 logger.LogIonka("Run logger ionka - " + fileName);
                 logger.LogUmagf("Run logger umagf");
-
+                logger.LogUGEOI("Run logger ugeoi");
                 logger.LogIonka("timer1_Tick_1: FileName:" + fileName);
                 try
                 {
@@ -55,13 +55,19 @@ namespace GeospaceCore
                                 int numDate = 1;
                                 int numIndex = 2;
                                 bool existStatFromBD = true;
-                                if (code.Substring(0).ToUpper().IndexOf("90 DAY MEAN") >= 0)
-                                    {
-                                        logger.LogMagma("MAGMA: " + code);
-                                    }
                                 if (code.Length > 6)
                                 {
-                                    
+
+                                    if (code.Substring(0).ToUpper().IndexOf("UGEOI") >= 0)
+                                    {
+                                        List<string> codeSplit = new List<string>(code.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries));
+                                        DateTime dateNowUT = DateTime.Now;
+                                        int MM = Convert.ToInt32(codeSplit[2].Substring(1, 2));
+                                        int DD = Convert.ToInt32(codeSplit[2].Substring(3, 2));
+                                        DateTime dateNow = new DateTime(dateNowUT.Year, MM, DD);
+
+                                        logger.LogMagma("MAGMA: " + code);
+                                    }
                                     if (code.Substring(0).ToUpper().IndexOf("MAGMA") >= 0)
                                     {
                                         try

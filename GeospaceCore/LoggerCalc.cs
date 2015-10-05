@@ -37,6 +37,12 @@ namespace GeospaceCore
 
             logger.Debug(msg);
         }
+        void ILogger.LogUGEOI(string msg)
+        {
+
+            logger.Debug(msg);
+        }
+        
     }
 }
 

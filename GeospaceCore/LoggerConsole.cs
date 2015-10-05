@@ -30,5 +30,10 @@ namespace GeospaceCore
         {
             Console.WriteLine(msg);
         }
+        void ILogger.LogUGEOI(string msg)
+        {
+            Console.WriteLine(msg);
+        }
+        
     }
 }
