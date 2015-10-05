@@ -238,6 +238,8 @@ namespace GeospaceMediana.Controllers
 
             return theItem;
         }
+        
+        
         public JsonResult GetConsolidatedTable(int YYYY = -1, int MM = -1)
         {
             ApiConsolidatedTable theApi = new ApiConsolidatedTable();

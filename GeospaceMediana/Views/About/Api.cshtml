@@ -33,3 +33,19 @@
         </code>
     </div>
 </div>
+
+<h2>Сводная таблица</h2>
+<div class="panel panel-default">
+    <div class="panel-heading">HTTP GET запрос: http://meteo-dv.ru/mediana/api/GetConsolidatedTable </div>
+    <div class="panel-body">
+        Получить информацию по дням по станциям Хабаровск, Паратунка, Магадан, Салехард.<br />
+        Соответствует экранной форме @Html.ActionLink("Сводная таблица", "Index", "ConsolidatedTable")<br />
+        Входящие параметры:<br />
+        YYYY - год<br />
+        MM - месяц <br />
+        Ответ: <br />
+        <code class="container" style="white-space: pre-line; ">
+           {"Title":"Сводная таблица","YYYY":2015,"MM":10,"theData":[{"DD":1,"Th2_W":"","Th3_Sp":"","Th4_F":"","Th5_90M":"","Th6_CountEvent":"","Th7_Balls":"M1/SF","Th8_Coordinates":"","Th9_Time":"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n","Th10_RadioBursts":"","Th11_":"","Th12_AP":"","Th13_Amag":"","Th14_Apar":"","Th15_Akha":"","Th16_K":"2222 2222","Th17_iSal":"","Th18_iMag":"","Th19_iKha":"","Th20_iPar":""},{"DD":2,"Th2_W":"69","Th3_Sp":"120","Th4_F":"108","Th5_90M":"105","Th6_CountEvent":"02","Th7_Balls":"C2\n\n","Th8_Coordinates":"S12W21\n","Th9_Time":"0002 0002 0002\n0001 0001 0001\n0002 0002 0002\n0022 0022 0002\n0002 0002 0002\n0001 0001 0001","Th10_RadioBursts":"150                                      \n                    ","Th11_":"H","Th12_AP":"02","Th13_Amag":"01","Th14_Apar":"02","Th15_Akha":"03","Th16_K":"2222  2222","Th17_iSal":"2","Th18_iMag":"1","Th19_iKha":"1","Th20_iPar":"1"},{"DD":3,"Th2_W":"","Th3_Sp":"","Th4_F":"","Th5_90M":"","Th6_CountEvent":"","Th7_Balls":"","Th8_Coordinates":"","Th9_Time":"","Th10_RadioBursts":"","Th11_":"","Th12_AP":"","Th13_Amag":"","Th14_Apar":"","Th15_Akha":"","Th16_K":"","Th17_iSal":"","Th18_iMag":"","Th19_iKha":"","Th20_iPar":""},{"DD":4,"Th2_W":"","Th3_Sp":"","Th4_F":"","Th5_90M":"","Th6_CountEvent":"","Th7_Balls":"","Th8_Coordinates":"","Th9_Time":"","Th10_RadioBursts":"","Th11_":"","Th12_AP":"","Th13_Amag":"","Th14_Apar":"","Th15_Akha":"","Th16_K":"","Th17_iSal":"","Th18_iMag":"","Th19_iKha":"","Th20_iPar":""}]}
+        </code>
+    </div>
+</div>
