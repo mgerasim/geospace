@@ -3,25 +3,29 @@
 @{
     ViewBag.Title = @ViewBag.Title;
 }
+@{
+    if(@ViewBag.Api == 1)
+    {
+        Layout = "";
+    }
+    else
+    {
+        @section Styles
+        {
+            @Styles.Render("~/Content/css-loadtriangles.css")
+        }
+        <script>
 
-
-@section Styles
-{
-    @Styles.Render("~/Content/css-loadtriangles.css")
-}
-
-<script>
-
-    var submitUrl = "@Url.Action("Submit", "ConsolidatedTable")";
-    var submitEventUrl = "@Url.Action("SubmitEvent", "ConsolidatedTable")";
-    var delEventUrl = "@Url.Action("DeleteEvent", "ConsolidatedTable")";
-    var currentYear = "@ViewBag.Year";
-    var currentMonth = "@ViewBag.Month";
-    var dateString = "@ViewBag.DateString";
-</script>
-
+            var submitUrl = "@Url.Action("Submit", "ConsolidatedTable")";
+            var submitEventUrl = "@Url.Action("SubmitEvent", "ConsolidatedTable")";
+            var delEventUrl = "@Url.Action("DeleteEvent", "ConsolidatedTable")";
+            var currentYear = "@ViewBag.Year";
+            var currentMonth = "@ViewBag.Month";
+            var dateString = "@ViewBag.DateString";
+        </script>
+    
 <h2>Сводная таблица за (@ViewBag.DateString)</h2>
-<script type="text/javascript">
+    <script type="text/javascript">
     var arrayType = ['Balls', 'Coordinates', 'Time', 'RadioBursts'];
     var arrayModel = ['exampleInputBall', 'exampleInputCoordinates', 'exampleInputTime', 'exampleInputRadioBursts'];
 
@@ -292,6 +296,16 @@
     }
 </script>
 
+    }
+}
+
+@*@section Styles
+{
+    @Styles.Render("~/Content/css-loadtriangles.css")
+}*@
+
+
+
 <style>
     textarea {
         width: 100%;
@@ -543,60 +557,4 @@
             </tbody>
         </table>
     </div>
-</div>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModelLable">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabele"></h4>
-            </div>
-            <a id="dayModal"></a>
-            <a id="dayID" ></a>
-            <div class="modal-body">
-                <div id="cloudiness-panel1" class="panel panel-success">
-                    <div id="cloudiness-panel1-heading" class="panel-heading ms">Балл</div>
-                    <div class="panel-body">
-                        <input  class="form-control" id="exampleInputBall" >
-
-                    </div>
-                </div>
-                <div id="cloudiness-panel2" class="panel panel-success">
-                    <div id="cloudiness-panel2-heading" class="panel-heading ms">Координаты</div>
-                    <div class="panel-body ">
-                        <input class="form-control" id="exampleInputCoordinates">
-                    </div>
-                </div>
-                <div id="cloudiness-panel3" class="panel panel-success">
-                    <div id="cloudiness-panel3-heading" class="panel-heading ms">Время</div>
-                    <div class="panel-body ">
-                        <div class="row">
-                            <div class="col-xs-4">
-                                <input class="form-control" id="exampleInputTime1">
-                            </div>
-                            <div class="col-xs-4">
-                                <input class="form-control" id="exampleInputTime2">
-                            </div>
-                            <div class="col-xs-4">
-                                <input class="form-control" id="exampleInputTime3">
-                            </div>
-                </div>
-                    </div>
-                </div>
-                <div id="cloudiness-panel4" class="panel panel-success">
-                    <div id="cloudiness-panel4-heading" class="panel-heading ms">Радиовсплески</div>
-                    <div class="panel-body">
-                        <input class="form-control" id="exampleInputRadioBursts">
-
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" onclick="editEnergeticEventAdd()" class="btn btn-primary" data-dismiss="modal">Сохранить</button>
-                    <button type="button" onclick="emptyEnergeticEvent()" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-                   
-                </div>
-            </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
 </div>

@@ -560,5 +560,43 @@ namespace GeospaceEntity.Helper
                 averageGlobalCurr[h].Update();
             }
         }
+
+        public static void ConsolidatedTableCalc()
+        {
+          
+
+        }
+        public static string StationAk(int indexStation,DateTime time)
+        {
+            string ak = "";
+            CodeUmagf code = CodeUmagf.GetByDate(Station.GetByCode(indexStation), time.Year, time.Month, time.Day);
+            if( code != null )ak = code._ak;
+            return ak;
+        }
+        public static string StationIndexK(int indexStation, DateTime time)
+        {
+            string kIndex = "";
+            CodeUmagf code = CodeUmagf.GetByDate(Station.GetByCode(indexStation), time.Year, time.Month, time.Day);
+            if (code != null) kIndex = code._k1 + code._k2 + code._k3 + code._k4 +" "+ code._k5 + code._k6 + code._k7 + code._k8;
+            return kIndex;
+        }
+
+        public static void ConsolidatedTableCalc(DateTime currDate)
+        {
+            ConsolidatedTable tableCalc = ConsolidatedTable.GetByDateUTC(currDate.Year, currDate.Month, currDate.Day);
+            if(tableCalc == null)
+            {
+                tableCalc = new ConsolidatedTable();
+                tableCalc.YYYY = currDate.Year;
+                tableCalc.MM = currDate.Month;
+                tableCalc.DD = currDate.Day;
+                tableCalc.Save();
+            }
+            tableCalc.Th13_Amag = HelperCalculation.StationAk(45601, currDate);
+            tableCalc.Th14_Apar = HelperCalculation.StationAk(46501, currDate);
+            tableCalc.Th15_Akha = HelperCalculation.StationAk(43501, currDate);
+            tableCalc.Th16_K    = HelperCalculation.StationIndexK(43501, currDate);
+
+        }
     }
 }

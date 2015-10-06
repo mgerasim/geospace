@@ -12,7 +12,7 @@ namespace GeospaceMediana.Controllers
         //
         // GET: /ConsolidatedTable/
 
-        public ActionResult Index( int YYYY = -1, int MM = -1)
+        public ActionResult Index( int YYYY = -1, int MM = -1, int api = 0)
         {
             if (YYYY < 0)
             {
@@ -27,6 +27,7 @@ namespace GeospaceMediana.Controllers
             ViewBag.Year = YYYY;
             ViewBag.Month = MM;
             ViewBag.Date = startMonth;
+            ViewBag.Api = api;
             IList<ConsolidatedTable> tableView = ConsolidatedTable.GetByDateMM(YYYY, MM);
             return View(tableView);
         }

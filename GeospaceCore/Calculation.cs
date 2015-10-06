@@ -45,7 +45,20 @@ namespace GeospaceCore
                     + "\n" + ex.StackTrace);
             }
         }
-
+        void ICalculation.ConsolidatedTableCalc()
+        {
+            for (DateTime currDate = DateTime.Now.AddDays(-5); currDate < DateTime.Now.AddDays(2); currDate = currDate.AddDays(1))
+            {
+                try
+                {
+                    HelperCalculation.ConsolidatedTableCalc(currDate);
+                }
+                catch (Exception ex)
+                {
+                    theLog.LogError(ex.Message);
+                }
+            }
+        }
         void ICalculation.DisturbanceCalc()
         {
             foreach (var station in Station.GetAll())
