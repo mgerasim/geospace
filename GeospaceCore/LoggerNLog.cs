@@ -15,12 +15,14 @@ namespace GeospaceCore
         Logger error;
         Logger logumagf;
         Logger logmagma;
+        Logger logUGEOI;
         public LoggerNLog()
         {
             logger = LogManager.GetLogger("log");
             error = LogManager.GetLogger("error");
             logumagf = LogManager.GetLogger("logumagf");
             logmagma = LogManager.GetLogger("logmagma");
+            logUGEOI = LogManager.GetLogger("logUGEOI");
         }
         void ILogger.LogIonka(string msg)
         {
@@ -42,5 +44,10 @@ namespace GeospaceCore
         {
             logmagma.Debug(msg);
         }
+        void ILogger.LogUGEOI(string msg)
+        {
+            logUGEOI.Debug(msg);
+        }
+
     }
 }

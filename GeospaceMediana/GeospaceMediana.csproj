@@ -147,6 +147,7 @@
     <Compile Include="Controllers\TablesunController.cs" />
     <Compile Include="Controllers\TelegramsubController.cs" />
     <Compile Include="Models\ApiCharacterization.cs" />
+    <Compile Include="Models\ApiConsolidatedTable.cs" />
     <Compile Include="Models\ApiDisturbance.cs" />
     <Compile Include="Models\ViewMonthForecastTrack.cs" />
     <Compile Include="Models\ViewFiveDayForecastTrack.cs" />

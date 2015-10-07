@@ -15,5 +15,7 @@ namespace GeospaceCore
         void CharacterizationCalc(DateTime bgnDate, DateTime endDate);
         void DisturbanceCalc();
         void DisturbanceCalc(DateTime bgnDate, DateTime endDate);
+
+        void ConsolidatedTableCalc();
     }
 }

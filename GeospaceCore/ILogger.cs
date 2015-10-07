@@ -13,5 +13,6 @@ namespace GeospaceCore
         void LogError(string msg);
         void LogCalc(string msg);
         void LogMagma(string msg);
+        void LogUGEOI(string msg);
     }
 }

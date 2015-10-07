@@ -238,5 +238,29 @@ namespace GeospaceMediana.Controllers
 
             return theItem;
         }
+        
+        
+        public JsonResult GetConsolidatedTable(int YYYY = -1, int MM = -1)
+        {
+            ApiConsolidatedTable theApi = new ApiConsolidatedTable();
+            if (YYYY == -1)
+            {
+                YYYY = DateTime.Now.Year;
+            }
+            if (MM == -1)
+            {
+                MM = DateTime.Now.Month;
+            }
+
+            IList<GeospaceEntity.Models.ConsolidatedTable> listTable = ConsolidatedTable.GetByDateMM(YYYY, MM);
+            theApi.YYYY = YYYY;
+            theApi.MM = MM;
+            foreach (ConsolidatedTable item in listTable)
+            {
+                theApi.theData.Add(new ApiConsolidatedTable.ApiConsolidatedTableItem(item));
+            }
+
+            return Json(theApi, "application/json", Encoding.GetEncoding("windows-1251"), JsonRequestBehavior.AllowGet);
+        }
     }
 }

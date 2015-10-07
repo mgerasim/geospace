@@ -53,7 +53,7 @@ namespace GeospaceMediana.Models
                 else TimeHH.Add(arrTimeHH[i]);
 
             }
-            int countLine = 25;
+            int countLine = 24;
             int lineRec = 0;
             int line = 0;
             for (int i = 0; i < TimeHH.Count; i++)
@@ -61,11 +61,11 @@ namespace GeospaceMediana.Models
                 string time = "";
                 if (TimeHH[i] + 1 != TimeHH[i + 1])
                 {
-                    time = String.Format("{0:D2}00-{1:D2}00; ", TimeHH[i], TimeHH[i + 1]-1);
+                    time = String.Format("{0:D2}00-{1:D2}00 ", TimeHH[i], TimeHH[i + 1]-1);
                 }
                 else
                 {
-                    time = String.Format("{0:D2}00; ", TimeHH[i]);
+                    time = String.Format("{0:D2}00 ", TimeHH[i]);
                 }
                 if (time.Length + res.Length >= lineRec + countLine)
                 {

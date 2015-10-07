@@ -3,13 +3,10 @@
 @{
     ViewBag.Title = @ViewBag.Title;
 }
-
-
 @section Styles
 {
     @Styles.Render("~/Content/css-loadtriangles.css")
 }
-
 <script>
 
     var submitUrl = "@Url.Action("Submit", "ConsolidatedTable")";
@@ -19,9 +16,9 @@
     var currentMonth = "@ViewBag.Month";
     var dateString = "@ViewBag.DateString";
 </script>
-
+    
 <h2>Сводная таблица за (@ViewBag.DateString)</h2>
-<script type="text/javascript">
+    <script type="text/javascript">
     var arrayType = ['Balls', 'Coordinates', 'Time', 'RadioBursts'];
     var arrayModel = ['exampleInputBall', 'exampleInputCoordinates', 'exampleInputTime', 'exampleInputRadioBursts'];
 
@@ -109,7 +106,7 @@
         var valAndBR = oldValue;
         if (currentCell.hasClass("energetic_event"))
         {
-            inputHtml = "<textarea id=\"edit\">" + valAndBR + "</textarea>";
+            inputHtml = "<textarea id=\"edit\" style=\"text-align: left;\">" + valAndBR + "</textarea>";
         }
         var cellWidth = currentCell.width();
         var cellHeight = currentCell.height();
@@ -129,7 +126,9 @@
                 moveEdit(currentCell, event.keyCode);
             }
         });
-
+        $('#edit').keydown(function(){
+            $('#edit').css('overflow', 'hidden').autogrow();
+        });
         $('#edit').focus();
         $('#edit').select();
         $('#edit').blur(function () {
@@ -229,6 +228,7 @@
     }
     $(document).ready(function () {
         $('.editable').dblclick(editEvent);
+        $('#edit').css('overflow', 'hidden').autogrow()
         //$(window).keydown(function (event) {
         //    if (event.keyCode == 13) {
         //        $('#edit').blur();
@@ -289,15 +289,23 @@
     }
 </script>
 
+
 <style>
-    #edit {
-        overflow: hidden;
+    textarea {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
     }
     .hover:hover {
         cursor: pointer;
         background-color: rgba(216, 200, 200, 0.44);
     }
     table td, th {
+        height: 100%;
         text-align: center;
         vertical-align: bottom;
         table-layout: fixed;
@@ -305,7 +313,6 @@
         word-wrap: normal;
         font-style: normal;
         font-size: 10pt;
-    
     }
     td:hover {
         cursor: pointer;
@@ -404,6 +411,7 @@
     }
     .editable {
         white-space: pre;
+
     }
 </style>
 @helper DrawLinkEvent(int id, int day , string element , string nameElement)
@@ -424,7 +432,7 @@
         <table style="" class=" table table-bordered table-hover table-striped">
             <thead>
                 <tr>
-                    <th rowspan="3"><div class="rotate" style="width: 25px; text-align: center; vertical-align: middle !important;">@ViewBag.DateString </div></th>
+                    <th rowspan="3" style="padding-left: 0px; padding-right: 0px;"><div class="rotate" style="width: 25px; text-align: center; vertical-align: middle !important; white-space: nowrap;">@ViewBag.DateString </div></th>
                     <th rowspan="3" style="width: 6%; text-align: center !important; vertical-align: middle !important;">W</th>
                     <th rowspan="3" style="width: 6%; text-align: center !important;vertical-align: middle !important;">Sp</th>
                     <th rowspan="3" style="width: 6%; text-align: center !important;vertical-align: middle !important;">F</th>
@@ -445,21 +453,24 @@
                     <th rowspan="2" style="padding-left: 0px; padding-right: 0px; width: 3%;">
                         <div class="rotate" style="width: 3%;">Координаты</div>
                     </th>
-                    <th rowspan="2" style="width:20%;"><div style=" width:100px; display: inline-block;">Время</div></th>
-                    <th rowspan="1" style="height:50px;">Радиовсплески</th>
+                    <th rowspan="2" style="width:20%;">Время</th>
+
+                    <th rowspan="1" style="height: 50px; padding: 5px 1px;">
+                            <div style=" width:auto; display: inline-block;">Радиовсплески</div>
+                    </th>
                     <th rowspan="2" class="legal" style="width:6%;"><div class="rotate" style="width:11px; display: inline-block;">Ар</div></th>
-                    <th rowspan="2" style="width:6%;"><div class="rotate" style="width:30px;">Магадан Ак</div></th>
-                    <th rowspan="2" style="width:6%;"><div class="rotate" style="width:30px;">Паратунка Ак</div></th>
-                    <th rowspan="2" style="width:6%;"><div class="rotate" style="width:30px;">Хабаровск Ак</div></th>
-                    <th rowspan="2" style="white-space: nowrap;">К-индексы</th>
-                    <th rowspan="2" class="legal" style="width:6%;"><div class="rotate" style="width:20px;">Салехард</div></th>
-                    <th rowspan="2" class="legal" style="width:6%;"><div class="rotate" style="width:20px;">Магадан</div></th>
-                    <th rowspan="2" class="legal" style="width:6%;"><div class="rotate" style="width:20px;">Хабаровск</div></th>
-                    <th rowspan="2" class="legal" style="width:6%;"><div class="rotate" style="width:20px;">Паратунка</div></th>
+                    <th rowspan="2" style="width:6%;padding: 0px 0px;padding: 5px 1px;"><div class="rotate" style="width:30px;">Магадан Ак</div></th>
+                    <th rowspan="2" style="width:6%;padding: 0px 0px;padding: 5px 1px;"><div class="rotate" style="width:30px;">Паратунка Ак</div></th>
+                    <th rowspan="2" style="width:6%;padding: 0px 0px;padding: 5px 1px;"><div class="rotate" style="width:30px;">Хабаровск Ак</div></th>
+                    <th rowspan="2" style="white-space: nowrap; padding: 5px 1px;">К-индексы</th>
+                    <th rowspan="2" class="legal" style="width:6%;padding: 5px 1px;"><div class="rotate" style="width:20px;">Салехард</div></th>
+                    <th rowspan="2" class="legal" style="width:6%;padding: 5px 1px;"><div class="rotate" style="width:20px;">Магадан</div></th>
+                    <th rowspan="2" class="legal" style="width:6%;padding: 5px 1px;"><div class="rotate" style="width:20px;">Хабаровск</div></th>
+                    <th rowspan="2" class="legal" style="width:6%;padding: 5px 1px;"><div class="rotate" style="width:20px;">Паратунка</div></th>
 
                 </tr>
                 <tr>
-                    <th rowspan="1" style="height: 50px; white-space: nowrap;">245мгц 10 см тип</th>
+                    <th rowspan="1" style="width: 15%; height: 50px; white-space: nowrap; padding: 5px 1px; ">245мгц 10 см тип</th>
                 </tr>
                 <tr>
                     @for (int i = 1; i < 21; ++i)
@@ -477,26 +488,26 @@
                     {
 
                         <tr id="D_@item.DD" data-day="@item.DD">
-                            <td class="editable" data-day="@item.DD" data-type="DD"  data-toggle="tooltip">@item.DD</td>
-                            <td class="editable" data-day="@item.DD" data-type="Th2" data-toggle="tooltip">@item.Th2_W</td>
-                            <td class="editable" data-day="@item.DD" data-type="Th3">@item.Th3_Sp</td>
-                            <td class="editable" data-day="@item.DD" data-type="Th4">@item.Th4_F</td>
-                            <td class="editable" data-day="@item.DD" data-type="Th5">@item.Th5_90M</td>
-                            <td class="editable" data-day="@item.DD" data-type="Th6">@item.Th6_CountEvent</td>
+                            <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@item.DD" data-type="DD" data-toggle="tooltip">@item.DD</td>
+                            <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@item.DD" data-type="Th2" data-toggle="tooltip">@item.Th2_W</td>
+                            <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@item.DD" data-type="Th3">@item.Th3_Sp</td>
+                            <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@item.DD" data-type="Th4">@item.Th4_F</td>
+                            <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@item.DD" data-type="Th5">@item.Th5_90M</td>
+                            <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@item.DD" data-type="Th6">@item.Th6_CountEvent</td>
                             <td class="editable energetic_event" data-day="@item.DD" data-type="Th7">@item.Th7_Balls</td>
                             <td class="editable energetic_event" data-day="@item.DD" data-type="Th8">@item.Th8_Coordinates</td>
-                            <td class="editable energetic_event" data-day="@item.DD" data-type="Th9" >@item.Th9_Time</td>
-                            <td class="editable energetic_event" data-day="@item.DD" data-type="Th10">@item.Th10_RadioBursts</td>
-                            <td class="editable" data-day="@item.DD" data-type="Th11" style="white-space: nowrap;">@item.Th11_</td>
-                            <td class="editable" data-day="@item.DD" data-type="Th12">@item.Th12_AP</td>
-                            <td class="editable" data-day="@item.DD" data-type="Th13">@item.Th13_Amag</td>
-                            <td class="editable" data-day="@item.DD" data-type="Th14">@item.Th14_Apar</td>
-                            <td class="editable" data-day="@item.DD" data-type="Th15">@item.Th15_Akha</td>
-                            <td class="editable" data-day="@item.DD" data-type="Th16">@item.Th16_K</td>
-                            <td class="editable" data-day="@item.DD" data-type="Th17">@item.Th17_iSal</td>
-                            <td class="editable" data-day="@item.DD" data-type="Th18">@item.Th18_iMag</td>
-                            <td class="editable" data-day="@item.DD" data-type="Th19">@item.Th19_iKha</td>
-                            <td class="editable" data-day="@item.DD" data-type="Th20">@item.Th20_iPar</td>
+                            <td class="editable energetic_event" data-day="@item.DD" data-type="Th9">@item.Th9_Time</td>
+                            <td class="editable energetic_event" data-day="@item.DD" data-type="Th10" style="text-align:left;">@item.Th10_RadioBursts</td>
+                            <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@item.DD" data-type="Th11" style="white-space: nowrap;">@item.Th11_</td>
+                            <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@item.DD" data-type="Th12">@item.Th12_AP</td>
+                            <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@item.DD" data-type="Th13">@item.Th13_Amag</td>
+                            <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@item.DD" data-type="Th14">@item.Th14_Apar</td>
+                            <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@item.DD" data-type="Th15">@item.Th15_Akha</td>
+                            <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@item.DD" data-type="Th16">@item.Th16_K</td>
+                            <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@item.DD" data-type="Th17">@item.Th17_iSal</td>
+                            <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@item.DD" data-type="Th18">@item.Th18_iMag</td>
+                            <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@item.DD" data-type="Th19">@item.Th19_iKha</td>
+                            <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@item.DD" data-type="Th20">@item.Th20_iPar</td>
                         </tr>
                         
 
@@ -504,86 +515,30 @@
                     else
                     {
                         <tr id="D_@(i+1)" data-day="@(i+1)">
-                            <td data-day="@(i+1)" data-type="DD" data-toggle="tooltip">@Html.Raw(i + 1)</td>
-                            <td class="editable" data-day="@(i+1)" data-type="Th2" data-toggle="tooltip"></td>
-                            <td class="editable" data-day="@(i+1)" data-type="Th3"></td>
-                            <td class="editable" data-day="@(i+1)" data-type="Th4"></td>
-                            <td class="editable" data-day="@(i+1)" data-type="Th5"></td>
-                            <td class="editable" data-day="@(i+1)" data-type="Th6"></td>
+                            <td style="text-align: center !important;vertical-align: middle !important;" data-day="@(i+1)" data-type="DD" data-toggle="tooltip">@Html.Raw(i + 1)</td>
+                            <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@(i+1)" data-type="Th2" data-toggle="tooltip"></td>
+                            <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@(i+1)" data-type="Th3"></td>
+                            <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@(i+1)" data-type="Th4"></td>
+                            <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@(i+1)" data-type="Th5"></td>
+                            <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@(i+1)" data-type="Th6"></td>
                             <td class="editable energetic_event" data-day="@(i+1)" data-type="Th7"></td>
                             <td class="editable energetic_event" data-day="@(i+1)" data-type="Th8"></td>
                             <td class="editable energetic_event" data-day="@(i+1)" data-type="Th9"></td>
-                            <td class="editable energetic_event" data-day="@(i+1)" data-type="Th10"></td>
-                            <td class="editable" data-day="@(i+1)" data-type="Th11"></td>
-                            <td class="editable" data-day="@(i+1)" data-type="Th12"></td>
-                            <td class="editable" data-day="@(i+1)" data-type="Th13"></td>
-                            <td class="editable" data-day="@(i+1)" data-type="Th14"></td>
-                            <td class="editable" data-day="@(i+1)" data-type="Th15"></td>
-                            <td class="editable" data-day="@(i+1)" data-type="Th16"></td>
-                            <td class="editable" data-day="@(i+1)" data-type="Th17"></td>
-                            <td class="editable" data-day="@(i+1)" data-type="Th18"></td>
-                            <td class="editable" data-day="@(i+1)" data-type="Th19"></td>
-                            <td class="editable" data-day="@(i+1)" data-type="Th20"></td>
+                            <td class="editable energetic_event" data-day="@(i+1)" data-type="Th10" style="text-align:left;"></td>
+                            <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@(i+1)" data-type="Th11"></td>
+                            <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@(i+1)" data-type="Th12"></td>
+                            <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@(i+1)" data-type="Th13"></td>
+                            <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@(i+1)" data-type="Th14"></td>
+                            <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@(i+1)" data-type="Th15"></td>
+                            <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@(i+1)" data-type="Th16"></td>
+                            <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@(i+1)" data-type="Th17"></td>
+                            <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@(i+1)" data-type="Th18"></td>
+                            <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@(i+1)" data-type="Th19"></td>
+                            <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@(i+1)" data-type="Th20"></td>
                         </tr>
                     }
                 }
             </tbody>
         </table>
     </div>
-</div>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModelLable">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabele"></h4>
-            </div>
-            <a id="dayModal"></a>
-            <a id="dayID" ></a>
-            <div class="modal-body">
-                <div id="cloudiness-panel1" class="panel panel-success">
-                    <div id="cloudiness-panel1-heading" class="panel-heading ms">Балл</div>
-                    <div class="panel-body">
-                        <input  class="form-control" id="exampleInputBall" >
-
-                    </div>
-                </div>
-                <div id="cloudiness-panel2" class="panel panel-success">
-                    <div id="cloudiness-panel2-heading" class="panel-heading ms">Координаты</div>
-                    <div class="panel-body ">
-                        <input class="form-control" id="exampleInputCoordinates">
-                    </div>
-                </div>
-                <div id="cloudiness-panel3" class="panel panel-success">
-                    <div id="cloudiness-panel3-heading" class="panel-heading ms">Время</div>
-                    <div class="panel-body ">
-                        <div class="row">
-                            <div class="col-xs-4">
-                                <input class="form-control" id="exampleInputTime1">
-                            </div>
-                            <div class="col-xs-4">
-                                <input class="form-control" id="exampleInputTime2">
-                            </div>
-                            <div class="col-xs-4">
-                                <input class="form-control" id="exampleInputTime3">
-                            </div>
-                </div>
-                    </div>
-                </div>
-                <div id="cloudiness-panel4" class="panel panel-success">
-                    <div id="cloudiness-panel4-heading" class="panel-heading ms">Радиовсплески</div>
-                    <div class="panel-body">
-                        <input class="form-control" id="exampleInputRadioBursts">
-
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" onclick="editEnergeticEventAdd()" class="btn btn-primary" data-dismiss="modal">Сохранить</button>
-                    <button type="button" onclick="emptyEnergeticEvent()" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-                   
-                </div>
-            </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
 </div>

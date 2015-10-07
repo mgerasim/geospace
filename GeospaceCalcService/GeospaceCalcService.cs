@@ -39,6 +39,7 @@ namespace GeospaceCalcService
             theCalcMediana.MedianaCalc_Run();
             theCalcMediana.CharacterizationCalc();
             theCalcMediana.DisturbanceCalc();
+            theCalcMediana.ConsolidatedTableCalc();
         }
 
         private void timer1_Tick_1(object sender, EventArgs e)
@@ -48,6 +49,7 @@ namespace GeospaceCalcService
             theCalcMediana.MedianaCalc_Run();
             theCalcMediana.CharacterizationCalc();
             theCalcMediana.DisturbanceCalc();
+            theCalcMediana.ConsolidatedTableCalc();
         }
         private void eventLog1_EntryWritten(object sender, EntryWrittenEventArgs e)
         {

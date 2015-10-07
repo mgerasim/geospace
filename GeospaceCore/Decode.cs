@@ -24,7 +24,7 @@ namespace GeospaceCore
             {
                 logger.LogIonka("Run logger ionka - " + fileName);
                 logger.LogUmagf("Run logger umagf");
-
+                logger.LogUGEOI("Run logger ugeoi");
                 logger.LogIonka("timer1_Tick_1: FileName:" + fileName);
                 try
                 {
@@ -57,6 +57,70 @@ namespace GeospaceCore
                                 bool existStatFromBD = true;
                                 if (code.Length > 6)
                                 {
+
+                                    if (code.Substring(0).ToUpper().IndexOf("UGEOI") >= 0)
+                                    {
+                                        logger.LogUGEOI("============================================================");
+                                        logger.LogUGEOI("Code: " + code);
+                                        List<string> codeSplit = new List<string>(code.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries));
+                                        DateTime dateNowUT = DateTime.Now;
+                                        int MM = Convert.ToInt32(codeSplit[2].Substring(1, 2));
+                                        int DD = Convert.ToInt32(codeSplit[2].Substring(3, 2));
+                                        DateTime dateTelegram;
+                                        DateTime dateZond;
+                                        //если телеграмма пришла позже срока (за прошлый год)
+                                        if( (dateNowUT.Year)%10 != Convert.ToInt32(codeSplit[2].Substring(0, 1)))
+                                        {
+                                            dateTelegram = new DateTime((dateNowUT.AddMonths(-1)).Year, MM, DD);
+                                        }
+                                        else
+                                        {
+                                            dateTelegram = new DateTime(dateNowUT.Year, MM, DD);
+                                        }
+                                        logger.LogUGEOI("DateTelegram: " + dateTelegram.ToString("dd.MM.yyyy"));
+                                        int DayZond = Convert.ToInt32(codeSplit[4].Substring(0, 2));
+                                        // если телеграмма пришла с данными за прошлый месец
+                                        if(Math.Abs(DD-DayZond) >= 15)
+                                        {
+                                            dateZond = new DateTime((dateTelegram.AddMonths(-1)).Year, (dateTelegram.AddMonths(-1)).Month, DayZond);
+                                        }
+                                        else
+                                        {
+                                            dateZond = new DateTime(dateTelegram.Year, dateTelegram.Month, DayZond);
+                                        }
+                                        logger.LogUGEOI("DateZond: " + dateZond.ToString("dd.MM.yyyy"));
+                                        //запись данных 
+                                        int numberWolfs = -1;
+                                        if(Convert.ToInt32(codeSplit[5].Substring(0, 1)) == 1)
+                                        {
+                                            numberWolfs = Convert.ToInt32(codeSplit[5].Substring(1, 4));
+                                        }
+                                        int numberF = -1;
+                                        if (Convert.ToInt32(codeSplit[6].Substring(0, 1)) == 2)
+                                        {
+                                            numberF = Convert.ToInt32(codeSplit[6].Substring(1, 3));
+                                        }
+                                        logger.LogUGEOI("W: " + codeSplit[5] + " - " + numberWolfs);
+                                        logger.LogUGEOI("F: " + codeSplit[6] + " - " + numberF);
+                                        GeospaceEntity.Models.ConsolidatedTable table = GeospaceEntity.Models.ConsolidatedTable.GetByDateUTC(dateZond.Year, dateZond.Month, dateZond.Day);
+                                        if( table == null )
+                                        {
+                                                table = new ConsolidatedTable();
+                                                table.YYYY = dateZond.Year;
+                                                table.MM = dateZond.Month;
+                                                table.DD = dateZond.Day;
+                                                if (numberWolfs != -1) table.SetValueByType("Th2", numberWolfs.ToString());
+                                                if (numberF != -1) table.SetValueByType("Th4", numberF.ToString());
+                                                table.Save();
+                                        }
+                                        else
+                                        {
+                                            if (numberWolfs != -1 ) table.SetValueByType("Th2", numberWolfs.ToString());
+                                            if (numberF != -1) table.SetValueByType("Th4", numberF.ToString());
+                                            table.Update();
+                                        }
+                                        
+                                    }
                                     if (code.Substring(0).ToUpper().IndexOf("MAGMA") >= 0)
                                     {
                                         try
@@ -253,7 +317,8 @@ namespace GeospaceCore
                                                             theCodeIonka.Decode(session);
                                                             //проверка на отказ записи в будущее))
                                                             DateTime DayNow = DateTime.Now;
-                                                            if (DayNow.Hour >= HH || theCodeIonka.DD < DayNow.Day || theCodeIonka.MM < DayNow.Day || theCodeIonka.YYYY < DayNow.Year)
+                                                            DateTime OlaDay = new DateTime(theCodeIonka.YYYY, theCodeIonka.MM, theCodeIonka.DD, HH, 0, 0);
+                                                            if (DayNow >= OlaDay)
                                                                 theCodeIonka.Save();
                                                             else
                                                             {

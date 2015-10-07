@@ -65,8 +65,8 @@ namespace GeospaceEntity.Models
             {
                 time = "0900";
             }
-            telegram += " " + TimeNow.Day + time + "\n"; 
-            Other.SendToAspd("Полусуточный прогноз", telegram + this.subday_forecast + "=\nБОРЗОВА-\nНННН");
+            telegram += " " + TimeNow.ToString("dd") + time + "\n"; 
+            Other.SendToAspd("Полусуточный прогноз", telegram + this.subday_forecast + "=\nНННН");
         }
 
         public virtual void Send_MonthForecast()
@@ -74,14 +74,14 @@ namespace GeospaceEntity.Models
             DateTime TimeNow = DateTimeKhabarovsk.Now;
             string telegram = "ЗЦЗЦ 010 5200/=Н235\nААЩБЛГ ХБРВ " + TimeNow.ToString("ddHHmm") + "\n" +
                 "ХАБАРОВСКА " + TimeNow.ToString("dd/MM HHmm=") + "\n01 МОСКВА ИПГ ДЕНИСОВОЙ=\nМЕСЯЧНАЯ СПРАВКА\n";
-            Other.SendToAspd("Месячный прогноз", telegram + this.forecast_month_ionosphera + "=\nБОРЗОВА-\nНННН");
+            Other.SendToAspd("Месячный прогноз", telegram + this.forecast_month_ionosphera + "=\nНННН");
         }
 
         public virtual void Send_FivedaysForecast()
         {
             DateTime TimeNow = DateTime.Now;
             string telegram = "ЗЦЗЦ 025 040001/=Н288\nЗИРА40 ХБРВ " + TimeNow.ToString("ddHHmm") + "\n";
-            Other.SendToAspd("Пятисуточный прогноз", telegram + this.forecast_days_fives + "=\nБОРЗОВА-\nНННН");
+            Other.SendToAspd("Пятисуточный прогноз", telegram + this.forecast_days_fives + "=\nНННН");
         }
     }
 }
