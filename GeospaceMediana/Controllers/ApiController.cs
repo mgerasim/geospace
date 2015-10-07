@@ -260,7 +260,7 @@ namespace GeospaceMediana.Controllers
                 theApi.theData.Add(new ApiConsolidatedTable.ApiConsolidatedTableItem(item));
             }
 
-            return Json(theApi, JsonRequestBehavior.AllowGet);
+            return Json(theApi, "application/json", Encoding.GetEncoding("windows-1251"), JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -3,26 +3,19 @@
 @{
     ViewBag.Title = @ViewBag.Title;
 }
-@{
-    if(@ViewBag.Api == 1)
-    {
-        Layout = "";
-    }
-    else
-    {
-        @section Styles
-        {
-            @Styles.Render("~/Content/css-loadtriangles.css")
-        }
-        <script>
+@section Styles
+{
+    @Styles.Render("~/Content/css-loadtriangles.css")
+}
+<script>
 
-            var submitUrl = "@Url.Action("Submit", "ConsolidatedTable")";
-            var submitEventUrl = "@Url.Action("SubmitEvent", "ConsolidatedTable")";
-            var delEventUrl = "@Url.Action("DeleteEvent", "ConsolidatedTable")";
-            var currentYear = "@ViewBag.Year";
-            var currentMonth = "@ViewBag.Month";
-            var dateString = "@ViewBag.DateString";
-        </script>
+    var submitUrl = "@Url.Action("Submit", "ConsolidatedTable")";
+    var submitEventUrl = "@Url.Action("SubmitEvent", "ConsolidatedTable")";
+    var delEventUrl = "@Url.Action("DeleteEvent", "ConsolidatedTable")";
+    var currentYear = "@ViewBag.Year";
+    var currentMonth = "@ViewBag.Month";
+    var dateString = "@ViewBag.DateString";
+</script>
     
 <h2>Сводная таблица за (@ViewBag.DateString)</h2>
     <script type="text/javascript">
@@ -295,15 +288,6 @@
         $("#exampleInputRadioBursts").val("");
     }
 </script>
-
-    }
-}
-
-@*@section Styles
-{
-    @Styles.Render("~/Content/css-loadtriangles.css")
-}*@
-
 
 
 <style>
