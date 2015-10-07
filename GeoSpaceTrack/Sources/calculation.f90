@@ -2,6 +2,7 @@ module calculation
 
 use const
 use error
+use radio
 
 public
 
@@ -119,7 +120,7 @@ contains
 			DO(3) = DO(2) + (DO(5) - DO(2)) / 3
 			DO(2) = 2 * DO(1)			
 			DO(4) = DO(5) - (DO(5) - DO(2)) / 3
-			D06 = D - DO(1)
+			DO(6) = D - DO(1)
 		end if
 
 		!print *, "DEBUG KTO = ", KTO	
@@ -184,7 +185,7 @@ contains
  			print *, "DEBUG       DO(", i, ") =", DO(i) 
  		end do
 
- 		print *, "OUTPUT D", NINT(D)
+ 		print *, "OUTPUT D ", NINT(D)
 
 		print *, "DEBUG    ...finish calc_coord"
 		return
@@ -278,7 +279,8 @@ subroutine Convert_Geomagnetic_Coord(XO, YO, GTO300, GYO)
 
 		!print *, "DEBUG", YO      
 
-		if(YO > PI - 69.0*PI/180.0 .and. YO < 291.0*PI/180.0) then 
+		!if(YO > PI - 69.0*PI/180.0 .and. YO < 291.0*PI/180.0) then 
+		if(YO > PI - 80.4*PI/180.0 .and. YO < 279.6*PI/180.0) then 
 			GYO = 2.0*PI - GYO
 			!if( GYO1 < PI ) then
 			!	GYO = GYO1
@@ -395,40 +397,80 @@ subroutine Convert_Geomagnetic_Coord(XO, YO, GTO300, GYO)
 		end do		
 	end subroutine Calc_Coeff_H_G
 
-subroutine Calc_F0_M3000(f0F2, M3000F2, month, W, XO, YO, hour)
-	real                      	 :: I300, degree, f0F2, M3000F2, GTO300, GYO, XO, YO
+subroutine Calc_F0_M3000(f0F2, M3000F2, month, W, XO, YO, hour, path, DATADIR, numberKTO)
+    character(255)               :: path, DATADIR
+	real                      	 :: I300, degree, f0F2, M3000F2, GTO300, GYO, XO, YO, dx, dy, dgx300
 	real, dimension ( 25, 70 )   :: coeffF0, coeffM3000
-	integer                      :: i, j, W, month, hour, m, n
+	real, dimension ( 24 )       :: tempArray
+	integer                      :: i, j, W, month, hour, m, n, numberKTO, h
 	
 	call Convert_Geomagnetic_Coord(XO, YO, GTO300, GYO)
-	call Calc_Coeff_H_G( W, coeffF0, coeffM3000, month )
-
-	i = 1
-	m = 0
-	n = 0
-	call rad_to_degree( GTO300, degree )
-	j = nint( degree )
-	!print *, "DEBUG j =", j, degree, hour
-	do m = 0, MFM, 1		
-		do n = m, NFM - 2*m, 1	
-			!print *, "DEBUG ", m, n
-			!print *, "DEBUG ", coeffF0(hour, 2*i)
-			f0F2 = f0F2 + (coeffF0(hour, 2*i-1)*cos( m*GYO ) + coeffF0(hour,2*i)*sin( m*GYO )) * POLYNOM( j+1, i )
-			M3000F2 = M3000F2 + (coeffM3000(hour, 2*i-1)*cos( m*GYO ) + coeffM3000(hour,2*i)*sin( m*GYO )) * POLYNOM( j+1, i )
-			i = i + 1	
+	call rad_to_degree( XO, dx )
+	call rad_to_degree( YO, dy )
+	call rad_to_degree( GTO300, dgx300 )
+	dgx300 = 90.0 - dgx300
+	!print *, "DEBUG 00"
+	if( len_trim(path) == 0 ) then
+		!print *, "DEBUG 11"
+		go to 100
+		call Calc_Coeff_H_G( W, coeffF0, coeffM3000, month )
+		i = 1
+		m = 0
+		n = 0
+		call rad_to_degree( GTO300, degree )
+		j = nint( degree )
+		!print *, "DEBUG j =", j, degree, hour
+		do m = 0, MFM, 1		
+			do n = m, NFM - 2*m, 1	
+				!print *, "DEBUG ", m, n
+				!print *, "DEBUG ", coeffF0(hour, 2*i)
+				f0F2 = f0F2 + (coeffF0(hour, 2*i-1)*cos( m*GYO ) + coeffF0(hour,2*i)*sin( m*GYO )) * POLYNOM( j+1, i )
+				M3000F2 = M3000F2 + (coeffM3000(hour, 2*i-1)*cos( m*GYO ) + coeffM3000(hour,2*i)*sin( m*GYO )) * POLYNOM( j+1, i )
+				i = i + 1	
+			end do
 		end do
-	end do
+100     call getM3000_foF2(dgx300, dx, dy, month, hour-1, W, M3000F2, f0F2, DATADIR, .true.)
+		!print *, "DEBUG", dgx300, dx, dy
+	else
+		!print *, "DEBUG 22"
+		!print *, "DEBUG numberKTO =", numberKTO
+		open (unit = 1, file = path)
+		do i = 1, (numberKTO-1)*2
+			read(1,*)
+		end do
+
+		h = hour
+		if(h == 25) then
+			h = 1
+		end if
+
+		read(1, *) (tempArray(i), i=1, 24)
+		f0F2 = tempArray(h) / 10.0
+
+		read(1, *) (tempArray(i), i=1, 24)
+		M3000F2 = tempArray(h) / 10.0
+
+		!print *, "DEBUG !!!!!!!!", f0F2, M3000F2
+		close(1)
+	end if
 
 end subroutine Calc_F0_M3000
 
-real function Calc_MPF2(D, W, month, hour, XO, YO)
-	integer                    :: W, month, hour
+real function Calc_MPF2(D, W, month, hour, XO, YO, path, DATADIR, numberKTO)
+	CHARACTER(255)             :: path
+	character(255)             :: DATADIR 
+	integer                    :: W, month, hour, numberKTO
 	real                       :: D, F, FF, MDF2, f0F2, C, M3000F2, XO, YO, cSin, cCos
 	CHARACTER(50) error	
 
 	f0F2 = 0.0
 	M3000F2 = 0.0
-	call Calc_F0_M3000(f0F2, M3000F2, month, W, XO, YO, hour)	
+	call Calc_F0_M3000(f0F2, M3000F2, month, W, XO, YO, hour, path, DATADIR, numberKTO)
+
+	if( f0F2 == 100 .or. M3000F2 == 100 ) then
+		Calc_MPF2 = 1000
+		return
+	end if
 
 	!print *, "DEBUG", f0F2, M3000F2, f0F2* M3000F2
 
@@ -477,12 +519,15 @@ real function Calc_MPF2(D, W, month, hour, XO, YO)
 	end if
 	MDF2 = 1 / MDF2
 
+	!print *, "DEBUG !!!!!!!!!!!!!!!!", MDF2
+
 	Calc_MPF2 = f0F2 * MDF2
 end function Calc_MPF2
 
 subroutine Draw_Isoline()
-		integer              :: m, n, x, y, i, j, p, q, h
-		real                 :: rx, ry, gx, gy, f0F2, M3000F2
+		CHARACTER(255)       :: path, DATADIR
+		integer              :: m, n, x, y, i, j, p, q, h, W, month
+		real                 :: rx, ry, gx, gy, f0F2, M3000F2, dx, dy, dgx300
 		CHARACTER(10)        :: sh
 
 		real, allocatable :: h2(:,:), f2_4000_1(:,:), f2_4000_2(:,:)
@@ -490,7 +535,10 @@ subroutine Draw_Isoline()
 		allocate ( f2_4000_1(361,181 ) )
 		allocate ( f2_4000_2(361,181 ) )
 
-		
+		DATADIR = "C:\\inetpub\\wwwroot\\mediana\\bin2\\data\\"
+		W = 50
+		month = 9
+		path = ""
 
 		do h = 1, HOURS
 			print *, h
@@ -505,6 +553,7 @@ subroutine Draw_Isoline()
 			open (unit = 1, file = "temp\\in\\F2_0.txt")
 			open (unit = 2, file = "temp\\in\\F2_4000_1.txt")
 			open (unit = 3, file = "temp\\in\\F2_4000_2.txt")
+			open (unit = 5, file = "temp\\in\\F2_4000_diff.txt")
 
 			open (unit = 4, file = "temp\\temp.txt" )
 
@@ -522,12 +571,13 @@ subroutine Draw_Isoline()
 					f0F2 = 0.0
 					M3000F2 = 0.0
 					call Convert_Geomagnetic_Coord(rx, ry, gx, gy)
-					call Calc_F0_M3000(f0F2, M3000F2, 1, 10, rx, ry, h)
+					
+					call Calc_F0_M3000(f0F2, M3000F2, month, W, rx, ry, h, path, DATADIR, 1)
 					!write (1, *), f0F2, gx, gy
 
 					h2(q,p) = 0.0
 					
-
+					go to 200
 					call rad_to_degree( gx, degree )
 					j = nint( degree )
 					i = 0
@@ -541,16 +591,17 @@ subroutine Draw_Isoline()
 						end do
 					end do
 
-					h2(q,p) = h2(q,p) + f0F2
+					200 h2(q,p) = f0F2
 
 					f2_4000_1(q,p) = (17.8*(f0F2*M3000F2 - h2(q,p))/14.75) + h2(q,p)
-					f2_4000_2(q,p) = Calc_MPF2(4000.0, 10, 1, h, rx, ry)
+					f2_4000_2(q,p) = Calc_MPF2(4000.0, W, month, h, rx, ry, path, DATADIR, 1)
 
 					q = q + 1
 				end do
 				write (1, '(361f15.8)'), h2(:,p)
 				write (2, '(361f15.8)'), f2_4000_1(:,p)
 				write (3, '(361f15.8)'), f2_4000_2(:,p)
+				!write (5, '(361f15.8)'), f2_4000_1(:,p) - f2_4000_2(:,p)
 				p = p + 1
 				
 			end do
@@ -560,15 +611,17 @@ subroutine Draw_Isoline()
 			close(2)
 			close(3)
 			close(4)
+			close(5)
 
 			if( h - 1 < 10 ) then
 				write (sh, "(I1)") h - 1
 			else
 				write (sh, "(I2)") h - 1
 			end if
-			call EXECUTE_COMMAND_LINE("plot_py.py temp\\in\\F2_0.txt temp\\out\\F2_0\\F2_0_" // sh // " 10.0 1.0")
+			call EXECUTE_COMMAND_LINE("plot_py.py temp\\in\\F2_0.txt temp\\out\\F2_0\\F2_0_" // sh // " 20.0 1.0")
 			call EXECUTE_COMMAND_LINE("plot_py.py temp\\in\\F2_4000_1.txt temp\\out\\F2_4000_1\\F2_4000_1_" // sh // " 50.0 5.0")
 			call EXECUTE_COMMAND_LINE("plot_py.py temp\\in\\F2_4000_2.txt temp\\out\\F2_4000_2\\F2_4000_2_" // sh // " 50.0 5.0")
+			!call EXECUTE_COMMAND_LINE("plot_py.py temp\\in\\F2_4000_diff.txt temp\\out\\F2_4000_diff\\F2_4000_diff_" // sh // " 50.0 0.5")
 		end do
 
 		deallocate(h2)
@@ -609,5 +662,32 @@ subroutine Draw_Isoline()
 
 		close(1)
 	end subroutine Test_Convert_To_Geo_Coord
+
+	subroutine Test_Convert_To_Geo_Coord2()
+		real                               :: XO, YO, GTO300, GYO
+		real, dimension ( 2, SIZE_PROVE1 ) :: diff
+		real                            :: x, y
+
+		open (unit = 1, file = "C:\\out.txt")
+
+		do x = 90.0, -90.0, -1.0
+			do y = 0.0, 360, 1.0
+			
+
+				call degree_to_rad( x, XO )
+				call degree_to_rad( y, YO )
+
+				call Convert_Geomagnetic_Coord(XO, YO, GTO300, GYO)
+				call rad_to_degree( GTO300, GTO300 )
+				call rad_to_degree( GYO, GYO )
+
+				GTO300 = 90.0 - GTO300
+
+				write (1,*),  x, y, GTO300
+			 end do
+		end do
+
+		close(1)
+	end subroutine Test_Convert_To_Geo_Coord2
 
 end module calculation

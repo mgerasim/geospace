@@ -349,6 +349,27 @@ namespace GeospaceEntity.Helper
                 end = end.AddDays(-1);
                 DateTime start = end.AddDays(-29);
                 List<CodeIonka> listIonka = (List<CodeIonka>)CodeIonka.GetByPeriod_StaticHH(stat, start, end, hour);
+
+                if (listIonka.Count < 3)
+                {
+                    average.F2_05 = 1000;
+                    average.F2_07 = 1000;
+                    average.F2_10 = 1000;
+                    average.F2_20 = 1000;
+                    average.F2_27 = 1000;
+                    average.F2_30 = 1000;
+
+                    average.M3000_05 = 1000;
+                    average.M3000_07 = 1000;
+                    average.M3000_10 = 1000;
+                    average.M3000_20 = 1000;
+                    average.M3000_27 = 1000;
+                    average.M3000_30 = 1000;
+
+                    average.Update();
+                    return;
+                }
+
                 listIonka.Reverse();
 
                 for( int i = 0; i < listIonka.Count; i++ )

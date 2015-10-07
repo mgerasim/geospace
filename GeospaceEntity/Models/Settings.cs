@@ -12,6 +12,7 @@ namespace GeospaceEntity.Models
         public virtual int ID { get; set; }
         public virtual string MonthForecastTrack { get; set; }
         public virtual string FiveDayForecastTrack { get; set; }
+        public virtual string DATADIR { get; set; }
         public virtual string SNMP_host { get; set; }
         public virtual int SNMP_port { get; set; }
         public virtual string Email_ASPD_To { get; set; }

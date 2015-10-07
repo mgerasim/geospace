@@ -27,8 +27,11 @@ real, dimension ( 2, SIZE_PROVE1 ) :: diff
 real, dimension ( 25, 70 )  :: coeffF0Global, coeffM3000Global
 
 
-call Test_Convert_To_Geo_Coord()
-!call Draw_Isoline()
+
+!call Test_Convert_To_Geo_Coord()
+call Draw_Isoline()
+
+!call Test_Convert_To_Geo_Coord2()
 
 print *, "DEBUG ...finish programm"
 END

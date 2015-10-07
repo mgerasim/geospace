@@ -61,6 +61,7 @@ namespace GeospaceMediana.Controllers
                 // TODO: Add update logic here
                 string MonthForecastTrack = collection.Get("MonthForecastTrack");
                 string FiveDayForecastTrack = collection.Get("FiveDayForecastTrack");
+                string DATADIR = collection.Get("DATADIR");
                 string SNMP_host = collection.Get("SNMP_host");
                 int SNMP_port = Convert.ToInt32(collection.Get("SNMP_port"));
                 string Email_ASPD_To = collection.Get("Email_ASPD_To");
@@ -70,6 +71,7 @@ namespace GeospaceMediana.Controllers
                     ID = id,
                     MonthForecastTrack = MonthForecastTrack,
                     FiveDayForecastTrack = FiveDayForecastTrack,
+                    DATADIR = DATADIR,
                     SNMP_host = SNMP_host,
                     SNMP_port = SNMP_port,
                     Email_ASPD_To = Email_ASPD_To,

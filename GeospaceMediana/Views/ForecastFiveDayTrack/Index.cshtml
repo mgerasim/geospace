@@ -8,10 +8,17 @@
     <div class="form-group">
         <label for="Name" class="col-sm-2 control-label">Потребители</label>
         <div class="col-sm-10">
-            <select name="Consumer" class="form-control">
+            <select name="Consumer" class="form-control" >
                 @foreach (var item in Model.consumers)
                 {
-                    <option value="@item.ID">@item.Name</option>
+                    if( item.ID == Model.id )
+                    {
+                        <option value="@item.ID" selected>@item.Name</option>
+                    }
+                    else
+                    { 
+                        <option value="@item.ID">@item.Name</option>
+                    }
                 }
             </select>
         </div>
@@ -38,13 +45,22 @@
     </div>
 }
 
+
 @for (int i = 0; i < Model.quantity; i++)
 {
     <h4 style="align-items:center"><textarea name="comment" readonly style="border: none; height: 100px; width: 500px; overflow: hidden; resize: none; ">@Model.title[i]</textarea></h4>
-    <div id="container_@i" style="width:100%; height:500px;"></div>
+    if( Model.calcValue[i] == 0)
+    {        
+        <div id="container_@i" style="width:100%; height:500px;"></div>
 
-    @DrawTrack("container_" + @i.ToString(), "Месячный прогноз для радиотрасс", Model.listOutput[i])
+        @DrawTrack("container_" + @i.ToString(), "Пятидневный прогноз для радиотрасс", Model.listOutput[i])
+    }
+    else
+    {
+        <h4>Отсутствуют данные для формирования пятидневного прогноза</h4>
+    }
 }
+
 
 
 @section Scripts

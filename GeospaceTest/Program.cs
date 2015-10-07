@@ -19,7 +19,7 @@ namespace GeospaceTest
 
            //Support02();
            Support03();
-           //Support04();
+           Support04();
            // Support05(); 
 
            //Support06();
@@ -28,7 +28,7 @@ namespace GeospaceTest
 
            //Support09();
            //Support10();
-            Support11();
+            //Support11();
 
             Console.WriteLine("Ok");
             Console.ReadKey();
@@ -111,7 +111,7 @@ namespace GeospaceTest
 
             ICalculation theCalcAverage = new Calculation(theLoggerAverage);
             //theCalcAverage.AverageCalc_Run();
-            theCalcAverage.AverageCalc_Run(new DateTime(2015,6,1,0,0,0), new DateTime(2015, 9, 17, 23, 0, 0));
+            theCalcAverage.AverageCalc_Run(new DateTime(2015,6,1,0,0,0), new DateTime(2015, 10, 7, 23, 0, 0));
         }   
         
         
@@ -128,32 +128,7 @@ namespace GeospaceTest
         }
         static void Support02()
         {
-            try
-            {
-                List<string> output = new List<string>();
-                List<string> log = new List<string>();
-                log.Add("");
-
-                output.Add("");   //MUF
-                output.Add("");   //OPF
-                output.Add("");   //параметры: D
-                int W = 60; 
-
-                Track track = Track.GetById(1);
-                string param = track.PointA.Longitude + " "
-                    + track.PointA.Latitude + " "
-                    + track.PointB.Longitude + " "
-                    + track.PointB.Latitude + " "
-                    + W.ToString() + " "
-                    + DateTime.Now.AddMonths(-1).Month.ToString(); 
-
-                GeospaceEntity.Helper.HelperTrack.Start(log, output, param, true, true );
-                Console.WriteLine(log[0]);
-            }
-            catch( System.Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            
 
             
         }

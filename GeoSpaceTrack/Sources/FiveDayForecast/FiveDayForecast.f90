@@ -18,92 +18,96 @@ PROGRAM CalcFiveDayForecastTrack
 use calculation
 use forecast
 
-CHARACTER(255)                     :: sNumber, path, sW, sMonth, slon1, slon2, slat1, slat2
+CHARACTER(255)                     :: sNumber, path, sW, sMonth, slon1, slon2, slat1, slat2, DATADIR
 real                               :: lon1, lat1, lon2, lat2, distMin, delta
-real                               :: x1, y1, x2, y2, D
-integer                            :: KTO, month, W, number, statID, quantityStat
+real                               :: x1, y1, x2, y2, D, dxo, dyo
+integer                            :: KTO, month, W, number, statCode, quantityStat
 real, dimension ( SIZE_KTO )       :: XO, YO, GTO300, GYO
 real, dimension ( 2, SIZE_PROVE1 ) :: diff
 real, dimension ( 25, 70 )         :: coeffF0Global, coeffM3000Global
 real, allocatable                  :: lons(:), lats(:)
-integer, allocatable               :: ids(:)
+integer, allocatable               :: codes(:)
 
 print *, "DEBUG start programm..."
 
 CALL GETARG(1, sNumber)
 read (sNumber, *) number
 
+CALL GETARG(2, slon1)
+CALL GETARG(3, slat1)
+CALL GETARG(4, slon2)
+CALL GETARG(5, slat2)
+CALL GETARG(6, path)
+read (slon1, *) lon1
+read (slat1, *) lat1
+read (slon2, *) lon2
+read (slat2, *) lat2
 
-if( number == 0 ) then
-	CALL GETARG(2, slon1)
-	CALL GETARG(3, slat1)
-	CALL GETARG(4, slon2)
-	CALL GETARG(5, slat2)
-	CALL GETARG(6, path)
-	read (slon1, *) lon1
-	read (slat1, *) lat1
-	read (slon2, *) lon2
-	read (slat2, *) lat2
+print *, "DEBUG " // path
+print *, "DEBUG PostA: " // slon1 // "  " // slat1 // "PostB: " // slon2 // "  " // slat2
 
-	print *, "DEBUG " // path
-	print *, "DEBUG PostA: " // slon1 // "  " // slat1 // "PostB: " // slon2 // "  " // slat2
+KTO = 0
+do i = 1, SIZE_KTO, 1
+	XO(i) = 0.0 
+	YO(i) = 0.0
+end do
 
+call degree_to_rad(lat1, x1)
+call degree_to_rad(lon1, y1)
+call degree_to_rad(lat2, x2)
+call degree_to_rad(lon2, y2)
 
-	KTO = 0
-	do i = 1, SIZE_KTO, 1
-		XO(i) = 0.0 
-		YO(i) = 0.0
-	end do
+call calc_coord( x1, y1, x2, y2, KTO, XO, YO, lat1, lat2, D )
 
-	call degree_to_rad(lat1, x1)
-	call degree_to_rad(lon1, y1)
-	call degree_to_rad(lat2, x2)
-	call degree_to_rad(lon2, y2)
-	call calc_coord( x1, y1, x2, y2, KTO, XO, YO, lat1, lat2, D )
-
-	!call Convert_Geomagnetic_Coord(XO(1), YO(1), GTO300(1), GYO(1))
-	!print *, "DEBUG !!!!!!!!!!", XO(1), YO(1), GTO300(1), GYO(1)
+if( number == 0 ) then	
 
 	open (unit = 1, file = path)
 	read(1,*) quantityStat
 	
-	allocate( ids(quantityStat), lons(quantityStat), lats(quantityStat) )
+	allocate( codes(quantityStat), lons(quantityStat), lats(quantityStat) )
 	do j = 1, quantityStat
-		read(1,*) ids(j), lons(j), lats(j)		
+		read(1,*) codes(j), lons(j), lats(j)		
 	end do
 	close(1)
 
-	distMin = -1
+	
 	print *, "DEBUG KTO = ", KTO
 	do i = 1, KTO, 1
 		print *, "DEBUG XO[",i,"] = ", XO(i), "YO[",i,"] = ", YO(i)
-		
+		distMin = -1
+		statCode = 0
 		do j = 1, quantityStat
-			print *, "DEBUG ", ids(j), lons(j), lats(j)
-			delta  = (lats(j) - XO(i))**2 + ((lons(j)-YO(i))/2.5)**2
+			call rad_to_degree( XO(i), dxo )
+			call rad_to_degree( YO(i), dyo )
+			delta  = (lats(j) - dxo)**2 + ((lons(j)-dyo)/2.5)**2
+			print *, "DEBUG ", codes(j), delta, distMin, statCode
 			if( distMin < 0 ) then
 				distMin = delta
-				statID = ids(j)
+				statCode = codes(j)
 			end if
 
 			if( delta < distMin ) then
 				distMin = delta
-				statID = id(j)
+				statCode = codes(j)
 			end if
 		end do
-		print *, "DEBUG !!!!!!!!!! ID", statID
+		print *, "DEBUG CODE", statCode
+		print *, "OUTPUT CODE ", statCode
 	end do
-	
-
-	deallocate(ids, lons, lats)
+	deallocate(codes, lons, lats)
 end if
 
 if( number == 1 ) then
-	CALL GETARG(5, sW)
-	CALL GETARG(6, sMonth)
+	CALL GETARG(7, DATADIR)
+	CALL GETARG(8, sW)
+	CALL GETARG(9, sMonth)
 	read (sW, *) W
 	read (sMonth, *) month
 	print *, "DEBUG W: " // sW // "Month: " // smonth
+	print *, "DEBUG", D
+
+	call forecast_MUF( W, month, KTO, XO, YO, D, path, DATADIR )
+
 end if
 
 print *, "DEBUG ...finish programm"

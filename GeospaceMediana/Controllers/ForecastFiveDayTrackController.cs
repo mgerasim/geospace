@@ -12,11 +12,11 @@ namespace GeospaceMediana.Controllers
 {
     public class ForecastFiveDayTrackController : Controller
     {
-        public ActionResult Index( int month = -1, int W = -1 )
+        public ActionResult Index( int id =-1, int month = -1, int W = -1 )
         {
             ViewBag.Title = "Пятидневный прогноз радиотрасс";
 
-            return View(new ViewFiveDayForecastTrack(month, W));
+            return View(new ViewFiveDayForecastTrack(id, month, W));
         }
 
         public ActionResult Calc(ViewFiveDayForecastTrack forecast)
@@ -31,7 +31,7 @@ namespace GeospaceMediana.Controllers
             int W = Convert.ToInt32(collection.Get("W"));
             int month = Convert.ToInt32(collection.Get("month"));
 
-            ViewFiveDayForecastTrack forecast = new ViewFiveDayForecastTrack( month, W );
+            ViewFiveDayForecastTrack forecast = new ViewFiveDayForecastTrack( id, month, W );
             forecast.Calc( id );
 
             return this.Calc(forecast);

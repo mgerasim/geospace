@@ -148,6 +148,7 @@
     <Compile Include="Controllers\TelegramsubController.cs" />
     <Compile Include="Models\ApiCharacterization.cs" />
     <Compile Include="Models\ApiDisturbance.cs" />
+    <Compile Include="Models\ViewMonthForecastTrack.cs" />
     <Compile Include="Models\ViewFiveDayForecastTrack.cs" />
     <Compile Include="Models\ViewForecastTrack.cs" />
     <Compile Include="Properties\Settings.Designer.cs">

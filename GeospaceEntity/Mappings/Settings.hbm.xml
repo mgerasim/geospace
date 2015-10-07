@@ -8,6 +8,7 @@
     
     <property name="MonthForecastTrack" type="string" length="10000"/>
     <property name="FiveDayForecastTrack" type="string" length="10000"/>
+    <property name="DATADIR" type="string" length="10000"/>
     <property name="SNMP_host" />
     <property name="SNMP_port" />
     <property name="Email_ASPD_To" />

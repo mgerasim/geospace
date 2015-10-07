@@ -18,7 +18,9 @@ PROGRAM CalcMonthForecastTrack
 use calculation
 use forecast
 
-CHARACTER(10)            :: slon1, slat1, slon2, slat2, sW, sMonth
+CHARACTER(255)           :: path
+character(255)           :: DATADIR
+CHARACTER(20)            :: slon1, slat1, slon2, slat2, sW, sMonth
 real                     :: lon1, lat1, lon2, lat2 
 real                     :: x1, y1, x2, y2, D
 integer                  :: KTO, month, W
@@ -38,6 +40,7 @@ CALL GETARG(3, slon2)
 CALL GETARG(4, slat2)
 CALL GETARG(5, sW)
 CALL GETARG(6, sMonth)
+CALL GETARG(7, DATADIR)
 
 print *, "DEBUG start programm..."
 
@@ -62,9 +65,8 @@ do i = 1, KTO, 1
 	!print *, "DEBUG XO[",i,"] = ", XO(i), "YO[",i,"] = ", YO(i)
 end do
 
-month = 1
-
-call forecast_MUF( W, month, KTO, XO, YO, D )
+path = ""
+call forecast_MUF( W, month, KTO, XO, YO, D, path, DATADIR )
 
 print *, "DEBUG ...finish programm"
 END

@@ -73,14 +73,14 @@ namespace GeospaceEntity.Helper
             if (e.Data.IndexOf("OUTPUT") >= 0)
             {
                 string str = e.Data.Replace("OUTPUT ", "");
-                if (str.IndexOf("MUF") >= 0)
-                    output[0] += str.Replace("MUF", "").Trim() + ", ";
-                if (str.IndexOf("OPF") >= 0)
-                    output[1] += str.Replace("OPF", "").Trim() + ", ";
-                if (str.IndexOf("D") >= 0)
-                    output[2] += str.Replace("D", "").Trim() + " ";
-                if (str.IndexOf("ID") >= 0)
-                    output[3] += str.Replace("ID", "").Trim() + " ";
+                if (str.IndexOf(" MUF ") >= 0)
+                    output[0] += str.Replace(" MUF ", "").Trim() + ", ";
+                if (str.IndexOf(" OPF ") >= 0)
+                    output[1] += str.Replace(" OPF ", "").Trim() + ", ";
+                if (str.IndexOf(" D ") >= 0)
+                    output[2] += str.Replace(" D ", "").Trim() + " ";
+                if (str.IndexOf(" CODE ") >= 0)
+                    output[3] += str.Replace(" CODE ", "").Trim() + " ";
             }
         }
 
