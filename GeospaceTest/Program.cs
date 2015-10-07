@@ -28,12 +28,19 @@ namespace GeospaceTest
 
            //Support09();
            //Support10();
-           // Support11();
+           //Support11();
+            Support12();
 
             Console.WriteLine("Ok");
             Console.ReadKey();
         }
 
+        static void Support12()
+        {
+            ILogger theLog = new LoggerConsole();
+            ICalculation theCalc = new Calculation(theLog);
+            theCalc.ConsolidatedTableCalc();
+        }
         static void Support11()
         {
             ILogger theLog = new LoggerConsole();

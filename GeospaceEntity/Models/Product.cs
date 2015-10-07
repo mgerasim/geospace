@@ -65,7 +65,7 @@ namespace GeospaceEntity.Models
             {
                 time = "0900";
             }
-            telegram += " " + TimeNow.Day + time + "\n"; 
+            telegram += " " + TimeNow.ToString("dd") + time + "\n"; 
             Other.SendToAspd("Полусуточный прогноз", telegram + this.subday_forecast + "=\nБОРЗОВА-\nНННН");
         }
 

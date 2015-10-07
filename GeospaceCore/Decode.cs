@@ -113,6 +113,12 @@ namespace GeospaceCore
                                                 if (numberF != -1) table.SetValueByType("Th4", numberF.ToString());
                                                 table.Save();
                                         }
+                                        else
+                                        {
+                                            if (numberWolfs != -1 ) table.SetValueByType("Th2", numberWolfs.ToString());
+                                            if (numberF != -1) table.SetValueByType("Th4", numberF.ToString());
+                                            table.Update();
+                                        }
                                         
                                     }
                                     if (code.Substring(0).ToUpper().IndexOf("MAGMA") >= 0)

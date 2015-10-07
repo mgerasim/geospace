@@ -570,7 +570,7 @@ namespace GeospaceEntity.Helper
         {
             string ak = "";
             CodeUmagf code = CodeUmagf.GetByDate(Station.GetByCode(indexStation), time.Year, time.Month, time.Day);
-            if( code != null )ak = code._ak;
+            if (code != null) ak = code.ak.ToString("D2");
             return ak;
         }
         public static string StationIndexK(int indexStation, DateTime time)
@@ -592,10 +592,11 @@ namespace GeospaceEntity.Helper
                 tableCalc.DD = currDate.Day;
                 tableCalc.Save();
             }
-            tableCalc.Th13_Amag = HelperCalculation.StationAk(45601, currDate);
-            tableCalc.Th14_Apar = HelperCalculation.StationAk(46501, currDate);
-            tableCalc.Th15_Akha = HelperCalculation.StationAk(43501, currDate);
-            tableCalc.Th16_K    = HelperCalculation.StationIndexK(43501, currDate);
+            if (tableCalc.Th13_Amag == null || tableCalc.Th13_Amag == "") tableCalc.Th13_Amag = HelperCalculation.StationAk(45601, currDate);
+            if (tableCalc.Th14_Apar == null || tableCalc.Th14_Apar == "") tableCalc.Th14_Apar = HelperCalculation.StationAk(46501, currDate);
+            if (tableCalc.Th15_Akha == null || tableCalc.Th15_Akha == "") tableCalc.Th15_Akha = HelperCalculation.StationAk(43501, currDate);
+            if (tableCalc.Th16_K == null || tableCalc.Th16_K == "") tableCalc.Th16_K = HelperCalculation.StationIndexK(43501, currDate);
+            tableCalc.Update();
 
         }
     }
