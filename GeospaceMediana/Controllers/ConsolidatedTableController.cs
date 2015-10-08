@@ -12,7 +12,7 @@ namespace GeospaceMediana.Controllers
         //
         // GET: /ConsolidatedTable/
 
-        public ActionResult Index( int YYYY = -1, int MM = -1)
+        public virtual ActionResult Index( int YYYY = -1, int MM = -1, int api = 0)
         {
             if (YYYY < 0)
             {
@@ -22,6 +22,7 @@ namespace GeospaceMediana.Controllers
             {
                 MM = DateTime.Now.Month;
             }
+            ViewBag.Api = api;
             DateTime startMonth = new DateTime(YYYY, MM, 1);
             ViewBag.DateString = startMonth.ToString("MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture);
             ViewBag.Year = YYYY;
