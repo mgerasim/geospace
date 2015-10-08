@@ -30,7 +30,7 @@ namespace GeospaceTest
            //Support10();
             //Support11();
            //Support11();
-            Support12();
+            //Support12();
 
             Console.WriteLine("Ok");
             Console.ReadKey();

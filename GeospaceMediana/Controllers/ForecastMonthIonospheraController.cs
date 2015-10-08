@@ -78,7 +78,7 @@ namespace GeospaceMediana.Controllers
                 return Content("Ошибка при отправлении данных! Проверьте корректность вводимых данных.");
             }
         }
-        public ActionResult SubmitTelegram(int year, int month, string title)
+        public ActionResult SubmitTelegram(int year, int month, string title, string numberTel = "")
         {
 
             try
@@ -160,7 +160,7 @@ namespace GeospaceMediana.Controllers
 
                 if (theProduct != null)
                 {
-                    theProduct.Send_MonthForecast();
+                    theProduct.Send_MonthForecast(numberTel);
                 }
 
                 return Content("");

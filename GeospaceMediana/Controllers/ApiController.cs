@@ -4,7 +4,9 @@ using GeospaceEntity.Models.Codes;
 using GeospaceMediana.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -242,6 +244,7 @@ namespace GeospaceMediana.Controllers
         
         public JsonResult GetConsolidatedTable(int YYYY = -1, int MM = -1)
         {
+           // GeospaceMediana.Controllers.ConsolidatedTableController
             ApiConsolidatedTable theApi = new ApiConsolidatedTable();
             if (YYYY == -1)
             {
@@ -261,6 +264,26 @@ namespace GeospaceMediana.Controllers
             }
 
             return Json(theApi, "application/json", Encoding.GetEncoding("windows-1251"), JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetConsolidatedTableView(int YYYY = -1, int MM = -1)
+        {
+            // GeospaceMediana.Controllers.ConsolidatedTableController
+            ApiConsolidatedTable theApi = new ApiConsolidatedTable();
+            if (YYYY == -1)
+            {
+                YYYY = DateTime.Now.Year;
+            }
+            if (MM == -1)
+            {
+                MM = DateTime.Now.Month;
+            }
+            var url = this.Url.Action("Index", "ConsolidatedTable", new { YYYY = YYYY , MM = MM, api = 1 }, Request.Url.Scheme);
+            WebRequest request = WebRequest.Create(url);
+            Stream stream = request.GetResponse().GetResponseStream();
+            StreamReader streamReader = new StreamReader(stream);
+            string htmlCode = streamReader.ReadToEnd();
+            
+            return Json(htmlCode, "application/json", Encoding.GetEncoding("windows-1251"), JsonRequestBehavior.AllowGet);
         }
     }
 }

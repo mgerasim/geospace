@@ -82,12 +82,11 @@
     }
     function saveForecastTelegramBD()
     {
-        var resUrl = window.submitUrl2 +
-                        "?year=" + window.currentYear +
-                        "&month=" + window.currentMonth +
-                        "&range_number=" + currentRangeNaumber;
+        var param = { year: window.currentYear, month: window.currentMonth, range_number: currentRangeNaumber, numberTel: $("#SNumber").val()};
         $.ajax({
-            url: resUrl
+            url: window.submitUrl2,
+            data: param
+            
         });
     }
 
@@ -352,6 +351,12 @@
                         <label for="SNumber" class="col-sm-5 control-label">Номер телеграммы</label>
                         <div class="col-sm-5">
                             <input type="text" class="form-control" id="SNumber" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="AuthorTelegram" class="col-sm-5 control-label">Автор телеграммы</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" id="AuthorTelegram" placeholder="">
                         </div>
                     </div>
 

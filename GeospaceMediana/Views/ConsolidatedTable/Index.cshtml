@@ -3,7 +3,10 @@
 @{
     ViewBag.Title = @ViewBag.Title;
 }
-@section Styles
+@{
+if (ViewBag.Api == 0)
+{
+        @section Styles
 {
     @Styles.Render("~/Content/css-loadtriangles.css")
 }
@@ -17,7 +20,8 @@
     var dateString = "@ViewBag.DateString";
 </script>
     
-<h2>Сводная таблица за (@ViewBag.DateString)</h2>
+
+    <h2>Сводная таблица за (@ViewBag.DateString)</h2>
     <script type="text/javascript">
     var arrayType = ['Balls', 'Coordinates', 'Time', 'RadioBursts'];
     var arrayModel = ['exampleInputBall', 'exampleInputCoordinates', 'exampleInputTime', 'exampleInputRadioBursts'];
@@ -414,6 +418,13 @@
 
     }
 </style>
+
+}
+    
+}
+
+    
+
 @helper DrawLinkEvent(int id, int day , string element , string nameElement)
 {
     if (element != null && element != "")
