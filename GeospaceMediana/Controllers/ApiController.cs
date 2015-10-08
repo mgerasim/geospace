@@ -277,7 +277,6 @@ namespace GeospaceMediana.Controllers
             {
                 MM = DateTime.Now.Month;
             }
-
             var url = this.Url.Action("Index", "ConsolidatedTable", new { YYYY = YYYY , MM = MM, api = 1 }, Request.Url.Scheme);
             WebRequest request = WebRequest.Create(url);
             Stream stream = request.GetResponse().GetResponseStream();

@@ -121,12 +121,12 @@
         saveForecast();
     }
     function saveForecastTelegramBD() {
-        var resUrl = window.submitUrl2 +
-                        "?year=" + window.currentYear +
-                        "&month=" + window.currentMonth;
-                        "&title=" + $("#inputLine1").val() + "\n" + $("#inputLine2").val() + "\n" + $("#inputLine3").val();
+
+        var param = { year: window.currentYear, month: window.currentMonth, title: $("#inputLine1").val() + "\n" + $("#inputLine2").val() + "\n" + $("#inputLine3").val(), numberTel: $("#SNumber").val() };
         $.ajax({
-            url: resUrl
+            url: window.submitUrl2,
+            data: param
+
         });
     }
 
@@ -631,12 +631,21 @@
                             </div>
                         </div>
                     </div>
+                    <form class="form-horizontal" style="padding-top:10px">
+                        <div class="form-group">
+                            <label for="SNumber" class="col-sm-5 control-label">Номер телеграммы</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="SNumber" placeholder="">
+                            </div>
+                        </div>
+                    </form>
                     <p>
 
                         <input type="button" value="Печать" onclick="window.print();" class="btn btn-default btn-lg">
                         <input type="button" value="Сохранить" onclick="saveForecastTelegramBD();" class="btn btn-default btn-lg">
                     </p>
                 </div>
+               
             </div>
         </div>
     </div>
