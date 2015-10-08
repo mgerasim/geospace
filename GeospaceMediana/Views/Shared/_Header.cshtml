@@ -101,7 +101,7 @@
 }
                         @if(ViewBag.Date != null && ViewBag.Station != null)
                         { 
-                            @ShowMenuLink("Данные ионосферы", "Index", "Ionka", new { year = ViewBag.Date.Year, month = ViewBag.Date.Month, stationCode = ViewBag.Station.Code, type = "f0F2", day = ViewBag.Date.Day }, "Состояние ионосферы", false, true)
+                            @ShowMenuLink("Данные наблюдений", "Index", "Ionka", new { year = ViewBag.Date.Year, month = ViewBag.Date.Month, stationCode = ViewBag.Station.Code, type = "f0F2", day = ViewBag.Date.Day }, "Состояние ионосферы", false, true)
 
                             @ShowMenuLink("Прогноз медианы <b>f0F2</b>", "Index", "Mediana", new { year = ViewBag.Date.Year, month = ViewBag.Date.Month, stationCode = ViewBag.Station.Code, type = "f0F2", day = ViewBag.Date.Day }, "Прогноз медианы f0F2")
                             @ShowMenuLink("Прогноз медианы <b>M3000F2</b>", "Index", "Mediana", new { stationCode = ViewBag.Station.Code, type = "M3000F2", year = ViewBag.Date.Year, month = ViewBag.Date.Month, day = ViewBag.Date.Day }, "Прогноз медианы M3000F2")
@@ -113,7 +113,7 @@
                         }
                         else
                         {
-                            @ShowMenuLink("Данные ионосферы", "Index", "Ionka", null, "Состояние ионосферы", false, true)
+                            @ShowMenuLink("Данные наблюдений", "Index", "Ionka", null, "Состояние ионосферы", false, true)
 
                             @ShowMenuLink("Прогноз медианы <b>f0F2</b>", "Index", "Mediana", new { type = "f0F2" }, "Прогноз медианы f0F2")
                             @ShowMenuLink("Прогноз медианы <b>M3000F2</b>", "Index", "Mediana", new { type = "M3000F2" }, "Прогноз медианы M3000F2")

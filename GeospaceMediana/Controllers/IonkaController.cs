@@ -20,7 +20,7 @@ namespace GeospaceMediana.Controllers
         {
             @ViewBag.Title = "Геофизические данные";
 
-            ViewBag.NameMenu = "Данные ионосферы";
+            ViewBag.NameMenu = "Данные наблюдений";
 
             if (type == "M3000F2")
             {
