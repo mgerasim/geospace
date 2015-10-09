@@ -10,6 +10,7 @@ using System.Net;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json;
 
 namespace GeospaceMediana.Controllers
 {
@@ -265,7 +266,7 @@ namespace GeospaceMediana.Controllers
 
             return Json(theApi, "application/json", Encoding.GetEncoding("windows-1251"), JsonRequestBehavior.AllowGet);
         }
-        public JsonResult GetConsolidatedTableView(int YYYY = -1, int MM = -1)
+        public ActionResult GetConsolidatedTableView(int YYYY = -1, int MM = -1)
         {
             // GeospaceMediana.Controllers.ConsolidatedTableController
             ApiConsolidatedTable theApi = new ApiConsolidatedTable();
@@ -282,8 +283,10 @@ namespace GeospaceMediana.Controllers
             Stream stream = request.GetResponse().GetResponseStream();
             StreamReader streamReader = new StreamReader(stream);
             string htmlCode = streamReader.ReadToEnd();
-            
-            return Json(htmlCode, "application/json", Encoding.GetEncoding("windows-1251"), JsonRequestBehavior.AllowGet);
+            return Content(htmlCode, "text/html", Encoding.GetEncoding("windows-1251"));
+            //return Json(htmlCode, "application/json", Encoding.GetEncoding("windows-1251"), JsonRequestBehavior.AllowGet);
         }
+
+
     }
 }

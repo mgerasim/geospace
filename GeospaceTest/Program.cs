@@ -7,6 +7,13 @@ using System.Text;
 using System.Threading.Tasks;
 using GeospaceEntity.Models.Codes;
 using GeospaceCore;
+using GeospaceEntity.Models;
+using Microsoft.Office.Interop.Word;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Web;
 
 namespace GeospaceTest
 {
@@ -35,7 +42,106 @@ namespace GeospaceTest
             Console.WriteLine("Ok");
             Console.ReadKey();
         }
+        static void SupportWord()
+        {
+           // Microsoft.Office.Interop.Word.Application wApp = null;
+           // object oMissing = System.Reflection.Missing.Value;
 
+           // wApp = new Microsoft.Office.Interop.Word.Application();
+           // if (wApp == null)
+           // {
+           //     Console.WriteLine("wApp is null\r\n");
+           //     Console.ReadKey();
+           //    // ViewBag.Error += "wApp is null\r\n";
+           // }
+           // wApp.Visible = false;
+           // var wDocument = wApp.Documents.Add(ref oMissing,
+           //     ref oMissing,
+           //     ref oMissing, ref oMissing);
+           // if (wDocument == null)
+           // {
+           //     Console.WriteLine("wDocument is null\r\n");
+           //     Console.ReadKey();
+           //    // ViewBag.Error += "wDocument is null\r\n";
+           // }
+           //// ViewBag.Error += "2\r\n";
+           // foreach (Microsoft.Office.Interop.Word.Section section in wDocument.Sections)
+           // {
+           //     Microsoft.Office.Interop.Word.Range headerRange = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+           //     headerRange.Fields.Add(headerRange, Microsoft.Office.Interop.Word.WdFieldType.wdFieldPage);
+           //     headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+           //     headerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdBlue;
+           //     headerRange.Font.Size = 14;
+           //     headerRange.Text = "Таблица";
+           // }
+
+           // Console.WriteLine("3\r\n");
+           // Console.ReadKey();
+           //// ViewBag.Error += "3\r\n";
+           // wDocument.Content.SetRange(0, 0);
+
+           // var paragraphTable = wDocument.Paragraphs.Add();
+           // //ViewBag.Error += "4\r\n";
+           // paragraphTable.Range.InsertParagraphAfter();
+           // //ViewBag.Error += "5\r\n";
+
+           // //ViewBag.Error += "7\r\n";
+           // Table firstTable = wDocument.Tables.Add(paragraphTable.Range, DateTime.DaysInMonth(2015, 9) + 1, 20 /*for Day Columnt*/);
+           // firstTable.Borders.Enable = 1;
+           // firstTable.Columns[1].PreferredWidth = 40f;
+           // IList<ConsolidatedTable> tableView = ConsolidatedTable.GetByDateMM(2015, 9);
+           // foreach (Row row in firstTable.Rows)
+           // {
+           //     if (row.IsFirst)
+           //     {
+           //         foreach (Cell cell in row.Cells)
+           //         {
+           //             if (cell.ColumnIndex == 1)
+           //             {
+           //                 cell.Range.Text = "День";
+           //             }
+           //             else
+           //             {
+           //                 cell.Range.Text = tableView[cell.ColumnIndex - 2].DD.ToString();
+           //             }
+
+           //         }
+           //     }
+           //     else
+           //     {
+
+           //         foreach (Cell cell in row.Cells)
+           //         {
+           //             if (cell.ColumnIndex == 1)
+           //             {
+           //                 cell.Range.Text = (cell.RowIndex - 1).ToString("D2");
+           //             }
+           //             else
+           //             {
+           //                 cell.Range.Text = theViewData.DisplaySafe(theViewData.theStationList[cell.ColumnIndex - 2].Code,
+           //                     YYYY,
+           //                     MM,
+           //                     cell.RowIndex - 1);
+           //             }
+
+           //         }
+           //     }
+
+           // }
+
+
+           // string nameDoc = HttpContext.Server.MapPath("~/App_Data/");
+           // string fileName = theViewData.Title + ".doc";
+           // string fileNameTemp = string.Format(@"{0}.doc", Guid.NewGuid());
+           // nameDoc += fileNameTemp;
+
+           // wApp.ActiveDocument.SaveAs2(nameDoc);
+           // wApp.ActiveDocument.Close(true);
+
+           // byte[] fileBytes = System.IO.File.ReadAllBytes(nameDoc);
+           // System.IO.File.Delete(nameDoc);
+           // return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+        }
         static void Support12()
         {
             ILogger theLog = new LoggerConsole();
