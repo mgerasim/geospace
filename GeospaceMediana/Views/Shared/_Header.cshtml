@@ -108,8 +108,8 @@
                             <li class="divider"></li>
                             @ShowMenuLink("Суточные отклонения <b>f0F2</b>", "Index", "CharacterizationDay", new { type = "f0F2" }, "Суточные отклонения f0F2")
                             @ShowMenuLink("Суточные отклонения <b>M3000F2</b>", "Index", "CharacterizationDay", new { type = "M3000F2" }, "Суточные отклонения M3000F2")
-
                             @ShowMenuLink("Диаграмма медианы", "Index", "ChartMediana", new { stationCode = ViewBag.Station.Code, type = "f0F2", year = ViewBag.Date.Year, month = ViewBag.Date.Month, day = ViewBag.Date.Day }, "Диаграмма медианы", true, false)
+                            @ShowMenuLink("Геомагнитные данные", "Index", "Umagf", new { stationCode = ViewBag.Station.Code, year = ViewBag.Date.Year, month = ViewBag.Date.Month, day = ViewBag.Date.Day }, "Геомагнитные данные", true, false)
                         }
                         else
                         {
@@ -122,6 +122,8 @@
                             @ShowMenuLink("Суточные отклонения <b>M3000F2</b>", "Index", "CharacterizationDay", new { type = "M3000F2" }, "Суточные отклонения M3000F2")
 
                             @ShowMenuLink("Диаграмма медианы", "Index", "ChartMediana", null, "Диаграмма медианы", true, false)
+                            <li class="divider"></li>
+                            @ShowMenuLink("Геомагнитные данные", "Index", "Umagf", new { stationCode = ViewBag.Station.Code, year = ViewBag.Date.Year, month = ViewBag.Date.Month, day = ViewBag.Date.Day }, "Геомагнитные данные", true, false)
                         }
                     </ul>
                 </li>
