@@ -1,0 +1,145 @@
+﻿@model List<GeospaceEntity.Models.Codes.CodeUmagf>
+@{
+    ViewBag.Title = "Геомагнитные данные: K-индексы";
+}
+
+@if (ViewBag.Error != null)
+{
+    <h2>@ViewBag.Error</h2>
+}
+else
+{ 
+@section Scripts
+{
+    @Scripts.Render("~/Scripts/highcharts.js")
+<script src="http://code.highcharts.com/stock/modules/exporting.js"></script>
+        @Scripts.Render("~/Scripts/draggable-points.js")
+        }
+<div id="container" style="min-width: 310px; height: 500px; margin: 0 auto"></div>
+
+<script>
+    $(document).ready(function () {
+
+    Highcharts.setOptions({
+    global: {
+        useUTC: false
+    },
+    lang: {
+        loading: 'Загрузка...',
+        months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+        weekdays: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
+        shortMonths: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Нояб', 'Дек'],
+        exportButtonTitle: "Экспорт",
+        printButtonTitle: "Печать",
+        rangeSelectorFrom: "С",
+        rangeSelectorTo: "По",
+        rangeSelectorZoom: "Период",
+        downloadPNG: 'Скачать PNG',
+        downloadJPEG: 'Скачать JPEG',
+        downloadPDF: 'Скачать PDF',
+        downloadSVG: 'Скачать SVG',
+        printChart: 'Напечатать график'
+    }
+});
+
+
+$('#container').highcharts({
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Геомагнитная обстановка за @ViewBag.Date.ToString("MMMM yyyy")'
+    },
+    tooltip: {
+        formatter: function () {
+            return Highcharts.dateFormat('%d.%m.%Y', new Date(this.x)) + '<br/>' + 'Ap: ' + this.y;
+        }
+    },
+    xAxis: {
+        type: "datetime",
+        tickInterval: 24 * 3600 * 1000,
+        labels: {
+            rotation: -45,
+            align: 'right'
+        },
+        dateTimeLabelFormats: { // don't display the dummy year
+            day: '%e %b',
+        }
+    },
+    yAxis: {
+        title: {
+            text: 'Значения индекса Ap'
+        },
+        allowDecimals: false,
+        min: 0
+    },
+    legend: {
+        enabled: false
+    },
+    series: [{
+        name: 'Ap',
+        data: [
+            @foreach (var item in Model)
+            {
+                DateTime dateAK = new DateTime(item.YYYY, item.MM, item.DD);
+                long ticks = (long)dateAK.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds;
+                string ss = "{x:" + ticks.ToString() + ",y:" + item.ak.ToString() + ", color: \"red\"},";
+                string color = "red";
+                if (item.ak <= 14)
+                {
+                    color = "green";
+                }
+                if (14 < item.ak && item.ak <= 19)
+                {
+                    color = "yellow";
+                }
+                    
+                <text>
+                {x:@ticks.ToString(), y:@item.ak, color: '@(color)'},
+                </text>
+            }
+        ],
+        dataLabels: {
+            enabled: true,
+            align: 'center',
+            format: '{point.y}',
+            y:10
+        }
+    }],
+    plotOptions: {
+        series: {
+            pointRange: 24 * 3600 * 1000 // one day
+        }
+    }
+});
+
+
+    })
+
+</script>
+
+}
+
+<br>
+<table border="1" cellpadding="7" cellspacing="1" width="90%">
+    <tbody>
+        <tr align="center">
+            <th align="left" width="20%"><span>Значения A<sub>p</sub></span></th>
+            <td width="13%"><span>0 - 7</span></td>
+            <td width="13%"><span>8 - 14</span></td>
+            <td width="13%"><span>15 - 19</span></td>
+            <td width="13%"><span>20 - 29</span></td>
+            <td width="13%"><span>30 - 49</span></td>
+            <td width="13%"><span>&gt;= 50</span></td>
+        </tr>
+        <tr align="center">
+            <th align="left"><span>Состояние<br>магнитного поля</span></th>
+            <td bgcolor="#00FF00"><span>очень<br>спокойное</span></td>
+            <td bgcolor="#00FF00"><span>спокойное</span></td>
+            <td bgcolor="#FFFF00"><span>неустойчивое</span></td>
+            <td bgcolor="#FF0000"><span>слабо<br>возмущенное</span></td>
+            <td bgcolor="#FF0000"><span>умеренно<br>возмущенное</span></td>
+            <td bgcolor="#FF0000"><br><span>сильно<br>возмущенное<br><br></span></td>
+        </tr>
+    </tbody>
+</table> 

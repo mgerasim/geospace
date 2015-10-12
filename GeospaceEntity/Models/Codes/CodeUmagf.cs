@@ -241,6 +241,12 @@ namespace GeospaceEntity.Models.Codes
             return repo.GetByPeriod(station, startYYYY, startMM, startDD, endYYYY, endMM, endDD);
         }
 
+        public static IList<CodeUmagf> GetByPeriod(Station station, DateTime dateStart, DateTime dateEnd)
+        {
+            return CodeUmagf.GetByPeriod(station, dateStart.Year, dateStart.Month, dateStart.Day,
+                                                    dateEnd.Year, dateEnd.Month, dateEnd.Day);
+        }
+
         public static Codes.CodeUmagf GetById(int id)
         {
             Repositories.CodeUmagfRepository repo = new Repositories.CodeUmagfRepository();

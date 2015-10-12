@@ -1,4 +1,5 @@
-﻿
+﻿@if (ViewBag.Date != null)
+{
 <li class="dropdown">
     <a id="login_head" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">@ViewBag.Station.Name <span class="caret"></span></a>
     <ul class="dropdown-menu" role="menu">
@@ -7,44 +8,16 @@
         {
             if (ViewBag.Station.Code != item.Code)
             {
-                <li><a href="~/Umagf?stationCode=@(item.Code)&YYYY=@(ViewBag.Date.Year)&MM=@(ViewBag.Date.Month)&DD=@(ViewBag.Date.Day)">@item.Name</a></li>
+                <li><a href="~/Umagf/@(ViewContext.Controller.ValueProvider.GetValue("action").RawValue)?stationCode=@(item.Code)&YYYY=@(ViewBag.Date.Year)&MM=@(ViewBag.Date.Month)">@item.Name</a></li>
             }
         }
 
     </ul>
 </li>
-
-<li>
-    @Html.ActionLink("Пред.",
-            "Index",
-            "Umagf",
-            new
-            {       
-                StationCode = ViewBag.Station.Code,                            
-                YYYY = ViewBag.Date.AddDays(-1).Year,
-                MM = ViewBag.Date.AddDays(-1).Month,
-                DD = ViewBag.Date.AddDays(-1).Day
-            },
-                                new
-                                {
-                                    @class = "btn btn-default btn-lg"
-                                }
-)
-</li>
-<li>
-    @Html.ActionLink("След.",
-            "Index",
-                    "Umagf",
-                    new
-                    {
-                        StationCode = ViewBag.Station.Code,
-                        YYYY = ViewBag.Date.AddDays(1).Year,
-                        MM = ViewBag.Date.AddDays(1).Month,
-                        DD = ViewBag.Date.AddDays(1).Day
-                    },
-                                new
-                                {
-                                    @class = "btn btn-default btn-lg"
-                                }
-)
-</li>
+    <li id="goto_next">
+        <a class="btn btn-default btn-lg" href="~/Umagf/@(ViewContext.Controller.ValueProvider.GetValue("action").RawValue)?stationCode=@ViewBag.Station.Code&YYYY=@ViewBag.prevDate.Year&MM=@ViewBag.prevDate.Month&DD=@ViewBag.prevDate.Day">Пред.</a>
+        </li>
+        <li id="goto_next">
+            <a class="btn btn-default btn-lg" href="~/Umagf/@(ViewContext.Controller.ValueProvider.GetValue("action").RawValue)?stationCode=@ViewBag.Station.Code&YYYY=@ViewBag.nextDate.Year&MM=@ViewBag.nextDate.Month&DD=@ViewBag.nextDate.Day">След.</a>
+        </li>
+}
