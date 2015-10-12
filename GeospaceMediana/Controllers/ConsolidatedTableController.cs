@@ -63,7 +63,7 @@ namespace GeospaceMediana.Controllers
                 return Content("Ошибка применения изменения! Проверьте корректность вводимых данных.");
             }
         }
-       
+
         public ActionResult ExportToWord(int YYYY = -1, int MM = -1)
         {
             if (YYYY < 0)
@@ -80,6 +80,7 @@ namespace GeospaceMediana.Controllers
             try
             {
                 Object missingObj = System.Reflection.Missing.Value;
+                ViewBag.Error += "2";
                 Object trueObj = true;
                 Object falseObj = false;
                 //создаем обьект приложения word
@@ -87,25 +88,29 @@ namespace GeospaceMediana.Controllers
                 // создаем путь к файлу
                 Object templatePathObj = HttpContext.Server.MapPath("~/App_Data/table.dotx");
                 // если вылетим не этом этапе, приложение останется открытым
+                ViewBag.Error += "0";
                 try
                 {
                     document = application.Documents.Add(ref  templatePathObj, ref missingObj, ref missingObj, ref missingObj);
                 }
                 catch (Exception error)
                 {
+                    ViewBag.Error += "111";
                     document.Close(ref falseObj, ref  missingObj, ref missingObj);
                     application.Quit(ref missingObj, ref  missingObj, ref missingObj);
                     document = null;
                     application = null;
+                    
                     throw error;
                 }
-                application.Visible = true;
+                application.Visible = false;
                 Word.Table _table = document.Tables[1];
                 // Получение данных о месяце
                 IList<GeospaceEntity.Models.ConsolidatedTable> table_db = GeospaceEntity.Models.ConsolidatedTable.GetByDateMM(YYYY, MM);
                 DateTime startMonth = new DateTime(YYYY, MM, 1);
                 _table.Cell(0, 0).Range.Text = startMonth.ToString("MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture);
                 int day = 0;
+                ViewBag.Error += "3";
                 int correntDay = DateTime.DaysInMonth(YYYY, MM);
                 for (int i = 0; i < correntDay; i++)
                 {
@@ -141,10 +146,10 @@ namespace GeospaceMediana.Controllers
                     }
                 }
                 string nameDoc = HttpContext.Server.MapPath("~/App_Data/");
-                string fileName = "Сводная таблица" + startMonth.ToString("MMMMyyyy", System.Globalization.CultureInfo.CurrentCulture)  + ".doc";
+                string fileName = "Сводная таблица" + startMonth.ToString("MMMMyyyy", System.Globalization.CultureInfo.CurrentCulture)  + ".docx";
                 string fileNameTemp = string.Format(@"{0}.doc", Guid.NewGuid());
                 nameDoc += fileNameTemp;
-
+                ViewBag.Error += "4";
                 application.ActiveDocument.SaveAs2(nameDoc);
                 application.ActiveDocument.Close(true);
 
@@ -154,6 +159,7 @@ namespace GeospaceMediana.Controllers
             }
             catch (Exception ex)
             {
+
                 ViewBag.Error += ex.Message + "\n" + ex.StackTrace + "DDD";
                 if (ex.InnerException != null)
                 {
