@@ -581,6 +581,7 @@
     <Content Include="Views\Umagf\Ap.cshtml" />
     <Content Include="Views\Shared\Empty.cshtml" />
     <Content Include="Views\Umagf\_Menu.cshtml" />
+    <Content Include="Views\ConsolidatedTable\ExportToWord.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

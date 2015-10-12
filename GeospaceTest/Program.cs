@@ -2,16 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GeospaceEntity.Models.Codes;
 using GeospaceCore;
 using GeospaceEntity.Models;
-using Microsoft.Office.Interop.Word;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Word = Microsoft.Office.Interop.Word; //Word  
+using System.Reflection;                    //Word 
 using System.Runtime.InteropServices;
 using System.Web;
 
@@ -25,12 +24,12 @@ namespace GeospaceTest
            // Support01();
 
            //Support02();
-           Support03();
+          // Support03();
            //Support04();
            // Support05(); 
 
            //Support06();
-            Support07();
+           //Support07();
            //Support08();
 
            //Support09();
@@ -38,109 +37,80 @@ namespace GeospaceTest
             //Support11();
            //Support11();
             //Support12();
-
+            SupportWord();
             Console.WriteLine("Ok");
             Console.ReadKey();
         }
         static void SupportWord()
         {
-           // Microsoft.Office.Interop.Word.Application wApp = null;
-           // object oMissing = System.Reflection.Missing.Value;
+            int YYYY = 2015, MM = 10;
 
-           // wApp = new Microsoft.Office.Interop.Word.Application();
-           // if (wApp == null)
-           // {
-           //     Console.WriteLine("wApp is null\r\n");
-           //     Console.ReadKey();
-           //    // ViewBag.Error += "wApp is null\r\n";
-           // }
-           // wApp.Visible = false;
-           // var wDocument = wApp.Documents.Add(ref oMissing,
-           //     ref oMissing,
-           //     ref oMissing, ref oMissing);
-           // if (wDocument == null)
-           // {
-           //     Console.WriteLine("wDocument is null\r\n");
-           //     Console.ReadKey();
-           //    // ViewBag.Error += "wDocument is null\r\n";
-           // }
-           //// ViewBag.Error += "2\r\n";
-           // foreach (Microsoft.Office.Interop.Word.Section section in wDocument.Sections)
-           // {
-           //     Microsoft.Office.Interop.Word.Range headerRange = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
-           //     headerRange.Fields.Add(headerRange, Microsoft.Office.Interop.Word.WdFieldType.wdFieldPage);
-           //     headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
-           //     headerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdBlue;
-           //     headerRange.Font.Size = 14;
-           //     headerRange.Text = "Таблица";
-           // }
+            Word._Application application = null;
+            Word._Document document = null;
 
-           // Console.WriteLine("3\r\n");
-           // Console.ReadKey();
-           //// ViewBag.Error += "3\r\n";
-           // wDocument.Content.SetRange(0, 0);
+            Object missingObj = System.Reflection.Missing.Value;
+            Object trueObj = true;
+            Object falseObj = false;
+            //создаем обьект приложения word
+            application = new Word.Application();
+            // создаем путь к файлу
+            Object templatePathObj = "C:/project/GeoSpace/GeospaceMediana/App_Data/table.dotx";
 
-           // var paragraphTable = wDocument.Paragraphs.Add();
-           // //ViewBag.Error += "4\r\n";
-           // paragraphTable.Range.InsertParagraphAfter();
-           // //ViewBag.Error += "5\r\n";
-
-           // //ViewBag.Error += "7\r\n";
-           // Table firstTable = wDocument.Tables.Add(paragraphTable.Range, DateTime.DaysInMonth(2015, 9) + 1, 20 /*for Day Columnt*/);
-           // firstTable.Borders.Enable = 1;
-           // firstTable.Columns[1].PreferredWidth = 40f;
-           // IList<ConsolidatedTable> tableView = ConsolidatedTable.GetByDateMM(2015, 9);
-           // foreach (Row row in firstTable.Rows)
-           // {
-           //     if (row.IsFirst)
-           //     {
-           //         foreach (Cell cell in row.Cells)
-           //         {
-           //             if (cell.ColumnIndex == 1)
-           //             {
-           //                 cell.Range.Text = "День";
-           //             }
-           //             else
-           //             {
-           //                 cell.Range.Text = tableView[cell.ColumnIndex - 2].DD.ToString();
-           //             }
-
-           //         }
-           //     }
-           //     else
-           //     {
-
-           //         foreach (Cell cell in row.Cells)
-           //         {
-           //             if (cell.ColumnIndex == 1)
-           //             {
-           //                 cell.Range.Text = (cell.RowIndex - 1).ToString("D2");
-           //             }
-           //             else
-           //             {
-           //                 cell.Range.Text = theViewData.DisplaySafe(theViewData.theStationList[cell.ColumnIndex - 2].Code,
-           //                     YYYY,
-           //                     MM,
-           //                     cell.RowIndex - 1);
-           //             }
-
-           //         }
-           //     }
-
-           // }
-
-
-           // string nameDoc = HttpContext.Server.MapPath("~/App_Data/");
-           // string fileName = theViewData.Title + ".doc";
-           // string fileNameTemp = string.Format(@"{0}.doc", Guid.NewGuid());
-           // nameDoc += fileNameTemp;
-
-           // wApp.ActiveDocument.SaveAs2(nameDoc);
-           // wApp.ActiveDocument.Close(true);
-
-           // byte[] fileBytes = System.IO.File.ReadAllBytes(nameDoc);
-           // System.IO.File.Delete(nameDoc);
-           // return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+            // если вылетим не этом этапе, приложение останется открытым
+            try
+            {
+                document = application.Documents.Add(ref  templatePathObj, ref missingObj, ref missingObj, ref missingObj);
+            }
+            catch (Exception error)
+            {
+                document.Close(ref falseObj, ref  missingObj, ref missingObj);
+                application.Quit(ref missingObj, ref  missingObj, ref missingObj);
+                document = null;
+                application = null;
+                throw error;
+            }
+           
+            application.Visible = true;
+            Word.Table _table = document.Tables[1];
+            // Получение данных о месяце
+            IList<GeospaceEntity.Models.ConsolidatedTable> table_db = GeospaceEntity.Models.ConsolidatedTable.GetByDateMM(YYYY,MM);
+            DateTime startMonth = new DateTime(YYYY, MM, 1);
+            _table.Cell(0, 0).Range.Text = startMonth.ToString("MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture);
+            int day = 0;
+            int correntDay = DateTime.DaysInMonth(YYYY, MM);
+            for (int i = 0; i < correntDay; i++)
+            {
+                _table.Rows.Add(ref missingObj);
+                
+                _table.Cell(5+i,1).Range.Text = (i+1).ToString();
+                //day++;
+               if(table_db.Count > day  )
+               {
+                   if (table_db[day].DD == i + 1)
+                   {
+                       _table.Cell(5 + i, 2).Range.Text = table_db[day].Th2_W;
+                       _table.Cell(5 + i, 3).Range.Text = table_db[day].Th3_Sp;
+                       _table.Cell(5 + i, 4).Range.Text = table_db[day].Th4_F;
+                       _table.Cell(5 + i, 5).Range.Text = table_db[day].Th5_90M;
+                       _table.Cell(5 + i, 6).Range.Text = table_db[day].Th6_CountEvent;
+                       _table.Cell(5 + i, 7).Range.Text = table_db[day].Th7_Balls;
+                       _table.Cell(5 + i, 8).Range.Text = table_db[day].Th8_Coordinates;
+                       _table.Cell(5 + i, 9).Range.Text = table_db[day].Th9_Time;
+                       _table.Cell(5 + i, 10).Range.Text = table_db[day].Th10_RadioBursts;
+                       _table.Cell(5 + i, 11).Range.Text = table_db[day].Th11_;
+                       _table.Cell(5 + i, 12).Range.Text = table_db[day].Th12_AP;
+                       _table.Cell(5 + i, 13).Range.Text = table_db[day].Th13_Amag;
+                       _table.Cell(5 + i, 14).Range.Text = table_db[day].Th14_Apar;
+                       _table.Cell(5 + i, 15).Range.Text = table_db[day].Th15_Akha;
+                       _table.Cell(5 + i, 16).Range.Text = table_db[day].Th16_K;
+                       _table.Cell(5 + i, 17).Range.Text = table_db[day].Th17_iSal;
+                       _table.Cell(5 + i, 18).Range.Text = table_db[day].Th18_iMag;
+                       _table.Cell(5 + i, 19).Range.Text = table_db[day].Th19_iKha;
+                       _table.Cell(5 + i, 20).Range.Text = table_db[day].Th20_iPar;
+                       day++;
+                   }
+               }
+            }
         }
         static void Support12()
         {
