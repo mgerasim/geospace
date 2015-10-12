@@ -97,11 +97,15 @@ namespace GeospaceCore
         }
         void ICalculation.CharacterizationCalc()
         {
-            DateTime currDate = DateTime.Now;
+            DateTime currDate = DateTimeKhabarovsk.Now;
             foreach (var station in Station.GetAll())
             {
                 try
                 {
+                    theLog.LogIonka("CharacterizationCalc: " + station.Name.ToString() + " - " + currDate.ToShortDateString());
+                    HelperCalculation.CharacterizationCalc(station, currDate.AddDays(-3));
+                    HelperCalculation.CharacterizationCalc(station, currDate.AddDays(-2));
+                    HelperCalculation.CharacterizationCalc(station, currDate.AddDays(-1));
                     HelperCalculation.CharacterizationCalc(station, currDate);
                 }
                 catch (Exception ex)

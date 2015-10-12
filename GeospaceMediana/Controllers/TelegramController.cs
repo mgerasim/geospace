@@ -85,7 +85,7 @@ namespace GeospaceMediana.Controllers
                 return View( x);
             }
         }
-        public ActionResult SubmitFiveDayTelegram(int year, int month, int range_number)
+        public ActionResult SubmitFiveDayTelegram(int year, int month, int range_number,  string numberTel = "" )
         {
             try
             {
@@ -154,7 +154,7 @@ namespace GeospaceMediana.Controllers
                 }
 
                 if (theProduct != null) {
-                    theProduct.Send_FivedaysForecast();
+                    theProduct.Send_FivedaysForecast(numberTel);
                 }
                 return Content("");
             }
