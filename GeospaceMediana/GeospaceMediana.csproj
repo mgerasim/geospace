@@ -579,6 +579,7 @@
     <Content Include="Views\Disturbance\GetHoursForHtmlModalBody.cshtml" />
     <Content Include="Views\Disturbance\ExportToWord.cshtml" />
     <Content Include="Views\Umagf\Ap.cshtml" />
+    <Content Include="Views\Shared\Empty.cshtml" />
     <Content Include="Views\Umagf\_Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
