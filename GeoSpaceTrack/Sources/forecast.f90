@@ -69,7 +69,7 @@ subroutine calc_layer_E_F1_F2_for_MUF_OPF( W, month, KTO, XO, YO, D, MUF, OPF, p
 	real, dimension ( HOURS )    :: foE, Z, MUF, OPF, MPE, MPF1, MPF2, foF1
 	real                         :: A, B, Zm, MDE, FF, F, obj, obj1, DF, MDF1, delta
 	CHARACTER(50) error
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!49 строка месяц установить
+
 	call rad_to_degree( XO(1), obj )
 	Zm = 90 - obj + DS(month)
 	DF = (0.0006 + 0.00009*Zm) * W

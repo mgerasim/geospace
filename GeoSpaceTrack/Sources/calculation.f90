@@ -125,19 +125,19 @@ contains
 
 		!print *, "DEBUG KTO = ", KTO	
 
-		flag=.true.	
+ 		do i = 1, KTO , 1
+ 			flag=.true.	
 
- 		if ( abs(lat1) == 90 ) then
+	 		if ( abs(lat1) == 90 ) then
+					flag=.false.
+					YO(i) = Y2
+				end if
+
+			if ( abs(lat2) == 90 ) then
 				flag=.false.
-				YO(i) = Y2
+				YO(i) = Y1
 			end if
 
-		if ( abs(lat2) == 90 ) then
-			flag=.false.
-			YO(i) = Y1
-		end if
-
- 		do i = 1, KTO , 1
  			print *, "   DEBUG Point:", i
  			DO(i) = DO(i) / R
  			XO (i) = cos( DO(i) )*SX1 + (SX2-SX1*cos(DR)) * sin( DO(i) ) / sin(DR)
