@@ -81,6 +81,10 @@ namespace GeospaceEntity.Helper
                     output[2] += str.Replace(" D ", "").Trim() + " ";
                 if (str.IndexOf(" CODE ") >= 0)
                     output[3] += str.Replace(" CODE ", "").Trim() + " ";
+                if (str.IndexOf(" XOYO ") >= 0)
+                    output[4] += str.Replace(" XOYO ", "").Trim() + " ";
+                if (str.IndexOf(" KTO ") >= 0)
+                    output[5] += str.Replace(" KTO ", "").Trim() + " ";
             }
         }
 

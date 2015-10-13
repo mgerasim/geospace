@@ -9,6 +9,10 @@
     <property name="updated_at" />
     <property name="Name" unique="true" not-null="true" />
     
+    <property name="lengthTrack" />
+    <property name="KTO" />
+    <property name="KTP" />
+      
     <property name="lon1" />
     <property name="lat1" />
     <property name="lon2" />

@@ -149,6 +149,7 @@
     <Compile Include="Models\ApiCharacterization.cs" />
     <Compile Include="Models\ApiConsolidatedTable.cs" />
     <Compile Include="Models\ApiDisturbance.cs" />
+    <Compile Include="Models\ViewTrack.cs" />
     <Compile Include="Models\ViewMonthForecastTrack.cs" />
     <Compile Include="Models\ViewFiveDayForecastTrack.cs" />
     <Compile Include="Models\ViewForecastTrack.cs" />

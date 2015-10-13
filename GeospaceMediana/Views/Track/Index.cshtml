@@ -13,26 +13,70 @@
     @Html.ActionLink("Добавить", "Create", null, new { @class = "btn btn-primary" })
 </p>
 
-<table class="table table-bordered table-hover">
+<style>
+    .borderMy {
+        background-color:rgb(255, 248, 220)
+    }
+</style>
+
+<table class="table table-bordered">
     <tr>
         <th>Наименование</th>
-        <th></th>  
-        <!--<th></th>-->
+        <th>Длина трассы</th>
+        <th>Кол-во точек отражения</th>
+        <th>Кол-во точек поглащения</th>
+        <th></th>
     </tr>
-    @foreach (var item in Model)
+    @for (int j = 0; j < Model.tracks.Count; j++)
     {
-        <tr>
+        <tr class="clickable" data-toggle="collapse" id="row_@j" data-target=".row_@j" style="cursor:pointer">
             <td>
-                @Html.Encode(item.Name)
+                @Html.Encode(Model.tracks[j].Name)
             </td>
             <td>
-                @Html.ActionLink("Редактировать", "Edit", new { id = item.ID})
-            </td>  
-            <!--
-            <td>
-                @Html.ActionLink("Расчитать трассу", "Calc", new {id = item.ID})
+                @Model.tracks[j].lengthTrack
             </td>
-                -->
-        </tr>       
+            <td>
+                @Model.tracks[j].KTO
+            </td>
+            <td>
+                @Model.tracks[j].KTP
+            </td>
+            <td>
+                @Html.ActionLink("Редактировать", "Edit", new { id = Model.tracks[j].ID })
+            </td>
+        </tr>
+        <tr class="collapse row_@j borderMy">
+            <td rowspan="2">№</td>
+            <td colspan="2">
+                Точки отражения
+            </td>
+            <td colspan="2">Точки поглащения</td>
+        </tr>
+        <tr class="collapse row_@j borderMy">
+            <td>Долгота</td>
+            <td>Широта</td>
+            <td>Долгота</td>
+            <td>Широта</td>            
+        </tr>
+
+        for (int i = 0; i < Model.tracks[j].KTP; i++)
+        {
+            <tr class="collapse row_@j borderMy">
+                <td>@(i+1)</td>
+                @if (i < Model.tracks[j].KTO)
+                {
+                    <td>@Model.pointsO[i][0, 0]</td>
+                    <td>@Model.pointsO[i][0, 1]</td>
+                }
+                else
+                {
+                    <td></td>
+                    <td></td>
+                }
+                <td></td>
+                <td></td>
+            </tr>
+        }
     }
 </table>
