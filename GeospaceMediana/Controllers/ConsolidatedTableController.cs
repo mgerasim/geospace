@@ -86,7 +86,7 @@ namespace GeospaceMediana.Controllers
                 //создаем обьект приложения word
                 application = new Word.Application();
                 // создаем путь к файлу
-                Object templatePathObj = HttpContext.Server.MapPath("~/App_Data/table.dotx");
+                Object templatePathObj = HttpContext.Server.MapPath("~/App_Data/table2.dot");
                 // если вылетим не этом этапе, приложение останется открытым
                 ViewBag.Error += "0";
                 try
@@ -108,7 +108,7 @@ namespace GeospaceMediana.Controllers
                 // Получение данных о месяце
                 IList<GeospaceEntity.Models.ConsolidatedTable> table_db = GeospaceEntity.Models.ConsolidatedTable.GetByDateMM(YYYY, MM);
                 DateTime startMonth = new DateTime(YYYY, MM, 1);
-                _table.Cell(0, 0).Range.Text = startMonth.ToString("MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture);
+                _table.Cell(1, 1).Range.Text = startMonth.ToString("MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture);
                 int day = 0;
                 ViewBag.Error += "3";
                 int correntDay = DateTime.DaysInMonth(YYYY, MM);
@@ -146,7 +146,7 @@ namespace GeospaceMediana.Controllers
                     }
                 }
                 string nameDoc = HttpContext.Server.MapPath("~/App_Data/");
-                string fileName = "Сводная таблица" + startMonth.ToString("MMMMyyyy", System.Globalization.CultureInfo.CurrentCulture)  + ".docx";
+                string fileName = "Сводная_таблица_" + startMonth.ToString("MMMM_yyyy", System.Globalization.CultureInfo.CurrentCulture)  + ".doc";
                 string fileNameTemp = string.Format(@"{0}.doc", Guid.NewGuid());
                 nameDoc += fileNameTemp;
                 ViewBag.Error += "4";
