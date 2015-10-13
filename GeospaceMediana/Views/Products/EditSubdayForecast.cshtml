@@ -1,7 +1,12 @@
 ﻿@{
     ViewBag.Title = "Редактировать полусуточный прогноз";
 }
+<script type="text/javascript">
+    function pasteTelegramm()
+    {
 
+    }
+</script>
 <h2>Редактировать полусуточный прогноз</h2>
 
 @using (Html.BeginForm("EditSubdayForecast", "Products", null, FormMethod.Post, new { @class = "form-horizontal" }))
@@ -9,13 +14,13 @@
     <div class="form-group">
         <label for="subdayforecast" class="col-sm-2 control-label">Введите прогноз:</label>
         <div class="col-sm-10">
-            <textarea class="form-control" name="subdayforecast" id="subdayforecast" rows=35 placeholder="">@Model.subday_forecast</textarea>
+            <textarea class="form-control" name="subdayforecast" id="subdayforecast" style="height:450px" placeholder="">@Model.subday_forecast</textarea>
         </div>
     </div>
 
 
     <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
+        <div class="col-sm-offset-2 col-sm-5">
             <button type="submit" class="btn btn-default">Сохранить</button>
         </div>
     </div>

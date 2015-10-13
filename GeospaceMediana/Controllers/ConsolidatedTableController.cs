@@ -4,7 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using GeospaceEntity.Models;
-using Microsoft.Office.Interop.Word;
+using Word = Microsoft.Office.Interop.Word; //Word  
+using System.Reflection;
+using System.Runtime.InteropServices;                    //Word 
 
 namespace GeospaceMediana.Controllers
 {
@@ -61,134 +63,120 @@ namespace GeospaceMediana.Controllers
                 return Content("Ошибка применения изменения! Проверьте корректность вводимых данных.");
             }
         }
-       
-        //public ActionResult ExportToWord(int YYYY = -1, int MM = -1)
-        //{
-        //    if (YYYY < 0)
-        //    {
-        //        YYYY = DateTime.Now.Year;
-        //    }
-        //    if (MM < 0)
-        //    {
-        //        MM = DateTime.Now.Month;
-        //    }
 
-        //    //Microsoft.Office.Interop.Word.Application wApp = null;
-        //    //try
-        //    //{
+        public ActionResult ExportToWord(int YYYY = -1, int MM = -1)
+        {
+            if (YYYY < 0)
+            {
+                YYYY = DateTime.Now.Year;
+            }
+            if (MM < 0)
+            {
+                MM = DateTime.Now.Month;
+            }
 
-        //    //    IList<ConsolidatedTable> tableView = ConsolidatedTable.GetByDateMM(YYYY, MM);
+            Word._Application application = null;
+            Word._Document document = null;
+            try
+            {
+                Object missingObj = System.Reflection.Missing.Value;
+                ViewBag.Error += "2";
+                Object trueObj = true;
+                Object falseObj = false;
+                //создаем обьект приложения word
+                application = new Word.Application();
+                // создаем путь к файлу
+                Object templatePathObj = HttpContext.Server.MapPath("~/App_Data/table2.dot");
+                // если вылетим не этом этапе, приложение останется открытым
+                ViewBag.Error += "0";
+                try
+                {
+                    document = application.Documents.Add(ref  templatePathObj, ref missingObj, ref missingObj, ref missingObj);
+                }
+                catch (Exception error)
+                {
+                    ViewBag.Error += "111";
+                    document.Close(ref falseObj, ref  missingObj, ref missingObj);
+                    application.Quit(ref missingObj, ref  missingObj, ref missingObj);
+                    document = null;
+                    application = null;
+                    
+                    throw error;
+                }
+                application.Visible = false;
+                Word.Table _table = document.Tables[1];
+                // Получение данных о месяце
+                IList<GeospaceEntity.Models.ConsolidatedTable> table_db = GeospaceEntity.Models.ConsolidatedTable.GetByDateMM(YYYY, MM);
+                DateTime startMonth = new DateTime(YYYY, MM, 1);
+                _table.Cell(1, 1).Range.Text = startMonth.ToString("MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture);
+                int day = 0;
+                ViewBag.Error += "3";
+                int correntDay = DateTime.DaysInMonth(YYYY, MM);
+                for (int i = 0; i < correntDay; i++)
+                {
+                    _table.Rows.Add(ref missingObj);
 
-        //    //    object oMissing = System.Reflection.Missing.Value;
+                    _table.Cell(5 + i, 1).Range.Text = (i + 1).ToString();
+                    //day++;
+                    if (table_db.Count > day)
+                    {
+                        if (table_db[day].DD == i + 1)
+                        {
+                            _table.Cell(5 + i, 2).Range.Text = table_db[day].Th2_W;
+                            _table.Cell(5 + i, 3).Range.Text = table_db[day].Th3_Sp;
+                            _table.Cell(5 + i, 4).Range.Text = table_db[day].Th4_F;
+                            _table.Cell(5 + i, 5).Range.Text = table_db[day].Th5_90M;
+                            _table.Cell(5 + i, 6).Range.Text = table_db[day].Th6_CountEvent;
+                            _table.Cell(5 + i, 7).Range.Text = table_db[day].Th7_Balls;
+                            _table.Cell(5 + i, 8).Range.Text = table_db[day].Th8_Coordinates;
+                            _table.Cell(5 + i, 9).Range.Text = table_db[day].Th9_Time;
+                            _table.Cell(5 + i, 10).Range.Text = table_db[day].Th10_RadioBursts;
+                            _table.Cell(5 + i, 11).Range.Text = table_db[day].Th11_;
+                            _table.Cell(5 + i, 12).Range.Text = table_db[day].Th12_AP;
+                            _table.Cell(5 + i, 13).Range.Text = table_db[day].Th13_Amag;
+                            _table.Cell(5 + i, 14).Range.Text = table_db[day].Th14_Apar;
+                            _table.Cell(5 + i, 15).Range.Text = table_db[day].Th15_Akha;
+                            _table.Cell(5 + i, 16).Range.Text = table_db[day].Th16_K;
+                            _table.Cell(5 + i, 17).Range.Text = table_db[day].Th17_iSal;
+                            _table.Cell(5 + i, 18).Range.Text = table_db[day].Th18_iMag;
+                            _table.Cell(5 + i, 19).Range.Text = table_db[day].Th19_iKha;
+                            _table.Cell(5 + i, 20).Range.Text = table_db[day].Th20_iPar;
+                            day++;
+                        }
+                    }
+                }
+                string nameDoc = HttpContext.Server.MapPath("~/App_Data/");
+                string fileName = "Сводная_таблица_" + startMonth.ToString("MMMM_yyyy", System.Globalization.CultureInfo.CurrentCulture)  + ".doc";
+                string fileNameTemp = string.Format(@"{0}.doc", Guid.NewGuid());
+                nameDoc += fileNameTemp;
+                ViewBag.Error += "4";
+                application.ActiveDocument.SaveAs2(nameDoc);
+                application.ActiveDocument.Close(true);
 
-        //    //    wApp = new Microsoft.Office.Interop.Word.Application();
-        //    //    if (wApp == null)
-        //    //    {
-        //    //        ViewBag.Error += "wApp is null\r\n";
-        //    //    }
-        //    //    wApp.Visible = false;
-        //    //    var wDocument = wApp.Documents.Add(ref oMissing,
-        //    //        ref oMissing,
-        //    //        ref oMissing, ref oMissing);
-        //    //    if (wDocument == null)
-        //    //    {
-        //    //        ViewBag.Error += "wDocument is null\r\n";
-        //    //    }
-        //    //    ViewBag.Error += "2\r\n";
-        //    //    foreach (Microsoft.Office.Interop.Word.Section section in wDocument.Sections)
-        //    //    {
-        //    //        Microsoft.Office.Interop.Word.Range headerRange = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
-        //    //        headerRange.Fields.Add(headerRange, Microsoft.Office.Interop.Word.WdFieldType.wdFieldPage);
-        //    //        headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
-        //    //        headerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdBlue;
-        //    //        headerRange.Font.Size = 14;
-        //    //        headerRange.Text = "Сводная таблица";
-        //    //    }
+                byte[] fileBytes = System.IO.File.ReadAllBytes(nameDoc);
+                System.IO.File.Delete(nameDoc);
+                return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+            }
+            catch (Exception ex)
+            {
 
-        //    //    ViewBag.Error += "3\r\n";
-        //    //    wDocument.Content.SetRange(0, 0);
+                ViewBag.Error += ex.Message + "\n" + ex.StackTrace + "DDD";
+                if (ex.InnerException != null)
+                {
+                    ViewBag.Error += ex.InnerException.Message + "\r\n" + ex.StackTrace;
+                }
+                return View();
+            }
 
-        //    //    var paragraphTable = wDocument.Paragraphs.Add();
-        //    //    ViewBag.Error += "4\r\n";
-        //    //    paragraphTable.Range.InsertParagraphAfter();
-        //    //    ViewBag.Error += "5\r\n";
-
-        //    //    ViewBag.Error += "7\r\n";
-        //    //    Table firstTable = wDocument.Tables.Add(  (paragraphTable.Range, DateTime.DaysInMonth(YYYY, MM) + 1, theViewData.theStationList.Count() + 1 /*for Day Columnt*/);
-        //    //    firstTable.Borders.Enable = 1;
-        //    //    firstTable.Columns[1].PreferredWidth = 40f;
-
-        //    //    foreach (Row row in firstTable.Rows)
-        //    //    {
-        //    //        if (row.IsFirst)
-        //    //        {
-        //    //            foreach (Cell cell in row.Cells)
-        //    //            {
-        //    //                if (cell.ColumnIndex == 1)
-        //    //                {
-        //    //                    cell.Range.Text = "День";
-        //    //                }
-        //    //                else
-        //    //                {
-        //    //                    cell.Range.Text = theViewData.theStationList[cell.ColumnIndex - 2].Name;
-        //    //                }
-
-        //    //            }
-        //    //        }
-        //    //        else
-        //    //        {
-
-        //    //            foreach (Cell cell in row.Cells)
-        //    //            {
-        //    //                if (cell.ColumnIndex == 1)
-        //    //                {
-        //    //                    cell.Range.Text = (cell.RowIndex - 1).ToString("D2");
-        //    //                }
-        //    //                else
-        //    //                {
-        //    //                    cell.Range.Text = theViewData.DisplaySafe(theViewData.theStationList[cell.ColumnIndex - 2].Code,
-        //    //                        YYYY,
-        //    //                        MM,
-        //    //                        cell.RowIndex - 1);
-        //    //                }
-
-        //    //            }
-        //    //        }
-
-        //    //    }
-
-
-        //    //    string nameDoc = HttpContext.Server.MapPath("~/App_Data/");
-        //    //    string fileName = theViewData.Title + ".doc";
-        //    //    string fileNameTemp = string.Format(@"{0}.doc", Guid.NewGuid());
-        //    //    nameDoc += fileNameTemp;
-
-        //    //    wApp.ActiveDocument.SaveAs2(nameDoc);
-        //    //    wApp.ActiveDocument.Close(true);
-
-        //    //    byte[] fileBytes = System.IO.File.ReadAllBytes(nameDoc);
-        //    //    System.IO.File.Delete(nameDoc);
-        //    //    return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
-        //    //}
-        //    //catch (Exception ex)
-        //    //{
-        //    //    ViewBag.Error += ex.Message + "\n" + ex.StackTrace + "DDD";
-        //    //    if (ex.InnerException != null)
-        //    //    {
-        //    //        ViewBag.Error += ex.InnerException.Message + "\r\n" + ex.StackTrace;
-        //    //    }
-        //    //    return View();
-        //    //}
-
-        //    //finally
-        //    //{
-        //    //    if (wApp != null)
-        //    //    {
-        //    //        wApp.Quit();
-        //    //        Marshal.FinalReleaseComObject(wApp);
-        //    //    }
-        //    //}
-        //}
+            finally
+            {
+                if (application != null)
+                {
+                    application.Quit();
+                    Marshal.FinalReleaseComObject(application);
+                }
+            }
+        }
 
     }
 }

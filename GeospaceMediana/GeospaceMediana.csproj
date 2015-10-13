@@ -146,6 +146,7 @@
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\TablesunController.cs" />
     <Compile Include="Controllers\TelegramsubController.cs" />
+    <Compile Include="Controllers\UmagfController.cs" />
     <Compile Include="Models\ApiCharacterization.cs" />
     <Compile Include="Models\ApiConsolidatedTable.cs" />
     <Compile Include="Models\ApiDisturbance.cs" />
@@ -578,7 +579,10 @@
     <Content Include="Views\ConsolidatedTable\_Menu.cshtml" />
     <Content Include="Views\Disturbance\GetHoursForHtmlModalBody.cshtml" />
     <Content Include="Views\Disturbance\ExportToWord.cshtml" />
+    <Content Include="Views\Umagf\Ap.cshtml" />
+    <Content Include="Views\Umagf\_Menu.cshtml" />
     <Content Include="Views\Shared\Empty.cshtml" />
+    <Content Include="Views\ConsolidatedTable\ExportToWord.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
