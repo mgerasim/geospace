@@ -85,6 +85,8 @@ namespace GeospaceEntity.Helper
                     output[4] += str.Replace(" XOYO ", "").Trim() + " ";
                 if (str.IndexOf(" KTO ") >= 0)
                     output[5] += str.Replace(" KTO ", "").Trim() + " ";
+                if (str.IndexOf(" XPYP ") >= 0)
+                    output[6] += str.Replace(" XPYP ", "").Trim() + " ";
             }
         }
 

@@ -26,6 +26,31 @@
     <property name="lon6" />
     <property name="lat6" />
 
+    <property name="lonP1" />
+    <property name="latP1" />
+    <property name="lonP2" />
+    <property name="latP2" />
+    <property name="lonP3" />
+    <property name="latP3" />
+    <property name="lonP4" />
+    <property name="latP4" />
+    <property name="lonP5" />
+    <property name="latP5" />
+    <property name="lonP6" />
+    <property name="latP6" />
+    <property name="lonP7" />
+    <property name="latP7" />
+    <property name="lonP8" />
+    <property name="latP8" />
+    <property name="lonP9" />
+    <property name="latP9" />
+    <property name="lonP10" />
+    <property name="latP10" />
+    <property name="lonP11" />
+    <property name="latP11" />
+    <property name="lonP12" />
+    <property name="latP12" />
+
     <many-to-one name="PointA" not-null="true" column="PostA_ID" lazy="false"/>
     <many-to-one name="PointB" not-null="true" column="PostB_ID" lazy="false"/>
 

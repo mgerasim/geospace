@@ -191,6 +191,154 @@ contains
 		return
 	end subroutine calc_coord
 
+	subroutine calc_coord2( X1, Y1, X2, Y2, XP ,YP, lat1, lat2 )
+		real        :: X1, Y1, X2, Y2
+		real        :: lat1, lat2
+		integer     :: KTO
+		logical     :: flag
+		real        :: cosDR, DR
+		real        :: cosXPI, DSK
+		CHARACTER(50) error, error1
+		real, dimension ( SIZE_KTP )	 :: DP, XP, YP
+
+!		DR - угловая разница между передатчиком и приемников (в радианах)
+!       D - длина трассы по дуге большого круга
+		print *, "DEBUG    start calc_coord2..."
+		
+		SX1 = SIN(X1)
+		SX2 = SIN(X2)
+		SY1 = SIN(Y1)
+		SY2 = SIN(Y2)
+		CX1 = COS(X1)
+		CX2 = COS(X2)
+		CY1 = COS(Y1)
+		CY2 = COS(Y2)
+
+
+		if( CX1 == 0 ) then
+			CX1 = EPS
+			print *, "DEBUG CX1 = EPS"
+		end if
+
+		cosDR = SX1*SX2 + CX1*CX2*cos(Y1-Y2)
+		if( abs(cosDr) > 1 + EPS ) then			
+			error = "calc_coord cosDR"
+			call error_func( 0, error )
+		else if ( abs(cosDr) > 1 ) then
+			if( cosDr > 0 ) then
+				cosDr = 1
+			else
+				cosDr = -1
+			end if
+			print *, "         DEBUG new value cosDr = |1|"
+		end if
+
+		DR = acos( cosDR )
+		print *, "DEBUG       DR =", DR
+
+		D = DR * R
+		print *, "DEBUG       D =", D
+
+		if( D < 30 ) then 
+			error = "lenth track < 30"
+			call error_func( 1, error )
+		end if
+
+		if( 0 <= D .AND. D < 4000 ) then
+			KTO = 1
+			DP(1) = D/6
+			DP(2) = D - D / 6
+		end if
+
+		if( 4000 <= D .AND. D < 8000 ) then
+			KTO = 2
+			DSK = 2000 + (D - 4000)/2
+			DP(1) = DSK/6
+			DP(2) = DSK - DSK/6
+			DP(3) = DSK + DSK/6
+			DP(4) = D - DSK/6
+		end if
+
+		if( 8000 <= D .AND. D < 12000 ) then
+			KTO = 3
+		end if
+
+		if( 12000 <= D .AND. D < 16000 ) then
+			KTO = 4
+		end if
+
+		if( 16000 <= D .AND. D < 20000 ) then
+			KTO = 5		
+		end if
+
+		if( 20000 <= D ) then
+			KTO = 6
+		end if
+
+		!print *, "DEBUG KTO = ", KTO	
+
+ 		do i = 1, KTO*2 , 1
+ 			flag=.true.	
+
+	 		if ( abs(lat1) == 90 ) then
+					flag=.false.
+					YP(i) = Y2
+				end if
+
+			if ( abs(lat2) == 90 ) then
+				flag=.false.
+				YP(i) = Y1
+			end if
+
+ 			print *, "   DEBUG Point:", i
+ 			DP(i) = DP(i) / R
+ 			XP (i) = cos( DP(i) )*SX1 + (SX2-SX1*cos(DR)) * sin( DP(i) ) / sin(DR)
+
+ 			if( abs(XP (i)) > 1 + EPS ) then 
+ 				write(error1, *) XP(i)
+				error = "parametr with arcsin | XP(i) | > 1" // error1
+				call error_func( 1, error )
+			else if ( abs(XP (i)) > 1 ) then
+				if( XP (i) > 0 ) then 
+					XP(i) = 1
+				else
+					XP(i) = -1
+				end if
+				print *, "         DEBUG new value X = |1|"
+			end if
+
+ 			XP (i) = asin(XP(i)) 
+ 			
+ 			cosXPI = cos( XP(i) )
+ 			if( cosXPI == 0 ) then
+ 				cosXPI = EPS
+ 				print *, "DEBUG cosXPI = EPS"
+			end if
+
+			if(flag ) then
+
+				YP (i) = ( cos(DP(i))- sin(XP(i))*SX1 ) / (cosXPI*CX1) 
+				if( abs(YP (i)) > 1 + EPS ) then  
+					write(error1, *) YP(i)
+					error = "parametr with arccos | YP(i) | > 1" // error1
+					call error_func( 1, error )
+				else if ( abs(YP (i)) > 1 ) then
+					if( YP (i) > 0 ) then 
+						YP(i) = 1
+					else
+						YP(i) = -1
+					end if
+					print *, "         DEBUG new value Y = |1|"
+				end if
+
+				YP (i) = Y1 - acos ( YP(i) )
+			end if
+ 		end do
+
+		print *, "DEBUG    ...finish calc_coord2"
+		return
+	end subroutine calc_coord2
+
 	! функция по расчету I300
 	subroutine Calc_I300(XTO, YO, I300)
 		real                      	 :: XTO, YO, I300, degree
