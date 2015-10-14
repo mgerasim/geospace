@@ -147,15 +147,12 @@
                               <li class="divider"></li>
                               <li>@Html.ActionLink("Телеграмма месячного прогноза", "Index", "ForecastMonthIonosphera")</li>
                               <li>@Html.ActionLink("Телеграмма пятидневного прогноза", "FiveDay", "Telegram")</li>
-                              <li>@Html.ActionLink("Телеграмма полусуточного прогноза", "Index", "Telegramsub")</li>
+                              <li>@Html.ActionLink("Телеграмма полусуточного прогноза", "EditSubdayForecast", "Products")</li>
                               <li class="divider"></li>                              
                               <li>@Html.ActionLink("Обзор гелиогеофизической обстановки за сутки", "EditReviewGeoEnv", "Products")</li>
                               <li>@Html.ActionLink("Обзор гелиогеофизической обстановки за месяц", "EditReviewGeoEnvMonth", "Products")</li>
                               <li class="divider"></li>                             
                               <li>@Html.ActionLink("Геомагнитные данные по ст.Диксон", "Index", "Magma", new { station = 38701 }, null)</li>
-                              <li class="divider"></li>
-                              <li>@Html.ActionLink("Полусуточный прогноз Ионосферы и Магнитного поля Земли", "EditSubdayForecast", "Products")</li>                              
-                              <li>@Html.ActionLink("Месячный прогноз Ионосферы и Магнитного поля Земли", "EditForecastMonthIonosphera", "Products")</li>                              
                               <li class="divider"></li>
                               <li class="dropdown dropdown-submenu">
                                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Анализ<b class="caret"></b></a>
@@ -202,11 +199,9 @@
                               <li>@Html.ActionLink("Станции", "Index", "Stations")</li>
                               <li>@Html.ActionLink("География станций", "Stations", "Map")</li>
                               <li class="divider"></li>
-
                               <li>@Html.ActionLink("Пункты", "Index", "Post")</li>
                               <li>@Html.ActionLink("Трассы", "Index", "Track")</li>
                               <li>@Html.ActionLink("Потребители", "Index", "Consumer")</li>
-                                                            
                               <li class="divider"></li>
                               <li>@Html.ActionLink("Список Ошибок", "ErrorList", "Dropout")</li>
                               

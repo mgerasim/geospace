@@ -36,8 +36,8 @@ namespace GeospaceTest
            //Support10();
             //Support11();
            //Support11();
-            //Support12();
-            SupportWord();
+            Support12();
+            //SupportWord();
             Console.WriteLine("Ok");
             Console.ReadKey();
         }

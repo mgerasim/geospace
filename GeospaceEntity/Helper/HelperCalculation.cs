@@ -581,12 +581,6 @@ namespace GeospaceEntity.Helper
                 averageGlobalCurr[h].Update();
             }
         }
-
-        public static void ConsolidatedTableCalc()
-        {
-          
-
-        }
         public static string StationAk(int indexStation,DateTime time)
         {
             string ak = "";
@@ -601,7 +595,13 @@ namespace GeospaceEntity.Helper
             if (code != null) kIndex = code._k1 + code._k2 + code._k3 + code._k4 +" "+ code._k5 + code._k6 + code._k7 + code._k8;
             return kIndex;
         }
-
+        public static string StationIonosferIndex(int indexStation, DateTime time, int rangeNumber)
+        {
+            string Index = "";
+            CharacterizationDay charDay = new CharacterizationDay(Station.GetByCode(indexStation), rangeNumber, time.Year, time.Month, "f0F2");;
+            if (charDay != null) Index = Math.Abs(charDay.GetFullDayValue(time.Day)).ToString();
+            return Index;
+        }
         public static void ConsolidatedTableCalc(DateTime currDate)
         {
             ConsolidatedTable tableCalc = ConsolidatedTable.GetByDateUTC(currDate.Year, currDate.Month, currDate.Day);
@@ -617,6 +617,24 @@ namespace GeospaceEntity.Helper
             if (tableCalc.Th14_Apar == null || tableCalc.Th14_Apar == "") tableCalc.Th14_Apar = HelperCalculation.StationAk(46501, currDate);
             if (tableCalc.Th15_Akha == null || tableCalc.Th15_Akha == "") tableCalc.Th15_Akha = HelperCalculation.StationAk(43501, currDate);
             if (tableCalc.Th16_K == null || tableCalc.Th16_K == "") tableCalc.Th16_K = HelperCalculation.StationIndexK(43501, currDate);
+            //Определение номера группы
+            int rangeNumber = -1;
+            for (int i = 0; i < 6; i++)
+            {
+                var range = MedianaCalculator.GetRangeFromNumber(currDate, i);
+                if (currDate.Day >= range.Min && currDate.Day <= range.Max)
+                {
+                    rangeNumber = i;
+                    break;
+                }
+            }
+            if (rangeNumber != -1)
+            {
+                if (tableCalc.Th17_iSal == null || tableCalc.Th17_iSal == "") tableCalc.Th17_iSal = HelperCalculation.StationIonosferIndex(37701, currDate,rangeNumber);
+                if (tableCalc.Th18_iMag == null || tableCalc.Th18_iMag == "") tableCalc.Th18_iMag = HelperCalculation.StationIonosferIndex(45601, currDate, rangeNumber);
+                if (tableCalc.Th19_iKha == null || tableCalc.Th19_iKha == "") tableCalc.Th19_iKha = HelperCalculation.StationIonosferIndex(43501, currDate, rangeNumber);
+                if (tableCalc.Th20_iPar == null || tableCalc.Th20_iPar == "") tableCalc.Th20_iPar = HelperCalculation.StationIonosferIndex(46501, currDate, rangeNumber);
+            }
             tableCalc.Update();
 
         }
