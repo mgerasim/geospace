@@ -43,8 +43,27 @@ namespace GeospaceMediana.Controllers
             DateTime startDate = new DateTime(currDate.Year, currDate.Month, 1);
             DateTime endDate = new DateTime(currDate.Year, currDate.Month, DateTime.DaysInMonth(currDate.Year, currDate.Month));
             List<CodeUmagf> theUmagfList = (List<CodeUmagf>)CodeUmagf.GetByPeriod(theStation, startDate, endDate);
-           
-            return View(theUmagfList);
+
+            List<CodeUmagf> theView = new List<CodeUmagf>();
+            for (int i = 1; i <= endDate.Day; i++)
+            {
+                CodeUmagf theCode = null;
+                if (theUmagfList.Count(x => x.DD == i) > 0)
+                {
+                    theCode = theUmagfList.Single(x => x.DD == i);
+                }
+                else
+                {
+                    theCode = new CodeUmagf();
+                    theCode.ak = 0;
+                    theCode.DD = i;
+                    theCode.MM = currDate.Month;
+                    theCode.YYYY = currDate.Year;
+                }
+                theView.Add(theCode);
+            }
+
+                return View(theView);
         }
 
     }

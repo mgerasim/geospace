@@ -59,11 +59,10 @@ $('#container').highcharts({
         type: "datetime",
         tickInterval: 24 * 3600 * 1000,
         labels: {
-            rotation: -45,
-            align: 'right'
+            align: 'center'
         },
         dateTimeLabelFormats: { // don't display the dummy year
-            day: '%e %b',
+            day: '%e',
         }
     },
     yAxis: {
@@ -83,7 +82,6 @@ $('#container').highcharts({
             {
                 DateTime dateAK = new DateTime(item.YYYY, item.MM, item.DD);
                 long ticks = (long)dateAK.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds;
-                string ss = "{x:" + ticks.ToString() + ",y:" + item.ak.ToString() + ", color: \"red\"},";
                 string color = "red";
                 if (item.ak <= 14)
                 {
@@ -94,9 +92,19 @@ $('#container').highcharts({
                     color = "yellow";
                 }
                     
-                <text>
-                {x:@ticks.ToString(), y:@item.ak, color: '@(color)'},
-                </text>
+                if(@item.ak == 0)
+                { 
+                    <text>
+                        {x:@ticks.ToString(), y:null, color: '@(color)'},
+                    </text>
+                }
+                else
+                {
+                    <text>
+                        {x:@ticks.ToString(), y:@item.ak, color: '@(color)'},
+                    </text>
+                    
+                }
             }
         ],
         dataLabels: {
