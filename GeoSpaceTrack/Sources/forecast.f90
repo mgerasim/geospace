@@ -43,13 +43,13 @@ subroutine forecast_MUF( W, month, KTO, XO, YO, D, path, DATADIR )
 		if( MUF(h) < 0.0 .or. MUF(h) > 50.0 ) then
 			print *, "OUTPUT MUF null"
 		else
-			print *, "OUTPUT MUF ", MUF(h)
+			print '(" OUTPUT MUF ", f10.1)', MUF(h)
 		end if
 
 		if( OPF(h) < 0.0 .or. OPF(h) > 50.0 ) then
 			print *, "OUTPUT OPF null"
 		else
-			print *, "OUTPUT OPF ", OPF(h)
+			print '(" OUTPUT OPF ", f10.1)', OPF(h)
 		end if
 
 		print *, "DEBUG", h - 1, "-", MUF(h), "-", OPF(h)	

@@ -26,7 +26,7 @@ namespace GeospaceMediana.Models
                 List<string> log = new List<string>();
                 log.Add("");
                 string exePath = repo.GetAll().Select(x => x.CalcTrack).ToList()[0];
-                GeospaceEntity.Helper.HelperTrack.Start(log, null, null, "\\CalcTrack\\CalcTrack.f90", exePath, false, true);
+                //GeospaceEntity.Helper.HelperTrack.Start(log, null, null, "\\CalcTrack\\CalcTrack.f90", exePath, false, true);
                 for (int i = 0; i < tracks.Count; i++ )
                 {
                     Calc_Track(tracks[i], log, exePath);
