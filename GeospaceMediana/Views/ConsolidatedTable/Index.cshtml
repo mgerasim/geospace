@@ -112,10 +112,9 @@ if (ViewBag.Api == 0)
         var oldValue = $(currentCell).html();
 
         var inputHtml = "<input type=\"text\" id=\"edit\" value=\"" + oldValue + "\" />";
-        var valAndBR = oldValue;
         if (currentCell.hasClass("energetic_event"))
         {
-            inputHtml = "<textarea id=\"edit\" style=\"text-align: left;\">" + valAndBR + "</textarea>";
+            inputHtml = "<textarea id=\"edit\" style=\"text-align: left;\">" + oldValue + "</textarea>";
         }
         var cellWidth = currentCell.width();
         var cellHeight = currentCell.height();
@@ -151,13 +150,9 @@ if (ViewBag.Api == 0)
 
                 var day = $(currentCell.parent()).data("day");
                 var dataType = currentCell.data("type");
-                console.log($(this).val());
                 currentCell.empty().html("<div id=\"facebookG\"><div id=\"blockG_1\" class=\"facebook_blockG\"></div><div id=\"blockG_2\" class=\"facebook_blockG\"></div><div id=\"blockG_3\" class=\"facebook_blockG\"></div></div>");
-                var valAndNR = newValue;
 
-                console.log(valAndNR);
-
-                var param = { YYYY: window.currentYear, MM: window.currentMonth, DD: day,  type: dataType, newvalue: valAndNR };
+                var param = { YYYY: window.currentYear, MM: window.currentMonth, DD: day, type: dataType, newvalue: newValue };
 
                 $.ajax({
                     
@@ -166,10 +161,6 @@ if (ViewBag.Api == 0)
                     success: function (data) {
                         if (data == "") {
                             currentCell.empty().html(newValue);
-                        }
-                        else {
-                            currentCell.empty().html(newValue);
-                            alert(data);
                         }
                     }
                 });
@@ -181,47 +172,7 @@ if (ViewBag.Api == 0)
 
         });
     }
-    function editEnergeticEventAdd() {
-        var day = $("#dayModal").val();
-        var id = $("#dayID").val();
-        var timer = "";
-        if ($("#exampleInputTime1").val() != "" || $("#exampleInputTime2").val() != "" || $("#exampleInputTime3").val() != "") {
-            timer = $("#exampleInputTime1").val() + " " + $("#exampleInputTime2").val() + " " + $("#exampleInputTime3").val();
-        }
-        var resUrl = window.submitEventUrl +
-                    "?YYYY=" + window.currentYear +
-                    "&MM=" + window.currentMonth +
-                    "&DD=" + day +
-                    "&_Ball=" + $("#exampleInputBall").val() +
-                    "&_Coordinate=" + $("#exampleInputCoordinates").val() +
-                    "&_Time=" + timer +
-                    "&_RadioBursts=" + $("#exampleInputRadioBursts").val() +
-                    "&ID=" + id;
-        $.ajax({
-            url: resUrl,
-            success: function (data) {
-                if (id == -1) {
-                    for (var i = 0; i < 4; i++) {
-                        var val = "";
-                        if (arrayType[i] != "Time") {
-                            val = $("#" + arrayModel[i]).val();
-                        }
-                        else {
-                            if ($("#exampleInputTime1").val() != "" && $("#exampleInputTime2").val() != "" && $("#exampleInputTime3").val() != "") {
-                                val = $("#exampleInputTime1").val() + " " + $("#exampleInputTime2").val() + " " + $("#exampleInputTime3").val();
-                            }
-                        }
-                        val = "<br/>";
-                        addLineEvent(day, data, val, arrayType[i]);
-
-                    }
-                }
-                EventLine(day, data);
-                emptyEnergeticEvent();
-            }
-        });
-
-    }
+   
     function sumTimePeiod() {
         var day = $("#dayModal").val();
         var elementCurrent1 = $('#exampleInputTime1');
@@ -244,58 +195,21 @@ if (ViewBag.Api == 0)
         //    }
         //});
     });
-    function deleteEnergeticEvent() {
-        emptyEnergeticEvent();
-        var id = $("#dayID").val();
-        var day = $("#dayModal").val();
-        var resUrl = window.delEventUrl +
-                   "?id=" + id;
-        $.ajax({
-            url: resUrl,
-            success: function (data) {
-                emptyEnergeticEvent();
-                ClearEvent(day, id)
-            }
-        });
-    }
-    function ClearEvent(day, id){
-        for (var i = 0; i < 4; i++) {
-            $("#" + arrayType[i] + id).text("");
-        }
-    }
-    function EventLine(day, id) {
-        //Добавление нового элемента
-        for (var i = 0; i < 4; i++) {
-            var val = "";
-            if (arrayType[i] != "Time") {
-                val = $("#" + arrayModel[i]).val();
-            }
-            else {
-                if ($("#exampleInputTime1").val() != "" || $("#exampleInputTime2").val() != "" || $("#exampleInputTime3").val() != "")
-                    val = $("#exampleInputTime1").val() + " " + $("#exampleInputTime2").val() + " " + $("#exampleInputTime3").val();
-            }
-            console.log(id);
-            if (val += "")
-                $("#" + arrayType[i] + id).text(val);
-            else
-                $("#" + arrayType[i] + id).html("<br/>");
 
-        }
-    }
-    function addLineEvent(day, id, value, type) {//Работает
-        var item = $('#D_' + day + " td[data-type=" + type + "]");
-        var str = "<div id=\""+type + id + "\" data-whatever=\"" + day + "\" data-toggle=\"modal\" data-target=\"#myModal\" class=\"hover\" title=\"Изменить\"" +
-            "onclick=\"handleEvent(\'" + day + "\','" + dateString + "\', \'" + id + "\',\'" + type + "\' )\"></div>";
-        item.append(str);
-    }
-    function emptyEnergeticEvent() {//Работает
-        $("#exampleInputBall").val("");
-        $("#exampleInputCoordinates").val("");
-        $("#exampleInputTime1").val("");
-        $("#exampleInputTime2").val("");
-        $("#exampleInputTime3").val("");
-        $("#exampleInputRadioBursts").val("");
-    }
+    //function addLineEvent(day, id, value, type) {//Работает
+    //    var item = $('#D_' + day + " td[data-type=" + type + "]");
+    //    var str = "<div id=\""+type + id + "\" data-whatever=\"" + day + "\" data-toggle=\"modal\" data-target=\"#myModal\" class=\"hover\" title=\"Изменить\"" +
+    //        "onclick=\"handleEvent(\'" + day + "\','" + dateString + "\', \'" + id + "\',\'" + type + "\' )\"></div>";
+    //    item.append(str);
+    //}
+    //function emptyEnergeticEvent() {//Работает
+    //    $("#exampleInputBall").val("");
+    //    $("#exampleInputCoordinates").val("");
+    //    $("#exampleInputTime1").val("");
+    //    $("#exampleInputTime2").val("");
+    //    $("#exampleInputTime3").val("");
+    //    $("#exampleInputRadioBursts").val("");
+    //}
 </script>
 
 
@@ -506,7 +420,7 @@ if (ViewBag.Api == 0)
                     {
 
                         <tr id="D_@item.DD" data-day="@item.DD">
-                            <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@item.DD" data-type="DD" data-toggle="tooltip">@item.DD</td>
+                            <td style="text-align: center !important;vertical-align: middle !important;" data-day="@item.DD" data-type="DD" data-toggle="tooltip">@item.DD</td>
                             <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@item.DD" data-type="Th2" data-toggle="tooltip">@item.Th2_W</td>
                             <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@item.DD" data-type="Th3">@item.Th3_Sp</td>
                             <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@item.DD" data-type="Th4">@item.Th4_F</td>
