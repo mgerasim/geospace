@@ -43,13 +43,13 @@ subroutine forecast_MUF( W, month, KTO, XO, YO, D, path, DATADIR )
 		if( MUF(h) < 0.0 .or. MUF(h) > 50.0 ) then
 			print *, "OUTPUT MUF null"
 		else
-			print *, "OUTPUT MUF ", MUF(h)
+			print '(" OUTPUT MUF ", f10.1)', MUF(h)
 		end if
 
 		if( OPF(h) < 0.0 .or. OPF(h) > 50.0 ) then
 			print *, "OUTPUT OPF null"
 		else
-			print *, "OUTPUT OPF ", OPF(h)
+			print '(" OUTPUT OPF ", f10.1)', OPF(h)
 		end if
 
 		print *, "DEBUG", h - 1, "-", MUF(h), "-", OPF(h)	
@@ -69,7 +69,7 @@ subroutine calc_layer_E_F1_F2_for_MUF_OPF( W, month, KTO, XO, YO, D, MUF, OPF, p
 	real, dimension ( HOURS )    :: foE, Z, MUF, OPF, MPE, MPF1, MPF2, foF1
 	real                         :: A, B, Zm, MDE, FF, F, obj, obj1, DF, MDF1, delta
 	CHARACTER(50) error
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!49 строка месяц установить
+
 	call rad_to_degree( XO(1), obj )
 	Zm = 90 - obj + DS(month)
 	DF = (0.0006 + 0.00009*Zm) * W

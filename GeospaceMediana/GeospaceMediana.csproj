@@ -150,6 +150,7 @@
     <Compile Include="Models\ApiCharacterization.cs" />
     <Compile Include="Models\ApiConsolidatedTable.cs" />
     <Compile Include="Models\ApiDisturbance.cs" />
+    <Compile Include="Models\ViewTrack.cs" />
     <Compile Include="Models\ViewMonthForecastTrack.cs" />
     <Compile Include="Models\ViewFiveDayForecastTrack.cs" />
     <Compile Include="Models\ViewForecastTrack.cs" />
@@ -580,7 +581,6 @@
     <Content Include="Views\Disturbance\ExportToWord.cshtml" />
     <Content Include="Views\Umagf\Ap.cshtml" />
     <Content Include="Views\Umagf\_Menu.cshtml" />
-    <Content Include="Views\Shared\Empty.cshtml" />
     <Content Include="Views\ConsolidatedTable\ExportToWord.cshtml" />
   </ItemGroup>
   <ItemGroup>

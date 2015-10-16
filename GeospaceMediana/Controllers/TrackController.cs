@@ -1,5 +1,6 @@
 ﻿using GeospaceEntity.Common;
 using GeospaceEntity.Models;
+using GeospaceMediana.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace GeospaceMediana.Controllers
         //
         // GET: /Tracks/
 
-        public ActionResult Index(int stationCode = 43501, string type = "f0F2", int year = -1, int month = -1, int day = -1)
+        public ActionResult Index(int stationCode = 43501, string type = "f0F2", int year = -1, int month = -1, int day = -1, int calc = -1)
         {
             if (type == "M3000F2")
             {
@@ -35,41 +36,8 @@ namespace GeospaceMediana.Controllers
             ViewBag.debug = "";
 
             ViewBag.Station = Station.GetByCode(stationCode);
-            return View(GeospaceEntity.Models.Track.GetAll());
-        }
-
-        public ActionResult Calc(int id)
-        {
-            try
-            {
-                List<string> output = new List<string>();
-                List<string> log = new List<string>();
-                log.Add("");
-
-                output.Add("[");   //MUF
-                output.Add("[");   //OPF
-                output.Add("");    //параметры: D
-                int W = 10;
-
-                Track track = Track.GetById(id);
-                string param = track.PointA.Longitude.ToString().Replace(",", ".") + " "
-                    + track.PointA.Latitude.ToString().Replace(",", ".") + " "
-                    + track.PointB.Longitude.ToString().Replace(",", ".") + " "
-                    + track.PointB.Latitude.ToString().Replace(",", ".") + " "
-                    + W.ToString() + " "
-                    + "1";
-                    //+ DateTime.Now.AddMonths(1).Month.ToString();
-                
-                //GeospaceEntity.Helper.HelperTrack.Start(log, output, param, true, true);
-
-                ViewBag.debug = log[0];
-
-                return View("Index", GeospaceEntity.Models.Track.GetAll());
-            }
-            catch (System.Exception ex)
-            {
-                return Content("ошибка " + ex.Message);
-            }       
+            ViewTrack alltracks = new ViewTrack(calc);
+            return View(alltracks);
         }
 
         public ActionResult Edit(int id)
