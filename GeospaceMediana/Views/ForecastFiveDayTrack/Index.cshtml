@@ -3,6 +3,18 @@
     ViewBag.Title = @ViewBag.Title;
 }
 
+<style type="text/css" media="print">
+    .form-group {
+        visibility: hidden;
+        display: none;
+    }
+
+    .breakPage {
+        page-break-after: always;
+    }
+</style>
+
+
 @using (Html.BeginForm("Calc", "ForecastFiveDayTrack", null, FormMethod.Post, new { @class = "form-horizontal" }))
 {
     <div class="form-group">
@@ -41,6 +53,7 @@
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
             <button type="submit" class="btn btn-default">Рассчитать трассы</button>
+            <input type="button" value="Печать" onclick="window.print();" class="btn btn-default">
         </div>
     </div>
 }
@@ -48,17 +61,34 @@
 
 @for (int i = 0; i < Model.quantity; i++)
 {
-    <h4 style="align-items:center"><textarea name="comment" readonly style="border: none; height: 100px; width: 500px; overflow: hidden; resize: none; ">@Model.title[i]</textarea></h4>
-    if( Model.calcValue[i] == 0)
-    {        
+    <div class="block_@i breakPage">
+        <h4 style="align-items:center"><textarea name="comment" readonly style="border: none; height: 100px; width: 500px; overflow: hidden; resize: none; ">@Model.title[i]</textarea></h4>
+        <table style="table-layout: fixed" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>UT</th>
+                    <th>МПЧ</th>
+                    <th>ОРЧ</th>
+                    <th>UT</th>
+                    <th>МПЧ</th>
+                    <th>ОРЧ</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var line in Model.table[i])
+                {
+                    <tr>
+                        @foreach (var el in line)
+                        {
+                            <td>@el</td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
         <div id="container_@i" style="width:100%; height:500px;"></div>
-
-        @DrawTrack("container_" + @i.ToString(), "Пятидневный прогноз для радиотрасс", Model.listOutput[i])
-    }
-    else
-    {
-        <h4>Отсутствуют данные для формирования пятидневного прогноза</h4>
-    }
+        @DrawTrack("container_" + @i.ToString(), "Пятидневный прогноз для радиотрасс", @Model.listOutput[i])
+    </div>
 }
 
 
