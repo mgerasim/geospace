@@ -18,6 +18,7 @@ namespace GeospaceMediana.Models
         public List<Consumer> consumers;
         public List<List<string>> listOutput = new List<List<string>>();
         public List<string> title = new List<string>();
+        public List<List<List<string>>> table = new List<List<List<string>>>();
         public int quantity = 0;
         public List<int> calcValue = new List<int>();
  
@@ -82,7 +83,7 @@ namespace GeospaceMediana.Models
                 GeospaceEntity.Helper.HelperTrack.Start(log, output, param, "\\FiveDayForecast\\FiveDayForecast.f90", exePath, true);
 
                 string[] str = output[3].Split(' ');
-                title.Add(track.Name + "\nКоординаты: " + track.PointA.Longitude.ToString() + " "
+                title.Add("Трасса: " + track.Name + "\nКоординаты: " + track.PointA.Longitude.ToString() + " "
                         + track.PointA.Latitude.ToString() + " - "
                         + track.PointB.Longitude.ToString() + " "
                         + track.PointB.Latitude.ToString() + "\n");
@@ -157,7 +158,46 @@ namespace GeospaceMediana.Models
                     str = output[2].Split(' ');
                     
                     title[k] += "Длина трассы: " + str[0] + " км\n"
-                        + "Прогноз на: " + DateTime.Now.ToString("dd") + " - " + DateTime.Now.AddDays(4).ToString("dd MMM. yyyy г.");
+                        + "W: " + W.ToString() + "\n"
+                        + "Прогноз на: " + DateTime.Now.ToString("dd") + " — " + DateTime.Now.AddDays(4).ToString("dd MMM. yyyy г.");
+
+                    string[] muf = output[0].Split();
+                    string[] opf = output[1].Split();
+                    List<List<string>> tab = new List<List<string>>();
+                    for (int i = 0; i <= 12; i++)
+                    {
+                        List<string> line = new List<string>();
+                        line.Add(i.ToString());
+
+                        string el = muf[i].Replace("[", "");
+                        el = el.Replace(",", "");
+                        el = el.Replace("]", "");
+                        if (el == "null") el = "—";
+                        line.Add(el);
+
+                        el = opf[i].Replace("[", "");
+                        el = el.Replace(",", "");
+                        el = el.Replace("]", "");
+                        if (el == "null") el = "—";
+                        line.Add(el);
+
+                        line.Add((i + 12).ToString());
+
+                        el = muf[i + 12].Replace("[", "");
+                        el = el.Replace(",", "");
+                        el = el.Replace("]", "");
+                        if (el == "null") el = "—";
+                        line.Add(el);
+
+                        el = opf[i + 12].Replace("[", "");
+                        el = el.Replace(",", "");
+                        el = el.Replace("]", "");
+                        if (el == "null") el = "—";
+                        line.Add(el);
+
+                        tab.Add(line);
+                    }
+                    table.Add(tab);
                 }
 
                 output[0] += "]";

@@ -13,6 +13,36 @@ namespace GeospaceEntity.Helper
 
     public static class Other
     {
+        //дописать q пробелов с обоих сторон
+        public static string Add_Spaces( string s, int q )
+        {
+            string final = s.Trim();
+            int len = final.Length, start, end;
+
+
+            if( len < 0 ) return "";
+
+            if( q % 2 == 0 )
+            {
+                start = q / 2;
+                end = start;
+            }
+            else
+            {
+                start = q / 2 + 1;
+                end = start - 1;
+            }
+
+            final = "";
+            for( int i = 0; i < start; i++)
+                final += ' ';
+            
+            final += s.Trim();
+            for (int i = 0; i < end; i++)
+                final += ' ';
+
+            return final;
+        }
         public static void SendToAspd(string subject, string msg)
         {
             Settings theSetting = new Settings();

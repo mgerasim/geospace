@@ -827,7 +827,7 @@ namespace GeospaceMediana.Controllers
                     theProduct.subday_forecast += ss + "\r\n";
 
                 }
-                theProduct.subday_forecast = theProduct.subday_forecast.Replace("\r\n\r\n\r\n", string.Empty);
+                theProduct.subday_forecast = theProduct.subday_forecast.Replace("\r\n\r\n\r\n", "\r\n");
                 theProduct.Update();
 
                 theProduct.Send_SubdayForecast();
