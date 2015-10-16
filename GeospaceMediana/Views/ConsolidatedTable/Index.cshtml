@@ -10,7 +10,6 @@
  }
 if (ViewBag.Api == 0)
 {
-    
         @section Styles
 {
     @Styles.Render("~/Content/css-loadtriangles.css")
@@ -24,13 +23,10 @@ if (ViewBag.Api == 0)
     var currentMonth = "@ViewBag.Month";
     var dateString = "@ViewBag.DateString";
 </script>
-    
-
-    <h2>Сводная таблица за (@ViewBag.DateString)</h2>
+        <h2>Сводная таблица за (@ViewBag.DateString)</h2>
     <script type="text/javascript">
     var arrayType = ['Balls', 'Coordinates', 'Time', 'RadioBursts'];
     var arrayModel = ['exampleInputBall', 'exampleInputCoordinates', 'exampleInputTime', 'exampleInputRadioBursts'];
-
     function handleEvent(day, date, id, name) {
         $("#delete").detach()
         $(".modal-footer").append("<button type=\"button\" id=\"delete\" onclick=\"deleteEnergeticEvent()\" class=\"btn btn-danger\" data-dismiss=\"modal\">Удалить</button>");
@@ -55,7 +51,6 @@ if (ViewBag.Api == 0)
                 });
             }
         }
-
     }
     function handleSaveTime(day, Name) {
         $(".modal-title").html("Энергичное событие за " + day + " " + Name);
@@ -73,7 +68,6 @@ if (ViewBag.Api == 0)
         var day = currentCell.data("day");
         var type = currentCell.data("type");
         type = parseInt(type.slice(2, type.length));
-        
         switch (keyCode) {
             case 37: // left
                 type--;
@@ -92,25 +86,18 @@ if (ViewBag.Api == 0)
         console.log(day, type, newCell);
         if (newCell.length == 0)
             return;
-
         if (newCell.hasClass("editable") == false) {
             moveEdit(newCell, keyCode);
             return;
         }
-
         $('#edit').blur();
          newCell.dblclick();
     }
-
     function editEvent(e) {
         var currentCell = $(this);
-
-
         if (this.children["edit"] != null)
             return;
-
         var oldValue = $(currentCell).html();
-
         var inputHtml = "<input type=\"text\" id=\"edit\" value=\"" + oldValue + "\" />";
         if (currentCell.hasClass("energetic_event"))
         {
@@ -118,17 +105,13 @@ if (ViewBag.Api == 0)
         }
         var cellWidth = currentCell.width();
         var cellHeight = currentCell.height();
-
         currentCell.empty().append(inputHtml);
-
         currentCell.css("padding", "0px");
         $('#edit').width(cellWidth - 2 + 16); // 1+1 border width
         $('#edit').height(cellHeight - 2 + 16);
         currentCell.width(cellWidth);
         currentCell.height(cellHeight);
-
         $('#edit').keydown(function (event) {
-            
             if (event.keyCode >= 37 && event.keyCode <= 40 && !currentCell.hasClass("energetic_event")) {
                 event.preventDefault();
                 moveEdit(currentCell, event.keyCode);
@@ -140,20 +123,15 @@ if (ViewBag.Api == 0)
         $('#edit').focus();
         $('#edit').select();
         $('#edit').blur(function () {
-
             var newValue = $(this).val();
             currentCell.width("");
             currentCell.height(""); 
             currentCell.css("padding", "8px");
-
             if (newValue != oldValue) {
-
                 var day = $(currentCell.parent()).data("day");
                 var dataType = currentCell.data("type");
                 currentCell.empty().html("<div id=\"facebookG\"><div id=\"blockG_1\" class=\"facebook_blockG\"></div><div id=\"blockG_2\" class=\"facebook_blockG\"></div><div id=\"blockG_3\" class=\"facebook_blockG\"></div></div>");
-
                 var param = { YYYY: window.currentYear, MM: window.currentMonth, DD: day, type: dataType, newvalue: newValue };
-
                 $.ajax({
                     
                     url: window.submitUrl,
@@ -168,8 +146,6 @@ if (ViewBag.Api == 0)
             else {
                 currentCell.empty().html(oldValue);
             }
-
-
         });
     }
    
@@ -179,7 +155,6 @@ if (ViewBag.Api == 0)
         var elementCurrent2 = $('#exampleInputTime2');
         var elementCurrent3 = $('#exampleInputTime3');
         var time = elementCurrent1.val() + " " + elementCurrent2.val() + " " + elementCurrent3.val();
-
         var ball = $('#D_' + day + ' .c_9');
         if (elementCurrent1.val())
             ball.append(time + '<br>');
@@ -189,27 +164,7 @@ if (ViewBag.Api == 0)
     $(document).ready(function () {
         $('.editable').dblclick(editEvent);
         $('#edit').css('overflow', 'hidden').autogrow()
-        //$(window).keydown(function (event) {
-        //    if (event.keyCode == 13) {
-        //        $('#edit').blur();
-        //    }
-        //});
     });
-
-    //function addLineEvent(day, id, value, type) {//Работает
-    //    var item = $('#D_' + day + " td[data-type=" + type + "]");
-    //    var str = "<div id=\""+type + id + "\" data-whatever=\"" + day + "\" data-toggle=\"modal\" data-target=\"#myModal\" class=\"hover\" title=\"Изменить\"" +
-    //        "onclick=\"handleEvent(\'" + day + "\','" + dateString + "\', \'" + id + "\',\'" + type + "\' )\"></div>";
-    //    item.append(str);
-    //}
-    //function emptyEnergeticEvent() {//Работает
-    //    $("#exampleInputBall").val("");
-    //    $("#exampleInputCoordinates").val("");
-    //    $("#exampleInputTime1").val("");
-    //    $("#exampleInputTime2").val("");
-    //    $("#exampleInputTime3").val("");
-    //    $("#exampleInputRadioBursts").val("");
-    //}
 </script>
 
 
@@ -345,7 +300,6 @@ if (ViewBag.Api == 0)
     }
 </style>
     
-
 @helper DrawLinkEvent(int id, int day , string element , string nameElement)
 {
     if (element != null && element != "")
@@ -399,7 +353,6 @@ if (ViewBag.Api == 0)
                     <th rowspan="2" class="legal" style="width:6%;padding: 5px 1px;"><div class="rotate" style="width:20px;">Магадан</div></th>
                     <th rowspan="2" class="legal" style="width:6%;padding: 5px 1px;"><div class="rotate" style="width:20px;">Хабаровск</div></th>
                     <th rowspan="2" class="legal" style="width:6%;padding: 5px 1px;"><div class="rotate" style="width:20px;">Паратунка</div></th>
-
                 </tr>
                 <tr>
                     <th rowspan="1" style="width: 15%; height: 50px; white-space: nowrap; padding: 5px 1px; ">245мгц 10 см тип</th>
@@ -411,14 +364,12 @@ if (ViewBag.Api == 0)
                     }
                 </tr>
             </thead>
-
             <tbody>
                 @for (int i = 0; i < DateTime.DaysInMonth(ViewBag.Year, ViewBag.Month); i++)
                 {
                     ConsolidatedTable item = GeospaceEntity.Models.ConsolidatedTable.GetByDateUTC(ViewBag.Year, ViewBag.Month, i + 1);
                     if (item != null)//Исправить!!!! неверно
                     {
-
                         <tr id="D_@item.DD" data-day="@item.DD">
                             <td style="text-align: center !important;vertical-align: middle !important;" data-day="@item.DD" data-type="DD" data-toggle="tooltip">@item.DD</td>
                             <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@item.DD" data-type="Th2" data-toggle="tooltip">@item.Th2_W</td>
@@ -441,8 +392,6 @@ if (ViewBag.Api == 0)
                             <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@item.DD" data-type="Th19">@item.Th19_iKha</td>
                             <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@item.DD" data-type="Th20">@item.Th20_iPar</td>
                         </tr>
-                        
-
                     }
                     else
                     {
