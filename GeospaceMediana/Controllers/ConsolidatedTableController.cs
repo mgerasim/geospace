@@ -114,7 +114,7 @@ namespace GeospaceMediana.Controllers
                 int correntDay = DateTime.DaysInMonth(YYYY, MM);
                 for (int i = 0; i < correntDay; i++)
                 {
-                    _table.Rows.Add(ref missingObj);
+                    if (i < correntDay-1) _table.Rows.Add(ref missingObj);
 
                     _table.Cell(5 + i, 1).Range.Text = (i + 1).ToString();
                     //day++;
