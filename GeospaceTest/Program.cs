@@ -175,7 +175,7 @@ namespace GeospaceTest
             string s4 = "Y:\\GeoBasa\\2015\\10\\10102015_gf_dan.txt";
             ILogger theLogFile = new LoggerNLog();
             ILogger theConsoleLog = new LoggerConsole();
-            IDecode theDecode = new Decode(theLogFile, s4);
+            IDecode theDecode = new Decode(theLogFile, s1);
 
             theDecode.Run();            
         }

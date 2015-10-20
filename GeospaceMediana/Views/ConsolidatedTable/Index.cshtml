@@ -371,7 +371,7 @@ if (ViewBag.Api == 0)
                     if (item != null)//Исправить!!!! неверно
                     {
                         <tr id="D_@item.DD" data-day="@item.DD">
-                            <td style="text-align: center !important;vertical-align: middle !important;" data-day="@item.DD" data-type="DD" data-toggle="tooltip">@item.DD</td>
+                            <td style="text-align: center !important; vertical-align: middle !important; font-weight: bold; font-size: 12pt; " data-day="@item.DD" data-type="DD" data-toggle="tooltip">@item.DD</td>
                             <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@item.DD" data-type="Th2" data-toggle="tooltip">@item.Th2_W</td>
                             <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@item.DD" data-type="Th3">@item.Th3_Sp</td>
                             <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@item.DD" data-type="Th4">@item.Th4_F</td>
@@ -396,7 +396,7 @@ if (ViewBag.Api == 0)
                     else
                     {
                         <tr id="D_@(i+1)" data-day="@(i+1)">
-                            <td style="text-align: center !important;vertical-align: middle !important;" data-day="@(i+1)" data-type="DD" data-toggle="tooltip">@Html.Raw(i + 1)</td>
+                            <td style="text-align: center !important; vertical-align: middle !important; font-weight: bold; font-size: 12pt; " data-day="@(i+1)" data-type="DD" data-toggle="tooltip">@Html.Raw(i + 1)</td>
                             <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@(i+1)" data-type="Th2" data-toggle="tooltip"></td>
                             <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@(i+1)" data-type="Th3"></td>
                             <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@(i+1)" data-type="Th4"></td>

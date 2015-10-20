@@ -24,13 +24,6 @@ namespace GeospaceCore
             timeTelegram = timeTelegram.AddDays(-1);
             return timeTelegram;
         }
-        public static string TimeCleer(string timeLine)
-        {
-            string cleerTime = "";
-            string[] listTime = timeLine.Split();
-
-            return cleerTime;
-        }
         public static void Zirs42(string item)
         {
             bool index2 = false, index3 = false;
@@ -77,7 +70,7 @@ namespace GeospaceCore
                 {
                     if (startSplit >= 3 && lineEvents != "")
                     {
-                        timeEvent += DecodeHelper.TimeCleer(lineEvents.Substring(0, 18).Replace("  ", " ").TrimEnd()) + '\n';
+                        timeEvent += lineEvents.Substring(0, 18).Replace("  ", " ").TrimEnd() + '\n';
                         cordinatEvent += lineEvents.Substring(23, 7).Replace("  ", " ").TrimEnd() + '\n';
                         ballEvent += lineEvents.Substring(30, 2).Replace("  ", " ").TrimEnd();
                         if (lineEvents.Substring(36, 4).TrimEnd() != "")
@@ -104,7 +97,39 @@ namespace GeospaceCore
 
         public static void Zirs43(string item)
         {
-            throw new NotImplementedException();
+            DateTime timeTelegram = ReturnTimeTelegram(item.Substring(item.IndexOf("moskwa"), 22).Split(' ')[2]);
+
+            int indexEvent1 = item.Substring(0).IndexOf("90 DAY MEAN ");
+            int indexEvent2 = item.Substring(0).IndexOf("V.  GEOMAGNETIC");
+            if (indexEvent1 >= 0 && indexEvent2 >= 0)
+            {
+                string itemNew = item.Substring(indexEvent1, indexEvent2 - indexEvent1);
+                int indexEvent3 = itemNew.Substring(0).IndexOf("\n");
+                string[] strEvents = itemNew.Substring(0, indexEvent3).TrimEnd('\r').Split();
+                int index = 0;
+                string Median_90day = ""; 
+                foreach (var sub in strEvents)
+                {
+                    if (sub != "")
+                    {
+                        index++;
+                        if(index == 6)
+                        {
+                            Median_90day = sub;
+                            break;
+                        }
+                    }
+                }
+                GeospaceEntity.Models.ConsolidatedTable codeTable = ConsolidatedTable.GetByDateUTC(timeTelegram.Year, timeTelegram.Month, timeTelegram.Day);
+                if (codeTable == null) // Если запись отсутствует
+                {
+                    codeTable = new ConsolidatedTable();
+                    codeTable.YYYY = timeTelegram.Year;
+                    codeTable.MM = timeTelegram.Month;
+                    codeTable.DD = timeTelegram.Day;
+                }
+                if (codeTable.Th5_90M == null || codeTable.Th5_90M == "") codeTable.SetValueByType("Th5", Median_90day);
+            }
         }
     }
     public class Decode:IDecode
