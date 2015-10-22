@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<script type="text/javascript">
+    var Url1 = "@Url.Action("GetUmagf", "Api", new { panel = 2 })";
+    var Url2 = "@Url.Action("GetUmagf", "Api", new { panel = 1 })";
+    var Url3 = "@Url.Action("GetChartMediana", "Api", new { type = "M3000F2",panel = 2 })";
+    var Url4 = "@Url.Action("GetChartMediana", "Api", new { type = "f0F2", panel = 1  })";
+    function digitalWatch() {
+        var date = new Date();
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var seconds = date.getSeconds();
+        if (hours < 10) hours = "0" + hours;
+        if (minutes < 10) minutes = "0" + minutes;
+        if (seconds < 10) seconds = "0" + seconds;
+        document.getElementById("digital_watch").innerHTML = hours + ":" + minutes + ":" + seconds;
+        setTimeout("digitalWatch()", 1000);
+    }
+    function reloadPage(Url, ID, time)
+    {
+        $.ajax({
+            url: Url,
+            success: function (resp) {
+                $('#' + ID).html(resp);
+            },
+            complete: function () {
+                setTimeout(reloadPage, time * 1000, Url,ID, time);
+            }
+        });
+    }
+
+
+
+    $(document).ready(function () {
+        digitalWatch()
+        reloadPage(Url1, "left_header", 50);
+        reloadPage(Url2, "rigth_footer", 70);
+        reloadPage(Url3, "left_footer", 60);
+        reloadPage(Url4, "rigth_footer", 80);
+    })
+</script>
+<style type="text/css">
+    .col-lg-6{
+        border-radius:2px;
+        border-color:black;
+        
+    }
+</style>
+
+    <div class="row">
+        <div class="col-lg-6" id="left_header"></div>
+        <div class="col-lg-6" id="rigth_header"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6" id="left_footer"></div>
+        <div class="col-lg-6" id="rigth_footer"></div>
+    </div>
+

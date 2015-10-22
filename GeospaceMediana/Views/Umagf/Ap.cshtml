@@ -2,20 +2,29 @@
 @{
     ViewBag.Title = "Геомагнитные данные: K-индексы";
 }
-
 @if (ViewBag.Error != null)
 {
     <h2>@ViewBag.Error</h2>
 }
 else
-{ 
+{
+    if (ViewBag.Panel > 0)
+    {
+        Layout = "~/Views/Shared/Empty.cshtml";
+        <div id="container_@ViewBag.Panel" style="height:100%; margin: 0 auto"></div>
+    }
+    else
+    {
+        <div id="container_@ViewBag.Panel" style="min-width: 310px; height: 500px; margin: 0 auto"></div>
+    }
+}
 @section Scripts
 {
     @Scripts.Render("~/Scripts/highcharts.js")
 <script src="http://code.highcharts.com/stock/modules/exporting.js"></script>
         @Scripts.Render("~/Scripts/draggable-points.js")
-        }
-<div id="container" style="min-width: 310px; height: 500px; margin: 0 auto"></div>
+}
+
 
 <script>
     $(document).ready(function () {
@@ -43,7 +52,7 @@ else
 });
 
 
-$('#container').highcharts({
+    $('#container_@ViewBag.Panel').highcharts({
     chart: {
         type: 'column'
     },
@@ -85,7 +94,7 @@ $('#container').highcharts({
                 string color = "red";
                 if (item.ak <= 14)
                 {
-                    color = "green";
+                    color = "#00FF00";
                 }
                 if (14 < item.ak && item.ak <= 19)
                 {
@@ -126,7 +135,7 @@ $('#container').highcharts({
 
 </script>
 
-}
+
 
 <br>
 <table border="1" cellpadding="7" cellspacing="1" width="90%">

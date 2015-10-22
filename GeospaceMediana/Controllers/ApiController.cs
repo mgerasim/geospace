@@ -23,18 +23,18 @@ namespace GeospaceMediana.Controllers
         {
             List<CodeIonka> theList = (List<CodeIonka>)CodeIonka.GetAll();
             List<ApiIonka> theResult = new List<ApiIonka>();
-            foreach(var item in theList)
+            foreach (var item in theList)
             {
                 ApiIonka jsonObj = new ApiIonka(item);
                 theResult.Add(jsonObj);
             }
-            return Json(theResult, JsonRequestBehavior.AllowGet); 
+            return Json(theResult, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetAverageByUTC(Station station, int YYYY, int MM, int DD, int HH)
         {
             ApiAverage theResult = new ApiAverage(Average.GetByDateUTC(station, YYYY, MM, DD, HH));
-            return Json( theResult, JsonRequestBehavior.AllowGet);
+            return Json(theResult, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetIonkaByPeriod(int StationCode, int startYYYY, int startMM, int startDD, int endYYYY, int endMM, int endDD)
@@ -73,7 +73,7 @@ namespace GeospaceMediana.Controllers
 
             List<ApiMediana> theResult = new List<ApiMediana>();
 
-            for (int numberRange = 0; numberRange < 6;numberRange++ )
+            for (int numberRange = 0; numberRange < 6; numberRange++)
             {
                 ApiMediana jsonObj = new ApiMediana(medians, YYYY, MM, numberRange);
                 theResult.Add(jsonObj);
@@ -93,7 +93,7 @@ namespace GeospaceMediana.Controllers
         public JsonResult GetCharacterizations(int stationCode = 43501, string type = "f0F2")
         {
             DateTime currDate = DateTime.Now.AddDays(-3);
-            
+
             int rangeNumber = -1;
             if (rangeNumber == -1)
             {
@@ -110,10 +110,10 @@ namespace GeospaceMediana.Controllers
             }
 
             Station station = Station.GetByCode(stationCode);
-            CharacterizationDay theEntityCharacterization = new CharacterizationDay(station, 
-                rangeNumber, 
-                currDate.Year, 
-                currDate.Month, 
+            CharacterizationDay theEntityCharacterization = new CharacterizationDay(station,
+                rangeNumber,
+                currDate.Year,
+                currDate.Month,
                 type);
 
 
@@ -134,27 +134,27 @@ namespace GeospaceMediana.Controllers
                 theApiCharacterization.theApiCharacterizationDay.Add(theApiDay);
                 for (int hour = 0; hour < 24; hour++)
                 {
-                    ApiCharacterization.ApiCharacterizationDay.ApiCharacterizationData data 
+                    ApiCharacterization.ApiCharacterizationDay.ApiCharacterizationData data
                     = new ApiCharacterization.ApiCharacterizationDay.ApiCharacterizationData();
 
                     data.day = day;
                     data.hour = hour;
 
                     var result_list = theEntityCharacterization.GetValues().Where(x => x.Day == day).Where(x => x.Hour == hour);
-                    
+
                     if (result_list.Count() > 0)
                     {
                         var result = result_list.Single();
                         data.value = result._f0;
                         data.delta = result._PrevRating;
-                        data.rating = result._Rating;                        
+                        data.rating = result._Rating;
                     }
 
                     theApiDay.theApiCharacterizationData.Add(data);
 
-    
+
                 }
-                
+
             }
             return Json(theApiCharacterization, JsonRequestBehavior.AllowGet);
         }
@@ -213,7 +213,7 @@ namespace GeospaceMediana.Controllers
             theApi.theItems.Add(this.HelperDisturbance_Item(stationMagadan, theViewData, YYYY, MM));
             theApi.theItems.Add(this.HelperDisturbance_Item(stationParatunka, theViewData, YYYY, MM));
             theApi.theItems.Add(this.HelperDisturbance_Item(stationSalekhard, theViewData, YYYY, MM));
-            
+
 
             theApi.Title = theViewData.Title;
 
@@ -241,11 +241,11 @@ namespace GeospaceMediana.Controllers
 
             return theItem;
         }
-        
-        
+
+
         public JsonResult GetConsolidatedTable(int YYYY = -1, int MM = -1)
         {
-           // GeospaceMediana.Controllers.ConsolidatedTableController
+            // GeospaceMediana.Controllers.ConsolidatedTableController
             ApiConsolidatedTable theApi = new ApiConsolidatedTable();
             if (YYYY == -1)
             {
@@ -278,7 +278,7 @@ namespace GeospaceMediana.Controllers
             {
                 MM = DateTime.Now.Month;
             }
-            var url = this.Url.Action("Index", "ConsolidatedTable", new { YYYY = YYYY , MM = MM, api = 1 }, Request.Url.Scheme);
+            var url = this.Url.Action("Index", "ConsolidatedTable", new { YYYY = YYYY, MM = MM, api = 1 }, Request.Url.Scheme);
             WebRequest request = WebRequest.Create(url);
             Stream stream = request.GetResponse().GetResponseStream();
             StreamReader streamReader = new StreamReader(stream);
@@ -286,7 +286,25 @@ namespace GeospaceMediana.Controllers
             return Content(htmlCode, "text/html", Encoding.GetEncoding("windows-1251"));
             //return Json(htmlCode, "application/json", Encoding.GetEncoding("windows-1251"), JsonRequestBehavior.AllowGet);
         }
+        public ActionResult GetUmagf( int panel = 1)
+        {
+            var url = this.Url.Action("Ap", "Umagf", new { panel = panel }, Request.Url.Scheme);
+            WebRequest request = WebRequest.Create(url);
+            Stream stream = request.GetResponse().GetResponseStream();
+            StreamReader streamReader = new StreamReader(stream);
+            string htmlCode = streamReader.ReadToEnd();
+            return Content(htmlCode, "text/html");
+        }
 
+        public ActionResult GetChartMediana(string type = "f0F2", int panel = 1)
+        {
+            var url = this.Url.Action("Index", "ChartMediana", new { type = type, panel = panel }, Request.Url.Scheme);
+            WebRequest request = WebRequest.Create(url);
+            Stream stream = request.GetResponse().GetResponseStream();
+            StreamReader streamReader = new StreamReader(stream);
+            string htmlCode = streamReader.ReadToEnd();
+            return Content(htmlCode, "text/html");
+        }
 
     }
 }
