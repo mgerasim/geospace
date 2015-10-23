@@ -32,7 +32,7 @@
             "Ноябрь": "11",
             "Декабрь": "12"
         }
-       // var cont = 'container_chart' + '_@ViewBag.Panel';
+        var panelVieww =  parseInt('@ViewBag.Panel');
         var chart = new Highcharts.Chart({
 
             chart: {
@@ -43,7 +43,7 @@
             },
 
             title: {
-                text: 'Медианный прогноз @ViewBag.ViewType для спокойной ионосферы на 5 дней (@ViewBag.PrevDate.ToString("MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture)-@ViewBag.CurDate.ToString("MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture))'
+                text: 'Медианный прогноз @ViewBag.ViewType для спокойной ионосферы на 5 дней (@ViewBag.PrevDate.ToString("MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture)-@ViewBag.CurDate.ToString("MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture))   @ViewBag.Station.Name'
             },
 
             yAxis: {
@@ -52,7 +52,7 @@
                     text: 'Критическая частота МГц ⋅ 10'
                 },
                 lineWidth: 2,
-                max: 120,
+                //max: 120,
                 tickPixelInterval: 10,
                 tickInterval: 10
             },
@@ -101,7 +101,14 @@
                 tickInterval:1,
                 tickmarkPlacement: 'on',
             },
-
+            exporting: {
+                    buttons: {
+                        contextButton: {
+                                enabled: (panelVieww > 0 )?false: true,
+                                        }
+                             }
+                        },
+            
             plotOptions: {
                 series: {
                     point: {
@@ -258,7 +265,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div id="container_chart_@ViewBag.Panel"></div>
+        <div id="container_chart_@ViewBag.Panel" ></div>
 
     </div>
 

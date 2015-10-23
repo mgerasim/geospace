@@ -2,10 +2,9 @@
     ViewBag.Title = "Index";
 }
 <script type="text/javascript">
-    var Url1 = "@Url.Action("GetUmagf", "Api", new { panel = 2 })";
-    var Url2 = "@Url.Action("GetUmagf", "Api", new { panel = 1 })";
-    var Url3 = "@Url.Action("GetChartMediana", "Api", new { type = "M3000F2",panel = 2 })";
-    var Url4 = "@Url.Action("GetChartMediana", "Api", new { type = "f0F2", panel = 1  })";
+    var UrlUmagf = "@Url.Action("GetUmagf", "Api")";
+    var UrlMediana = "@Url.Action("GetChartMediana", "Api")";
+
     function digitalWatch() {
         var date = new Date();
         var hours = date.getHours();
@@ -17,43 +16,132 @@
         document.getElementById("digital_watch").innerHTML = hours + ":" + minutes + ":" + seconds;
         setTimeout("digitalWatch()", 1000);
     }
-    function reloadPage(Url, ID, time)
+    function reloadData(time)
     {
+        reloadPage(UrlUmagf, 1, time, 0);
+        reloadPage(UrlUmagf, 2, time, 1);
+        reloadPage(UrlUmagf, 3, time, 2);
+        reloadPage(UrlUmagf, 4, time, 3);
+        reloadPage(UrlMediana, 5, time, 0);
+        reloadPage(UrlMediana, 6, time, 1);
+        reloadPage(UrlMediana, 7, time, 2);
+        reloadPage(UrlMediana, 8, time, 3);
+    }
+
+    function reloadPage(Url, ID, time, stationNumber, type)
+    {
+        if (type === undefined) {
+            type = "";
+        }
+        var list = [46501, 43501, 45601, 38701];
+        var param = { StationCode: list[stationNumber], type: type, panel : ID};
         $.ajax({
             url: Url,
+            data: param,
             success: function (resp) {
                 $('#' + ID).html(resp);
             },
             complete: function () {
-                setTimeout(reloadPage, time * 1000, Url,ID, time);
+                //stationNumber++;
+                //console.log(stationNumber);
+                //if(stationNumber > 3)
+                //    stationNumber = 0;
+                setTimeout(reloadPage, time * 60* 1000, Url, ID, time, stationNumber);
             }
         });
     }
-
-
-
     $(document).ready(function () {
-        digitalWatch()
-        reloadPage(Url1, "left_header", 50);
-        reloadPage(Url2, "rigth_footer", 70);
-        reloadPage(Url3, "left_footer", 60);
-        reloadPage(Url4, "rigth_footer", 80);
+        digitalWatch();
+        reloadData(10);
+        $('.carousel').carousel({
+            interval: 10000,
+        })
     })
 </script>
 <style type="text/css">
     .col-lg-6{
         border-radius:2px;
         border-color:black;
-        
     }
 </style>
+@*<div class="row">
+    <div class="col-lg-6" id="5"></div>
+    <div class="col-lg-6" id="6"></div>
+</div>
+<div class="row">
+    <div class="col-lg-6" id="7"></div>
+    <div class="col-lg-6" id="8"></div>
+</div>*@
+    
 
-    <div class="row">
-        <div class="col-lg-6" id="left_header"></div>
-        <div class="col-lg-6" id="rigth_header"></div>
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-keyboard="thue">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <div class="row">
+                <div class="col-sm-6" id="1"></div>
+                <div class="col-sm-6" id="2"></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6" id="3"></div>
+                <div class="col-sm-6" id="4"></div>
+            </div>
+            <table border="1" cellpadding="7" cellspacing="1" width="100%">
+                <tbody>
+                    <tr align="center">
+                        <th align="left" width="20%"><span>Значения A<sub>p</sub></span></th>
+                        <td width="13%"><span>0 - 7</span></td>
+                        <td width="13%"><span>8 - 14</span></td>
+                        <td width="13%"><span>15 - 19</span></td>
+                        <td width="13%"><span>20 - 29</span></td>
+                        <td width="13%"><span>30 - 49</span></td>
+                        <td width="13%"><span>&gt;= 50</span></td>
+                    </tr>
+                    <tr align="center">
+                        <th align="left"><span>Состояние магнитного поля</span></th>
+                        <td bgcolor="#00FF00"><span>очень<br>спокойное</span></td>
+                        <td bgcolor="#00FF00"><span>спокойное</span></td>
+                        <td bgcolor="#FFFF00"><span>неустойчивое</span></td>
+                        <td bgcolor="#FF0000"><span>слабо<br>возмущенное</span></td>
+                        <td bgcolor="#FF0000"><span>умеренно<br>возмущенное</span></td>
+                        <td bgcolor="#FF0000"><br><span>сильно<br>возмущенное<br><br></span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="carousel-caption">
+                ...
+            </div>
+        </div>
+        <div class="item">
+            <div class="row">
+                <div class="col-sm-6" id="5"></div>
+                <div class="col-sm-6" id="6"></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6" id="7"></div>
+                <div class="col-sm-6" id="8"></div>
+            </div>
+            <div class="carousel-caption">
+                ...
+            </div>
+        </div>
+        ...
     </div>
-    <div class="row">
-        <div class="col-lg-6" id="left_footer"></div>
-        <div class="col-lg-6" id="rigth_footer"></div>
-    </div>
+
+    <!-- Controls -->
+    @*<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+       <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+       <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>*@
+</div>
 

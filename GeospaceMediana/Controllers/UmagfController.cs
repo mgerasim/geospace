@@ -35,7 +35,7 @@ namespace GeospaceMediana.Controllers
             {
                 theStation = Station.GetByCode(43501);
             }
-            @ViewBag.Title = "Геомагнитная обстановка за " + currDate.ToString("MMMM yyyy");
+            ViewBag.Title = "Геомагнитная обстановка за " + currDate.ToString("MMMM yyyy");
             ViewBag.NameMenu = "Геомагнитная обстановка";
             ViewBag.Date = currDate;
             ViewBag.Station = theStation;

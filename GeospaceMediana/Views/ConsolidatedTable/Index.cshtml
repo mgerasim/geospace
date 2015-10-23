@@ -4,10 +4,10 @@
     ViewBag.Title = @ViewBag.Title;
 }
 @{
- if(ViewBag.Api == 1)
- {
-     Layout = "~/Views/Shared/Empty.cshtml";
- }
+if(ViewBag.Api == 1)
+{
+    Layout = "~/Views/Shared/Empty.cshtml";
+}
 if (ViewBag.Api == 0)
 {
         @section Styles
@@ -101,11 +101,14 @@ if (ViewBag.Api == 0)
         var inputHtml = "<input type=\"text\" id=\"edit\" value=\"" + oldValue + "\" />";
         if (currentCell.hasClass("energetic_event"))
         {
-            inputHtml = "<textarea id=\"edit\" style=\"text-align: left;\">" + oldValue + "</textarea>";
+            inputHtml = "<textarea id=\"edit\" style=\"text-align: left;\"></textarea>";
         }
         var cellWidth = currentCell.width();
         var cellHeight = currentCell.height();
         currentCell.empty().append(inputHtml);
+        if (currentCell.hasClass("energetic_event")) {
+            $("#edit").empty().append(oldValue);
+        }
         currentCell.css("padding", "0px");
         $('#edit').width(cellWidth - 2 + 16); // 1+1 border width
         $('#edit').height(cellHeight - 2 + 16);
@@ -118,12 +121,12 @@ if (ViewBag.Api == 0)
             }
         });
         $('#edit').keydown(function(){
-            $('#edit').css('overflow', 'hidden').autogrow();
+           // $('#edit').css('overflow', 'hidden').autogrow();
         });
         $('#edit').focus();
         $('#edit').select();
         $('#edit').blur(function () {
-            var newValue = $(this).val();
+            var newValue = $(this).html();
             currentCell.width("");
             currentCell.height(""); 
             currentCell.css("padding", "8px");
@@ -163,7 +166,7 @@ if (ViewBag.Api == 0)
     }
     $(document).ready(function () {
         $('.editable').dblclick(editEvent);
-        $('#edit').css('overflow', 'hidden').autogrow()
+        //$('#edit').css('overflow', 'hidden').autogrow();
     });
 </script>
 
@@ -269,16 +272,17 @@ if (ViewBag.Api == 0)
         padding-left: 0px;
         padding-right: 0px;
     }
-    .editable {
-        white-space: pre;
-
-    }
+    
 </style>
 
 }
     
 }
 <style>
+
+    .energetic_event {
+        white-space: pre;
+    }
     .rotate {
         display: inline-block;
         -webkit-transform: rotate(-90deg);
@@ -339,9 +343,9 @@ if (ViewBag.Api == 0)
                     <th rowspan="2" style="padding-left: 0px; padding-right: 0px; width: 8%;">
                         <div class="rotate" style="white-space: nowrap; width: 20px;">Координаты</div>
                     </th>
-                    <th rowspan="2" style="width:20%;">Время</th>
+                    <th rowspan="2" style="width: 20%;">Время</th>
 
-                    <th rowspan="1" style="height: 50px; padding: 5px 1px;">
+                    <th rowspan="1" style="height: 50px; padding: 5px 1px; white-space: nowrap;">
                             <div style=" width:auto; display: inline-block;">Радиовсплески</div>
                     </th>
                     <th rowspan="2" class="legal" style="width:6%;"><div class="rotate" style="width:11px; display: inline-block;">Ар</div></th>
@@ -380,13 +384,13 @@ if (ViewBag.Api == 0)
                             <td class="editable energetic_event" data-day="@item.DD" data-type="Th7">@item.Th7_Balls</td>
                             <td class="editable energetic_event" data-day="@item.DD" data-type="Th8">@item.Th8_Coordinates</td>
                             <td class="editable energetic_event" data-day="@item.DD" data-type="Th9">@item.Th9_Time</td>
-                            <td class="editable energetic_event" data-day="@item.DD" data-type="Th10" style="text-align:left;">@item.Th10_RadioBursts</td>
+                            <td class="editable energetic_event" data-day="@item.DD" data-type="Th10" style="text-align: left;">@item.Th10_RadioBursts</td>
                             <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@item.DD" data-type="Th11" style="white-space: nowrap;">@item.Th11_</td>
                             <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@item.DD" data-type="Th12">@item.Th12_AP</td>
                             <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@item.DD" data-type="Th13">@item.Th13_Amag</td>
                             <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@item.DD" data-type="Th14">@item.Th14_Apar</td>
                             <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@item.DD" data-type="Th15">@item.Th15_Akha</td>
-                            <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@item.DD" data-type="Th16">@item.Th16_K</td>
+                            <td style="white-space: pre; text-align: center !important; vertical-align: middle !important;" class="editable" data-day="@item.DD" data-type="Th16">@item.Th16_K</td>
                             <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@item.DD" data-type="Th17">@item.Th17_iSal</td>
                             <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@item.DD" data-type="Th18">@item.Th18_iMag</td>
                             <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@item.DD" data-type="Th19">@item.Th19_iKha</td>
@@ -411,7 +415,7 @@ if (ViewBag.Api == 0)
                             <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@(i+1)" data-type="Th13"></td>
                             <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@(i+1)" data-type="Th14"></td>
                             <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@(i+1)" data-type="Th15"></td>
-                            <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@(i+1)" data-type="Th16"></td>
+                            <td style="white-space: pre; text-align: center !important; vertical-align: middle !important;" class="editable" data-day="@(i+1)" data-type="Th16"></td>
                             <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@(i+1)" data-type="Th17"></td>
                             <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@(i+1)" data-type="Th18"></td>
                             <td style="text-align: center !important;vertical-align: middle !important;" class="editable" data-day="@(i+1)" data-type="Th19"></td>

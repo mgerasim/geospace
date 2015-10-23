@@ -11,7 +11,7 @@ else
     if (ViewBag.Panel > 0)
     {
         Layout = "~/Views/Shared/Empty.cshtml";
-        <div id="container_@ViewBag.Panel" style="height:100%; margin: 0 auto"></div>
+        <div id="container_@ViewBag.Panel" style="margin: 0 auto"></div>
     }
     else
     {
@@ -28,7 +28,7 @@ else
 
 <script>
     $(document).ready(function () {
-
+    var panelVieww =  parseInt('@ViewBag.Panel');
     Highcharts.setOptions({
     global: {
         useUTC: false
@@ -57,7 +57,7 @@ else
         type: 'column'
     },
     title: {
-        text: 'Геомагнитная обстановка за @ViewBag.Date.ToString("MMMM yyyy")'
+        text: 'Геомагнитная обстановка за @ViewBag.Date.ToString("MMMM yyyy") @ViewBag.Station.Name'
     },
     tooltip: {
         formatter: function () {
@@ -84,6 +84,14 @@ else
     legend: {
         enabled: false
     },
+    exporting: {
+        buttons: {
+            contextButton: {
+                enabled: (panelVieww > 0 )?false: true,
+            }
+        }
+    },
+            
     series: [{
         name: 'Ap',
         data: [
@@ -136,27 +144,29 @@ else
 </script>
 
 
-
-<br>
-<table border="1" cellpadding="7" cellspacing="1" width="90%">
-    <tbody>
-        <tr align="center">
-            <th align="left" width="20%"><span>Значения A<sub>p</sub></span></th>
-            <td width="13%"><span>0 - 7</span></td>
-            <td width="13%"><span>8 - 14</span></td>
-            <td width="13%"><span>15 - 19</span></td>
-            <td width="13%"><span>20 - 29</span></td>
-            <td width="13%"><span>30 - 49</span></td>
-            <td width="13%"><span>&gt;= 50</span></td>
-        </tr>
-        <tr align="center">
-            <th align="left"><span>Состояние<br>магнитного поля</span></th>
-            <td bgcolor="#00FF00"><span>очень<br>спокойное</span></td>
-            <td bgcolor="#00FF00"><span>спокойное</span></td>
-            <td bgcolor="#FFFF00"><span>неустойчивое</span></td>
-            <td bgcolor="#FF0000"><span>слабо<br>возмущенное</span></td>
-            <td bgcolor="#FF0000"><span>умеренно<br>возмущенное</span></td>
-            <td bgcolor="#FF0000"><br><span>сильно<br>возмущенное<br><br></span></td>
-        </tr>
-    </tbody>
-</table> 
+@if (ViewBag.Panel <= 0)
+{
+    <br>
+    <table border="1" cellpadding="7" cellspacing="1" width="90%">
+        <tbody>
+            <tr align="center">
+                <th align="left" width="20%"><span>Значения A<sub>p</sub></span></th>
+                <td width="13%"><span>0 - 7</span></td>
+                <td width="13%"><span>8 - 14</span></td>
+                <td width="13%"><span>15 - 19</span></td>
+                <td width="13%"><span>20 - 29</span></td>
+                <td width="13%"><span>30 - 49</span></td>
+                <td width="13%"><span>&gt;= 50</span></td>
+            </tr>
+            <tr align="center">
+                <th align="left"><span>Состояние<br>магнитного поля</span></th>
+                <td bgcolor="#00FF00"><span>очень<br>спокойное</span></td>
+                <td bgcolor="#00FF00"><span>спокойное</span></td>
+                <td bgcolor="#FFFF00"><span>неустойчивое</span></td>
+                <td bgcolor="#FF0000"><span>слабо<br>возмущенное</span></td>
+                <td bgcolor="#FF0000"><span>умеренно<br>возмущенное</span></td>
+                <td bgcolor="#FF0000"><br><span>сильно<br>возмущенное<br><br></span></td>
+            </tr>
+        </tbody>
+    </table> 
+}

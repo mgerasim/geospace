@@ -286,9 +286,9 @@ namespace GeospaceMediana.Controllers
             return Content(htmlCode, "text/html", Encoding.GetEncoding("windows-1251"));
             //return Json(htmlCode, "application/json", Encoding.GetEncoding("windows-1251"), JsonRequestBehavior.AllowGet);
         }
-        public ActionResult GetUmagf( int panel = 1)
+        public ActionResult GetUmagf(int StationCode = 43501, string type = "f0F2", int panel = 1)
         {
-            var url = this.Url.Action("Ap", "Umagf", new { panel = panel }, Request.Url.Scheme);
+            var url = this.Url.Action("Ap", "Umagf", new { StationCode = StationCode, panel = panel }, Request.Url.Scheme);
             WebRequest request = WebRequest.Create(url);
             Stream stream = request.GetResponse().GetResponseStream();
             StreamReader streamReader = new StreamReader(stream);
@@ -296,9 +296,9 @@ namespace GeospaceMediana.Controllers
             return Content(htmlCode, "text/html");
         }
 
-        public ActionResult GetChartMediana(string type = "f0F2", int panel = 1)
+        public ActionResult GetChartMediana(int StationCode = 43501, string type = "f0F2", int panel = 1)
         {
-            var url = this.Url.Action("Index", "ChartMediana", new { type = type, panel = panel }, Request.Url.Scheme);
+            var url = this.Url.Action("Index", "ChartMediana", new { stationCode = StationCode, type = type, panel = panel }, Request.Url.Scheme);
             WebRequest request = WebRequest.Create(url);
             Stream stream = request.GetResponse().GetResponseStream();
             StreamReader streamReader = new StreamReader(stream);
