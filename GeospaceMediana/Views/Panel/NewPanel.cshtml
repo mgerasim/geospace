@@ -1,0 +1,161 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<script type="text/javascript">
+    var UrlUmagf = "@Url.Action("GetUmagf", "Api")";
+    var UrlMediana = "@Url.Action("GetChartMediana", "Api")";
+
+    function digitalWatch() {
+        var date = new Date();
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var seconds = date.getSeconds();
+        if (hours < 10) hours = "0" + hours;
+        if (minutes < 10) minutes = "0" + minutes;
+        if (seconds < 10) seconds = "0" + seconds;
+        document.getElementById("digital_watch").innerHTML = hours + ":" + minutes + ":" + seconds;
+        setTimeout("digitalWatch()", 1000);
+    }
+    function reloadData(time)
+    {
+        reloadPage(UrlUmagf, 1, time, 0);
+        reloadPage(UrlUmagf, 2, time, 1);
+        reloadPage(UrlUmagf, 3, time, 2);
+        reloadPage(UrlUmagf, 4, time, 3);
+        reloadPage(UrlMediana, 5, time, 0);
+        reloadPage(UrlMediana, 6, time, 1);
+        reloadPage(UrlMediana, 7, time, 2);
+        reloadPage(UrlMediana, 8, time, 3);
+    }
+
+    function reloadPage(Url, ID, time, stationNumber, type)
+    {
+        if (type === undefined) {
+            type = "";
+        }
+        var list = [46501, 43501, 45601, 38701];
+        var param = { StationCode: list[stationNumber], type: type, panel : ID};
+        $.ajax({
+            url: Url,
+            data: param,
+            success: function (resp) {
+                $('#' + ID).html(resp);
+            },
+            complete: function () {
+                //stationNumber++;
+                //console.log(stationNumber);
+                //if(stationNumber > 3)
+                //    stationNumber = 0;
+                setTimeout(reloadPage, time * 60* 1000, Url, ID, time, stationNumber);
+            }
+        });
+    }
+    $(document).ready(function () {
+        digitalWatch();
+        reloadData(10);
+        $('.carousel').carousel({
+            interval: 10000,
+        })
+    })
+</script>
+<style type="text/css">
+    html, body {
+         /*height: 100%;*/
+    }
+    .panel_wrap {
+        display:block;
+        height: 100%;
+    }
+    .map11 {
+        height: 48%;
+        width: 49%;
+        border: 1px dotted;
+        float: left;
+    }
+    .map12 {
+        height: 48%;
+        width: 49%;
+        border: 1px dotted;
+        float: right;
+    }
+    .map21 {
+        height: 48%;
+        width: 49%;
+        border: 1px dotted;
+        float: left;
+    }
+    .map22 {
+        height: 48%;
+        width: 49%;
+        border: 1px dotted;
+        float: right;
+    }
+    .clearfix {
+        overflow: auto;
+        zoom: 1;
+    }
+</style>
+
+
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-keyboard="thue">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <div class="row">
+                <div class="col-sm-6" id="1"></div>
+                <div class="col-sm-6" id="2"></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6" id="3"></div>
+                <div class="col-sm-6" id="4"></div>
+            </div>
+                <table border="1" cellpadding="7" cellspacing="1" width="100%">
+                    <tbody>
+                        <tr align="center">
+                            <th align="left" width="20%"><span>Значения A<sub>p</sub></span></th>
+                            <td width="13%"><span>0 - 7</span></td>
+                            <td width="13%"><span>8 - 14</span></td>
+                            <td width="13%"><span>15 - 19</span></td>
+                            <td width="13%"><span>20 - 29</span></td>
+                            <td width="13%"><span>30 - 49</span></td>
+                            <td width="13%"><span>&gt;= 50</span></td>
+                        </tr>
+                        <tr align="center">
+                            <th align="left"><span>Состояние магнитного поля</span></th>
+                            <td bgcolor="#00FF00"><span>очень<br>спокойное</span></td>
+                            <td bgcolor="#00FF00"><span>спокойное</span></td>
+                            <td bgcolor="#FFFF00"><span>неустойчивое</span></td>
+                            <td bgcolor="#FF0000"><span>слабо<br>возмущенное</span></td>
+                            <td bgcolor="#FF0000"><span>умеренно<br>возмущенное</span></td>
+                            <td bgcolor="#FF0000"><br><span>сильно<br>возмущенное<br><br></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+        </div>
+        <div class="item">
+            <div class="panel_wrap">
+                <div id="5" class="map11">
+                    <div id="container_chart_1"></div>
+                </div>
+                <div id="6" class="map12">
+                    <div id="container_chart_2"></div>
+                </div>
+                <div class="clearfix"></div>
+                <div id="7" class="map21">
+                    <div id="container_chart_3"></div>
+                </div>
+                <div id="8" class="map22">
+                    <div id="container_chart_4"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

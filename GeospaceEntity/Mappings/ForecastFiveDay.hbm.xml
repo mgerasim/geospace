@@ -16,5 +16,6 @@
     <property name="IONFO" type="string" length="1000"/>
     <property name="IONES" type="string" length="1000"/>
     <property name="MAGPO" type="string" length="1000"/>
+    <property name="NumberTelegram" type="string" length="1000"/>
   </class>
 </hibernate-mapping>
