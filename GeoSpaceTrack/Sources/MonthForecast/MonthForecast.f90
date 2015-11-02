@@ -51,7 +51,7 @@ read (slat2, *) lat2
 read (sW, *) W
 read (sMonth, *) month
 
-print *, "DEBUG PostA: " // slon1 // "  " // slat1 // "PostB: " // slon2 // "  " // slat2
+print '("DEBUG ", A)', " PostA: " // trim(slon1) // "  " // trim(slat1) // " PostB: " // trim(slon2) // "  " // trim(slat2)
 print *, "DEBUG W: " // sW // "Month: " // smonth
 
 call degree_to_rad(lat1, x1)
@@ -61,12 +61,16 @@ call degree_to_rad(lon2, y2)
 call calc_coord( x1, y1, x2, y2, KTO, XO, YO, lat1, lat2, D )
 
 print *, "DEBUG KTO = ", KTO
-do i = 1, KTO, 1
-	!print *, "DEBUG XO[",i,"] = ", XO(i), "YO[",i,"] = ", YO(i)
-end do
 
 path = ""
 call forecast_MUF( W, month, KTO, XO, YO, D, path, DATADIR )
+
+do i = 1, KTO, 1
+	call rad_to_degree(XO(i), XO(i))
+	call rad_to_degree(YO(i), YO(i))
+	print *, "DEBUG XO[",i,"] = ", XO(i), "YO[",i,"] = ", YO(i)
+	
+end do
 
 print *, "DEBUG ...finish programm"
 END
