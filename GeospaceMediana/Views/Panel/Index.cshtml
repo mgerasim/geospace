@@ -133,15 +133,112 @@
         </div>
         ...
     </div>
-
-    <!-- Controls -->
-    @*<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-       <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-       <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>*@
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+    });
+    function mediana(numberStation) {
+        $.ajax({
+            url: '/',
+            type: 'GET',
+            async: true,
+            dataType: "json",
+            success: function (data) {
+                visitorData(data);
+            }
+        });
+    }
+@*$(function () {
+    $('#@(nameDiv)').highcharts({
+        title: {
+            text: '@title'
+        },
+        xAxis :{
+            title: {
+                text: 'Часы (UT)'
+            },
+            categories: [
+            @for(int i=0;i<24;i++)
+        {
+            @Html.Raw("'"+i.ToString("00")+"'")
+
+            if(i!=23)
+            {
+                @:,
+                }
+        }
+            ],
+            lineWidth: 2,
+            gridLineWidth: 1,
+            tickInterval:1,
+            tickmarkPlacement: 'on',
+        },
+        yAxis: [{ // Primary yAxis
+            labels: {
+                format: '{value}',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            },
+            title: {
+                text:'@textY',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            },
+            min: 0,
+            max: @max,
+            tickInterval: @step,
+        }, { // Secondary yAxis
+            title: {
+                text: 'Количество пропущенных значений',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                }
+            },
+            labels: {
+                format: '{value}',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                }
+            },
+            opposite: true,
+            min: 0,
+            max: '@quantity',
+            tickInterval: 1,
+        }],
+        tooltip: {
+            shared: true
+        },
+
+        series: [{
+            name: 'Пропущенные значения',
+            type: 'column',
+            yAxis: 1,
+            data: @valueSkip
+
+            }, {
+                name: 'Средняя частота @ViewBag.Type',
+                type: 'spline',
+                data: @valueAverage
+                }
+            , {
+                name: 'Фактическая частота @ViewBag.Type',
+                type: 'spline',
+                color: 'green',
+                data: @value
+                }
+            , {
+                name: 'Медиана @ViewBag.Type',
+                type: 'spline',
+                color: 'orange',
+                data: @mediana
+                }]
+    });
+});*@
+</script>
+
+
+
 

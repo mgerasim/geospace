@@ -587,7 +587,6 @@
     <Content Include="Views\Panel\_Menu.cshtml" />
     <Content Include="Views\Shared\Empty.cshtml" />
     <Content Include="Views\Panel\NewPanel.cshtml" />
-    <Content Include="Views\Shared\_Panel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
