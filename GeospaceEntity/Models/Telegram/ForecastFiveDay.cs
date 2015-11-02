@@ -20,13 +20,14 @@ namespace GeospaceEntity.Models.Telegram
         public virtual string IONFO { get; set; }
         public virtual string IONES { get; set; }
         public virtual string MAGPO { get; set; }
-
+        public virtual string NumberTelegram { get; set; }
         public ForecastFiveDay()
         {
             ID = -1;
             IONFO = "";
             IONES = "";
             MAGPO = "";
+            NumberTelegram = "";
             created_at = DateTime.Now;
             updated_at = DateTime.Now;
         }
@@ -55,10 +56,10 @@ namespace GeospaceEntity.Models.Telegram
             GeospaceEntity.Common.IRepository<ForecastFiveDay> repo = new Repositories.ForecastFiveDayRepository();
             return repo.GetAll();
         }
-        public virtual string addEmpty( int number)
+        public virtual string addEmpty(int number)
         {
             var str = "";
-            for(var i = 0; i < number; i++)
+            for (var i = 0; i < number; i++)
             {
                 str += "/";
             }
@@ -67,12 +68,14 @@ namespace GeospaceEntity.Models.Telegram
         public virtual string setReScanValue(string value)
         {
             string newStr = "";
-            if(value.Length > 5 )
+            if (value.Length > 5)
             {
-                newStr = value.Substring(0, 5) + "  " + value.Substring(5, value.Length - 5 ) + addEmpty(10 - value.Length);
+                newStr = value.Substring(0, 5) + "  " + value.Substring(5, value.Length - 5) + addEmpty(10 - value.Length);
             }
-            else {
-                if (value.Length < 5) {
+            else
+            {
+                if (value.Length < 5)
+                {
                     newStr = value.Substring(0, value.Length) + addEmpty(5 - value.Length);
                 }
                 else
@@ -92,8 +95,11 @@ namespace GeospaceEntity.Models.Telegram
                 case "IONES":
                     IONES = value;
                     break;
-                case "MAGPO" :
+                case "MAGPO":
                     MAGPO = value;
+                    break;
+                case "Number":
+                    NumberTelegram = value;
                     break;
             }
         }

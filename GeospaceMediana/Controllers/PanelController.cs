@@ -13,6 +13,11 @@ namespace GeospaceMediana.Controllers
             ViewBag.NameMenu = "Информационная панель";
             return View();
         }
+        public ActionResult NewPanel()
+        {
+            ViewBag.NameMenu = "Информационная панель";
+            return View();
+        }
 
     }
 }

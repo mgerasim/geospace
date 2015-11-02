@@ -115,6 +115,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Mappings\CodeIonka.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Mappings\Station.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

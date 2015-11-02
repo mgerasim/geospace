@@ -38,12 +38,13 @@ namespace GeospaceMediana.Controllers
                 def = true;
             }
             ViewBag.number = rangeNumber;
+            DateTime rangeTime = MedianaCalculator.GetFromDate(nowDateTime);
             ViewBag.range = MedianaCalculator.GetRangeFromNumber(nowDateTime, rangeNumber);
            //if (def == true && rangeNumber == 0)
            //     nowDateTime = nowDateTime.AddMonths(1);
-            ViewBag.Date = nowDateTime;
-            ViewBag.Year = nowDateTime.Year;
-            ViewBag.Month = nowDateTime.Month;
+            ViewBag.Date = rangeTime;
+            ViewBag.Year = rangeTime.Year;
+            ViewBag.Month = rangeTime.Month;
             //получен информации Медианнапо заданным станциям
            int[] station = new int[]{45601,43501,46501};//страница не тяница если добавить больше станцый нужно переделать верстку!!!!
            string[] namePrognoz = { "IONFO", "IONES", "MAGPO" };
