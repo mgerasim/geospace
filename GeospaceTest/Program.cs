@@ -25,11 +25,11 @@ namespace GeospaceTest
 
            //Support02();
 
-                Support03();
+             //  Support03();
            //Support04();
            // Support05(); 
 
-           //Support06();
+          Support06();
             //Support07();
            //Support08();
 
@@ -172,6 +172,7 @@ namespace GeospaceTest
             string s1 = @"\\192.168.72.123\obmen\armgf1dan.txt";
             string s2 = "C:\\Users\\distomin\\Projects\\GeoSpace\\documents\\test.txt";
             string s3 =  "D:\\Мои документы\\visual studio 2013\\Projects\\GeoSpace\\documents\\armgf1dan.txt";
+            string s4 = "Y:\\GeoBasa\\2015\\10\\10102015_gf_dan.txt";
             ILogger theLogFile = new LoggerNLog();
             ILogger theConsoleLog = new LoggerConsole();
             IDecode theDecode = new Decode(theLogFile, s1);

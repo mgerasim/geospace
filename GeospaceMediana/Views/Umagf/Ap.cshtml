@@ -2,24 +2,33 @@
 @{
     ViewBag.Title = "Геомагнитные данные: K-индексы";
 }
-
 @if (ViewBag.Error != null)
 {
     <h2>@ViewBag.Error</h2>
 }
 else
-{ 
+{
+    if (ViewBag.Panel > 0)
+    {
+        Layout = "~/Views/Shared/Empty.cshtml";
+        <div id="container_@ViewBag.Panel" style="margin: 0 auto"></div>
+    }
+    else
+    {
+        <div id="container_@ViewBag.Panel" style="min-width: 310px; height: 500px; margin: 0 auto"></div>
+    }
+}
 @section Scripts
 {
     @Scripts.Render("~/Scripts/highcharts.js")
 <script src="http://code.highcharts.com/stock/modules/exporting.js"></script>
         @Scripts.Render("~/Scripts/draggable-points.js")
-        }
-<div id="container" style="min-width: 310px; height: 500px; margin: 0 auto"></div>
+}
+
 
 <script>
     $(document).ready(function () {
-
+    var panelVieww =  parseInt('@ViewBag.Panel');
     Highcharts.setOptions({
     global: {
         useUTC: false
@@ -43,12 +52,12 @@ else
 });
 
 
-$('#container').highcharts({
+    $('#container_@ViewBag.Panel').highcharts({
     chart: {
         type: 'column'
     },
     title: {
-        text: 'Геомагнитная обстановка за @ViewBag.Date.ToString("MMMM yyyy")'
+        text: 'Геомагнитная обстановка за @ViewBag.Date.ToString("MMMM yyyy") @ViewBag.Station.Name'
     },
     tooltip: {
         formatter: function () {
@@ -75,6 +84,14 @@ $('#container').highcharts({
     legend: {
         enabled: false
     },
+    exporting: {
+        buttons: {
+            contextButton: {
+                enabled: (panelVieww > 0 )?false: true,
+            }
+        }
+    },
+            
     series: [{
         name: 'Ap',
         data: [
@@ -85,7 +102,7 @@ $('#container').highcharts({
                 string color = "red";
                 if (item.ak <= 14)
                 {
-                    color = "green";
+                    color = "#00FF00";
                 }
                 if (14 < item.ak && item.ak <= 19)
                 {
@@ -126,28 +143,30 @@ $('#container').highcharts({
 
 </script>
 
-}
 
-<br>
-<table border="1" cellpadding="7" cellspacing="1" width="90%">
-    <tbody>
-        <tr align="center">
-            <th align="left" width="20%"><span>Значения A<sub>p</sub></span></th>
-            <td width="13%"><span>0 - 7</span></td>
-            <td width="13%"><span>8 - 14</span></td>
-            <td width="13%"><span>15 - 19</span></td>
-            <td width="13%"><span>20 - 29</span></td>
-            <td width="13%"><span>30 - 49</span></td>
-            <td width="13%"><span>&gt;= 50</span></td>
-        </tr>
-        <tr align="center">
-            <th align="left"><span>Состояние<br>магнитного поля</span></th>
-            <td bgcolor="#00FF00"><span>очень<br>спокойное</span></td>
-            <td bgcolor="#00FF00"><span>спокойное</span></td>
-            <td bgcolor="#FFFF00"><span>неустойчивое</span></td>
-            <td bgcolor="#FF0000"><span>слабо<br>возмущенное</span></td>
-            <td bgcolor="#FF0000"><span>умеренно<br>возмущенное</span></td>
-            <td bgcolor="#FF0000"><br><span>сильно<br>возмущенное<br><br></span></td>
-        </tr>
-    </tbody>
-</table> 
+@if (ViewBag.Panel <= 0)
+{
+    <br>
+    <table border="1" cellpadding="7" cellspacing="1" width="90%">
+        <tbody>
+            <tr align="center">
+                <th align="left" width="20%"><span>Значения A<sub>p</sub></span></th>
+                <td width="13%"><span>0 - 7</span></td>
+                <td width="13%"><span>8 - 14</span></td>
+                <td width="13%"><span>15 - 19</span></td>
+                <td width="13%"><span>20 - 29</span></td>
+                <td width="13%"><span>30 - 49</span></td>
+                <td width="13%"><span>&gt;= 50</span></td>
+            </tr>
+            <tr align="center">
+                <th align="left"><span>Состояние<br>магнитного поля</span></th>
+                <td bgcolor="#00FF00"><span>очень<br>спокойное</span></td>
+                <td bgcolor="#00FF00"><span>спокойное</span></td>
+                <td bgcolor="#FFFF00"><span>неустойчивое</span></td>
+                <td bgcolor="#FF0000"><span>слабо<br>возмущенное</span></td>
+                <td bgcolor="#FF0000"><span>умеренно<br>возмущенное</span></td>
+                <td bgcolor="#FF0000"><br><span>сильно<br>возмущенное<br><br></span></td>
+            </tr>
+        </tbody>
+    </table> 
+}

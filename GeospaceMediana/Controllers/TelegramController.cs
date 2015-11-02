@@ -127,9 +127,9 @@ namespace GeospaceMediana.Controllers
                     telegram += "\r\n";
                     GeospaceEntity.Models.Telegram.ForecastFiveDay forecastData = GeospaceEntity.Models.Telegram.ForecastFiveDay.GetByDateUTC(stat, day.Year, day.Month, range_number);
                     if(forecastData != null){
-                        if (forecastData.IONFO != "") { telegram += "IONFO " + forecastData.IONFO + "  "; }
-                        if (forecastData.IONES != "") { telegram += "IONES " + forecastData.IONES + "  "; }
-                        if (forecastData.MAGPO != "") { telegram += "MAGPO " + forecastData.MAGPO + "  "; }
+                        if (forecastData.IONFO != "") { telegram += "IONFO " + forecastData.setReScanValue(forecastData.IONFO) + "  "; }
+                        if (forecastData.IONES != "") { telegram += "IONES " + forecastData.setReScanValue(forecastData.IONES) + "  "; }
+                        if (forecastData.MAGPO != "") { telegram += "MAGPO " + forecastData.setReScanValue(forecastData.MAGPO) + "  "; }
                     }
                     telegram += "\r\n\r\n";
                 }

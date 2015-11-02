@@ -142,6 +142,7 @@
     <Compile Include="Controllers\MarksController.cs" />
     <Compile Include="Controllers\ForecastMonthIonospheraController.cs" />
     <Compile Include="Controllers\ForecastMonthTrackController.cs" />
+    <Compile Include="Controllers\PanelController.cs" />
     <Compile Include="Controllers\SchemaController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\TablesunController.cs" />
@@ -582,6 +583,8 @@
     <Content Include="Views\Umagf\Ap.cshtml" />
     <Content Include="Views\Umagf\_Menu.cshtml" />
     <Content Include="Views\ConsolidatedTable\ExportToWord.cshtml" />
+    <Content Include="Views\Panel\Index.cshtml" />
+    <Content Include="Views\Panel\_Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
