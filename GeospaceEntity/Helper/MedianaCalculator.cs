@@ -115,6 +115,45 @@ namespace GeospaceEntity.Helper
             }
         }
 
+        public static DateTime GetFromDate(DateTime date)
+        {
+            if (ranges == null)
+            {
+                ranges = new Range[6];
+
+                int curMin = 1;
+                int curMax = 5;
+
+                for (int i = 0; i < 6; i++)
+                {
+                    ranges[i] = new Range { Min = curMin, Max = curMax };
+                    curMin += 5;
+                    curMax += 5;
+                }
+            }
+
+            int countDays = DateTime.DaysInMonth(date.Year, date.Month);
+            ranges[5].Max = countDays;
+            int number = 0;
+            bool key = false;
+            foreach (var item in ranges)
+            {
+                if (date.Day <= (item.Max) - 2)
+                {
+                    key = true;
+                    break;
+                }
+                number++;
+            }
+            if (key)
+                return date;
+            else
+            {
+                date = date.AddMonths(1);
+                return date;
+            }
+        }
+
         private static int[] _calcDays = null; 
 
         public static DateTime GetCalcDateBySeq(DateTime month, int seqNumber)

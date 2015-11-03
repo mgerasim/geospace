@@ -15,10 +15,10 @@
     <property name="Th4_F" type="string" length="100"/>
     <property name="Th5_90M" type="string" length="100"/>
     <property name="Th6_CountEvent" type="string" length="100"/>
-    <property name="Th7_Balls" type="string" length="100"/>
-    <property name="Th8_Coordinates" type="string" length="100"/>
-    <property name="Th9_Time" type="string" length="100"/>
-    <property name="Th10_RadioBursts" type="string" length="100"/>
+    <property name="Th7_Balls" type="string" length="100000"/>
+    <property name="Th8_Coordinates" type="string" length="100000"/>
+    <property name="Th9_Time" type="string" length="100000"/>
+    <property name="Th10_RadioBursts" type="string" length="100000"/>
     <property name="Th11_" type="string" length="100"/>
     <property name="Th12_AP" type="string" length="100"/>
     <property name="Th13_Amag" type="string" length="100"/>

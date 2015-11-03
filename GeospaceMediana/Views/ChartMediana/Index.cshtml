@@ -2,7 +2,12 @@
 @{
     ViewBag.Title = @ViewBag.Title;
 }
-
+@{
+    if(ViewBag.Panel > 0)
+    {
+        Layout = "~/Views/Shared/Empty.cshtml";
+    }
+}
 @section Scripts
 {
     @Scripts.Render("~/Scripts/highcharts.js")
@@ -27,18 +32,18 @@
             "Ноябрь": "11",
             "Декабрь": "12"
         }
-
+        var panelVieww =  parseInt('@ViewBag.Panel');
         var chart = new Highcharts.Chart({
 
             chart: {
-                renderTo: 'container_chart',
+                renderTo: 'container_chart_@ViewBag.Panel',
                 animation: false,
                 type: "spline",
-                height: 700
+                height:700
             },
 
             title: {
-                text: 'Медианный прогноз @ViewBag.ViewType для спокойной ионосферы на 5 дней (@ViewBag.PrevDate.ToString("MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture)-@ViewBag.CurDate.ToString("MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture))'
+                text: 'Медианный прогноз @ViewBag.ViewType для спокойной ионосферы на 5 дней (@ViewBag.PrevDate.ToString("MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture)-@ViewBag.CurDate.ToString("MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture))   @ViewBag.Station.Name'
             },
 
             yAxis: {
@@ -96,7 +101,14 @@
                 tickInterval:1,
                 tickmarkPlacement: 'on',
             },
-
+            exporting: {
+                    buttons: {
+                        contextButton: {
+                                enabled: (panelVieww > 0 )?false: true,
+                                        }
+                             }
+                        },
+            
             plotOptions: {
                 series: {
                     point: {
@@ -217,7 +229,7 @@
                                 }
                                 else
                                 {
-                                    if (ViewBag.RangeNumber == 1)
+                                    if (ViewBag.RangeNumber == 0)
                                     {
                                         @DrawSeries(ViewBag.PrevDate, 5, "true")                                        
                                     }
@@ -227,8 +239,9 @@
                                     }
                                      
 
-                                    for (int range = 1; range < 6; range++)
+                                    for (int range = 0; range < 6; range++)
                                     {
+                                        //ИСПРАВИЛ ОШИБКУ НЕ ОТОБРАЖАЛАСЬ 1-5 НОЯБРЯ В ЧИСЛАХ  1-2 НОЯБРЯ - НЕ ЗНАЛ КАК ИСПРАВИТЬ И ПРОТСО СДЕЛАЛ ТАКёё!
                                         if (ViewBag.RangeNumber == range || ViewBag.RangeNumber - 1 == range)
                                         {
                                             @DrawSeries(ViewBag.CurDate, range, "true")                                            
@@ -253,7 +266,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div id="container_chart"></div>
+        <div id="container_chart_@ViewBag.Panel" style="height:700px;"></div>
 
     </div>
 

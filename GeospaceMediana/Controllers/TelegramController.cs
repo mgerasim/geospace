@@ -38,12 +38,13 @@ namespace GeospaceMediana.Controllers
                 def = true;
             }
             ViewBag.number = rangeNumber;
+            DateTime rangeTime = MedianaCalculator.GetFromDate(nowDateTime);
             ViewBag.range = MedianaCalculator.GetRangeFromNumber(nowDateTime, rangeNumber);
            //if (def == true && rangeNumber == 0)
            //     nowDateTime = nowDateTime.AddMonths(1);
-            ViewBag.Date = nowDateTime;
-            ViewBag.Year = nowDateTime.Year;
-            ViewBag.Month = nowDateTime.Month;
+            ViewBag.Date = rangeTime;
+            ViewBag.Year = rangeTime.Year;
+            ViewBag.Month = rangeTime.Month;
             //получен информации Медианнапо заданным станциям
            int[] station = new int[]{45601,43501,46501};//страница не тяница если добавить больше станцый нужно переделать верстку!!!!
            string[] namePrognoz = { "IONFO", "IONES", "MAGPO" };
@@ -127,9 +128,9 @@ namespace GeospaceMediana.Controllers
                     telegram += "\r\n";
                     GeospaceEntity.Models.Telegram.ForecastFiveDay forecastData = GeospaceEntity.Models.Telegram.ForecastFiveDay.GetByDateUTC(stat, day.Year, day.Month, range_number);
                     if(forecastData != null){
-                        if (forecastData.IONFO != "") { telegram += "IONFO " + forecastData.IONFO + "  "; }
-                        if (forecastData.IONES != "") { telegram += "IONES " + forecastData.IONES + "  "; }
-                        if (forecastData.MAGPO != "") { telegram += "MAGPO " + forecastData.MAGPO + "  "; }
+                        if (forecastData.IONFO != "") { telegram += "IONFO " + forecastData.setReScanValue(forecastData.IONFO) + "  "; }
+                        if (forecastData.IONES != "") { telegram += "IONES " + forecastData.setReScanValue(forecastData.IONES) + "  "; }
+                        if (forecastData.MAGPO != "") { telegram += "MAGPO " + forecastData.setReScanValue(forecastData.MAGPO) + "  "; }
                     }
                     telegram += "\r\n\r\n";
                 }

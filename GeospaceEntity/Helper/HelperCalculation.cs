@@ -206,7 +206,10 @@ namespace GeospaceEntity.Helper
                     if (mediana.ID < 0)
                         mediana.Save();
                     else
-                        mediana.Update();
+                        if (!mediana.IsFixed)
+                        {
+                            mediana.Update();
+                        }
                 }
             }
         }

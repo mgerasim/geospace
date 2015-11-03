@@ -29,6 +29,7 @@ namespace GeospaceMediana.Models
                 //GeospaceEntity.Helper.HelperTrack.Start(log, null, null, "\\CalcTrack\\CalcTrack.f90", exePath, false, true);
                 for (int i = 0; i < tracks.Count; i++ )
                 {
+                    log[0] += tracks[i].Name + "\n";
                     Calc_Track(tracks[i], log, exePath);
                 }
                 StreamWriter sw = new StreamWriter("C:\\inetpub\\wwwroot\\mediana\\bin2\\log\\Calc_Track_log.txt");

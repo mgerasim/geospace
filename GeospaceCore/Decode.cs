@@ -9,6 +9,129 @@ using System.Threading.Tasks;
 
 namespace GeospaceCore
 {
+    public class DecodeHelper
+    {
+        public static DateTime ReturnTimeTelegram(string dateStr)
+        {
+            int day = Convert.ToInt32(dateStr.Substring(0, 2));
+            int month = Convert.ToInt32(dateStr.Substring(3, 2));
+            DateTime timeNow = DateTime.Now;
+            if (timeNow.Month < month && month == 12) // смена месяца или года
+            {
+                timeNow = timeNow.AddMonths(-1);
+            }
+            DateTime timeTelegram = new DateTime(timeNow.Year, month, day);
+            timeTelegram = timeTelegram.AddDays(-1);
+            return timeTelegram;
+        }
+        public static void Zirs42(string item)
+        {
+            bool index2 = false, index3 = false;
+            DateTime timeTelegram = ReturnTimeTelegram(item.Substring(item.IndexOf("moskwa"), 22).Split(' ')[2]);
+            string timeEvent = "";
+            string ballEvent = "";
+            string cordinatEvent = "";
+            string radioEvent = "";
+            GeospaceEntity.Models.ConsolidatedTable codeTable = ConsolidatedTable.GetByDateUTC(timeTelegram.Year, timeTelegram.Month, timeTelegram.Day);
+            if (codeTable == null) // Если запись отсутствует
+            {
+                codeTable = new ConsolidatedTable();
+                codeTable.YYYY = timeTelegram.Year;
+                codeTable.MM = timeTelegram.Month;
+                codeTable.DD = timeTelegram.Day;
+                codeTable.Save();
+            }
+            int summEvent = 0;
+            int indexEvent2 = item.Substring(0).IndexOf(" 2.na diske");
+            int indexEvent3 = item.Substring(0).IndexOf(" 3.|nergi~nye sobytiq:");
+            int indexEvent4 = item.Substring(0).IndexOf("4.geomagnitnoe");
+            if (indexEvent2 >= 0 && indexEvent3 >= 0)
+            {
+                index2 = true;
+                string strEvents = item.Substring(indexEvent2, indexEvent3 - indexEvent2).Replace("\n   ", "\n");//.Split('\n');
+                string[] listEvent = strEvents.Split('\n');
+                int startSplit = 0;
+                foreach (string lineEvents in listEvent)
+                {
+                    if ((startSplit >= 3 && lineEvents != "") && Char.IsDigit(lineEvents[0]))
+                    {
+                        summEvent += Convert.ToInt32(lineEvents.Substring(12, 7).Replace(" ", "").TrimEnd());
+                    }
+                    startSplit++;
+                }
+                if (codeTable.Th3_Sp == null || codeTable.Th3_Sp == "") codeTable.SetValueByType("Th3", summEvent.ToString());
+            }
+            if (indexEvent3 >= 0 && indexEvent4 >= 0)
+            {
+                index3 = true;
+                string strEvents = item.Substring(indexEvent3, indexEvent4 - indexEvent3).Replace("\n ", "\n");//.Split('\n');
+                string[] listEvent = strEvents.Split('\n');
+                int startSplit = 0;
+                foreach (string lineEvents in listEvent)
+                {
+                    if (startSplit >= 3 && lineEvents != "")
+                    {
+                        timeEvent += lineEvents.Substring(0, 18).Replace("  ", " ").TrimEnd() + '\n';
+                        cordinatEvent += lineEvents.Substring(23, 7).Replace("  ", " ").TrimEnd() + '\n';
+                        var ballEvent1 = lineEvents.Substring(30, 2).Replace("  ", " ").TrimEnd();
+                        var ballEvent2 = lineEvents.Substring(35, 4).Replace(" ", "").TrimEnd();
+                        if (ballEvent2 != "" && ballEvent1 != "")
+                            ballEvent += ballEvent1 + "/" + ballEvent2;
+                        ballEvent += '\n';
+                        radioEvent += lineEvents.Substring(41, 11).TrimEnd() + '\n';
+                    }
+                    startSplit++;
+                }
+                char[] charsToTrim = { '\n', '\r' };
+                if (codeTable.Th7_Balls == null || codeTable.Th7_Balls == "") codeTable.SetValueByType("Th7", ballEvent.Trim(charsToTrim));
+                if (codeTable.Th8_Coordinates == null || codeTable.Th8_Coordinates == "") codeTable.SetValueByType("Th8", cordinatEvent.Trim(charsToTrim));
+                if (codeTable.Th9_Time == null || codeTable.Th9_Time == "") codeTable.SetValueByType("Th9", timeEvent.Trim(charsToTrim));
+                if (codeTable.Th10_RadioBursts == null || codeTable.Th10_RadioBursts == "") codeTable.SetValueByType("Th10", radioEvent.Trim(charsToTrim));
+            }
+            if (index2 == true || index3 == true)
+            {
+                codeTable.Update();
+            }
+            
+        }
+
+        public static void Zirs43(string item)
+        {
+            DateTime timeTelegram = ReturnTimeTelegram(item.Substring(item.IndexOf("moskwa"), 22).Split(' ')[2]);
+
+            int indexEvent1 = item.Substring(0).IndexOf("90 DAY MEAN ");
+            int indexEvent2 = item.Substring(0).IndexOf("V.  GEOMAGNETIC");
+            if (indexEvent1 >= 0 && indexEvent2 >= 0)
+            {
+                string itemNew = item.Substring(indexEvent1, indexEvent2 - indexEvent1);
+                int indexEvent3 = itemNew.Substring(0).IndexOf("\n");
+                string[] strEvents = itemNew.Substring(0, indexEvent3).TrimEnd('\r').Split();
+                int index = 0;
+                string Median_90day = ""; 
+                foreach (var sub in strEvents)
+                {
+                    if (sub != "")
+                    {
+                        index++;
+                        if(index == 6)
+                        {
+                            Median_90day = sub;
+                            break;
+                        }
+                    }
+                }
+                GeospaceEntity.Models.ConsolidatedTable codeTable = ConsolidatedTable.GetByDateUTC(timeTelegram.Year, timeTelegram.Month, timeTelegram.Day);
+                if (codeTable == null) // Если запись отсутствует
+                {
+                    codeTable = new ConsolidatedTable();
+                    codeTable.YYYY = timeTelegram.Year;
+                    codeTable.MM = timeTelegram.Month;
+                    codeTable.DD = timeTelegram.Day;
+                }
+                if (codeTable.Th5_90M == null || codeTable.Th5_90M == "") codeTable.SetValueByType("Th5", Median_90day);
+            }
+        }
+    }
     public class Decode:IDecode
     {
         ILogger logger;
@@ -31,6 +154,7 @@ namespace GeospaceCore
                     GeospaceEntity.Common.NHibernateHelper.UpdateSchema();
                     using (StreamReader sr = new StreamReader(fileName))
                     {
+                       // StreamWriter fileZirs42 = new StreamWriter("zirs42.txt");        ///test
                         String line = sr.ReadToEnd();
                         string[] delimiters = new string[] { "[ETX]" };
                         List<string> listBegin = Begin.GetAll();
@@ -38,11 +162,67 @@ namespace GeospaceCore
                         foreach (var item in line.Split(new char[] { '\u0002', '\u0003' },
                                      StringSplitOptions.RemoveEmptyEntries))
                         {
-                            //string sss = item;
-                            //Print_All_Begin_Telegramm( listBegin, sss.Split( ' ', '\n' ) );
-                            //continue;
-                            string theCode = GeospaceEntity.Helper.HelperIonka.Normalize(item, listBegin);
+                            //Сводная таблица( Энергичные события )
+                            if (item.Substring(0).ToUpper().IndexOf("ZIRS42") >= 0)
+                            {
+                                try
+                                {
+                                    DecodeHelper.Zirs42(item);
+                                }
+                                catch (Exception ex)
+                                {
+                                    logger.LogError("\r\n\r\n ----------------Zirs42------------------");
+                                    logger.LogError(ex.Message);
+                                    logger.LogError(ex.Source);
+                                    logger.LogError("\nitem:");
+                                    logger.LogError(item);
+                                    logger.LogError(ex.StackTrace);
+                                    if (ex.InnerException != null)
+                                    {
+                                        logger.LogError("----Inner Exc------");
+                                        logger.LogError(ex.InnerException.Message);
+                                    }
+                                    logger.LogError("---------END Zirs42---------------------");
 
+                                    Error theCodeError = new Error();
+                                    theCodeError.Raw = item;
+                                    theCodeError.Description = ex.Message + "\n" + ex.InnerException + "\n" + ex.Source + "\n" + ex.StackTrace;
+
+                                    if (theCodeError.GetByRaw(item) == null)
+                                        theCodeError.Save();
+                                }
+
+                            }
+                            if (item.Substring(0).ToUpper().IndexOf("ZIRS43") >= 0)
+                            {
+                                try
+                                {
+                                    DecodeHelper.Zirs43(item);
+                                }
+                                catch (Exception ex)
+                                {
+                                    logger.LogError("\r\n\r\n ----------------ZIRS43------------------");
+                                    logger.LogError(ex.Message);
+                                    logger.LogError(ex.Source);
+                                    logger.LogError("\nitem:");
+                                    logger.LogError(item);
+                                    logger.LogError(ex.StackTrace);
+                                    if (ex.InnerException != null)
+                                    {
+                                        logger.LogError("----Inner Exc------");
+                                        logger.LogError(ex.InnerException.Message);
+                                    }
+                                    logger.LogError("---------END ZIRS43---------------------");
+
+                                    Error theCodeError = new Error();
+                                    theCodeError.Raw = item;
+                                    theCodeError.Description = ex.Message + "\n" + ex.InnerException + "\n" + ex.Source + "\n" + ex.StackTrace;
+
+                                    if (theCodeError.GetByRaw(item) == null)
+                                        theCodeError.Save();
+                                }
+                            }
+                            string theCode = GeospaceEntity.Helper.HelperIonka.Normalize(item, listBegin);
                             int UmagfYYYY = 0;
                             int UmagfMM = 0;
                             int UmagfDD = 0;
@@ -51,6 +231,7 @@ namespace GeospaceCore
 
                             foreach (var code in theCode.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries))
                             {
+                                 
                                 string code_source = code;
                                 int numDate = 1;
                                 int numIndex = 2;
@@ -60,51 +241,53 @@ namespace GeospaceCore
 
                                     if (code.Substring(0).ToUpper().IndexOf("UGEOI") >= 0)
                                     {
-                                        logger.LogUGEOI("============================================================");
-                                        logger.LogUGEOI("Code: " + code);
-                                        List<string> codeSplit = new List<string>(code.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries));
-                                        DateTime dateNowUT = DateTime.Now;
-                                        int MM = Convert.ToInt32(codeSplit[2].Substring(1, 2));
-                                        int DD = Convert.ToInt32(codeSplit[2].Substring(3, 2));
-                                        DateTime dateTelegram;
-                                        DateTime dateZond;
-                                        //если телеграмма пришла позже срока (за прошлый год)
-                                        if( (dateNowUT.Year)%10 != Convert.ToInt32(codeSplit[2].Substring(0, 1)))
+                                        try
                                         {
-                                            dateTelegram = new DateTime((dateNowUT.AddMonths(-1)).Year, MM, DD);
-                                        }
-                                        else
-                                        {
-                                            dateTelegram = new DateTime(dateNowUT.Year, MM, DD);
-                                        }
-                                        logger.LogUGEOI("DateTelegram: " + dateTelegram.ToString("dd.MM.yyyy"));
-                                        int DayZond = Convert.ToInt32(codeSplit[4].Substring(0, 2));
-                                        // если телеграмма пришла с данными за прошлый месец
-                                        if(Math.Abs(DD-DayZond) >= 15)
-                                        {
-                                            dateZond = new DateTime((dateTelegram.AddMonths(-1)).Year, (dateTelegram.AddMonths(-1)).Month, DayZond);
-                                        }
-                                        else
-                                        {
-                                            dateZond = new DateTime(dateTelegram.Year, dateTelegram.Month, DayZond);
-                                        }
-                                        logger.LogUGEOI("DateZond: " + dateZond.ToString("dd.MM.yyyy"));
-                                        //запись данных 
-                                        int numberWolfs = -1;
-                                        if(Convert.ToInt32(codeSplit[5].Substring(0, 1)) == 1)
-                                        {
-                                            numberWolfs = Convert.ToInt32(codeSplit[5].Substring(1, 4));
-                                        }
-                                        int numberF = -1;
-                                        if (Convert.ToInt32(codeSplit[6].Substring(0, 1)) == 2)
-                                        {
-                                            numberF = Convert.ToInt32(codeSplit[6].Substring(1, 3));
-                                        }
-                                        logger.LogUGEOI("W: " + codeSplit[5] + " - " + numberWolfs);
-                                        logger.LogUGEOI("F: " + codeSplit[6] + " - " + numberF);
-                                        GeospaceEntity.Models.ConsolidatedTable table = GeospaceEntity.Models.ConsolidatedTable.GetByDateUTC(dateZond.Year, dateZond.Month, dateZond.Day);
-                                        if( table == null )
-                                        {
+                                            logger.LogUGEOI("============================================================");
+                                            logger.LogUGEOI("Code: " + code);
+                                            List<string> codeSplit = new List<string>(code.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries));
+                                            DateTime dateNowUT = DateTime.Now;
+                                            int MM = Convert.ToInt32(codeSplit[2].Substring(1, 2));
+                                            int DD = Convert.ToInt32(codeSplit[2].Substring(3, 2));
+                                            DateTime dateTelegram;
+                                            DateTime dateZond;
+                                            //если телеграмма пришла позже срока (за прошлый год)
+                                            if ((dateNowUT.Year) % 10 != Convert.ToInt32(codeSplit[2].Substring(0, 1)))
+                                            {
+                                                dateTelegram = new DateTime((dateNowUT.AddMonths(-1)).Year, MM, DD);
+                                            }
+                                            else
+                                            {
+                                                dateTelegram = new DateTime(dateNowUT.Year, MM, DD);
+                                            }
+                                            logger.LogUGEOI("DateTelegram: " + dateTelegram.ToString("dd.MM.yyyy"));
+                                            int DayZond = Convert.ToInt32(codeSplit[4].Substring(0, 2));
+                                            // если телеграмма пришла с данными за прошлый месец
+                                            if (Math.Abs(DD - DayZond) >= 15)
+                                            {
+                                                dateZond = new DateTime((dateTelegram.AddMonths(-1)).Year, (dateTelegram.AddMonths(-1)).Month, DayZond);
+                                            }
+                                            else
+                                            {
+                                                dateZond = new DateTime(dateTelegram.Year, dateTelegram.Month, DayZond);
+                                            }
+                                            logger.LogUGEOI("DateZond: " + dateZond.ToString("dd.MM.yyyy"));
+                                            //запись данных 
+                                            int numberWolfs = -1;
+                                            if (Convert.ToInt32(codeSplit[5].Substring(0, 1)) == 1)
+                                            {
+                                                numberWolfs = Convert.ToInt32(codeSplit[5].Substring(1, 4));
+                                            }
+                                            int numberF = -1;
+                                            if (Convert.ToInt32(codeSplit[6].Substring(0, 1)) == 2)
+                                            {
+                                                numberF = Convert.ToInt32(codeSplit[6].Substring(1, 3));
+                                            }
+                                            logger.LogUGEOI("W: " + codeSplit[5] + " - " + numberWolfs);
+                                            logger.LogUGEOI("F: " + codeSplit[6] + " - " + numberF);
+                                            GeospaceEntity.Models.ConsolidatedTable table = GeospaceEntity.Models.ConsolidatedTable.GetByDateUTC(dateZond.Year, dateZond.Month, dateZond.Day);
+                                            if (table == null)
+                                            {
                                                 table = new ConsolidatedTable();
                                                 table.YYYY = dateZond.Year;
                                                 table.MM = dateZond.Month;
@@ -112,14 +295,36 @@ namespace GeospaceCore
                                                 if (numberWolfs != -1) table.SetValueByType("Th2", numberWolfs.ToString());
                                                 if (numberF != -1) table.SetValueByType("Th4", numberF.ToString());
                                                 table.Save();
+                                            }
+                                            else
+                                            {
+                                                if (numberWolfs != -1) table.SetValueByType("Th2", numberWolfs.ToString());
+                                                if (numberF != -1) table.SetValueByType("Th4", numberF.ToString());
+                                                table.Update();
+                                            }
                                         }
-                                        else
+                                        catch (Exception ex)
                                         {
-                                            if (numberWolfs != -1 ) table.SetValueByType("Th2", numberWolfs.ToString());
-                                            if (numberF != -1) table.SetValueByType("Th4", numberF.ToString());
-                                            table.Update();
+                                            logger.LogError("\r\n\r\n ----------------UGEOI------------------");
+                                            logger.LogError(ex.Message);
+                                            logger.LogError(ex.Source);
+                                            logger.LogError("\ncode_source:");
+                                            logger.LogError(code_source);
+                                            logger.LogError(ex.StackTrace);
+                                            if (ex.InnerException != null)
+                                            {
+                                                logger.LogError("----Inner Exc------");
+                                                logger.LogError(ex.InnerException.Message);
+                                            }
+                                            logger.LogError("---------END UGEOI---------------------");
+
+                                            Error theCodeError = new Error();
+                                            theCodeError.Raw = item;
+                                            theCodeError.Description = ex.Message + "\n" + ex.InnerException + "\n" + ex.Source + "\n" + ex.StackTrace;
+
+                                            if (theCodeError.GetByRaw(item) == null)
+                                                theCodeError.Save();
                                         }
-                                        
                                     }
                                     if (code.Substring(0).ToUpper().IndexOf("MAGMA") >= 0)
                                     {
@@ -161,7 +366,7 @@ namespace GeospaceCore
                                                 }
                                             }
                                         }
-                                        catch(Exception ex)
+                                        catch (Exception ex)
                                         {
                                             logger.LogError("\r\n\r\n ----------------MAGMA------------------");
                                             logger.LogError(ex.Message);
@@ -172,7 +377,7 @@ namespace GeospaceCore
                                             if (ex.InnerException != null)
                                             {
                                                 logger.LogError("----Inner Exc------");
-                                                logger.LogError(ex.InnerException.Message);                                                                                                    
+                                                logger.LogError(ex.InnerException.Message);
                                             }
                                             logger.LogError("---------END MAGMA---------------------");
 
@@ -180,87 +385,88 @@ namespace GeospaceCore
                                             theCodeError.Raw = item;
                                             theCodeError.Description = ex.Message + "\n" + ex.InnerException + "\n" + ex.Source + "\n" + ex.StackTrace;
 
-                                            if (theCodeError.GetByRaw(item) == null) theCodeError.Save();
+                                            if (theCodeError.GetByRaw(item) == null) 
+                                                theCodeError.Save();
                                         }
                                     }
                                     else
-                                    if (code.Substring(0).ToUpper().IndexOf("UMAGF") >= 0)
-                                    {
-                                        try
+                                        if (code.Substring(0).ToUpper().IndexOf("UMAGF") >= 0)
                                         {
-                                            GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf = new GeospaceEntity.Models.Codes.CodeUmagf();
-
-                                            string[] arrayGroups = code_source.Split(' ');
-                                            int posLastGroup_KIndex;
-
-                                            if (arrayGroups.Length > 6) flagIonka = false;
-
-                                            if (!flagIonka) //без ионки
+                                            try
                                             {
-                                                numDate = 3;
-                                                numIndex = 5;
+                                                GeospaceEntity.Models.Codes.CodeUmagf theCodeUmagf = new GeospaceEntity.Models.Codes.CodeUmagf();
 
-                                                existStatFromBD = GeospaceEntity.Helper.HelperUmagf.Umagf_BigGroup1_NumStation(arrayGroups, 1, theCodeUmagf);
+                                                string[] arrayGroups = code_source.Split(' ');
+                                                int posLastGroup_KIndex;
+
+                                                if (arrayGroups.Length > 6) flagIonka = false;
+
+                                                if (!flagIonka) //без ионки
+                                                {
+                                                    numDate = 3;
+                                                    numIndex = 5;
+
+                                                    existStatFromBD = GeospaceEntity.Helper.HelperUmagf.Umagf_BigGroup1_NumStation(arrayGroups, 1, theCodeUmagf);
+                                                    if (existStatFromBD)
+                                                    {
+                                                        GeospaceEntity.Helper.HelperUmagf.Umagf_BigGroup2_FullData(arrayGroups, 2, theCodeUmagf);
+                                                        //GeospaceEntity.Helper.HelperUmagf.Umagf_Group1_DateCreate(arrayGroups, numDate, theCodeUmagf);       
+                                                        GeospaceEntity.Helper.HelperUmagf.Umagf_Group1_DateCreate(arrayGroups, numDate + 1, theCodeUmagf, true);
+                                                    }
+                                                }
+                                                else //если есть ионка
+                                                {
+                                                    theCodeUmagf.Station = UmagfStationFromIonka;
+                                                    theCodeUmagf.YYYY = UmagfYYYY;
+                                                    theCodeUmagf.MM = UmagfMM;
+                                                    theCodeUmagf.DD = UmagfDD;
+                                                    GeospaceEntity.Helper.HelperUmagf.Umagf_Group1_DateCreate(arrayGroups, numDate, theCodeUmagf, true);
+
+                                                    flagIonka = false;
+                                                }
+
                                                 if (existStatFromBD)
                                                 {
-                                                    GeospaceEntity.Helper.HelperUmagf.Umagf_BigGroup2_FullData(arrayGroups, 2, theCodeUmagf);
-                                                    //GeospaceEntity.Helper.HelperUmagf.Umagf_Group1_DateCreate(arrayGroups, numDate, theCodeUmagf);       
-                                                    GeospaceEntity.Helper.HelperUmagf.Umagf_Group1_DateCreate(arrayGroups, numDate + 1, theCodeUmagf, true);
+                                                    GeospaceEntity.Helper.HelperUmagf.Umagf_Group2_AK(arrayGroups, numIndex, theCodeUmagf);
+                                                    posLastGroup_KIndex = GeospaceEntity.Helper.HelperUmagf.Umagf_Group3_K_index(arrayGroups, numIndex, theCodeUmagf);
+                                                    GeospaceEntity.Helper.HelperUmagf.Umagf_Events(arrayGroups, posLastGroup_KIndex, theCodeUmagf);
+                                                    GeospaceEntity.Helper.HelperUmagf.Umagf_Check(theCodeUmagf);
+                                                    //GeospaceEntity.Helper.HelperUmagf.Print_All_Code_Umagf(code_source, listLengthLines, listComb, "C:\\Users\\distomin\\Projects\\GeoSpace\\documents\\All_Code_Umagf.txt");
+
+                                                    theCodeUmagf.Raw = code_source;
+                                                    if (CodeUmagf.GetByDateUTC(theCodeUmagf.Station,
+                                                                theCodeUmagf.YYYY,
+                                                                theCodeUmagf.MM,
+                                                                theCodeUmagf.DD,
+                                                                theCodeUmagf.HH,
+                                                                theCodeUmagf.MI) == null && existStatFromBD && theCodeUmagf.Station != null)
+                                                    {
+                                                        theCodeUmagf.Save();
+                                                        logger.LogUmagf("Save");
+                                                    }
+                                                    else logger.LogUmagf("Not Save");
+
+                                                    WriteUmagf(theCodeUmagf);
                                                 }
+                                                else
+                                                    logger.LogUmagf("\nстанция не найдена в БД: " + code_source + "\n");
                                             }
-                                            else //если есть ионка
+                                            catch (System.Exception ex)
                                             {
-                                                theCodeUmagf.Station = UmagfStationFromIonka;
-                                                theCodeUmagf.YYYY = UmagfYYYY;
-                                                theCodeUmagf.MM = UmagfMM;
-                                                theCodeUmagf.DD = UmagfDD;
-                                                GeospaceEntity.Helper.HelperUmagf.Umagf_Group1_DateCreate(arrayGroups, numDate, theCodeUmagf, true);
+                                                logger.LogError("\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                                                logger.LogError(ex.Message);
+                                                logger.LogError(ex.Source);
+                                                logger.LogError("\ncode_source:");
+                                                logger.LogError(code_source);
+                                                logger.LogError(ex.StackTrace + "\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
 
-                                                flagIonka = false;
+                                                Error umagfError = new Error();
+                                                umagfError.Raw = item;
+                                                umagfError.Description = ex.Message + "\n" + ex.InnerException + "\n" + ex.Source + "\n" + ex.StackTrace;
+
+                                                if (umagfError.GetByRaw(item) == null) umagfError.Save();
                                             }
-
-                                            if (existStatFromBD)
-                                            {
-                                                GeospaceEntity.Helper.HelperUmagf.Umagf_Group2_AK(arrayGroups, numIndex, theCodeUmagf);
-                                                posLastGroup_KIndex = GeospaceEntity.Helper.HelperUmagf.Umagf_Group3_K_index(arrayGroups, numIndex, theCodeUmagf);
-                                                GeospaceEntity.Helper.HelperUmagf.Umagf_Events(arrayGroups, posLastGroup_KIndex, theCodeUmagf);
-                                                GeospaceEntity.Helper.HelperUmagf.Umagf_Check(theCodeUmagf);
-                                                //GeospaceEntity.Helper.HelperUmagf.Print_All_Code_Umagf(code_source, listLengthLines, listComb, "C:\\Users\\distomin\\Projects\\GeoSpace\\documents\\All_Code_Umagf.txt");
-
-                                                theCodeUmagf.Raw = code_source;
-                                                if (CodeUmagf.GetByDateUTC(theCodeUmagf.Station,
-                                                            theCodeUmagf.YYYY,
-                                                            theCodeUmagf.MM,
-                                                            theCodeUmagf.DD,
-                                                            theCodeUmagf.HH,
-                                                            theCodeUmagf.MI) == null && existStatFromBD && theCodeUmagf.Station != null)
-                                                {
-                                                    theCodeUmagf.Save();
-                                                    logger.LogUmagf("Save");
-                                                }
-                                                else logger.LogUmagf("Not Save");
-
-                                                WriteUmagf(theCodeUmagf);
-                                            }                                               
-                                            else
-                                                logger.LogUmagf("\nстанция не найдена в БД: " + code_source + "\n");
                                         }
-                                        catch (System.Exception ex)
-                                        {
-                                            logger.LogError("\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                                            logger.LogError(ex.Message);
-                                            logger.LogError(ex.Source);
-                                            logger.LogError("\ncode_source:");
-                                            logger.LogError(code_source);
-                                            logger.LogError(ex.StackTrace + "\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
-
-                                            Error umagfError = new Error();
-                                            umagfError.Raw = item;
-                                            umagfError.Description = ex.Message + "\n" + ex.InnerException + "\n" + ex.Source + "\n" + ex.StackTrace;
-
-                                            if (umagfError.GetByRaw(item) == null) umagfError.Save();
-                                        }
-                                    }
 
                                     if (code.Substring(0, 5).ToUpper() == "IONKA")
                                     {
@@ -496,7 +702,7 @@ namespace GeospaceCore
                                                 theErr.Save();
                                             }
                                             Error IonkaError = new Error();
-                                            IonkaError. Description = ex.Message + "\n" + ex.InnerException + "\n" + ex.Source + "\n" + ex.StackTrace;
+                                            IonkaError.Description = ex.Message + "\n" + ex.InnerException + "\n" + ex.Source + "\n" + ex.StackTrace;
                                             IonkaError.Raw = theCode;
                                             if (IonkaError.Description == null)
                                                 IonkaError.Save();

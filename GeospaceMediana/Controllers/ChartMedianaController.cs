@@ -15,9 +15,9 @@ namespace GeospaceMediana.Controllers
         //
         // GET: /ChartMediana/
 
-        public ActionResult Index(int year = -1, int month = -1, int stationCode = 43501, string type = "f0F2", int day = 1)
+        public ActionResult Index(int year = -1, int month = -1, int stationCode = 43501, string type = "f0F2", int day = 1 , int panel = 0)
         {
-
+            ViewBag.Panel = panel;
             ViewBag.NameMenu = "Диаграмма медианы";
             ViewBag.Title = "Диаграмма медиана";
 

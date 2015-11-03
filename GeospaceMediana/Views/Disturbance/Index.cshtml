@@ -18,7 +18,6 @@
         height: 40px;
         font-size: 16px;
         font-weight: 600;
-
     }
 
     table, th {
@@ -27,15 +26,12 @@
 </style>
 <script type="text/javascript">
     function handleSaveTime(station, day, Name) {
-
         $(".modal-body").html("<h3>Загрузка ... </h3>");
-
         $("#stationNum").val(station);
         $("#dayInMonths").val(day);
         $("#startTimePeriod").val(0);
         $("#durationTimePeriod").val(1);
         $(".modal-title").html("Нарушение радиосвязи на ст. " + Name + " за " + day + "." + currentMonth + "." + currentYear);
-
             var param = { StationCode: station, YYYY: window.currentYear, MM: window.currentMonth, DD: day };
             $.ajax({
                 url: '@Url.Action("GetHoursForHtmlModalBody", "Disturbance")',
@@ -49,17 +45,13 @@
                 }
             });
     }
-
     function Submit() {
         $('#myModal').modal('hide');
-
         var StationCode = $("#stationNum").val();
         var YYYY = window.currentYear;
         var MM = window.currentMonth;
         var DD = $("#dayInMonths").val();
-
         var param = { StationCode: StationCode, YYYY: YYYY, MM: MM, DD: DD};
-        
         $.ajax({
             url: '@Url.Action("Display", "Disturbance")',
             data: param,
@@ -74,7 +66,6 @@
             }
         });
     }
-   
 </script>
 <table class="table table-bordered table-striped table-disturbance">
     <thead>
@@ -99,7 +90,6 @@
     <tbody>
         @for (int i = 1; i <= DateTime.DaysInMonth(ViewBag.YYYY, ViewBag.MM); i++)
         {
-
             <tr>
                 <td>@i</td>
                 @foreach (var item in Model.theStationList)
@@ -110,8 +100,6 @@
         }
     </tbody>
 </table>
-
-
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModelLable">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -122,11 +110,7 @@
                     <a id="stationNum"></a>
                     <a id="dayInMonths"></a>
                     <div class="modal-body">
-                        
-                            
                     </div>
-                       
-                
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" onclick="Submit()">Закрыть</button>
                     </div>

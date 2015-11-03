@@ -44,12 +44,34 @@
         $("#F_46501IONFO").click(handleChangeSubmit("46501IONFO"));
         $("#F_46501IONES").click(handleChangeSubmit("46501IONES"));
         $("#F_46501MAGPO").click(handleChangeSubmit("46501MAGPO"));
-
+        $("#SNumber").click(handleChangeSubmitNUmber);
         $("#SNumber").keyup(handleChangeCodes);
         handleChangeHeader();
         handleChangeCodes();
 
     });
+    function handleChangeSubmitNUmber() {
+        $('#SNumber').focus();
+        $('#SNumber').select();
+        $('#SNumber').blur(function () {
+            var forecast_F = $("#SNumber");//значение забитые в input
+            if (forecast_F) {
+
+                var strVal = "";
+                strVal = forecast_F.val();
+                var resUrl = window.submitUrl +
+                        "?stationcode=" + "43501" +
+                        "&year=" + window.currentYear +
+                        "&month=" + window.currentMonth +
+                        "&range_number=" + currentRangeNaumber +
+                        "&type=" + "Number" +
+                        "&newvalue=" + strVal;
+                $.ajax({
+                    url: resUrl
+                });
+            }
+        });
+    }
     function handleChangeSubmit(str) {
         $('#F_' + str).focus();
         $('#F_' + str).select();
@@ -350,7 +372,10 @@
                     <div class="form-group">
                         <label for="SNumber" class="col-sm-5 control-label">Номер телеграммы</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" id="SNumber" placeholder="">
+                            <input type="text" class="form-control" id="SNumber" placeholder="" value="@{if (forecastData2 != null)
+                                                                                                                                  {
+                                                                                                                                      @Html.Raw(forecastData2.NumberTelegram)
+                                                                                                                                  }}">
                         </div>
                     </div>
                     <div class="form-group">
@@ -494,7 +519,7 @@
     {
         if(item.length > 5 )
             {
-                return item.substr(0,5) + "  " + item.slice(5, item.length) + addEmpty(10 - item.length);
+                return item.substr(0,5) + " " + item.slice(5, item.length) + addEmpty(10 - item.length);
             }
             if (item.length < 5) {
                 return item.slice(0, item.length) + addEmpty(5 - item.length);

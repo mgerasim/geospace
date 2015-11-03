@@ -13,8 +13,9 @@ namespace GeospaceMediana.Controllers
         //
         // GET: /Umagf/
 
-        public ActionResult Ap(int StationCode = 43501, int YYYY = -1, int MM = -1, int DD = -1)
+        public ActionResult Ap(int StationCode = 43501, int YYYY = -1, int MM = -1, int DD = -1, int panel = 0)
         {
+            ViewBag.Panel = panel;
             DateTime currDate;
             DD = DateTime.Now.Day;
             try
@@ -34,7 +35,7 @@ namespace GeospaceMediana.Controllers
             {
                 theStation = Station.GetByCode(43501);
             }
-            @ViewBag.Title = "Геомагнитная обстановка за " + currDate.ToString("MMMM yyyy");
+            ViewBag.Title = "Геомагнитная обстановка за " + currDate.ToString("MMMM yyyy");
             ViewBag.NameMenu = "Геомагнитная обстановка";
             ViewBag.Date = currDate;
             ViewBag.Station = theStation;

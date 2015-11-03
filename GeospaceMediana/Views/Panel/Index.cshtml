@@ -1,0 +1,288 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<script type="text/javascript">
+    var UrlUmagf = "@Url.Action("GetUmagf", "Api")";
+    var UrlMediana = "@Url.Action("GetChartMediana", "Api")";
+
+    function digitalWatch() {
+        var date = new Date();
+        //console.log(Date());
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var seconds = date.getSeconds();
+        if (hours < 10) hours = "0" + hours;
+        if (minutes < 10) minutes = "0" + minutes;
+        if (seconds < 10) seconds = "0" + seconds;
+        document.getElementById("digital_watch").innerHTML = hours + ":" + minutes + ":" + seconds;
+        setTimeout("digitalWatch()", 1000);
+    }
+    function reloadData(time)
+    {
+        reloadPage(UrlUmagf, 1, time, 0);
+        reloadPage(UrlUmagf, 2, time, 1);
+        reloadPage(UrlUmagf, 3, time, 2);
+        reloadPage(UrlUmagf, 4, time, 3);
+        reloadPage(UrlMediana, 5, time, 0);
+        reloadPage(UrlMediana, 6, time, 1);
+        reloadPage(UrlMediana, 7, time, 2);
+        reloadPage(UrlMediana, 8, time, 3);
+    }
+
+    function reloadPage(Url, ID, time, stationNumber, type)
+    {
+        if (type === undefined) {
+            type = "";
+        }
+        var list = [46501, 43501, 45601, 38701];
+        var param = { StationCode: list[stationNumber], type: type, panel : ID};
+        $.ajax({
+            url: Url,
+            data: param,
+            success: function (resp) {
+                $('#' + ID).html(resp);
+            },
+            complete: function () {
+                //stationNumber++;
+                //console.log(stationNumber);
+                //if(stationNumber > 3)
+                //    stationNumber = 0;
+                setTimeout(reloadPage, time * 60* 1000, Url, ID, time, stationNumber);
+            }
+        });
+    }
+    $(document).ready(function () {
+        digitalWatch();
+        reloadData(10);
+        $('.carousel').carousel({
+            interval: 10000,
+        })
+    })
+</script>
+<style type="text/css">
+    .col-lg-6{
+        border-radius:2px;
+        border-color:black;
+    }
+</style>
+@*<div class="row">
+    <div class="col-lg-6" id="5"></div>
+    <div class="col-lg-6" id="6"></div>
+</div>
+<div class="row">
+    <div class="col-lg-6" id="7"></div>
+    <div class="col-lg-6" id="8"></div>
+</div>*@
+    
+
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-keyboard="thue">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
+        <div class="item ">
+            <div class="row">
+                <div class="col-sm-6" id="1"></div>
+                <div class="col-sm-6" id="2"></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6" id="3"></div>
+                <div class="col-sm-6" id="4"></div>
+            </div>
+            <table border="1" cellpadding="7" cellspacing="1" width="100%">
+                <tbody>
+                    <tr align="center">
+                        <th align="left" width="20%"><span>Значения A<sub>p</sub></span></th>
+                        <td width="13%"><span>0 - 7</span></td>
+                        <td width="13%"><span>8 - 14</span></td>
+                        <td width="13%"><span>15 - 19</span></td>
+                        <td width="13%"><span>20 - 29</span></td>
+                        <td width="13%"><span>30 - 49</span></td>
+                        <td width="13%"><span>&gt;= 50</span></td>
+                    </tr>
+                    <tr align="center">
+                        <th align="left"><span>Состояние магнитного поля</span></th>
+                        <td bgcolor="#00FF00"><span>очень<br>спокойное</span></td>
+                        <td bgcolor="#00FF00"><span>спокойное</span></td>
+                        <td bgcolor="#FFFF00"><span>неустойчивое</span></td>
+                        <td bgcolor="#FF0000"><span>слабо<br>возмущенное</span></td>
+                        <td bgcolor="#FF0000"><span>умеренно<br>возмущенное</span></td>
+                        <td bgcolor="#FF0000"><br><span>сильно<br>возмущенное<br><br></span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="carousel-caption">
+                ...
+            </div>
+        </div>
+        <div class="item active">
+            <div class="row">
+                <div class="col-sm-6" id="cont43501"></div>
+                <div class="col-sm-6" id="cont37701"></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6" id="cont45601"></div>
+                <div class="col-sm-6" id="cont46501"></div>
+            </div>
+            <div class="carousel-caption">
+                ...
+            </div>
+        </div>
+        ...
+    </div>
+</div>
+<script type="text/javascript">
+    var UrlMedianaJson = "@Url.Action("GetMedianaByDate", "Api")";
+    var UrlIonkaJson = "@Url.Action("GetIonkaByPeriod", "Api")";
+    $(document).ready(function () {
+        mediana('43501', '2015', '11', '2');
+        mediana('37701', '2015', '11', '2');
+        mediana('45601', '2015', '11', '2');
+        mediana('46501', '2015', '11', '2');
+    });
+
+
+    function mediana(numberStation, year, month, day) {
+        var param = { StationCode: numberStation, YYYY: year, MM: month };
+        $.ajax({
+            url: UrlMedianaJson,
+            data:param,
+            async: true,
+            dataType: "json",
+            success: function (dataMed) {
+                //Выбор периода для медианы
+                var range = "";
+                var Med = [];
+                var date = new Date();
+                
+                $.each(dataMed, function (item,element) {
+                    var MinMaxDay = element.Range;
+                    var dayMM = MinMaxDay.split('-');
+                    if (parseInt(dayMM[0]) <= parseInt(day) && parseInt(day) <= parseInt(dayMM[1]))
+                    {
+                        console.log(MinMaxDay.split('-'), day, item);
+                        Med = element.Values;
+                    }
+                })
+                console.log(Med);
+                var param = { StationCode: numberStation, startYYYY: year, startMM: month, startDD: day, endYYYY: year, endMM: month, endDD: day };
+                $.ajax({
+                    url: UrlIonkaJson,
+                    data:param,
+                    async: true,
+                    dataType: "json",
+                    success: function (Day) {
+                        //console.log(dataDay, date);
+                        var dataday = [];
+                        $.each(Day, function (index, element) {
+                            if(element.f0F2 <= 1000)
+                            {
+                                dataday.push(element.f0F2);
+                            }
+                            else
+                            {
+                                dataday.push(null);
+                            }
+                        })
+                        console.log(Med, dataday, numberStation, year, month);
+                        visitorData(Med, dataday, numberStation, year, month);
+                    }
+                });
+
+            }
+        });
+
+    }
+
+
+    function visitorData(dataMed, dataDay, numberStation, year, month) {
+        console.log(dataMed)
+        $('#cont'+numberStation).highcharts({
+            title: {
+                text: numberStation
+            },
+            xAxis :{
+                title: {
+                    text: 'Часы (UTC)'
+                },
+                categories: [
+                @for(int i=0;i<24;i++)
+        {
+            @Html.Raw("'"+i.ToString("00")+"'")
+
+            if(i!=23)
+            {
+                @:,
+            }
+        }
+                ],
+                lineWidth: 2,
+                gridLineWidth: 1,
+                tickInterval:1,
+                tickmarkPlacement: 'on',
+            },
+            yAxis: [{ // Primary yAxis
+                labels: {
+                    format: '{value}',
+                    style: {
+                        color: Highcharts.getOptions().colors[1]
+                    }
+                },
+                title: {
+                    text:'',
+                    style: {
+                        color: Highcharts.getOptions().colors[1]
+                    }
+                },
+                min: 0,
+                max: 120,
+            }, { // Secondary yAxis
+                title: {
+                    text: 'Количество пропущенных значений',
+                    style: {
+                        color: Highcharts.getOptions().colors[0]
+                    }
+                },
+                labels: {
+                    format: '{value}',
+                    style: {
+                        color: Highcharts.getOptions().colors[0]
+                    }
+                },
+                opposite: true,
+                min: 0,
+                tickInterval: 1,
+            }],
+            tooltip: {
+                shared: true
+            },
+            exporting: {
+                buttons: {
+                    contextButton: {
+                        enabled:false
+                    }
+                }
+            },
+            series: [{
+                name: 'dataDay',
+                type: 'column',
+                data: dataDay
+                },
+                {
+                    name: 'dataMed',
+                    type: 'spline',
+                    data:  dataMed
+                }]
+        });
+  
+    };
+
+</script>
+
+
+
+
