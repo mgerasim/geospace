@@ -159,6 +159,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Utils\Util.cs" />
     <Content Include="Content\About.files\colorschememapping.xml" />
     <Content Include="Content\About.files\filelist.xml" />
     <Content Include="Content\About.files\header.htm" />

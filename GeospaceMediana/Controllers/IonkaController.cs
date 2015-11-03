@@ -18,6 +18,7 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Index(int stationCode = 43501, string start = "", int limit = 5, int step = 5, string type = "f0F2", int year = -1, int month = -1, int day = -1)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             @ViewBag.Title = "Геофизические данные";
 
             ViewBag.NameMenu = "Данные наблюдений";
