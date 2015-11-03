@@ -9,11 +9,17 @@ namespace GeospaceMediana.Utils
     {
         static public bool IsLocal()
         {
-            if (GetIP().Substring(0,10) =="192.168.72")
+            string controller = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+            string action = HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString();
+            if (GetIP().Substring(0,3) =="192")
             {
                 return true;
             }
-            if (GetIP().Substring(0, 10) == "192.0.0.1")
+            if (GetIP().Substring(0, 3) == "127")
+            {
+                return true;
+            }
+            if (GetIP().Substring(0, 3) == "::1")
             {
                 return true;
             }
@@ -23,7 +29,7 @@ namespace GeospaceMediana.Utils
         public static string GetIP()
         {
 
-            string ip = HttpContext.Current.Request.ServerVariables["X_FORWARDED_FOR"];
+            string ip = HttpContext.Current.Request.UserHostAddress;
             return ip;
         }
     }
