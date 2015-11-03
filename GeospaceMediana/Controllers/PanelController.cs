@@ -10,14 +10,9 @@ namespace GeospaceMediana.Controllers
     {
         public ActionResult  Index()
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             ViewBag.NameMenu = "Информационная панель";
             return View();
         }
-        public ActionResult NewPanel()
-        {
-            ViewBag.NameMenu = "Информационная панель";
-            return View();
-        }
-
     }
 }

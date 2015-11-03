@@ -14,6 +14,7 @@ namespace GeospaceMediana.Controllers
     {
         public ActionResult Index( int id =-1, int month = -1, int W = -1 )
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             ViewBag.Title = "Пятидневный прогноз радиотрасс";
 
             return View(new ViewFiveDayForecastTrack(id, month, W));
@@ -21,12 +22,14 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Calc(ViewFiveDayForecastTrack forecast)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             return View("Index", forecast);
         }
 
         [HttpPost]
         public ActionResult Calc(FormCollection collection)
-        {            
+        {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             int id = Convert.ToInt32(collection.Get("Consumer"));
             int W = Convert.ToInt32(collection.Get("W"));
             int month = Convert.ToInt32(collection.Get("month"));

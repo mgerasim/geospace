@@ -14,6 +14,7 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Index( int year = -1, int month = -1, int day = -1)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             ViewBag.Title = "Действующие значения МПЧ";
 
             DateTime nowDateTime;

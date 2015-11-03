@@ -15,6 +15,7 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Index(int stationCode = 43501, string type = "f0F2", int year = -1, int month = -1, int day = -1)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             if (type == "M3000F2")
             {
                 ViewBag.Type = "M3000";
@@ -52,7 +53,7 @@ namespace GeospaceMediana.Controllers
         {
             try
             {
-
+                ViewBag.IsLocal = Utils.Util.IsLocal();
                 List<GeospaceEntity.Models.Product> theList = (new GeospaceEntity.Models.Product()).GetAll();
                 GeospaceEntity.Models.Product theProduct = null;
 
@@ -79,7 +80,7 @@ namespace GeospaceMediana.Controllers
         {
             try
             {
-
+                ViewBag.IsLocal = Utils.Util.IsLocal();
                 List<GeospaceEntity.Models.Product> theList = (new GeospaceEntity.Models.Product()).GetAll();
                 GeospaceEntity.Models.Product theProduct = null;
 
@@ -107,7 +108,7 @@ namespace GeospaceMediana.Controllers
         {
             try
             {
-
+                ViewBag.IsLocal = Utils.Util.IsLocal();
                 List<GeospaceEntity.Models.Product> theList = (new GeospaceEntity.Models.Product()).GetAll();
                 GeospaceEntity.Models.Product theProduct = null;
 
@@ -135,7 +136,7 @@ namespace GeospaceMediana.Controllers
         {
             try
             {
-
+                ViewBag.IsLocal = Utils.Util.IsLocal();
                 List<GeospaceEntity.Models.Product> theList = (new GeospaceEntity.Models.Product()).GetAll();
                 GeospaceEntity.Models.Product theProduct = null;
 
@@ -162,7 +163,7 @@ namespace GeospaceMediana.Controllers
         {
             try
             {
-
+                ViewBag.IsLocal = Utils.Util.IsLocal();
                 List<GeospaceEntity.Models.Product> theList = (new GeospaceEntity.Models.Product()).GetAll();
                 GeospaceEntity.Models.Product theProduct = null;
 
@@ -186,10 +187,10 @@ namespace GeospaceMediana.Controllers
             return View();
         }
 
-
         [HttpPost]
         public ActionResult SaveDisturbanceRadio(HttpPostedFileBase file)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             if (file != null && file.ContentLength > 0)
             {
 
@@ -232,6 +233,7 @@ namespace GeospaceMediana.Controllers
         [HttpPost]
         public ActionResult SaveTableSun(HttpPostedFileBase file)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             if (file != null && file.ContentLength > 0)
             {
                 
@@ -271,10 +273,9 @@ namespace GeospaceMediana.Controllers
             return RedirectToAction("Index");  
         }
 
-
-
         public ActionResult ShowForecastDaysFives()
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             GeospaceEntity.Models.Product theProduct = null;
             try
             {
@@ -299,6 +300,7 @@ namespace GeospaceMediana.Controllers
         }
         public ActionResult ShowReviewGeoEnvMonth()
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             GeospaceEntity.Models.Product theProduct = null;
             try
             {
@@ -323,6 +325,7 @@ namespace GeospaceMediana.Controllers
         }
         public ActionResult ShowReviewGeoEnv()
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             GeospaceEntity.Models.Product theProduct = null;
             try
             {
@@ -347,6 +350,7 @@ namespace GeospaceMediana.Controllers
         }
         public ActionResult ShowForecastMonthIonosphera()
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             GeospaceEntity.Models.Product theProduct = null;
             try
             {
@@ -372,6 +376,7 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult ShowSubdayForecast()
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             GeospaceEntity.Models.Product theProduct = null;
 
             try
@@ -400,65 +405,55 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult ShowDisturbanceRadio()
         {
-                GeospaceEntity.Models.Product theProduct = null;
-            
-                try
+            ViewBag.IsLocal = Utils.Util.IsLocal();
+            GeospaceEntity.Models.Product theProduct = null;
+            try
+            {
+                List<GeospaceEntity.Models.Product> theList = (new GeospaceEntity.Models.Product()).GetAll();
+                if (theList.Count == 0)
                 {
-
-                    List<GeospaceEntity.Models.Product> theList = (new GeospaceEntity.Models.Product()).GetAll();
-
-                    if (theList.Count == 0)
-                    {
-                        theProduct = new GeospaceEntity.Models.Product();
-                        theProduct.Save();
-                    }
-                    else
-                    {
-                        theProduct = theList[0];
-                    }
+                    theProduct = new GeospaceEntity.Models.Product();
+                    theProduct.Save();
                 }
-                catch (Exception ex)
+                else
                 {
-                    ViewBag.Error = ex.Message;
+                    theProduct = theList[0];
                 }
-
-
-                return View(theProduct);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+            }
+            return View(theProduct);
         }
 
         public ActionResult ShowTableSun()
         {
-           
-
-                GeospaceEntity.Models.Product theProduct = null;
-
-                try
+            ViewBag.IsLocal = Utils.Util.IsLocal();
+            GeospaceEntity.Models.Product theProduct = null;
+            try
+            {
+                List<GeospaceEntity.Models.Product> theList = (new GeospaceEntity.Models.Product()).GetAll();
+                if (theList.Count == 0)
                 {
-
-                    List<GeospaceEntity.Models.Product> theList = (new GeospaceEntity.Models.Product()).GetAll();
-
-                    if (theList.Count == 0)
-                    {
-                        theProduct = new GeospaceEntity.Models.Product();
-                        theProduct.Save();
-                    }
-                    else
-                    {
-                        theProduct = theList[0];
-                    }
+                    theProduct = new GeospaceEntity.Models.Product();
+                    theProduct.Save();
                 }
-                catch (Exception ex)
+                else
                 {
-                    ViewBag.Error = ex.Message;
+                    theProduct = theList[0];
                 }
-
-
-
-                return View(theProduct);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+            }
+            return View(theProduct);
         }
 
         public FileResult DownloadTableSun()
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             GeospaceEntity.Models.Product theProduct = (new Product()).GetAll()[0];
             var fileName = theProduct.table_sun;
             var path = Path.Combine(Server.MapPath("~/App_Data"), fileName);
@@ -469,6 +464,7 @@ namespace GeospaceMediana.Controllers
 
         public FileResult DownloadDisturbanceRadio()
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             GeospaceEntity.Models.Product theProduct = (new Product()).GetAll()[0];
             var fileName = theProduct.disturbance_radio;
             var path = Path.Combine(Server.MapPath("~/App_Data"), fileName);
@@ -479,11 +475,10 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult EditForecastDaysFives()
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             GeospaceEntity.Models.Product theProduct = null;
-
             try
             {
-
                 List<GeospaceEntity.Models.Product> theList = (new GeospaceEntity.Models.Product()).GetAll();
 
                 if (theList.Count == 0)
@@ -500,20 +495,16 @@ namespace GeospaceMediana.Controllers
             {
                 ViewBag.Error = ex.Message;
             }
-
-
-
             return View(theProduct);
         }
         [HttpPost]
         [ValidateInput(false)]
         public ActionResult EditForecastDaysFives(FormCollection collection)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             GeospaceEntity.Models.Product theProduct = null;
-
             try
             {
-
                 List<GeospaceEntity.Models.Product> theList = (new GeospaceEntity.Models.Product()).GetAll();
 
                 if (theList.Count == 0)
@@ -536,7 +527,6 @@ namespace GeospaceMediana.Controllers
                     ss = ss.Replace("\t\t\t\t\t\t\t\t\t\t", " ");
                     ss = ss.Replace("\t\t\t\t\t\t\t\t", " ");
                     theProduct.forecast_days_fives += ss + "\r\n";
-
                 }
                 theProduct.Update();
             }
@@ -544,19 +534,15 @@ namespace GeospaceMediana.Controllers
             {
                 ViewBag.Error = ex.Message;
             }
-
             return RedirectToAction("Index");
         }
 
-
-
         public ActionResult EditForecastMonthIonosphera()
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             GeospaceEntity.Models.Product theProduct = null;
-
             try
             {
-
                 List<GeospaceEntity.Models.Product> theList = (new GeospaceEntity.Models.Product()).GetAll();
 
                 if (theList.Count == 0)
@@ -573,20 +559,16 @@ namespace GeospaceMediana.Controllers
             {
                 ViewBag.Error = ex.Message;
             }
-
-
-
             return View(theProduct);
         }
         [HttpPost]
         [ValidateInput(false)]
         public ActionResult EditForecastMonthIonosphera(FormCollection collection)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             GeospaceEntity.Models.Product theProduct = null;
-
             try
             {
-
                 List<GeospaceEntity.Models.Product> theList = (new GeospaceEntity.Models.Product()).GetAll();
 
                 if (theList.Count == 0)
@@ -617,7 +599,6 @@ namespace GeospaceMediana.Controllers
                             break;
                     }
                     theProduct.forecast_month_ionosphera += ss + "\r\n";
-
                 }
                 theProduct.Update();
                 theProduct.Send_MonthForecast();
@@ -626,19 +607,15 @@ namespace GeospaceMediana.Controllers
             {
                 ViewBag.Error = ex.Message;
             }
-
             return RedirectToAction("Index");
         }
 
-
-
         public ActionResult EditReviewGeoEnv()
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             GeospaceEntity.Models.Product theProduct = null;
-
             try
             {
-
                 List<GeospaceEntity.Models.Product> theList = (new GeospaceEntity.Models.Product()).GetAll();
 
                 if (theList.Count == 0)
@@ -655,20 +632,16 @@ namespace GeospaceMediana.Controllers
             {
                 ViewBag.Error = ex.Message;
             }
-
-
-
             return View(theProduct);
         }
         [HttpPost]
         [ValidateInput(false)]
         public ActionResult EditReviewGeoEnv(FormCollection collection)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             GeospaceEntity.Models.Product theProduct = null;
-
             try
             {
-
                 List<GeospaceEntity.Models.Product> theList = (new GeospaceEntity.Models.Product()).GetAll();
 
                 if (theList.Count == 0)
@@ -687,7 +660,6 @@ namespace GeospaceMediana.Controllers
                     string ss = line;
                     ss = ss.Trim();
                     theProduct.review_geoenv += ss + "\r\n";
-
                 }
                 theProduct.review_geoenv.Replace("\r\n\r\n\r\n", "");
                 theProduct.Update();
@@ -696,14 +668,13 @@ namespace GeospaceMediana.Controllers
             {
                 ViewBag.Error = ex.Message;
             }
-
             return RedirectToAction("Index");
         }
 
         public ActionResult EditReviewGeoEnvMonth()
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             GeospaceEntity.Models.Product theProduct = null;
-
             try
             {
 
@@ -723,20 +694,16 @@ namespace GeospaceMediana.Controllers
             {
                 ViewBag.Error = ex.Message;
             }
-
-
-
             return View(theProduct);
         }
         [HttpPost]
         [ValidateInput(false)]
         public ActionResult EditReviewGeoEnvMonth(FormCollection collection)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             GeospaceEntity.Models.Product theProduct = null;
-
             try
             {
-
                 List<GeospaceEntity.Models.Product> theList = (new GeospaceEntity.Models.Product()).GetAll();
 
                 if (theList.Count == 0)
@@ -769,11 +736,10 @@ namespace GeospaceMediana.Controllers
         }
         public ActionResult EditSubdayForecast()
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             GeospaceEntity.Models.Product theProduct = null;
-
             try
             {
-
                 List<GeospaceEntity.Models.Product> theList = (new GeospaceEntity.Models.Product()).GetAll();
 
                 if (theList.Count == 0)
@@ -790,9 +756,6 @@ namespace GeospaceMediana.Controllers
             {
                 ViewBag.Error = ex.Message;
             }
-
-
-
             return View(theProduct);
         }
         
@@ -800,19 +763,16 @@ namespace GeospaceMediana.Controllers
         [ValidateInput(false)]
         public ActionResult EditSubdayForecast(FormCollection collection)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             GeospaceEntity.Models.Product theProduct = null;
-
             try
             {
-
                 List<GeospaceEntity.Models.Product> theList = (new GeospaceEntity.Models.Product()).GetAll();
 
                 if (theList.Count == 0)
                 {
                     theProduct = new GeospaceEntity.Models.Product();
                     theProduct.Save();
-
-
                 }
                 else
                 {
@@ -825,30 +785,23 @@ namespace GeospaceMediana.Controllers
                     string ss = line;
                     ss = ss.Trim();
                     theProduct.subday_forecast += ss + "\r\n";
-
                 }
                 theProduct.subday_forecast = theProduct.subday_forecast.Replace("\r\n\r\n\r\n", "\r\n");
                 theProduct.Update();
-
                 theProduct.Send_SubdayForecast();
-
             }
             catch (Exception ex)
             {
                 ViewBag.Error = ex.Message;
             }
-
             return RedirectToAction("Index");
         }
-
-
         public ActionResult EditDescription()
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             GeospaceEntity.Models.Product theProduct = null;
-
             try
             {
-
                 List<GeospaceEntity.Models.Product> theList = (new GeospaceEntity.Models.Product()).GetAll();
 
                 if (theList.Count == 0)
@@ -865,20 +818,16 @@ namespace GeospaceMediana.Controllers
             {
                 ViewBag.Error = ex.Message;
             }
-
-
-
             return View(theProduct);
         }
         [AcceptVerbs(HttpVerbs.Post)]
         [ValidateInput(false)]  
         public ActionResult EditDescription(FormCollection collection)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             GeospaceEntity.Models.Product theProduct = null;
-
             try
             {
-
                 List<GeospaceEntity.Models.Product> theList = (new GeospaceEntity.Models.Product()).GetAll();
 
                 if (theList.Count == 0)
@@ -898,19 +847,15 @@ namespace GeospaceMediana.Controllers
             {
                 ViewBag.Error = ex.Message;
             }
-
             return RedirectToAction("Index");
         }
 
-        //
-
         public ActionResult EditTableSun()
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             GeospaceEntity.Models.Product theProduct = null;
-
             try
             {
-
                 List<GeospaceEntity.Models.Product> theList = (new GeospaceEntity.Models.Product()).GetAll();
 
                 if (theList.Count == 0)
@@ -927,20 +872,16 @@ namespace GeospaceMediana.Controllers
             {
                 ViewBag.Error = ex.Message;
             }
-
-
-
             return View(theProduct);
         }
         [AcceptVerbs(HttpVerbs.Post)]
         [ValidateInput(false)]
         public ActionResult EditTableSun(FormCollection collection)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             GeospaceEntity.Models.Product theProduct = null;
-
             try
             {
-
                 List<GeospaceEntity.Models.Product> theList = (new GeospaceEntity.Models.Product()).GetAll();
 
                 if (theList.Count == 0)
@@ -960,7 +901,6 @@ namespace GeospaceMediana.Controllers
             {
                 ViewBag.Error = ex.Message;
             }
-
             return RedirectToAction("Index");
         }
     }

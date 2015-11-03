@@ -16,11 +16,13 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Index(int stationCode = 43501, string type = "f0F2", int year = -1, int month = -1, int day = -1)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
            return View();
         }
 
         public ActionResult FiveDay(int stationCode = 43501, string date = "", int rangeNumber = -1)
        {
+           ViewBag.IsLocal = Utils.Util.IsLocal();
             DateTime nowDateTime;
             bool def = false;
             if (date == "")
@@ -55,6 +57,7 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult SubmitFiveDay(int stationcode, int year, int month, int range_number, string type, string newValue)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             try
             {
                 Station station = Station.GetByCode(stationcode);
@@ -88,6 +91,7 @@ namespace GeospaceMediana.Controllers
         }
         public ActionResult SubmitFiveDayTelegram(int year, int month, int range_number,  string numberTel = "" )
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             try
             {
                 ViewBag.number = range_number;

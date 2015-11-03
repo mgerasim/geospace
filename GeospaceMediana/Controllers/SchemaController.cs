@@ -15,6 +15,7 @@ namespace GeospaceMediana.Controllers
         {
             try
             {
+                ViewBag.IsLocal = Utils.Util.IsLocal();
                 GeospaceEntity.Common.NHibernateHelper.UpdateSchema();
             }
             catch (Exception ex)

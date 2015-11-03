@@ -587,7 +587,6 @@
     <Content Include="Views\Panel\Index.cshtml" />
     <Content Include="Views\Panel\_Menu.cshtml" />
     <Content Include="Views\Shared\Empty.cshtml" />
-    <Content Include="Views\Panel\NewPanel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -621,7 +620,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>1858</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

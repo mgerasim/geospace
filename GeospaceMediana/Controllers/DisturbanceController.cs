@@ -17,6 +17,7 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Index(int YYYY = -1, int MM = -1)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             if (YYYY < 0)
             {
                 YYYY = DateTime.Now.Year;
@@ -71,6 +72,7 @@ namespace GeospaceMediana.Controllers
         {
             try
             {
+                ViewBag.IsLocal = Utils.Util.IsLocal();
                 Station stationCode = Station.GetByCode(station);
                 for (int i = hour; i < hour + duration; ++i)
                 {
@@ -110,6 +112,7 @@ namespace GeospaceMediana.Controllers
         {
             try
             {
+                ViewBag.IsLocal = Utils.Util.IsLocal();
                 Station stationCode = Station.GetByCode(station);
                 for (int i = hour; i < hour + duration; ++i)
                 {
@@ -131,7 +134,8 @@ namespace GeospaceMediana.Controllers
         }
 
         public ActionResult GetHoursForHtmlModalBody(int StationCode, int YYYY, int MM, int DD)
-        {            
+        {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             ViewBag.StationCode = StationCode;
             ViewBag.YYYY = YYYY;
             ViewBag.MM = MM;
@@ -147,6 +151,7 @@ namespace GeospaceMediana.Controllers
         {
             try
             {
+                ViewBag.IsLocal = Utils.Util.IsLocal();
                 Station stationCode = Station.GetByCode(StationCode);
                 GeospaceEntity.Models.Disturbance disturbanceSave = GeospaceEntity.Models.Disturbance.GetByTime(stationCode, YYYY, MM, DD, HH, 0);
                 
@@ -191,6 +196,7 @@ namespace GeospaceMediana.Controllers
         {
             try
             {
+                ViewBag.IsLocal = Utils.Util.IsLocal();
                 Station theStation = Station.GetByCode(StationCode);
 
                 GeospaceEntity.Models.Disturbance disturbanceDelete = GeospaceEntity.Models.Disturbance.GetByTime(theStation, YYYY, MM, DD, HH, 0);
@@ -214,6 +220,7 @@ namespace GeospaceMediana.Controllers
         {
             try
             {
+                ViewBag.IsLocal = Utils.Util.IsLocal();
                 Station theStation = Station.GetByCode(StationCode);
 
 
@@ -243,6 +250,7 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult ExportToWord(int YYYY = -1, int MM = -1)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             if (YYYY < 0)
             {
                 YYYY = DateTime.Now.Year;

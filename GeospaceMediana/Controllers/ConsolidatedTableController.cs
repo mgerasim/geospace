@@ -17,6 +17,7 @@ namespace GeospaceMediana.Controllers
 
         public virtual ActionResult Index( int YYYY = -1, int MM = -1, int api = 0)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             if (YYYY < 0)
             {
                 YYYY = DateTime.Now.Year;
@@ -36,6 +37,7 @@ namespace GeospaceMediana.Controllers
         }
         public ActionResult Submit( int YYYY = -1, int MM = -1, int DD = -1, string type = "", string newvalue = "" )
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             try
             {
                 ConsolidatedTable codeTable = ConsolidatedTable.GetByDateUTC(YYYY, MM, DD);
@@ -66,6 +68,7 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult ExportToWord(int YYYY = -1, int MM = -1)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             if (YYYY < 0)
             {
                 YYYY = DateTime.Now.Year;

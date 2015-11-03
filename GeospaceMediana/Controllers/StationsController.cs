@@ -15,6 +15,7 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Index(int stationCode = 43501, string type = "f0F2", int year = -1, int month = -1, int day = -1)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             if (type == "M3000F2")
             {
                 ViewBag.Type = "M3000";
@@ -38,12 +39,13 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             return View();
         }
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
-
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             try
             {
                 Station model = new GeospaceEntity.Models.Station(); ;
@@ -61,12 +63,13 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Edit(int id)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             return View(GeospaceEntity.Models.Station.GetById(id));
         }
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
-            
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             try
             {   
                 Station model = Station.GetById(id);
@@ -85,14 +88,15 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Delete(int id)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             Station model = Station.GetById(id);
-
             return View(model);
         }
 
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             try
             {
                 Station model = Station.GetById(id);

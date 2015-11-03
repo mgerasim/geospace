@@ -16,6 +16,7 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             IRepository<Settings> repo = new SettingsRepository();
             Settings settings;
             List<Settings> theSettings = (List<Settings>)repo.GetAll();
@@ -36,6 +37,7 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Details(int id)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             IRepository<Settings> repo = new SettingsRepository();
             return View(repo.GetById(id));
         }
@@ -45,6 +47,7 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Edit(int id)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             IRepository<Settings> repo = new SettingsRepository();
             return View(repo.GetById(id));
         }
@@ -56,6 +59,7 @@ namespace GeospaceMediana.Controllers
         [ValidateInput(false)]
         public ActionResult Edit(int id, FormCollection collection)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             try
             {
                 // TODO: Add update logic here
