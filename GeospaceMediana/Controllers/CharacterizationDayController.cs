@@ -17,6 +17,7 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Index(int stationCode = 43501, int year = -1, int month = -1, int rangeNumber = -1, string type = "f0F2", int day = -1)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             if (type == "M3000F2")
             {
                 ViewBag.Type = "M3000F2";

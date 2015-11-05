@@ -16,6 +16,7 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Index(int stationCode = 43501, string type = "f0F2", int year = -1, int month = -1, int day = -1, int calc = -1)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             if (type == "M3000F2")
             {
                 ViewBag.Type = "M3000";
@@ -42,13 +43,14 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Edit(int id)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             ViewBag.Posts = Post.GetAll();
             return View(GeospaceEntity.Models.Track.GetById(id));
         }
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
-            
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             try
             {   
                 Track model = Track.GetById(id);
@@ -66,12 +68,14 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             ViewBag.Posts = Post.GetAll();
             return View();
         }
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             try
             {
                 Track model = new GeospaceEntity.Models.Track(); ;
@@ -91,6 +95,7 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Delete(int id)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             Track model = Track.GetById(id);
 
             return View(model);
@@ -99,18 +104,16 @@ namespace GeospaceMediana.Controllers
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             try
             {
                 Track model = Track.GetById(id);
-
                 model.Delete();
-
                 return RedirectToAction("Index");
             }
             catch(Exception e)
             {
                 ViewBag.error = e.ToString();
-
                 return View();
             }
         }

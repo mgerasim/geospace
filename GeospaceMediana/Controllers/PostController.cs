@@ -15,6 +15,7 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Index(int stationCode = 43501, string type = "f0F2", int year = -1, int month = -1, int day = -1)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             if (type == "M3000F2")
             {
                 ViewBag.Type = "M3000";
@@ -38,6 +39,7 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Edit(int id)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             return View(GeospaceEntity.Models.Post.GetById(id));
         }
         [HttpPost]
@@ -45,7 +47,8 @@ namespace GeospaceMediana.Controllers
         {
             
             try
-            {   
+            {
+                ViewBag.IsLocal = Utils.Util.IsLocal();
                 Post model = Post.GetById(id);
                 model.Name = collection.Get("Name");
                 model.Latitude = Convert.ToDouble(collection.Get("Latitude"));
@@ -61,6 +64,7 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             return View();
         }
         [HttpPost]
@@ -69,6 +73,7 @@ namespace GeospaceMediana.Controllers
 
             try
             {
+                ViewBag.IsLocal = Utils.Util.IsLocal();
                 Post model = new GeospaceEntity.Models.Post(); ;
                 model.Name = collection.Get("Name");
                 model.Latitude = Convert.ToDouble(collection.Get("Latitude"));
@@ -85,6 +90,7 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Delete(int id)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             Post model = Post.GetById(id);
 
             return View(model);
@@ -95,6 +101,7 @@ namespace GeospaceMediana.Controllers
         {
             try
             {
+                ViewBag.IsLocal = Utils.Util.IsLocal();
                 Post model = Post.GetById(id);
 
                 model.Delete();

@@ -16,11 +16,13 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Index(int stationCode = 43501, string type = "f0F2", int year = -1, int month = -1, int day = -1)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
            return View();
         }
 
         public ActionResult FiveDay(int stationCode = 43501, string date = "", int rangeNumber = -1)
        {
+           ViewBag.IsLocal = Utils.Util.IsLocal();
             DateTime nowDateTime;
             bool def = false;
             if (date == "")
@@ -38,12 +40,13 @@ namespace GeospaceMediana.Controllers
                 def = true;
             }
             ViewBag.number = rangeNumber;
+            DateTime rangeTime = MedianaCalculator.GetFromDate(nowDateTime);
             ViewBag.range = MedianaCalculator.GetRangeFromNumber(nowDateTime, rangeNumber);
            //if (def == true && rangeNumber == 0)
            //     nowDateTime = nowDateTime.AddMonths(1);
-            ViewBag.Date = nowDateTime;
-            ViewBag.Year = nowDateTime.Year;
-            ViewBag.Month = nowDateTime.Month;
+            ViewBag.Date = rangeTime;
+            ViewBag.Year = rangeTime.Year;
+            ViewBag.Month = rangeTime.Month;
             //получен информации Медианнапо заданным станциям
            int[] station = new int[]{45601,43501,46501};//страница не тяница если добавить больше станцый нужно переделать верстку!!!!
            string[] namePrognoz = { "IONFO", "IONES", "MAGPO" };
@@ -54,6 +57,7 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult SubmitFiveDay(int stationcode, int year, int month, int range_number, string type, string newValue)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             try
             {
                 Station station = Station.GetByCode(stationcode);
@@ -87,6 +91,7 @@ namespace GeospaceMediana.Controllers
         }
         public ActionResult SubmitFiveDayTelegram(int year, int month, int range_number,  string numberTel = "" )
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             try
             {
                 ViewBag.number = range_number;

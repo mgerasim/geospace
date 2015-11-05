@@ -18,6 +18,7 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Index(int year = -1, int month = -1, int stationCode = 43501, string type = "f0F2", int day =   1)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             @ViewBag.Title = "Прогноз медианы";
 
             if (type == "M3000F2")
@@ -79,6 +80,7 @@ namespace GeospaceMediana.Controllers
         {
             try
             {
+                ViewBag.IsLocal = Utils.Util.IsLocal();
                 var objStation = Station.GetByCode(stationCode);
 
                 MedianaCalculator.Calc(objStation, year, month, type);
@@ -95,6 +97,7 @@ namespace GeospaceMediana.Controllers
         {
             try
             {
+                ViewBag.IsLocal = Utils.Util.IsLocal();
                 int iNewValue = CodeIonka.ConvertCodeToInt(newValue);
 
                 Station station = Station.GetByCode(stationcode);

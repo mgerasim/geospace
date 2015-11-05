@@ -16,6 +16,7 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Index(string date = "")
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             DateTime nowDateTime;
             if (date == "")
             {
@@ -50,6 +51,7 @@ namespace GeospaceMediana.Controllers
 
             try
             {
+                ViewBag.IsLocal = Utils.Util.IsLocal();
                 Station stationCode = Station.GetByCode(station);
 
                 GeospaceEntity.Models.Telegram.ForecastMonthIonosphera forecastFiveDay = GeospaceEntity.Models.Telegram.ForecastMonthIonosphera.GetByDateUTC(stationCode, year, month);
@@ -83,6 +85,7 @@ namespace GeospaceMediana.Controllers
 
             try
             {
+                ViewBag.IsLocal = Utils.Util.IsLocal();
                 string telegram = "ПРЕДВАРИТЕЛЬНЫЙ ПРОГНОЗ ИОНОСФЕРНОЙ И МАГНИТНОЙ";
                 DateTime Date = new DateTime(year,month,1);
                 telegram += "\nВОЗМУЩЕННОСТИ НА " + Date.ToString("MMMM yyyy") + " г.\n";

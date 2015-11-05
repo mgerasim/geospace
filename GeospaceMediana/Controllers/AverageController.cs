@@ -17,6 +17,7 @@ namespace GeospaceMediana.Controllers
 
         public void Pre_Index( List<int> values, List<int> valuesSkip, List<int> mediana, List<int> ionka, ref string strValues, ref string strValuesSkip, ref double[,] marks)
         {
+
             int sum1 = 0, sum2 = 0, sum3 = 0;
             double del1 = 0.0, del2 = 0.0, del3 = 0.0;
             for (int i = 0; i < values.Count; i++)
@@ -125,6 +126,7 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Index(int stationCode = 43501, string type = "f0F2", int year=-1, int month=-1, int day=-1)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             @ViewBag.Title = "Средние значения";
 
             if (type == "M3000F2" || type == "M3000")

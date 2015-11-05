@@ -14,6 +14,7 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Index(int stationCode=43501)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             ViewBag.Station = Station.GetByCode(stationCode);
             ViewBag.Date = DateTime.Now;
             return View();

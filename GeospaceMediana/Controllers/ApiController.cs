@@ -21,6 +21,7 @@ namespace GeospaceMediana.Controllers
 
         public JsonResult GetIonka()
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             List<CodeIonka> theList = (List<CodeIonka>)CodeIonka.GetAll();
             List<ApiIonka> theResult = new List<ApiIonka>();
             foreach (var item in theList)
@@ -39,12 +40,12 @@ namespace GeospaceMediana.Controllers
             {
                 theResult.Add(new ApiAverage(item));
             }
-
             return Json(theResult, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetIonkaByPeriod(int StationCode, int startYYYY, int startMM, int startDD, int endYYYY, int endMM, int endDD)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             Station station = Station.GetByCode(StationCode);
 
             List<CodeIonka> theList = (List<CodeIonka>)CodeIonka.GetByPeriod(station, startYYYY, startMM, startDD, endYYYY, endMM, endDD);
@@ -59,6 +60,7 @@ namespace GeospaceMediana.Controllers
 
         public JsonResult GetUmagfByPeriod(int StationCode, int startYYYY, int startMM, int startDD, int endYYYY, int endMM, int endDD)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             Station station = Station.GetByCode(StationCode);
 
             List<CodeUmagf> theList = (List<CodeUmagf>)CodeUmagf.GetByPeriod(station, startYYYY, startMM, startDD, endYYYY, endMM, endDD);
@@ -73,6 +75,7 @@ namespace GeospaceMediana.Controllers
 
         public JsonResult GetMedianaByDate(int StationCode, int YYYY, int MM)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             Station station = Station.GetByCode(StationCode);
 
             var medians = Mediana.GetByMonth(station, YYYY, MM);
@@ -89,6 +92,7 @@ namespace GeospaceMediana.Controllers
 
         public JsonResult GetProducts()
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             Product product = new Product();
 
             ApiProduct apiProduct = new ApiProduct(product.GetAll()[0]);
@@ -98,6 +102,7 @@ namespace GeospaceMediana.Controllers
 
         public JsonResult GetCharacterizations(int stationCode = 43501, string type = "f0F2")
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             DateTime currDate = DateTime.Now.AddDays(-3);
 
             int rangeNumber = -1;
@@ -167,6 +172,7 @@ namespace GeospaceMediana.Controllers
 
         public JsonResult GetDisturbances(int YYYY = -1, int MM = -1)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             ApiDisturbance theApi = new ApiDisturbance();
             if (YYYY == -1)
             {
@@ -228,6 +234,7 @@ namespace GeospaceMediana.Controllers
 
         protected ApiDisturbance.ApiDisturbanceItem HelperDisturbance_Item(Station station, ViewDisturbanceList theViewData, int YYYY, int MM)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             ApiDisturbance.ApiDisturbanceItem theItem = new ApiDisturbance.ApiDisturbanceItem();
 
             List<ApiDisturbance.ApiDisturbanceItem.ApiDisturbanceEntity> theEntityList = new List<ApiDisturbance.ApiDisturbanceItem.ApiDisturbanceEntity>();
@@ -251,6 +258,7 @@ namespace GeospaceMediana.Controllers
 
         public JsonResult GetConsolidatedTable(int YYYY = -1, int MM = -1)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             // GeospaceMediana.Controllers.ConsolidatedTableController
             ApiConsolidatedTable theApi = new ApiConsolidatedTable();
             if (YYYY == -1)
@@ -274,6 +282,7 @@ namespace GeospaceMediana.Controllers
         }
         public ActionResult GetConsolidatedTableView(int YYYY = -1, int MM = -1)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             // GeospaceMediana.Controllers.ConsolidatedTableController
             ApiConsolidatedTable theApi = new ApiConsolidatedTable();
             if (YYYY == -1)
@@ -294,6 +303,7 @@ namespace GeospaceMediana.Controllers
         }
         public ActionResult GetUmagf(int StationCode = 43501, string type = "f0F2", int panel = 1)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             var url = this.Url.Action("Ap", "Umagf", new { StationCode = StationCode, panel = panel }, Request.Url.Scheme);
             WebRequest request = WebRequest.Create(url);
             Stream stream = request.GetResponse().GetResponseStream();
@@ -304,6 +314,7 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult GetChartMediana(int StationCode = 43501, string type = "f0F2", int panel = 1)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             var url = this.Url.Action("Index", "ChartMediana", new { stationCode = StationCode, type = type, panel = panel }, Request.Url.Scheme);
             WebRequest request = WebRequest.Create(url);
             Stream stream = request.GetResponse().GetResponseStream();

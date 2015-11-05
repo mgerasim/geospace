@@ -18,6 +18,9 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Index(int stationCode = 43501, string start = "", int limit = 5, int step = 5, string type = "f0F2", int year = -1, int month = -1, int day = -1)
         {
+
+            ViewBag.IsLocal = Utils.Util.IsLocal();
+
             @ViewBag.Title = "Геофизические данные";
 
             ViewBag.NameMenu = "Данные наблюдений";
@@ -54,6 +57,7 @@ namespace GeospaceMediana.Controllers
         {
             try
             {
+                ViewBag.IsLocal = Utils.Util.IsLocal();
                 int iNewValue = CodeIonka.ConvertCodeToInt(newValue);
 
                 Station station = Station.GetByCode(stationcode);
@@ -93,6 +97,7 @@ namespace GeospaceMediana.Controllers
         {
             try
             {
+                ViewBag.IsLocal = Utils.Util.IsLocal();
                 Station station = Station.GetByCode(stationcode);
 
                 CodeUmagf codeUmagf = CodeUmagf.GetByDate(station, year, month, day);

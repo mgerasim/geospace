@@ -13,6 +13,7 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             return View();
         }
 

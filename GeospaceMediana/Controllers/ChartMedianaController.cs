@@ -17,6 +17,7 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Index(int year = -1, int month = -1, int stationCode = 43501, string type = "f0F2", int day = 1 , int panel = 0)
         {
+            ViewBag.IsLocal = Utils.Util.IsLocal();
             ViewBag.Panel = panel;
             ViewBag.NameMenu = "Диаграмма медианы";
             ViewBag.Title = "Диаграмма медиана";
@@ -79,8 +80,10 @@ namespace GeospaceMediana.Controllers
 
         public ActionResult Submit(int stationCode, int startRange, string date, int hour, int newValue)
         {
+
             try
             {
+                ViewBag.IsLocal = Utils.Util.IsLocal();
                 Station station = Station.GetByCode(stationCode);
 
                 DateTime dateTime = DateTime.ParseExact(date, "yyyy MMMM", System.Globalization.CultureInfo.CurrentCulture);

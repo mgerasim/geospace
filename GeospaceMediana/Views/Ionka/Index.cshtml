@@ -3,10 +3,15 @@
     ViewBag.Title = @ViewBag.Title;
 }
 
+@if(ViewBag.IsLocal == true)
+{ 
 @section Scripts
 {
     @Scripts.Render("~/bundles/ionka-edit")
 }
+
+}
+
 
 @section Styles
 {
