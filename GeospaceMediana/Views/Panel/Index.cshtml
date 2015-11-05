@@ -4,13 +4,20 @@
 <script type="text/javascript">
     var UrlUmagf = "@Url.Action("GetUmagf", "Api")";
     var UrlMediana = "@Url.Action("GetChartMediana", "Api")";
-
-    function digitalWatch() {
+    function getUTC() {
         var date = new Date();
-        //console.log(Date());
-        var hours = date.getHours();
-        var minutes = date.getMinutes();
-        var seconds = date.getSeconds();
+        var day = date.getUTCDay();
+        var month = date.getUTCMonth();
+        var year = date.getUTCFullYear();
+        var hours = date.getUTCHours();
+        var minutes = date.getUTCMinutes();
+        var seconds = date.getUTCSeconds();
+        var dateUtc = new Date(year, month, day,hours,minutes,seconds);
+        return dateUtc;
+    }
+    
+    function digitalWatch() {
+        var date = getUTC();
         if (hours < 10) hours = "0" + hours;
         if (minutes < 10) minutes = "0" + minutes;
         if (seconds < 10) seconds = "0" + seconds;
@@ -23,10 +30,6 @@
         reloadPage(UrlUmagf, 2, time, 1);
         reloadPage(UrlUmagf, 3, time, 2);
         reloadPage(UrlUmagf, 4, time, 3);
-        reloadPage(UrlMediana, 5, time, 0);
-        reloadPage(UrlMediana, 6, time, 1);
-        reloadPage(UrlMediana, 7, time, 2);
-        reloadPage(UrlMediana, 8, time, 3);
     }
 
     function reloadPage(Url, ID, time, stationNumber, type)
@@ -43,10 +46,6 @@
                 $('#' + ID).html(resp);
             },
             complete: function () {
-                //stationNumber++;
-                //console.log(stationNumber);
-                //if(stationNumber > 3)
-                //    stationNumber = 0;
                 setTimeout(reloadPage, time * 60* 1000, Url, ID, time, stationNumber);
             }
         });
@@ -65,21 +64,13 @@
         border-color:black;
     }
 </style>
-@*<div class="row">
-    <div class="col-lg-6" id="5"></div>
-    <div class="col-lg-6" id="6"></div>
-</div>
-<div class="row">
-    <div class="col-lg-6" id="7"></div>
-    <div class="col-lg-6" id="8"></div>
-</div>*@
-    
+ 
 
 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-keyboard="thue">
     <!-- Indicators -->
     <ol class="carousel-indicators">
-        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="0"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="1" class="active"></li>
     </ol>
 
     <!-- Wrapper for slides -->
@@ -139,14 +130,20 @@
     var UrlMedianaJson = "@Url.Action("GetMedianaByDate", "Api")";
     var UrlIonkaJson = "@Url.Action("GetIonkaByPeriod", "Api")";
     $(document).ready(function () {
-        mediana('43501', '2015', '11', '2');
-        mediana('37701', '2015', '11', '2');
-        mediana('45601', '2015', '11', '2');
-        mediana('46501', '2015', '11', '2');
+        var date =getUTC() ;
+        console.log(date)
+        mediana('43501');
+        mediana('37701');
+        mediana('45601');
+        mediana('46501');
     });
 
 
-    function mediana(numberStation, year, month, day) {
+    function mediana(numberStation) {
+        var date = getUTC();
+        var day = date.getDay();
+        var month = date.getMonth();
+        var year = date.getYear();
         var param = { StationCode: numberStation, YYYY: year, MM: month };
         $.ajax({
             url: UrlMedianaJson,
@@ -154,11 +151,15 @@
             async: true,
             dataType: "json",
             success: function (dataMed) {
+                var prev_day = day - 1;
+                var prev_range = -1;
+                if (day == 1)
+                {
+
+                }
                 //Выбор периода для медианы
                 var range = "";
                 var Med = [];
-                var date = new Date();
-                
                 $.each(dataMed, function (item,element) {
                     var MinMaxDay = element.Range;
                     var dayMM = MinMaxDay.split('-');

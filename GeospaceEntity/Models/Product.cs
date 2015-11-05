@@ -65,8 +65,22 @@ namespace GeospaceEntity.Models
             {
                 time = "0900";
             }
-            telegram += " " + TimeNow.ToString("dd") + time + "\n"; 
-            Other.SendToAspd("Полусуточный прогноз", telegram + this.subday_forecast + "=\nНННН");
+            telegram += " " + TimeNow.ToString("dd") + time + "\n";
+            string[] str = this.subday_forecast.TrimEnd().Split(new string[] { "\r\n" }, StringSplitOptions.None);
+            string newTelegram = "";
+            int rengeLine = 2;
+            while(str[str.Length - rengeLine] == "")
+            {
+                rengeLine++;
+            }
+            str[str.Length - (rengeLine)] += "=";
+            foreach (var line in str)
+            {
+                string ss = line;
+                ss = ss.Trim();
+                newTelegram += ss + "\r\n";
+            }
+            Other.SendToAspd("Полусуточный прогноз", telegram + newTelegram + "-\nНННН");
         }
 
         public virtual void Send_MonthForecast(string numberTelegram = "")
