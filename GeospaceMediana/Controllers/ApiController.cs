@@ -31,9 +31,15 @@ namespace GeospaceMediana.Controllers
             return Json(theResult, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetAverageByUTC(Station station, int YYYY, int MM, int DD, int HH)
+        public JsonResult GetAverage(int stationCode, int YYYY, int MM, int DD)
         {
-            ApiAverage theResult = new ApiAverage(Average.GetByDateUTC(station, YYYY, MM, DD, HH));
+            List<ApiAverage> theResult = new List<ApiAverage>();
+            List<Average> theList = Average.GetByDate(Station.GetByCode(stationCode), YYYY, MM, DD);
+            foreach( var item in theList )
+            {
+                theResult.Add(new ApiAverage(item));
+            }
+
             return Json(theResult, JsonRequestBehavior.AllowGet);
         }
 

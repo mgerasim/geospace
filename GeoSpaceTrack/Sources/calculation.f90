@@ -838,4 +838,64 @@ subroutine Draw_Isoline()
 		close(1)
 	end subroutine Test_Convert_To_Geo_Coord2
 
+	subroutine Test_Draw_E_Layer(month, W, last, step) 
+		integer                      :: month, W, h, p
+		real, dimension ( HOURS )    :: Z
+		real                         :: A, B, Zm, FF, F, obj, obj1, DF, x, y, rx, ry
+		CHARACTER(50) error
+		CHARACTER(10)        :: sh, last, step
+		real, allocatable :: foE(:)
+		allocate ( foE(24 ) )
+
+		y = 0.0
+		call degree_to_rad( y, ry )
+		
+		open (unit = 1, file = "temp\\in\\foE.txt")
+		do x = 90.0, -90.0, -1.0
+			do h = 0, 23, 1
+
+				call degree_to_rad( x, rx )				
+				obj = x
+				Zm = 90 - obj + DS(month)
+				DF = (0.0006 + 0.00009*Zm) * W
+				call  degree_to_rad( (Zm + 27)/1.3, obj )
+				A = 2.8*sin(obj) + DF
+				B = (1/(-6-Zm)**2) * log( A / 0.8 )
+
+				FF = D / (2*R)
+				F = 3000 / (2*R)
+				
+				call degree_to_rad(15.0*(h-1), obj)
+				call degree_to_rad( 1.0*DS(month), obj1 )
+				Z(h+1) = sin(rx) * sin(obj1) + cos(rx) * cos(obj1) * ( sin(obj)*sin(ry) - cos(obj)*cos(ry) )
+
+				if( abs( Z(h+1) ) > 1 ) then
+					write(error, *) Z(h+1)
+					error = "parametr with arcsin | Z(h+1) | > 1" // error
+					call error_func( 1, error )
+				end if
+
+				Z(h+1) = asin( Z(h+1) )
+
+				call rad_to_degree( Z(h+1), Z(h+1) )
+				foE(h+1) = 0.6 + A*exp( -B*(Z(h+1)-Zm)**2 )			
+				 
+				
+			end do		
+			
+			write (1, '(24f15.8)'), foE(:)
+		end do
+		close(1)
+		if( h < 10 ) then
+			write (sh, "(I1)") h
+		else
+			write (sh, "(I2)") h
+		end if
+		call EXECUTE_COMMAND_LINE("plot_py.py temp\\in\\foE.txt temp\\out\\foE\\foE_" // sh // " " // last // " " // step)
+
+		
+		deallocate(foE)
+
+	end subroutine Test_Draw_E_Layer
+
 end module calculation

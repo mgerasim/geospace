@@ -40,7 +40,7 @@ def openFile(inText):
     iFile.close()
     return np.array( matrix )
 
-def Draw_Isoline( inText, inText2, outImg, color, levs, dimLon, dimLat ):
+def Draw_Isoline( inText, inText2, outImg, color, levs, dimLon, dimLat, flag=True ):
     #print dimLat[1]-dimLat[2], dimLat[0], dimLon[0], dimLon[1]+dimLon[2]
 
     map = Basemap(projection='cyl',llcrnrlat=-90, urcrnrlat=90,
@@ -58,10 +58,12 @@ def Draw_Isoline( inText, inText2, outImg, color, levs, dimLon, dimLat ):
     
     x, y = map(lon, lat)
    
-    map.fillcontinents(color='#FFFCC4')
+    if flag:
+        map.fillcontinents(color='#FFFCC4')
     #map.drawparallels(np.arange(dimLat[1]-dimLat[2], dimLat[0], abs(dimLat[2])), labels=[1,0,0,0], color="grey",fontsize=6) # draw parallels
     #map.drawmeridians(np.arange(dimLon[0], 360-abs(dimLon[0]), abs(dimLon[2])), labels=[0,0,0,1], color="grey",fontsize=5) # draw meridians
-    map.drawcoastlines(linewidth=0.2)
+    if flag:
+        map.drawcoastlines(linewidth=0.2)
     CS = plt.contour(x, y, data, levs, colors=color)
     plt.clabel(CS, inline=1, inline_spacing=0.1, fontsize=7, fmt='%1.3f', colors='b')
 
@@ -88,9 +90,9 @@ def main():
     print outImg, inText, last, step
 
     #START END STEP
-    dimLon = [0, 361, 1]
+    dimLon = [0, 24, 1]
     dimLat = [90, -91, -1]
-    Draw_Isoline( inText, "", outImg, "black", levs, dimLon, dimLat )
+    Draw_Isoline( inText, "", outImg, "black", levs, dimLon, dimLat, False )
     plt.clf()
 
     return

@@ -18,7 +18,7 @@ PROGRAM CalcTrack
 use calculation
 use forecast
 
-CHARACTER(10)            :: slon1, slat1, slon2, slat2, sW, sMonth
+CHARACTER(10)            :: slon1, slat1, slon2, slat2, sW, sMonth, last, step
 real                     :: lon1, lat1, lon2, lat2 
 real                     :: x1, y1, x2, y2, D
 integer                  :: KTO, month, W
@@ -26,10 +26,17 @@ real, dimension ( SIZE_KTO ) :: XO, YO, GTO300, GYO
 real, dimension ( 2, SIZE_PROVE1 ) :: diff
 real, dimension ( 25, 70 )  :: coeffF0Global, coeffM3000Global
 
+CALL GETARG(1, sW)
+CALL GETARG(2, sMonth)
+CALL GETARG(3, last)
+CALL GETARG(4, step)
+read (sW, *) W
+read (sMonth, *) month
 
+call Test_Draw_E_Layer(month, W, last, step)
 
 !call Test_Convert_To_Geo_Coord()
-call Draw_Isoline()
+!call Draw_Isoline()
 
 !call Test_Convert_To_Geo_Coord2()
 
