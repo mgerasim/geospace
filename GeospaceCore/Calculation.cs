@@ -47,7 +47,7 @@ namespace GeospaceCore
         }
         void ICalculation.ConsolidatedTableCalc()
         {
-            for (DateTime currDate = DateTime.Now.AddDays(-5); currDate < DateTime.Now.AddDays(2); currDate = currDate.AddDays(1))
+            for (DateTime currDate = DateTime.Now.AddDays(-5); currDate < DateTime.Now; currDate = currDate.AddDays(1))
             {
                 try
                 {

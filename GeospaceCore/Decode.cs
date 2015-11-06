@@ -78,15 +78,15 @@ namespace GeospaceCore
                         if (ballEvent2 != "" && ballEvent1 != "")
                             ballEvent += ballEvent1 + "/" + ballEvent2;
                         ballEvent += '\n';
-                        radioEvent += lineEvents.Substring(41, 11).TrimEnd() + '\n';
+                        radioEvent += lineEvents.Substring(39, 15).TrimEnd() + '\n';
                     }
                     startSplit++;
                 }
                 char[] charsToTrim = { '\n', '\r' };
-                if (codeTable.Th7_Balls == null || codeTable.Th7_Balls == "") codeTable.SetValueByType("Th7", ballEvent.Trim(charsToTrim));
-                if (codeTable.Th8_Coordinates == null || codeTable.Th8_Coordinates == "") codeTable.SetValueByType("Th8", cordinatEvent.Trim(charsToTrim));
-                if (codeTable.Th9_Time == null || codeTable.Th9_Time == "") codeTable.SetValueByType("Th9", timeEvent.Trim(charsToTrim));
-                if (codeTable.Th10_RadioBursts == null || codeTable.Th10_RadioBursts == "") codeTable.SetValueByType("Th10", radioEvent.Trim(charsToTrim));
+                if (codeTable.Th7_Balls == null || codeTable.Th7_Balls == "") codeTable.SetValueByType("Th7", ballEvent.TrimEnd(charsToTrim));
+                if (codeTable.Th8_Coordinates == null || codeTable.Th8_Coordinates == "") codeTable.SetValueByType("Th8", cordinatEvent.TrimEnd(charsToTrim));
+                if (codeTable.Th9_Time == null || codeTable.Th9_Time == "") codeTable.SetValueByType("Th9", timeEvent.TrimEnd(charsToTrim));
+                if (codeTable.Th10_RadioBursts == null || codeTable.Th10_RadioBursts == "") codeTable.SetValueByType("Th10", radioEvent.TrimEnd(charsToTrim));
             }
             if (index2 == true || index3 == true)
             {
