@@ -78,11 +78,7 @@ else
                 title: {
                     text: 'Геомагнитная обстановка за @ViewBag.Date.ToString("d MMMM yyyy") @ViewBag.Station.Name'
                 },
-                tooltip: {
-                    formatter: function () {
-                        return Highcharts.dateFormat('%d.%m.%Y', new Date(this.x)) + '<br/>' + 'Ap: ' + this.y;
-                    }
-                },
+                tooltip: false,
                 xAxis: {
                     title: {
                         text: 'Часы (UTC)'
