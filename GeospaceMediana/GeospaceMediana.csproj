@@ -137,6 +137,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ConsolidatedTableController.cs" />
+    <Compile Include="Controllers\UmagfIndexController.cs" />
     <Compile Include="Controllers\ForecastFiveDayTrackController.cs" />
     <Compile Include="Controllers\ForecastTrackController.cs" />
     <Compile Include="Controllers\MarksController.cs" />
@@ -587,6 +588,8 @@
     <Content Include="Views\Panel\Index.cshtml" />
     <Content Include="Views\Panel\_Menu.cshtml" />
     <Content Include="Views\Shared\Empty.cshtml" />
+    <Content Include="Views\UmagfIndex\Index.cshtml" />
+    <Content Include="Views\UmagfIndex\_Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

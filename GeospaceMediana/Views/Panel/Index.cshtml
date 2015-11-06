@@ -1,13 +1,41 @@
 ﻿@{
     ViewBag.Title = "Index";
 }
+@section Scripts
+{
+    @Scripts.Render("~/Scripts/highcharts.js")
+    <script src="http://code.highcharts.com/stock/modules/exporting.js"></script>
+    @Scripts.Render("~/Scripts/draggable-points.js")
+}
 <script type="text/javascript">
-    var UrlUmagf = "@Url.Action("GetUmagf", "Api")";
+    var UrlUmagf = "@Url.Action("GetUmagf", "Api")"; //адрес
     var UrlMediana = "@Url.Action("GetChartMediana", "Api")";
+    var UrlDateTime = "@Url.Action("GetDateTime", "Panel")";
+ 
+    function getServerTime( dayZ ) {
+        var param = { day: dayZ };
+        var day = 0;
+        var month = 0;
+        var year = 0;
+        $.ajax({
+            url: UrlDateTime,
+            data: param,
+            async: false,
+            success: function (stringDate) {
+                var date = stringDate.split('.');
+                day = parseInt(date[0]);
+                month = parseInt(date[1])-1;
+                year = parseInt(date[2]);
+            }
+        });
+        var dateUtc = new Date(year, month, day);
+        return dateUtc;
+    }
+
     function getUTC() {
         var date = new Date();
-        var day = date.getUTCDay();
-        var month = date.getUTCMonth();
+        var day = date.getDate();
+        var month = date.getUTCMonth(); //Изменение данного параметра изменяет дату правильно
         var year = date.getUTCFullYear();
         var hours = date.getUTCHours();
         var minutes = date.getUTCMinutes();
@@ -18,6 +46,9 @@
     
     function digitalWatch() {
         var date = getUTC();
+        var hours = date.getUTCHours();
+        var minutes = date.getMinutes();
+        var seconds = date.getSeconds();
         if (hours < 10) hours = "0" + hours;
         if (minutes < 10) minutes = "0" + minutes;
         if (seconds < 10) seconds = "0" + seconds;
@@ -130,103 +161,91 @@
     var UrlMedianaJson = "@Url.Action("GetMedianaByDate", "Api")";
     var UrlIonkaJson = "@Url.Action("GetIonkaByPeriod", "Api")";
     $(document).ready(function () {
-        var date =getUTC() ;
-        console.log(date)
-        mediana('43501');
-        mediana('37701');
-        mediana('45601');
-        mediana('46501');
+        panel_median();
     });
-
-
-    function mediana(numberStation) {
-        var date = getUTC();
-        var day = date.getDay();
-        var month = date.getMonth();
-        var year = date.getYear();
-        var param = { StationCode: numberStation, YYYY: year, MM: month };
-        $.ajax({
-            url: UrlMedianaJson,
-            data:param,
-            async: true,
-            dataType: "json",
-            success: function (dataMed) {
-                var prev_day = day - 1;
-                var prev_range = -1;
-                if (day == 1)
-                {
-
-                }
-                //Выбор периода для медианы
-                var range = "";
-                var Med = [];
-                $.each(dataMed, function (item,element) {
-                    var MinMaxDay = element.Range;
-                    var dayMM = MinMaxDay.split('-');
-                    if (parseInt(dayMM[0]) <= parseInt(day) && parseInt(day) <= parseInt(dayMM[1]))
-                    {
-                        console.log(MinMaxDay.split('-'), day, item);
-                        Med = element.Values;
-                    }
-                })
-                console.log(Med);
-                var param = { StationCode: numberStation, startYYYY: year, startMM: month, startDD: day, endYYYY: year, endMM: month, endDD: day };
-                $.ajax({
-                    url: UrlIonkaJson,
-                    data:param,
-                    async: true,
-                    dataType: "json",
-                    success: function (Day) {
-                        //console.log(dataDay, date);
-                        var dataday = [];
-                        $.each(Day, function (index, element) {
-                            if(element.f0F2 <= 1000)
-                            {
-                                dataday.push(element.f0F2);
-                            }
-                            else
-                            {
-                                dataday.push(null);
-                            }
-                        })
-                        console.log(Med, dataday, numberStation, year, month);
-                        visitorData(Med, dataday, numberStation, year, month);
-                    }
-                });
-
-            }
-        });
-
+    function panel_median() {
+        mediana('43501', "Хабаровск");
+        mediana('37701', "Салехард");
+        mediana('45601', "Магадан");
+        //mediana('46501', "Паратунка");
+        setTimeout("panel_median()", 10000);
     }
 
+    function DayRange( numberStation, prev_day ) {
+        var day = prev_day.getUTCDate();
+        var month = prev_day.getUTCMonth()+1;
+        var year = prev_day.getUTCFullYear();
+        var param = { StationCode: numberStation, YYYY:  year  , MM: month };
+        var prev_range = [];
+        $.ajax({
+            url: UrlMedianaJson,
+            data: param,
+            async: false,
+            dataType: "json",
+            success: function (data_prev) {
+                $.each(data_prev, function (item, element) {
+                    var MinMaxDay = element.Range;
+                    var dayMM = MinMaxDay.split('-');
+                    if (parseInt(dayMM[0]) <= parseInt(day) && parseInt(day) <= parseInt(dayMM[1])) {
+                        prev_range = element.Values;
+                    }
+                })
+            }
+        });
+        //console.log(prev_range);
+        return prev_range;
+    }
+    
+    function mediana(numberStation,name_station) {
+        var prev_day = getServerTime(-1);
+        var now_day = getServerTime(0);
+        console.log(now_day);
+        var prev_range = DayRange(numberStation, prev_day); // Данные медианны за передыдущий день
+        var now_range = DayRange(numberStation, now_day); // Данные медианны за текущий день день
+        var Med = prev_range.concat(now_range);
+        var param = { StationCode: numberStation, startYYYY: prev_day.getUTCFullYear(), startMM: prev_day.getUTCMonth()+1, startDD: prev_day.getUTCDate(), endYYYY: now_day.getUTCFullYear(), endMM: now_day.getUTCMonth()+1, endDD: now_day.getUTCDate() };
+        $.ajax({
+            url: UrlIonkaJson,
+            data:param,
+            async: false,
+            dataType: "json",
+            success: function (Day) {
+                var dataday = [];
+                $.each(Day, function (index, element) {
+                    if(element.f0F2 <= 1000)
+                    {
+                        dataday.push(element.f0F2);
+                    }
+                    else
+                    {
+                        dataday.push(null);
+                    }
+                });
+                visitorData(Med, dataday, now_day, prev_day, numberStation, name_station);
+            }
+        });
+    }
 
-    function visitorData(dataMed, dataDay, numberStation, year, month) {
-        console.log(dataMed)
+    function visitorData(dataMed, dataDay, now_day, prev_day, numberStation, name_station) {
         $('#cont'+numberStation).highcharts({
             title: {
-                text: numberStation
+                text: name_station 
             },
-            xAxis :{
-                title: {
-                    text: 'Часы (UTC)'
-                },
-                categories: [
-                @for(int i=0;i<24;i++)
-        {
-            @Html.Raw("'"+i.ToString("00")+"'")
-
-            if(i!=23)
-            {
-                @:,
-            }
-        }
-                ],
-                lineWidth: 2,
+            xAxis: {
+                type: 'datetime',
+                lineWidth: 1,
                 gridLineWidth: 1,
                 tickInterval:1,
                 tickmarkPlacement: 'on',
+                plotLines: [{
+                    value: Date.UTC(now_day.getUTCFullYear(), now_day.getUTCMonth(), now_day.getUTCDate(), 0),
+                    color: 'red',
+                    width: 3
+                }]
             },
+
             yAxis: [{ // Primary yAxis
+               
                 labels: {
                     format: '{value}',
                     style: {
@@ -235,32 +254,13 @@
                 },
                 title: {
                     text:'',
-                    style: {
-                        color: Highcharts.getOptions().colors[1]
-                    }
                 },
                 min: 0,
                 max: 120,
-            }, { // Secondary yAxis
-                title: {
-                    text: 'Количество пропущенных значений',
-                    style: {
-                        color: Highcharts.getOptions().colors[0]
-                    }
-                },
-                labels: {
-                    format: '{value}',
-                    style: {
-                        color: Highcharts.getOptions().colors[0]
-                    }
-                },
-                opposite: true,
-                min: 0,
-                tickInterval: 1,
             }],
-            tooltip: {
-                shared: true
-            },
+            //tooltip: {
+            //    shared: true
+            //},
             exporting: {
                 buttons: {
                     contextButton: {
@@ -269,14 +269,30 @@
                 }
             },
             series: [{
-                name: 'dataDay',
+                name: 'Данные наблюдений',
                 type: 'column',
-                data: dataDay
-                },
+                data: dataDay,
+                pointStart: Date.UTC(prev_day.getUTCFullYear(), prev_day.getUTCMonth(), prev_day.getUTCDate(), 0),
+                pointInterval: 1 * 3600 * 1000, // one hour
+                dataLabels: {
+                    enabled: true,
+                    rotation: -90,
+                    color: '#FFFFFF',
+                    align: 'right',
+                    format: '{point.y:.1f}', // one decimal
+                    y: 10, // 10 pixels down from the top
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            },
                 {
-                    name: 'dataMed',
+                    name: 'Прогноз медианы',
                     type: 'spline',
-                    data:  dataMed
+                    data: dataMed,
+                    pointStart: Date.UTC(prev_day.getUTCFullYear(), prev_day.getUTCMonth(), prev_day.getUTCDate(), 0),
+                    pointInterval: 1 * 3600 * 1000, // one hour
                 }]
         });
   
