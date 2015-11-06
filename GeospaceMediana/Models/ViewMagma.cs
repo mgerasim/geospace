@@ -1,4 +1,5 @@
-﻿using GeospaceEntity.Models.Codes;
+﻿using GeospaceEntity.Models;
+using GeospaceEntity.Models.Codes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,28 +9,34 @@ namespace GeospaceMediana.Models
 {
     public class ViewMagma
     {
-        public int station = 0;
-        public int YYYY = 0;
-        public int MM = 0;
-        public int DD = 0;
-        public int HH = 0;
-        public int MI = 0;
-        public int value = 0;
-        public string Raw = "";
-        public ViewMagma(CodeMagma theCodeMagma)
+        public List<int> values = new List<int>();
+        public int error;
+        public ViewMagma(int stationCode, DateTime date)
         {
-            if (theCodeMagma != null)
+            Station theStation = Station.GetByCode(stationCode);
+            if (theStation == null)
             {
-                station = theCodeMagma.Station.Code;
-                YYYY = theCodeMagma.YYYY;
-                MM = theCodeMagma.MM;
-                DD = theCodeMagma.DD;
-                HH = theCodeMagma.HH;
-                MI = theCodeMagma.MI;
-                value = theCodeMagma.value;
-                Raw = theCodeMagma.Raw;
+                error = 1;
+                return;
+            }
+            List<CodeMagma> theCodes = (List<CodeMagma>)CodeMagma.GetByPeriod(theStation, date.Year, date.Month, date.Day, date.Year, date.Month, date.Day);
+            if (theCodes.Count == 0)
+            {
+                error = 2;
+                return;
+            }
+            List<ViewMagma> theViews = new List<ViewMagma>();
+            for (int i = 0; i < 8; i++)
+            {
+                if (i < theCodes.Count)
+                {
+                    values.Add(theCodes[i].value);
+                }
+                else
+                {
+                    values.Add(0);
+                }
             }
         }
-
     }
 }

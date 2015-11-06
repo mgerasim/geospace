@@ -12,87 +12,177 @@ else
 {
  
     <h3>Геомагнитная обстановка по ст. @ViewBag.Station.Name за @ViewBag.currDate.ToString("dd.MM.yyyy")</h3>
-    @helper GetColor(ViewMagma Value)   
+    <div id="container_@ViewBag.Panel" style="min-width: 310px; height: 500px; margin: 0 auto"></div>
+   
+    @section Scripts
     {
-        if (Value != null)
-        { 
-            if (Value.value <= 3)
-            {
-                <text>
-                    'green'
-                </text>
-            }
-            else
-            if (Value.value == 4)
-            {
-                <text>
-                    "#FFFF00"
-                </text>
-            }
-            else
-            { 
-                <text>
-                    '#FF0000'
-                </text>
-            }
+        @Scripts.Render("~/Scripts/highcharts.js")
+        <script src="http://code.highcharts.com/stock/modules/exporting.js"></script>
+        @Scripts.Render("~/Scripts/draggable-points.js")
+    }
+    @helper DrawColor(int k, int hour , int min)
+    {
+        string color = "#FF0000";
+        if (k <= 3)
+        {
+            color = "#00FF00";
+        }
+        if (k == 4)
+        {
+            color = "#FFFF00";
+        }
+        DateTime dateStart = new DateTime(ViewBag.currDate.Year, ViewBag.currDate.Month, ViewBag.currDate.Day, hour, min, 0);
+        //DateTime dateEnd= new DateTime(ViewBag.Date.Year, ViewBag.Date.Month, ViewBag.Date.Day, time+2, 59, 59);
+        long ticksStart = (long)dateStart.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds;
+        //long ticksEnd = (long)dateEnd.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds;
+    
+        if (k == 0)
+        {  <text>
+            {x:@(ticksStart), y:null, color: '@(color)'}
+            </text>
         }
         else
         {
             <text>
-            'yellow'
+                {x:@(ticksStart), y:@k, color: '@(color)'}
             </text>
         }
     }
-    @helper GetValue(ViewMagma Value)
-    {
-        <text>
-            @(Value != null ? Value.value : 0)
-        </text>
-    }
+
+        <script>
+            $(document).ready(function () {
+                var panelVieww = parseInt('@ViewBag.Panel');
+                Highcharts.setOptions({
+                    global: {
+                        useUTC: false
+                    },
+                    lang: {
+                        loading: 'Загрузка...',
+                        months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+                        weekdays: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
+                        shortMonths: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Нояб', 'Дек'],
+                        exportButtonTitle: "Экспорт",
+                        printButtonTitle: "Печать",
+                        rangeSelectorFrom: "С",
+                        rangeSelectorTo: "По",
+                        rangeSelectorZoom: "Период",
+                        downloadPNG: 'Скачать PNG',
+                        downloadJPEG: 'Скачать JPEG',
+                        downloadPDF: 'Скачать PDF',
+                        downloadSVG: 'Скачать SVG',
+                        printChart: 'Напечатать график'
+                    }
+                });
+
+
+                $('#container_@ViewBag.Panel').highcharts({
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Геомагнитная обстановка за @ViewBag.Date.ToString("d MMMM yyyy") @ViewBag.Station.Name'
+                    },
+                    tooltip: false,
+                    xAxis: {
+                        title: {
+                            text: 'Часы (UTC)'
+                        },
+                        type: 'datetime',
+                        labels: {
+                            overflow: 'justify'
+                        },
+                        lineWidth: 2,
+                        gridLineWidth: 1,
+                        tickInterval: 1,
+                        tickmarkPlacement: 'on',
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Значения индекса K'
+                        },
+                        gridLineWidth: 1,
+                        tickInterval: 1,
+                        tickmarkPlacement: 'on',
+                        categories: ['0', '1', '2', '3', '4', '5', '6','7', '8', '9', '10'], 
+                        max: 10
+                    },
+                    legend: {
+                        enabled: false
+                    },
+                    exporting: {
+                        buttons: {
+                            contextButton: {
+                                enabled: false ,
+                            }
+                        }
+                    },
+
+                    series: [{
+                        name: 'k',
+                        data:
+                           [
+                            @if (Model != null) {
+                                int p = 1;
+                                for (int k = 0; k < 8; k++ )
+                                { 
+                                     @DrawColor(@Model.values[k], p, 30)
+                                     @Html.Raw(",")
+                                     p += 3;
+                            }
+                        }
+                    
+                           ]
+                        ,
+                        dataLabels: {
+                            enabled: true,
+                            color: '#FFFFFF',
+                            align: 'center',
+                            format: '{point.y}', // one decimal
+                            verticalAlign: 'center',
+                            style: {
+                                fontSize: '20px',
+                                fontFamily: 'Verdana, sans-serif'
+                            }
+                        }
+                    }],
+                    plotOptions: {
+                        series: {
+                            pointRange: 3 * 3600 * 1000, // one day
+                            pointPadding: 0,
+                            groupPadding: 0,
+                            shadow: false
+                        }
+                    }
+                });
+
+
+            })
+
+        </script>
+        <br>
+        <table border="1" cellpadding="7" cellspacing="1" width="100%">
+            <tbody>
+                <tr align="center">
+                    <th align="left" width="20%"><span>K-index</span></th>
+                    <td width="13%"><span>0,1,2</span></td>
+                    <td width="13%"><span>3</span></td>
+                    <td width="13%"><span>4</span></td>
+                    <td width="13%"><span>5</span></td>
+                    <td width="13%"><span>6</span></td>
+                    <td width="13%"><span>7,8,9</span></td>
+                </tr>
+                <tr align="center">
+                    <th align="left"><span>Состояние<br>магнитного поля</span></th>
+                    <td bgcolor="#00FF00"><span>очень<br>спокойное</span></td>
+                    <td bgcolor="#00FF00"><span>спокойное</span></td>
+                    <td bgcolor="#FFFF00"><span>неустойчивое</span></td>
+                    <td bgcolor="#FF0000"><span>слабо<br>возмущенное</span></td>
+                    <td bgcolor="#FF0000"><span>умеренно<br>возмущенное</span></td>
+                    <td bgcolor="#FF0000"><br><span>сильно<br>возмущенное<br><br></span></td>
+                </tr>
+            </tbody>
+        </table>
+
     
-    @Scripts.Render("~/bundles/flot")
-    
-    <script type="text/javascript">
-
-
-	$(document).ready(function() {
-
-
-
-
-	    var data = [{ data: [[0,  @GetValue(Model[0])]], color:  @GetColor(Model[0]) },
-            { data: [[1, @GetValue(Model[1])]], color: @GetColor(Model[1]) },
-            { data: [[2, @GetValue(Model[2])]], color: @GetColor(Model[2]) },
-            { data: [[3, @GetValue(Model[3])]], color: @GetColor(Model[3]) },
-            { data: [[4, @GetValue(Model[4])]], color: @GetColor(Model[4]) },
-            { data: [[5, @GetValue(Model[5])]], color: @GetColor(Model[5]) },
-            { data: [[6, @GetValue(Model[6])]], color: @GetColor(Model[6]) },
-            { data: [[7, @GetValue(Model[7])]], color: @GetColor(Model[7]) }];
-       
-
-	    $.plot("#placeholder", data, {
-	        series: {
-	            bars: {
-	                show: true,
-	                barWidth: 1,
-	                align: "center"
-	            }
-	        },
-	        xaxis: {
-	            mode: "categories",
-	            ticks: [[0, "00-03"], [1, "04-06"], [2, "07-09"], [3, "10-12"], [4, "13-15"], [5, "16-18"], [6, "19-21"], [7, "22-24"]]
-	        },
-	        yaxis: {
-	            tickSize: 10
-	        }
-	    });
-
-	});
-
-	</script>
-    
-    
-    
-    <div id="placeholder" class="demo-placeholder"></div>
-    
+   
 }
