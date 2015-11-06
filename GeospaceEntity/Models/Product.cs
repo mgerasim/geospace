@@ -74,13 +74,15 @@ namespace GeospaceEntity.Models
                 rengeLine++;
             }
             str[str.Length - (rengeLine)] += "=";
+            str[str.Length - (1)] += "-";
             foreach (var line in str)
             {
                 string ss = line;
                 ss = ss.Trim();
                 newTelegram += ss + "\r\n";
             }
-            Other.SendToAspd("Полусуточный прогноз", telegram + newTelegram + "-\nНННН");
+            string returnString = telegram + newTelegram + "НННН";
+            Other.SendToAspd("Полусуточный прогноз", returnString);
         }
 
         public virtual void Send_MonthForecast(string numberTelegram = "")

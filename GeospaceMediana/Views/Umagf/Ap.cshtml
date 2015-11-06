@@ -76,11 +76,11 @@ else
     },
     yAxis: {
         title: {
-            text: 'Значения индекса Ap'
+            text: 'Значения индекса Ak'
         },
         allowDecimals: false,
         min: 0,
-        max: 60
+        max: 120
     },
     legend: {
         enabled: false
@@ -94,7 +94,7 @@ else
     },
             
     series: [{
-        name: 'Ap',
+        name: 'Ak',
         data: [
             @foreach (var item in Model)
             {
@@ -148,7 +148,7 @@ else
 @if (ViewBag.Panel <= 0)
 {
     <br>
-    <table border="1" cellpadding="7" cellspacing="1" width="90%">
+    <table border="1" cellpadding="7" cellspacing="1" width="100%">
         <tbody>
             <tr align="center">
                 <th align="left" width="20%"><span>Значения A<sub>p</sub></span></th>
