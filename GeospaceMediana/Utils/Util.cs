@@ -15,6 +15,9 @@ namespace GeospaceMediana.Utils
                 string controller = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
                 string action = HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString();
                 string ip = GetIP();
+                //string addr = HttpContext.Current.Request.Params["REMOTE_ADDR"];
+                //object forwarded = HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+
                 //Тестирование убран интерфейс отслеживания рабочих адрессов
                 //if (ip.Substring(0, 3) == "192")
                 //{
@@ -24,7 +27,7 @@ namespace GeospaceMediana.Utils
                 //{
                 //    return true;
                 //}
-                if( ip != "::1")
+                if (ip != "::1" && ip != "127.0.0.1")
                 {
                     GeospaceEntity.Models.Request RequestUser = new GeospaceEntity.Models.Request(ip, controller, action);
                     RequestUser.Save();
@@ -41,6 +44,7 @@ namespace GeospaceMediana.Utils
         }
         public static string GetIP()
         {
+            
 
             string ip = HttpContext.Current.Request.UserHostAddress;
             return ip;

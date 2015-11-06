@@ -14,5 +14,12 @@ namespace GeospaceMediana.Controllers
             ViewBag.NameMenu = "Информационная панель";
             return View();
         }
+        public ActionResult  GetDateTime(int day = 0)
+        {
+            DateTime dayTime = DateTime.Now;
+            dayTime = dayTime.AddDays(day);
+            return Content(dayTime.ToString("dd.MM.yyyy"));
+        }
+    
     }
 }
