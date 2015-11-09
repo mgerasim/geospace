@@ -847,49 +847,75 @@ subroutine Draw_Isoline()
 		real, allocatable :: foE(:)
 		allocate ( foE(24 ) )
 
-		y = 0.0
+		y = 50.0
 		call degree_to_rad( y, ry )
 		
 		open (unit = 1, file = "temp\\in\\foE.txt")
-		do x = 90.0, -90.0, -1.0
-			do h = 0, 23, 1
+		do x = 90.0, -90.0, -1.0			
 
-				call degree_to_rad( x, rx )				
-				obj = x
-				Zm = 90 - obj + DS(month)
-				DF = (0.0006 + 0.00009*Zm) * W
-				call  degree_to_rad( (Zm + 27)/1.3, obj )
-				A = 2.8*sin(obj) + DF
-				B = (1/(-6-Zm)**2) * log( A / 0.8 )
+			call degree_to_rad( x, rx )				
+			Zm = 90 - obj + DS(month)
+			DF = (0.0006 + 0.00009*Zm) * W
+			call  degree_to_rad( (Zm + 27)/1.3, obj )
+			A = 2.8*sin(obj) + DF
+			B = (1/(-6-Zm)**2) * log( A / 0.8 )
 
-				FF = D / (2*R)
-				F = 3000 / (2*R)
-				
+			FF = D / (2*R)
+			F = 3000 / (2*R)
+
+			if( D < 2000 ) then
+				obj = cos( atan( sin(FF) / (1.017915968 - cos(FF)) ) )
+				if( obj == 0 ) then
+					obj = EPS
+				end if
+				MDE = 1 / obj
+			else
+				MDE = 5.27
+			end if
+
+			if( D < 3000 ) then
+				obj = cos( atan( sin(FF) / (1.03603959 - cos(FF)) ) )
+				if( obj == 0 ) then
+					obj = EPS
+				end if
+				MDF1 = 1 / obj
+			else
+				MDF1 = 3.8
+			end if
+
+
+			call rad_to_degree( yr, obj )
+			delta = obj/15.0
+			correctHour = nint( delta )
+
+			!print *, "DEBUG ", obj, delta, correctHour
+
+			do h = 1, 24, 1
 				call degree_to_rad(15.0*(h-1), obj)
 				call degree_to_rad( 1.0*DS(month), obj1 )
-				Z(h+1) = sin(rx) * sin(obj1) + cos(rx) * cos(obj1) * ( sin(obj)*sin(ry) - cos(obj)*cos(ry) )
+				Z(h) = sin(xr) * sin(obj1) + cos(xr) * cos(obj1) * ( sin(obj)*sin(yr) - cos(obj)*cos(yr) )
 
-				if( abs( Z(h+1) ) > 1 ) then
-					write(error, *) Z(h+1)
-					error = "parametr with arcsin | Z(h+1) | > 1" // error
+				if( abs( Z(h) ) > 1 ) then
+					write(error, *) Z(h)
+					error = "parametr with arcsin | Z(h) | > 1" // error
 					call error_func( 1, error )
 				end if
 
-				Z(h+1) = asin( Z(h+1) )
+				Z(h) = asin( Z(h) )
 
-				call rad_to_degree( Z(h+1), Z(h+1) )
-				foE(h+1) = 0.6 + A*exp( -B*(Z(h+1)-Zm)**2 )			
-				 
-				
+
+
+				call rad_to_degree( Z(h), Z(h) )
+				foE(h) = 0.6 + A*exp( -B*(Z(h)-Zm)**2 )
 			end do		
 			
 			write (1, '(24f15.8)'), foE(:)
 		end do
 		close(1)
-		if( h < 10 ) then
-			write (sh, "(I1)") h
+		if( month < 10 ) then
+			write (sh, "(I1)") month
 		else
-			write (sh, "(I2)") h
+			write (sh, "(I2)") month
 		end if
 		call EXECUTE_COMMAND_LINE("plot_py.py temp\\in\\foE.txt temp\\out\\foE\\foE_" // sh // " " // last // " " // step)
 

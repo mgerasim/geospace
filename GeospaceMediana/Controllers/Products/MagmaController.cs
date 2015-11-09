@@ -14,7 +14,7 @@ namespace GeospaceMediana.Controllers
         //
         // GET: /Magma/
 
-        public ActionResult Index(int station = 43501, string type = "f0F2", int YYYY=-1, int MM=-1, int DD=-1)
+        public ActionResult Index(int station = 38701, string type = "f0F2", int YYYY=-1, int MM=-1, int DD=-1)
         {
             ViewBag.IsLocal = Utils.Util.IsLocal();
             if (type == "M3000F2")
@@ -67,32 +67,21 @@ namespace GeospaceMediana.Controllers
             ViewBag.prevDate = prevDate;
             ViewBag.nextDate = nextDate;
 
-            if (theStation == null){
-                ViewBag.Error = "Нет станции " + station.ToString() ;
+            ViewMagma theView = new ViewMagma(station, currDate);
+
+            if (theView.error == 1)
+            {
+                ViewBag.Error = "Нет станции " + station.ToString();
                 return View();
             }
-            List<CodeMagma> theCodes = (List<CodeMagma>)CodeMagma.GetByPeriod(theStation, YYYY, MM, DD, YYYY, MM, DD);
-            if (theCodes.Count == 0) {
+            
+            if (theView.error == 2)
+            {
                 ViewBag.Error = "По станции " + station.ToString() + " нет данных";
                 return View();
             }
-            List<ViewMagma> theViews = new List<ViewMagma>();
-            for (int i = 0; i < 8;i++ )
-            {
 
-                ViewMagma theView = null;
-                if (i < theCodes.Count)
-                {
-                    theView =  new ViewMagma(theCodes[i]);
-                }
-                else
-                {
-                    theView = new ViewMagma(null);
-                }
-                theViews.Add(theView);
-            }
-
-            return View(theViews);
+            return View(theView);
         }
 
     }
