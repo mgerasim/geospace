@@ -204,19 +204,37 @@
                         name: 'МПЧ_0',
                         type: 'spline',
                         color: 'orange',
-                        data: @graf[0]
+                        data: @graf[0],
+                        dashStyle: 'ShortDash',
+                        marker: {
+                            enabled: true,
+                            symbol: 'square',
+                            radius: 6
+                        }
+
                         }
                 , {
                     name: 'МПЧ_4000',
                     type: 'spline',
                     color: 'red',
-                    data: @graf[1]
+                    data: @graf[1],
+                    marker: {
+                        enabled: true,
+                        symbol: 'circle',
+                        radius: 6
+                    }
                     }
                 , {
                     name: 'fmin',
                     type: 'spline',
                     color: 'blue',
-                    data: @graf[2]
+                    data: @graf[2],
+                    dashStyle: 'LongDashDotDot',
+                    marker: {
+                        enabled: true,
+                        symbol: 'triangle',
+                        radius: 6
+                    }
                 }]
             });
         });
