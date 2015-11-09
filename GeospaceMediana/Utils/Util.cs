@@ -15,14 +15,14 @@ namespace GeospaceMediana.Utils
                 string controller = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
                 string action = HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString();
                 string ip = GetIP();
-                //string addr = HttpContext.Current.Request.Params["REMOTE_ADDR"];
+                string addr = HttpContext.Current.Request.Params["REMOTE_ADDR"];
                 //object forwarded = HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
 
                 //Тестирование убран интерфейс отслеживания рабочих адрессов
-                //if (ip.Substring(0, 3) == "192")
-                //{
-                //    return true;
-                //}
+                if (ip == "10.8.3.192")
+                {
+                    key = false;
+                }
                 //if (ip.Substring(0, 3) == "127")
                 //{
                 //    return true;

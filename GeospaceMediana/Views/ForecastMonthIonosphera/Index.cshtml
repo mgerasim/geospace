@@ -15,7 +15,11 @@
 </script>
 <script>
 
-
+    @if(ViewBag.IsLocal == false)
+    {
+        @:$(".hidden-print").css('display', 'none');
+        @:$(".tlg-container").removeClass("col-md-8").addClass("col-md-12");
+    }
     $(document).ready(function () {
 
         $("#inputLine1").keyup(handleChangeHeader);
@@ -40,7 +44,7 @@
         handleChangeHeader();
         handleChangeCodes();
         submitCodeInTelegram()
-
+        
     });
     function submitCodeInTelegram()
     {
