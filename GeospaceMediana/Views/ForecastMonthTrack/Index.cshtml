@@ -60,8 +60,8 @@
 @for (int i = 0; i < Model.quantity; i++)
 {
     <div class="block_@i breakPage">
-        <h4 style="align-items:center"><textarea name="comment" readonly style="border: none; height: 100px; width: 500px; overflow: hidden; resize: none; ">@Model.title[i]</textarea></h4>
-        <table style="table-layout: fixed" class="table table-bordered table-striped">
+        <h4 style="align-items: center; font-size: 20px;"><textarea name="comment" readonly style="border: none; height: 120px; width: 500px; overflow: hidden; resize: none; ">@Model.title[i]</textarea></h4>
+        <table style="table-layout: fixed; font-size: 20px;" class="table table-bordered table-striped">
             <thead>
                 <tr>
                     <th>UT</th>
@@ -120,6 +120,12 @@
                     }
                 }
                 ],
+                labels: {
+                    style: {
+                        color: 'black',
+                        fontSize:'20px'
+                    }
+                },
                 lineWidth: 2,
                 gridLineWidth: 1,
                 tickInterval:1,
@@ -135,7 +141,8 @@
                 title: {
                     text:'Частота МГц',
                     style: {
-                        color: Highcharts.getOptions().colors[1]
+                        color: 'black',
+                        fontSize:'20px',
                     }
                 },
             }, ],
@@ -148,12 +155,23 @@
                 type: 'spline',
                 color: 'red',
                 data:  @value[0],
+                marker: {
+                    enabled: true,
+                    symbol: 'square',
+                    radius: 6
+                },
             }
             , {
                 name: 'ОРЧ',
                 type: 'spline',
                 color: 'green',
                 data:  @value[1],
+                dashStyle: 'LongDash',
+                marker: {
+                    enabled: true,
+                    symbol: 'circle',
+                    radius: 6
+                },
             }
              ]
         });
