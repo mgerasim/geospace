@@ -33,6 +33,18 @@ namespace GeospaceMediana.Controllers
             ViewBag.Month = MM;
             ViewBag.Date = startMonth;
             IList<ConsolidatedTable> tableView = ConsolidatedTable.GetByDateMM(YYYY, MM);
+            int th2 = 0, th4 = 0, th12 = 0, rangeDay = 0;
+            foreach (var item in tableView)
+            {
+                //переделать под проверку и отдельаные счетчики!
+                rangeDay++;
+                th2 += Convert.ToInt32((item.Th2_W == "") ? "0" : item.Th2_W);
+                th4 += Convert.ToInt32((item.Th4_F == "") ? "0" : item.Th4_F);
+                th2 += Convert.ToInt32((item.Th12_AP == "") ? "0" : item.Th12_AP);
+            }
+            ViewBag.SumTh2 = th2 / rangeDay;
+            ViewBag.SumTh4 = th4 / rangeDay;
+            ViewBag.SumTh12 = th12 / rangeDay;
             return View(tableView);
         }
         public ActionResult Submit( int YYYY = -1, int MM = -1, int DD = -1, string type = "", string newvalue = "" )
@@ -148,6 +160,18 @@ namespace GeospaceMediana.Controllers
                         }
                     }
                 }
+                int th2 = 0, th4 = 0, th12 = 0, rangeDay = 0;
+                foreach (var item in table_db)
+                {
+                    rangeDay++;
+                    th2 += Convert.ToInt32((item.Th2_W == "") ? "0" : item.Th2_W);
+                    th4 += Convert.ToInt32((item.Th4_F == "") ? "0" : item.Th4_F);
+                    th2 += Convert.ToInt32((item.Th12_AP == "") ? "0" : item.Th12_AP);
+                }
+                _table.Cell(5 + correntDay+1, 1).Range.Text = ("Итог");
+                _table.Cell(5 + correntDay+1, 3).Range.Text = (th2 / rangeDay).ToString();
+                _table.Cell(5 + correntDay+1, 4).Range.Text = (th4 / rangeDay).ToString();
+                _table.Cell(5 + correntDay+1, 12).Range.Text = (th12 / rangeDay).ToString();
                 string nameDoc = HttpContext.Server.MapPath("~/App_Data/");
                 string fileName = "Сводная_таблица_" + startMonth.ToString("MMMM_yyyy", System.Globalization.CultureInfo.CurrentCulture)  + ".doc";
                 string fileNameTemp = string.Format(@"{0}.doc", Guid.NewGuid());

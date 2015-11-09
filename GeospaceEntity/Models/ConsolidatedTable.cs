@@ -65,6 +65,7 @@ namespace GeospaceEntity.Models
             Th20_iPar= "";
             
         }
+
         public virtual void Save()
         {
             IRepository<ConsolidatedTable> repo = new ConsolidatedTableRepository();
