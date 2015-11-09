@@ -33,6 +33,20 @@ namespace GeospaceMediana.Controllers
             ViewBag.Month = MM;
             ViewBag.Date = startMonth;
             IList<ConsolidatedTable> tableView = ConsolidatedTable.GetByDateMM(YYYY, MM);
+            int th2 = 0, th4 = 0, th12 = 0, range2 = 0, range4 = 0, range12 = 0;
+            foreach (var item in tableView)
+            {
+                //переделать под проверку и отдельаные счетчики!
+                if (item.Th2_W == "") range2++;
+                if (item.Th4_F == "") range4++;
+                if (item.Th12_AP == "") range12++;
+                th2 += Convert.ToInt32((item.Th2_W == "") ? "0" : item.Th2_W);
+                th4 += Convert.ToInt32((item.Th4_F == "") ? "0" : item.Th4_F);
+                th12 += Convert.ToInt32((item.Th12_AP == "") ? "0" : item.Th12_AP);
+            }
+            ViewBag.SumTh2 = th2 / range2;
+            ViewBag.SumTh4 = th4 / range4;
+            ViewBag.SumTh12 = th12 / range12;
             return View(tableView);
         }
         public ActionResult Submit( int YYYY = -1, int MM = -1, int DD = -1, string type = "", string newvalue = "" )
@@ -148,6 +162,25 @@ namespace GeospaceMediana.Controllers
                         }
                     }
                 }
+                _table.Rows.Add(ref missingObj);
+                int th2 = 0, th4 = 0, th12 = 0, range2 = 0, range4 = 0, range12 = 0;
+                foreach (var item in table_db)
+                {
+                    //переделать под проверку и отдельаные счетчики!
+                    if (item.Th2_W == "") range2++;
+                    if (item.Th4_F == "") range4++;
+                    if (item.Th12_AP == "") range12++;
+                    th2 += Convert.ToInt32((item.Th2_W == "") ? "0" : item.Th2_W);
+                    th4 += Convert.ToInt32((item.Th4_F == "") ? "0" : item.Th4_F);
+                    th2 += Convert.ToInt32((item.Th12_AP == "") ? "0" : item.Th12_AP);
+                }
+                ViewBag.SumTh2 = th2 / range2;
+                ViewBag.SumTh4 = th4 / range4;
+                ViewBag.SumTh12 = th12 / range12;
+                _table.Cell(5 + correntDay + 1, 1).Range.Text = ("Итог");
+                _table.Cell(5 + correntDay + 1, 3).Range.Text = (th2 / range2).ToString();
+                _table.Cell(5 + correntDay + 1, 4).Range.Text = (th4 / range4).ToString();
+                _table.Cell(5 + correntDay + 1, 12).Range.Text = (th12 / range12).ToString();
                 string nameDoc = HttpContext.Server.MapPath("~/App_Data/");
                 string fileName = "Сводная_таблица_" + startMonth.ToString("MMMM_yyyy", System.Globalization.CultureInfo.CurrentCulture)  + ".doc";
                 string fileNameTemp = string.Format(@"{0}.doc", Guid.NewGuid());

@@ -82,7 +82,7 @@
         });
     }
     $(document).ready(function () {
-        digitalWatch();
+       // digitalWatch();
         reloadData(10);
         $('.carousel').carousel({
             interval: 10000,
@@ -227,6 +227,14 @@
     }
 
     function visitorData(dataMed, dataDay, now_day, prev_day, numberStation, name_station) {
+        Highcharts.setOptions({
+            global: {
+                useUTC: true
+            },
+            lang: {
+                shortMonths: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Нояб', 'Дек'],
+            }
+        });
         $('#cont'+numberStation).highcharts({
             title: {
                 text: name_station 
