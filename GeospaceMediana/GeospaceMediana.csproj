@@ -136,26 +136,24 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\ConsolidatedTableController.cs" />
-    <Compile Include="Controllers\UmagfIndexController.cs" />
-    <Compile Include="Controllers\ForecastFiveDayTrackController.cs" />
-    <Compile Include="Controllers\ForecastTrackController.cs" />
-    <Compile Include="Controllers\MarksController.cs" />
-    <Compile Include="Controllers\ForecastMonthIonospheraController.cs" />
-    <Compile Include="Controllers\ForecastMonthTrackController.cs" />
-    <Compile Include="Controllers\PanelController.cs" />
-    <Compile Include="Controllers\SchemaController.cs" />
-    <Compile Include="Controllers\SettingsController.cs" />
-    <Compile Include="Controllers\TablesunController.cs" />
-    <Compile Include="Controllers\TelegramsubController.cs" />
-    <Compile Include="Controllers\UmagfController.cs" />
-    <Compile Include="Models\ApiCharacterization.cs" />
-    <Compile Include="Models\ApiConsolidatedTable.cs" />
-    <Compile Include="Models\ApiDisturbance.cs" />
-    <Compile Include="Models\ViewTrack.cs" />
-    <Compile Include="Models\ViewMonthForecastTrack.cs" />
-    <Compile Include="Models\ViewFiveDayForecastTrack.cs" />
-    <Compile Include="Models\ViewForecastTrack.cs" />
+    <Compile Include="Controllers\Products\ConsolidatedTableController.cs" />
+    <Compile Include="Controllers\Menu\UmagfIndexController.cs" />
+    <Compile Include="Controllers\Products\ForecastFiveDayTrackController.cs" />
+    <Compile Include="Controllers\Products\ForecastTrackController.cs" />
+    <Compile Include="Controllers\Products\MarksController.cs" />
+    <Compile Include="Controllers\Products\ForecastMonthIonospheraController.cs" />
+    <Compile Include="Controllers\Products\ForecastMonthTrackController.cs" />
+    <Compile Include="Controllers\Menu\PanelController.cs" />
+    <Compile Include="Controllers\Help\SchemaController.cs" />
+    <Compile Include="Controllers\Help\SettingsController.cs" />
+    <Compile Include="Controllers\Menu\UmagfController.cs" />
+    <Compile Include="Models\Menu\ApiCharacterization.cs" />
+    <Compile Include="Models\Products\ApiConsolidatedTable.cs" />
+    <Compile Include="Models\Products\ApiDisturbance.cs" />
+    <Compile Include="Models\Products\ViewTrack.cs" />
+    <Compile Include="Models\Products\ViewMonthForecastTrack.cs" />
+    <Compile Include="Models\Products\ViewFiveDayForecastTrack.cs" />
+    <Compile Include="Models\Products\ViewForecastTrack.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -268,35 +266,35 @@
     <Content Include="Content\contents.css" />
     <Content Include="Content\ionka.css" />
     <Content Include="Content\css-loadtriangles.css" />
-    <Compile Include="Controllers\AboutController.cs" />
-    <Compile Include="Controllers\ApiController.cs" />
-    <Compile Include="Controllers\AverageController.cs" />
-    <Compile Include="Controllers\CharacterizationDayController.cs" />
-    <Compile Include="Controllers\ChartMedianaController.cs" />
-    <Compile Include="Controllers\DisturbanceController.cs" />
-    <Compile Include="Controllers\IonkaController.cs" />
-    <Compile Include="Controllers\MagmaController.cs" />
-    <Compile Include="Controllers\MapController.cs" />
-    <Compile Include="Controllers\MedianaController.cs" />
-    <Compile Include="Controllers\ConsumerController.cs" />
-    <Compile Include="Controllers\TrackController.cs" />
-    <Compile Include="Controllers\ProductsController.cs" />
-    <Compile Include="Controllers\PostController.cs" />
-    <Compile Include="Controllers\StationsController.cs" />
-    <Compile Include="Controllers\DropoutController.cs" />
-    <Compile Include="Controllers\TelegramController.cs" />
+    <Compile Include="Controllers\Help\AboutController.cs" />
+    <Compile Include="Controllers\Help\ApiController.cs" />
+    <Compile Include="Controllers\Products\AverageController.cs" />
+    <Compile Include="Controllers\Menu\CharacterizationDayController.cs" />
+    <Compile Include="Controllers\Menu\ChartMedianaController.cs" />
+    <Compile Include="Controllers\Products\DisturbanceController.cs" />
+    <Compile Include="Controllers\Menu\IonkaController.cs" />
+    <Compile Include="Controllers\Products\MagmaController.cs" />
+    <Compile Include="Controllers\Directory\MapController.cs" />
+    <Compile Include="Controllers\Menu\MedianaController.cs" />
+    <Compile Include="Controllers\Directory\ConsumerController.cs" />
+    <Compile Include="Controllers\Directory\TrackController.cs" />
+    <Compile Include="Controllers\Products\ProductsController.cs" />
+    <Compile Include="Controllers\Directory\PostController.cs" />
+    <Compile Include="Controllers\Directory\StationsController.cs" />
+    <Compile Include="Controllers\Directory\DropoutController.cs" />
+    <Compile Include="Controllers\Products\TelegramController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ApiAverage.cs" />
-    <Compile Include="Models\ApiIonka.cs" />
-    <Compile Include="Models\ApiMediana.cs" />
-    <Compile Include="Models\ApiProduct.cs" />
-    <Compile Include="Models\ApiUmagf.cs" />
-    <Compile Include="Models\ViewDisturbance.cs" />
-    <Compile Include="Models\ViewIonka.cs" />
-    <Compile Include="Models\ViewMagma.cs" />
-    <Compile Include="Models\ViewMediana.cs" />
+    <Compile Include="Models\Help\ApiAverage.cs" />
+    <Compile Include="Models\Menu\ApiIonka.cs" />
+    <Compile Include="Models\Menu\ApiMediana.cs" />
+    <Compile Include="Models\Products\ApiProduct.cs" />
+    <Compile Include="Models\Menu\ApiUmagf.cs" />
+    <Compile Include="Models\Products\ViewDisturbance.cs" />
+    <Compile Include="Models\Menu\ViewIonka.cs" />
+    <Compile Include="Models\Products\ViewMagma.cs" />
+    <Compile Include="Models\Menu\ViewMediana.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -587,12 +585,12 @@
     <Content Include="Views\ConsolidatedTable\ExportToWord.cshtml" />
     <Content Include="Views\Panel\Index.cshtml" />
     <Content Include="Views\Panel\_Menu.cshtml" />
-    <Content Include="Views\Shared\Empty.cshtml" />
     <Content Include="Views\UmagfIndex\Index.cshtml" />
     <Content Include="Views\UmagfIndex\_Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\Directory\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
