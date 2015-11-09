@@ -75,10 +75,14 @@ namespace GeospaceCore
                         cordinatEvent += lineEvents.Substring(23, 7).Replace("  ", " ").TrimEnd() + '\n';
                         var ballEvent1 = lineEvents.Substring(30, 2).Replace("  ", " ").TrimEnd();
                         var ballEvent2 = lineEvents.Substring(35, 4).Replace(" ", "").TrimEnd();
-                        if (ballEvent2 != "" && ballEvent1 != "")
-                            ballEvent += ballEvent1 + "/" + ballEvent2;
+                        if (ballEvent1 != "")
+                            ballEvent += ballEvent1;
+                        if (ballEvent1 != "" && ballEvent2 != "")
+                            ballEvent += "/";
+                        if (ballEvent2 != "")
+                            ballEvent += ballEvent2;
                         ballEvent += '\n';
-                        radioEvent += lineEvents.Substring(39, 15).TrimEnd() + '\n';
+                        radioEvent += lineEvents.Substring(39, 18).TrimEnd() + '\n';
                     }
                     startSplit++;
                 }
