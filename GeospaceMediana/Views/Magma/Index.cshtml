@@ -20,7 +20,7 @@ else
         <script src="http://code.highcharts.com/stock/modules/exporting.js"></script>
         @Scripts.Render("~/Scripts/draggable-points.js")
     }
-    @helper DrawColor(int k, int hour , int min)
+    @helper DrawColor(int k, int hour , int min, int day)
     {
         string color = "#FF0000";
         if (k <= 3)
@@ -31,7 +31,8 @@ else
         {
             color = "#FFFF00";
         }
-        DateTime dateStart = new DateTime(ViewBag.currDate.Year, ViewBag.currDate.Month, ViewBag.currDate.Day, hour, min, 0);
+        DateTime dateStart = new DateTime((ViewBag.currDate.AddDays(day)).Year, (ViewBag.currDate.AddDays(day)).Month, (ViewBag.currDate.AddDays(day)).Day, hour, min, 0);
+        
         //DateTime dateEnd= new DateTime(ViewBag.Date.Year, ViewBag.Date.Month, ViewBag.Date.Day, time+2, 59, 59);
         long ticksStart = (long)dateStart.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds;
         //long ticksEnd = (long)dateEnd.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds;
@@ -54,23 +55,10 @@ else
                 var panelVieww = parseInt('@ViewBag.Panel');
                 Highcharts.setOptions({
                     global: {
-                        useUTC: false
+                        useUTC: true
                     },
                     lang: {
-                        loading: 'Загрузка...',
-                        months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-                        weekdays: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
                         shortMonths: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Нояб', 'Дек'],
-                        exportButtonTitle: "Экспорт",
-                        printButtonTitle: "Печать",
-                        rangeSelectorFrom: "С",
-                        rangeSelectorTo: "По",
-                        rangeSelectorZoom: "Период",
-                        downloadPNG: 'Скачать PNG',
-                        downloadJPEG: 'Скачать JPEG',
-                        downloadPDF: 'Скачать PDF',
-                        downloadSVG: 'Скачать SVG',
-                        printChart: 'Напечатать график'
                     }
                 });
 
@@ -123,12 +111,18 @@ else
                            [
                             @if (Model != null) {
                                 int p = 1;
-                                for (int k = 0; k < 8; k++ )
+                                int day = -2;
+                                for (int k = 0; k < 24; k++ )
                                 { 
-                                     @DrawColor(@Model.values[k], p, 30)
-                                     @Html.Raw(",")
-                                     p += 3;
-                            }
+                                    if( p >= 23 )
+                                    {
+                                        day++;
+                                        p = 1;
+                                    }
+                                    @DrawColor(@Model.values[k], p, 30, day)
+                                    @Html.Raw(",")
+                                    p += 3;
+                                }
                         }
                     
                            ]

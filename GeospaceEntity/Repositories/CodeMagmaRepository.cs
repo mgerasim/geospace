@@ -98,6 +98,7 @@ namespace GeospaceEntity.Repositories
                 criteria.Add(Restrictions.Between(projDate, startDate, endDate));
 
                 criteria.AddOrder(Order.Asc("MI"));
+                criteria.AddOrder(Order.Asc("HH"));
 
                 return criteria.List<GeospaceEntity.Models.Codes.CodeMagma>();
             }

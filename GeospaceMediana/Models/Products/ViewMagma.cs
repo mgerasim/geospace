@@ -19,14 +19,11 @@ namespace GeospaceMediana.Models
                 error = 1;
                 return;
             }
-            List<CodeMagma> theCodes = (List<CodeMagma>)CodeMagma.GetByPeriod(theStation, date.Year, date.Month, date.Day, date.Year, date.Month, date.Day);
-            if (theCodes.Count == 0)
-            {
-                error = 2;
-                return;
-            }
+            DateTime startDate = date.AddDays(-2);
+            List<CodeMagma> theCodes = (List<CodeMagma>)CodeMagma.GetByPeriod(theStation, startDate.Year, startDate.Month, startDate.Day, date.Year, date.Month, date.Day);
+            theCodes.Reverse();
             List<ViewMagma> theViews = new List<ViewMagma>();
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < 24; i++)
             {
                 if (i < theCodes.Count)
                 {

@@ -75,12 +75,6 @@ namespace GeospaceMediana.Controllers
                 return View();
             }
             
-            if (theView.error == 2)
-            {
-                ViewBag.Error = "По станции " + station.ToString() + " нет данных";
-                return View();
-            }
-
             return View(theView);
         }
 
