@@ -39,8 +39,8 @@ namespace GeospaceMediana.Controllers
             ViewBag.Date = currDate;
             ViewBag.Station = theStation;
             ViewBag.Stations = theStations;
-
-            CodeUmagf theUmagfList = CodeUmagf.GetByDate(theStation, currDate.Year, currDate.Month, currDate.Day);
+            List<CodeUmagf> theUmagfList = (List<CodeUmagf>)CodeUmagf.GetByPeriod(theStation, currDate.AddDays(-2), currDate);
+            //CodeUmagf theUmagfList = CodeUmagf.GetByDate(theStation, currDate.Year, currDate.Month, currDate.Day);
 
             return View(theUmagfList);
         }
