@@ -6,37 +6,677 @@
 
 <script src="~/Scripts/ckeditor.js"></script>
 
-@using (Html.BeginForm("EditDescription", "Products", null, FormMethod.Post, new { @class = "form-horizontal" }))
-{
-    <div class="form-group">
-        <label for="description" class="col-sm-2 control-label">Введите примечание к графикам и таблицам:</label>
-        <div class="col-sm-10">
-            <textarea class="form-control" name="description" id="description" rows=35 placeholder="">@Model.description</textarea>
-
-            <script>
-                // Replace the <textarea id="editor1"> with a CKEditor
-                // instance, using default configuration.
-                CKEDITOR.replace("description",
-                {
-	                enterMode: CKEDITOR.ENTER_BR
-                });
-            </script>
-
-        </div>
-    </div>
 
 
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default">Сохранить</button>
-        </div>
-    </div>
+<div class="container">
 
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-            <div>
-                @Html.ActionLink("Назад", "Index")
-            </div>
-        </div>
-    </div>
-}
+    <p class=MsoNormal style='margin-right:-7.1pt;mso-outline-level:1'>
+        <b style='mso-bidi-font-weight:normal'>Разноска ионосферных данных.<o:p></o:p></b>
+    </p>
+
+    <p class=MsoNormal style='margin-right:-7.1pt;mso-outline-level:1'>
+        <span lang=EN-US style='mso-ansi-language:EN-US'>f</span>&#9702;<span lang=EN-US
+                                                                              style='mso-ansi-language:EN-US'>F</span>2 – критическая частота слоя F2
+    </p>
+
+    <p class=MsoNormal style='margin-right:-7.1pt;mso-outline-level:1'>
+        <span lang=EN-US style='mso-ansi-language:EN-US'>M</span>3000 <span lang=EN-US
+                                                                            style='mso-ansi-language:EN-US'>F</span>2 – <span class=GramE>
+            коэффициент <span style='mso-spacerun:yes'></span>М3000
+        </span> слоя F2
+    </p>
+
+    <p class=MsoNormal style='margin-right:-7.1pt;mso-outline-level:1'>
+        <span lang=EN-US style='mso-ansi-language:EN-US'>f</span>&#9702;<span lang=EN-US
+                                                                              style='mso-ansi-language:EN-US'>F</span>1 <span class=GramE>
+            – <span style='mso-spacerun:yes'></span>критическая
+        </span> частота слоя F1
+    </p>
+
+    <p class=MsoNormal style='margin-right:-7.1pt;mso-outline-level:1'>
+        М3000 F1 –
+        коэффициент слоя F1
+    </p>
+
+    <p class=MsoNormal style='margin-right:-7.1pt;mso-outline-level:1'>
+        <span lang=EN-US style='mso-ansi-language:EN-US'>f</span>&#9702;<span lang=EN-US
+                                                                              style='mso-ansi-language:EN-US'>Es</span> – критическая частота образования спорадического
+        слоя
+    </p>
+
+    <p class=MsoNormal style='margin-right:-7.1pt;mso-outline-level:1'>
+        <span class=SpellE>Диффузность</span> в области F: 0 – отсутствует, 1 – слабая, 2 –
+        умеренная, 3 – сильная.
+    </p>
+
+    <p class=MsoNormal style='margin-right:-7.1pt;mso-outline-level:1'>
+        <span class=GramE><span lang=EN-US style='mso-ansi-language:EN-US'>f</span></span><span lang=EN-US></span><span lang=EN-US style='mso-ansi-language:EN-US'>min</span>
+        – минимальная частота отражения.
+    </p>
+
+    <p class=MsoNormal style='margin-right:-7.1pt;mso-outline-level:1'>
+        В <span class=GramE>случае</span> невозможности произвести числовой отсчет, числовая
+        характеристика
+    </p>
+
+    <p class=MsoNormal style='margin-right:-7.1pt;mso-outline-level:1'>
+        заменяется
+        буквой:<span lang=EN-US style='mso-ansi-language:EN-US'><o:p></o:p></span>
+    </p>
+
+    <p class=MsoNormal style='margin-top:0cm;margin-right:-7.1pt;margin-bottom:
+0cm;margin-left:18.0pt;margin-bottom:.0001pt;mso-outline-level:1'>
+        1 – А
+        экранирование
+    </p>
+
+    <p class=MsoNormal style='margin-top:0cm;margin-right:-7.1pt;margin-bottom:
+0cm;margin-left:18.0pt;margin-bottom:.0001pt;mso-outline-level:1'>
+        2 – В
+        поглощение
+    </p>
+
+    <p class=MsoNormal style='margin-top:0cm;margin-right:-7.1pt;margin-bottom:
+0cm;margin-left:18.0pt;margin-bottom:.0001pt;mso-outline-level:1'>
+        3 – С
+        неисправность аппаратуры
+    </p>
+
+    <p class=MsoNormal style='margin-top:0cm;margin-right:-7.1pt;margin-bottom:
+0cm;margin-left:18.0pt;margin-bottom:.0001pt;mso-outline-level:1'>
+        4 – Д верхний
+        предел (по частоте) аппаратуры
+    </p>
+
+    <p class=MsoNormal style='margin-top:0cm;margin-right:-7.1pt;margin-bottom:
+0cm;margin-left:18.0pt;margin-bottom:.0001pt;mso-outline-level:1'>
+        5 – Е нижний
+        предел (по частоте) аппаратуры
+    </p>
+
+    <p class=MsoNormal style='margin-top:0cm;margin-right:-7.1pt;margin-bottom:
+0cm;margin-left:18.0pt;margin-bottom:.0001pt;mso-outline-level:1'>
+        6 – <span lang=EN-US style='mso-ansi-language:EN-US'>F</span> рассеянный след (<span class=SpellE>диффузность</span>)
+    </p>
+
+    <p class=MsoNormal style='margin-top:0cm;margin-right:-7.1pt;margin-bottom:
+0cm;margin-left:18.0pt;margin-bottom:.0001pt;mso-outline-level:1'>
+        7 – <span lang=EN-US style='mso-ansi-language:EN-US'>G</span> малая плотность ионизации
+    </p>
+
+    <p class=MsoNormal style='margin-top:0cm;margin-right:-7.1pt;margin-bottom:
+0cm;margin-left:18.0pt;margin-bottom:.0001pt;mso-outline-level:1'>
+        8 – <span lang=EN-US style='mso-ansi-language:EN-US'>N</span> сложная <span class=SpellE>ионограмма</span>
+    </p>
+
+    <p class=MsoNormal style='margin-top:0cm;margin-right:-7.1pt;margin-bottom:
+0cm;margin-left:18.0pt;margin-bottom:.0001pt;mso-outline-level:1'>
+        9 – <span lang=EN-US style='mso-ansi-language:EN-US'>R</span> поглощение вблизи
+        критической частоты
+    </p>
+
+    <p class=MsoNormal style='margin-top:0cm;margin-right:-7.1pt;margin-bottom:
+0cm;margin-left:18.0pt;margin-bottom:.0001pt;mso-outline-level:1'>
+        0 – (S,P,W)
+        всевозможные причины и помехи
+    </p>
+
+    <p class=MsoNormal style='margin-top:0cm;margin-right:-7.1pt;margin-bottom:
+0cm;margin-left:18.0pt;margin-bottom:.0001pt;mso-outline-level:1'>Магнитные данные:</p>
+
+    <p class=MsoNormal style='margin-top:0cm;margin-right:-7.1pt;margin-bottom:
+0cm;margin-left:18.0pt;margin-bottom:.0001pt;mso-outline-level:1'>
+        ДД – дата
+        начала 24-часового периода, для которого даются характеристики.
+    </p>
+
+    <p class=MsoNormal style='margin-top:0cm;margin-right:-7.1pt;margin-bottom:
+0cm;margin-left:18.0pt;margin-bottom:.0001pt;mso-outline-level:1'>
+        Время начала
+        отсчета в UT.
+    </p>
+
+    <p class=MsoNormal style='margin-top:0cm;margin-right:-7.1pt;margin-bottom:
+0cm;margin-left:18.0pt;margin-bottom:.0001pt;mso-outline-level:1'>
+        Ар –
+        характеристика магнитной активности для суток.
+    </p>
+
+    <p class=MsoNormal style='margin-top:0cm;margin-right:-7.1pt;margin-bottom:
+0cm;margin-left:18.0pt;margin-bottom:.0001pt;mso-outline-level:1'>
+        ККК ККККК –
+        трехчасовой К-индекс возмущенности магнитного поля,
+    </p>
+
+    <p class=MsoNormal style='margin-top:0cm;margin-right:-7.1pt;margin-bottom:
+0cm;margin-left:18.0pt;margin-bottom:.0001pt;mso-outline-level:1'>
+        <span class=GramE>выраженная</span> в баллах 0, 1, 2, 3, 4, 5, 6, 7, 8, 9.
+    </p>
+
+    <p class=MsoNormal style='margin-top:0cm;margin-right:-7.1pt;margin-bottom:
+0cm;margin-left:18.0pt;margin-bottom:.0001pt;mso-outline-level:1'>
+        Каждому баллу
+        соответствует амплитуда магнитных элементов, выраженная в единицах 2<span lang=EN-US style='mso-ansi-language:EN-US'>&#947;</span>. <span style='mso-spacerun:yes'></span><span style='mso-spacerun:yes'>  </span><span style='mso-spacerun:yes'></span><span style='mso-spacerun:yes'> </span>
+    </p>
+
+    <p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+    <p class=MsoNormal>
+        <span style='mso-spacerun:yes'>     </span><span style='mso-spacerun:yes'></span>ПОЛУСУТОЧНЫЙ ПРОГНОЗ.
+    </p>
+
+    <p class=MsoNormal>
+        <span style='mso-spacerun:yes'>   </span><span style='mso-spacerun:yes'></span><span style='mso-spacerun:yes'> </span>При
+        составлении прогнозов используются данные о солнечной активности,
+    </p>
+
+    <p class=MsoNormal>
+        магнитном поле Земли и <span style='mso-spacerun:yes'></span>текущем состоян<span class=GramE>
+            ии <span style='mso-spacerun:yes'></span>ио
+        </span>носферы в разных точках Земли. Геомагнитное
+        поле используется как предвестник ионосферных возмущений.
+    </p>
+
+    <p class=MsoNormal>
+        Ионосферные данные передаются числовым кодом группами по
+        пять цифр в каждой со следующими кодовыми словами:
+    </p>
+
+    <p class=MsoNormal>ИОНДА (ионосферные данные)</p>
+
+    <p class=MsoNormal>ИОНХА (ионосферная характеристика)</p>
+
+    <p class=MsoNormal>
+        ПРОГНОЗ (ионосферный прогноз) – дается на 5 суток по каждой
+        станции
+    </p>
+
+    <p class=MsoNormal>
+        на <span style='mso-spacerun:yes'> </span>1-5, 6-10, 11-15, 16-20,
+        25-30(31) числа каждого месяца.
+    </p>
+
+    <p class=MsoNormal>МАГХА (магнитная характеристика).</p>
+
+    <p class=MsoNormal>Форма кода.</p>
+
+    <p class=MsoNormal>ИОНДА ДДХНН ТФФММ…</p>
+
+    <p class=MsoNormal>ДД – дата первого передаваемого наблюдения</p>
+
+    <p class=MsoNormal>
+        Х <span style='mso-spacerun:yes'> </span><span lang=EN-US
+                                                       style='mso-ansi-language:EN-US'>–</span><span lang=EN-US> </span><span style='mso-spacerun:yes'></span>всегда <span style='mso-spacerun:yes'></span>Х
+    </p>
+
+    <p class=MsoNormal>НН – номер ионосферной станции</p>
+
+    <p class=MsoNormal>
+        Салехард – 99<span style='mso-spacerun:yes'>  </span>Магадан
+        – 88<span style='mso-spacerun:yes'>    </span>Хабаровск – 89<span style='mso-spacerun:yes'></span>Паратунка – 91
+    </p>
+
+    <p class=MsoNormal>
+        Т – кодовая цифра, указывающая за какой час по Мировому
+        времени даются данные:<span style='mso-spacerun:yes'>    </span>0<span style='mso-spacerun:yes'></span>1<span style='mso-spacerun:yes'>  </span><span style='mso-spacerun:yes'></span><span style='mso-spacerun:yes'> </span>2<span style='mso-spacerun:yes'></span><span style='mso-spacerun:yes'> </span><span style='mso-spacerun:yes'></span><span style='mso-spacerun:yes'> </span>3 <span style='mso-spacerun:yes'></span><span style='mso-spacerun:yes'>  </span>4<span style='mso-spacerun:yes'></span><span style='mso-spacerun:yes'> </span><span style='mso-spacerun:yes'></span>5 <span style='mso-spacerun:yes'>   </span>6<span style='mso-spacerun:yes'></span>7<span style='mso-spacerun:yes'>  </span><span style='mso-spacerun:yes'></span>8<span style='mso-spacerun:yes'>     </span>9<span style='mso-spacerun:yes'></span>0 <span style='mso-spacerun:yes'></span>1
+    </p>
+
+    <p class=MsoNormal>
+        <span style='mso-spacerun:yes'> </span><span style='mso-spacerun:yes'></span>час<span style='mso-spacerun:yes'>
+        </span>00<span style='mso-spacerun:yes'>  </span>02<span style='mso-spacerun:yes'></span>04 <span style='mso-spacerun:yes'> </span><span style='mso-spacerun:yes'></span>06 <span style='mso-spacerun:yes'> </span>08 <span style='mso-spacerun:yes'></span>10<span style='mso-spacerun:yes'>  </span>12<span style='mso-spacerun:yes'></span>14<span style='mso-spacerun:yes'>  </span>16<span style='mso-spacerun:yes'></span>18<span style='mso-spacerun:yes'>
+        </span>20<span style='mso-spacerun:yes'>   </span>22
+    </p>
+
+    <p class=MsoNormal>Данные даются только за четные часы.</p>
+
+    <p class=MsoNormal>
+        ФФ – критическая частота слоя F2 <span lang=EN-US
+                                               style='mso-ansi-language:EN-US'>c</span> точностью до десятых долей <span class=SpellE>Мгц</span>.
+    </p>
+
+    <p class=MsoNormal>
+        В <span class=GramE>случае</span>, когда <span lang=EN-US
+                                                       style='mso-ansi-language:EN-US'>f</span>о<span lang=EN-US style='mso-ansi-language:
+EN-US'>F</span>2&gt;10 <span class=SpellE>Мгц</span>, цифра, соответствующая
+        десяткам <span class=SpellE>Мгц</span>,
+    </p>
+
+    <p class=MsoNormal>опускается.</p>
+
+    <p class=MsoNormal>
+        <span class=GramE>ММ</span> – коэффициент пересчета <span class=SpellE><span lang=EN-US style='mso-ansi-language:EN-US'>fo</span></span>
+        F2 на расстояние <st1:metricconverter productid="3000 км" w:st="on">3000 км</st1:metricconverter>
+        (М3000).
+    </p>
+
+    <p class=MsoNormal>
+        В <span class=GramE>случае</span> отсутствия данных ставится
+        ионосферный символ, указывающий причину
+    </p>
+
+    <p class=MsoNormal>
+        невозможности измерения характеристик (обозначение символов
+        напечатано выше по тексту).
+    </p>
+
+    <p class=MsoNormal>
+        ИОНХА – ионосферная характеристика за прошедшие полусутки и
+        прогноз <span class=GramE>на</span> ближайшие 12 часов.
+    </p>
+
+    <p class=MsoNormal>3 – 00-11 час</p>
+
+    <p class=MsoNormal>4 – 12-23 час</p>
+
+    <p class=MsoNormal>Характеристика возмущенности ионосферы в баллах.</p>
+
+    <p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+    <table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
+           style='border-collapse:collapse;border:none;mso-border-alt:solid windowtext .5pt;
+ mso-yfti-tbllook:480;mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+        <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:31.95pt'>
+            <td width=139 valign=top style='width:104.4pt;border:solid windowtext 1.0pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:31.95pt'>
+                <p class=MsoNormal align=center style='text-align:center'>
+                    <b style='mso-bidi-font-weight:normal'>
+                        <span style='font-size:12.0pt'>
+                            Оценка
+                            состояния ионосферы, балл<o:p></o:p>
+                        </span>
+                    </b>
+                </p>
+            </td>
+            <td width=240 valign=top style='width:180.0pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:31.95pt'>
+                <p class=MsoNormal align=center style='text-align:center'>
+                    <b style='mso-bidi-font-weight:normal'>
+                        <span style='font-size:12.0pt'>
+                            Характеристика
+                            состояния ионосферы<o:p></o:p>
+                        </span>
+                    </b>
+                </p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:31.95pt'>
+                <p class=MsoNormal align=center style='text-align:center'>
+                    <b style='mso-bidi-font-weight:normal'><span style='font-size:12.0pt'><o:p>&nbsp;</o:p></span></b>
+                </p>
+                <p class=MsoNormal align=center style='text-align:center'>
+                    <b style='mso-bidi-font-weight:normal'>
+                        <span style='font-size:12.0pt'>
+                            Оценки за 12
+                            часов<o:p></o:p>
+                        </span>
+                    </b>
+                </p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:31.95pt'>
+                <p class=MsoNormal align=center style='text-align:center'>
+                    <b style='mso-bidi-font-weight:normal'><span style='font-size:12.0pt'><o:p>&nbsp;</o:p></span></b>
+                </p>
+                <p class=MsoNormal align=center style='text-align:center'>
+                    <b style='mso-bidi-font-weight:normal'>
+                        <span style='font-size:12.0pt'>
+                            Оценки за
+                            24 часа<o:p></o:p>
+                        </span>
+                    </b>
+                </p>
+            </td>
+        </tr>
+        <tr style='mso-yfti-irow:1;height:16.95pt'>
+            <td width=139 valign=top style='width:104.4pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:16.95pt'>
+                <p class=MsoNormal align=center style='text-align:center'>0</p>
+            </td>
+            <td width=240 valign=top style='width:180.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:16.95pt'>
+                <p class=MsoNormal align=center style='text-align:center'>
+                    <b style='mso-bidi-font-weight:normal'><span style='font-size:12.0pt'>спокойное<o:p></o:p></span></b>
+                </p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:16.95pt'>
+                <p class=MsoNormal align=center style='text-align:center'>
+                    <span lang=EN-US
+                          style='mso-ansi-language:EN-US'>0</span>±<span lang=EN-US style='mso-ansi-language:
+  EN-US'>2,5</span>
+                </p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:16.95pt'>
+                <p class=MsoNormal align=center style='text-align:center'>0 ± 5,5</p>
+            </td>
+        </tr>
+        <tr style='mso-yfti-irow:2;height:17.45pt'>
+            <td width=139 valign=top style='width:104.4pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:17.45pt'>
+                <p class=MsoNormal align=center style='text-align:center'>1</p>
+            </td>
+            <td width=240 valign=top style='width:180.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:17.45pt'>
+                <p class=MsoNormal align=center style='text-align:center'>
+                    <b style='mso-bidi-font-weight:normal'>
+                        <span style='font-size:12.0pt'>
+                            слабое
+                            отрицательное<o:p></o:p>
+                        </span>
+                    </b>
+                </p>
+                <p class=MsoNormal align=center style='text-align:center'>
+                    <b style='mso-bidi-font-weight:normal'><span style='font-size:12.0pt'>возмущение<o:p></o:p></span></b>
+                </p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:17.45pt'>
+                <p class=MsoNormal align=center style='text-align:center'>
+                    <span lang=EN-US
+                          style='mso-ansi-language:EN-US'>–</span>3<span style='mso-ansi-language:EN-US'>
+                        <span lang=EN-US>– 12<o:p></o:p></span>
+                    </span>
+                </p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:17.45pt'>
+                <p class=MsoNormal align=center style='text-align:center'>
+                    <span lang=EN-US
+                          style='mso-ansi-language:EN-US'>–</span><span lang=EN-US> </span>6 – 24
+                </p>
+            </td>
+        </tr>
+        <tr style='mso-yfti-irow:3;height:17.45pt'>
+            <td width=139 valign=top style='width:104.4pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:17.45pt'>
+                <p class=MsoNormal align=center style='text-align:center'>2</p>
+            </td>
+            <td width=240 valign=top style='width:180.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:17.45pt'>
+                <p class=MsoNormal align=center style='text-align:center'>
+                    <b style='mso-bidi-font-weight:normal'>
+                        <span style='font-size:12.0pt'>
+                            умеренно-отрицательное
+                            <o:p></o:p>
+                        </span>
+                    </b>
+                </p>
+                <p class=MsoNormal align=center style='text-align:center'>
+                    <b style='mso-bidi-font-weight:normal'><span style='font-size:12.0pt'>возмущение<o:p></o:p></span></b>
+                </p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:17.45pt'>
+                <p class=MsoNormal align=center style='text-align:center'>
+                    <span lang=EN-US
+                          style='mso-ansi-language:EN-US'>–</span> 12,5 – 2 4
+                </p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:17.45pt'>
+                <p class=MsoNormal align=center style='text-align:center'>
+                    <span lang=EN-US
+                          style='mso-ansi-language:EN-US'>–</span> 24,5 – 48
+                </p>
+            </td>
+        </tr>
+        <tr style='mso-yfti-irow:4;height:17.45pt'>
+            <td width=139 valign=top style='width:104.4pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:17.45pt'>
+                <p class=MsoNormal align=center style='text-align:center'>3</p>
+            </td>
+            <td width=240 valign=top style='width:180.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:17.45pt'>
+                <p class=MsoNormal align=center style='text-align:center'>
+                    <b style='mso-bidi-font-weight:normal'>
+                        <span style='font-size:12.0pt'>
+                            сильное
+                            отрицательное возмущение<o:p></o:p>
+                        </span>
+                    </b>
+                </p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:17.45pt'>
+                <p class=MsoNormal align=center style='text-align:center'>
+                    <span lang=EN-US
+                          style='mso-ansi-language:EN-US'>–</span><span lang=EN-US> </span>24,5 – 48
+                </p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:17.45pt'>
+                <p class=MsoNormal align=center style='text-align:center'>
+                    &gt;<span style='mso-ansi-language:EN-US'><span lang=EN-US>– 48<o:p></o:p></span></span>
+                </p>
+            </td>
+        </tr>
+        <tr style='mso-yfti-irow:5;height:17.45pt'>
+            <td width=139 valign=top style='width:104.4pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:17.45pt'>
+                <p class=MsoNormal align=center style='text-align:center'>4</p>
+            </td>
+            <td width=240 valign=top style='width:180.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:17.45pt'>
+                <p class=MsoNormal align=center style='text-align:center'>
+                    <b style='mso-bidi-font-weight:normal'><span style='font-size:12.0pt'>слабое положительное<o:p></o:p></span></b>
+                </p>
+                <p class=MsoNormal align=center style='text-align:center'>
+                    <b style='mso-bidi-font-weight:normal'><span style='font-size:12.0pt'>возмущение<o:p></o:p></span></b>
+                </p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:17.45pt'>
+                <p class=MsoNormal align=center style='text-align:center'>+3 + 12</p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:17.45pt'>
+                <p class=MsoNormal align=center style='text-align:center'>
+                    <span lang=EN-US
+                          style='mso-ansi-language:EN-US'>+ 6 + 24<o:p></o:p></span>
+                </p>
+            </td>
+        </tr>
+        <tr style='mso-yfti-irow:6;height:17.45pt'>
+            <td width=139 valign=top style='width:104.4pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:17.45pt'>
+                <p class=MsoNormal align=center style='text-align:center'>5</p>
+            </td>
+            <td width=240 valign=top style='width:180.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:17.45pt'>
+                <p class=MsoNormal align=center style='text-align:center'>
+                    <b style='mso-bidi-font-weight:normal'><span style='font-size:12.0pt'>умеренно-положительное<o:p></o:p></span></b>
+                </p>
+                <p class=MsoNormal align=center style='text-align:center'>
+                    <b style='mso-bidi-font-weight:normal'><span style='font-size:12.0pt'>возмущение<o:p></o:p></span></b>
+                </p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:17.45pt'>
+                <p class=MsoNormal align=center style='text-align:center'>+12,5 + 24</p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:17.45pt'>
+                <p class=MsoNormal align=center style='text-align:center'>
+                    <span lang=EN-US
+                          style='mso-ansi-language:EN-US'>+24.5 + 48<o:p></o:p></span>
+                </p>
+            </td>
+        </tr>
+        <tr style='mso-yfti-irow:7;mso-yfti-lastrow:yes;height:17.45pt'>
+            <td width=139 valign=top style='width:104.4pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:17.45pt'>
+                <p class=MsoNormal align=center style='text-align:center'>6</p>
+            </td>
+            <td width=240 valign=top style='width:180.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:17.45pt'>
+                <p class=MsoNormal align=center style='text-align:center'>
+                    <b style='mso-bidi-font-weight:normal'>
+                        <span style='font-size:12.0pt'>
+                            сильное
+                            положительное возмущение<o:p></o:p>
+                        </span>
+                    </b>
+                </p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:17.45pt'>
+                <p class=MsoNormal align=center style='text-align:center'>&gt; + 24,5</p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:17.45pt'>
+                <p class=MsoNormal align=center style='text-align:center'>
+                    <span lang=EN-US
+                          style='mso-ansi-language:EN-US'>&gt; + 48.5<o:p></o:p></span>
+                </p>
+            </td>
+        </tr>
+    </table>
+
+    <p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+    <p class=MsoNormal>ИОНХА 30Ф41 36Е46 31П42 30Д41</p>
+
+    <p class=MsoNormal>
+        Ф – отклонение fof2<span style='mso-spacerun:yes'>
+        </span>от медианы в баллах
+    </p>
+
+    <p class=MsoNormal>Е – спорадический слой<span class=GramE> Е</span></p>
+
+    <p class=MsoNormal><span class=GramE>П</span> – состояние нижней ионосферы (поглощение)</p>
+
+    <p class=MsoNormal>Д – наличие <span class=SpellE>диффузности</span></p>
+
+    <p class=MsoNormal>
+        Прогноз по <span class=SpellE>диффузности</span> и поглощению
+        дается для высокоширотных станций.
+    </p>
+
+    <p class=MsoNormal>
+        МАГХА ДДТ<span lang=EN-US style='mso-ansi-language:EN-US'>NN</span>
+        ААККК ККККК С<span class=GramE><span lang=EN-US style='mso-ansi-language:EN-US'>HH</span></span>ММ
+    </p>
+
+    <p class=MsoNormal>
+        ДД – дата начала 24-часового периода, для которого даются
+        характеристики
+    </p>
+
+    <p class=MsoNormal>
+        Т – номер трехчасового периода, с которого начинается
+        передача К-индексов:
+    </p>
+
+    <p class=MsoNormal>
+        0 – 00-03 час<span style='mso-spacerun:yes'>   </span>1–
+        03-06 час<span style='mso-spacerun:yes'>   </span>2 – 06-09 час<span style='mso-spacerun:yes'></span>3 – 09-12
+    </p>
+
+    <p class=MsoNormal>
+        4 – 12-15 час<span style='mso-spacerun:yes'>   </span>5 –
+        15-18 час<span style='mso-spacerun:yes'>   </span>6 – 18-21 час<span style='mso-spacerun:yes'></span>7 – 21-00 час
+    </p>
+
+    <p class=MsoNormal>
+        <span lang=EN-US style='mso-ansi-language:EN-US'>NN</span> –
+        номер обсерватории
+    </p>
+
+    <p class=MsoNormal>
+        Хабаровск – 89<span style='mso-spacerun:yes'>
+        </span>Магадан – 88<span style='mso-spacerun:yes'>     </span>Паратунка – 91
+    </p>
+
+    <p class=MsoNormal>
+        АА – характеристика магнитной активности для суток ДД,
+        выраженная в единицах 2&#947;.
+    </p>
+
+    <p class=MsoNormal>
+        ККК ККККК – индекс<span class=GramE> К</span> – трехчасовая
+        характеристика возмущенности магнитного поля, выраженная в баллах 0,1,2,3,4,5,6,7,8,9.
+        Каждому баллу соответствует амплитудные границы <span class=GramE>в</span> &#947;.
+    </p>
+
+    <p class=MsoNormal>
+        <span class=GramE>К</span> – индекс<span style='mso-spacerun:yes'></span>0<span style='mso-spacerun:yes'>
+        </span>1<span style='mso-spacerun:yes'>    </span>2<span style='mso-spacerun:yes'></span>3<span style='mso-spacerun:yes'>    </span><span style='mso-spacerun:yes'></span>4<span style='mso-spacerun:yes'>   </span><span style='mso-spacerun:yes'></span><span style='mso-spacerun:yes'> </span>5 <span style='mso-spacerun:yes'></span><span style='mso-spacerun:yes'></span>6<span style='mso-spacerun:yes'>   </span><span style='mso-spacerun:yes'></span><span style='mso-spacerun:yes'> </span>7<span style='mso-spacerun:yes'></span><span style='mso-spacerun:yes'>   </span><span style='mso-spacerun:yes'></span>8<span style='mso-spacerun:yes'>    </span><span style='mso-spacerun:yes'></span><span style='mso-spacerun:yes'> </span>9
+    </p>
+
+    <p class=MsoNormal>
+        <span style='mso-spacerun:yes'> </span>2&#947;<span style='mso-spacerun:yes'></span><span style='mso-spacerun:yes'></span>0<span style='mso-spacerun:yes'>
+        </span>3<span style='mso-spacerun:yes'>    </span>7<span style='mso-spacerun:yes'></span>15<span style='mso-spacerun:yes'>
+        </span>27<span style='mso-spacerun:yes'>   </span>48<span style='mso-spacerun:yes'></span><span style='mso-spacerun:yes'> </span>80<span style='mso-spacerun:yes'></span>140<span style='mso-spacerun:yes'>
+        </span>240 <span style='mso-spacerun:yes'>   </span>400
+    </p>
+
+    <p class=MsoNormal>
+        С – индикатор явления, HHMM – часы и минуты регистрации
+        явления
+    </p>
+
+    <p class=MsoNormal>1 – конец бури</p>
+
+    <p class=MsoNormal>6 – постепенное начало магнитной бури</p>
+
+    <p class=MsoNormal>7 – внезапное начало магнитной бури</p>
+
+    <p class=MsoNormal>8 – внезапное ярко выраженное начало магнитной бури</p>
+
+    <p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+</div>
+
