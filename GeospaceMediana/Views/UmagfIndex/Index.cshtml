@@ -1,4 +1,4 @@
-﻿@model GeospaceEntity.Models.Codes.CodeUmagf
+﻿@model List<GeospaceEntity.Models.Codes.CodeUmagf>
 @{
     ViewBag.Title = "Геомагнитная обстановка: K-индекс";
 }
@@ -16,7 +16,7 @@ else
     <script src="http://code.highcharts.com/stock/modules/exporting.js"></script>
     @Scripts.Render("~/Scripts/draggable-points.js")
 }
-@helper DrawColor(int k, int hour , int min)
+@helper DrawColor(int k, int hour, int min, int day)
 {
     string color = "#FF0000";
     if (k <= 3)
@@ -27,11 +27,12 @@ else
     {
         color = "#FFFF00";
     }
-    DateTime dateStart = new DateTime(ViewBag.Date.Year, ViewBag.Date.Month, ViewBag.Date.Day, hour, min, 0);
+    DateTime dateStart = new DateTime((ViewBag.Date.AddDays(day)).Year, (ViewBag.Date.AddDays(day)).Month, (ViewBag.Date.AddDays(day)).Day, hour, min, 0);
+
     //DateTime dateEnd= new DateTime(ViewBag.Date.Year, ViewBag.Date.Month, ViewBag.Date.Day, time+2, 59, 59);
     long ticksStart = (long)dateStart.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds;
     //long ticksEnd = (long)dateEnd.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds;
-    
+
     if (k == 0)
     {  <text>
         {x:@(ticksStart), y:null, color: '@(color)'}
@@ -46,124 +47,159 @@ else
 }
 
     <script>
-        $(document).ready(function () {
-            var panelVieww = parseInt('@ViewBag.Panel');
-            Highcharts.setOptions({
-                global: {
-                    useUTC: false
-                },
-                lang: {
-                    loading: 'Загрузка...',
-                    months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-                    weekdays: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
-                    shortMonths: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Нояб', 'Дек'],
-                    exportButtonTitle: "Экспорт",
-                    printButtonTitle: "Печать",
-                    rangeSelectorFrom: "С",
-                    rangeSelectorTo: "По",
-                    rangeSelectorZoom: "Период",
-                    downloadPNG: 'Скачать PNG',
-                    downloadJPEG: 'Скачать JPEG',
-                    downloadPDF: 'Скачать PDF',
-                    downloadSVG: 'Скачать SVG',
-                    printChart: 'Напечатать график'
-                }
-            });
+    $(document).ready(function () {
+        var panelVieww = parseInt('@ViewBag.Panel');
+        Highcharts.setOptions({
+            global: {
+                useUTC: true
+            },
+            lang: {
+                loading: 'Загрузка...',
+                months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+                weekdays: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
+                shortMonths: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Нояб', 'Дек'],
+                exportButtonTitle: "Экспорт",
+                printButtonTitle: "Печать",
+                rangeSelectorFrom: "С",
+                rangeSelectorTo: "По",
+                rangeSelectorZoom: "Период",
+                downloadPNG: 'Скачать PNG',
+                downloadJPEG: 'Скачать JPEG',
+                downloadPDF: 'Скачать PDF',
+                downloadSVG: 'Скачать SVG',
+                printChart: 'Напечатать график'
+            }
+        });
 
 
-            $('#container_@ViewBag.Panel').highcharts({
-                chart: {
-                    type: 'column'
-                },
+        $('#container_@ViewBag.Panel').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Геомагнитная обстановка за @ViewBag.Date.ToString("d MMMM yyyy") @ViewBag.Station.Name'
+            },
+            tooltip: false,
+            xAxis: {
                 title: {
-                    text: 'Геомагнитная обстановка за @ViewBag.Date.ToString("d MMMM yyyy") @ViewBag.Station.Name'
+                    text: 'Часы (UTC)'
                 },
-                tooltip: false,
-                xAxis: {
-                    title: {
-                        text: 'Часы (UTC)'
-                    },
-                    type: 'datetime',
-                    labels: {
-                        overflow: 'justify'
-                    },
-                    lineWidth: 2,
-                    gridLineWidth: 1,
-                    tickInterval: 1,
-                    tickmarkPlacement: 'on',
+                type: 'datetime',
+                labels: {
+                    overflow: 'justify'
                 },
-                yAxis: {
-                    title: {
-                        text: 'Значения индекса K'
-                    },
-                    gridLineWidth: 1,
-                    tickInterval: 1,
-                    tickmarkPlacement: 'on',
-                    categories: ['0', '1', '2', '3', '4', '5', '6','7', '8', '9', '10'], 
-                    max: 10
+                lineWidth: 2,
+                gridLineWidth: 1,
+                tickInterval: 1,
+                tickmarkPlacement: 'on',
+            },
+            yAxis: {
+                title: {
+                    text: 'Значения индекса K'
                 },
-                legend: {
-                    enabled: false
-                },
-                exporting: {
-                    buttons: {
-                        contextButton: {
-                            enabled: false ,
-                        }
-                    }
-                },
-
-                series: [{
-                    name: 'k',
-                    data:
-                       [
-                        @if (Model != null) {
-    
-                        @DrawColor(Model.k1, 1,30)
-                        @Html.Raw(",")
-                        @DrawColor(Model.k2, 4, 30)
-                        @Html.Raw(",")
-                        @DrawColor(Model.k3, 7, 30)
-                        @Html.Raw(",")
-                        @DrawColor(Model.k4, 10, 30)
-                        @Html.Raw(",")
-                        @DrawColor(Model.k5, 13, 30)
-                        @Html.Raw(",")
-                        @DrawColor(Model.k6, 16, 30)
-                        @Html.Raw(",")
-                        @DrawColor(Model.k7, 19, 30)
-                        @Html.Raw(",")
-                        @DrawColor(Model.k8, 22, 30)
-                }
-                    
-                       ]
-                    ,
-                    dataLabels: {
-                        enabled: true,
-                        color: '#FFFFFF',
-                        align: 'center',
-                        format: '{point.y}', // one decimal
-                        verticalAlign: 'center',
-                        style: {
-                            fontSize: '20px',
-                            fontFamily: 'Verdana, sans-serif'
-                        }
-                    }
-                }],
-                plotOptions: {
-                    series: {
-                        pointRange: 3 * 3600 * 1000, // one day
-                        pointPadding: 0,
-                        groupPadding: 0,
-                        shadow: false
+                gridLineWidth: 1,
+                tickInterval: 1,
+                tickmarkPlacement: 'on',
+                categories: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+                max: 10
+            },
+            legend: {
+                enabled: false
+            },
+            exporting: {
+                buttons: {
+                    contextButton: {
+                        enabled: false,
                     }
                 }
-            });
+            },
+
+            series: [{
+                name: 'k',
+                data:
+                   [
+                    @if (Model != null)
+                    {
+                        int day = -2;
+                        for (int i = 0; i < 3; i++)
+                        {
+                            if (i < Model.Count)
+                            {
+                                @DrawColor(Model[i].k1, 1, 30, day)
+                                @Html.Raw(",")
+                                @DrawColor(Model[i].k2, 4, 30, day)
+                                @Html.Raw(",")
+                                @DrawColor(Model[i].k3, 7, 30, day)
+                                @Html.Raw(",")
+                                @DrawColor(Model[i].k4, 10, 30, day)
+                                @Html.Raw(",")
+                                @DrawColor(Model[i].k5, 13, 30, day)
+                                @Html.Raw(",")
+                                @DrawColor(Model[i].k6, 16, 30, day)
+                                @Html.Raw(",")
+                                @DrawColor(Model[i].k7, 19, 30, day)
+                                @Html.Raw(",")
+                                @DrawColor(Model[i].k8, 22, 30, day)
+                                if (day != 0)
+                                {
+                                    @Html.Raw(",")
+                                }
+                            }
+                            else
+                            {
+                                @DrawColor(0, 1, 30, day)
+                                @Html.Raw(",")
+                                @DrawColor(0, 4, 30, day)
+                                @Html.Raw(",")
+                                @DrawColor(0, 7, 30, day)
+                                @Html.Raw(",")
+                                @DrawColor(0, 10, 30, day)
+                                @Html.Raw(",")
+                                @DrawColor(0, 13, 30, day)
+                                @Html.Raw(",")
+                                @DrawColor(0, 16, 30, day)
+                                @Html.Raw(",")
+                                @DrawColor(0, 19, 30, day)
+                                @Html.Raw(",")
+                                @DrawColor(0, 22, 30, day)
+                                if (day != 0)
+                                {
+                                    @Html.Raw(",")
+                                }
+                            }
+                            day++;
+                        }
+
+                    }
+
+                   ]
+                ,
+                dataLabels: {
+                    enabled: true,
+                    color: '#FFFFFF',
+                    align: 'center',
+                    format: '{point.y}', // one decimal
+                    verticalAlign: 'center',
+                    style: {
+                        fontSize: '20px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            }],
+            plotOptions: {
+                series: {
+                    pointRange: 3 * 3600 * 1000, // one day
+                    pointPadding: 0,
+                    groupPadding: 0,
+                    shadow: false
+                }
+            }
+        });
 
 
-        })
+    })
 
-    </script>
+</script>
     <br>
     <table border="1" cellpadding="7" cellspacing="1" width="100%">
         <tbody>

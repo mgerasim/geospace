@@ -56,7 +56,7 @@ namespace GeospaceEntity.Models.Telegram
             GeospaceEntity.Common.IRepository<ForecastFiveDay> repo = new Repositories.ForecastFiveDayRepository();
             return repo.GetAll();
         }
-        public virtual string addEmpty(int number)
+        public static string addEmpty(int number)
         {
             var str = "";
             for (var i = 0; i < number; i++)
@@ -65,7 +65,7 @@ namespace GeospaceEntity.Models.Telegram
             }
             return str;
         }
-        public virtual string setReScanValue(string value)
+        public static string setReScanValue(string value)
         {
             string newStr = "";
             if (value.Length > 5)

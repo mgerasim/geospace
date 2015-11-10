@@ -1,5 +1,6 @@
 ﻿@{
     ViewBag.Title = "Редактировать полусуточный прогноз";
+    bool Local = true;
 }
 <script type="text/javascript">
     function pasteTelegramm()
@@ -7,9 +8,9 @@
 
     }
 </script>
-<h2>Редактировать полусуточный прогноз</h2>
-
-@using (Html.BeginForm("EditSubdayForecast", "Products", null, FormMethod.Post, new { @class = "form-horizontal" }))
+@{if(ViewBag.IsLocal == Local)
+  {<h2 style="align-content:center">Редактировать полусуточный прогноз</h2>
+ using (Html.BeginForm("EditSubdayForecast", "Products", null, FormMethod.Post, new { @class = "form-horizontal" }))
 {
     <div class="form-group">
         <label for="subdayforecast" class="col-sm-2 control-label">Введите прогноз:</label>
@@ -32,4 +33,17 @@
             </div>
         </div>
     </div>
+}
+}
+else
+  {
+      <div class="row">
+    <div class="container">
+        <h2 style="align-content:center">Полусуточный прогноз</h2>
+            <pre>
+                @Html.Raw(Model.subday_forecast)
+                </pre>
+            </div>
+          </div>
+  }
 }

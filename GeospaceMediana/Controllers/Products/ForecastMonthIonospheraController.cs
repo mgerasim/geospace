@@ -96,36 +96,36 @@ namespace GeospaceMediana.Controllers
                     bool keyFloat = false;
                     if (item.IONFO != "")
                     {
-                        
-                        telegram += "ИОНФО" + item.setStringFiveIteration(item.IONFO) + "\n";
+
+                        telegram += "ИОНФО" + GeospaceEntity.Models.Telegram.ForecastMonthIonosphera.setStringFiveIteration(item.IONFO) + "\n";
                         keyFloat = true;
                     }
                     if (item.IONES != "")
                     {
                         if (keyFloat)
                             telegram += "                    ";//отступ
-                        telegram += "ИОНЕС" + item.setStringFiveIteration(item.IONES) + "\n";
+                        telegram += "ИОНЕС" + GeospaceEntity.Models.Telegram.ForecastMonthIonosphera.setStringFiveIteration(item.IONES) + "\n";
                         keyFloat = true;
                     }
                     if (item.IONDP != "")
                     {
                         if (keyFloat)
                             telegram += "                    ";//отступ
-                        telegram += "ИОНДП" + item.setStringFiveIteration(item.IONDP) + "\n";
+                        telegram += "ИОНДП" + GeospaceEntity.Models.Telegram.ForecastMonthIonosphera.setStringFiveIteration(item.IONDP) + "\n";
                         keyFloat = true;
                     }
                     if (item.IONFF != "")
                     {
                         if (keyFloat)
                             telegram += "                    ";//отступ
-                        telegram += "ИОНФФ" + item.setStringFiveIteration(item.IONFF) + "\n";
+                        telegram += "ИОНФФ" + GeospaceEntity.Models.Telegram.ForecastMonthIonosphera.setStringFiveIteration(item.IONFF) + "\n";
                         keyFloat = true;
                     }
                     if (item.MAGPO != "")
                     {
                         if (keyFloat)
                             telegram += "                    ";//отступ
-                        telegram += "МАГПО" + item.setStringFiveIteration(item.MAGPO) + "\n";
+                        telegram += "МАГПО" + GeospaceEntity.Models.Telegram.ForecastMonthIonosphera.setStringFiveIteration(item.MAGPO) + "\n";
                         keyFloat = true;
                     }
                     if (item.IONFO != "" && item.IONES != "" && item.IONDP != "" && item.IONFF != "" && item.MAGPO != "")

@@ -67,7 +67,7 @@ namespace GeospaceEntity.Models.Telegram
             Repositories.ForecastMonthIonospheraRepository repo = new Repositories.ForecastMonthIonospheraRepository();
             return repo.GetAllByDateUTC(YYYY, MM);
         }
-        public virtual string setStringFiveIteration(string str)
+        public static string setStringFiveIteration(string str)
         {
             string new_str = "";
             try
