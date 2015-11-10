@@ -43,7 +43,7 @@ namespace GeospaceCore
             }
             int summEvent = 0;
             int indexEvent2 = item.Substring(0).IndexOf(" 2.na diske");
-            int indexEvent3 = item.Substring(0).IndexOf(" 3.|nergi~nye sobytiq:");
+            int indexEvent3 = item.Substring(0).IndexOf(" 3.|nergi");
             int indexEvent4 = item.Substring(0).IndexOf("4.geomagnitnoe");
             if (indexEvent2 >= 0 && indexEvent3 >= 0)
             {
@@ -60,6 +60,8 @@ namespace GeospaceCore
                     startSplit++;
                 }
                 if (codeTable.Th3_Sp == null || codeTable.Th3_Sp == "") codeTable.SetValueByType("Th3", summEvent.ToString());
+                codeTable.Update();
+
             }
             if (indexEvent3 >= 0 && indexEvent4 >= 0)
             {
@@ -91,12 +93,9 @@ namespace GeospaceCore
                 if (codeTable.Th8_Coordinates == null || codeTable.Th8_Coordinates == "") codeTable.SetValueByType("Th8", cordinatEvent.TrimEnd(charsToTrim));
                 if (codeTable.Th9_Time == null || codeTable.Th9_Time == "") codeTable.SetValueByType("Th9", timeEvent.TrimEnd(charsToTrim));
                 if (codeTable.Th10_RadioBursts == null || codeTable.Th10_RadioBursts == "") codeTable.SetValueByType("Th10", radioEvent.TrimEnd(charsToTrim));
-            }
-            if (index2 == true || index3 == true)
-            {
                 codeTable.Update();
-            }
             
+            }
         }
 
         public static void Zirs43(string item)
