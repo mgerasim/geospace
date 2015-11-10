@@ -50,6 +50,7 @@ namespace GeospaceMediana.Controllers
             //получен информации Медианнапо заданным станциям
            int[] station = new int[]{45601,43501,46501};//страница не тяница если добавить больше станцый нужно переделать верстку!!!!
            string[] namePrognoz = { "IONFO", "IONES", "MAGPO" };
+           string[] namePrognozRU = { "ИОНФО", "ИОНЕС", "ИОНДП", "ИНОФФ", "МАГПО" };
            ViewBag.NameForecast = namePrognoz;
            ViewBag.NumStation = station;
            return View();
