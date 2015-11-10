@@ -3,6 +3,7 @@
 @{
    
     ViewBag.Title = "Пятидневный прогноз";
+    bool Local = true;
 }
 <script>
     var submitUrl = "@Url.Action("SubmitFiveDay", "Telegram")";
@@ -12,6 +13,8 @@
         var currentRangeNaumber = "@ViewBag.number";
 
 </script>
+@{if (ViewBag.IsLocal == Local)
+  {
 <script>
     
 
@@ -113,7 +116,26 @@
     }
 
 </script>
+}else{   <script>
+    
+    $(document).ready(function () { $(".tlg-container").removeClass("col-md-8").addClass("col-md-12"); });
+    </script>  
+      
+  }}
 
+@{
+    GeospaceEntity.Models.Telegram.ForecastFiveDay forecastData1 = GeospaceEntity.Models.Telegram.ForecastFiveDay.GetByDateUTC(Station.GetByCode(45601), ViewBag.Date.Year, ViewBag.Date.Month, ViewBag.number);
+    GeospaceEntity.Models.Telegram.ForecastFiveDay forecastData2 = GeospaceEntity.Models.Telegram.ForecastFiveDay.GetByDateUTC(Station.GetByCode(43501), ViewBag.Date.Year, ViewBag.Date.Month, ViewBag.number);
+    GeospaceEntity.Models.Telegram.ForecastFiveDay forecastData3 = GeospaceEntity.Models.Telegram.ForecastFiveDay.GetByDateUTC(Station.GetByCode(46501), ViewBag.Date.Year, ViewBag.Date.Month, ViewBag.number);
+    List<GeospaceEntity.Models.Telegram.ForecastFiveDay> forecast = new List<GeospaceEntity.Models.Telegram.ForecastFiveDay>();
+        forecast.Add(forecastData1);
+        forecast.Add(forecastData2);
+        forecast.Add(forecastData3);
+}
+@helper DrawForecastStation(int numberStaion,string str, string forecastName)
+{
+        @Html.Raw(forecastName + " " + GeospaceEntity.Models.Telegram.ForecastFiveDay.setReScanValue(str))
+}
 <div class="row">
     <div class="col-md-8 tlg-container">
         <div class="panel panel-default">
@@ -126,15 +148,13 @@
                             МОСКВА ИПГ ДЕНИСОВОЙ<br />
                             НОВОСИБИРСК ГИМЕТ ШУСТЕР<br />
                             ПЯТИДНЕВНЫЙ ПРОГНОЗ<br />
-
                         </p>
                         <div>
-
-                            @foreach (var numStation in ViewBag.NumStation)
+                            @foreach (var num in forecast)
                             {
                                 string strFFF = ("FFF");
                                 string strMM = ("MM");
-                                IList<Mediana> vMedian = Mediana.GetByRangeNumber(Station.GetByCode(numStation), ViewBag.Date.Year, ViewBag.Date.Month, ViewBag.number);
+                                IList<Mediana> vMedian = Mediana.GetByRangeNumber(num.Station, ViewBag.Date.Year, ViewBag.Date.Month, ViewBag.number);
                                 foreach (var item in vMedian)//формирование строки для разбиения по 5 символов
                                 {
                                     strFFF += item.f0F2.ToString("D3");
@@ -143,7 +163,7 @@
                                 //GeospaceEntity.Models.Telegram.ForecastFiveDay forecastData = GeospaceEntity.Models.Telegram.ForecastFiveDay.GetByDateUTC(Station.GetByCode(numStation), ViewBag.Date.Year, ViewBag.Date.Month, ViewBag.number);
                                 <div style="margin-bottom:20px">
                                     <div class="String">
-                                        MEDIAN  @numStation  @Html.Raw(ViewBag.range.Min.ToString("D2") + "" + ViewBag.range.Max.ToString("D2") + "" + ViewBag.Date.Month % 10)
+                                        MEDIAN  @num.Station.Code  @Html.Raw(ViewBag.range.Min.ToString("D2") + "" + ViewBag.range.Max.ToString("D2") + "" + ViewBag.Date.Month % 10)
                                     </div>
                                     <div class="String FFF">
                                         @foreach (string str5 in new List<string>(System.Text.RegularExpressions.Regex.Split(strFFF, @"(?<=\G.{5})", System.Text.RegularExpressions.RegexOptions.Singleline)))
@@ -158,31 +178,34 @@
                                         }
                                     </div>
                                     <div class="String">
-                                        FORECAST  @numStation  @Html.Raw(ViewBag.range.Min.ToString("D2") + "" + ViewBag.range.Max.ToString("D2") + "" + ViewBag.Date.Month % 10)
+                                        FORECAST  @num.Station.Code  @Html.Raw(ViewBag.range.Min.ToString("D2") + "" + ViewBag.range.Max.ToString("D2") + "" + ViewBag.Date.Month % 10)
                                     </div>
                                     <div class="String">
-                                        @foreach (string forecast in ViewBag.NameForecast)
-                                        {
-                                            <span id="@numStation@forecast">
-
+                                            <span id="@(num.Station.Code)IONFO">
+                                                @DrawForecastStation(num.Station.Code, num.IONFO, "IONFO")
                                             </span>
-                                        }
+                                            <span id="@(num.Station.Code)IONES">
+                                                @DrawForecastStation(num.Station.Code, num.IONES, "IONES")
+                                            </span>
+                                            <span id="@(num.Station.Code)MAGPO">
+                                                @DrawForecastStation(num.Station.Code, num.MAGPO, "MAGPO")
+                                            </span>
                                     </div>
-
                                 </div>
                             }
                         </div>
-                        <div id="numberHab"></div>
+                        <div id="numberHab">@{if (forecastData2 != null)
+{
+    @Html.Raw(forecastData2.NumberTelegram)
+}}</div>
                     </div>
-
                 </div>
-
-
-
-
             </div>
         </div>
     </div>
+@{if (ViewBag.IsLocal == Local)
+   {
+
     <div class="col-md-4 input-container hidden-print">
         <div class="panel panel-default">
             <div class="panel-body">
@@ -217,7 +240,6 @@
                                             <input type="text" class="form-control" id="inputLine3" placeholder="" value="ПЯТИДНЕВНЫЙ ПРОГНОЗ">
                                         </div>
                                     </div>
-
                                 </form>
                             </div>
                         </div>
@@ -230,10 +252,6 @@
                                 </a>
                             </h4>
                         </div>
-                        @{
-                            GeospaceEntity.Models.Telegram.ForecastFiveDay forecastData1 = GeospaceEntity.Models.Telegram.ForecastFiveDay.GetByDateUTC(Station.GetByCode(45601), ViewBag.Date.Year, ViewBag.Date.Month, ViewBag.number);
-
-                        }
                         <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                             <div class="panel-body">
                                 <form class="form-horizontal">
@@ -264,16 +282,11 @@
                                                                                                                                   }}">
                                         </div>
                                     </div>
-
                                 </form>
                             </div>
                         </div>
                     </div>
                     <div class="panel panel-default">
-                        @{
-                            GeospaceEntity.Models.Telegram.ForecastFiveDay forecastData2 = GeospaceEntity.Models.Telegram.ForecastFiveDay.GetByDateUTC(Station.GetByCode(43501), ViewBag.Date.Year, ViewBag.Date.Month, ViewBag.number);
-
-                        }
                         <div class="panel-heading" role="tab" data-toggle="collapse" data-parent="#accordion" data-target="#collapseTwo" id="headingTwo">
                             <h4 class="panel-title">
                                 <a class="collapsed" role="button" aria-expanded="false" aria-controls="collapseTwo">
@@ -311,16 +324,11 @@
                                                                                                                                   }}">
                                         </div>
                                     </div>
-
                                 </form>
                             </div>
                         </div>
                     </div>
                     <div class="panel panel-default">
-                        @{
-                            GeospaceEntity.Models.Telegram.ForecastFiveDay forecastData3 = GeospaceEntity.Models.Telegram.ForecastFiveDay.GetByDateUTC(Station.GetByCode(46501), ViewBag.Date.Year, ViewBag.Date.Month, ViewBag.number);
-
-                        }
                         <div class="panel-heading" role="tab" data-toggle="collapse" data-parent="#accordion" data-target="#collapseThree" id="headingThree">
                             <h4 class="panel-title">
                                 <a class="collapsed" role="button" aria-expanded="false" aria-controls="collapseThree">
@@ -358,16 +366,11 @@
                                                                                                                                   }}">
                                         </div>
                                     </div>
-
                                 </form>
-
                             </div>
                         </div>
                     </div>
-
                 </div>
-
-
                 <form class="form-horizontal">
                     <div class="form-group">
                         <label for="SNumber" class="col-sm-5 control-label">Номер телеграммы</label>
@@ -384,38 +387,17 @@
                             <input type="text" class="form-control" id="AuthorTelegram" placeholder="">
                         </div>
                     </div>
-
                 </form>
-
                 <p>
-
                     <input type="button" value="Печать" onclick="window.print();" class="btn btn-default btn-lg">
                     <input type="button" value="Сохранить" onclick="saveForecastTelegramBD();" class="btn btn-default btn-lg">                
-    @*@Html.ActionLink("Сохранить",
-                     "SubmitFiveDayTelegram",
-            "Telegram",
-            new
-            {
-                year = ViewBag.Year,
-                month = ViewBag.Month,
-                range_number = ViewBag.number
-
-            },
-                                new
-                                {
-                                    @class = "btn btn-default btn-lg"
-                                }
-)*@
                 </p>
             </div>
         </div>
     </div>
-
+}}
 </div>
 
-@*
-    <h2>Пятидневный прогноз на @Html.Raw(ViewBag.Date.ToString("MMMM yyyy") + " " + ViewBag.range.Header)</h2>
-*@
 <style type="text/css">
     p {
         align-content: center;
@@ -527,6 +509,8 @@
             return item;
     }
     function saveForecast() {
+        var snum = $("#SNumber").val();
+        document.getElementById("numberHab").innerHTML = snum;
         var arrFor = [
         @foreach (var item in ViewBag.NameForecast)
         {
@@ -541,98 +525,16 @@
         {
             $.each(arrFor, function (index, element) {
                 var forecast_F = $("#F_" + item + element).val();//значение забитые в input
-                if (forecast_F)
+                if (forecast_F) {
+                    $("#" + item + element).empty;
                     document.getElementById(item + element).innerHTML = element + "   " + divisionString(forecast_F);
-                else
+                }
+                else {
+                    $("#" + item + element).empty;
                     document.getElementById(item + element).innerHTML = "";
-
+                }
             });
         });
-        var snum = $("#SNumber").val();
-        document.getElementById("numberHab").innerHTML =snum;
+       
     }
 </script>
-@*
-    <body>
-        <div class="pager">
-            <div class="print">
-                <p>
-                    МОСКВА ИПГ ДЕНИСОВОЙ<br />
-                    НОВОСИБИРСК ГИМЕТ ШУСТЕР<br />
-                    ПЯТИДНЕВНЫЙ ПРОГНОЗ<br />
-
-                </p>
-                <div>
-
-    @foreach (var numStation in ViewBag.NumStation)
-    {
-        string strFFF = ("FFF");
-        string strMM = ("MM");
-        IList<Mediana> vMedian = Mediana.GetByRangeNumber(Station.GetByCode(numStation), ViewBag.Date.Year, ViewBag.Date.Month, ViewBag.number);
-        foreach (var item in vMedian)//формирование строки для разбиения по 5 символов
-        {
-            strFFF += item.f0F2.ToString("D3");
-            strMM += item.M3000F2.ToString("D2");
-        }
-        <div style="margin-bottom:20px">
-            <div class="String">
-                MEDIAN  @numStation  @Html.Raw(ViewBag.range.Min.ToString("D2") + "" + ViewBag.range.Max.ToString("D2") + "" + ViewBag.Date.Month % 10)
-            </div>
-            <div class="String FFF">
-                @foreach (string str5 in new List<string>(System.Text.RegularExpressions.Regex.Split(strFFF, @"(?<=\G.{5})", System.Text.RegularExpressions.RegexOptions.Singleline)))
-                {
-                   <span style="margin-right:10px;">@str5</span>
-                }
-            </div>
-            <div class="String MM">
-                @foreach (string str5 in new List<string>(System.Text.RegularExpressions.Regex.Split(strMM, @"(?<=\G.{5})", System.Text.RegularExpressions.RegexOptions.Singleline)))
-                {
-                    <span style="margin-right:10px;">@str5</span>
-                }
-            </div>
-            <div class="String">
-                FORECAST  @numStation  @Html.Raw(ViewBag.range.Min.ToString("D2") + "" + ViewBag.range.Max.ToString("D2") + "" + ViewBag.Date.Month % 10)
-            </div>
-            <div class="String">
-               @foreach(var forecast in ViewBag.NameForecast)
-               {
-                   <span id="@numStation@forecast"></span>
-               }
-            </div>
-
-        </div>
-    }
-                </div>
-                <div id="numberHab"></div>
-            </div>
-
-            <div class="forma-station">
-                @foreach (var item in ViewBag.NumStation)
-    {
-        Station st = Station.GetByCode(item);
-
-        <div class="station " id="@st.Code">
-            <div style="float:left; padding:10px 10px;">@st.Name - @st.Code</div>
-            <div style="clear: both;margin-left:10px;">
-                @foreach (var name in @ViewBag.NameForecast)
-                {
-                    <div class="prognoz form-group">
-                        <div style="float:left; padding:5px 4px">@name:</div><input type="number" class="form-control" id="F_@item@name" placeholder="XXXXX" value="">
-                    </div>
-                }
-            </div>
-        </div>
-
-
-    }
-
-                <div style="float: left; font-family: 'Times New Roman'; font-size: 18px; margin:9px 1px"> Номер телеграммы</div>
-                <input type="number" class="form-control" id="SNumber" placeholder="XXXXX" value="27">
-                <input type="button" value="Сохранить" onclick="saveForecast();" class="btn btn-default btn-lg" >
-                <input type="button" value="Печать" onclick="window.print();" class="btn btn-default btn-lg">
-            </div>
-        </div>
-
-    </body>
-
-*@
