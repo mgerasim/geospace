@@ -4,16 +4,22 @@
 
 <h2>Пункты</h2>
 
-<p>
-    @Html.ActionLink("Добавить", "Create", null, new { @class = "btn btn-primary" })
-</p>
+@if( ViewBag.IsLocal )
+{
+    <p>
+        @Html.ActionLink("Добавить", "Create", null, new { @class = "btn btn-primary" })
+    </p>
+}
 
 <table class="table table-bordered table-hover">
     <tr>
         <th>Наименование</th>
         <th>Долгота</th>
         <th>Широта</th>
+        @if( ViewBag.IsLocal )
+        {
         <th></th>
+        }
     </tr>
     @foreach (var item in Model)
     {
@@ -27,9 +33,12 @@
             <td>
                 @Html.Encode(item.Latitude)
             </td>
-            <td>
-                @Html.ActionLink("Редактировать", "Edit", new { id = item.ID})
-            </td>            
+            @if( ViewBag.IsLocal )
+            {
+                <td>
+                    @Html.ActionLink("Редактировать", "Edit", new { id = item.ID})
+                </td>            
+            }
         </tr>       
     }
 </table>
