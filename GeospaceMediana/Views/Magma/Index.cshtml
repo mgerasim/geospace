@@ -49,71 +49,96 @@ else
             </text>
         }
     }
+    
+    @helper DrawLines(int day)
+    {
+            DateTime dateStart = new DateTime((ViewBag.currDate.AddDays(day)).Year, (ViewBag.currDate.AddDays(day)).Month, (ViewBag.currDate.AddDays(day)).Day, 0, 0, 0);
+            long ticksStart = (long)dateStart.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds;
+
+            <text>
+                {
+                    value:@(ticksStart),
+                    color: 'blue',
+                    width: 3.5,
+                }
+            </text>
+    }
 
         <script>
-            $(document).ready(function () {
-                var panelVieww = parseInt('@ViewBag.Panel');
-                Highcharts.setOptions({
-                    global: {
-                        useUTC: true
-                    },
-                    lang: {
-                        shortMonths: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Нояб', 'Дек'],
+    $(document).ready(function () {
+        var panelVieww = parseInt('@ViewBag.Panel');
+        Highcharts.setOptions({
+            global: {
+                useUTC: true
+            },
+            lang: {
+                shortMonths: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Нояб', 'Дек'],
+            }
+        });
+
+
+        $('#container_@ViewBag.Panel').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Геомагнитная обстановка за @ViewBag.Date.ToString("d MMMM yyyy") @ViewBag.Station.Name'
+            },
+            tooltip: false,
+            xAxis: {
+                title: {
+                    text: 'Часы (UTC)'
+                },
+                type: 'datetime',
+                dateTimeLabelFormats: {
+                    minute: '',
+                    hour: '%H',
+                },
+                labels: {
+                    overflow: 'justify',
+                    rotation: 'none'
+                },
+                lineWidth: 2,
+                gridLineWidth: 1,
+                tickInterval: 1,
+                tickmarkPlacement: 'on',
+                plotLines: [
+                    @for (int k = -2; k <= 1; k++ )
+                    { @DrawLines(k)
+                        @:,
+                                   }
+                ]
+            },
+            yAxis: {
+                title: {
+                    text: 'Значения индекса K'
+                },
+                gridLineWidth: 1,
+                tickInterval: 1,
+                tickmarkPlacement: 'on',
+                categories: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+                max: 10
+            },
+            legend: {
+                enabled: false
+            },
+            exporting: {
+                buttons: {
+                    contextButton: {
+                        enabled: false,
                     }
-                });
+                }
+            },
 
-
-                $('#container_@ViewBag.Panel').highcharts({
-                    chart: {
-                        type: 'column'
-                    },
-                    title: {
-                        text: 'Геомагнитная обстановка за @ViewBag.Date.ToString("d MMMM yyyy") @ViewBag.Station.Name'
-                    },
-                    tooltip: false,
-                    xAxis: {
-                        title: {
-                            text: 'Часы (UTC)'
-                        },
-                        type: 'datetime',
-                        labels: {
-                            overflow: 'justify'
-                        },
-                        lineWidth: 2,
-                        gridLineWidth: 1,
-                        tickInterval: 1,
-                        tickmarkPlacement: 'on',
-                    },
-                    yAxis: {
-                        title: {
-                            text: 'Значения индекса K'
-                        },
-                        gridLineWidth: 1,
-                        tickInterval: 1,
-                        tickmarkPlacement: 'on',
-                        categories: ['0', '1', '2', '3', '4', '5', '6','7', '8', '9', '10'], 
-                        max: 10
-                    },
-                    legend: {
-                        enabled: false
-                    },
-                    exporting: {
-                        buttons: {
-                            contextButton: {
-                                enabled: false ,
-                            }
-                        }
-                    },
-
-                    series: [{
-                        name: 'k',
-                        data:
-                           [
-                            @if (Model != null) {
+            series: [{
+                name: 'k',
+                data:
+                   [
+                    @if (Model != null) {
                                 int p = 1;
                                 int day = -2;
                                 for (int k = 0; k < 24; k++ )
-                                { 
+                                {
                                     if( p >= 23 )
                                     {
                                         day++;
@@ -124,33 +149,33 @@ else
                                     p += 3;
                                 }
                         }
-                    
-                           ]
-                        ,
-                        dataLabels: {
-                            enabled: true,
-                            color: '#FFFFFF',
-                            align: 'center',
-                            format: '{point.y}', // one decimal
-                            verticalAlign: 'center',
-                            style: {
-                                fontSize: '20px',
-                                fontFamily: 'Verdana, sans-serif'
-                            }
-                        }
-                    }],
-                    plotOptions: {
-                        series: {
-                            pointRange: 3 * 3600 * 1000, // one day
-                            pointPadding: 0,
-                            groupPadding: 0,
-                            shadow: false
-                        }
+
+                   ]
+                ,
+                dataLabels: {
+                    enabled: true,
+                    color: '#FFFFFF',
+                    align: 'center',
+                    format: '{point.y}', // one decimal
+                    verticalAlign: 'center',
+                    style: {
+                        fontSize: '20px',
+                        fontFamily: 'Verdana, sans-serif'
                     }
-                });
+                }
+            }],
+            plotOptions: {
+                series: {
+                    pointRange: 3 * 3600 * 1000, // one day
+                    pointPadding: 0,
+                    groupPadding: 0,
+                    shadow: false
+                }
+            }
+        });
 
 
-            })
+    })
 
         </script>
         <br>

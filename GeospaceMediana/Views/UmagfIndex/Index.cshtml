@@ -45,6 +45,19 @@ else
         </text>
     }
 }
+@helper DrawLines(int day)
+{
+    DateTime dateStart = new DateTime((ViewBag.Date.AddDays(day)).Year, (ViewBag.Date.AddDays(day)).Month, (ViewBag.Date.AddDays(day)).Day, 0, 0, 0);
+    long ticksStart = (long)dateStart.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds;
+
+    <text>
+        {
+        value:@(ticksStart),
+        color: 'blue',
+        width: 3.5,
+        }
+    </text>
+}
 
     <script>
     $(document).ready(function () {
@@ -85,13 +98,24 @@ else
                     text: 'Часы (UTC)'
                 },
                 type: 'datetime',
+                dateTimeLabelFormats: {
+                    minute: '',
+                    hour: '%H',
+                },
                 labels: {
-                    overflow: 'justify'
+                    overflow: 'justify',
+                    rotation: 'none'
                 },
                 lineWidth: 2,
                 gridLineWidth: 1,
                 tickInterval: 1,
                 tickmarkPlacement: 'on',
+                plotLines: [
+                    @for (int k = -2; k <= 1; k++ )
+                    { @DrawLines(k)
+                        @:,
+                        }
+                ]
             },
             yAxis: {
                 title: {
