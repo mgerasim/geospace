@@ -571,8 +571,6 @@
     <Content Include="Views\ForecastMonthTrack\Index.cshtml" />
     <Content Include="Views\ForecastFiveDayTrack\Index.cshtml" />
     <Content Include="Views\ForecastTrack\Index.cshtml" />
-    <Content Include="Views\Telegramsub\Index.cshtml" />
-    <Content Include="Views\Tablesun\Index.cshtml" />
     <Content Include="Views\Settings\Details.cshtml" />
     <Content Include="Views\Settings\Edit.cshtml" />
     <Content Include="Views\ForecastTrack\_Menu.cshtml" />

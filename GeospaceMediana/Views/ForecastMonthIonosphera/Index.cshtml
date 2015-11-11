@@ -1,9 +1,12 @@
 ﻿@using GeospaceEntity.Models;
 @using GeospaceEntity.Helper;
+
 @{
 
     ViewBag.Title = "Телеграмма месячного прогноз";
 }
+@{if (ViewBag.IsLocal == true)
+{
 <script>
     var submitUrl = "@Url.Action("Submit", "ForecastMonthIonosphera")";
     var submitUrl2 = "@Url.Action("SubmitTelegram", "ForecastMonthIonosphera")";
@@ -13,13 +16,11 @@
     var currentYear2 = "@ViewBag.Date.AddMonths(-1).Year";
     var currentMonth2 = "@ViewBag.Date.AddMonths(-1).Month";
 </script>
-<script>
 
-    @if(ViewBag.IsLocal == false)
-    {
-        @:$(".hidden-print").css('display', 'none');
-        @:$(".tlg-container").removeClass("col-md-8").addClass("col-md-12");
-    }
+      <script>
+
+   
+      
     $(document).ready(function () {
 
         $("#inputLine1").keyup(handleChangeHeader);
@@ -40,6 +41,7 @@
         submitForecastOld("43501");
         submitForecastOld("37701");
         submitForecastOld("46501");
+        $("#SNumber").keyup(handleChangeCodes);
         //----------------------------------------
         handleChangeHeader();
         handleChangeCodes();
@@ -135,8 +137,52 @@
     }
 
 </script>
+}
+else
+{   <script>
+    
+    $(document).ready(function () { $(".tlg-container").removeClass("col-md-8").addClass("col-md-12"); });
+    </script>  
+      
+  }}
+@{
+    GeospaceEntity.Models.Telegram.ForecastMonthIonosphera forecast37701 = GeospaceEntity.Models.Telegram.ForecastMonthIonosphera.GetByDateUTC(Station.GetByCode(37701), ViewBag.Date.Year, ViewBag.Date.Month);
+    GeospaceEntity.Models.Telegram.ForecastMonthIonosphera forecast45601 = GeospaceEntity.Models.Telegram.ForecastMonthIonosphera.GetByDateUTC(Station.GetByCode(45601), ViewBag.Date.Year, ViewBag.Date.Month);
+    GeospaceEntity.Models.Telegram.ForecastMonthIonosphera forecast43501 = GeospaceEntity.Models.Telegram.ForecastMonthIonosphera.GetByDateUTC(Station.GetByCode(43501), ViewBag.Date.Year, ViewBag.Date.Month);
+    GeospaceEntity.Models.Telegram.ForecastMonthIonosphera forecast46501 = GeospaceEntity.Models.Telegram.ForecastMonthIonosphera.GetByDateUTC(Station.GetByCode(46501), ViewBag.Date.Year, ViewBag.Date.Month);
+    //данные за предыдущий месяц
+    GeospaceEntity.Models.Telegram.ForecastMonthIonosphera forecast43501_old = GeospaceEntity.Models.Telegram.ForecastMonthIonosphera.GetByDateUTC(Station.GetByCode(43501), ViewBag.Date.AddMonths(-2).Year, ViewBag.Date.AddMonths(-2).Month);
+    GeospaceEntity.Models.Telegram.ForecastMonthIonosphera forecast46501_old = GeospaceEntity.Models.Telegram.ForecastMonthIonosphera.GetByDateUTC(Station.GetByCode(46501), ViewBag.Date.AddMonths(-2).Year, ViewBag.Date.AddMonths(-2).Month);
+    GeospaceEntity.Models.Telegram.ForecastMonthIonosphera forecast45601_old = GeospaceEntity.Models.Telegram.ForecastMonthIonosphera.GetByDateUTC(Station.GetByCode(45601), ViewBag.Date.AddMonths(-2).Year, ViewBag.Date.AddMonths(-2).Month);
+    GeospaceEntity.Models.Telegram.ForecastMonthIonosphera forecast37701_old = GeospaceEntity.Models.Telegram.ForecastMonthIonosphera.GetByDateUTC(Station.GetByCode(37701), ViewBag.Date.AddMonths(-2).Year, ViewBag.Date.AddMonths(-2).Month);
+    List<GeospaceEntity.Models.Telegram.ForecastMonthIonosphera> forecast = new List<GeospaceEntity.Models.Telegram.ForecastMonthIonosphera>();
+       if(forecast37701 != null){forecast.Add(forecast37701);}
+       if(forecast45601 != null){forecast.Add(forecast45601);}
+       if(forecast43501 != null){forecast.Add(forecast43501);}
+       if(forecast46501 != null){forecast.Add(forecast46501);}
+    List<GeospaceEntity.Models.Telegram.ForecastMonthIonosphera> forecast_old = new List<GeospaceEntity.Models.Telegram.ForecastMonthIonosphera>();
+        if(forecast37701_old != null){forecast_old.Add(forecast37701_old);}
+        if(forecast45601_old != null){forecast_old.Add(forecast45601_old);}
+        if(forecast43501_old != null){forecast_old.Add(forecast43501_old);}
+        if(forecast46501_old != null){forecast_old.Add(forecast46501_old);}
+    
+    }
+@helper DrawMonthLineForecast(string line, string forecast)
+{
+    if(line != null && line != "" )
+    {
+        @Html.Raw(forecast + " " + GeospaceEntity.Models.Telegram.ForecastMonthIonosphera.setStringFiveIteration(line))
+    }
+    
+}
+@helper DrawMonthLineForecastOld(int line, int numStation)
+{
+    if (line != null && line != -1)
+    {
+       @Html.Raw("СТ." + numStation + " - " + line + "%")
+    }
 
-
+}
 
 <div class="row">
     <div class="col-md-8 tlg-container">
@@ -156,44 +202,52 @@
                                 <div style="text-align:center;">ВОЗМУЩЕННОСТИ НА @ViewBag.Date.ToString("MMMM yyyy").ToUpper() г.<br /></div>
                             </div>
                             <div class="row">
-                                @foreach (var station in ViewBag.NumStation)
+                                @foreach (var station in forecast)
                                 {
                                     <div class="row">
                                         <div class="station-title">
-                                            ПРОГНОЗ @Html.Raw(station + " 01" + DateTime.DaysInMonth(ViewBag.Date.Year, ViewBag.Date.Month) + ViewBag.Date.Month % 10)
+                                            ПРОГНОЗ @Html.Raw(station.Station.Code + " 01" + DateTime.DaysInMonth(ViewBag.Date.Year, ViewBag.Date.Month) + ViewBag.Date.Month % 10)
                                         </div>
                                         <div class="station-info">
-                                            @foreach (var item in ViewBag.NameForecast)
-                                            {
-
-                                                <div id="@station@item" style="text-align:left">
-
+                                                <div id="@(station.Station.Code)IONFO" style="text-align:left">
+                                                    @DrawMonthLineForecast(station.IONFO,"ИОНФО")
                                                 </div>
-                                            }
+                                                <div id="@(station.Station.Code)IONES" style="text-align:left">
+                                                    @DrawMonthLineForecast(station.IONES,"ИОНЕС")
+                                                </div>
+                                                <div id="@(station.Station.Code)IONDP" style="text-align:left">
+                                                    @DrawMonthLineForecast(station.IONDP,"ИОНДП")
+                                                </div>
+                                                <div id="@(station.Station.Code)IONFF" style="text-align:left">
+                                                    @DrawMonthLineForecast(station.IONFF ,"ИНОФФ")
+                                                </div>
+                                                <div id="@(station.Station.Code)MAGPO" style="text-align:left">
+                                                    @DrawMonthLineForecast(station.MAGPO ,"МАГПО")
+                                                </div>
                                         </div>
-
                                     </div>
                                 }
                             </div>
                             <div class="row">ОПРАВДЫВАЕМОСТЬ ИОНОСФЕРНОГО ПРОГНОЗА ЗА @ViewBag.Date.AddMonths(-2).ToString("MMMM yyyy").ToUpper() г.<br /></div>
                             <div class="row">
-                                @foreach (var item in ViewBag.NumStation)
+                                @foreach (var item in forecast_old)
                                 {
-                                    <div id="@{@item}_I" class="rowForecast">
-
+                                    <div id="@(item.Station.Code)_I" class="rowForecast">
+                                        @DrawMonthLineForecastOld(item.iFORECAST, item.Station.Code)
                                     </div>
                                 }
                             </div>
                             <div class="row">ОПРАВДЫВАЕМОСТЬ МАГНИТНОГО ПРОГНОЗА ЗА @ViewBag.Date.AddMonths(-2).ToString("MMMM yyyy").ToUpper() г.<br /></div>
                             <div class="row">
-                                @foreach (var item in ViewBag.NumStation)
+                                @foreach (var item in forecast_old)
                                     {
-                                        <div id="@{@item}_M" class="rowForecast">
-
+                                        <div id="@(item.Station.Code)_M" class="rowForecast">
+                                            @DrawMonthLineForecastOld(item.mFORECAST, item.Station.Code)
                                         </div>
                                     }
                             </div>
                         </div>
+                        <div id="numberHab"></div>
 
                     </div>
 
@@ -205,6 +259,9 @@
             </div>
         </div>
     </div>
+ @{if (ViewBag.IsLocal == true)
+   { 
+ 
     <div class="col-md-4 input-container hidden-print">
         <div class="panel panel-default">
             <div class="panel-body">
@@ -243,9 +300,7 @@
                             </div>
                         </div>
                     </div>
-                    @{
-                        GeospaceEntity.Models.Telegram.ForecastMonthIonosphera forecast37701 = GeospaceEntity.Models.Telegram.ForecastMonthIonosphera.GetByDateUTC(Station.GetByCode(37701), ViewBag.Date.Year, ViewBag.Date.Month);
-                    }
+                   
                     <div class="panel panel-default">
                         <div class="panel-heading" role="tab" data-toggle="collapse" data-parent="#accordion" data-target="#collapse37701" id="heading37701">
                             <h4 class="panel-title">
@@ -307,9 +362,7 @@
                             </div>
                         </div>
                     </div>
-                    @{
-                        GeospaceEntity.Models.Telegram.ForecastMonthIonosphera forecast45601 = GeospaceEntity.Models.Telegram.ForecastMonthIonosphera.GetByDateUTC(Station.GetByCode(45601), ViewBag.Date.Year, ViewBag.Date.Month);
-                    }
+                   
                     <div class="panel panel-default">
                         <div class="panel-heading" role="tab" data-toggle="collapse" data-parent="#accordion" data-target="#collapse45601" id="heading45601">
                             <h4 class="panel-title">
@@ -371,9 +424,6 @@
                             </div>
                         </div>
                     </div>
-                    @{
-                        GeospaceEntity.Models.Telegram.ForecastMonthIonosphera forecast43501 = GeospaceEntity.Models.Telegram.ForecastMonthIonosphera.GetByDateUTC(Station.GetByCode(43501), ViewBag.Date.Year, ViewBag.Date.Month);
-                    }
                     <div class="panel panel-default">
                         <div class="panel-heading" role="tab" data-toggle="collapse" data-parent="#accordion" data-target="#collapse43501" id="heading43501">
                             <h4 class="panel-title">
@@ -435,9 +485,6 @@
                             </div>
                         </div>
                     </div>
-                    @{
-                        GeospaceEntity.Models.Telegram.ForecastMonthIonosphera forecast46501 = GeospaceEntity.Models.Telegram.ForecastMonthIonosphera.GetByDateUTC(Station.GetByCode(46501), ViewBag.Date.Year, ViewBag.Date.Month);
-                    }
                     <div class="panel panel-default">
                         <div class="panel-heading" role="tab" data-toggle="collapse" data-parent="#accordion" data-target="#collapse46501" id="heading46501">
                             <h4 class="panel-title">
@@ -499,17 +546,7 @@
                             </div>
                         </div>
                     </div>
-
-
-
-                    @*<div class="label-danger container-fluid panel" style="color:black;">ОПРАВДЫВАЕМОСТЬ ПРОГНОЗА ЗА @ViewBag.Date.AddMonths(-2).ToString("MMMM yyyy").ToUpper() г.</div>*@
-                    @{
-                        //запрос данных о прогнозе за месяц -1 от текущего
-                        GeospaceEntity.Models.Telegram.ForecastMonthIonosphera forecast43501_old = GeospaceEntity.Models.Telegram.ForecastMonthIonosphera.GetByDateUTC(Station.GetByCode(43501), ViewBag.Date.Year, ViewBag.Date.Month - 2);
-                        GeospaceEntity.Models.Telegram.ForecastMonthIonosphera forecast46501_old = GeospaceEntity.Models.Telegram.ForecastMonthIonosphera.GetByDateUTC(Station.GetByCode(46501), ViewBag.Date.Year, ViewBag.Date.Month - 2);
-                        GeospaceEntity.Models.Telegram.ForecastMonthIonosphera forecast45601_old = GeospaceEntity.Models.Telegram.ForecastMonthIonosphera.GetByDateUTC(Station.GetByCode(45601), ViewBag.Date.Year, ViewBag.Date.Month - 2);
-                        GeospaceEntity.Models.Telegram.ForecastMonthIonosphera forecast37701_old = GeospaceEntity.Models.Telegram.ForecastMonthIonosphera.GetByDateUTC(Station.GetByCode(37701), ViewBag.Date.Year, ViewBag.Date.Month - 2);
-                    }
+                   
                     <div class="panel panel-default">
                         <div class="panel-heading" role="tab" id="headingForecast_I" data-toggle="collapse" data-parent="#accordion" data-target="#collapseForecast_I">
                             <h4 class="panel-title">
@@ -653,8 +690,15 @@
             </div>
         </div>
     </div>
+ }}
 </div>
 <style type="text/css">
+    #numberHab {
+        text-align: center;
+        font-family: 'Times New Roman';
+        font-size: 17px;
+        margin-left: 30px;
+    }
     .rowForecast {
         float: left;
         width: 152px;
@@ -776,7 +820,6 @@
         {
             str += item.slice((length5) * 5, length) + addEmpty(5-(length - ((length5) * 5)));
         }
- 
         return str;
     }
     function itemRuElementForecast(item)
@@ -823,6 +866,8 @@
 
             });
         });
+        var snum = $("#SNumber").val();
+        document.getElementById("numberHab").innerHTML = snum;
 
     }
 </script>

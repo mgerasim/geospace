@@ -1,23 +1,4 @@
 ﻿<script type="text/javascript">
-    //$(document).ready(function () {
-    //    $('.Menu1').mouseover(function () {
-    //        $('.menu2').hide();
-    //        var k = $(this).parent().children('.menu2');
-    //        k.show();
-    //        console.log(k);
-    //    });
-    //    $('.Menu1').mouseout(function () {
-    //        t = setTimeout(function () {
-    //            $(this).parent().children('.menu2').hide();
-    //        },500);
-    //        $(this).parent().children('.menu2').on('mouseenter', function () {
-    //            $(this).show();
-    //            clearTimeout(t);
-    //        }).on('mouseleave', function () {
-    //            $(this).hide();
-    //        })
-    //    })
-    //})
     (function ($) {
         $(document).ready(function () {
             $('ul.dropdown-menu [data-toggle=dropdown]').on('click', function (event) {
@@ -57,6 +38,7 @@
             <ul class="nav navbar-nav">
 
                 @{
+                    bool Local = true;
                     bool isActiveMenu = ViewBag.NameMenu != null;
                     string activeMenuName = isActiveMenu ? "active" : "";
                     string nameMenu = isActiveMenu ? ViewBag.NameMenu : "Меню";
@@ -209,11 +191,13 @@
                               <li>@Html.ActionLink("География станций", "Stations", "Map")</li>
                               <li class="divider"></li>
                               <li>@Html.ActionLink("Пункты", "Index", "Post")</li>
-                              <li>@Html.ActionLink("Трассы", "Index", "Track")</li>
-                              <li>@Html.ActionLink("Потребители", "Index", "Consumer")</li>
-                              <li class="divider"></li>
-                              <li>@Html.ActionLink("Список Ошибок", "ErrorList", "Dropout")</li>
+                              @{if (ViewBag.IsLocal == Local) {<li>@Html.ActionLink("Трассы", "Index", "Track")</li>}}
+                              @{if (ViewBag.IsLocal == Local) {<li>@Html.ActionLink("Потребители", "Index", "Consumer")</li>}}  
                               
+                              
+                                  
+                              @{if (ViewBag.IsLocal == Local) {<li class="divider"></li>
+                              <li>@Html.ActionLink("Список Ошибок", "ErrorList", "Dropout")</li>}}      
                           </ul>
                       </li>
 
@@ -221,9 +205,11 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Помощь<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li>@Html.ActionLink("Справка", "Index", "About")</li>
-                        <li class="divider"></li>
-                        <li>@Html.ActionLink("Настройки", "Index", "Settings")</li>
-                        <li>@Html.ActionLink("Обновить схему", "Update", "Schema")</li>
+                        @{if (ViewBag.IsLocal == Local){
+                            <li class="divider"></li> 
+                            <li>@Html.ActionLink("Настройки", "Index", "Settings")</li>
+                            <li>@Html.ActionLink("Обновить схему", "Update", "Schema")</li>
+                        }}
                         <li class="divider"></li>
                         <li>
                             <a href="~/about/api">API <br/><code>Интерфейс получения данных в JSON формате</code> </a>
