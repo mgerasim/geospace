@@ -491,21 +491,43 @@ namespace GeospaceEntity.Helper
                 if (average.F2_30 != 0) average.F2_30 /= (int)Math.Round((30.0 - average.F2_30_skip), 0);
                 if (average.M3000_30 != 0) average.M3000_30 /= (int)Math.Round((30.0 - average.M3000_30_skip), 0);
 
+
+                //обновление 11.11.2015
+                //Если данных меньше 50% => нет данных
+                //для всех сроков
+
+
                 //Если за 5 дней меньше 60% данных => нет данных
                 //Для всех остальных порог равен 70%
-                if (average.F2_05_skip > (5 * 40) / 100.0) average.F2_05 = 1000;
-                if (average.F2_07_skip > (7 * 30) / 100.0) average.F2_07 = 1000;
-                if (average.F2_10_skip > (10 * 30) / 100.0) average.F2_10 = 1000;
-                if (average.F2_20_skip > (20 * 30) / 100.0) average.F2_20 = 1000;
-                if (average.F2_27_skip > (27 * 30) / 100.0) average.F2_27 = 1000;
-                if (average.F2_30_skip > (30 * 30) / 100.0) average.F2_30 = 1000;
 
-                if (average.M3000_05_skip > (5 * 40) / 100.0) average.M3000_05 = 1000;
-                if (average.M3000_07_skip > (7 * 30) / 100.0) average.M3000_07 = 1000;
-                if (average.M3000_10_skip > (10 * 30) / 100.0) average.M3000_10 = 1000;
-                if (average.M3000_20_skip > (20 * 30) / 100.0) average.M3000_20 = 1000;
-                if (average.M3000_27_skip > (27 * 30) / 100.0) average.M3000_27 = 1000;
-                if (average.M3000_30_skip > (30 * 30) / 100.0) average.M3000_30 = 1000;
+                //if (average.F2_05_skip > (5 * 40) / 100.0) average.F2_05 = 1000;
+                //if (average.F2_07_skip > (7 * 30) / 100.0) average.F2_07 = 1000;
+                //if (average.F2_10_skip > (10 * 30) / 100.0) average.F2_10 = 1000;
+                //if (average.F2_20_skip > (20 * 30) / 100.0) average.F2_20 = 1000;
+                //if (average.F2_27_skip > (27 * 30) / 100.0) average.F2_27 = 1000;
+                //if (average.F2_30_skip > (30 * 30) / 100.0) average.F2_30 = 1000;
+
+                //if (average.M3000_05_skip > (5 * 40) / 100.0) average.M3000_05 = 1000;
+                //if (average.M3000_07_skip > (7 * 30) / 100.0) average.M3000_07 = 1000;
+                //if (average.M3000_10_skip > (10 * 30) / 100.0) average.M3000_10 = 1000;
+                //if (average.M3000_20_skip > (20 * 30) / 100.0) average.M3000_20 = 1000;
+                //if (average.M3000_27_skip > (27 * 30) / 100.0) average.M3000_27 = 1000;
+                //if (average.M3000_30_skip > (30 * 30) / 100.0) average.M3000_30 = 1000;
+
+
+                if (average.F2_05_skip > (5 * 50) / 100.0) average.F2_05 = 1000;
+                if (average.F2_07_skip > (7 * 50) / 100.0) average.F2_07 = 1000;
+                if (average.F2_10_skip > (10 * 50) / 100.0) average.F2_10 = 1000;
+                if (average.F2_20_skip > (20 * 50) / 100.0) average.F2_20 = 1000;
+                if (average.F2_27_skip > (27 * 50) / 100.0) average.F2_27 = 1000;
+                if (average.F2_30_skip > (30 * 50) / 100.0) average.F2_30 = 1000;
+
+                if (average.M3000_05_skip > (5 * 50) / 100.0) average.M3000_05 = 1000;
+                if (average.M3000_07_skip > (7 * 50) / 100.0) average.M3000_07 = 1000;
+                if (average.M3000_10_skip > (10 * 50) / 100.0) average.M3000_10 = 1000;
+                if (average.M3000_20_skip > (20 * 50) / 100.0) average.M3000_20 = 1000;
+                if (average.M3000_27_skip > (27 * 50) / 100.0) average.M3000_27 = 1000;
+                if (average.M3000_30_skip > (30 * 50) / 100.0) average.M3000_30 = 1000;
                 
                 average.Update();
             }

@@ -1,0 +1,144 @@
+﻿@using GeospaceEntity.Models.Codes;
+@{
+    ViewBag.Title = @ViewBag.Title;
+}
+
+@section Styles
+{
+    @Styles.Render("~/Content/ionka.css")
+}
+
+@{
+    var firstItemHeader = Model.GetHeader()[0];
+}
+
+
+<style>
+    html, body, table, .row, .col-md-12 {
+        height: auto;
+    }
+
+    .container-fluid {
+        height: 90%;
+    }
+
+    tr.ionka-data td {
+        padding: 0px !important;
+        text-align: center;
+        vertical-align: middle !important;
+    }
+
+    td.umagf-data {
+        padding: 0px !important;
+        padding-left: 8px !important;
+        vertical-align: middle !important;
+        height: 30px;
+    }
+
+    th.ionka-header {
+        padding: 0px !important;
+        padding-bottom: 8px !important;
+        padding-top: 8px !important;
+        text-align: center;
+
+        width: auto;
+    }
+
+    td.kind-data {
+        padding: 8px !important;
+        vertical-align: middle !important;
+        height: 30px;
+    }
+</style>
+
+<div align="center"><h3>Данные ионосферы (высоты)</h3></div>
+
+<div class="row">
+    <div class="col-md-12">
+        <table style="table-layout: fixed" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th rowspan="2" style="width: 36px">
+                        Час
+                    </th>
+                    @foreach (var item in Model.GetHeader())
+                    {
+                        <th class="right-thick-line left-thick-line" colspan="5">
+                            @item.Name
+                        </th>
+                    }
+                </tr>
+
+                <tr>
+
+                    @foreach (var item in Model.GetHeader())
+                    {
+                        var listSubItem = Model.GetHeaderValue();
+                        var lastSubItem = listSubItem[listSubItem.Count - 1];
+                        var firstSubItem = listSubItem[0];
+
+                        foreach (var _subitem in listSubItem)
+                        {
+                            var subitem = _subitem.Replace(" ", "<br>");
+
+                            if (_subitem == firstSubItem)
+                            {
+                                <th class="left-thick-line sub-header ionka-header">
+                                    @Html.Raw(subitem)
+                                </th>
+                            }
+                            else if (_subitem == lastSubItem)
+                            {
+                                <th class="right-thick-line sub-header ionka-header">
+                                    @Html.Raw(subitem)
+                                </th>
+                            }
+                            else
+                            {
+                                <th class="sub-header ionka-header">
+                                    @Html.Raw(subitem)
+                                </th>
+                            }
+                        }
+                    }
+
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (var item in Model.GetHour())
+                {
+                    <tr class="ionka-data">
+                        <td>
+                            @item.Name
+                        </td>
+                        @foreach (var subitem in Model.GetHeader())
+                        {
+                            CodeIonka theCode = Model.GetValue(subitem.YYYY, subitem.MM, subitem.DD, item.HH);                            
+
+                            <td  align="center" data-day="@subitem.DD" data-hour="@item.HH" data-toggle="tooltip" data-placement="left">
+                                @theCode._hE
+                            </td>
+                            <td  data-day="@subitem.DD" data-hour="@item.HH"  data-toggle="tooltip" data-placement="left">
+                                @theCode._hEs
+                            </td>
+                            <td data-day="@subitem.DD" data-hour="@item.HH" data-toggle="tooltip" data-placement="left">
+                                @theCode._hF1
+                            </td>
+                            <td data-day="@subitem.DD" data-hour="@item.HH" data-toggle="tooltip" data-placement="left">
+                                @theCode._hF2
+                            </td>
+                            <td class="right-thick-line" data-day="@subitem.DD" data-hour="@item.HH " data-toggle=" tooltip" data-placement="left">
+                                @theCode._hMF2
+                            </td>
+                        }
+
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
