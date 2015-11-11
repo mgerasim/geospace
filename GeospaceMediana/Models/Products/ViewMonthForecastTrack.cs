@@ -78,7 +78,7 @@ namespace GeospaceMediana.Models
                     + track.PointB.Latitude.ToString() + "\n"
                     + "Длина трассы: " + str[0] + " км\n"
                     + "W: " + W.ToString() + "\n"
-                    + "Прогноз на: " + dt.ToString("MMM yyyy") + "\n\n");                
+                    + "Прогноз на: " + dt.ToString("MMMM yyyy") + "\n\n");                
 
                 string[] muf = output[0].Split();
                 string[] opf = output[1].Split();

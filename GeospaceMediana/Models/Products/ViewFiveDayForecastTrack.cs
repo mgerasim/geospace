@@ -159,7 +159,7 @@ namespace GeospaceMediana.Models
                     
                     title[k] += "Длина трассы: " + str[0] + " км\n"
                         + "W: " + W.ToString() + "\n"
-                        + "Прогноз на: " + DateTime.Now.ToString("dd") + " — " + DateTime.Now.AddDays(4).ToString("dd MMM. yyyy г.");
+                        + "Прогноз на: " + DateTime.Now.ToString("dd") + " — " + DateTime.Now.AddDays(4).ToString("dd MMMM yyyy г.");
 
                     string[] muf = output[0].Split();
                     string[] opf = output[1].Split();
